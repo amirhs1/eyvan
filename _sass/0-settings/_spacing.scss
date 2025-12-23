@@ -1,0 +1,66 @@
+// -----------------------------------------------------------------------------
+// Spacing System
+// ITCSS layer: 0-settings
+//
+// Description:
+// Global spacing tokens defining the site’s spatial rhythm.
+// Includes a base spacing scale and semantic aliases.
+//
+// Scope & Rules:
+// - Tokens only (no selectors, no layout rules)
+// - All values are static and predictable
+// - Semantic aliases map directly to base scale values
+//
+// Notes:
+// - Used across layout, modules, and utilities
+// - Responsive behavior (e.g. clamp, media queries) is implemented in higher
+//   layers (tools/layouts)
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Base spacing scale (static, predictable)
+   ----------------------------------------------------------------------------- */
+
+$space-0: 0;
+$space-1: 0.25rem;  // 4px
+$space-2: 0.5rem;   // 8px
+$space-3: 0.75rem;  // 12px
+$space-4: 1rem;     // 16px (base unit)
+$space-5: 1.5rem;   // 24px
+$space-6: 2rem;     // 32px
+$space-7: 3rem;     // 48px
+$space-8: 4rem;     // 64px
+$space-9: 6rem;     // 96px
+
+
+/* -----------------------------------------------------------------------------
+   Inline spacing
+   ----------------------------------------------------------------------------- */
+// Use for padding, gaps, and tight horizontal relationships.
+
+$space-inline-xs: $space-1;
+$space-inline-sm: $space-2;
+$space-inline-md: $space-4;
+$space-inline-lg: $space-5;
+
+
+/* -----------------------------------------------------------------------------
+   Stack spacing (vertical rhythm)
+   ----------------------------------------------------------------------------- */
+// Use for vertical flow of content: paragraphs, blocks, media, sections.
+
+$space-stack-xs: $space-2;
+$space-stack-sm: $space-3;
+$space-stack-md: $space-5;
+$space-stack-lg: $space-7;
+$space-stack-xl: $space-9;
+
+
+/* -----------------------------------------------------------------------------
+   Section-level spacing
+   ----------------------------------------------------------------------------- */
+// Use for major layout separation (page sections, heroes, essays).
+
+$space-section-sm: $space-6;
+$space-section-md: $space-8;
+$space-section-lg: $space-9;

@@ -1,0 +1,112 @@
+// -----------------------------------------------------------------------------
+// Typography Settings
+// ITCSS layer: 0-settings
+//
+// Description:
+// Global design tokens for typography across all personas and themes.
+// Defines font families, scales, weights, and typographic rhythm.
+//
+// Units:
+// - Font sizes: rem (assumes 16px browser default)
+// - Line heights: unitless
+// - Letter spacing: em
+//
+// Scope & Rules:
+// - No element selectors
+// - No layout or component styling
+// - Tokens only
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Font Families
+   ----------------------------------------------------------------------------- */
+
+// -----------------------------------------------------------------------------
+// Font Families
+// ITCSS layer: 0-settings
+// -----------------------------------------------------------------------------
+
+// 1. Display / UI (Sans-Serif)
+// Large headings, navigation, portfolio titles, hero sections
+$font-family-display: "Space Grotesk", "Inter", "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+// 2. Editorial / Body (Serif)
+// PhD research text, artist statements, long-form writing
+$font-family-body: "Literata", "Source Serif 4", "EB Garamond", Georgia, "Times New Roman", Times, serif;
+
+// 3. Technical / Data (Monospace)
+// Code blocks, ML parameters, metadata, dimensions
+$font-family-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+/* -----------------------------------------------------------------------------
+   Font Weights
+   ----------------------------------------------------------------------------- */
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+
+/* -----------------------------------------------------------------------------
+   Font Sizes (rem-based)
+   Documented with px equivalents for designer handoff reference.
+   ----------------------------------------------------------------------------- */
+
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px (Base)
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.5rem; // 24px
+$font-size-xxl: 2rem; // 32px
+$font-size-xxxl: 3rem; // 48px
+
+
+/* -----------------------------------------------------------------------------
+   Line Heights (Unitless)
+   ----------------------------------------------------------------------------- */
+
+$line-height-tight: 1.2; // Headings, tight UI labels
+$line-height-normal: 1.5; // Standard body text
+$line-height-loose: 1.75; // Academic or long-form reading
+
+
+/* -----------------------------------------------------------------------------
+   Measure (Line Length)
+   Used to limit the width of text blocks for optimal readability.
+   ----------------------------------------------------------------------------- */
+
+$text-measure-narrow: 45ch;
+$text-measure-base: 65ch;
+$text-measure-wide: 75ch;
+
+
+/* -----------------------------------------------------------------------------
+   Letter Spacing (Tracking)
+   ----------------------------------------------------------------------------- */
+
+$letter-spacing-tight: -0.02em; // Large display headings
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.05em; // Uppercase/Small-caps UI labels
+
+/* --------------------------------------------------
+   Fluid Type Tokens (Optional)
+   Heading-specific constraints for use with clamp()
+   Applied in the Base layer only
+   -------------------------------------------------- */
+
+$font-size-h1-min: 1.75rem; // Mobile size (~28px)
+$font-size-h1-max: 3.5rem; // Desktop size (~56px)
+
+$font-size-h2-min: 1.5rem; // Mobile size (~24px)
+$font-size-h2-max: 2.5rem; // Desktop size (~40px)
+
+/* -----------------------------------------------------------------------------
+   Rendering Settings
+   Used in Base layer for cross-browser text smoothing.
+   ----------------------------------------------------------------------------- */
+
+$font-kerning-default: normal;
+$font-smoothing-webkit: antialiased;
+$font-smoothing-moz: grayscale;

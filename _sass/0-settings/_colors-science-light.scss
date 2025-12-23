@@ -1,0 +1,93 @@
+// -----------------------------------------------------------------------------
+// Science Persona — Light Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the SCIENCE persona (light mode).
+// Prioritizes legibility, neutrality, and reduced visual noise.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Light counterpart to science-dark
+// - Semantic roles must remain consistent across modes
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-white;
+$ui-surface: palette.$clr-off-white;
+$ui-surface-raised: palette.$clr-gray-100;
+
+$ui-text: palette.$clr-black;
+$ui-text-muted: palette.$clr-gray-400;
+$ui-border: palette.$clr-gray-200;
+
+
+/* -----------------------------------------------------------------------------
+   Accent System (Functional)
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-indigo; // primary actions
+$accent-secondary: palette.$clr-p-blue; // links
+
+
+/* -----------------------------------------------------------------------------
+   Typography & Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-p-indigo;
+
+
+/* -----------------------------------------------------------------------------
+   Interactive Elements
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-secondary;
+$link-hover: palette.$clr-p-azure;
+
+$btn-bg: $accent-primary;
+$btn-text: palette.$clr-white;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   Status & Feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-blue;
+
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Light)
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-off-white;
+$base01: palette.$clr-gray-100;
+$base02: palette.$clr-gray-200;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-600;
+$base05: $ui-text;
+$base06: palette.$clr-gray-700;
+$base07: palette.$clr-gray-900;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: $accent-primary;
+$base0b: palette.$clr-p-green;
+$base0c: palette.$clr-p-azure;
+$base0d: palette.$clr-p-blue;
+$base0e: palette.$clr-p-indigo;
+$base0f: palette.$clr-p-rose;

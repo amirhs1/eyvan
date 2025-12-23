@@ -1,0 +1,38 @@
+// -----------------------------------------------------------------------------
+// Responsive Breakpoints
+// ITCSS layer: 0-settings
+//
+// Description:
+// Centralized breakpoint definitions for responsive behavior.
+// Provides named viewport thresholds for layout and component logic.
+//
+// Scope & Rules:
+// - Tokens only (no media queries here)
+// - Breakpoints must be device-agnostic
+// - Names should reflect intent, not hardware
+//
+// Notes:
+// - Consumed by mixins and layout layers
+// - Changing values affects global responsiveness
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Breakpoint values
+   ----------------------------------------------------------------------------- */
+
+$bp-xs: 22.5em; // 360px — very small viewports
+$bp-sm: 30em; // 480px — standard phones
+$bp-md: 48em; // 768px — text column / tablet
+$bp-lg: 64em; // 1024px — desktop layout shift
+$bp-xl: 80em; // 1280px — wide screens
+$bp-xxl: 90em; // 1440px — large / exhibition-scale screens
+
+
+/* -----------------------------------------------------------------------------
+   Semantic breakpoint aliases
+   ----------------------------------------------------------------------------- */
+// Prefer these aliases in layouts and modules.
+
+$bp-text: $bp-md; // Optimal line length for reading
+$bp-layout: $bp-lg; // Switch from single to multi-column layouts
+$bp-wide: $bp-xl; // Expanded grids, large imagery, hero sections

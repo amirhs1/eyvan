@@ -1,0 +1,68 @@
+// -----------------------------------------------------------------------------
+// Persian Color Palette
+// ITCSS layer: 0-settings
+//
+// Description:
+// Primitive color tokens derived from the Persian palette.
+// These are raw, non-semantic values used as the single source
+// of truth for all persona and theme color systems.
+//
+// Scope & Rules:
+// - Contains palette tokens only (no semantic meaning)
+// - No selectors, mixins, or functions
+// - No persona, theme, or UI role assumptions
+//
+// Notes:
+// - Consumed by all semantic color-mapping files
+// - Never imported directly into layout or component layers
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Persian Heritage Colors (Chromatic Core)
+   Culturally derived, saturated colors used for branding, accents,
+   and expressive UI elements.
+   ----------------------------------------------------------------------------- */
+
+$clr-p-plum: #701C1C;
+$clr-p-orange: #D99058;
+$clr-p-red: #CC3333;
+$clr-p-pink: #F77FBE;
+$clr-p-indigo: #32127A;
+$clr-p-turquoise: #3FE0D0;
+$clr-p-green: #00A693;
+$clr-p-blue: #1C39BB;
+$clr-p-azure: #74BBFB;
+$clr-p-rose: #FE28A2;
+
+/* -----------------------------------------------------------------------------
+   Neutral Foundations (Theme-Agnostic)
+   Grayscale and neutral values used across both light and dark themes
+   for text, borders, surfaces, and hierarchy.
+   ----------------------------------------------------------------------------- */
+
+$clr-white: #FFFFFF;
+$clr-off-white: #F5F7FA; // Light UI surface neutral
+$clr-black: #0A0A0A;
+
+$clr-gray-100: #E0E0E0;
+$clr-gray-200: #D1D1D1;
+$clr-gray-400: #707890;
+$clr-gray-500: #888891;
+$clr-gray-600: #546E7A;
+$clr-gray-700: #263238;
+$clr-gray-800: #1E1E26;
+$clr-gray-900: #101010;
+
+
+/* -----------------------------------------------------------------------------
+   Dark UI Foundations (Persian-Adapted Extensions)
+   Low-luminance surface colors derived to extend the Persian palette
+   into accessible, modern dark-mode interfaces.
+   These are raw tokens, not semantic UI assignments.
+   ----------------------------------------------------------------------------- */
+
+$clr-dark-bg: #0D0D12;
+$clr-dark-surface: #020202; // Midnight violet
+$clr-dark-elevated: #23232E;
+$clr-dark-highlight: #2D2D3A;
+$clr-syntax-dark-bg: #1A1A24;

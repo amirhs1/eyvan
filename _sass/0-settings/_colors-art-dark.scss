@@ -1,0 +1,98 @@
+// -----------------------------------------------------------------------------
+// Art Persona — Dark Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the ART persona (dark mode).
+// Allows higher contrast, emotional range, and expressive emphasis.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Accents may be more expressive than science persona
+// - Designed for visual and conceptual resonance
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   Softer contrast than science persona.
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-dark-bg;
+$ui-surface: palette.$clr-dark-surface;
+$ui-surface-raised: palette.$clr-dark-elevated;
+
+$ui-text: palette.$clr-gray-100;
+$ui-text-muted: palette.$clr-gray-400; // less suppressed than science
+$ui-border: palette.$clr-dark-highlight;
+
+
+/* -----------------------------------------------------------------------------
+   Accent System (Atmospheric)
+   Accent contributes to tone, not just interaction.
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-plum; // conceptual anchor
+$accent-secondary: palette.$clr-p-rose; // expressive highlight
+
+
+/* -----------------------------------------------------------------------------
+   Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-off-white; // avoids sharp contrast
+
+
+/* -----------------------------------------------------------------------------
+   Interaction
+   Less aggressive than science persona.
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-primary;
+$link-hover: $accent-secondary;
+
+$btn-bg: $accent-primary;
+$btn-text: palette.$clr-white;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   System Feedback
+   Shared semantics, slightly softer emotional tone.
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-azure;
+
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Dark, Subdued)
+   Code is present but visually secondary to artworks/text.
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-syntax-dark-bg;
+$base01: palette.$clr-dark-elevated;
+$base02: palette.$clr-dark-highlight;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-400;
+$base05: $ui-text;
+$base06: palette.$clr-off-white;
+$base07: palette.$clr-white;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: palette.$clr-p-indigo;
+$base0b: palette.$clr-p-green;
+$base0c: palette.$clr-p-azure;
+$base0d: palette.$clr-p-blue;
+$base0e: $accent-primary;
+$base0f: $accent-secondary;

@@ -1,0 +1,93 @@
+// -----------------------------------------------------------------------------
+// Science Persona — Dark Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the SCIENCE persona (dark mode).
+// Emphasizes clarity, restraint, and functional emphasis.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Intended for compile-time persona switching via config
+// - Accent usage is strictly functional
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-dark-bg;
+$ui-surface: palette.$clr-dark-surface;
+$ui-surface-raised: palette.$clr-dark-elevated;
+
+$ui-text: palette.$clr-gray-100;
+$ui-text-muted: palette.$clr-gray-500;
+$ui-border: palette.$clr-gray-800;
+
+
+/* -----------------------------------------------------------------------------
+   Accent System (Functional)
+   Accents are reserved strictly for interaction and emphasis.
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-turquoise; // primary actions
+$accent-secondary: palette.$clr-p-azure; // links, secondary emphasis
+
+
+/* -----------------------------------------------------------------------------
+   Typography & Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-white;
+
+
+/* -----------------------------------------------------------------------------
+   Interactive Elements
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-secondary;
+$link-hover: $accent-primary;
+
+$btn-bg: $accent-primary;
+$btn-text: palette.$clr-black;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   Status & Feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-blue;
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Dark)
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-syntax-dark-bg;
+$base01: palette.$clr-dark-elevated;
+$base02: palette.$clr-dark-highlight;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-400;
+$base05: $ui-text;
+$base06: palette.$clr-off-white;
+$base07: palette.$clr-white;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: $accent-primary;
+$base0b: palette.$clr-p-green;
+$base0c: $accent-secondary;
+$base0d: palette.$clr-p-blue;
+$base0e: palette.$clr-p-indigo;
+$base0f: palette.$clr-p-rose;

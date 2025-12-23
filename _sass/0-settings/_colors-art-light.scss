@@ -1,0 +1,95 @@
+// -----------------------------------------------------------------------------
+// Art Persona — Light Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the ART persona (light mode).
+// Balances softness, material sensitivity, and visual warmth.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Light counterpart to art-dark
+// - Supports editorial and exhibition-oriented layouts
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   Lighter surfaces and softer borders than science persona.
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-off-white;
+$ui-surface: palette.$clr-white;
+$ui-surface-raised: palette.$clr-gray-100;
+
+$ui-text: palette.$clr-gray-700; // softer than pure black
+$ui-text-muted: palette.$clr-gray-500;
+$ui-border: palette.$clr-gray-200;
+
+
+/* -----------------------------------------------------------------------------
+   Accent System (Atmospheric)
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-indigo; // conceptual anchor
+$accent-secondary: palette.$clr-p-rose; // expressive counterpoint
+
+
+/* -----------------------------------------------------------------------------
+   Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-p-indigo;
+
+
+/* -----------------------------------------------------------------------------
+   Interaction
+   Gentle, not insistent.
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-primary;
+$link-hover: $accent-secondary;
+
+$btn-bg: $accent-primary;
+$btn-text: palette.$clr-white;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   System Feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-blue;
+
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Light, Subdued)
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-white;
+$base01: palette.$clr-gray-100;
+$base02: palette.$clr-gray-200;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-600;
+$base05: $ui-text;
+$base06: palette.$clr-gray-700;
+$base07: palette.$clr-gray-900;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: palette.$clr-p-indigo;
+$base0b: palette.$clr-p-green;
+$base0c: palette.$clr-p-azure;
+$base0d: palette.$clr-p-blue;
+$base0e: $accent-primary;
+$base0f: $accent-secondary;

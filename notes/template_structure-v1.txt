@@ -1,0 +1,180 @@
+.
+├── _config.yml
+├── _includes
+│   ├── footer-end.html
+│   ├── footer.html
+│   ├── head.html
+│   ├── header.html
+│   ├── pagination.html
+│   ├── post-card.html
+│   ├── read-time.html
+│   └── social-share.html
+├── _layouts
+│   ├── default.html
+│   ├── page.html
+│   └── post.html
+├── _posts
+│   ├── 2020-05-05-you-got-to-cool-that-shit-off-and-thats-the-double-truth.md
+│   ├── 2020-05-06-welcome-to-jekyll.md
+│   ├── 2020-05-07-the-senate-that-our-ability-to-use-the-force-has-diminished.md
+│   ├── 2020-05-08-the-reason-were-gathered-here-on-our-god-given-day.md
+│   ├── 2020-05-09-i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live.md
+│   ├── 2020-05-10-if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all.md
+│   ├── 2020-05-11-make-your-own-gems.md
+│   ├── 2020-05-12-sample-post.md
+│   ├── 2020-05-15-blockqoute.md
+│   └── 2020-05-17-code-style.md
+├── _sass
+│   ├── 0-settings
+│   │   ├── _colors.scss
+│   │   ├── _global.scss
+│   │   └── _site
+│   │       ├── robots.txt
+│   │       └── sitemap.xml
+│   ├── 1-tools
+│   │   ├── _grid.scss
+│   │   ├── _mixins.scss
+│   │   ├── _normalize.scss
+│   │   ├── _reset.scss
+│   │   ├── _shared.scss
+│   │   └── _syntax-highlighting.scss
+│   ├── 2-base
+│   │   └── _base.scss
+│   ├── 3-modules
+│   │   ├── _buttons.scss
+│   │   ├── _footer.scss
+│   │   └── _pagination.scss
+│   ├── 4-layouts
+│   │   ├── _home.scss
+│   │   ├── _page.scss
+│   │   ├── _post.scss
+│   │   └── _tags.scss
+│   └── 5-trumps
+│       └── _helpers.scss
+├── _site
+│   ├── 404.html
+│   ├── analytics-link.gemspec
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── main.css
+│   │   │   └── main.css.map
+│   │   ├── fonts
+│   │   │   ├── futur.ttf
+│   │   │   ├── Futura Bold font.ttf
+│   │   │   ├── Futura Bold Italic font.ttf
+│   │   │   ├── Futura Book font.ttf
+│   │   │   ├── Futura Book Italic font.ttf
+│   │   │   ├── Futura Extra Black font.ttf
+│   │   │   ├── Futura Heavy font.ttf
+│   │   │   ├── Futura Heavy Italic font.ttf
+│   │   │   ├── futura light bt.ttf
+│   │   │   ├── Futura Light font.ttf
+│   │   │   ├── Futura Light Italic font.ttf
+│   │   │   ├── futura medium bt.ttf
+│   │   │   ├── futura medium condensed bt.ttf
+│   │   │   ├── Futura Medium Italic font.ttf
+│   │   │   ├── Futura XBlk BT.ttf
+│   │   │   ├── Futura-CondensedLight.otf
+│   │   │   ├── sharefonts.net.txt
+│   │   │   ├── tt0205m_.ttf
+│   │   │   ├── unicode.futurab.ttf
+│   │   │   └── unicode.futurabb.ttf
+│   │   └── js
+│   │       ├── common.js
+│   │       ├── jquery-3.3.1.min.js
+│   │       ├── jquery.fitvids.js
+│   │       └── jquery.waitforimages.min.js
+│   ├── blockqoute
+│   │   └── index.html
+│   ├── code-style
+│   │   └── index.html
+│   ├── favicon.ico
+│   ├── i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live
+│   │   └── index.html
+│   ├── if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all
+│   │   └── index.html
+│   ├── img
+│   │   ├── avatar.jpg
+│   │   └── posts
+│   │       ├── 11.jpg
+│   │       ├── 15.jpg
+│   │       ├── 16.jpg
+│   │       ├── 19.jpg
+│   │       ├── 20.jpg
+│   │       ├── 23.jpg
+│   │       ├── 25.png
+│   │       └── 8.jpg
+│   ├── index.html
+│   ├── LICENSE
+│   ├── make-your-own-gems
+│   │   └── index.html
+│   ├── page
+│   │   └── 2
+│   │       └── index.html
+│   ├── README.md
+│   ├── robots.txt
+│   ├── sample-post
+│   │   └── index.html
+│   ├── sitemap.xml
+│   ├── tags
+│   │   └── index.html
+│   ├── the-reason-were-gathered-here-on-our-god-given-day
+│   │   └── index.html
+│   ├── the-senate-that-our-ability-to-use-the-force-has-diminished
+│   │   └── index.html
+│   ├── welcome-to-jekyll
+│   │   └── index.html
+│   └── you-got-to-cool-that-shit-off-and-thats-the-double-truth
+│       └── index.html
+├── 404.html
+├── analytics-link.gemspec
+├── assets
+│   ├── css
+│   │   └── main.scss
+│   ├── fonts
+│   │   ├── futur.ttf
+│   │   ├── Futura Bold font.ttf
+│   │   ├── Futura Bold Italic font.ttf
+│   │   ├── Futura Book font.ttf
+│   │   ├── Futura Book Italic font.ttf
+│   │   ├── Futura Extra Black font.ttf
+│   │   ├── Futura Heavy font.ttf
+│   │   ├── Futura Heavy Italic font.ttf
+│   │   ├── futura light bt.ttf
+│   │   ├── Futura Light font.ttf
+│   │   ├── Futura Light Italic font.ttf
+│   │   ├── futura medium bt.ttf
+│   │   ├── futura medium condensed bt.ttf
+│   │   ├── Futura Medium Italic font.ttf
+│   │   ├── Futura XBlk BT.ttf
+│   │   ├── Futura-CondensedLight.otf
+│   │   ├── sharefonts.net.txt
+│   │   ├── tt0205m_.ttf
+│   │   ├── unicode.futurab.ttf
+│   │   └── unicode.futurabb.ttf
+│   └── js
+│       ├── common.js
+│       ├── jquery-3.3.1.min.js
+│       ├── jquery.fitvids.js
+│       └── jquery.waitforimages.min.js
+├── favicon.ico
+├── Gemfile
+├── Gemfile.lock
+├── img
+│   ├── avatar.jpg
+│   └── posts
+│       ├── 11.jpg
+│       ├── 15.jpg
+│       ├── 16.jpg
+│       ├── 19.jpg
+│       ├── 20.jpg
+│       ├── 23.jpg
+│       ├── 25.png
+│       └── 8.jpg
+├── index.html
+├── LICENSE
+├── README.md
+├── site_tree.txt
+└── tags.html
+
+38 directories, 140 files

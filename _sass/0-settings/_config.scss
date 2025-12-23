@@ -1,0 +1,73 @@
+// -----------------------------------------------------------------------------
+// Design System Configuration
+// ITCSS layer: 0-settings
+//
+// Description:
+// Central configuration file that wires together persona,
+// theme, and global design-token imports.
+//
+// Scope & Rules:
+// - No CSS output
+// - No selectors or computed styles
+// - Import and configuration logic only
+//
+// Notes:
+// - Typically driven by site-level config (e.g. Jekyll)
+// - Acts as the entry point for settings layer
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Shape
+   ----------------------------------------------------------------------------- */
+
+$global-radius: 6px;
+$global-border-width: 1px;
+
+
+/* -----------------------------------------------------------------------------
+   Layout Constraints (Measures)
+   ----------------------------------------------------------------------------- */
+
+// Optimal line length for long-form academic and editorial content
+$measure-text: 65ch;
+
+// Maximum site width for large screens
+$measure-site: 1280px;
+
+
+/* -----------------------------------------------------------------------------
+   Motion & Performance
+   ----------------------------------------------------------------------------- */
+
+// Global animation defaults (fast, restrained, non-distracting)
+$anim-speed: 0.2s;
+$anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+// Explicit transitions to avoid layout thrashing and browser jank
+$transition-fade: opacity $anim-speed $anim-easing;
+$transition-transform: transform $anim-speed $anim-easing;
+$transition-interaction: color $anim-speed $anim-easing,
+    background-color $anim-speed $anim-easing,
+    border-color $anim-speed $anim-easing,
+    box-shadow $anim-speed $anim-easing;
+
+
+/* -----------------------------------------------------------------------------
+   Focus & Accessibility
+   ----------------------------------------------------------------------------- */
+
+// Geometry only — color is defined per persona theme
+$focus-ring-width: 2px;
+$focus-ring-offset: 3px;
+
+
+/* -----------------------------------------------------------------------------
+   Z-index Scale
+   ----------------------------------------------------------------------------- */
+
+// Canonical stacking order to prevent ad-hoc z-index escalation
+$z-base: 1;
+$z-dropdown: 50;
+$z-header: 100;
+$z-overlay: 500;
+$z-modal: 1000;

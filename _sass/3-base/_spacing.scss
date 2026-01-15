@@ -1,0 +1,26 @@
+// -----------------------------------------------------------------------------
+// Base spacing
+// ITCSS layer: 3-base
+//
+// Purpose:
+// Establish default vertical rhythm for unclassed HTML elements.
+//
+// Scope & rules:
+// - Type selectors only (no classes)
+// - Uses spacing tokens from 0-settings
+// - No layout or component assumptions
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as spacing;
+
+h1, h2, h3, h4, h5, h6,
+p,
+blockquote,
+address,
+pre,
+table,
+figure,
+fieldset,
+hr {
+  margin-bottom: spacing.$space-4;
+}

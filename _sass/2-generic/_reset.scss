@@ -1,0 +1,66 @@
+// ----------------------------------------------------------------------------
+// Reset
+// ITCSS layer: 2-generic
+//
+// A minimal reset that sits on top of Normalize.css.
+// Purpose: remove residual browser spacing without introducing
+// design or layout decisions.
+// Description:
+// Provides a minimal CSS reset that sits on top of Normalize.css.
+// Removes residual browser spacing and normalizes low-level
+// element behavior without introducing visual, typographic,
+// or layout decisions.
+//
+// Scope & Rules:
+// - Element selectors only (no classes or attributes)
+// - No colors, fonts, spacing scales, or tokens
+// - No layout, responsive, or accessibility policies
+// - Complements Normalize.css; does not replace it
+// - Safe to apply globally and early in the cascade
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   1. Block-level spacing
+   ----------------------------------------------------------------------------- */
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+dl, dd,
+figure,
+hr {
+  margin: 0;
+}
+
+
+/* -----------------------------------------------------------------------------
+   2. Lists
+   ----------------------------------------------------------------------------- */
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* -----------------------------------------------------------------------------
+   3. Forms
+   ----------------------------------------------------------------------------- */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+
+/* -----------------------------------------------------------------------------
+   4. Tables
+   ----------------------------------------------------------------------------- */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

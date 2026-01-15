@@ -1,0 +1,77 @@
+// -----------------------------------------------------------------------------
+// Fluid Spacing Tools
+// ITCSS layer: 1-tools
+//
+// NOTE:
+// - This file emits NO CSS.
+// - It defines computed spacing tokens built on top of 0-settings/_spacing.scss.
+// - Tokens here are consumed by objects, components, and layouts.
+// -----------------------------------------------------------------------------
+
+
+
+
+@use "../0-settings/spacing" as spacing;
+
+/* -----------------------------------------------------------------------------
+   Functions
+   ----------------------------------------------------------------------------- */
+
+/// Helper to create fluid spacing using clamp().
+/// Centralizes fluid spacing math for consistency.
+///
+/// @param {Number} $min - Minimum spacing value
+/// @param {Number} $max - Maximum spacing value
+/// @param {String} $viewport - Viewport-based scaling unit (default: 5vw)
+@function fluid-space($min, $max, $viewport: 5vw) {
+  @if unit($min) != unit($max) {
+    @error "fluid-space(): $min and $max must use the same unit.";
+  }
+
+  @return clamp(#{$min}, #{$viewport}, #{$max});
+}
+
+
+/* -----------------------------------------------------------------------------
+   Fluid Token Aliases
+   ----------------------------------------------------------------------------- */
+// Computed spacing tokens.
+// These variables DO NOT output CSS on their own.
+
+/* -----------------------------------------------------------------------------
+   1. Static Stack Aliases (pass-through from settings)
+   ----------------------------------------------------------------------------- */
+// Used where fluid spacing is unnecessary or undesirable.
+
+$space-stack-xs: spacing.$space-2; // 8px
+$space-stack-sm: spacing.$space-3; // 12px
+
+
+/* -----------------------------------------------------------------------------
+   2. Fluid Stack (vertical flow between components)
+   ----------------------------------------------------------------------------- */
+// Used for typographic rhythm, content flow, and component spacing.
+
+$fluid-stack-md: fluid-space(spacing.$space-4, spacing.$space-5, 3vw); // 16px → 24px
+$fluid-stack-lg: fluid-space(spacing.$space-5, spacing.$space-7, 5vw); // 24px → 48px
+$fluid-stack-xl: fluid-space(spacing.$space-7, spacing.$space-9, 8vw); // 48px → 96px
+
+
+/* -----------------------------------------------------------------------------
+   3. Fluid Section (large layout separation)
+   ----------------------------------------------------------------------------- */
+// Used between major page sections or layout regions.
+
+$fluid-section-sm: fluid-space(spacing.$space-6, spacing.$space-7, 5vw);  // 32px → 48px
+$fluid-section-md: fluid-space(spacing.$space-7, spacing.$space-8, 7vw);  // 48px → 64px
+$fluid-section-lg: fluid-space(spacing.$space-8, spacing.$space-9, 10vw); // 64px → 96px
+
+
+/* -----------------------------------------------------------------------------
+   4. Fluid Inline (horizontal spacing & gutters)
+   ----------------------------------------------------------------------------- */
+// Used for inline gaps, grid gutters, and horizontal padding.
+
+$fluid-inline-sm: fluid-space(spacing.$space-3, spacing.$space-4, 2vw); // 12px → 16px
+$fluid-inline-md: fluid-space(spacing.$space-4, spacing.$space-6, 4vw); // 16px → 32px
+$fluid-inline-lg: fluid-space(spacing.$space-6, spacing.$space-8, 6vw); // 32px → 64px

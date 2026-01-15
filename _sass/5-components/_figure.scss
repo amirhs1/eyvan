@@ -1,0 +1,15 @@
+// -----------------------------------------------------------------------------
+// Component — Figure
+// ITCSS layer: 5-components
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as color;
+@use "../0-settings/spacing" as space;
+@use "../0-settings/typography" as type;
+
+.c-figure figcaption {
+  margin-top: space.$space-2;
+  font-size: type.$font-size-sm;
+  color: color.$ui-text-muted;
+  text-align: center;
+}

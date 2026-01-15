@@ -1,0 +1,40 @@
+// -----------------------------------------------------------------------------
+// Colors — Active Theme Resolver
+// ITCSS layer: 0-settings
+// -----------------------------------------------------------------------------
+//
+// Description:
+// Resolves the active color theme (art | science × light | dark) and exposes
+// a unified set of semantic color tokens for downstream layers.
+//
+// Scope & Rules:
+// - Configuration only (no selectors, no CSS output)
+// - Forwards exactly ONE theme implementation
+// - Acts as the public API for all color usage below 0-settings
+//
+// Usage:
+//   @use "../0-settings/colors" as color;
+//   color.$text-primary
+//
+
+@use "config" as config;
+
+// -----------------------------------------------------------------------------
+// Theme Resolution
+// -----------------------------------------------------------------------------
+
+@if config.$theme == science and config.$mode == light {
+  @forward "colors-science-light";
+
+} @else if config.$theme == science and config.$mode == dark {
+  @forward "colors-science-dark";
+
+} @else if config.$theme == art and config.$mode == light {
+  @forward "colors-art-light";
+
+} @else if config.$theme == art and config.$mode == dark {
+  @forward "colors-art-dark";
+
+} @else {
+  @error "Invalid theme/mode combination. Check 0-settings/_config.scss.";
+}

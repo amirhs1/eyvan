@@ -1,0 +1,34 @@
+// -----------------------------------------------------------------------------
+// Base — Links
+// ITCSS layer: 3-base
+// -----------------------------------------------------------------------------
+//
+// Description:
+// Establishes default styles for anchor elements (<a>) in their unclassed form.
+// Focuses on accessibility, clarity, and neutral interaction behavior.
+//
+// Scope & Rules:
+// - Type selectors only
+// - Hover and focus-visible states only
+// - No transitions or decorative behaviors (belong in components)
+//
+// Notes:
+// - Component-specific link styling belongs in 5-components.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as color;
+@use "../0-settings/config" as config;
+
+a {
+  color: color.$link-color;
+  text-decoration: none;
+}
+
+a:hover {
+  color: color.$link-hover;
+}
+
+a:focus-visible {
+  outline: config.$focus-ring-width solid color.$accent-primary;
+  outline-offset: config.$focus-ring-offset;
+}

@@ -71,3 +71,10 @@ $z-dropdown: 50;
 $z-header: 100;
 $z-overlay: 500;
 $z-modal: 1000;
+
+/* -----------------------------------------------------------------------------
+   Theme Configuration
+   ----------------------------------------------------------------------------- */
+
+$theme: science !default; // science | art
+$mode: light !default;   // light | dark

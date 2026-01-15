@@ -21,6 +21,7 @@
 │   │   ├── _colors-art-light.scss
 │   │   ├── _colors-science-dark.scss
 │   │   ├── _colors-science-light.scss
+│   │   ├── _colors.scss
 │   │   ├── _config.scss
 │   │   ├── _palette-persian.scss
 │   │   ├── _spacing.scss
@@ -30,21 +31,33 @@
 │   │   └── _spacing-fluid.scss
 │   ├── 2-generic
 │   │   ├── _normalize.scss
-│   │   ├── _reset.scss
-│   │   ├── _shared.scss
-│   │   └── _syntax-highlighting.scss
+│   │   └── _reset.scss
 │   ├── 3-base
+│   │   ├── _base-new.scss
 │   │   ├── _base.scss
-│   │   └── _grid.scss
+│   │   ├── _elements.scss
+│   │   ├── _links.scss
+│   │   ├── _lists.scss
+│   │   ├── _media.scss
+│   │   ├── _spacing.scss
+│   │   ├── _tables.scss
+│   │   └── _typography.scss
 │   ├── 4-objects
 │   │   ├── _home.scss
+│   │   ├── _media.scss
 │   │   ├── _page.scss
 │   │   ├── _post.scss
+│   │   ├── _table.scss
 │   │   └── _tags.scss
 │   ├── 5-components
+│   │   ├── _blockquote.scss
 │   │   ├── _buttons.scss
+│   │   ├── _figure.scss
 │   │   ├── _footer.scss
-│   │   └── _pagination.scss
+│   │   ├── _forms.scss
+│   │   ├── _pagination.scss
+│   │   ├── _syntax-highlighting.scss
+│   │   └── _tables.scss
 │   ├── 6-layouts
 │   └── 7-trumps
 │       └── _helpers.scss
@@ -86,4 +99,4 @@
 ├── README.md
 └── tags.html
 
-36 directories, 51 files
+36 directories, 64 files

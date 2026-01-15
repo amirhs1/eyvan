@@ -1,0 +1,48 @@
+// -----------------------------------------------------------------------------
+// Component — Tables
+// ITCSS layer: 5-components
+// -----------------------------------------------------------------------------
+//
+// Description:
+// Provides a styled table component with semantic colors, zebra striping,
+// and hover feedback.
+//
+// Scope & Rules:
+// - Class-based styling only (.c-table)
+// - May define colors, spacing, and interaction states
+// - No layout assumptions (container width handled elsewhere)
+//
+// Notes:
+// - Base structural defaults live in 3-base/_tables.scss.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as color;
+@use "../0-settings/spacing" as space;
+
+.c-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: color.$body-color;
+  background-color: color.$ui-surface;
+}
+
+.c-table th {
+  padding: space.$space-3;
+  text-align: left;
+  color: color.$btn-text;
+  background-color: color.$accent-primary;
+  border: 1px solid color.$ui-border;
+}
+
+.c-table td {
+  padding: space.$space-3;
+  border: 1px solid color.$ui-border;
+}
+
+.c-table tr:nth-child(even) {
+  background-color: color.$ui-surface-raised;
+}
+
+.c-table tr:hover {
+  background-color: color.$ui-surface-raised;
+}

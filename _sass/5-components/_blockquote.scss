@@ -1,0 +1,18 @@
+// -----------------------------------------------------------------------------
+// Component — Blockquote
+// ITCSS layer: 5-components
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as color;
+@use "../0-settings/spacing" as space;
+@use "../0-settings/typography" as type;
+
+.c-blockquote {
+  padding: space.$space-4 space.$space-4 space.$space-4 space.$space-6;
+  font-size: type.$font-size-lg;
+  border-left: 4px solid color.$accent-primary;
+}
+
+.c-blockquote p:last-child {
+  margin-bottom: 0;
+}

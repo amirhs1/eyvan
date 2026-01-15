@@ -1,0 +1,18 @@
+// -----------------------------------------------------------------------------
+// Object — Media / Figure
+// ITCSS layer: 4-objects
+// -----------------------------------------------------------------------------
+
+.o-figure {
+  display: block;
+}
+
+.o-figure > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.o-figure > figcaption {
+  display: block;
+}

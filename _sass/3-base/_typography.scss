@@ -1,0 +1,53 @@
+// -----------------------------------------------------------------------------
+// Base — Typography
+// ITCSS layer: 3-base
+// -----------------------------------------------------------------------------
+//
+// Description:
+// Defines default typography styles for unclassed HTML text elements,
+// including headings, blockquotes, and preformatted text.
+//
+// Scope & Rules:
+// - Type selectors only
+// - No component styling, no layout assumptions
+// - Token-driven (fonts, sizes, weights, line-heights)
+//
+// Notes:
+// - Vertical rhythm (margins between blocks) should be handled in base spacing
+//   rules or via objects like .o-stack in 4-objects.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as color;
+@use "../0-settings/typography" as type;
+@use "../0-settings/spacing" as space;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: type.$font-family-display;
+  font-weight: type.$font-weight-bold;
+  line-height: type.$line-height-tight;
+  color: color.$heading-color;
+}
+
+/* Map heading sizes to your existing type scale */
+h1 { font-size: type.$font-size-xxxl; }
+h2 { font-size: type.$font-size-xxl; }
+h3 { font-size: type.$font-size-xl; }
+h4 { font-size: type.$font-size-lg; }
+h5 { font-size: type.$font-size-md; }
+h6 { font-size: type.$font-size-sm; }
+
+blockquote {
+  padding-left: space.$space-4;
+  border-left: 3px solid color.$accent-primary;
+  color: color.$body-color;
+}
+
+pre {
+  font-family: type.$font-family-mono;
+  overflow-x: auto;
+}

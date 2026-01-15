@@ -1,0 +1,26 @@
+// -----------------------------------------------------------------------------
+// Base — Tables (Unstyled)
+// ITCSS layer: 3-base
+// -----------------------------------------------------------------------------
+//
+// Description:
+// Establishes minimal structural defaults for HTML tables without imposing
+// visual design (no colors, no zebra striping, no hover styling).
+//
+// Scope & Rules:
+// - Type selectors only
+// - No branded decisions
+//
+// Notes:
+// - Use 5-components/_tables.scss (.c-table) for styled tables.
+// -----------------------------------------------------------------------------
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+}

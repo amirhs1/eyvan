@@ -1,0 +1,14 @@
+// -----------------------------------------------------------------------------
+// Base — Elements
+// ITCSS layer: 3-base
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as color;
+@use "../0-settings/spacing" as space;
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 2px solid color.$ui-border;
+  margin: space.$space-6 0;
+}

@@ -1,41 +1,95 @@
-// Clearfix
-@mixin clearfix() {
-  &::after,
-  ::before {
-    content: "";
-    display: table;
-    clear: both;
+// -----------------------------------------------------------------------------
+// Mixins
+// ITCSS layer: 1-tools
+//
+// Description:
+// Global mixins and helpers. This layer emits CSS only when explicitly
+// included and provides reusable logic for higher layers.
+//
+// Scope & Rules:
+// - No standalone CSS output
+// - Token-driven where applicable (0-settings)
+// - No design decisions
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Responsive Media Queries
+   Hooks into _breakpoints.scss
+   ----------------------------------------------------------------------------- */
+
+/// Mobile-first media query helper.
+/// @param {Number} $breakpoint - Token from _breakpoints.scss (e.g. $bp-md)
+@mixin mq-up($breakpoint) {
+  @if type-of($breakpoint) != 'number' or unitless($breakpoint) {
+    @error 'mq-up expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}';
+  }
+
+  @media (min-width: $breakpoint) {
+    @content;
   }
 }
 
-// Reset lists
-@mixin list-reset() {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+/* -----------------------------------------------------------------------------
+   Typography Helpers
+   Hooks into _typography.scss
+   ----------------------------------------------------------------------------- */
+
+/// Standardizes font rendering across platforms.
+/// Use sparingly and intentionally (OS-dependent behavior).
+@mixin font-smoothing {
+  -webkit-font-smoothing: $font-smoothing-webkit;
+  -moz-osx-font-smoothing: $font-smoothing-moz;
 }
 
-// Screen reader text
-@mixin screen-reader() {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
+/* -----------------------------------------------------------------------------
+   Accessibility & Visibility
+   ----------------------------------------------------------------------------- */
+
+/// Hides element visually while remaining accessible to screen readers.
+/// Modern replacement for legacy "sr-only" patterns.
+@mixin visually-hidden {
   position: absolute !important;
   width: 1px;
-  word-wrap: normal !important;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
-// Usage:
-// @include skew(25,10);
-// @include transform-origin(top left);
-@mixin transform($transforms) {
-     -moz-transform: $transforms;
-       -o-transform: $transforms;
-      -ms-transform: $transforms;
-  -webkit-transform: $transforms;
-          transform: $transforms;
+/// Resets visually-hidden styles (e.g. for skip links on focus).
+@mixin visually-hidden-reset {
+  position: static !important;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
 }
 
-@mixin scale($scale) {
-  @include transform(scale($scale));
+/* -----------------------------------------------------------------------------
+   Interactive & UI Helpers
+   Hooks into _config.scss
+   ----------------------------------------------------------------------------- */
+
+/// Standard focus-ring logic using focus-visible.
+/// Relies on design tokens for consistency.
+@mixin focus-ring {
+  &:focus-visible {
+    outline: $focus-ring-width solid currentColor;
+    outline-offset: $focus-ring-offset;
+  }
+}
+
+/// Resets standard list styling for navigation and UI elements.
+@mixin list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

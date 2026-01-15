@@ -1,0 +1,24 @@
+// -----------------------------------------------------------------------------
+// Base lists
+// ITCSS layer: 3-base
+//
+// Purpose:
+// Provide neutral defaults for unclassed lists.
+//
+// Scope & rules:
+// - No bullets removed here (handled in generic/reset if needed)
+// - No indentation assumptions
+// - Components and objects control list layout
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as spacing;
+
+ul,
+ol,
+dl {
+  margin-bottom: spacing.$space-4;
+}
+
+dd {
+  margin-left: spacing.$space-4;
+}

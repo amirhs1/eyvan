@@ -1,82 +1,167 @@
-// FOOTER
-.footer {
-  padding: 50px 0;
-  margin-top: 30px;
-  background: $black;
+// -----------------------------------------------------------------------------
+// Footer Component
+// ITCSS layer: 5-components
+// -----------------------------------------------------------------------------
+//
+// Purpose:
+// Defines the site-wide footer UI component, including branding,
+// metadata, social links, and navigation affordances.
+//
+// Scope & Rules:
+// - Component-scoped styles only (no global selectors)
+// - Uses semantic design tokens exclusively (colors, spacing, typography)
+// - Layout logic is limited to footer-specific composition
+// - Responsive behavior is mobile-first
+// - Accessibility considerations are mandatory (focus, motion, contrast)
+//
+// Notes:
+// - Footer spacing is treated as a visual section boundary
+// - Breakpoints are chosen based on content semantics, not device classes
+//
+
+@use "../0-settings/config";        // transitions, focus, opacity tokens
+@use "../0-settings/spacing";
+@use "../0-settings/typography";
+@use "../0-settings/colors";
+@use "../0-settings/breakpoints";
+@use "../1-tools/spacing-fluid" as fluid;
+
+/* -----------------------------------------------------------------------------
+   Root
+   ----------------------------------------------------------------------------- */
+
+.c-footer {
+  // Footer treated as a visual section boundary
+  margin-top: fluid.$fluid-section-sm;
+  padding-block: fluid.$fluid-section-lg;
+
+  background-color: colors.$ui-surface;
+  color: colors.$ui-text-muted;
 }
 
-.footer-top {
+/* -----------------------------------------------------------------------------
+   Top Section
+   ----------------------------------------------------------------------------- */
+
+.c-footer__top {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 15px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid $border-color;
-  .logo-text {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 16px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    color: $text;
-    &:hover {
-      color: $gray-blue;
-    }
+  gap: spacing.$space-4;
+
+  padding-bottom: spacing.$space-4;
+  margin-bottom: spacing.$space-4;
+
+  border-bottom: 1px solid colors.$ui-border;
+}
+
+/* Brand */
+
+.c-footer__brand {
+  font-size: typography.$font-size-sm;
+  font-weight: typography.$font-weight-bold;
+  letter-spacing: typography.$tracking-wide;
+  text-transform: uppercase;
+  line-height: 1;
+
+  color: colors.$ui-text;
+  text-decoration: none;
+  transition: config.$transition-base;
+
+  &:hover {
+    color: colors.$accent-primary;
   }
-  .top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border: 1px solid $blue-black;
-    background-color: $blue-black;
-    color: $text;
-    cursor: pointer;
-    transition: $global-transition;
-    opacity: .5;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* Back to top */
+
+.c-footer__top-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: spacing.$space-6;
+  height: spacing.$space-6;
+
+  border: 1px solid colors.$ui-border;
+  background-color: colors.$ui-surface-raised;
+  color: colors.$ui-text;
+
+  cursor: pointer;
+  opacity: config.$disabled-opacity;
+  transition: config.$transition-fast;
+
+  &:hover {
+    opacity: config.$focus-opacity;
+    border-color: colors.$accent-secondary;
+  }
+
+  &:focus-visible {
+    outline: config.$focus-ring-width solid colors.$accent-primary;
+    outline-offset: config.$focus-ring-offset;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Bottom Section
+   ----------------------------------------------------------------------------- */
+
+.c-footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$space-4;
+
+  @media (min-width: breakpoints.$bp-md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Copyright */
+
+.c-footer__copyright {
+  font-size: typography.$font-size-xs;
+  color: colors.$ui-text-muted;
+
+  a {
+    color: colors.$ui-text;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
     &:hover {
-      opacity: 1;
+      color: colors.$accent-primary;
     }
   }
 }
 
-.footer-bottom {
+/* Social links */
+
+.c-footer__social {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  .copyright {
-    margin-right: 60px;
-    p {
-      margin-bottom: 0;
-      font-size: 13px;
-      color: $light-white;
-      a {
-        color: $light-white;
-        &:hover {
-          color: $primary-color;
-        }
-      }
+  gap: spacing.$space-4;
+
+  a {
+    font-size: typography.$font-size-xs;
+    font-weight: typography.$font-weight-medium;
+    color: colors.$ui-text-muted;
+    text-decoration: none;
+    transition: config.$transition-interaction;
+
+    &:hover {
+      color: colors.$accent-primary;
     }
-  }
-  .footer-social {
-    ul {
-      li {
-        display: inline-block;
-        margin-left: 15px;
-        &:first-child {
-          margin-left: 0;
-        }
-        a {
-          font-size: 13px;
-          font-weight: bold;
-          color: $light-white;
-          transition: $global-transition;
-          &:hover {
-            color: $primary-color;
-          }
-        }
-      }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
     }
   }
 }

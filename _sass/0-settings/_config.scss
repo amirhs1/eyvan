@@ -34,6 +34,19 @@ $measure-text: 65ch;
 // Maximum site width for large screens
 $measure-site: 1280px;
 
+/* -----------------------------------------------------------------------------
+   Interaction & Motion Tokens
+   ----------------------------------------------------------------------------- */
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.2s ease;
+$transition-slow: 0.3s ease;
+
+// Accessibility
+$focus-opacity: 1;         // Allows future fading if needed
+$disabled-opacity: 0.5;    // WCAG-safe default
+
 
 /* -----------------------------------------------------------------------------
    Motion & Performance

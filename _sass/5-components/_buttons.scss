@@ -1,27 +1,80 @@
-.button {
-  display: inline-block;
-  white-space: nowrap;
-  vertical-align: middle;
+// -----------------------------------------------------------------------------
+// Button Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// - Provide a reusable, accessible button abstraction
+// - Consume tokens from 0-settings only
+// - Remain theme-agnostic (colors come from persona themes)
+//
+// Rules:
+// - No magic numbers
+// - No layout responsibilities
+// - No hardcoded colors or transitions
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../0-settings/spacing" as spacing;
+
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   font: inherit;
+  white-space: nowrap;
   text-align: center;
-  padding: round($base-spacing-unit / 2) ($base-spacing-unit * 2);
-  border-radius: $global-radius;
+  text-decoration: none; // Ensures <a> tags styled as buttons look correct
+
+  // Using semantic spacing aliases for better intent
+  padding: spacing.$space-inline-sm spacing.$space-inline-lg;
+  border-radius: config.$global-radius; // Corrected variable name
+  border: config.$global-border-width solid transparent; // Prevents layout shift on hover borders
+
   cursor: pointer;
-  transition: $global-transition;
+  user-select: none;
 
-  &--primary {
-    color: $button-color;
-    background-color: $button-background-color;
+  transition: config.$transition-interaction;
 
-    &:hover {
-      background-color: darken($primary-color, 15%);
-      color: $white;
-      transition: $global-transition;
-    }
+  /* Focus (keyboard accessibility) */
+  &:focus-visible {
+    outline: config.$focus-ring-size solid colors.$color-focus; // Corrected variable name
+    outline-offset: config.$focus-ring-offset;
   }
 
-  &--big {
-    display: block;
-    width: 100%;
+  /* Disabled state */
+  &:disabled,
+  &.is-disabled { // Added class-based state for <a> tags
+    opacity: config.$disabled-opacity;
+    cursor: not-allowed;
+    pointer-events: none;
   }
+}
+
+/* -----------------------------------------------------------------------------
+   Variants
+   ----------------------------------------------------------------------------- */
+
+.c-button--primary {
+  color: colors.$btn-text;
+  background-color: colors.$btn-bg;
+
+  &:hover:not(:disabled) {
+    background-color: colors.$btn-bg-hover;
+  }
+  
+  &:active:not(:disabled) {
+    // Industry standard: add a slight "press" feel
+    transform: translateY(1px);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Layout modifiers
+   ----------------------------------------------------------------------------- */
+
+.c-button--block {
+  display: flex; // Changes from inline-flex
+  width: 100%;
 }

@@ -1,71 +1,47 @@
-// Page
-.page {
-  margin-bottom: 20px;
+// -----------------------------------------------------------------------------
+// Page Layout
+// ITCSS layer: 6-layouts
+//
+// Purpose:
+// Page-level composition for generic content pages.
+//
+// Scope & Rules:
+// - Composes objects and components
+// - Manages vertical rhythm and spacing
+// - Does NOT define reusable visuals (no borders, shadows, colors)
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../0-settings/spacing" as spacing;
+@use "../1-tools/spacing-fluid" as fluid;
+
+.l-page {
+  margin-bottom: fluid.$fluid-section-md;
 }
 
-.page-image-box {
-  background: $black;
-  &.reveal-in {
-    .page-image {
-      opacity: 1;
-    }
-  }
+/* -----------------------------------------------------------------------------
+   Main Content Container
+   ----------------------------------------------------------------------------- */
+
+.l-page__content {
+  // Fluid padding based on viewport
+  padding: fluid.$fluid-stack-md fluid.$fluid-inline-md; 
+  background-color: colors.$ui-surface;
+  border-radius: config.$global-radius;
+  border: config.$global-border-width solid colors.$ui-border;
+  
+  // Subtle depth
+  box-shadow: 0 config.$shadow-offset-y config.$shadow-blur config.$shadow-spread colors.$ui-shadow-color;
 }
 
-.page-image {
-  min-height: 230px;
-  margin-bottom: 30px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: $black;
-  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25);
-  opacity: 0;
-  transition: all 1s cubic-bezier(0.6, 0.3, 0, 1);
-  &:after {
-    content: "";
-    display: table;
-    width: 100%;
-    padding-top: 50%;
-  }
-}
+/* -----------------------------------------------------------------------------
+   Body Section (Text containment)
+   ----------------------------------------------------------------------------- */
 
-.page-content {
-  padding: 40px 15px;
-  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25);
-  background: rgba($blue-darken, .95);
-}
-
-.page-head {
-  padding-bottom: 30px;
-  .page-title {
-    font-size: 28px;
-    text-align: center;
-    font-weight: normal;
-    line-height: 28px;
-    margin-bottom: 0;
-  }
-}
-
-.page-head, .page-body {
-  margin-bottom: 20px;
-  border-bottom: 1px solid $border-color;
-}
-
-.page-body {
-  padding-bottom: 20px;
-}
-
-@media only screen and (min-width: 576px) {
-  .page-content {
-    padding: 40px;
-  }
-
-  .page-head {
-    .page-title {
-      font-size: 43px;
-      line-height: 43px;
-      margin-bottom: 10px;
-    }
-  }
+.l-page__body {
+  margin-top: fluid.$fluid-stack-md;
+  
+  max-width: config.$measure-text; 
+  margin-inline: auto;
 }

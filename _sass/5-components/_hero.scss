@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// Component — Hero
+// ITCSS layer: 5-components
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../0-settings/spacing" as spacing;
+@use "../0-settings/typography" as type;
+@use "../1-tools/spacing-fluid" as fluid;
+
+.c-hero {
+  position: relative;
+  background-color: colors.$ui-bg;
+  overflow: hidden;
+}
+
+.c-hero__image {
+  min-height: config.$hero-min-height;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: colors.$ui-surface-raised;
+  border-radius: config.$global-radius;
+  
+  // Motion logic
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity config.$transition-slow, transform config.$transition-slow;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 50%; // 2:1 Aspect Ratio
+  }
+
+  .is-revealed & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.c-hero__content {
+  padding-block: fluid.$fluid-stack-md;
+  text-align: center;
+}
+
+.c-hero__title {
+  font-family: type.$font-family-display;
+  font-size: clamp(type.$font-size-xxl, 8vw, type.$font-size-xxxl);
+  font-weight: type.$font-weight-bold;
+  line-height: type.$line-height-tight;
+  color: colors.$heading-color;
+  margin-bottom: 0;
+}

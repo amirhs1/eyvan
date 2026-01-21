@@ -1,41 +1,115 @@
-// Pagination
-.pagination {
-  margin: 20px 0 40px;
-  .pagination-list {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    .older-posts, .previous-posts, .newer-posts {
-      display: inline-block;
-      flex-grow: 1;
-      .older-link, .previous-link, .newer-link {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 35px;
-        font-size: 14px;
-        line-height: 18px;
-        font-weight: bold;
-        color: $text;
-        background: rgba($blue-darken, .95);
-        transition: $global-transition;
-        &:hover {
-          background: rgba(28, 29, 31, 0.95);
-        }
-      }
-    }
-    .older-link {
-      i {
-        margin-left: 10px;
-      }
-    }
-    .previous-link, .newer-link {
-      i {
-        margin-right: 10px;
-      }
-    }
+// -----------------------------------------------------------------------------
+// Pagination Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Navigation between paginated content (older / newer posts, previous / next).
+//
+// Scope & Rules:
+// - Flat selectors only (no structural nesting)
+// - Visual styling only; layout assumptions belong to markup or objects
+// - Token-driven spacing, typography, color, and motion
+// - Accessibility-first (keyboard focus, adequate hit targets)
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/spacing" as spacing;
+@use "../0-settings/typography" as typography;
+@use "../0-settings/colors" as colors;
+@use "../1-tools/spacing-fluid" as fluid;
+
+/* -----------------------------------------------------------------------------
+   Root
+   ----------------------------------------------------------------------------- */
+
+.c-pagination {
+  margin-block: fluid.$fluid-section-sm;
+}
+
+/* -----------------------------------------------------------------------------
+   List
+   ----------------------------------------------------------------------------- */
+
+.c-pagination__list {
+  display: flex;
+  flex-wrap: wrap; // Prevents overflow on very small screens
+  align-items: center;
+  gap: spacing.$space-3;
+  padding: 0;
+  list-style: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Item
+   ----------------------------------------------------------------------------- */
+
+.c-pagination__item {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+/* -----------------------------------------------------------------------------
+   Link
+   ----------------------------------------------------------------------------- */
+
+.c-pagination__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // Modern Accessibility: 48px minimum hit target
+  min-width: spacing.$space-7; 
+  min-height: spacing.$space-7; 
+  padding-inline: spacing.$space-4;
+
+  font-family: typography.$font-family-display; // Using display font for UI
+  font-size: typography.$font-size-sm;
+  font-weight: typography.$font-weight-bold;
+  line-height: typography.$line-height-tight;
+
+  color: colors.$ui-text;
+  background-color: colors.$ui-surface-raised;
+  text-decoration: none;
+  border-radius: config.$global-radius; // Leverages your config tokens
+
+  transition: config.$transition-interaction;
+
+  // Ensure hover only applies to interactive links
+  &:hover:not([aria-disabled="true"]):not(.is-disabled) {
+    background-color: colors.$ui-surface;
+    color: colors.$accent-primary; // Subtle visual feedback
   }
-  @media only screen and (min-width: 768px) {
-    margin: 20px 0;
+
+  &:focus-visible {
+    outline: config.$focus-ring-width solid colors.$accent-primary;
+    outline-offset: config.$focus-ring-offset;
   }
+}
+
+/* -----------------------------------------------------------------------------
+   Disabled / Inactive state
+   ----------------------------------------------------------------------------- */
+
+.c-pagination__link[aria-disabled="true"],
+.c-pagination__link.is-disabled {
+  opacity: config.$disabled-opacity; // Uses config token
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* -----------------------------------------------------------------------------
+   Icon spacing helpers (optional)
+   ----------------------------------------------------------------------------- */
+
+.c-pagination__icon {
+  display: inline-flex;
+  flex-shrink: 0; // Prevents icon squishing
+}
+
+.c-pagination__icon--leading {
+  margin-inline-end: spacing.$space-2;
+}
+
+.c-pagination__icon--trailing {
+  margin-inline-start: spacing.$space-2;
 }

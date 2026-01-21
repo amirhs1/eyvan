@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------
+// Tag Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Reusable tag UI element used across metadata blocks, archives, and filters.
+//
+// Scope & Rules:
+// - Visual styling only
+// - No layout or flow assumptions
+// - Token-driven colors, spacing, and motion
+// - Accessible interaction states
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../0-settings/spacing" as spacing;
+@use "../0-settings/typography" as type;
+
+.c-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: spacing.$space-1;
+  padding: spacing.$space-1 spacing.$space-2;
+
+  font-family: type.$font-family-display;
+  font-size: type.$font-size-sm;
+  font-weight: type.$font-weight-medium;
+  line-height: type.$line-height-tight;
+  text-decoration: none;
+
+  color: colors.$ui-text-muted;
+  background-color: colors.$ui-surface-raised;
+  border-radius: config.$global-radius;
+  border: config.$global-border-width solid colors.$ui-border;
+
+  transition: config.$transition-interaction;
+  &:hover,
+  &:focus-visible {
+    color: colors.$ui-text;
+    background-color: colors.$accent-secondary;
+    border-color: transparent;
+  }
+
+  &:focus-visible {
+    outline: config.$focus-ring-width solid colors.$accent-primary;
+    outline-offset: config.$focus-ring-offset;
+  }
+}
+
+.c-tag--active,
+.c-tag[aria-current="true"] {
+  color: colors.$btn-text;
+  background-color: colors.$accent-primary;
+  border-color: transparent;
+}
+
+.c-tag__count {
+  font-size: type.$font-size-xs;
+  font-weight: type.$font-weight-bold;
+  opacity: 0.8;
+}

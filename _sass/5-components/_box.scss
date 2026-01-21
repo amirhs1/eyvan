@@ -1,0 +1,19 @@
+// -----------------------------------------------------------------------------
+// Object — Box
+// ITCSS layer: 4-objects
+//
+// Purpose:
+// A generic, reusable visual shell. It defines the "surface" of a container
+// without assuming its role in the layout.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+
+.o-box {
+  // Consumes "Surface" tokens from 0-settings
+  background-color: colors.$ui-surface;
+  border-radius: config.$global-radius;
+  border: config.$global-border-width solid colors.$ui-border;
+  box-shadow: 0 config.$shadow-offset-y config.$shadow-blur colors.$ui-shadow-color;
+}

@@ -20,28 +20,12 @@
   margin-bottom: fluid.$fluid-section-md;
 }
 
-/* -----------------------------------------------------------------------------
-   Main Content Container
-   ----------------------------------------------------------------------------- */
-
 .l-page__content {
-  // Fluid padding based on viewport
-  padding: fluid.$fluid-stack-md fluid.$fluid-inline-md; 
-  background-color: colors.$ui-surface;
-  border-radius: config.$global-radius;
-  border: config.$global-border-width solid colors.$ui-border;
-  
-  // Subtle depth
-  box-shadow: 0 config.$shadow-offset-y config.$shadow-blur config.$shadow-spread colors.$ui-shadow-color;
+  padding: fluid.$fluid-stack-md fluid.$fluid-inline-md;
 }
-
-/* -----------------------------------------------------------------------------
-   Body Section (Text containment)
-   ----------------------------------------------------------------------------- */
 
 .l-page__body {
   margin-top: fluid.$fluid-stack-md;
-  
-  max-width: config.$measure-text; 
+  max-width: config.$measure-text;
   margin-inline: auto;
 }

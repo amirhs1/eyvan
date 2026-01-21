@@ -17,6 +17,7 @@
 
 .c-hero__image {
   min-height: config.$hero-min-height;
+  aspect-ratio: 2 / 1;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,13 +28,6 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity config.$transition-slow, transform config.$transition-slow;
-
-  &::after {
-    content: "";
-    display: block;
-    width: 100%;
-    padding-top: 50%; // 2:1 Aspect Ratio
-  }
 
   .is-revealed & {
     opacity: 1;

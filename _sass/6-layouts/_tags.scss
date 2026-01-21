@@ -1,32 +1,47 @@
-// Tags
-.tags-list {
+// -----------------------------------------------------------------------------
+// Tags Layout
+// ITCSS layer: 6-layouts
+//
+// Purpose:
+// Page-level composition for tag groups and tag lists.
+//
+// Scope & Rules:
+// - Layout-specific only (archives, post metadata, tag indexes)
+// - No visual styling of tags
+// - Manages vertical rhythm and wrapping behavior only
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as spacing;
+@use "../1-tools/spacing-fluid" as fluid;
+
+/* -----------------------------------------------------------------------------
+   Tag Group
+   Provides vertical separation in page flow
+   ----------------------------------------------------------------------------- */
+
+.l-tags {
+  margin-block: fluid.$fluid-stack-md;
+}
+
+/* -----------------------------------------------------------------------------
+   Tag List
+   Flex container handling wrapping and spacing
+   ----------------------------------------------------------------------------- */
+
+.l-tags__list {
   display: flex;
   flex-wrap: wrap;
-  margin: 40px 0;
+  gap: spacing.$space-2 spacing.$space-3; // row-gap / column-gap
   padding: 0;
+  margin: 0;
   list-style: none;
-  .tags-item {
-    margin: 5px;
-  }
-  .tags-link {
-    display: inline-block;
-    padding: 7px 12px;
-    font-size: 14px;
-    border-radius: 4px;
-    color: $text;
-    font-weight: 700;
-    background: $blue-black;
-    &:hover {
-      color: $white;
-      background: $primary-color;      
-    }
-  }
 }
 
-.tags-title {
-  margin-bottom: 5px;
-}
+/* -----------------------------------------------------------------------------
+   Tag Item
+   Structural wrapper for future overrides
+   ----------------------------------------------------------------------------- */
 
-.tags-group {
-  margin-bottom: 30px;
+.l-tags__item {
+  display: inline-flex;
 }

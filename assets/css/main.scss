@@ -1,31 +1,108 @@
 ---
 ---
 
-// 0-SETTINGS
-@import "0-settings/global";
-@import "0-settings/colors";
+// ============================================================================
+// MAIN STYLESHEET
+// Purpose: Compose the design system in strict ITCSS order.
+// This file MUST contain no selectors or logic.
+// ============================================================================
 
-// 1-TOOLS
-@import "1-tools/normalize";
-@import "1-tools/reset";
-@import "1-tools/shared";
-@import "1-tools/syntax-highlighting";
-@import "1-tools/mixins";
-@import "1-tools/grid";
 
-// 2-BASE
-@import "2-base/base";
+// -----------------------------------------------------------------------------
+// 0. SETTINGS
+// Global tokens, configuration, and design decisions
+// -----------------------------------------------------------------------------
 
-// 3-MODULES
-@import "3-modules/buttons";
-@import "3-modules/pagination";
-@import "3-modules/footer";
+@use "0-settings/config";
+@use "0-settings/breakpoints";
+@use "0-settings/colors";
+@use "0-settings/spacing";
+@use "0-settings/typography";
 
-// 4-LAYOUTS
-@import "4-layouts/home";
-@import "4-layouts/post";
-@import "4-layouts/page";
-@import "4-layouts/tags";
 
-// 5-TRUMPS
-@import "5-trumps/helpers";
+// -----------------------------------------------------------------------------
+// 1. TOOLS
+// Mixins, functions, helpers (no CSS output by themselves)
+// -----------------------------------------------------------------------------
+
+@use "1-tools/mixins";
+@use "1-tools/motion";
+@use "1-tools/spacing-fluid";
+
+
+// -----------------------------------------------------------------------------
+// 2. GENERIC
+// Ground-zero styles: normalize, resets
+// -----------------------------------------------------------------------------
+
+@use "2-generic/normalize";
+@use "2-generic/reset";
+
+
+// -----------------------------------------------------------------------------
+// 3. BASE
+// Unclassed HTML elements (type selectors only)
+// -----------------------------------------------------------------------------
+
+@use "3-base/base";
+@use "3-base/elements";
+@use "3-base/links";
+@use "3-base/lists";
+@use "3-base/media";
+@use "3-base/spacing";
+@use "3-base/tables";
+@use "3-base/typography";
+
+
+// -----------------------------------------------------------------------------
+// 4. OBJECTS
+// Structural, cosmetic-free patterns
+// -----------------------------------------------------------------------------
+
+@use "4-objects/figure";
+@use "4-objects/header";
+@use "4-objects/stack";
+@use "4-objects/table";
+
+
+// -----------------------------------------------------------------------------
+// 5. COMPONENTS
+// Designed UI components
+// -----------------------------------------------------------------------------
+
+@use "5-components/avatar";
+@use "5-components/blockquote";
+@use "5-components/box";
+@use "5-components/buttons";
+@use "5-components/figure";
+@use "5-components/footer";
+@use "5-components/forms";
+@use "5-components/header";
+@use "5-components/hero";
+@use "5-components/navigation";
+@use "5-components/pagination";
+@use "5-components/syntax-highlighting";
+@use "5-components/tables";
+@use "5-components/tags";
+
+
+// -----------------------------------------------------------------------------
+// 6. LAYOUTS
+// Page-level composition
+// -----------------------------------------------------------------------------
+
+@use "6-layouts/home";
+@use "6-layouts/page";
+@use "6-layouts/post";
+@use "6-layouts/tags";
+
+
+// -----------------------------------------------------------------------------
+// 7. TRUMPS
+// Utilities, helpers, overrides (highest specificity)
+// -----------------------------------------------------------------------------
+
+@use "7-trumps/display";
+@use "7-trumps/spacing";
+@use "7-trumps/text";
+@use "7-trumps/visibility";

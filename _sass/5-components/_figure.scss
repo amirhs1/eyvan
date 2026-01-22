@@ -1,7 +1,22 @@
 // -----------------------------------------------------------------------------
 // Component — Figure
 // ITCSS layer: 5-components
-// -----------------------------------------------------------------------------
+//
+// Purpose:
+// Provides presentational styling for semantic <figure> elements,
+// specifically captions associated with media (images, diagrams, charts).
+//
+// Scope & Rules:
+// - Styles only the *designed* aspects of figures (caption typography & color)
+// - Assumes structural/layout concerns are handled by 4-objects/_figure.scss
+// - Does NOT set widths, margins, or media behavior
+// - Intended to work with native <figure><figcaption> markup
+//
+// Dependencies:
+// - colors: UI text tokens
+// - spacing: vertical rhythm
+// - typography: caption font sizing
+// ------------------------------------------------------------------------
 
 @use "../0-settings/colors" as color;
 @use "../0-settings/spacing" as space;

@@ -1,0 +1,65 @@
+// -----------------------------------------------------------------------------
+// Header Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Provides the visual design for the site header, including typography,
+// colors, and navigation styling.
+//
+// Scope & Rules:
+// - Component-level visuals only
+// - No page-level spacing or width constraints
+// - Structural layout delegated to header object
+// ------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../0-settings/typography" as type;
+@use "../1-tools/spacing-fluid" as fluid;
+
+.c-header {
+  background-color: colors.$ui-bg;
+  color: colors.$ui-text;
+  padding-top: fluid.$fluid-section-md;
+  margin-bottom: fluid.$fluid-section-md;
+}
+
+.c-header__title {
+  font-family: type.$font-family-display;
+  font-size: type.$font-size-xl;
+  line-height: 1.1;
+}
+
+.c-header__subtitle {
+  font-family: type.$font-family-display;
+  font-size: type.$font-size-lg;
+  border-bottom: config.$global-border-width solid colors.$ui-border;
+  margin-bottom: fluid.$fluid-stack-sm;
+}
+
+.c-header__tagline {
+  font-size: type.$font-size-base;
+  line-height: 1.6;
+  color: colors.$ui-text-muted;
+}
+
+.c-header__nav {
+  margin-top: fluid.$fluid-stack-lg;
+}
+
+.c-header__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: fluid.$fluid-inline-md;
+}
+
+.c-header__nav-link {
+  font-size: type.$font-size-sm;
+  color: colors.$ui-text-muted;
+  text-decoration: none;
+  transition: color config.$transition-interaction;
+
+  &:hover {
+    color: colors.$accent-primary;
+  }
+}

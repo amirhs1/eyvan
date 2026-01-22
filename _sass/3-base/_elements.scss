@@ -1,7 +1,30 @@
 // -----------------------------------------------------------------------------
 // Base — Elements
 // ITCSS layer: 3-base
-// -----------------------------------------------------------------------------
+//
+// Purpose:
+// Provides baseline styling for unclassed HTML elements that require
+// minimal visual normalization beyond resets and normalize.css.
+//
+// Scope & Rules:
+// - Targets native HTML elements only (type selectors)
+// - Establishes sensible defaults without expressing component intent
+// - No layout composition or contextual styling
+// - Keeps specificity intentionally low
+//
+// Usage:
+// - Global element defaults applied site-wide
+// - Serves as a foundation for objects and components
+// - Should be overridden by higher ITCSS layers when needed
+//
+// Notes:
+// - Only elements that benefit from a visual baseline should live here
+// - Decorative or contextual treatments belong in components
+//
+// Dependencies:
+// - colors: UI border tokens
+// - spacing: vertical rhythm scale
+// ------------------------------------------------------------------------
 
 @use "../0-settings/colors" as color;
 @use "../0-settings/spacing" as space;

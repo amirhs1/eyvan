@@ -1,0 +1,94 @@
+// -----------------------------------------------------------------------------
+// Navigation Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Defines the visual and interactive styling for primary navigation menus.
+//
+// Scope & Rules:
+// - Component-level styling only
+// - No page layout, positioning, or container logic
+// - Uses class selectors exclusively
+// - Layout composition belongs to 6-layouts
+//
+// Behavior:
+// - Horizontal list by default
+// - Keyboard-accessible focus states
+// - Token-driven spacing, typography, and color
+//
+// Usage:
+// - Primary site navigation
+// - Footer navigation
+// - Can be reused for secondary menus
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../0-settings/spacing" as spacing;
+@use "../0-settings/typography" as type;
+
+/* -----------------------------------------------------------------------------
+   Root
+   ----------------------------------------------------------------------------- */
+
+.c-nav {
+  font-family: type.$font-family-display;
+}
+
+/* -----------------------------------------------------------------------------
+   List
+   ----------------------------------------------------------------------------- */
+
+.c-nav__list {
+  display: flex;
+  align-items: center;
+  gap: spacing.$space-4;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Item
+   ----------------------------------------------------------------------------- */
+
+.c-nav__item {
+  // Intentionally empty: hook for future modifiers
+}
+
+/* -----------------------------------------------------------------------------
+   Link
+   ----------------------------------------------------------------------------- */
+
+.c-nav__link {
+  display: inline-block;
+
+  padding-block: spacing.$space-2;
+  padding-inline: spacing.$space-1;
+
+  font-size: type.$font-size-sm;
+  font-weight: type.$font-weight-medium;
+  text-decoration: none;
+
+  color: colors.$ui-text-muted;
+
+  transition: color config.$transition-interaction;
+
+  &:hover {
+    color: colors.$ui-text;
+  }
+
+  &:focus-visible {
+    outline: config.$focus-ring;
+    outline-offset: config.$focus-ring-offset;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Active State
+   ----------------------------------------------------------------------------- */
+
+.c-nav__link[aria-current="page"] {
+  color: colors.$ui-text;
+}

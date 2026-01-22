@@ -1,0 +1,33 @@
+// -----------------------------------------------------------------------------
+// Motion Utilities
+// ITCSS layer: 1-tools
+//
+// Purpose:
+// Provides reusable motion and interaction helpers used across components
+// (e.g. hover effects, reveal transitions).
+//
+// Scope & Rules:
+// - Tools only: mixins and utility patterns
+// - No selectors, no class names
+// - No design decisions (colors, layout, spacing)
+// - Safe to use across all layers
+// -----------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+
+/// Simple hover scale interaction
+/// @param {Number} $scale
+@mixin hover-scale($scale: 1.05) {
+  transition: transform config.$transition-interaction;
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+/// Reveal-on-scroll base state
+@mixin reveal-base {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity config.$transition-slow,
+              transform config.$transition-slow;
+}

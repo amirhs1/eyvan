@@ -1,0 +1,21 @@
+i// -----------------------------------------------------------------------------
+// Trumps — Spacing Overrides
+// ITCSS layer: 7-trumps
+//
+// Purpose:
+// Provide emergency spacing resets where base or component
+// spacing must be explicitly neutralized.
+//
+// Scope & Rules:
+// - Overrides only (never primary spacing tools)
+// - Always use !important
+// - Prefer objects or layout rules whenever possible
+// -----------------------------------------------------------------------------
+
+.u-no-margin {
+  margin: 0 !important;
+}
+
+.u-no-padding {
+  padding: 0 !important;
+}

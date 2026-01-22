@@ -1,7 +1,29 @@
 // -----------------------------------------------------------------------------
-// Component — Hero
+// Hero Component
 // ITCSS layer: 5-components
-// -----------------------------------------------------------------------------
+//
+// Purpose:
+// A reusable hero block used across page-level templates (page, post, home).
+// Typically contains a prominent media element and a primary heading.
+//
+// Scope & Rules:
+// - Owns all visual styling (backgrounds, borders, typography, elevation)
+// - Owns motion and reveal behavior (progressive enhancement)
+// - Does NOT control page-level spacing or width constraints
+// - Designed to be composed by layout files (6-layouts)
+//
+// Dependencies:
+// - Requires semantic tokens from 0-settings
+// - Optional JS interaction via `.is-revealed` state
+//
+// Markup expectations:
+// <section class="c-hero is-revealed">
+//   <div class="c-hero__image" style="background-image:url(...)"></div>
+//   <div class="c-hero__content">
+//     <h1 class="c-hero__title">Title</h1>
+//   </div>
+// </section>
+// ---------------------------------------------------------------------------
 
 @use "../0-settings/config" as config;
 @use "../0-settings/colors" as colors;

@@ -1,85 +1,13 @@
-// Text Alignment
-.text-left {
-	text-align: left;
-}
+// -----------------------------------------------------------------------------
+// Trumps — Helpers Index
+// ITCSS layer: 7-trumps
+//
+// Purpose:
+// Central entry point for all helper / utility overrides.
+// This file should only forward utility modules.
+// -----------------------------------------------------------------------------
 
-.text-right {
-	text-align: right;
-}
-
-.text-center {
-	text-align: center;
-}
-
-.text-justify {
-	text-align: justify;
-}
-
-
-// Display
-.block {
-	display: block;
-}
-
-.inline-block {
-	display: inline-block;
-}
-
-.inline {
-	display: inline;
-}
-
-
-// Vertical Center
-.vertical-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-
-// Display State
-.show {
-	display: block !important;
-}
-
-.hide {
-	display: none !important;
-}
-
-.invisible {
-	visibility: hidden;
-}
-
-
-// Floats
-.float-left {
-	float: left;
-}
-
-.float-right {
-	float: right;
-}
-
-
-// Padding
-.no-padding {
-	padding: 0;
-}
-
-
-// Margins
-.no-margin {
-	margin: 0;
-}
-
-
-// Clearfix
-.clearfix {
-  @include clearfix();
-}
-
-// Lists Reset
-.list-reset {
-	@include list-reset();
-}
+@forward "text";
+@forward "display";
+@forward "visibility";
+@forward "spacing";

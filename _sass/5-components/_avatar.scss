@@ -1,0 +1,26 @@
+// -----------------------------------------------------------------------------
+// Avatar Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Styles a circular avatar image used in the header or profile contexts.
+//
+// Scope & Rules:
+// - Visual styling only
+// - No layout or page-level positioning
+// - Motion delegated to shared tools
+// ------------------------------------------------------------------------
+
+@use "../0-settings/config" as config;
+@use "../0-settings/colors" as colors;
+@use "../1-tools/motion" as motion;
+
+.c-avatar {
+  display: block;
+  border-radius: 50%;
+  overflow: hidden;
+  border: config.$global-border-width solid colors.$ui-border;
+  width: 6rem;
+
+  @include motion.hover-scale;
+}

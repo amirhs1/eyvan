@@ -1,7 +1,31 @@
 // -----------------------------------------------------------------------------
 // Object — Table Wrapper
 // ITCSS layer: 4-objects
+//
+// Purpose:
+// Provides a structural wrapper for tabular data that enables horizontal
+// scrolling on smaller viewports without altering the table itself.
+//
+// Scope & Rules:
+// - Handles overflow behavior only
+// - Does NOT style table elements (cells, borders, typography)
+// - Does NOT impose margins, padding, or visual treatments
+// - Keeps native <table> semantics intact
+//
+// Usage:
+// - Wrap around <table> elements that may exceed viewport width
+// - Commonly used in article content and documentation pages
+// - Safe to compose inside layouts and content flows
+//
+// Example Markup:
+// <div class="o-table-wrap">
+//   <table>…</table>
+// </div>
+//
+// Dependencies:
+// - None (pure structural object)
 // -----------------------------------------------------------------------------
+
 
 .o-table-wrap {
   max-width: 100%;

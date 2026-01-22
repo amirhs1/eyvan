@@ -1,0 +1,106 @@
+.
+├── _config.yml
+├── _includes
+│   ├── footer-end.html
+│   ├── footer.html
+│   ├── head.html
+│   ├── header.html
+│   ├── pagination.html
+│   ├── post-card.html
+│   ├── read-time.html
+│   └── social-share.html
+├── _layouts
+│   ├── default.html
+│   ├── page.html
+│   └── post.html
+├── _posts
+├── _sass
+│   ├── 0-settings
+│   │   ├── _breakpoints.scss
+│   │   ├── _colors-art-dark.scss
+│   │   ├── _colors-art-light.scss
+│   │   ├── _colors-science-dark.scss
+│   │   ├── _colors-science-light.scss
+│   │   ├── _colors.scss
+│   │   ├── _config.scss
+│   │   ├── _palette-persian.scss
+│   │   ├── _spacing.scss
+│   │   └── _typography.scss
+│   ├── 1-tools
+│   │   ├── _mixins.scss
+│   │   └── _spacing-fluid.scss
+│   ├── 2-generic
+│   │   ├── _normalize.scss
+│   │   └── _reset.scss
+│   ├── 3-base
+│   │   ├── _base.scss
+│   │   ├── _elements.scss
+│   │   ├── _links.scss
+│   │   ├── _lists.scss
+│   │   ├── _media.scss
+│   │   ├── _spacing.scss
+│   │   ├── _stack.scss
+│   │   ├── _tables.scss
+│   │   └── _typography.scss
+│   ├── 4-objects
+│   │   ├── _figure.scss
+│   │   └── _table.scss
+│   ├── 5-components
+│   │   ├── _blockquote.scss
+│   │   ├── _box.scss
+│   │   ├── _buttons.scss
+│   │   ├── _figure.scss
+│   │   ├── _footer.scss
+│   │   ├── _forms.scss
+│   │   ├── _hero.scss
+│   │   ├── _pagination.scss
+│   │   ├── _syntax-highlighting.scss
+│   │   ├── _tables.scss
+│   │   └── _tags.scss
+│   ├── 6-layouts
+│   │   ├── _home.scss
+│   │   ├── _page.scss
+│   │   ├── _post.scss
+│   │   └── _tags.scss
+│   ├── 7-trumps
+│   │   └── _helpers.scss
+│   └── make_copy.sh
+├── _site
+├── 404.html
+├── assets
+│   ├── css
+│   │   └── main.scss
+│   ├── fonts
+│   │   ├── EB_Garamond
+│   │   │   └── static
+│   │   ├── IBM_Plex_Mono
+│   │   ├── IBM_Plex_Sans
+│   │   │   └── static
+│   │   ├── Inter
+│   │   │   └── static
+│   │   ├── JetBrains_Mono
+│   │   │   └── static
+│   │   ├── Literata
+│   │   │   └── static
+│   │   ├── Source_Code_Pro
+│   │   │   └── static
+│   │   ├── Source_Serif_4
+│   │   │   └── static
+│   │   └── Space_Grotesk
+│   │       └── static
+│   ├── images
+│   └── js
+│       ├── common.js
+│       ├── jquery-3.3.1.min.js
+│       ├── jquery.fitvids.js
+│       └── jquery.waitforimages.min.js
+├── favicon.ico
+├── Gemfile
+├── Gemfile.lock
+├── index.html
+├── iwan-jekyll.gemspec
+├── LICENSE
+├── README.md
+└── tags.html
+
+36 directories, 68 files

@@ -1,6 +1,26 @@
 // -----------------------------------------------------------------------------
 // Component — Blockquote
 // ITCSS layer: 5-components
+//
+// Purpose:
+// Provides a styled quotation component for emphasizing quoted text
+// within articles, essays, and long-form content.
+//
+// Scope & Rules:
+// - Applies visual treatment (spacing, typography, accent) to quoted content
+// - Assumes semantic <blockquote> or equivalent markup in templates
+// - Does NOT control layout, width, or positioning in the page flow
+// - Internal typography adjustments are limited to quote content only
+//
+// Usage:
+// - Designed for editorial and article contexts (posts, pages)
+// - Can wrap one or more paragraphs
+// - Safe to compose inside layout and content flows
+//
+// Dependencies:
+// - colors: accent and UI color tokens
+// - spacing: padding scale
+// - typography: quote text sizing
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/colors" as color;

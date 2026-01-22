@@ -3,9 +3,25 @@
 // ITCSS layer: 4-objects
 //
 // Purpose:
-// A generic, reusable visual shell. It defines the "surface" of a container
-// without assuming its role in the layout.
-// -----------------------------------------------------------------------------
+// Provides a generic, reusable container shell that represents a UI "surface".
+// It establishes background, border, radius, and elevation without implying
+// layout, content type, or interaction behavior.
+//
+// Scope & Rules:
+// - Defines *structure-neutral* visual affordances only
+// - No spacing, positioning, or layout assumptions
+// - No typography or color variants beyond surface tokens
+// - Intended to be composed by components and layouts
+//
+// Usage:
+// - Base wrapper for cards, panels, callouts, and framed content
+// - May be extended or wrapped by components (e.g. .c-card, .c-box)
+// - Safe to use anywhere without affecting flow
+//
+// Dependencies:
+// - config: global radius, border, and elevation tokens
+// - colors: surface and border color tokens
+// -----------------------------------------------------------------------
 
 @use "../0-settings/config" as config;
 @use "../0-settings/colors" as colors;

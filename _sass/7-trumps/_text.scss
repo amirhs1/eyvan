@@ -1,0 +1,30 @@
+// -----------------------------------------------------------------------------
+// Trumps — Text Utilities
+// ITCSS layer: 7-trumps
+//
+// Purpose:
+// Force text alignment overrides when component or layout defaults
+// must be bypassed intentionally.
+//
+// Scope & Rules:
+// - Single-responsibility utilities
+// - Always use !important to win the cascade
+// - Must not introduce layout or spacing side effects
+// - Use sparingly; prefer semantic styling elsewhere
+// -----------------------------------------------------------------------------
+
+.u-text-left {
+  text-align: left !important;
+}
+
+.u-text-center {
+  text-align: center !important;
+}
+
+.u-text-right {
+  text-align: right !important;
+}
+
+.u-text-justify {
+  text-align: justify !important;
+}

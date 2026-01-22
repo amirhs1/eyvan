@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------
+// Trumps — Visibility Utilities
+// ITCSS layer: 7-trumps
+//
+// Purpose:
+// Control visibility and presence in the document flow
+// without affecting layout definitions.
+//
+// Scope & Rules:
+// - Overrides only
+// - No transitions or animations
+// - Intended for state-based UI logic (JS, CMS output)
+// -----------------------------------------------------------------------------
+
+.u-show {
+  display: block !important;
+}
+
+.u-hide {
+  display: none !important;
+}
+
+.u-invisible {
+  visibility: hidden !important;
+}

@@ -11,25 +11,29 @@
 // - Uses design tokens only (no raw color values)
 // - No global layout assumptions outside the code container
 // - Token names follow Base16-style semantics for theme portability
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/typography" as settings-typography;
+@use "../0-settings/config" as settings-config;
 
 /* -----------------------------------------------------------------------------
    Semantic Syntax Token Aliases
    ----------------------------------------------------------------------------- */
 
-$syntax-bg:        $base00;
-$syntax-fg:        $base05;
-$syntax-muted:     $base04;
-$syntax-accent:    $base0c;
+$syntax-bg:        settings-colors.$base00;
+$syntax-fg:        settings-colors.$base05;
+$syntax-muted:     settings-colors.$base04;
+$syntax-highlight-bg: settings-colors.$base06;
+$syntax-accent:    settings-colors.$base0c;
 
-$syntax-error:     $base08;
-$syntax-warning:   $base09;
-$syntax-success:   $base0b;
+$syntax-error:     settings-colors.$base08;
+$syntax-warning:   settings-colors.$base09;
+$syntax-success:   settings-colors.$base0b;
 
-$syntax-keyword:   $base0e;
-$syntax-type:      $base0a;
-$syntax-name:      $base0d;
-
+$syntax-keyword:   settings-colors.$base0e;
+$syntax-type:      settings-colors.$base0a;
+$syntax-name:      settings-colors.$base0d;
 /* -----------------------------------------------------------------------------
    Code Container
    ----------------------------------------------------------------------------- */
@@ -39,10 +43,10 @@ figure.highlight {
   position: relative;
   background: $syntax-bg;
   color: $syntax-fg;
-  font-family: $monospace;
-  font-size: $type-size;
+  font-family: settings-typography.$font-family-mono;
+  font-size: settings-typography.$font-size-sm;
   line-height: 1.8;
-  border-radius: $border-radius;
+  border-radius: settings-config.$global-radius;
 
   > pre,
   pre.highlight {
@@ -95,7 +99,7 @@ figure.highlight {
    ----------------------------------------------------------------------------- */
 
 .highlight .hll {
-  background-color: $base06;
+  background-color: $syntax-highlight-bg;
 }
 
 /* -----------------------------------------------------------------------------

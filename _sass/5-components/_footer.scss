@@ -19,12 +19,12 @@
 // - Breakpoints are chosen based on content semantics, not device classes
 //
 
-@use "../0-settings/config";        // transitions, focus, opacity tokens
-@use "../0-settings/spacing";
-@use "../0-settings/typography";
-@use "../0-settings/colors";
-@use "../0-settings/breakpoints";
-@use "../1-tools/spacing-fluid" as fluid;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../1-tools/spacing-fluid" as tools-spacing-fluid;
 
 /* -----------------------------------------------------------------------------
    Root
@@ -32,11 +32,11 @@
 
 .c-footer {
   // Footer treated as a visual section boundary
-  margin-top: fluid.$fluid-section-sm;
-  padding-block: fluid.$fluid-section-lg;
+  margin-top: tools-spacing-fluid.$fluid-section-sm;
+  padding-block: tools-spacing-fluid.$fluid-section-lg;
 
-  background-color: colors.$ui-surface;
-  color: colors.$ui-text-muted;
+  background-color: settings-colors.$ui-surface;
+  color: settings-colors.$ui-text-muted;
 }
 
 /* -----------------------------------------------------------------------------
@@ -48,29 +48,29 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: spacing.$space-4;
+  gap: settings-spacing.$space-4;
 
-  padding-bottom: spacing.$space-4;
-  margin-bottom: spacing.$space-4;
+  padding-bottom: settings-spacing.$space-4;
+  margin-bottom: settings-spacing.$space-4;
 
-  border-bottom: 1px solid colors.$ui-border;
+  border-bottom: 1px solid settings-colors.$ui-border;
 }
 
 /* Brand */
 
 .c-footer__brand {
-  font-size: typography.$font-size-sm;
-  font-weight: typography.$font-weight-bold;
-  letter-spacing: typography.$tracking-wide;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-bold;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
   text-transform: uppercase;
   line-height: 1;
 
-  color: colors.$ui-text;
+  color: settings-colors.$ui-text;
   text-decoration: none;
-  transition: config.$transition-base;
+  transition: settings-config.$transition-base;
 
   &:hover {
-    color: colors.$accent-primary;
+    color: settings-colors.$accent-primary;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -85,25 +85,25 @@
   align-items: center;
   justify-content: center;
 
-  width: spacing.$space-6;
-  height: spacing.$space-6;
+  width: settings-spacing.$space-6;
+  height: settings-spacing.$space-6;
 
-  border: 1px solid colors.$ui-border;
-  background-color: colors.$ui-surface-raised;
-  color: colors.$ui-text;
+  border: 1px solid settings-colors.$ui-border;
+  background-color: settings-colors.$ui-surface-raised;
+  color: settings-colors.$ui-text;
 
   cursor: pointer;
-  opacity: config.$disabled-opacity;
-  transition: config.$transition-fast;
+  opacity: settings-config.$disabled-opacity;
+  transition: settings-config.$transition-fast;
 
   &:hover {
-    opacity: config.$focus-opacity;
-    border-color: colors.$accent-secondary;
+    opacity: settings-config.$focus-opacity;
+    border-color: settings-colors.$accent-secondary;
   }
 
   &:focus-visible {
-    outline: config.$focus-ring-width solid colors.$accent-primary;
-    outline-offset: config.$focus-ring-offset;
+    outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
+    outline-offset: settings-config.$focus-ring-offset;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -118,9 +118,9 @@
 .c-footer__bottom {
   display: flex;
   flex-direction: column;
-  gap: spacing.$space-4;
+  gap: settings-spacing.$space-4;
 
-  @media (min-width: breakpoints.$bp-md) {
+  @media (min-width: settings-breakpoints.$bp-md) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -129,16 +129,16 @@
 /* Copyright */
 
 .c-footer__copyright {
-  font-size: typography.$font-size-xs;
-  color: colors.$ui-text-muted;
+  font-size: settings-typography.$font-size-xs;
+  color: settings-colors.$ui-text-muted;
 
   a {
-    color: colors.$ui-text;
+    color: settings-colors.$ui-text;
     text-decoration: underline;
     text-underline-offset: 2px;
 
     &:hover {
-      color: colors.$accent-primary;
+      color: settings-colors.$accent-primary;
     }
   }
 }
@@ -147,17 +147,17 @@
 
 .c-footer__social {
   display: flex;
-  gap: spacing.$space-4;
+  gap: settings-spacing.$space-4;
 
   a {
-    font-size: typography.$font-size-xs;
-    font-weight: typography.$font-weight-medium;
-    color: colors.$ui-text-muted;
+    font-size: settings-typography.$font-size-xs;
+    font-weight: settings-typography.$font-weight-medium;
+    color: settings-colors.$ui-text-muted;
     text-decoration: none;
-    transition: config.$transition-interaction;
+    transition: settings-config.$transition-interaction;
 
     &:hover {
-      color: colors.$accent-primary;
+      color: settings-colors.$accent-primary;
     }
 
     @media (prefers-reduced-motion: reduce) {

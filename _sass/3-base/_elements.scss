@@ -26,12 +26,12 @@
 // - spacing: vertical rhythm scale
 // ------------------------------------------------------------------------
 
-@use "../0-settings/colors" as color;
-@use "../0-settings/spacing" as space;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/spacing" as settings-spacing;
 
 hr {
   display: block;
   border: 0;
-  border-top: 2px solid color.$ui-border;
-  margin: space.$space-6 0;
+  border-top: 2px solid settings-colors.$ui-border;
+  margin: settings-spacing.$space-6 0;
 }

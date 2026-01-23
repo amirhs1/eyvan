@@ -11,8 +11,8 @@
 // - Manages vertical rhythm and wrapping behavior only
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/spacing" as spacing;
-@use "../1-tools/spacing-fluid" as fluid;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/spacing-fluid" as tools-spacing-fluid;
 
 /* -----------------------------------------------------------------------------
    Tag Group
@@ -20,7 +20,7 @@
    ----------------------------------------------------------------------------- */
 
 .l-tags {
-  margin-block: fluid.$fluid-stack-md;
+  margin-block: tools-spacing-fluid.$fluid-stack-md;
 }
 
 /* -----------------------------------------------------------------------------
@@ -31,7 +31,7 @@
 .l-tags__list {
   display: flex;
   flex-wrap: wrap;
-  gap: spacing.$space-2 spacing.$space-3; // row-gap / column-gap
+  gap: settings-spacing.$space-2 settings-spacing.$space-3; // row-gap / column-gap
   padding: 0;
   margin: 0;
   list-style: none;

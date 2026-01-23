@@ -16,33 +16,33 @@
 // - Base structural defaults live in 3-base/_tables.scss.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as color;
-@use "../0-settings/spacing" as space;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/spacing" as settings-spacing;
 
 .c-table {
   width: 100%;
   border-collapse: collapse;
-  color: color.$body-color;
-  background-color: color.$ui-surface;
+  color: settings-colors.$body-color;
+  background-color: settings-colors.$ui-surface;
 }
 
 .c-table th {
-  padding: space.$space-3;
+  padding: settings-spacing.$space-3;
   text-align: left;
-  color: color.$btn-text;
-  background-color: color.$accent-primary;
-  border: 1px solid color.$ui-border;
+  color: settings-colors.$btn-text;
+  background-color: settings-colors.$accent-primary;
+  border: 1px solid settings-colors.$ui-border;
 }
 
 .c-table td {
-  padding: space.$space-3;
-  border: 1px solid color.$ui-border;
+  padding: settings-spacing.$space-3;
+  border: 1px solid settings-colors.$ui-border;
 }
 
 .c-table tr:nth-child(even) {
-  background-color: color.$ui-surface-raised;
+  background-color: settings-colors.$ui-surface-raised;
 }
 
 .c-table tr:hover {
-  background-color: color.$ui-surface-raised;
+  background-color: settings-colors.$ui-surface-raised;
 }

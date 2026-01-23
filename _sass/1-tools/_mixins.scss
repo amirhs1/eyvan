@@ -11,7 +11,8 @@
 // - Token-driven where applicable (0-settings)
 // - No design decisions
 // -----------------------------------------------------------------------------
-
+@use "sass:meta";
+@use "sass:math";
 /* -----------------------------------------------------------------------------
    Responsive Media Queries
    Hooks into _breakpoints.scss
@@ -20,7 +21,7 @@
 /// Mobile-first media query helper.
 /// @param {Number} $breakpoint - Token from _breakpoints.scss (e.g. $bp-md)
 @mixin mq-up($breakpoint) {
-  @if type-of($breakpoint) != 'number' or unitless($breakpoint) {
+  @if meta.type-of($breakpoint) != 'number' or math.is-unitless($breakpoint) {
     @error 'mq-up expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}';
   }
 

@@ -22,17 +22,17 @@
 // - Can be reused for secondary menus
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/config" as config;
-@use "../0-settings/colors" as colors;
-@use "../0-settings/spacing" as spacing;
-@use "../0-settings/typography" as type;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
 
 /* -----------------------------------------------------------------------------
    Root
    ----------------------------------------------------------------------------- */
 
 .c-nav {
-  font-family: type.$font-family-display;
+  font-family: settings-typography.$font-family-display;
 }
 
 /* -----------------------------------------------------------------------------
@@ -42,7 +42,7 @@
 .c-nav__list {
   display: flex;
   align-items: center;
-  gap: spacing.$space-4;
+  gap: settings-spacing.$space-4;
 
   margin: 0;
   padding: 0;
@@ -64,24 +64,24 @@
 .c-nav__link {
   display: inline-block;
 
-  padding-block: spacing.$space-2;
-  padding-inline: spacing.$space-1;
+  padding-block: settings-spacing.$space-2;
+  padding-inline: settings-spacing.$space-1;
 
-  font-size: type.$font-size-sm;
-  font-weight: type.$font-weight-medium;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-medium;
   text-decoration: none;
 
-  color: colors.$ui-text-muted;
+  color: settings-colors.$ui-text-muted;
 
-  transition: color config.$transition-interaction;
+  transition: color settings-config.$transition-interaction;
 
   &:hover {
-    color: colors.$ui-text;
+    color: settings-colors.$ui-text;
   }
 
   &:focus-visible {
-    outline: config.$focus-ring;
-    outline-offset: config.$focus-ring-offset;
+    outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
+    outline-offset: settings-config.$focus-ring-offset;
   }
 }
 
@@ -90,5 +90,5 @@
    ----------------------------------------------------------------------------- */
 
 .c-nav__link[aria-current="page"] {
-  color: colors.$ui-text;
+  color: settings-colors.$ui-text;
 }

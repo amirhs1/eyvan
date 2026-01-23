@@ -16,9 +16,9 @@
 //   rules or via objects like .o-stack in 4-objects.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as color;
-@use "../0-settings/typography" as type;
-@use "../0-settings/spacing" as space;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/typography" as settings-typography;
+@use "../0-settings/spacing" as settings-spacing;
 
 h1,
 h2,
@@ -26,27 +26,27 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: type.$font-family-display;
-  font-weight: type.$font-weight-bold;
-  line-height: type.$line-height-tight;
-  color: color.$heading-color;
+  font-family: settings-typography.$font-family-display;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  color: settings-colors.$heading-color;
 }
 
 /* Map heading sizes to your existing type scale */
-h1 { font-size: type.$font-size-xxxl; }
-h2 { font-size: type.$font-size-xxl; }
-h3 { font-size: type.$font-size-xl; }
-h4 { font-size: type.$font-size-lg; }
-h5 { font-size: type.$font-size-md; }
-h6 { font-size: type.$font-size-sm; }
+h1 { font-size: settings-typography.$font-size-xxxl; }
+h2 { font-size: settings-typography.$font-size-xxl; }
+h3 { font-size: settings-typography.$font-size-xl; }
+h4 { font-size: settings-typography.$font-size-lg; }
+h5 { font-size: settings-typography.$font-size-md; }
+h6 { font-size: settings-typography.$font-size-sm; }
 
 blockquote {
-  padding-left: space.$space-4;
-  border-left: 3px solid color.$accent-primary;
-  color: color.$body-color;
+  padding-left: settings-spacing.$space-4;
+  border-left: 3px solid settings-colors.$accent-primary;
+  color: settings-colors.$body-color;
 }
 
 pre {
-  font-family: type.$font-family-mono;
+  font-family: settings-typography.$font-family-mono;
   overflow-x: auto;
 }

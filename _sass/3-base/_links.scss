@@ -15,19 +15,19 @@
 // - Component-specific link styling belongs in 5-components.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as color;
-@use "../0-settings/config" as config;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/config" as settings-config;
 
 a {
-  color: color.$link-color;
+  color: settings-colors.$link-color;
   text-decoration: none;
 }
 
 a:hover {
-  color: color.$link-hover;
+  color: settings-colors.$link-hover;
 }
 
 a:focus-visible {
-  outline: config.$focus-ring-width solid color.$accent-primary;
-  outline-offset: config.$focus-ring-offset;
+  outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
+  outline-offset: settings-config.$focus-ring-offset;
 }

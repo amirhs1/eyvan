@@ -1,6 +1,5 @@
 ---
 ---
-
 // ============================================================================
 // MAIN STYLESHEET
 // Purpose: Compose the design system in strict ITCSS order.
@@ -13,11 +12,11 @@
 // Global tokens, configuration, and design decisions
 // -----------------------------------------------------------------------------
 
-@use "0-settings/config";
-@use "0-settings/breakpoints";
-@use "0-settings/colors";
-@use "0-settings/spacing";
-@use "0-settings/typography";
+@use "0-settings/config" as settings-config;
+@use "0-settings/breakpoints" as settings-breakpoints;
+@use "0-settings/colors" as settings-colors;
+@use "0-settings/spacing" as settings-spacing;
+@use "0-settings/typography" as settings-typography;
 
 
 // -----------------------------------------------------------------------------
@@ -25,9 +24,9 @@
 // Mixins, functions, helpers (no CSS output by themselves)
 // -----------------------------------------------------------------------------
 
-@use "1-tools/mixins";
-@use "1-tools/motion";
-@use "1-tools/spacing-fluid";
+@use "1-tools/mixins" as tools-mixins;
+@use "1-tools/motion" as tools-motion;
+@use "1-tools/spacing-fluid" as tools-spacing-fluid;
 
 
 // -----------------------------------------------------------------------------
@@ -35,8 +34,8 @@
 // Ground-zero styles: normalize, resets
 // -----------------------------------------------------------------------------
 
-@use "2-generic/normalize";
-@use "2-generic/reset";
+@use "2-generic/normalize" as generic-normalize;
+@use "2-generic/reset" as generic-reset;
 
 
 // -----------------------------------------------------------------------------
@@ -44,14 +43,14 @@
 // Unclassed HTML elements (type selectors only)
 // -----------------------------------------------------------------------------
 
-@use "3-base/base";
-@use "3-base/elements";
-@use "3-base/links";
-@use "3-base/lists";
-@use "3-base/media";
-@use "3-base/spacing";
-@use "3-base/tables";
-@use "3-base/typography";
+@use "3-base/base" as base-base;
+@use "3-base/elements" as base-elements;
+@use "3-base/links" as base-links;
+@use "3-base/lists" as base-lists;
+@use "3-base/media" as base-media;
+@use "3-base/spacing" as base-spacing;
+@use "3-base/tables" as base-tables;
+@use "3-base/typography" as base-typography;
 
 
 // -----------------------------------------------------------------------------
@@ -59,31 +58,30 @@
 // Structural, cosmetic-free patterns
 // -----------------------------------------------------------------------------
 
-@use "4-objects/figure";
-@use "4-objects/header";
-@use "4-objects/stack";
-@use "4-objects/table";
-
+@use "4-objects/figure" as object-figure;
+@use "4-objects/header" as object-header;
+@use "4-objects/stack" as object-stack;
+@use "4-objects/table" as object-table;
 
 // -----------------------------------------------------------------------------
 // 5. COMPONENTS
 // Designed UI components
 // -----------------------------------------------------------------------------
 
-@use "5-components/avatar";
-@use "5-components/blockquote";
-@use "5-components/box";
-@use "5-components/buttons";
-@use "5-components/figure";
-@use "5-components/footer";
-@use "5-components/forms";
-@use "5-components/header";
-@use "5-components/hero";
-@use "5-components/navigation";
-@use "5-components/pagination";
-@use "5-components/syntax-highlighting";
-@use "5-components/tables";
-@use "5-components/tags";
+@use "5-components/avatar" as component-avatar;
+@use "5-components/blockquote" as component-blockquote;
+@use "5-components/box" as component-box;
+@use "5-components/buttons" as component-buttons;
+@use "5-components/figure" as component-figure;
+@use "5-components/footer" as component-footer;
+@use "5-components/forms" as component-forms;
+@use "5-components/header" as component-header;
+@use "5-components/hero" as component-hero;
+@use "5-components/navigation" as component-navigation;
+@use "5-components/pagination" as component-pagination;
+@use "5-components/syntax-highlighting" as component-syntax-highlighting;
+@use "5-components/tables" as component-tables;
+@use "5-components/tags" as component-tags;
 
 
 // -----------------------------------------------------------------------------
@@ -91,18 +89,17 @@
 // Page-level composition
 // -----------------------------------------------------------------------------
 
-@use "6-layouts/home";
-@use "6-layouts/page";
-@use "6-layouts/post";
-@use "6-layouts/tags";
-
+@use "6-layouts/home" as layout-home;
+@use "6-layouts/page" as layout-page;
+@use "6-layouts/post" as layout-post;
+@use "6-layouts/tags" as layout-tags;
 
 // -----------------------------------------------------------------------------
 // 7. TRUMPS
 // Utilities, helpers, overrides (highest specificity)
 // -----------------------------------------------------------------------------
 
-@use "7-trumps/display";
-@use "7-trumps/spacing";
-@use "7-trumps/text";
-@use "7-trumps/visibility";
+@use "7-trumps/display" as trump-display;
+@use "7-trumps/spacing" as trump-spacing;
+@use "7-trumps/text" as trump-text;
+@use "7-trumps/visibility" as trump-visibility;

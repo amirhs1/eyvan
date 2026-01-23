@@ -11,7 +11,7 @@
 // - No layout or component assumptions
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/spacing" as spacing;
+@use "../0-settings/spacing" as settings-spacing;
 
 h1, h2, h3, h4, h5, h6,
 p,
@@ -22,5 +22,5 @@ table,
 figure,
 fieldset,
 hr {
-  margin-bottom: spacing.$space-4;
+  margin-bottom: settings-spacing.$space-4;
 }

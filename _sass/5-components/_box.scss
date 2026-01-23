@@ -23,13 +23,13 @@
 // - colors: surface and border color tokens
 // -----------------------------------------------------------------------
 
-@use "../0-settings/config" as config;
-@use "../0-settings/colors" as colors;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/colors" as settings-colors;
 
 .o-box {
   // Consumes "Surface" tokens from 0-settings
-  background-color: colors.$ui-surface;
-  border-radius: config.$global-radius;
-  border: config.$global-border-width solid colors.$ui-border;
-  box-shadow: 0 config.$shadow-offset-y config.$shadow-blur colors.$ui-shadow-color;
+  background-color: settings-colors.$ui-surface;
+  border-radius: settings-config.$global-radius;
+  border: settings-config.$global-border-width solid settings-colors.$ui-border;
+  box-shadow: 0 settings-config.$shadow-offset-y settings-config.$shadow-blur settings-colors.$ui-shadow-color;
 }

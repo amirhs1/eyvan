@@ -16,27 +16,27 @@
 // - Layout/grouping of forms belongs in 4-objects or 6-layouts.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as color;
+@use "../0-settings/colors" as settings-colors;
 
 input,
 textarea {
-  border: 1px solid color.$ui-border;
+  border: 1px solid settings-colors.$ui-border;
   font: inherit;
-  color: color.$body-color;
-  background-color: color.$ui-surface;
+  color: settings-colors.$body-color;
+  background-color: settings-colors.$ui-surface;
   outline: none;
 }
 
 input:focus:required:invalid,
 textarea:focus:required:invalid {
-  border-color: color.$state-error;
+  border-color: settings-colors.$state-error;
 }
 
 input:required:valid,
 textarea:required:valid {
-  border-color: color.$state-success;
+  border-color: settings-colors.$state-success;
 }
 
 ::placeholder {
-  color: color.$ui-text-muted;
+  color: settings-colors.$ui-text-muted;
 }

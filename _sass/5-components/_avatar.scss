@@ -11,16 +11,16 @@
 // - Motion delegated to shared tools
 // ------------------------------------------------------------------------
 
-@use "../0-settings/config" as config;
-@use "../0-settings/colors" as colors;
-@use "../1-tools/motion" as motion;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/colors" as settings-colors;
+@use "../1-tools/motion" as tools-motion;
 
 .c-avatar {
   display: block;
   border-radius: 50%;
   overflow: hidden;
-  border: config.$global-border-width solid colors.$ui-border;
+  border: settings-config.$global-border-width solid settings-colors.$ui-border;
   width: 6rem;
 
-  @include motion.hover-scale;
+  @include tools-motion.hover-scale;
 }

@@ -86,9 +86,11 @@ $text-measure-wide: 75ch;
    Letter Spacing (Tracking)
    ----------------------------------------------------------------------------- */
 
-$letter-spacing-tight: -0.02em; // Large display headings
-$letter-spacing-normal: 0;
-$letter-spacing-wide: 0.05em; // Uppercase/Small-caps UI labels
+$letter-spacing-tight:    -0.02em;
+$letter-spacing-normal:    0;
+$letter-spacing-loose-sm:  0.01em;
+$letter-spacing-loose-md:  0.05em;
+$letter-spacing-loose-lg:  0.12em;
 
 /* --------------------------------------------------
    Fluid Type Tokens (Optional)

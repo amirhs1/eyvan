@@ -13,12 +13,12 @@
 // - Safe to use across all layers
 // -----------------------------------------------------------------------
 
-@use "../0-settings/config" as config;
+@use "../0-settings/config" as settings-config;
 
 /// Simple hover scale interaction
 /// @param {Number} $scale
 @mixin hover-scale($scale: 1.05) {
-  transition: transform config.$transition-interaction;
+  transition: transform settings-config.$transition-interaction;
   &:hover {
     transform: scale($scale);
   }
@@ -28,6 +28,6 @@
 @mixin reveal-base {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity config.$transition-slow,
-              transform config.$transition-slow;
+  transition: opacity settings-config.$transition-slow,
+              transform settings-config.$transition-slow;
 }

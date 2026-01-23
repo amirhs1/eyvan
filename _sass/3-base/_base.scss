@@ -17,23 +17,23 @@
 // - Color theming is resolved via 0-settings/_colors.scss
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as color;
-@use "../0-settings/typography" as type;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/typography" as settings-typography;
 
 body {
-  font-family: type.$font-family-body;
-  font-size: type.$font-size-md;
-  line-height: type.$line-height-normal;
-  color: color.$body-color;
-  background-color: color.$body-bg;
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-md;
+  line-height: settings-typography.$line-height-normal;
+  color: settings-colors.$body-color;
+  background-color: settings-colors.$body-bg;
 
   overflow-x: hidden;
 
-  -webkit-font-smoothing: type.$font-smoothing-webkit;
-  -moz-osx-font-smoothing: type.$font-smoothing-moz;
+  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
+  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
 }
 
 ::selection {
-  color: color.$btn-text;
-  background-color: color.$accent-primary;
+  color: settings-colors.$btn-text;
+  background-color: settings-colors.$accent-primary;
 }

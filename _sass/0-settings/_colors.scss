@@ -23,18 +23,5 @@
 // Theme Resolution
 // -----------------------------------------------------------------------------
 
-@if config.$theme == science and config.$mode == light {
-  @forward "colors-science-light";
 
-} @else if config.$theme == science and config.$mode == dark {
-  @forward "colors-science-dark";
-
-} @else if config.$theme == art and config.$mode == light {
-  @forward "colors-art-light";
-
-} @else if config.$theme == art and config.$mode == dark {
-  @forward "colors-art-dark";
-
-} @else {
-  @error "Invalid theme/mode combination. Check 0-settings/_config.scss.";
-}
+@forward "colors-art-dark";

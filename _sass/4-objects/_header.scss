@@ -1,42 +1,56 @@
 // -----------------------------------------------------------------------------
-// Header Object
+// Object — Header
 // ITCSS layer: 4-objects
 //
 // Purpose:
-// Defines the structural layout pattern for the site header.
-// Handles alignment and flow of header elements without imposing visual style.
+// Structural layout pattern for the site header.
+// Controls alignment, grouping, and responsive flow (no cosmetics).
 //
 // Scope & Rules:
-// - Layout and structure only
-// - No colors, typography, borders, or motion
-// - No assumptions about page context
-// - Intended to be composed by layout and styled by components
-// -----------------------------------------------------------------------
+// - No colors, typography, shadows, borders, or theme decisions
+// - Layout only: flex/grid, alignment, wrapping, and spacing
+// - Responsive behavior via tools (mq-up) using breakpoint tokens from settings
+// - Mobile-first defaults; enhance at larger breakpoints
+//
+// Usage (expected markup):
+// <header class="o-header">
+//   <div class="o-header__group o-header__group--start">...</div>
+//   <div class="o-header__group o-header__group--end">...</div>
+// </header>
+//
+// Dependencies:
+// - 0-settings/_breakpoints.scss (tokens)
+// - 0-settings/_spacing.scss (tokens)
+// - 1-tools/_mixins.scss (mq-up)
+// -----------------------------------------------------------------------------
 
-@use "../0-settings/breakpoints" as bp;
-@use "../1-tools/spacing-fluid" as fluid;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/mixins" as tools-mixins;
 
 .o-header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: fluid.$fluid-stack-md;
+  gap: settings-spacing.$space-4;
 }
 
 .o-header__group {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
 }
 
-@include bp.mq-down(bp.$bp-sm) {
+// Responsive enhancement (tablet+) 
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
   .o-header {
-    justify-content: center;
-    text-align: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .o-header__group {
-    align-items: center;
+    align-items: flex-end;
   }
 }

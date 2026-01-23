@@ -11,14 +11,14 @@
 // - Components and objects control list layout
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/spacing" as spacing;
+@use "../0-settings/spacing" as settings-spacing;
 
 ul,
 ol,
 dl {
-  margin-bottom: spacing.$space-4;
+  margin-bottom: settings-spacing.$space-4;
 }
 
 dd {
-  margin-left: spacing.$space-4;
+  margin-left: settings-spacing.$space-4;
 }

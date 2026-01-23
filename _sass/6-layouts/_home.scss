@@ -12,15 +12,15 @@
 // - Composes existing objects and components
 // ------------------------------------------------------------------------
 
-@use "../0-settings/config" as config;
-@use "../1-tools/spacing-fluid" as fluid;
+@use "../0-settings/config" as settings-config;
+@use "../1-tools/spacing-fluid" as tools-spacing-fluid;
 
 /* -----------------------------------------------------------------------------
    Root
    ----------------------------------------------------------------------------- */
 
 .l-home {
-  margin-bottom: fluid.$fluid-section-lg;
+  margin-bottom: tools-spacing-fluid.$fluid-section-lg;
 }
 
 /* -----------------------------------------------------------------------------
@@ -28,7 +28,7 @@
    ----------------------------------------------------------------------------- */
 
 .l-home__header {
-  max-width: config.$measure-site;
+  max-width: settings-config.$measure-site;
   margin-inline: auto;
 }
 
@@ -39,11 +39,9 @@
 .l-home__feed {
   display: flex;
   flex-direction: column;
-  gap: fluid.$fluid-stack-lg;
+  gap: tools-spacing-fluid.$fluid-stack-lg;
 
-  max-width: config.$measure-site;
-  margin-inline: auto;
-  margin-top: fluid.$fluid-section-md;
+  max-width: settings-config.$measure-site;
 }
 
 /* -----------------------------------------------------------------------------
@@ -51,5 +49,5 @@
    ----------------------------------------------------------------------------- */
 
 .l-home__featured {
-  margin-bottom: fluid.$fluid-section-lg;
+  margin-bottom: tools-spacing-fluid.$fluid-section-lg;
 }

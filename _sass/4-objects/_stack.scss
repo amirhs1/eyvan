@@ -26,7 +26,7 @@
 // - spacing-fluid: responsive vertical spacing tokens
 // -----------------------------------------------------------------------------
 
-@use "../1-tools/spacing-fluid" as fluid;
+@use "../1-tools/spacing-fluid" as tools-spacing-fluid;
 
 .o-stack {
   display: flex;
@@ -34,9 +34,9 @@
 }
 
 .o-stack > * + * {
-  margin-top: fluid.$fluid-stack-sm;
+  margin-top: tools-spacing-fluid.$space-stack-sm;
 }
 
 .o-stack--lg > * + * {
-  margin-top: fluid.$fluid-stack-lg;
+  margin-top: tools-spacing-fluid.$fluid-stack-lg;
 }

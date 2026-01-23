@@ -12,8 +12,8 @@
  * Typography, transitions, and aesthetics belong in 3-base and above.
  */
 
-@use "../0-settings/config" as config;   // reserved for future-safe parity
-@use "../0-settings/typography" as typo; // reserved for future-safe parity
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/typography" as settings-typography;
 
 /* Document
    ========================================================================== */

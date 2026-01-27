@@ -1,0 +1,147 @@
+.
+├── _config.yml
+├── _includes
+│   ├── footer-end.html
+│   ├── footer.html
+│   ├── head.html
+│   ├── header.html
+│   ├── pagination.html
+│   ├── post-card.html
+│   ├── read-time.html
+│   └── social-share.html
+├── _layouts
+│   ├── default.html
+│   ├── page.html
+│   └── post.html
+├── _posts
+├── _sass
+│   ├── 0-settings
+│   │   ├── _breakpoints.scss
+│   │   ├── _colors-art-dark.scss
+│   │   ├── _colors-art-light.scss
+│   │   ├── _colors-science-dark.scss
+│   │   ├── _colors-science-light.scss
+│   │   ├── _colors.scss
+│   │   ├── _config.scss
+│   │   ├── _fonts.scss
+│   │   ├── _palette-persian.scss
+│   │   ├── _spacing.scss
+│   │   └── _typography.scss
+│   ├── 1-tools
+│   │   ├── _mixins.scss
+│   │   ├── _motion.scss
+│   │   └── _spacing-fluid.scss
+│   ├── 2-generic
+│   │   ├── _fonts.scss
+│   │   ├── _normalize.scss
+│   │   └── _reset.scss
+│   ├── 3-base
+│   │   ├── _base.scss
+│   │   ├── _elements.scss
+│   │   ├── _links.scss
+│   │   ├── _lists.scss
+│   │   ├── _media.scss
+│   │   ├── _spacing.scss
+│   │   ├── _tables.scss
+│   │   └── _typography.scss
+│   ├── 4-objects
+│   │   ├── _figure.scss
+│   │   ├── _header.scss
+│   │   ├── _stack.scss
+│   │   └── _table.scss
+│   ├── 5-components
+│   │   ├── _avatar.scss
+│   │   ├── _blockquote.scss
+│   │   ├── _box.scss
+│   │   ├── _buttons.scss
+│   │   ├── _figure.scss
+│   │   ├── _footer.scss
+│   │   ├── _forms.scss
+│   │   ├── _header.scss
+│   │   ├── _hero.scss
+│   │   ├── _navigation.scss
+│   │   ├── _pagination.scss
+│   │   ├── _syntax-highlighting.scss
+│   │   ├── _tables.scss
+│   │   └── _tags.scss
+│   ├── 6-layouts
+│   │   ├── _home.scss
+│   │   ├── _page.scss
+│   │   ├── _post.scss
+│   │   └── _tags.scss
+│   ├── 7-trumps
+│   │   ├── _display.scss
+│   │   ├── _spacing.scss
+│   │   ├── _text.scss
+│   │   └── _visibility.scss
+│   ├── make_copy.sh
+│   ├── merging_files_in_one.sh
+│   └── merging_per_folder.sh
+├── _site
+│   ├── 404.html
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── main.css
+│   │   │   └── main.css.map
+│   │   ├── fonts
+│   │   └── js
+│   │       ├── common.js
+│   │       ├── jquery-3.3.1.min.js
+│   │       ├── jquery.fitvids.js
+│   │       └── jquery.waitforimages.min.js
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── iwan-jekyll.gemspec
+│   ├── LICENSE
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── README.md
+│   ├── sitemap.xml
+│   └── tags
+│       └── index.html
+├── 404.html
+├── assets
+│   ├── css
+│   │   └── main.scss
+│   ├── favicon
+│   │   ├── blue
+│   │   │   ├── favicon.ico
+│   │   │   └── site.webmanifest
+│   │   ├── indigo
+│   │   │   ├── favicon.ico
+│   │   │   └── site.webmanifest
+│   │   ├── rose
+│   │   │   ├── favicon.ico
+│   │   │   └── site.webmanifest
+│   │   └── turquoise
+│   │       ├── favicon.ico
+│   │       └── site.webmanifest
+│   ├── fonts
+│   │   ├── EB-Garamond
+│   │   ├── IBM-Plex-Mono
+│   │   ├── IBM-Plex-Sans
+│   │   ├── Inter
+│   │   ├── JetBrains-Mono
+│   │   ├── Literata
+│   │   ├── Source-Code-Pro
+│   │   ├── Source-Serif-4
+│   │   └── Space-Grotesk
+│   ├── icons
+│   ├── images
+│   └── js
+│       ├── common.js
+│       ├── jquery-3.3.1.min.js
+│       ├── jquery.fitvids.js
+│       └── jquery.waitforimages.min.js
+├── favicon.ico
+├── Gemfile
+├── Gemfile.lock
+├── index.html
+├── iwan-jekyll.gemspec
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── README.md
+└── tags.html
+
+39 directories, 106 files

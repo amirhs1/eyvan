@@ -1,16 +1,16 @@
 #-------------------------------
 # General Site Settings
-title: John Doe
-description: "I am an aspiring Data Scientist building up my portfolio which focuses on interesting and impactful projects that I have undertaken recently."
+title: Amir Sadeghi
+description: "I’m a computational biophysicist turned applied scientist with expertise in large-scale simulations, data management and analytics, ML/AI/GenAI tools, and cloud infrastructure. I’m seeking opportunities to develop intelligent, production-grade systems that bring scientific rigor to real-world challenges across business, research, and technology"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 #-------------------------------
 # About Section
 subtitle: Data Science <span style="color:#f58506"> Portfolio </span>
-location: "London, UK"
+location: "Ontario, Canada"
 resume_url: "https://vidhyav656.github.io"
-avatar_image: /img/avatar.jpg
+avatar_image: /assets/images/avatar.jpg
 
 #-------------------------------
 # Contact links

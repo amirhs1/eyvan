@@ -1,14 +1,63 @@
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
-    <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
-    <!-- Ionicons -->
-    <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <!-- Charset & compatibility -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Responsive layout -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Title -->
+  <title>
+    {% if page.title %}
+      {{ page.title | escape }} | {{ site.title | escape }}
+    {% else %}
+      {{ site.title | escape }}
+    {% endif %}
+  </title>
+
+  <!-- SEO description -->
+  <meta
+    name="description"
+    content="
+      {% if page.description %}
+        {{ page.description | strip_html | strip_newlines | truncate: 160 }}
+      {% else %}
+        {{ site.description | strip_html | strip_newlines | truncate: 160 }}
+      {% endif %}
+    "
+  >
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+  <!-- RSS -->
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="{{ site.title | escape }}"
+    href="{{ '/feed.xml' | relative_url }}"
+  >
+
+  <!-- Favicons -->
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
+  <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
+
+  <!-- Color scheme hint (for OS dark/light) -->
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Social preview: Open Graph -->
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{ "/assets/images/og-default.png" | absolute_url }}">
+
+  <!-- Social preview: Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title | default: site.title }}">
+  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+
+  <!-- Main CSS (self-hosted fonts, tokens, themes) -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 </head>

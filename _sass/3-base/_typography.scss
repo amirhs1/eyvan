@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // Base — Typography
-// ITCSS layer: 3-bas
+// ITCSS layer: 3-base
 //
 // Description:
 // Defines default typography styles for unclassed HTML text elements,
@@ -19,6 +19,18 @@
 @use "../0-settings/colors" as settings-colors;
 @use "../0-settings/typography" as settings-typography;
 @use "../0-settings/spacing" as settings-spacing;
+
+body {
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-md;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-normal;
+  color: settings-colors.$body-color; // Assuming this exists in your colors file
+  
+  // Apply those rendering tokens from your settings
+  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
+  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
+}
 
 h1,
 h2,
@@ -46,7 +58,11 @@ blockquote {
   color: settings-colors.$body-color;
 }
 
-pre {
+pre,
+code,
+kbd,
+samp {
   font-family: settings-typography.$font-family-mono;
   overflow-x: auto;
+  font-size: 0.9em;
 }

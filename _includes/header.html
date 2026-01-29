@@ -1,37 +1,68 @@
-<header class="header">
-	<div class="container">
-		<div class="row">
-			<div class="col col-12">
-				<div class="header-box">
-					<div class="col col-3 wd-mob">
-						{% if site.avatar_image %}
-						<a href="{{ "/" | relative_url }}" class="header-avatar">
-							<img src="{{ site.avatar_image | relative_url }}" class="header-avatar-img" alt="{{ site.title }}">
-						</a>
-						{% endif %}
-					</div>
-					<hr>
-					<div class="col col-9 wd-mob">
-						{% if site.title %}
-						<h1 class="header-title">{{ site.title }}</h1>
-						{% endif %}
-						{% if site.subtitle %}
-						<h1 class="header-subtitle">{{ site.subtitle }}</h1>
-						{% endif %}
-						{% if site.description %}
-						<p class="header-tagline">{{ site.description }}</p>
-						{% endif %}
-						<div class="menu-links">
-							<ul class="list-reset">
-								{% if site.location %}<li class="item"><a class="item-link"><i class="ion ion-ios-pin"></i> {{ site.location }}</a></li>{% endif %}
-								{% if site.github %}<li class="item"><a class="item-link" href="{{ site.github }}"><i class="ion ion-logo-github"></i> Github</a></li>{% endif %}
-								{% if site.linkedin or site.linkedln %}<li class="item"><a class="item-link" href="{{ site.linkedin | default: site.linkedln }}"><i class="ion ion-logo-linkedin"></i> LinkedIn</a></li>{% endif %}
-								{% if site.resume_url %}<li class="item"><a class="item-link" href="{{ site.resume_url }}"><i class="ion ion-ios-document"></i> Resume</a></li>{% endif %}
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header> <!-- /.header -->
+<header class="header o-header">
+  <div class="o-header__inner o-stack">
+
+    {% if site.avatar_image %}
+    <div class="o-header__media">
+      <a href="{{ "/" | relative_url }}" class="c-avatar-link">
+        <img
+          src="{{ site.avatar_image | relative_url }}"
+          alt="{{ site.title }}"
+          class="c-avatar"
+        >
+      </a>
+    </div>
+    {% endif %}
+
+    <div class="o-header__content o-stack">
+      {% if site.title %}
+      <h1 class="c-header__title">{{ site.title }}</h1>
+      {% endif %}
+
+      {% if site.subtitle %}
+      <p class="c-header__subtitle">{{ site.subtitle }}</p>
+      {% endif %}
+
+      {% if site.description %}
+      <p class="c-header__tagline">{{ site.description }}</p>
+      {% endif %}
+
+      <nav class="c-header__meta">
+        <ul class="c-header__meta-list">
+          {% if site.location %}
+          <li class="c-header__meta-item">
+            <span class="c-header__meta-text">{{ site.location }}</span>
+          </li>
+          {% endif %}
+
+          {% if site.github %}
+          <li class="c-header__meta-item">
+            <a href="{{ site.github }}" class="c-header__meta-link">
+              GitHub
+            </a>
+          </li>
+          {% endif %}
+
+          {% if site.linkedin or site.linkedln %}
+          <li class="c-header__meta-item">
+            <a
+              href="{{ site.linkedin | default: site.linkedln }}"
+              class="c-header__meta-link"
+            >
+              LinkedIn
+            </a>
+          </li>
+          {% endif %}
+
+          {% if site.resume_url %}
+          <li class="c-header__meta-item">
+            <a href="{{ site.resume_url }}" class="c-header__meta-link">
+              Resume
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</header>

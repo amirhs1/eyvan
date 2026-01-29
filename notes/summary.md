@@ -2,8 +2,6 @@ Perfect 👍
 Below is a clean, copy-pasteable summary of what we decided, why, and what remains to be discussed later, written specifically so you can drop it into a new chat and immediately continue.
 This assumes Approach A: GitHub Pages template throughout.
 
-
-
 1) Ionicons → SVG icons only (DONE, pending deeper discussion)
 
 What we decided
@@ -39,38 +37,7 @@ To discuss next
 	•	Styling icons via CSS (size, color, hover)
 	•	Accessibility conventions (aria-hidden, title, role)
 
-⸻
-
-3) Favicon setup (DONE, pending refinement)
-
-What we decided
-	•	Add favicon support now, branding can change later.
-	•	Use PNG favicons (multiple colors).
-	•	Files stored in:
-
-assets/favicon/
-
-
-
-Current status
-	•	Relevant <link rel="icon"> lines added to head.html.
-	•	Multiple color variants exist.
-
-Why
-	•	Favicons are required for professional polish.
-	•	Browsers and platforms cache them aggressively.
-	•	Easy to replace later without changing structure.
-
-To discuss next
-	•	Final favicon strategy:
-	•	Sizes (16x16, 32x32, 180x180)
-	•	Mask icon / theme color
-	•	Whether to add a monochrome SVG favicon.
-	•	Naming conventions for template users.
-
-⸻
-
-4) Social preview meta tags (DONE)
+1) Social preview meta tags (DONE)
 
 What we decided
 	•	Add Open Graph + Twitter meta tags.
@@ -95,29 +62,10 @@ To discuss next
 	•	Default OG image generation strategy.
 	•	Art vs science preview styling (if needed).
 
-⸻
-
-5) <title> formatting improvement (DONE)
-
-What we changed
-	•	Title format changed from:
-
-Page Title · Site Title
-
-
-	•	Replaced . with | as separator.
-
-Why
-	•	Cleaner visual separation in browser tabs.
-	•	Common convention for technical / academic sites.
-	•	Purely stylistic choice, SEO-neutral.
-
-Current status
-	•	Updated in head.html.
 
 ⸻
 
-6) Dark/Light mode + Art/Science palettes (NOT IMPLEMENTED YET)
+1) Dark/Light mode + Art/Science palettes (NOT IMPLEMENTED YET)
 
 What we agreed conceptually
 	•	Theme (art/science) and mode (light/dark) are separate concerns.

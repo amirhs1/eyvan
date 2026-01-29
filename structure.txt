@@ -14,6 +14,16 @@
 │   ├── page.html
 │   └── post.html
 ├── _posts
+│   ├── 2020-05-05-you-got-to-cool-that-shit-off-and-thats-the-double-truth.md
+│   ├── 2020-05-06-welcome-to-jekyll.md
+│   ├── 2020-05-07-the-senate-that-our-ability-to-use-the-force-has-diminished.md
+│   ├── 2020-05-08-the-reason-were-gathered-here-on-our-god-given-day.md
+│   ├── 2020-05-09-i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live.md
+│   ├── 2020-05-10-if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all.md
+│   ├── 2020-05-11-make-your-own-gems.md
+│   ├── 2020-05-12-sample-post.md
+│   ├── 2020-05-15-blockqoute.md
+│   └── 2020-05-17-code-style.md
 ├── _sass
 │   ├── 0-settings
 │   │   ├── _breakpoints.scss
@@ -45,6 +55,7 @@
 │   │   ├── _tables.scss
 │   │   └── _typography.scss
 │   ├── 4-objects
+│   │   ├── _box.scss
 │   │   ├── _figure.scss
 │   │   ├── _header.scss
 │   │   ├── _stack.scss
@@ -52,7 +63,6 @@
 │   ├── 5-components
 │   │   ├── _avatar.scss
 │   │   ├── _blockquote.scss
-│   │   ├── _box.scss
 │   │   ├── _buttons.scss
 │   │   ├── _figure.scss
 │   │   ├── _footer.scss
@@ -83,51 +93,62 @@
 │   │   ├── css
 │   │   │   ├── main.css
 │   │   │   └── main.css.map
+│   │   ├── favicon
+│   │   │   ├── favicon.ico
+│   │   │   └── site.webmanifest
 │   │   ├── fonts
+│   │   ├── icons
+│   │   ├── images
+│   │   │   └── posts
 │   │   └── js
 │   │       ├── common.js
 │   │       ├── jquery-3.3.1.min.js
 │   │       ├── jquery.fitvids.js
 │   │       └── jquery.waitforimages.min.js
+│   ├── blockqoute
+│   │   └── index.html
+│   ├── code-style
+│   │   └── index.html
 │   ├── favicon.ico
+│   ├── i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live
+│   │   └── index.html
+│   ├── if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all
+│   │   └── index.html
 │   ├── index.html
 │   ├── iwan-jekyll.gemspec
 │   ├── LICENSE
+│   ├── make-your-own-gems
+│   │   └── index.html
 │   ├── package-lock.json
 │   ├── package.json
+│   ├── page
+│   │   └── 2
+│   │       └── index.html
 │   ├── README.md
+│   ├── sample-post
+│   │   └── index.html
 │   ├── sitemap.xml
-│   └── tags
+│   ├── tags
+│   │   └── index.html
+│   ├── the-reason-were-gathered-here-on-our-god-given-day
+│   │   └── index.html
+│   ├── the-senate-that-our-ability-to-use-the-force-has-diminished
+│   │   └── index.html
+│   ├── welcome-to-jekyll
+│   │   └── index.html
+│   └── you-got-to-cool-that-shit-off-and-thats-the-double-truth
 │       └── index.html
 ├── 404.html
 ├── assets
 │   ├── css
 │   │   └── main.scss
 │   ├── favicon
-│   │   ├── blue
-│   │   │   ├── favicon.ico
-│   │   │   └── site.webmanifest
-│   │   ├── indigo
-│   │   │   ├── favicon.ico
-│   │   │   └── site.webmanifest
-│   │   ├── rose
-│   │   │   ├── favicon.ico
-│   │   │   └── site.webmanifest
-│   │   └── turquoise
-│   │       ├── favicon.ico
-│   │       └── site.webmanifest
+│   │   ├── favicon.ico
+│   │   └── site.webmanifest
 │   ├── fonts
-│   │   ├── EB-Garamond
-│   │   ├── IBM-Plex-Mono
-│   │   ├── IBM-Plex-Sans
-│   │   ├── Inter
-│   │   ├── JetBrains-Mono
-│   │   ├── Literata
-│   │   ├── Source-Code-Pro
-│   │   ├── Source-Serif-4
-│   │   └── Space-Grotesk
 │   ├── icons
 │   ├── images
+│   │   └── posts
 │   └── js
 │       ├── common.js
 │       ├── jquery-3.3.1.min.js
@@ -144,4 +165,4 @@
 ├── README.md
 └── tags.html
 
-39 directories, 106 files
+43 directories, 123 files

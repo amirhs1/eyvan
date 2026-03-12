@@ -2,14 +2,60 @@
 layout: default
 ---
 
-<!-- 
-    Generic page layout for static content such as About, Contact, or 
-    standalone pages 
--->
+{% comment %}
+  Page Layout
+  Purpose: Render generic static pages such as About, Contact, CV,
+  and other standalone content pages.
 
+  Structure:
+  - Page layout container
+  - Page article wrapper
+    - Optional featured image
+    - Page header
+      - Title
+      - Optional subtitle
+      - Optional metadata
+      - Optional tags
+    - Optional divider
+    - Page body content
+
+  Architecture:
+  - Layout layer of the site
+  - Uses ITCSS + BEM naming:
+    - Layouts: l-
+    - Components: c-
+  - Delegates content rendering to the page body via `{{ content }}`
+  - Reuses shared component classes for article presentation
+
+  Accessibility:
+  - Uses semantic article and header structure
+  - Decorative metadata separator uses aria-hidden="true"
+  - Page image uses author-provided alt text when available,
+    otherwise falls back to the page title
+
+  Data dependencies:
+  - page.title
+  - page.subtitle
+  - page.image
+  - page.image_alt
+  - page.author
+  - page.date
+  - page.tags
+  - content
+
+  Notes:
+  - This layout is intended for static pages rather than posts
+  - Tags are rendered as non-linked labels in this layout
+  - The divider is rendered only when header-related metadata exists
+{% endcomment %}
+
+<!-- Page layout container -->
 <div class="l-container">
+
+  <!-- Page article -->
   <article class="l-page c-article">
 
+    <!-- Optional page featured image -->
     {% if page.image %}
     <div class="c-article__media">
       <img
@@ -19,31 +65,42 @@ layout: default
     </div>
     {% endif %}
 
+    <!-- Page header -->
     <header class="l-page__header">
+
+      <!-- Page title -->
       <h1 class="c-article__title">{{ page.title | escape }}</h1>
 
+      <!-- Page subtitle -->
       {% if page.subtitle %}
       <p class="c-article__subtitle">{{ page.subtitle }}</p>
       {% endif %}
 
+      <!-- Page metadata -->
       {% if page.author or page.date %}
       <div class="c-article__meta">
+
+        <!-- Page author -->
         {% if page.author %}
         <span class="c-article__author">By {{ page.author }}</span>
         {% endif %}
 
+        <!-- Metadata separator -->
         {% if page.author and page.date %}
         <span class="c-article__meta-sep" aria-hidden="true">|</span>
         {% endif %}
 
+        <!-- Page date -->
         {% if page.date %}
         <time class="c-article__date" datetime="{{ page.date | date_to_xmlschema }}">
           {{ page.date | date: "%B %d, %Y" }}
         </time>
         {% endif %}
+
       </div>
       {% endif %}
 
+      <!-- Page tags -->
       {% if page.tags %}
       <div class="l-page__tags">
         {% for tag in page.tags %}
@@ -51,12 +108,15 @@ layout: default
         {% endfor %}
       </div>
       {% endif %}
+
     </header>
 
+    <!-- Optional header divider -->
     {% if page.subtitle or page.author or page.date or page.tags or page.image %}
     <hr class="c-article__divider">
     {% endif %}
 
+    <!-- Page body content -->
     <div class="l-page__body">
       {{ content }}
     </div>

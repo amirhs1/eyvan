@@ -1,15 +1,24 @@
-{% assign words_per_minute = site.words_per_minute | default: 200 %}
+{% comment %}
+  Read Time Include
+  Purpose: Estimate reading time based on word count.
 
-{% if post.read_time %}
-  {% assign words = post.content | strip_html | number_of_words %}
-{% elsif page.read_time %}
-  {% assign words = page.content | strip_html | number_of_words %}
-{% endif %}
+  Behavior:
+  - Uses words-per-minute from site config (default: 200)
+  - Ensures a minimum display of 1 minute
+  - Returns text only so the parent layout controls markup
 
-{% if words < words_per_minute %}
-  {{ site.data.ui-text[site.locale].less_than | default: "less than" }} 1 {{ site.data.ui-text[site.locale].minute_read | default: "minute read" }}
-{% elsif words == words_per_minute %}
-  1 {{ site.data.ui-text[site.locale].minute_read | default: "minute read" }}
-{% else %}
-  {{ words | divided_by:words_per_minute }} {{ site.data.ui-text[site.locale].minute_read | default: "minute read" }}
+  Dependencies:
+  - site.words_per_minute (optional)
+  - page.content
+
+  Usage:
+  {% raw %}{% include read-time.html %}{% endraw %}
+{% endcomment %}
+
+{% assign wpm = site.words_per_minute | default: 200 %}
+{% assign words = page.content | strip_html | number_of_words %}
+
+{% if words > 0 %}
+  {% assign read_time = words | divided_by: wpm | at_least: 1 %}
+  {{ read_time }} min read
 {% endif %}

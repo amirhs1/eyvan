@@ -1,53 +1,97 @@
-#-------------------------------
-# General Site Settings
-title: Amir Sadeghi
-description: "I’m a computational biophysicist turned applied scientist with expertise in large-scale simulations, data management and analytics, ML/AI/GenAI tools, and cloud infrastructure. I’m seeking opportunities to develop intelligent, production-grade systems that bring scientific rigor to real-world challenges across business, research, and technology"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+# Jekyll site configuration for a minimal professional portfolio.
 
-#-------------------------------
-# About Section
-subtitle: Data Science <span style="color:#f58506"> Portfolio </span>
-location: "Ontario, Canada"
-resume_url: "https://vidhyav656.github.io"
-avatar_image: /assets/images/avatar.jpg
+# ------------------------------------------------------------
+# Site identity
+# Core site-level metadata used in titles, SEO, feeds, and templates.
+# ------------------------------------------------------------
+title: "Your Name"
+description: "A clean, modern portfolio site for projects, writing, and professional information."
+url: "https://example.com"
+baseurl: ""
 
-#-------------------------------
-# Contact links
-linkedln: "https://linkedln.com/#" # Add your linkedln handle
-github: "https://github.com/#"  # Add your github handle
+# ------------------------------------------------------------
+# Brand assets and global links
+# Reusable site-wide assets and URLs referenced in templates.
+# ------------------------------------------------------------
+logo: "/assets/images/logo.svg"
+cv_url: "/assets/files/resume.pdf"
 
-#-------------------------------
-# Build settings
+# ------------------------------------------------------------
+# URL structure
+# Defines how project pages appear in the final site URLs.
+# ------------------------------------------------------------
+permalink: /project/:title/
+
+# ------------------------------------------------------------
+# Build and markdown settings
+# Core Jekyll behavior for rendering pages and content.
+# ------------------------------------------------------------
 markdown: kramdown
-permalink: ':title/'
+
+# ------------------------------------------------------------
+# Plugins
+# Keep this list small and practical for a portfolio site.
+# ------------------------------------------------------------
 plugins:
-  - jekyll-paginate
   - jekyll-sitemap
+  - jekyll/tagging
 
-paginate: 6
-paginate_path: "/page/:num"
-
-sass:
-  sass_dir: _sass
-  style: compressed # possible values: nested expanded compact compressed
-
+# ------------------------------------------------------------
+# Default front matter values
+# Applied automatically when matching the given scope.
+# ------------------------------------------------------------
 defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
   - scope:
       type: posts
     values:
       layout: post
-      read_time: true
       share: true
 
+# ------------------------------------------------------------
+# Tag pages
+# Configuration for generated tag archive pages.
+# ------------------------------------------------------------
+tag_page_dir: "tag"
+tag_page_layout: "tag_page"
+tag_permalink_style: "pretty"
 
-#-------------------------------
-# Exclude from processing.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# ------------------------------------------------------------
+# Sass / SCSS
+# Tells Jekyll where Sass lives and how to output CSS.
+# ------------------------------------------------------------
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# ------------------------------------------------------------
+# Global feature flags
+# Simple toggles used by templates and layouts.
+# ------------------------------------------------------------
+words_per_minute: 200
+read_time: true
+
+# ------------------------------------------------------------
+# Analytics
+# Leave blank until you have a real measurement ID.
+# ------------------------------------------------------------
+google_analytics: ""
+
+# ------------------------------------------------------------
+# Files and folders to exclude from the build
+# Prevents non-site assets and tooling files from being processed.
+# ------------------------------------------------------------
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - vendor/bundle
+  - vendor/cache
+  - vendor/gems
+  - vendor/ruby
+  - README.md

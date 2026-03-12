@@ -1,68 +1,164 @@
-<header class="header o-header">
-  <div class="o-header__inner o-stack">
+{% comment %}
+  Header Component
+  Purpose: Compose the global site header from smaller reusable header
+  sub-components.
 
-    {% if site.avatar_image %}
-    <div class="o-header__media">
-      <a href="{{ "/" | relative_url }}" class="c-avatar-link">
-        <img
-          src="{{ site.avatar_image | relative_url }}"
-          alt="{{ site.title }}"
-          class="c-avatar"
+  Structure:
+  - Left (desktop): brand (logo, name, role)
+  - Center (desktop): primary navigation + theme toggle
+  - Right (desktop): social links + CV icon
+  - Tablet/Mobile top bar: brand + hamburger toggle
+  - Tablet/Mobile expanded menu: delegated to mobile-menu.html
+
+  Architecture:
+  - Uses ITCSS + BEM naming:
+    - Objects: o-
+    - Components: c-
+    - Utilities: u-
+    - State: is-
+  - This file is the composition root for the header shell
+  - Reusable leaf components are delegated to:
+    - action-links.html
+    - theme-toggle.html
+    - mobile-menu.html
+
+  Accessibility:
+  - Navigation regions use aria-label
+  - Menu toggle uses aria-expanded and aria-controls
+  - Decorative icons use alt="" and aria-hidden="true"
+  - Brand link has an explicit homepage aria-label
+
+  Data dependencies:
+  - site.logo
+  - site.title
+  - site.author.name
+  - site.author.role
+
+  Notes:
+  - Desktop actions are rendered through action-links.html
+  - Theme control is rendered through theme-toggle.html
+  - Mobile overlay menu is rendered through mobile-menu.html
+  - Brand logo uses fetchpriority="high" because it is above the fold
+{% endcomment %}
+
+<header class="c-site-header">
+  <!-- Header outer container -->
+  <div class="container">
+    <!-- Header layout object -->
+    <div class="o-site-header">
+
+      <!-- Header brand column -->
+      <div class="o-site-header__brand">
+        <!-- Brand home link -->
+        <a
+          class="c-brand"
+          href="{{ '/' | relative_url }}"
+          aria-label="Go to homepage"
         >
-      </a>
-    </div>
-    {% endif %}
-
-    <div class="o-header__content o-stack">
-      {% if site.title %}
-      <h1 class="c-header__title">{{ site.title }}</h1>
-      {% endif %}
-
-      {% if site.subtitle %}
-      <p class="c-header__subtitle">{{ site.subtitle }}</p>
-      {% endif %}
-
-      {% if site.description %}
-      <p class="c-header__tagline">{{ site.description }}</p>
-      {% endif %}
-
-      <nav class="c-header__meta">
-        <ul class="c-header__meta-list">
-          {% if site.location %}
-          <li class="c-header__meta-item">
-            <span class="c-header__meta-text">{{ site.location }}</span>
-          </li>
-          {% endif %}
-
-          {% if site.github %}
-          <li class="c-header__meta-item">
-            <a href="{{ site.github }}" class="c-header__meta-link">
-              GitHub
-            </a>
-          </li>
-          {% endif %}
-
-          {% if site.linkedin or site.linkedln %}
-          <li class="c-header__meta-item">
-            <a
-              href="{{ site.linkedin | default: site.linkedln }}"
-              class="c-header__meta-link"
+          {% if site.logo %}
+            <!-- Brand logo image -->
+            <img
+              class="c-brand__logo"
+              src="{{ site.logo | relative_url }}"
+              alt="{{ site.title | escape }}"
+              fetchpriority="high"
             >
-              LinkedIn
-            </a>
-          </li>
           {% endif %}
 
-          {% if site.resume_url %}
-          <li class="c-header__meta-item">
-            <a href="{{ site.resume_url }}" class="c-header__meta-link">
-              Resume
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
+          <!-- Brand text stack -->
+          <span class="c-brand__text">
+            <!-- Brand primary name -->
+            <span class="c-brand__name">
+              {{ site.author.name | default: site.title }}
+            </span>
+
+            {% if site.author.role %}
+              <!-- Brand secondary role -->
+              <span class="c-brand__role">
+                {{ site.author.role }}
+              </span>
+            {% endif %}
+          </span>
+        </a>
+      </div>
+
+      <!-- Header desktop navigation column -->
+      <div class="o-site-header__nav">
+        <!-- Primary desktop navigation -->
+        <nav class="c-nav c-nav--desktop" aria-label="Primary navigation">
+          <!-- Desktop navigation list -->
+          <ul class="c-nav__list u-list-reset">
+            <!-- Desktop navigation item: Home -->
+            <li class="c-nav__item">
+              <a
+                class="c-nav__link{% if page.url == '/' %} is-active{% endif %}"
+                href="{{ '/' | relative_url }}"
+              >
+                Home
+              </a>
+            </li>
+
+            <!-- Desktop navigation item: About -->
+            <li class="c-nav__item">
+              <a
+                class="c-nav__link{% if page.url == '/about/' %} is-active{% endif %}"
+                href="{{ '/about/' | relative_url }}"
+              >
+                About
+              </a>
+            </li>
+
+            <!-- Desktop navigation item: Projects -->
+            <li class="c-nav__item">
+              <a
+                class="c-nav__link{% if page.url == '/projects/' %} is-active{% endif %}"
+                href="{{ '/projects/' | relative_url }}"
+              >
+                Projects
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Desktop theme toggle -->
+        {% include theme-toggle.html hide_label=true %}
+      </div>
+
+      <!-- Header desktop actions column -->
+      <div class="o-site-header__actions">
+        <!-- Desktop social and CV actions -->
+        <nav class="c-social-links" aria-label="Social links">
+          {% include header-actions.html %}
+        </nav>
+      </div>
+
+      <!-- Header mobile controls column -->
+      <div class="o-site-header__mobile-controls">
+        <!-- Mobile menu toggle button -->
+        <button
+          class="c-nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+          data-nav-toggle
+        >
+          <!-- Screen-reader label for menu toggle -->
+          <span class="u-visually-hidden">Open menu</span>
+
+          <!-- Decorative menu icon -->
+          <img
+            class="c-nav-toggle__icon"
+            src="{{ '/assets/icons/menu-sharp.svg' | relative_url }}"
+            alt=""
+            aria-hidden="true"
+          >
+        </button>
+      </div>
+
     </div>
-
   </div>
-</header>
+
+  <!-- Mobile menu include -->
+  {% include mobile-menu.html %}
+</header>    

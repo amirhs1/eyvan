@@ -1,0 +1,23 @@
+# Primary author and site owner profile data.
+
+# ------------------------------------------------------------
+# Basic identity
+# Main profile details used in the header, bio, and author blocks.
+# ------------------------------------------------------------
+name: "Your Name"
+role: "Your Professional Title"
+location: "City, Region, Country"
+avatar: "/assets/images/avatar.jpg"
+
+# ------------------------------------------------------------
+# Short biography
+# A compact summary for the homepage, about section, or metadata blocks.
+# ------------------------------------------------------------
+bio: "Write a short professional summary here. Keep it clear, specific, and easy to scan."
+
+# ------------------------------------------------------------
+# Optional contact details
+# Add only the fields you actually want to expose publicly.
+# ------------------------------------------------------------
+email: "hello@example.com"
+website: "https://example.com"

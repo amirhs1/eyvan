@@ -1,0 +1,96 @@
+// ----------------------------------------------------------------------------
+// Social Links Component
+// ITCSS layer: 5-components
+// Purpose:
+// Reusable grouped social-links component for header, footer, mobile menu,
+// and other sections that display bundled social profiles.
+//
+// Scope & Rules:
+// - Owns the reusable social-links UI only
+// - Must remain independent of page or region layout
+// - Must not control parent alignment or container spacing
+// - Context-specific placement belongs in site-header, site-footer, etc.
+//
+// Behavior:
+// - Flexible horizontal group by default
+// - Individual links are circular interaction targets
+// - Icons are decorative assets inside accessible links
+// - Supports wrapping when space is constrained
+//
+// Usage:
+// - Use `.c-social-links` as the group wrapper
+// - Use `.c-social-links__item` for each social link
+// - Use `.c-social-links__icon` for the icon asset
+//
+// Dependencies:
+// - 0-settings/colors
+// - 0-settings/config
+// - 0-settings/spacing
+//
+// Markup expectations:
+// <div class="c-social-links" aria-label="Social links">
+//   <a class="c-social-links__item" href="..." aria-label="GitHub">
+//     <span class="u-visually-hidden">GitHub</span>
+//     <img class="c-social-links__icon" src="/assets/icons/logo-github.svg" alt="" aria-hidden="true">
+//   </a>
+// </div>
+// ----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+
+/* -----------------------------------------------------------------------------
+   Social links group
+   ----------------------------------------------------------------------------- */
+
+/* Social links wrapper */
+.c-social-links {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+  flex-wrap: wrap;
+}
+
+/* -----------------------------------------------------------------------------
+   Social link items
+   ----------------------------------------------------------------------------- */
+
+/* Individual social link */
+.c-social-links__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+
+  color: settings-colors.$ui-text-muted;
+  background-color: transparent;
+  text-decoration: none;
+
+  transition:
+    color settings-config.$transition-interaction,
+    background-color settings-config.$transition-interaction,
+    transform settings-config.$transition-interaction;
+
+  &:hover,
+  &:focus-visible {
+    color: settings-colors.$ui-text;
+    background-color: settings-colors.$ui-surface;
+    transform: translateY(-1px);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Social link icons
+   ----------------------------------------------------------------------------- */
+
+/* Decorative social icon */
+.c-social-links__icon {
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+  object-fit: contain;
+}

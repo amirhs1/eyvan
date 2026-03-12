@@ -34,6 +34,7 @@ for dir in [0-9]*/ ; do
             filename=$(basename "$file")
             
             # Add Sub-file Header
+            echo "/* --- ################################################ --- */" >> "$OUTPUT_FILE"
             echo "/* --- Sub-file: $filename --- */" >> "$OUTPUT_FILE"
             
             # Append content

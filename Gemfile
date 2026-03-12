@@ -1,32 +1,67 @@
 source "https://rubygems.org"
 
-# Core site generator
-# This file `Gemfile` is used to set which Jekyll version is used to run.
-# To use a different Jekyll version, change it below, save the
-# file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
+# ------------------------------------------------------------
+# Core Jekyll site generator
+# ------------------------------------------------------------
+# This Gemfile controls the Ruby gems used to build and run
+# the Jekyll site locally.
 #
-#     bundle exec jekyll serve
+# After editing this file run:
 #
-# This will help ensure the proper Jekyll version is running.
-
-# Below, Jekyll is pinned to the 4.4.x for stability but allowing patch updates
-gem "logger"
-gem "jekyll-sass-converter", "~> 3.0"
-gem "sass-embedded"
+#     bundle install
+#
+# Then run the site with:
+#
+#     bundle exec jekyll serve --trace --drafts
+#
+# Using `bundle exec` ensures the project uses the exact
+# gem versions defined here instead of globally installed gems.
+#
+# Jekyll is pinned to the 4.4 series for stability while
+# still allowing patch updates.
 gem "jekyll", "~> 4.4"
 
-# To use GitHub Pages, remove the `gem "jekyll" ...` above and uncomment the line 
-# below. To upgrade, run `bundle update github-pages`.
-# gem "github-pages", group: :jekyll_plugins
+# ------------------------------------------------------------
+# Required for `jekyll serve` with modern Ruby versions
+# ------------------------------------------------------------
+# Ruby 3+ removed WEBrick from the standard library.
+# Jekyll's development server still uses it.
+gem "webrick", "~> 1.8"
 
-# Jekyll plugins: Add any plugins here!
+# ------------------------------------------------------------
+# SCSS / Sass pipeline
+# ------------------------------------------------------------
+# Jekyll uses these to compile SCSS from:
+#
+#    assets/css/main.scss
+#
+# into the final CSS served on the site.
+gem "jekyll-sass-converter", "~> 3.0"
+gem "sass-embedded"
+
+# ------------------------------------------------------------
+# Jekyll plugins
+# ------------------------------------------------------------
+# Plugins listed here must also appear in `_config.yml`.
+#
+# NOTE:
+# - `jekyll-sitemap` is supported everywhere.
+# - `jekyll-tagging` works locally and in GitHub Actions builds.
+#   It does NOT work with the native GitHub Pages builder.
+#
+# If deploying with GitHub Actions (recommended for custom
+# plugins), this configuration will work without modification.
 group :jekyll_plugins do
-  gem "jekyll-paginate"
+  gem "jekyll-tagging"
   gem "jekyll-sitemap"
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# ------------------------------------------------------------
+# Platform compatibility gems
+# ------------------------------------------------------------
 
-# Performance-booster for watching directories on Windows
-gem "wdm" if Gem.win_platform?
+# Windows does not include timezone data
+gem "tzinfo-data", platforms: [:windows]
+
+# Faster file watching for Windows
+gem "wdm", platforms: [:windows]

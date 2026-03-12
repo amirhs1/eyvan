@@ -1,0 +1,71 @@
+{% comment %}
+  Theme Toggle Component
+  Purpose: Render the reusable theme toggle control for desktop and mobile contexts.
+
+  Structure:
+  - Toggle button
+  - Sun icon
+  - Moon icon
+  - Accessible text label
+  - Optional visible label for contexts such as the mobile menu
+
+  Architecture:
+  - Reusable leaf include
+  - Accepts:
+    - include.modifier: optional extra class, e.g. c-theme-toggle--mobile
+    - include.hide_label: boolean-like flag controlling visible text label rendering
+  - Visual state is expected to be controlled by CSS and JavaScript
+
+  Accessibility:
+  - Uses aria-label to describe the action
+  - Uses aria-pressed to expose toggle state
+  - Decorative icons use alt="" and aria-hidden="true"
+  - Always includes a visually hidden live label hook
+
+  Notes:
+  - The visible label is hidden by default when include.hide_label is true
+  - JavaScript should update:
+    - aria-label
+    - aria-pressed
+    - [data-theme-label] text
+    - icon visibility/state classes as needed
+{% endcomment %}
+
+{% assign should_hide_label = include.hide_label | default: true %}
+
+<!-- Theme toggle button -->
+<button
+  class="c-theme-toggle{% if include.modifier %} {{ include.modifier }}{% endif %}"
+  type="button"
+  aria-label="Switch to dark theme"
+  aria-pressed="false"
+  data-theme-toggle
+>
+  <!-- Sun icon -->
+  <img
+    class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+    src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <!-- Moon icon -->
+  <img
+    class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+    src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <!-- Screen-reader label -->
+  <span class="u-visually-hidden" data-theme-label>
+    Switch to dark theme
+  </span>
+
+  {% unless should_hide_label %}
+    <!-- Visible theme toggle label -->
+    <span class="c-theme-toggle__label" data-theme-label>
+      Switch to dark theme
+    </span>
+  {% endunless %}
+</button>

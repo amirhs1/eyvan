@@ -1,0 +1,73 @@
+{% comment %}
+  Math Include
+  Purpose: Load and configure MathJax only on pages that explicitly enable
+  mathematical rendering.
+
+  Structure:
+  - Guard: render nothing unless the current page sets `math: true`
+  - Config: define MathJax TeX parsing rules before the library loads
+  - Polyfill: load ES6 polyfills only for older browsers that need them
+  - Loader: fetch MathJax asynchronously from the CDN
+
+  Architecture:
+  - This file is a focused include for math rendering concerns only
+  - It keeps third-party script loading out of content files
+  - It is intended to be included once from the global layout
+  - Page-level opt-in is controlled through front matter: `math: true`
+
+  Behavior:
+  - Supports inline math with `$...$` and `\(...\)`
+  - Supports display math with `$$...$$` and `\[...\]`
+  - Enables `processEscapes` so escaped delimiters are handled correctly
+  - Avoids loading MathJax on pages that do not need it
+
+  Performance:
+  - MathJax is loaded only on opted-in pages
+  - The ES6 polyfill is loaded conditionally for older browsers only
+  - The MathJax script is loaded asynchronously
+
+  Usage:
+  - Add `{% raw %}math: true{% endraw %}` to the front matter of any page or post
+    that contains LaTeX-style math
+  - Include this file from the global layout after page content and before
+    other site scripts
+
+  Dependencies:
+  - page.math
+  - MathJax v3 CDN bundle: `tex-mml-chtml.js`
+  - Optional ES6 polyfill from polyfill.io for older browsers
+
+  Notes:
+  - This include should normally be loaded from `_layouts/default.html`
+  - Keep MathJax configuration above the loader script
+  - If you later switch to KaTeX, this is the file to replace
+{% endcomment %}
+
+{% if page.math %}
+
+  <!-- MathJax configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      }
+    };
+  </script>
+
+  <!-- Conditional ES6 polyfill for older browsers -->
+  <script>
+    if (!window.Promise) {
+      document.write('<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"><\\/script>');
+    }
+  </script>
+
+  <!-- Async MathJax loader -->
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+{% endif %}

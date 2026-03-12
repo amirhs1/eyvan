@@ -1,17 +1,65 @@
 ---
 layout: default
 ---
-<div class="container">
-    <div class="row">
-        <article class="col col-12 col-t-10 push-t-1 page">
-            <div class="page-content">
-                <div class="page-head">
-                    <h1 class="page-title">{{ page.title | escape }}</h1>
-                </div>
-                <div class="page-body">
-                    {{ content }}
-                </div>
-            </div>
-        </article> <!-- /.page -->
+
+<!-- 
+    Generic page layout for static content such as About, Contact, or 
+    standalone pages 
+-->
+
+<div class="l-container">
+  <article class="l-page c-article">
+
+    {% if page.image %}
+    <div class="c-article__media">
+      <img
+        src="{{ page.image | relative_url }}"
+        alt="{{ page.image_alt | default: page.title | escape }}"
+        class="c-article__image">
     </div>
+    {% endif %}
+
+    <header class="l-page__header">
+      <h1 class="c-article__title">{{ page.title | escape }}</h1>
+
+      {% if page.subtitle %}
+      <p class="c-article__subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+
+      {% if page.author or page.date %}
+      <div class="c-article__meta">
+        {% if page.author %}
+        <span class="c-article__author">By {{ page.author }}</span>
+        {% endif %}
+
+        {% if page.author and page.date %}
+        <span class="c-article__meta-sep" aria-hidden="true">|</span>
+        {% endif %}
+
+        {% if page.date %}
+        <time class="c-article__date" datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%B %d, %Y" }}
+        </time>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if page.tags %}
+      <div class="l-page__tags">
+        {% for tag in page.tags %}
+        <span class="c-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </header>
+
+    {% if page.subtitle or page.author or page.date or page.tags or page.image %}
+    <hr class="c-article__divider">
+    {% endif %}
+
+    <div class="l-page__body">
+      {{ content }}
+    </div>
+
+  </article>
 </div>

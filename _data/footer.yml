@@ -1,0 +1,25 @@
+# Footer content and utility links shown at the bottom of the site.
+
+# ------------------------------------------------------------
+# Footer text
+# Short branding or copyright text for the global footer.
+# ------------------------------------------------------------
+tagline: "A minimal portfolio built with Jekyll."
+copyright: "© 2026 Your Name. All rights reserved."
+
+# ------------------------------------------------------------
+# Footer links
+# Small set of utility links for navigation and legal pages.
+# ------------------------------------------------------------
+links:
+  - title: "Home"
+    url: "/"
+
+  - title: "Projects"
+    url: "/projects/"
+
+  - title: "Blog"
+    url: "/blog/"
+
+  - title: "Contact"
+    url: "/contact/"

@@ -1,63 +1,215 @@
 ---
 layout: default
 ---
+
+{% comment %}
+  Post Layout
+  Purpose: Render long-form article pages used for projects, essays,
+  research notes, and documentation posts.
+
+  Structure:
+  - Optional cover image
+  - Article wrapper
+    - Header (tags, title, subtitle, metadata, share actions)
+    - Post body content
+  - Post navigation
+  - Related posts section
+
+  Architecture:
+  - Layout layer of the site
+  - Uses ITCSS + BEM naming
+  - Delegates reusable UI fragments to:
+    - read-time.html
+    - post-share.html
+    - post-navigation.html
+    - related-posts.html
+
+  Accessibility:
+  - Semantic article/header structure
+  - Decorative icons use aria-hidden="true"
+  - Author avatar uses descriptive alt text
+
+  Data dependencies:
+  - page.title
+  - page.subtitle
+  - page.image
+  - page.tags
+  - page.date
+  - page.avatar
+  - page.author / page.authors
+  - site.data.author.avatar
+  - site.read_time
+{% endcomment %}
+
+<!-- Precomputed variables -->
+{% assign has_avatar = page.avatar | default: site.data.author.avatar %}
+{% if page.authors %}
+  {% assign author_display = page.authors | join: ', ' %}
+{% elsif page.author %}
+  {% assign author_display = page.author %}
+{% else %}
+  {% assign author_display = site.data.author.author_name %}
+{% endif %}
+
+<!-- Cover image -->
+{% if page.image %}
 <div class="container">
-    <div class="row">
-        <div class="col col-12">
-            <div class="post-image-box">
-                <div class="post-image" style="background-image: url({{"/img/" | prepend: site.baseurl | append : page.image}})"></div>
-            </div>
+  <div class="row">
+    <div class="col col-12">
+
+      <!-- Post cover image wrapper -->
+      <div class="c-post-cover">
+
+        <!-- Post cover image -->
+        <div class="c-post-cover__media">
+          <img
+            class="c-post-cover__image"
+            loading="lazy"
+            src="{{ page.image | relative_url }}"
+            alt="{{ page.image_alt | default: page.title | escape }}"
+          >
         </div>
+
+      </div>
+
     </div>
+  </div>
 </div>
-<div class="container">
-    <div class="row">
-        <article class="col col-12 col-t-12 post">
-            <div class="post-content">
-                <div class="post-head">
-                    {% if page.tags.size >= 1 %}
-                    <div class="post-tag">
-                        {% for tag in page.tags %}
-                        <a href="{{ site.baseurl }}/tags#{{tag}}" class="tag">{{ tag }}</a>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <h1 class="post-title">{{ page.title | escape }}</h1>
-                    <div class="post-info">
-                        <div class="post-time">
-                            <span class="page__meta"><i class="ion ion-md-time"></i>{% include read-time.html %}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-body">
-                    {{ content }}
+{% endif %}
 
-                    {% if page.share %}{% include social-share.html %}{% endif %}
+<!-- Post layout container -->
+<div class="container animate">
+  <div class="row">
 
-                </div>
-                {% if page.previous.url or page.next.url %}
-                <div class="post-navigation">
-                    {% if page.previous.url %}
-                    <a href="{{ site.baseurl }}{{page.previous.url}}" class="prev">
-                        <div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div>
-                    </a>
-                    {% else %}
-                    <a href="#" class="prev disabled">
-                        <div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div>
-                    </a>
-                    {% endif %}
-                    {% if page.next.url %}
-                    <a href="{{ site.baseurl }}{{page.next.url}}" class="next">
-                        <div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div>
-                    </a>
-                    {% else %}
-                    <a href="#" class="next disabled">
-                        <div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div>
-                    </a>
-                    {% endif %}
+    <!-- Post article -->
+    <article class="col col-12 c-post">
+
+      <!-- Post header -->
+      <header class="c-post__header">
+
+        <!-- Post tags -->
+        {% if page.tags and page.tags.size >= 1 %}
+        <div class="c-post__tags">
+          {% for tag in page.tags %}
+            {% assign slug = tag | slugify %}
+            <a
+              href="{{ '/tag/' | append: slug | relative_url }}"
+              class="c-post__tag">
+              {{ tag }}
+            </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Post title -->
+        <h1 class="c-post__title">{{ page.title | escape }}</h1>
+
+        <!-- Post subtitle -->
+        {% if page.subtitle %}
+        <p class="c-post__subtitle">{{ page.subtitle | escape }}</p>
+        {% endif %}
+
+        <!-- Post metadata -->
+        <div class="c-post__meta">
+
+          <!-- Metadata left column -->
+          <div class="c-post__meta-main">
+
+            <!-- Author avatar -->
+            {% if has_avatar %}
+            <div class="c-post__author-image">
+              <img
+                class="c-post__author-avatar"
+                loading="lazy"
+                src="{% if page.avatar %}{{ page.avatar | relative_url }}{% else %}{{ site.data.author.avatar | relative_url }}{% endif %}"
+                alt="{{ author_display }}"
+              >
+            </div>
+            {% endif %}
+
+            <!-- Author and date information -->
+            <div class="c-post__meta-details">
+
+              <!-- Author name -->
+              {% if author_display %}
+              <div class="c-post__author">
+                {{ author_display }}
+              </div>
+              {% endif %}
+
+              <!-- Date and reading time -->
+              <div class="c-post__meta-inline">
+
+                <!-- Post date -->
+                {% if page.date %}
+                <div class="c-post__meta-date">
+                  <time
+                    class="c-post__date"
+                    datetime="{{ page.date | date_to_xmlschema }}">
+                    {{ page.date | date: '%B %d, %Y' }}
+                  </time>
                 </div>
                 {% endif %}
+
+                <!-- Meta separator -->
+                {% if page.date and site.read_time %}
+                <span class="c-post__meta-separator">•</span>
+                {% endif %}
+
+                <!-- Reading time -->
+                {% if site.read_time %}
+                <div class="c-post__reading-time">
+
+                  <!-- Reading time icon -->
+                  <img
+                    class="c-post__meta-icon"
+                    src="{{ '/assets/icons/timer-sharp.svg' | relative_url }}"
+                    alt=""
+                    aria-hidden="true"
+                  >
+
+                  {% include read-time.html %}
+
+                </div>
+                {% endif %}
+
+              </div>
             </div>
-        </article> <!-- /.post -->
-    </div>
+
+          </div>
+
+          <!-- Metadata right column -->
+          <div class="c-post__meta-actions">
+
+            <!-- Post share actions -->
+            {% if page.share != false %}
+            <div class="c-post__share">
+              {% include post-share.html %}
+            </div>
+            {% endif %}
+
+          </div>
+
+        </div>
+      </header>
+
+      <!-- Post body content -->
+      <div class="c-post__content">
+        {{ content }}
+      </div>
+
+    </article>
+  </div>
 </div>
+
+<!-- Post navigation -->
+<div class="container">
+  <div class="row">
+    <div class="col col-10 col-d-12 push-d-0 push-1">
+      {% include post-navigation.html %}
+    </div>
+  </div>
+</div>
+
+<!-- Related posts -->
+{% include related-posts.html %}

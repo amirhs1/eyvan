@@ -1,0 +1,89 @@
+---
+layout: default
+---
+<!--
+  Tag archive layout: lists all posts associated with the active tag.
+  Used by generated tag pages with page.tag and page.posts data.
+-->
+
+{% assign tag = page.tag %}
+
+<header class="page-header">
+  <div class="container">
+    <h1 class="page-title">{{ tag }}</h1>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col col-12">
+      <div class="container__inner animate">
+        <div class="row">
+          {% for post in page.posts %}
+            <article class="article col col-4 col-d-6 col-t-12">
+              <div class="article__inner">
+                {% if post.image %}
+                  <div class="image-wrap">
+                    <a class="article__image" href="{{ post.url | relative_url }}">
+                      <img
+                        loading="lazy"
+                        src="{{ post.image | relative_url }}"
+                        alt="{{ post.title }}"
+                      >
+                    </a>
+                  </div>
+                {% endif %}
+
+                <div class="article__content">
+                  {% if post.tags and post.tags.size > 0 %}
+                    <div class="article-tags__box">
+                      {% for tag_item in post.tags %}
+                        {% assign tag_url = '/tag/' | append: tag_item | downcase | slugify | append: '/' %}
+                        <a href="{{ tag_url | relative_url }}" class="article__tag">{{ tag_item }}</a>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  <h2 class="article__title">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                  </h2>
+
+                  <p class="article__excerpt">
+                    {% if post.description %}
+                      {{ post.description }}
+                    {% else %}
+                      {{ post.content | strip_html | truncate: 120 }}
+                    {% endif %}
+                  </p>
+
+                  <div class="article__meta">
+                    {% if site.data.author.avatar %}
+                      <div class="article__author-image">
+                        <img
+                          loading="lazy"
+                          src="{{ site.data.author.avatar | relative_url }}"
+                          alt="{{ site.data.author.author_name }}"
+                        >
+                      </div>
+                    {% endif %}
+
+                    <div class="article-info">
+                      {% if site.data.author.author_name %}
+                        <div class="article__author-name">{{ site.data.author.author_name }}</div>
+                      {% endif %}
+                      <span class="article__date">
+                        <time datetime="{{ post.date | date_to_xmlschema }}">
+                          {{ post.date | date: '%B %d, %Y' }}
+                        </time>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

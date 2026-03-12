@@ -1,0 +1,26 @@
+# Main navigation structure for the site header and mobile menu.
+
+# ------------------------------------------------------------
+# Primary navigation
+# Ordered list of links shown in the main site navigation.
+# ------------------------------------------------------------
+main:
+  - title: "About"
+    url: "/about/"
+
+  - title: "Projects"
+    url: "/projects/"
+
+  - title: "Blog"
+    url: "/blog/"
+
+  - title: "Contact"
+    url: "/contact/"
+
+# ------------------------------------------------------------
+# Optional secondary navigation
+# Use for less prominent utility links if needed.
+# ------------------------------------------------------------
+secondary:
+  - title: "Resume"
+    url: "/assets/files/resume.pdf"

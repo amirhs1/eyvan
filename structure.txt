@@ -1,18 +1,23 @@
 .
 ├── _config.yml
+├── _data
+│   ├── author.yml
+│   ├── footer.yml
+│   ├── navigation.yml
+│   └── social_links.yml
+├── _drafts
 ├── _includes
-│   ├── footer-end.html
-│   ├── footer.html
 │   ├── head.html
+│   ├── header-actions.html
 │   ├── header.html
-│   ├── pagination.html
-│   ├── post-card.html
-│   ├── read-time.html
-│   └── social-share.html
+│   ├── math.html
+│   ├── mobile-menu.html
+│   └── theme-toggle.html
 ├── _layouts
 │   ├── default.html
 │   ├── page.html
-│   └── post.html
+│   ├── post.html
+│   └── tag_page.html
 ├── _posts
 │   ├── 2020-05-05-you-got-to-cool-that-shit-off-and-thats-the-double-truth.md
 │   ├── 2020-05-06-welcome-to-jekyll.md
@@ -33,7 +38,6 @@
 │   │   ├── _colors-science-light.scss
 │   │   ├── _colors.scss
 │   │   ├── _config.scss
-│   │   ├── _fonts.scss
 │   │   ├── _palette-persian.scss
 │   │   ├── _spacing.scss
 │   │   └── _typography.scss
@@ -55,89 +59,18 @@
 │   │   ├── _tables.scss
 │   │   └── _typography.scss
 │   ├── 4-objects
-│   │   ├── _box.scss
-│   │   ├── _figure.scss
-│   │   ├── _header.scss
-│   │   ├── _stack.scss
-│   │   └── _table.scss
+│   │   └── _site-header.scss
 │   ├── 5-components
-│   │   ├── _avatar.scss
-│   │   ├── _blockquote.scss
-│   │   ├── _buttons.scss
-│   │   ├── _figure.scss
-│   │   ├── _footer.scss
-│   │   ├── _forms.scss
-│   │   ├── _header.scss
-│   │   ├── _hero.scss
-│   │   ├── _navigation.scss
-│   │   ├── _pagination.scss
-│   │   ├── _syntax-highlighting.scss
-│   │   ├── _tables.scss
-│   │   └── _tags.scss
+│   │   ├── _button.scss
+│   │   ├── _site-header.scss
+│   │   └── _social-links.scss
 │   ├── 6-layouts
-│   │   ├── _home.scss
-│   │   ├── _page.scss
-│   │   ├── _post.scss
-│   │   └── _tags.scss
 │   ├── 7-trumps
-│   │   ├── _display.scss
-│   │   ├── _spacing.scss
-│   │   ├── _text.scss
-│   │   └── _visibility.scss
+│   │   └── _a11y-and-state.scss
 │   ├── make_copy.sh
 │   ├── merging_files_in_one.sh
 │   └── merging_per_folder.sh
 ├── _site
-│   ├── 404.html
-│   ├── assets
-│   │   ├── css
-│   │   │   ├── main.css
-│   │   │   └── main.css.map
-│   │   ├── favicon
-│   │   │   ├── favicon.ico
-│   │   │   └── site.webmanifest
-│   │   ├── fonts
-│   │   ├── icons
-│   │   ├── images
-│   │   │   └── posts
-│   │   └── js
-│   │       ├── common.js
-│   │       ├── jquery-3.3.1.min.js
-│   │       ├── jquery.fitvids.js
-│   │       └── jquery.waitforimages.min.js
-│   ├── blockqoute
-│   │   └── index.html
-│   ├── code-style
-│   │   └── index.html
-│   ├── favicon.ico
-│   ├── i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live
-│   │   └── index.html
-│   ├── if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all
-│   │   └── index.html
-│   ├── index.html
-│   ├── iwan-jekyll.gemspec
-│   ├── LICENSE
-│   ├── make-your-own-gems
-│   │   └── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── page
-│   │   └── 2
-│   │       └── index.html
-│   ├── README.md
-│   ├── sample-post
-│   │   └── index.html
-│   ├── sitemap.xml
-│   ├── tags
-│   │   └── index.html
-│   ├── the-reason-were-gathered-here-on-our-god-given-day
-│   │   └── index.html
-│   ├── the-senate-that-our-ability-to-use-the-force-has-diminished
-│   │   └── index.html
-│   ├── welcome-to-jekyll
-│   │   └── index.html
-│   └── you-got-to-cool-that-shit-off-and-thats-the-double-truth
-│       └── index.html
 ├── 404.html
 ├── assets
 │   ├── css
@@ -162,7 +95,7 @@
 ├── LICENSE
 ├── package-lock.json
 ├── package.json
-├── README.md
-└── tags.html
+├── projects.html
+└── README.md
 
-43 directories, 123 files
+24 directories, 75 files

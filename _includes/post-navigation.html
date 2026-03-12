@@ -1,0 +1,107 @@
+{% comment %}
+  Post Navigation Include
+  Purpose: Render previous/next post navigation links at the end of an
+  article page.
+
+  Structure:
+  - Navigation wrapper
+    - Previous post card (optional)
+      - Media
+      - Content (label + title)
+    - Next post card (optional)
+      - Content (label + title)
+      - Media
+
+  Architecture:
+  - Component-level include
+  - Uses ITCSS + BEM naming
+  - Root block: c-post-nav
+  - Elements:
+    - c-post-nav__item
+    - c-post-nav__media
+    - c-post-nav__content
+    - c-post-nav__label
+    - c-post-nav__title
+  - Modifiers:
+    - c-post-nav__item--prev
+    - c-post-nav__item--next
+    - c-post-nav__label--prev
+    - c-post-nav__label--next
+
+  Accessibility:
+  - Uses semantic navigation landmark
+  - Linked images use descriptive alt text
+  - Hidden decorative content should be handled in CSS, not markup
+
+  Data dependencies:
+  - page.previous.url
+  - page.previous.title
+  - page.previous.image
+  - page.next.url
+  - page.next.title
+  - page.next.image
+{% endcomment %}
+
+{% assign has_previous_post = page.previous.url %}
+{% assign has_next_post = page.next.url %}
+
+{% if has_previous_post or has_next_post %}
+  <!-- Post navigation -->
+  <nav class="c-post-nav animate" aria-label="Post navigation">
+    {% if has_previous_post %}
+      <!-- Previous post link -->
+      <a
+        class="c-post-nav__item c-post-nav__item--prev"
+        href="{{ page.previous.url | relative_url }}"
+      >
+        {% if page.previous.image %}
+          <!-- Previous post media -->
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ page.previous.image | relative_url }}"
+              alt="{{ page.previous.title | escape }}"
+            >
+          </div>
+        {% endif %}
+
+        <!-- Previous post content -->
+        <div class="c-post-nav__content">
+          <!-- Previous post label -->
+          <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
+
+          <!-- Previous post title -->
+          <h2 class="c-post-nav__title">{{ page.previous.title }}</h2>
+        </div>
+      </a>
+    {% endif %}
+
+    {% if has_next_post %}
+      <!-- Next post link -->
+      <a
+        class="c-post-nav__item c-post-nav__item--next"
+        href="{{ page.next.url | relative_url }}"
+      >
+        <!-- Next post content -->
+        <div class="c-post-nav__content">
+          <!-- Next post label -->
+          <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
+
+          <!-- Next post title -->
+          <h2 class="c-post-nav__title">{{ page.next.title }}</h2>
+        </div>
+
+        {% if page.next.image %}
+          <!-- Next post media -->
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ page.next.image | relative_url }}"
+              alt="{{ page.next.title | escape }}"
+            >
+          </div>
+        {% endif %}
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}

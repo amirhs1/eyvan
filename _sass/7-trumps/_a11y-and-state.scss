@@ -1,0 +1,43 @@
+// -----------------------------------------------------------------------------
+// Trumps — Accessibility Utilities and State
+// ITCSS layer: 7-trumps
+//
+// Purpose:
+// Provide high-priority utility helpers and simple state hooks used by
+// templates and interactive components.
+//
+// Scope & Rules:
+// - Utilities must be flat and single-purpose
+// - Use !important where utility intent must always win
+// - State hooks should stay minimal and component-safe
+// -----------------------------------------------------------------------------
+
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   List reset utility
+   ----------------------------------------------------------------------------- */
+
+.u-list-reset {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Visually hidden utility
+   ----------------------------------------------------------------------------- */
+
+.u-visually-hidden {
+  @include tools-mixins.visually-hidden;
+}
+
+/* -----------------------------------------------------------------------------
+   Generic active state hook
+   ----------------------------------------------------------------------------- */
+
+.is-active {
+  /* Intentionally empty:
+     component-specific active styling should live with the component.
+     This class exists as a shared state hook in templates and JS. */
+}

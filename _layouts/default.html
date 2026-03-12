@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">    
+
+<!--
+  Base site layout: wraps all pages with shared head, header, footer, and scripts.
+  Injects page-specific markup through {{ content }}.
+-->
+
 {% include head.html %}
 
 <body>
     {% include header.html %}
     {{ content }}
     {% include footer.html %}
-    {% include footer-end.html %}
+
+    {% include math.html %}
+    {% include scripts.html %}
 </body>
 
 </html>

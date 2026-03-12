@@ -1,0 +1,103 @@
+{% comment %}
+  Header Action Links Component
+  Purpose: Render the reusable header action links set: social links plus the CV link.
+
+  Structure:
+  - Social icon links rendered from a platform mapping
+  - Optional CV icon link rendered after the social links
+
+  Architecture:
+  - Leaf include used by both desktop header actions and mobile menu actions
+  - Output is presentation-ready markup only; layout belongs to the parent container
+  - Uses c-icon-link and c-social-links element classes
+
+  Accessibility:
+  - Each link has an explicit aria-label
+  - Each icon has visually hidden text for screen readers
+  - Decorative SVG images use alt="" and aria-hidden="true"
+
+  Data dependencies:
+  - site.social.github
+  - site.social.linkedin
+  - site.social.instagram
+  - site.social.youtube
+  - site.social.twitter
+  - site.cv_url
+
+  Notes:
+  - This include is intentionally self-contained
+  - It does not rely on captured HTML defined in another include
+  - The CV link opens the PDF in a new tab
+{% endcomment %}
+
+{% assign platforms = "github,linkedin,instagram,youtube,twitter" | split: "," %}
+
+<!--  Social platform loop  -->
+{% for platform in platforms %}
+  {% if site.social[platform] %}
+    {% case platform %}
+      {% when 'github' %}
+        {% assign label = "GitHub" %}
+        {% assign icon = "logo-github.svg" %}
+      {% when 'linkedin' %}
+        {% assign label = "LinkedIn" %}
+        {% assign icon = "logo-linkedin.svg" %}
+      {% when 'instagram' %}
+        {% assign label = "Instagram" %}
+        {% assign icon = "logo-instagram.svg" %}
+      {% when 'youtube' %}
+        {% assign label = "YouTube" %}
+        {% assign icon = "logo-youtube.svg" %}
+      {% when 'twitter' %}
+        {% assign label = "X (Twitter)" %}
+        {% assign icon = "logo-twitter.svg" %}
+      {% else %}
+        {% assign label = platform | capitalize %}
+        {% assign icon = "logo-" | append: platform | append: ".svg" %}
+    {% endcase %}
+
+    <!-- Social action link -->
+    <a
+      class="c-icon-link c-social-links__item"
+      href="{{ site.social[platform] }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="{{ label }}"
+    >
+      <!-- Screen-reader label for social action -->
+      <span class="u-visually-hidden">{{ label }}</span>
+
+      <!-- Decorative social icon -->
+      <img
+        class="c-icon-link__icon c-social-links__icon"
+        src="{{ '/assets/icons/' | append: icon | relative_url }}"
+        alt=""
+        aria-hidden="true"
+      >
+    </a>
+  {% endif %}
+{% endfor %}
+
+<!-- Optional CV link -->
+{% if site.cv_url %}
+  <!-- CV action link -->
+  <a
+    class="c-icon-link c-social-links__item c-social-links__item--cv"
+    href="{{ site.cv_url | relative_url }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    type="application/pdf"
+    aria-label="Open CV PDF in a new tab"
+  >
+    <!-- Screen-reader label for CV action -->
+    <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+
+    <!-- Decorative CV icon -->
+    <img
+      class="c-icon-link__icon c-social-links__icon"
+      src="{{ '/assets/icons/cv-sharp.svg' | relative_url }}"
+      alt=""
+      aria-hidden="true"
+    >
+  </a>
+{% endif %}

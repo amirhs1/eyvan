@@ -1,15 +1,27 @@
 ---
 layout: default
+title: Home
 ---
+<!--
+  Homepage template: renders the hero and a featured projects preview.
+  Uses the default layout and links to the full Projects archive.
+-->
+
+{% include hero.html %}
+
 <div class="container">
-    <div class="row">
-        <div class="col col-12 col-t-12">
-            <div class="row">
-                {% for post in paginator.posts %}
-                    {% include post-card.html %}
-                {% endfor %}
-            </div>
-            {% include pagination.html %}
-        </div>
+  <div class="row">
+    <div class="col col-12">
+      <div class="row">
+        {% assign featured_projects = site.projects | slice: 0, 6 %}
+        {% for project in featured_projects %}
+          {% include project-card.html project=project %}
+        {% endfor %}
+      </div>
+
+      {% include section-cta.html
+        url="/projects/"
+        label="View All Projects" %}
     </div>
+  </div>
 </div>

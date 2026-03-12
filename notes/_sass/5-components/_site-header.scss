@@ -1,0 +1,460 @@
+// -----------------------------------------------------------------------------
+// Component - Site Header
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Provides the visual design for the site header, including typography,
+// colors, and navigation styling.
+//
+// Scope & Rules:
+// - Styles the header-related components
+// - Uses design tokens from 0-settings only
+// - Supports tablet/mobile dropdown menu
+//
+// Components covered:
+// - c-site-header
+// - c-brand
+// - c-nav
+// - c-social-links
+// - c-theme-toggle
+// - c-nav-toggle
+// - c-mobile-menu
+// - c-button compatibility for header CTA
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+
+/* -----------------------------------------------------------------------------
+   Header shell
+   ----------------------------------------------------------------------------- */
+
+.c-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+
+  background-color: settings-colors.$ui-bg;
+  border-bottom: 1px solid settings-colors.$ui-border;
+  backdrop-filter: blur(10px);
+}
+
+/* -----------------------------------------------------------------------------
+   Brand component
+   ----------------------------------------------------------------------------- */
+
+/* Brand root link */
+
+.c-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+
+  color: settings-colors.$ui-text;
+  text-decoration: none;
+  min-width: 0;
+
+  transition: settings-config.$transition-interaction;
+
+  &:hover,
+  &:focus-visible {
+    color: settings-colors.$link-hover;
+  }
+}
+
+/* Brand logo */
+
+.c-brand__logo {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Brand text stack */
+
+.c-brand__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Brand primary name */
+
+.c-brand__name {
+  color: settings-colors.$ui-text;
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1.05;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+}
+
+/* Brand secondary role */
+
+.c-brand__role {
+  color: settings-colors.$ui-text-muted;
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-sm;
+  line-height: 1.2;
+}
+
+/* -----------------------------------------------------------------------------
+   Desktop navigation
+   ----------------------------------------------------------------------------- */
+
+/* Navigation root */
+
+.c-nav {
+  min-width: 0;
+}
+
+/* Navigation list */
+
+.c-nav__list {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-5;
+}
+
+/* Navigation item */
+
+.c-nav__item {
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation link */
+
+.c-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  color: settings-colors.$ui-text-muted;
+  text-decoration: none;
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-md;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: 1;
+
+  transition: settings-config.$transition-interaction;
+
+  &:hover,
+  &:focus-visible {
+    color: settings-colors.$ui-text;
+  }
+}
+
+/* Active navigation state */
+
+.c-nav__link.is-active {
+  color: settings-colors.$ui-text;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -0.55rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background-color: settings-colors.$accent-primary;
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile navigation modifier */
+
+.c-nav--mobile .c-nav__list {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: settings-spacing.$space-4;
+}
+
+.c-nav--mobile .c-nav__link {
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-semibold;
+}
+
+.c-nav--mobile .c-nav__link.is-active::after {
+  left: auto;
+  right: -0.85rem;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+
+/* -----------------------------------------------------------------------------
+   Social links
+   ----------------------------------------------------------------------------- */
+
+/* Social links group */
+
+.c-social-links {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+}
+
+/* Individual social link */
+
+.c-social-links__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+
+  color: settings-colors.$ui-text-muted;
+  text-decoration: none;
+
+  transition: settings-config.$transition-interaction;
+
+  &:hover,
+  &:focus-visible {
+    color: settings-colors.$ui-text;
+    background-color: settings-colors.$ui-surface;
+  }
+}
+
+/* Social icon image */
+
+.c-social-links__icon {
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+  object-fit: contain;
+}
+
+/* -----------------------------------------------------------------------------
+   Theme toggle
+   ----------------------------------------------------------------------------- */
+
+/* Theme toggle button */
+
+.c-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: settings-spacing.$space-2;
+
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: settings-spacing.$space-2;
+
+  border: 1px solid settings-colors.$ui-border;
+  border-radius: 999px;
+  background-color: settings-colors.$ui-surface;
+
+  color: settings-colors.$ui-text-muted;
+  cursor: pointer;
+
+  transition: settings-config.$transition-interaction;
+
+  &:hover,
+  &:focus-visible {
+    color: settings-colors.$ui-text;
+    border-color: settings-colors.$accent-primary;
+  }
+}
+
+/* Theme toggle decorative icon */
+
+.c-theme-toggle__icon {
+  position: relative;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+/* Theme toggle label */
+
+.c-theme-toggle__label {
+  color: settings-colors.$ui-text;
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: 1;
+}
+
+/* Mobile theme toggle modifier */
+
+.c-theme-toggle--mobile {
+  justify-content: flex-start;
+  padding-inline: settings-spacing.$space-3;
+  border-radius: settings-config.$global-radius;
+}
+
+/* -----------------------------------------------------------------------------
+   Resume / CV button
+   - Supports both c-button so current HTML keeps working
+   - Icon accent is generated in CSS, not loaded from SVG
+   ----------------------------------------------------------------------------- */
+
+/* Header CTA button base */
+
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: settings-spacing.$space-2;
+
+  font: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+
+  border: 1px solid transparent;
+  border-radius: settings-config.$global-radius;
+  cursor: pointer;
+
+  transition: settings-config.$transition-interaction;
+}
+
+/* Header CTA primary variant */
+
+.c-button--primary {
+  color: settings-colors.$btn-text;
+  background-color: settings-colors.$btn-bg;
+
+  &:hover,
+  &:focus-visible {
+    color: settings-colors.$btn-text;
+    background-color: settings-colors.$btn-bg-hover;
+  }
+}
+
+/* Header CTA size variant */
+
+.c-button--small {
+  min-height: 2.5rem;
+  padding: settings-spacing.$space-2 settings-spacing.$space-4;
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-semibold;
+  line-height: 1;
+}
+
+/* Desktop resume button enhancement */
+
+.o-site-header__actions .c-button--small {
+  position: relative;
+}
+
+/* CSS-generated resume arrow */
+
+.o-site-header__actions .c-button--small::after {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(0.02rem) rotate(45deg);
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile navigation toggle
+   ----------------------------------------------------------------------------- */
+
+/* Menu toggle button */
+
+.c-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: settings-spacing.$space-2;
+
+  border: 1px solid settings-colors.$ui-border;
+  border-radius: settings-config.$global-radius;
+  background-color: settings-colors.$ui-surface;
+
+  color: settings-colors.$ui-text;
+  cursor: pointer;
+
+  transition: settings-config.$transition-interaction;
+
+  &:hover,
+  &:focus-visible {
+    border-color: settings-colors.$accent-primary;
+  }
+}
+
+/* Menu toggle decorative icon */
+
+.c-nav-toggle__icon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: contain;
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile menu panel
+   ----------------------------------------------------------------------------- */
+
+/* Mobile menu root */
+
+.c-mobile-menu {
+  border-top: 1px solid settings-colors.$ui-border;
+  border-bottom: 1px solid settings-colors.$ui-border;
+  background-color: settings-colors.$ui-surface;
+}
+
+/* Mobile menu internal spacing */
+
+.c-mobile-menu .container {
+  padding-block: settings-spacing.$space-5;
+}
+
+/* Mobile menu footer */
+
+.c-mobile-menu__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: settings-spacing.$space-4;
+
+  margin-top: settings-spacing.$space-5;
+  padding-top: settings-spacing.$space-4;
+  border-top: 1px solid settings-colors.$ui-border;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive refinements
+   ----------------------------------------------------------------------------- */
+
+/* Tablet/mobile brand tightening */
+
+@media (max-width: settings-breakpoints.$bp-layout) {
+  .c-brand__name {
+    font-size: settings-typography.$font-size-md;
+  }
+
+  .c-brand__role {
+    display: none;
+  }
+}
+
+/* Small-screen menu spacing */
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-mobile-menu .container {
+    padding-block: settings-spacing.$space-4;
+  }
+
+  .c-mobile-menu__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

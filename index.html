@@ -2,26 +2,67 @@
 layout: default
 title: Home
 ---
-<!--
-  Homepage template: renders the hero and a featured projects preview.
-  Uses the default layout and links to the full Projects archive.
--->
+{% comment %}
+  Home Page Layout
+  Purpose: Render the homepage entry point with the hero section and a
+  preview grid of featured projects.
 
+  Structure:
+  - Hero include
+  - Homepage content container
+    - Featured projects grid
+    - Section call-to-action linking to the full Projects archive
+
+  Architecture:
+  - Layout-level page template
+  - Uses shared layout primitives such as:
+    - container
+    - row
+    - col
+  - Delegates reusable UI fragments to:
+    - hero.html
+    - project-card.html
+    - section-cta.html
+
+  Accessibility:
+  - Semantic page structure is delegated to included components
+  - Project card link accessibility is delegated to project-card.html
+  - CTA link accessibility is delegated to section-cta.html
+
+  Data dependencies:
+  - site.projects
+  - project-card.html dependencies
+  - section-cta.html dependencies
+
+  Notes:
+  - The homepage shows only a limited featured subset of projects
+  - The current implementation slices the first 6 items from site.projects
+  - The full archive is available at /projects/
+{% endcomment %}
+
+<!-- Homepage hero section -->
 {% include hero.html %}
 
+<!-- Homepage featured projects section -->
 <div class="container">
   <div class="row">
     <div class="col col-12">
+      <!-- Featured projects grid -->
       <div class="row">
         {% assign featured_projects = site.projects | slice: 0, 6 %}
+
         {% for project in featured_projects %}
+          <!-- Featured project card -->
           {% include project-card.html project=project %}
         {% endfor %}
       </div>
 
-      {% include section-cta.html
+      <!-- Homepage projects archive call-to-action -->
+      {%
+        include section-cta.html
         url="/projects/"
-        label="View All Projects" %}
+        label="View All Projects"
+      %}
     </div>
   </div>
 </div>

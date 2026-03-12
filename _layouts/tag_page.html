@@ -1,89 +1,178 @@
 ---
 layout: default
 ---
-<!--
-  Tag archive layout: lists all posts associated with the active tag.
-  Used by generated tag pages with page.tag and page.posts data.
--->
 
+{% comment %}
+  Tag Page Layout
+  Purpose: Render a tag archive page listing all posts associated with the
+  active tag.
+
+  Structure:
+  - Tag archive header
+    - Archive title
+  - Tag archive grid
+    - Repeated post card
+      - Optional post image
+      - Post tags
+      - Post title
+      - Post excerpt
+      - Post metadata
+
+  Architecture:
+  - Layout layer of the site
+  - Uses ITCSS + BEM naming
+  - Reuses shared grid/container utilities already present in the theme
+  - Composes article-card style markup directly in this layout
+
+  Accessibility:
+  - Uses a semantic page header for the archive title
+  - Uses article elements for each listed post
+  - Post images include descriptive alt text
+  - Dates use semantic time elements
+
+  Data dependencies:
+  - page.tag
+  - page.posts
+  - post.url
+  - post.title
+  - post.image
+  - post.description
+  - post.content
+  - post.tags
+  - post.date
+  - site.data.author.avatar
+  - site.data.author.author_name
+
+  Notes:
+  - This layout is intended for generated tag archive pages from
+    jekyll-tagging
+  - Card markup is kept consistent with the projects/archive listing style
+{% endcomment %}
+
+<!-- Precomputed variables -->
 {% assign tag = page.tag %}
 
-<header class="page-header">
+<!-- Tag archive header -->
+<header class="l-tag-page-header">
   <div class="container">
-    <h1 class="page-title">{{ tag }}</h1>
+
+    <!-- Tag archive title -->
+    <h1 class="l-tag-page-header__title">{{ tag }}</h1>
+
   </div>
 </header>
 
+<!-- Tag archive layout container -->
 <div class="container">
   <div class="row">
     <div class="col col-12">
-      <div class="container__inner animate">
+
+      <!-- Tag archive inner wrapper -->
+      <div class="l-tag-page animate">
         <div class="row">
+
           {% for post in page.posts %}
-            <article class="article col col-4 col-d-6 col-t-12">
-              <div class="article__inner">
-                {% if post.image %}
-                  <div class="image-wrap">
-                    <a class="article__image" href="{{ post.url | relative_url }}">
-                      <img
-                        loading="lazy"
-                        src="{{ post.image | relative_url }}"
-                        alt="{{ post.title }}"
-                      >
+          <!-- Tag archive post card -->
+          <article class="col col-4 col-d-6 col-t-12 c-article-card">
+            <div class="c-article-card__inner">
+
+              {% if post.image %}
+              <!-- Post card image -->
+              <div class="c-article-card__media">
+                <a
+                  class="c-article-card__image-link"
+                  href="{{ post.url | relative_url }}"
+                >
+                  <img
+                    class="c-article-card__image"
+                    loading="lazy"
+                    src="{{ post.image | relative_url }}"
+                    alt="{{ post.title | escape }}"
+                  >
+                </a>
+              </div>
+              {% endif %}
+
+              <!-- Post card content -->
+              <div class="c-article-card__content">
+
+                {% if post.tags and post.tags.size > 0 %}
+                <!-- Post card tags -->
+                <div class="c-article-card__tags">
+                  {% for tag_item in post.tags %}
+                    {% assign tag_url = '/tag/' | append: tag_item | downcase | slugify | append: '/' %}
+                    <a
+                      href="{{ tag_url | relative_url }}"
+                      class="c-article-card__tag"
+                    >
+                      {{ tag_item }}
                     </a>
-                  </div>
+                  {% endfor %}
+                </div>
                 {% endif %}
 
-                <div class="article__content">
-                  {% if post.tags and post.tags.size > 0 %}
-                    <div class="article-tags__box">
-                      {% for tag_item in post.tags %}
-                        {% assign tag_url = '/tag/' | append: tag_item | downcase | slugify | append: '/' %}
-                        <a href="{{ tag_url | relative_url }}" class="article__tag">{{ tag_item }}</a>
-                      {% endfor %}
-                    </div>
+                <!-- Post card title -->
+                <h2 class="c-article-card__title">
+                  <a
+                    class="c-article-card__title-link"
+                    href="{{ post.url | relative_url }}"
+                  >
+                    {{ post.title }}
+                  </a>
+                </h2>
+
+                <!-- Post card excerpt -->
+                <p class="c-article-card__excerpt">
+                  {% if post.description %}
+                    {{ post.description }}
+                  {% else %}
+                    {{ post.content | strip_html | truncate: 120 }}
+                  {% endif %}
+                </p>
+
+                <!-- Post card metadata -->
+                <div class="c-article-card__meta">
+
+                  {% if site.data.author.avatar %}
+                  <!-- Post card author avatar -->
+                  <div class="c-article-card__author-image">
+                    <img
+                      class="c-article-card__author-avatar"
+                      loading="lazy"
+                      src="{{ site.data.author.avatar | relative_url }}"
+                      alt="{{ site.data.author.author_name }}"
+                    >
+                  </div>
                   {% endif %}
 
-                  <h2 class="article__title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                  </h2>
+                  <!-- Post card author and date -->
+                  <div class="c-article-card__meta-details">
 
-                  <p class="article__excerpt">
-                    {% if post.description %}
-                      {{ post.description }}
-                    {% else %}
-                      {{ post.content | strip_html | truncate: 120 }}
-                    {% endif %}
-                  </p>
-
-                  <div class="article__meta">
-                    {% if site.data.author.avatar %}
-                      <div class="article__author-image">
-                        <img
-                          loading="lazy"
-                          src="{{ site.data.author.avatar | relative_url }}"
-                          alt="{{ site.data.author.author_name }}"
-                        >
-                      </div>
-                    {% endif %}
-
-                    <div class="article-info">
-                      {% if site.data.author.author_name %}
-                        <div class="article__author-name">{{ site.data.author.author_name }}</div>
-                      {% endif %}
-                      <span class="article__date">
-                        <time datetime="{{ post.date | date_to_xmlschema }}">
-                          {{ post.date | date: '%B %d, %Y' }}
-                        </time>
-                      </span>
+                    {% if site.data.author.author_name %}
+                    <!-- Post card author name -->
+                    <div class="c-article-card__author-name">
+                      {{ site.data.author.author_name }}
                     </div>
+                    {% endif %}
+
+                    <!-- Post card publish date -->
+                    <span class="c-article-card__date">
+                      <time datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: '%B %d, %Y' }}
+                      </time>
+                    </span>
+
                   </div>
                 </div>
+
               </div>
-            </article>
+            </div>
+          </article>
           {% endfor %}
+
         </div>
       </div>
+
     </div>
   </div>
 </div>

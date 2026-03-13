@@ -10,29 +10,37 @@ title: Home
 
   Structure:
   - Hero include
-  - Latest Projects section
+  - Latest projects section
     - Section header
-    - Project grid (6 latest posts)
-    - Section call-to-action linking to the full archive
+    - Post card grid (6 latest posts)
+    - Section CTA linking to the full projects archive
 
   Architecture:
-  - Layout-level page template
-  - Uses layout primitives:
-    - container
-    - row
-    - col
+  - Page-level template rendered through the default layout
+  - Uses ITCSS + BEM naming:
+    - Layouts: l-
+    - Components: c-
+    - Objects: row / col
   - Delegates reusable UI fragments to:
     - hero.html
-    - project-card.html
+    - post-card.html
+
+  Accessibility:
+  - Uses a semantic section and section header
+  - Project cards are rendered through a reusable article include
 
   Data dependencies:
-  - site.posts (projects stored using Jekyll posts)
+  - site.posts
+
+  Notes:
+  - Projects are currently stored as Jekyll posts
+  - The homepage shows the 6 most recent posts only
 {% endcomment %}
 
 <!-- Homepage hero section -->
 {% include hero.html %}
 
-<!-- Latest Projects section -->
+<!-- Latest projects section -->
 <section class="l-section l-section--projects">
   <div class="container">
 
@@ -41,14 +49,11 @@ title: Home
       <h2 class="c-section-header__title">Latest Projects</h2>
     </header>
 
-    <!-- Projects grid -->
+    <!-- Latest projects grid -->
     <div class="row">
-
-      {% for project in site.posts limit:6 %}
-        <!-- Project card -->
-        {% include project-card.html project=project %}
+      {% for post in site.posts limit:6 %}
+        {% include post-card.html post=post %}
       {% endfor %}
-
     </div>
 
     <!-- Section CTA -->
@@ -63,3 +68,4 @@ title: Home
 
   </div>
 </section>
+<!-- End of latest projects section -->

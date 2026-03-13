@@ -1,0 +1,46 @@
+# Homepage hero content.
+#
+# ------------------------------------------------------------
+# Intro text
+# Small hero-specific copy used to build the heading and optional eyebrow.
+# The author name itself comes from _data/author.yml, not from this file.
+# ------------------------------------------------------------
+eyebrow: "Selected work and writing"
+title_lead: "Hi there, I am"
+
+# ------------------------------------------------------------
+# Rich description
+# Optional HTML description for the hero body. Keep this short and readable.
+# If left blank, hero.html falls back to:
+# - author role
+# - author location
+# - site.description from _config.yml
+# ------------------------------------------------------------
+description_html: >-
+  <p><strong>Your Professional Title</strong> based in
+  <strong>City, Region, Country</strong>. Write 1–2 sentences here describing
+  your practice, research, or portfolio focus in a concise and professional way.</p>
+
+# ------------------------------------------------------------
+# Hero media
+# Main image displayed in the homepage hero.
+# Use a real image path when ready.
+# ------------------------------------------------------------
+image: "/assets/images/hero-placeholder.jpg"
+image_alt: "Portrait or representative image for the homepage hero"
+
+# ------------------------------------------------------------
+# Primary call to action
+# Main action you want visitors to take first.
+# Examples: contact page, email anchor, booking page.
+# ------------------------------------------------------------
+cta_button_primary_text: "Get in touch"
+cta_button_primary_link: "/contact/"
+
+# ------------------------------------------------------------
+# Secondary call to action
+# Secondary navigation path for users who want to browse work first.
+# Examples: projects archive, portfolio section, featured work anchor.
+# ------------------------------------------------------------
+cta_button_secondary_text: "See my work"
+cta_button_secondary_link: "/projects/"

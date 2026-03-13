@@ -31,7 +31,7 @@
 {% assign social = site.data.social-links %}
 {% assign platforms = 'github,linkedin,instagram,youtube,twitter,scholar,orcid,medium' | split: ',' %}
 
-<!-- Social platform loop -->
+<!-- social-links.html -->
 {% for platform in platforms %}
   {% if social[platform] %}
     {% case platform %}
@@ -108,3 +108,4 @@
     >
   </a>
 {% endif %}
+<!-- End of social-links.html -->

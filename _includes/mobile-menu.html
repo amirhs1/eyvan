@@ -1,6 +1,7 @@
 {% comment %}
   Mobile Menu Component
-  Purpose: Render the expanded tablet/mobile navigation panel for the global header.
+  Purpose: Render the expanded tablet/mobile navigation panel for the
+  global header using shared navigation data.
 
   Structure:
   - Top: close control
@@ -9,10 +10,12 @@
 
   Architecture:
   - Reusable header subcomponent included by header.html
-  - Delegates reusable leaf rendering to:
-    - action-links.html
-    - theme-toggle.html
   - Uses c-mobile-menu as the component root
+  - Primary navigation items are sourced from:
+    - site.data.navigation.main
+  - Delegates reusable leaf rendering to:
+    - social-links.html
+    - theme-toggle.html
 
   Accessibility:
   - The navigation region uses aria-label
@@ -21,7 +24,8 @@
 
   Data dependencies:
   - page.url
-  - action-links.html dependencies
+  - site.data.navigation.main
+  - social-links.html dependencies
   - theme-toggle.html dependencies
 
   Notes:
@@ -29,9 +33,10 @@
   - It does not rely on external captured variables
   - The bottom action zone is intentionally modeled as the footer area of the mobile menu component
   - The mobile theme toggle includes a visible label for clarity
+  - Navigation items can support internal and external links
 {% endcomment %}
 
-<!-- Mobile menu overlay -->
+<!-- mobile-menu.html -->
 <div class="c-mobile-menu" id="mobile-menu" hidden data-mobile-menu>
   <!-- Mobile menu container -->
   <div class="container">
@@ -59,35 +64,23 @@
       <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
         <!-- Mobile navigation list -->
         <ul class="c-nav__list u-list-reset">
-          <!-- Mobile navigation item: Home -->
-          <li class="c-nav__item">
-            <a
-              class="c-nav__link{% if page.url == '/' %} is-active{% endif %}"
-              href="{{ '/' | relative_url }}"
-            >
-              Home
-            </a>
-          </li>
+          {% for item in site.data.navigation.main %}
+            {% assign is_external = false %}
+            {% if item.url contains '://' or item.url contains '.pdf' %}
+              {% assign is_external = true %}
+            {% endif %}
 
-          <!-- Mobile navigation item: About -->
-          <li class="c-nav__item">
-            <a
-              class="c-nav__link{% if page.url == '/about/' %} is-active{% endif %}"
-              href="{{ '/about/' | relative_url }}"
-            >
-              About
-            </a>
-          </li>
-
-          <!-- Mobile navigation item: Projects -->
-          <li class="c-nav__item">
-            <a
-              class="c-nav__link{% if page.url == '/projects/' %} is-active{% endif %}"
-              href="{{ '/projects/' | relative_url }}"
-            >
-              Projects
-            </a>
-          </li>
+            <!-- Mobile navigation item -->
+            <li class="c-nav__item">
+              <a
+                class="c-nav__link{% if page.url == item.url %} is-active{% endif %}"
+                href="{% if is_external %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}"
+                {% if is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                {{ item.title }}
+              </a>
+            </li>
+          {% endfor %}
         </ul>
       </nav>
 
@@ -105,3 +98,4 @@
     </div>
   </div>
 </div>
+<!-- End of mobile-menu.html -->

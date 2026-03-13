@@ -1,12 +1,12 @@
 {% comment %}
   Header Component
-  Purpose: Compose the global site header from smaller reusable header
-  sub-components.
+  Purpose: Compose the global site header from reusable brand, navigation,
+  action, and mobile-menu subcomponents.
 
   Structure:
-  - Left (desktop): brand (logo, name, role)
+  - Left (desktop): brand link with logo, name, and role
   - Center (desktop): primary navigation + theme toggle
-  - Right (desktop): social links + CV icon
+  - Right (desktop): social links + CV action
   - Tablet/Mobile top bar: brand + hamburger toggle
   - Tablet/Mobile expanded menu: delegated to mobile-menu.html
 
@@ -17,8 +17,10 @@
     - Utilities: u-
     - State: is-
   - This file is the composition root for the header shell
+  - Primary navigation items are sourced from:
+    - site.data.navigation.main
   - Reusable leaf components are delegated to:
-    - action-links.html
+    - social-links.html
     - theme-toggle.html
     - mobile-menu.html
 
@@ -31,16 +33,19 @@
   Data dependencies:
   - site.logo
   - site.title
-  - site.author.name
-  - site.author.role
+  - site.data.author.name
+  - site.data.author.role
+  - site.data.navigation.main
 
   Notes:
-  - Desktop actions are rendered through action-links.html
+  - Desktop actions are rendered through social-links.html
   - Theme control is rendered through theme-toggle.html
   - Mobile overlay menu is rendered through mobile-menu.html
   - Brand logo uses fetchpriority="high" because it is above the fold
+  - Navigation items can support internal and external links
 {% endcomment %}
 
+<!-- header.html -->
 <header class="c-site-header">
   <!-- Header outer container -->
   <div class="container">
@@ -69,13 +74,13 @@
           <span class="c-brand__text">
             <!-- Brand primary name -->
             <span class="c-brand__name">
-              {{ site.author.name | default: site.title }}
+              {{ site.data.author.name | default: site.title }}
             </span>
 
-            {% if site.author.role %}
+            {% if site.data.author.role %}
               <!-- Brand secondary role -->
               <span class="c-brand__role">
-                {{ site.author.role }}
+                {{ site.data.author.role }}
               </span>
             {% endif %}
           </span>
@@ -88,35 +93,23 @@
         <nav class="c-nav c-nav--desktop" aria-label="Primary navigation">
           <!-- Desktop navigation list -->
           <ul class="c-nav__list u-list-reset">
-            <!-- Desktop navigation item: Home -->
-            <li class="c-nav__item">
-              <a
-                class="c-nav__link{% if page.url == '/' %} is-active{% endif %}"
-                href="{{ '/' | relative_url }}"
-              >
-                Home
-              </a>
-            </li>
+            {% for item in site.data.navigation.main %}
+              {% assign is_external = false %}
+              {% if item.url contains '://' or item.url contains '.pdf' %}
+                {% assign is_external = true %}
+              {% endif %}
 
-            <!-- Desktop navigation item: About -->
-            <li class="c-nav__item">
-              <a
-                class="c-nav__link{% if page.url == '/about/' %} is-active{% endif %}"
-                href="{{ '/about/' | relative_url }}"
-              >
-                About
-              </a>
-            </li>
-
-            <!-- Desktop navigation item: Projects -->
-            <li class="c-nav__item">
-              <a
-                class="c-nav__link{% if page.url == '/projects/' %} is-active{% endif %}"
-                href="{{ '/projects/' | relative_url }}"
-              >
-                Projects
-              </a>
-            </li>
+              <!-- Desktop navigation item -->
+              <li class="c-nav__item">
+                <a
+                  class="c-nav__link{% if page.url == item.url %} is-active{% endif %}"
+                  href="{% if is_external %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}"
+                  {% if is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+                  {{ item.title }}
+                </a>
+              </li>
+            {% endfor %}
           </ul>
         </nav>
 
@@ -161,4 +154,5 @@
 
   <!-- Mobile menu include -->
   {% include mobile-menu.html %}
-</header>    
+</header>
+<!-- End of header.html -->

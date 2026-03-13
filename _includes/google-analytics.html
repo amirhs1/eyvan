@@ -1,0 +1,66 @@
+{% comment %}
+  Google Analytics Include
+  Purpose: Load the Google tag for Google Analytics 4 (GA4) when a site
+  measurement ID is configured.
+
+  Structure:
+  - Guard: render nothing unless `site.google_analytics` is set
+  - Loader: fetch the Google tag library asynchronously from Google Tag Manager
+  - Bootstrap: initialize the global data layer and `gtag` helper
+  - Config: register the configured GA4 measurement ID
+
+  Architecture:
+  - This file is a focused include for analytics loading only
+  - It keeps third-party tracking code out of layouts and page templates
+  - It is intended to be included once from the global `<head>`
+  - Site-level opt-in is controlled through `_config.yml`: `google_analytics`
+
+  Behavior:
+  - Loads the Google tag asynchronously to reduce render blocking
+  - Initializes `window.dataLayer` safely if it does not already exist
+  - Registers the current page with the configured GA4 property
+  - Renders nothing when analytics is not configured
+
+  Performance:
+  - The external analytics library is loaded asynchronously
+  - The include is skipped entirely when no GA4 ID is configured
+  - Keeps the inline bootstrap script minimal
+
+  Usage:
+  - Add a GA4 measurement ID such as `G-XXXXXXXXXX` to
+    `{% raw %}google_analytics:{% endraw %}` in `_config.yml`
+  - Include this file once from `_includes/head.html` or another global head include
+  - Leave the value blank in development or privacy-sensitive environments
+    where tracking should be disabled
+
+  Dependencies:
+  - site.google_analytics
+  - Google tag / GA4 script from `googletagmanager.com`
+
+  Notes:
+  - This implementation is for Google Analytics 4, not Universal Analytics
+  - The configured value should be a GA4 measurement ID in `G-...` format
+  - If you later add consent management, this is the include to update
+{% endcomment %}
+
+{% if site.google_analytics %}
+
+  <!-- Google tag (GA4) loader -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}">
+  </script>
+
+  <!-- Google Analytics bootstrap and configuration -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '{{ site.google_analytics }}');
+  </script>
+
+{% endif %}

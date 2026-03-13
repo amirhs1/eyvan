@@ -1,14 +1,14 @@
 {% comment %}
-  Header Action Links Component
-  Purpose: Render the reusable header action links set: social links plus the CV link.
+  Social Links Component
+  Purpose: Render reusable social platform links plus the CV action.
 
   Structure:
   - Social icon links rendered from a platform mapping
   - Optional CV icon link rendered after the social links
 
   Architecture:
-  - Leaf include used by both desktop header actions and mobile menu actions
-  - Output is presentation-ready markup only; layout belongs to the parent container
+  - Reusable leaf include used by header, footer, and mobile menu
+  - Output is markup only; layout belongs to the parent container
   - Uses c-icon-link and c-social-links element classes
 
   Accessibility:
@@ -17,49 +17,57 @@
   - Decorative SVG images use alt="" and aria-hidden="true"
 
   Data dependencies:
-  - site.social.github
-  - site.social.linkedin
-  - site.social.instagram
-  - site.social.youtube
-  - site.social.twitter
+  - site.data.social_links.github
+  - site.data.social_links.linkedin
+  - site.data.social_links.instagram
+  - site.data.social_links.youtube
+  - site.data.social_links.twitter
+  - site.data.social_links.google_scholar
+  - site.data.social_links.orcid
+  - site.data.social_links.medium
   - site.cv_url
-
-  Notes:
-  - This include is intentionally self-contained
-  - It does not rely on captured HTML defined in another include
-  - The CV link opens the PDF in a new tab
 {% endcomment %}
 
-{% assign platforms = "github,linkedin,instagram,youtube,twitter" | split: "," %}
+{% assign social = site.data.social-links %}
+{% assign platforms = 'github,linkedin,instagram,youtube,twitter,scholar,orcid,medium' | split: ',' %}
 
-<!--  Social platform loop  -->
+<!-- Social platform loop -->
 {% for platform in platforms %}
-  {% if site.social[platform] %}
+  {% if social[platform] %}
     {% case platform %}
       {% when 'github' %}
-        {% assign label = "GitHub" %}
-        {% assign icon = "logo-github.svg" %}
+        {% assign label = 'GitHub' %}
+        {% assign icon = 'logo-github.svg' %}
       {% when 'linkedin' %}
-        {% assign label = "LinkedIn" %}
-        {% assign icon = "logo-linkedin.svg" %}
+        {% assign label = 'LinkedIn' %}
+        {% assign icon = 'logo-linkedin.svg' %}
       {% when 'instagram' %}
-        {% assign label = "Instagram" %}
-        {% assign icon = "logo-instagram.svg" %}
+        {% assign label = 'Instagram' %}
+        {% assign icon = 'logo-instagram.svg' %}
       {% when 'youtube' %}
-        {% assign label = "YouTube" %}
-        {% assign icon = "logo-youtube.svg" %}
+        {% assign label = 'YouTube' %}
+        {% assign icon = 'logo-youtube.svg' %}
       {% when 'twitter' %}
-        {% assign label = "X (Twitter)" %}
-        {% assign icon = "logo-twitter.svg" %}
+        {% assign label = 'X (Twitter)' %}
+        {% assign icon = 'logo-twitter.svg' %}
+      {% when 'scholar' %}
+        {% assign label = 'Google Scholar' %}
+        {% assign icon = 'logo-google_scholar.svg' %}
+      {% when 'orcid' %}
+        {% assign label = 'ORCID' %}
+        {% assign icon = 'logo-orcid.svg' %}
+      {% when 'medium' %}
+        {% assign label = 'Medium' %}
+        {% assign icon = 'logo-medium.svg' %}
       {% else %}
         {% assign label = platform | capitalize %}
-        {% assign icon = "logo-" | append: platform | append: ".svg" %}
+        {% assign icon = 'logo-' | append: platform | append: '.svg' %}
     {% endcase %}
 
     <!-- Social action link -->
     <a
       class="c-icon-link c-social-links__item"
-      href="{{ site.social[platform] }}"
+      href="{{ social[platform] }}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="{{ label }}"
@@ -91,7 +99,6 @@
   >
     <!-- Screen-reader label for CV action -->
     <span class="u-visually-hidden">Open CV PDF in a new tab</span>
-
     <!-- Decorative CV icon -->
     <img
       class="c-icon-link__icon c-social-links__icon"

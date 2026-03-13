@@ -1,0 +1,81 @@
+{% comment %}
+  Site Footer Component
+  Purpose: Render the global site footer with brand, footer metadata,
+  and reusable social/CV actions.
+
+  Structure:
+  - Left: brand link
+  - Center: tagline and copyright
+  - Right: social/CV actions
+
+  Architecture:
+  - Component-level site chrome
+  - Uses ITCSS + BEM naming
+  - Reuses the shared social actions include
+  - Footer-specific layout belongs to the footer wrapper, not the social include
+
+  Accessibility:
+  - Uses semantic footer element
+  - Social links accessibility is delegated to social-actions.html
+  - Brand link has an explicit homepage destination
+
+  Data dependencies:
+  - site.title
+  - site.data.footer.tagline
+  - site.data.footer.copyright
+  - site.data.author.name
+  - social-links.html dependencies
+
+  Notes:
+  - This footer is intentionally minimal
+  - Primary navigation remains in the header, not repeated here
+{% endcomment %}
+
+<!-- Site footer -->
+<footer class="c-site-footer">
+  <div class="container">
+    <!-- Footer layout -->
+    <div class="c-site-footer__inner">
+      <!-- Footer brand -->
+      <div class="c-site-footer__brand">
+        <a
+          class="c-site-footer__brand-link"
+          href="{{ '/' | relative_url }}"
+          aria-label="Go to homepage"
+        >
+          {{ site.data.author.name | default: site.title }}
+        </a>
+      </div>
+
+      <!-- Footer meta -->
+      <div class="c-site-footer__meta">
+        {% if site.data.footer.tagline %}
+          <!-- Footer tagline -->
+          <p class="c-site-footer__tagline">
+            {{ site.data.footer.tagline }}
+          </p>
+        {% endif %}
+
+        {% if site.data.footer.copyright %}
+          <!-- Footer copyright -->
+          <p class="c-site-footer__copyright">
+            {{ site.data.footer.copyright }}
+          </p>
+        {% else %}
+          <!-- Footer fallback copyright -->
+          <p class="c-site-footer__copyright">
+            © {{ site.time | date: '%Y' }}
+            {{ site.data.author.name | default: site.title }}. All rights reserved.
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Footer actions -->
+      <div class="c-site-footer__actions">
+        <nav class="c-social-links c-social-links--footer" aria-label="Social links">
+          {% include social-links.html %}
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

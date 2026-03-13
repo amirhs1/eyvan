@@ -1,0 +1,164 @@
+{% comment %}
+  Hero Component
+  Purpose: Render the homepage hero using site-wide identity data from
+  _data/author.yml and hero-specific presentation data from _data/hero.yml.
+
+  Structure:
+  - Hero section shell
+    - Content column
+      - Eyebrow (optional)
+      - Title
+      - Description
+      - Primary and secondary CTA actions
+    - Media column
+      - Hero image
+
+  Architecture:
+  - Uses ITCSS + BEM naming:
+    - Objects: o-
+    - Components: c-
+    - Utilities: u-
+    - State: is-
+  - This file is a reusable homepage include intended for index.html
+  - Identity content is sourced from:
+    - site.data.author
+    - site.title
+    - site.description
+  - Hero-specific content is sourced from:
+    - site.data.hero
+
+  Accessibility:
+  - Hero image uses configurable alt text
+  - CTA links remain semantic anchor elements
+  - Decorative arrow icon is hidden from assistive technology
+
+  Data dependencies:
+  - site.data.author.name
+  - site.data.author.role
+  - site.data.author.location
+  - site.title
+  - site.description
+  - site.data.hero.eyebrow
+  - site.data.hero.title_lead
+  - site.data.hero.description_html
+  - site.data.hero.image
+  - site.data.hero.image_alt
+  - site.data.hero.cta_button_primary_text
+  - site.data.hero.cta_button_primary_link
+  - site.data.hero.cta_button_secondary_text
+  - site.data.hero.cta_button_secondary_link
+
+  Notes:
+  - Name and role are intentionally owned by _data/author.yml only
+  - _config.yml should keep only site-level title and description
+  - Dynamic title and fallback description are assembled in this include
+  - description_html is rendered as HTML when provided
+{% endcomment %}
+
+{% assign author = site.data.author %}
+{% assign hero = site.data.hero %}
+
+{% assign hero_name = author.name | default: site.title %}
+{% assign hero_role = author.role %}
+{% assign hero_location = author.location %}
+
+{% capture hero_title %}
+  {{ hero.title_lead | default: 'Hi there, I am' }} {{ hero_name }}
+{% endcapture %}
+
+{% assign hero_description_html = hero.description_html %}
+{% assign hero_image_src = hero.image | default: '/assets/images/hero-placeholder.jpg' %}
+{% assign hero_image_alt = hero.image_alt | default: hero_name %}
+
+{% assign hero_primary_text = hero.cta_button_primary_text | default: 'Get in touch' %}
+{% assign hero_primary_link = hero.cta_button_primary_link | default: '/contact/' %}
+
+{% assign hero_secondary_text = hero.cta_button_secondary_text | default: 'See my work' %}
+{% assign hero_secondary_link = hero.cta_button_secondary_link | default: '/projects/' %}
+
+<section class="c-hero animate">
+  <!-- Hero outer container -->
+  <div class="container">
+    <!-- Hero grid row -->
+    <div class="row">
+      <!-- Hero full-width column -->
+      <div class="col col-12">
+        <!-- Hero layout object -->
+        <div class="o-hero">
+
+          <!-- Hero content column -->
+          <div class="o-hero__content">
+            {% if hero.eyebrow %}
+              <!-- Hero eyebrow -->
+              <p class="c-hero__eyebrow">
+                {{ hero.eyebrow }}
+              </p>
+            {% endif %}
+
+            <!-- Hero title -->
+            <h1 class="c-hero__title">
+              {{ hero_title | strip }}
+            </h1>
+
+            <!-- Hero description -->
+            <div class="c-hero__description">
+              {% if hero_description_html %}
+                {{ hero_description_html }}
+              {% else %}
+                <p>
+                  {% if hero_role %}<strong>{{ hero_role }}</strong>{% endif %}
+                  {% if hero_role and hero_location %} based in {% endif %}
+                  {% if hero_location %}<strong>{{ hero_location }}</strong>{% endif %}
+                  {% if hero_role or hero_location %}. {% endif %}
+                  {{ site.description }}
+                </p>
+              {% endif %}
+            </div>
+
+            <!-- Hero action group -->
+            <div class="c-hero__actions">
+              <!-- Hero primary action -->
+              <a
+                class="c-button c-button--primary c-button--small"
+                href="{{ hero_primary_link | relative_url }}"
+              >
+                {{ hero_primary_text }}
+              </a>
+
+              <!-- Hero secondary action -->
+              <a
+                class="c-button c-button--secondary c-button--small c-button--with-icon"
+                href="{{ hero_secondary_link | relative_url }}"
+              >
+                <!-- Decorative secondary action icon -->
+                <span class="c-button__icon-circle" aria-hidden="true">
+                  <ion-icon class="c-button__icon" name="arrow-down-outline"></ion-icon>
+                </span>
+
+                <!-- Secondary action label -->
+                <span class="c-button__label">
+                  {{ hero_secondary_text }}
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero media column -->
+          <div class="o-hero__media">
+            <!-- Hero image wrapper -->
+            <div class="c-hero__media">
+              <img
+                class="c-hero__image"
+                src="{{ hero_image_src | relative_url }}"
+                alt="{{ hero_image_alt | escape }}"
+                loading="eager"
+                fetchpriority="high"
+              >
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

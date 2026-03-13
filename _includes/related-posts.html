@@ -56,7 +56,6 @@
 {% assign related_count = 0 %}
 {% assign primary_tag = page.tags | first %}
 
-<!-- Related posts candidate discovery -->
 {% for post in site.posts %}
   {% if post.url != page.url %}
     {% assign same_tag_count = 0 %}
@@ -82,7 +81,7 @@
 {% if related_count > 0 %}
   {% assign sorted_related_candidates = related_candidates | split: '||' | sort | reverse %}
 
-  <!-- Related posts section -->
+  <!-- related-posts.html -->
   <div class="container">
     <section
       class="c-related-posts animate is-populated"
@@ -229,4 +228,5 @@
       </div>
     </section>
   </div>
+  <!-- End of related-posts.html -->
 {% endif %}

@@ -18,7 +18,9 @@
 {% assign wpm = site.words_per_minute | default: 200 %}
 {% assign words = page.content | strip_html | number_of_words %}
 
+<!-- read-time.html -->
 {% if words > 0 %}
   {% assign read_time = words | divided_by: wpm | at_least: 1 %}
   {{ read_time }} min read
 {% endif %}
+<!-- End of read-time.html -->

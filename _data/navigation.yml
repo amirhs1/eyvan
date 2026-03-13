@@ -5,22 +5,11 @@
 # Ordered list of links shown in the main site navigation.
 # ------------------------------------------------------------
 main:
+  - title: "Home"
+    url: "/"
+
   - title: "About"
     url: "/about/"
 
   - title: "Projects"
     url: "/projects/"
-
-  - title: "Blog"
-    url: "/blog/"
-
-  - title: "Contact"
-    url: "/contact/"
-
-# ------------------------------------------------------------
-# Optional secondary navigation
-# Use for less prominent utility links if needed.
-# ------------------------------------------------------------
-secondary:
-  - title: "Resume"
-    url: "/assets/files/resume.pdf"

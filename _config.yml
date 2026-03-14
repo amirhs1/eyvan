@@ -58,7 +58,7 @@ defaults:
 # Configuration for generated tag archive pages.
 # ------------------------------------------------------------
 tag_page_dir: "tag"
-tag_page_layout: "tag_page"
+tag_page_layout: "tag-page"
 tag_permalink_style: "pretty"
 
 # ------------------------------------------------------------
@@ -68,6 +68,8 @@ tag_permalink_style: "pretty"
 sass:
   sass_dir: _sass
   style: compressed
+
+enable_css: false # For development, set to true in production to enable CSS processing and minification.
 
 # ------------------------------------------------------------
 # Global feature flags

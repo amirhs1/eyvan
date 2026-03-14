@@ -34,8 +34,8 @@ image_alt: "Portrait or representative image for the homepage hero"
 # Main action you want visitors to take first.
 # Examples: contact page, email anchor, booking page.
 # ------------------------------------------------------------
-cta_button_primary_text: "Get in touch"
-cta_button_primary_link: "/contact/"
+cta_button_primary_text: "Download my resume"
+cta_button_primary_link: "/assets/files/resume.pdf"
 
 # ------------------------------------------------------------
 # Secondary call to action

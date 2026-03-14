@@ -149,7 +149,9 @@
   <meta name="twitter:description" content="{{ page.description | default: site.description | strip_html | truncate: 160 | xml_escape }}">
 
   <!-- Main compiled CSS bundle -->
+  {% if site.enable_css %}
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {% endif %}
 
   <!-- Google Analytics integration (optional) -->
   {% if site.google_analytics %}

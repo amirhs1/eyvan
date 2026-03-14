@@ -1,0 +1,65 @@
+{% comment %}
+  Dev Debug Include
+  Purpose: Provide a small development-only debug panel that exposes useful
+  runtime information such as the active Jekyll environment.
+
+  Structure:
+  - Guard: render only when JEKYLL_ENV is development
+  - Fixed debug panel
+    - Environment
+    - Current page URL
+    - Layout name
+
+  Architecture:
+  - Reusable debugging include
+  - Intended to be included once from the global layout
+  - Automatically hidden in production builds
+
+  Accessibility:
+  - Uses simple text output
+  - Hidden from screen readers since it is developer-only
+
+  Data dependencies:
+  - jekyll.environment
+  - page.url
+  - page.layout
+
+  Notes:
+  - This include should never render in production
+  - Useful when debugging navigation logic, environment conditions,
+    and page-level rendering behavior
+{% endcomment %}
+
+{% if jekyll.environment == "development" %}
+
+<!-- Development debug panel -->
+<div
+  class="dev-debug"
+  aria-hidden="true"
+  style="
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    z-index: 9999;
+    background: #111;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: monospace;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  "
+>
+
+  <!-- Environment -->
+  <div>ENV: {{ jekyll.environment }}</div>
+
+  <!-- Current page -->
+  <div>PAGE: {{ page.url }}</div>
+
+  <!-- Layout -->
+  <div>LAYOUT: {{ page.layout }}</div>
+
+</div>
+
+{% endif %}

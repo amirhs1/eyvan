@@ -1,0 +1,111 @@
+// -----------------------------------------------------------------------------
+// Print Overrides
+// ITCSS layer: 7-trumps
+//
+// Description:
+// Print-specific cleanup for articles and pages.
+// Removes non-essential interactive UI and preserves readable content flow.
+//
+// Scope & Rules:
+// - Print styles should simplify, not redesign
+// - Hide decorative or interactive-only UI
+// - Preserve article headings, metadata, and body content
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Print Utilities
+   Utilities to explicitly hide or reveal content in print contexts.
+   ----------------------------------------------------------------------------- */
+
+.u-print-only {
+  display: none !important;
+}
+
+.u-print-hidden {
+  /* Intentionally empty outside print. */
+}
+
+/* -----------------------------------------------------------------------------
+   Print Mode
+   Simplifies the page for clean article printing and PDF export.
+   ----------------------------------------------------------------------------- */
+
+@media print {
+  .u-print-only {
+    display: block !important;
+  }
+
+  .u-print-hidden,
+  .c-site-header,
+  .c-site-footer,
+  .c-mobile-menu,
+  .c-theme-toggle,
+  .c-post-share,
+  .c-post-nav,
+  .c-related-posts,
+  .c-social-links,
+  .c-hero__actions,
+  .c-section-cta,
+  .c-projects-filter {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .c-post,
+  .c-article,
+  .l-page,
+  .l-container,
+  .container,
+  .row,
+  .col,
+  .col-12,
+  .col-10,
+  .col-d-12,
+  .push-1,
+  .push-d-0 {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+  }
+
+  .c-post__content,
+  .l-page__body,
+  .c-article__content {
+    max-width: none !important;
+  }
+
+  img,
+  figure,
+  blockquote,
+  pre,
+  table {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  a,
+  a:visited {
+    color: inherit !important;
+    text-decoration: underline;
+  }
+}

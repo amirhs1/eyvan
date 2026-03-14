@@ -1,0 +1,42 @@
+// -----------------------------------------------------------------------------
+// State Hooks
+// ITCSS layer: 7-trumps
+//
+// Description:
+// Shared, minimal state classes used by templates and JavaScript.
+// These hooks express UI condition, not component appearance.
+//
+// Scope & Rules:
+// - State selectors must stay minimal and reusable
+// - Component-specific active/open styling belongs in component files
+// - Avoid layout, spacing, or decorative styling here
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Active State
+   Shared hook for current/selected UI items such as nav links and filter chips.
+   ----------------------------------------------------------------------------- */
+
+.is-active {
+  /* Intentionally empty.
+     Visual treatment should be defined by the owning component. */
+}
+
+/* -----------------------------------------------------------------------------
+   Open State
+   Generic hook for menus, drawers, and expandable panels.
+   ----------------------------------------------------------------------------- */
+
+.is-open {
+  /* Intentionally empty.
+     Use this as a semantic state hook in markup and JS. */
+}
+
+/* -----------------------------------------------------------------------------
+   Hidden State
+   Semantic state hook when JS toggles visibility without using [hidden].
+   ----------------------------------------------------------------------------- */
+
+.is-hidden {
+  display: none !important;
+}

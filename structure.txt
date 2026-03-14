@@ -15,6 +15,7 @@
 │   ├── hero.html
 │   ├── math.html
 │   ├── mobile-menu.html
+│   ├── post-card.html
 │   ├── post-navigation.html
 │   ├── post-share.html
 │   ├── read-time.html
@@ -26,18 +27,7 @@
 │   ├── default.html
 │   ├── page.html
 │   ├── post.html
-│   └── tag_page.html
-├── _posts
-│   ├── 2020-05-05-you-got-to-cool-that-shit-off-and-thats-the-double-truth.md
-│   ├── 2020-05-06-welcome-to-jekyll.md
-│   ├── 2020-05-07-the-senate-that-our-ability-to-use-the-force-has-diminished.md
-│   ├── 2020-05-08-the-reason-were-gathered-here-on-our-god-given-day.md
-│   ├── 2020-05-09-i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live.md
-│   ├── 2020-05-10-if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all.md
-│   ├── 2020-05-11-make-your-own-gems.md
-│   ├── 2020-05-12-sample-post.md
-│   ├── 2020-05-15-blockqoute.md
-│   └── 2020-05-17-code-style.md
+│   └── tag-page.html
 ├── _sass
 │   ├── 0-settings
 │   │   ├── _breakpoints.scss
@@ -70,19 +60,29 @@
 │   ├── 4-objects
 │   ├── 5-components
 │   ├── 6-layouts
-│   └── 7-trumps
+│   ├── 7-trumps
+│   ├── make_copy.sh
+│   ├── merging_files_in_one.sh
+│   └── merging_per_folder.sh
 ├── 404.html
+├── about.html
 ├── assets
 │   ├── css
 │   │   └── main.scss
 │   ├── favicon
 │   │   ├── favicon.ico
 │   │   └── site.webmanifest
+│   ├── files
+│   │   └── resume.pdf
 │   ├── fonts
 │   ├── icons
 │   ├── images
 │   │   └── posts
 │   └── js
+│       ├── common.js
+│       ├── jquery-3.3.1.min.js
+│       ├── jquery.fitvids.js
+│       ├── jquery.waitforimages.min.js
 │       └── post-share.js
 ├── favicon.ico
 ├── Gemfile
@@ -94,3 +94,4 @@
 ├── projects.html
 └── README.md
 
+23 directories, 72 files

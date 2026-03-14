@@ -1,0 +1,52 @@
+// -----------------------------------------------------------------------------
+// Visibility Utilities
+// ITCSS layer: 7-trumps
+//
+// Description:
+// High-priority helpers for visibility and document-flow overrides.
+// Used for toggled UI, progressive enhancement, and accessibility-safe hiding.
+//
+// Scope & Rules:
+// - Utilities must be single-purpose and flat
+// - Use !important where override intent must always win
+// - No animation, component styling, or layout systems
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Hidden Attribute
+   Enforces the native HTML hidden attribute across all elements.
+   ----------------------------------------------------------------------------- */
+
+[hidden] {
+  display: none !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Display Visibility
+   Explicit utility overrides for hiding or showing content.
+   ----------------------------------------------------------------------------- */
+
+.u-hidden {
+  display: none !important;
+}
+
+.u-block {
+  display: block !important;
+}
+
+.u-inline {
+  display: inline !important;
+}
+
+.u-inline-block {
+  display: inline-block !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Visual Visibility
+   Hides content visually while preserving its layout box.
+   ----------------------------------------------------------------------------- */
+
+.u-invisible {
+  visibility: hidden !important;
+}

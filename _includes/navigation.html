@@ -1,0 +1,94 @@
+{% comment %}
+  Navigation Component
+  Purpose: Render the reusable primary navigation list for desktop and
+  mobile header contexts using shared navigation data.
+
+  Structure:
+  - Navigation landmark
+  - Navigation list
+  - Navigation items and links
+
+  Architecture:
+  - Reusable leaf include used by:
+    - header.html
+    - mobile-menu.html
+  - Uses c-nav as the component root
+  - Accepts optional include parameters:
+    - modifier: extra class for context variants such as c-nav--desktop or c-nav--mobile
+    - aria_label: accessible label for the nav landmark
+  - Primary navigation items are sourced from:
+    - site.data.navigation.main
+
+  Accessibility:
+  - Uses a semantic nav landmark with configurable aria-label
+  - Active page state is exposed through aria-current="page"
+  - External links open safely in a new tab with rel="noopener noreferrer"
+
+  Data dependencies:
+  - page.url
+  - site.data.navigation.main
+  - include.modifier
+  - include.aria_label
+
+  Notes:
+  - This include renders only navigation markup
+  - Theme toggle remains separate so navigation stays a focused component
+  - Navigation items support both internal and external URLs
+{% endcomment %}
+
+{% assign nav_aria_label = include.aria_label | default: 'Primary navigation' %}
+
+<!-- navigation.html -->
+<nav
+  class="c-nav{% if include.modifier %} {{ include.modifier }}{% endif %}"
+  aria-label="{{ nav_aria_label }}"
+>
+  <!-- Navigation list -->
+  <ul class="c-nav__list u-list-reset">
+    {% for item in site.data.navigation.main %}
+      {% assign is_external = false %}
+      {% if item.url contains '://' or item.url contains '.pdf' %}
+        {% assign is_external = true %}
+      {% endif %}
+
+      {% assign item_href = item.url %}
+      {% unless is_external %}
+        {% assign item_href = item.url | relative_url %}
+      {% endunless %}
+
+      {% assign normalized_item_url = item.url %}
+      {% assign normalized_page_url = page.url %}
+
+      {% if normalized_item_url != '/' %}
+        {% assign normalized_item_url = normalized_item_url | replace: '//', '/' | replace_regex: '/$', '' %}
+      {% endif %}
+
+      {% if normalized_page_url != '/' %}
+        {% assign normalized_page_url = normalized_page_url | replace: '//', '/' | replace_regex: '/$', '' %}
+      {% endif %}
+
+      {% assign is_active = false %}
+      {% if normalized_page_url == normalized_item_url %}
+        {% assign is_active = true %}
+      {% endif %}
+
+      <!-- Navigation item -->
+      <li class="c-nav__item">
+        <!-- Navigation link -->
+        <a
+          class="c-nav__link{% if is_active %} is-active{% endif %}"
+          href="{{ item_href }}"
+          {% if is_active %}
+            aria-current="page"
+          {% endif %}
+          {% if is_external %}
+            target="_blank" rel="noopener noreferrer"
+          {% endif %}
+        >
+          {{ item.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
+<!-- End of navigation.html -->

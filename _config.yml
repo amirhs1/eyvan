@@ -69,7 +69,10 @@ sass:
   sass_dir: _sass
   style: compressed
 
-enable_css: false # For development, set to true in production to enable CSS processing and minification.
+# ------------------------------------------------------------
+# Exclude test files from production builds
+# ------------------------------------------------------------
+# exclude: [ "test" ]
 
 # ------------------------------------------------------------
 # Global feature flags

@@ -1,0 +1,35 @@
+// -----------------------------------------------------------------------------
+// Accessibility Utilities
+// ITCSS layer: 7-trumps
+//
+// Description:
+// High-priority accessibility helpers used across templates and interactive UI.
+// Includes visually-hidden content and list-reset utilities.
+//
+// Scope & Rules:
+// - Flat, single-purpose utility classes only
+// - Utilities may use !important where they must always win
+// - No component styling or layout logic
+// -----------------------------------------------------------------------------
+
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Visually Hidden
+   Screen-reader-only content that remains accessible to assistive technology.
+   ----------------------------------------------------------------------------- */
+
+.u-visually-hidden {
+  @include tools-mixins.visually-hidden;
+}
+
+/* -----------------------------------------------------------------------------
+   List Reset
+   Removes default list styling for navigations, action groups, and icon lists.
+   ----------------------------------------------------------------------------- */
+
+.u-list-reset {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}

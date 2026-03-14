@@ -13,3 +13,7 @@ main:
 
   - title: "Projects"
     url: "/projects/"
+
+  - title: "Tests"
+    url: "/tests/"
+    dev_only: true

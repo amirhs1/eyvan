@@ -1,5 +1,5 @@
----
----
+//---
+//---
 // ============================================================================
 // MAIN STYLESHEET
 // Purpose: Compose the design system in strict ITCSS order.
@@ -53,7 +53,7 @@
 @use "3-base/tables" as base-tables;
 @use "3-base/typography" as base-typography;
 
-
+/*
 // -----------------------------------------------------------------------------
 // 4. OBJECTS
 // Structural, cosmetic-free patterns
@@ -94,13 +94,15 @@
 @use "6-layouts/page" as layout-page;
 @use "6-layouts/post" as layout-post;
 @use "6-layouts/tags" as layout-tags;
-
+*/
 // -----------------------------------------------------------------------------
 // 7. TRUMPS
 // Utilities, helpers, overrides (highest specificity)
 // -----------------------------------------------------------------------------
-
-@use "7-trumps/display" as trump-display;
-@use "7-trumps/spacing" as trump-spacing;
-@use "7-trumps/text" as trump-text;
+/*
+@use "7-trumps/a11y" as trump-a11y;
+@use "7-trumps/states" as trump-states;
 @use "7-trumps/visibility" as trump-visibility;
+@use "7-trumps/motion" as trump-motion;
+@use "7-trumps/print" as trump-print;
+*/

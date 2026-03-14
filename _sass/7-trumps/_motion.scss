@@ -1,0 +1,47 @@
+// -----------------------------------------------------------------------------
+// Motion Utilities
+// ITCSS layer: 7-trumps
+//
+// Description:
+// Lightweight motion helpers and reduced-motion safeguards for animated UI.
+// Keeps motion subtle, optional, and accessibility-aware.
+//
+// Scope & Rules:
+// - Motion must never be required to understand content
+// - Prefer short, subtle transitions and small movement distances
+// - Always provide reduced-motion fallbacks
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Animate Hook
+   Shared entry-motion utility for sections that reveal softly on load.
+   ----------------------------------------------------------------------------- */
+
+.animate {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+/* -----------------------------------------------------------------------------
+   Reduced Motion
+   Respects user preference by removing motion and transition effects.
+   ----------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

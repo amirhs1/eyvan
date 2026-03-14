@@ -6,13 +6,13 @@
   Structure:
   - Top: close control
   - Middle: primary navigation links
-  - Bottom: social links + theme toggle
+  - Bottom: social links + CV action + theme toggle
 
   Architecture:
   - Reusable header subcomponent included by header.html
   - Uses c-mobile-menu as the component root
-  - Primary navigation rendering is delegated to:
-    - navigation.html
+  - Primary navigation items are sourced from:
+    - site.data.navigation.main
   - Delegates reusable leaf rendering to:
     - social-links.html
     - theme-toggle.html
@@ -23,7 +23,8 @@
   - Social links and theme toggle delegate their accessibility to their own includes
 
   Data dependencies:
-  - navigation.html dependencies
+  - page.url
+  - site.data.navigation.main
   - social-links.html dependencies
   - theme-toggle.html dependencies
 
@@ -32,6 +33,7 @@
   - It does not rely on external captured variables
   - The bottom action zone is intentionally modeled as the footer area of the mobile menu component
   - The mobile theme toggle includes a visible label for clarity
+  - Navigation items can support internal and external links
 {% endcomment %}
 
 <!-- mobile-menu.html -->
@@ -40,6 +42,7 @@
   <div class="container">
     <!-- Mobile menu inner layout -->
     <div class="c-mobile-menu__inner">
+
       <!-- Mobile menu top bar -->
       <div class="c-mobile-menu__top">
         <!-- Mobile menu close button -->
@@ -58,22 +61,40 @@
       </div>
 
       <!-- Mobile primary navigation -->
-      {%
-        include navigation.html
-        modifier="c-nav--mobile"
-        aria_label="Mobile navigation"
-      %}
+      <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+        <!-- Mobile navigation list -->
+        <ul class="c-nav__list u-list-reset">
+          {% for item in site.data.navigation.main %}
+            {% assign is_external = false %}
+            {% if item.url contains '://' or item.url contains '.pdf' %}
+              {% assign is_external = true %}
+            {% endif %}
+
+            <!-- Mobile navigation item -->
+            <li class="c-nav__item">
+              <a
+                class="c-nav__link{% if page.url == item.url %} is-active{% endif %}"
+                href="{% if is_external %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}"
+                {% if is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                {{ item.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
 
       <!-- Mobile menu footer actions -->
       <div class="c-mobile-menu__footer">
-        <!-- Mobile social actions -->
+        <!-- Mobile social and CV actions -->
         <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
           {% include social-links.html %}
         </nav>
 
         <!-- Mobile theme toggle -->
-        {% include theme-toggle.html modifier="c-theme-toggle--mobile" hide_label=false %}
+        {% include theme-toggle.html modifier="c-theme-toggle--mobile" show_visible_label=true %}
       </div>
+
     </div>
   </div>
 </div>

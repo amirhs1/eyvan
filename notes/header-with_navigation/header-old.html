@@ -17,8 +17,8 @@
     - Utilities: u-
     - State: is-
   - This file is the composition root for the header shell
-  - Primary navigation rendering is delegated to:
-    - navigation.html
+  - Primary navigation items are sourced from:
+    - site.data.navigation.main
   - Reusable leaf components are delegated to:
     - social-links.html
     - theme-toggle.html
@@ -35,15 +35,14 @@
   - site.title
   - site.data.author.name
   - site.data.author.role
-  - navigation.html dependencies
-  - social-links.html dependencies
-  - theme-toggle.html dependencies
+  - site.data.navigation.main
 
   Notes:
   - Desktop actions are rendered through social-links.html
   - Theme control is rendered through theme-toggle.html
   - Mobile overlay menu is rendered through mobile-menu.html
   - Brand logo uses fetchpriority="high" because it is above the fold
+  - Navigation items can support internal and external links
 {% endcomment %}
 
 <!-- header.html -->
@@ -52,6 +51,7 @@
   <div class="container">
     <!-- Header layout object -->
     <div class="o-site-header">
+
       <!-- Header brand column -->
       <div class="o-site-header__brand">
         <!-- Brand home link -->
@@ -89,12 +89,29 @@
 
       <!-- Header desktop navigation column -->
       <div class="o-site-header__nav">
-        <!-- Primary desktop navigation include -->
-        {%
-          include navigation.html
-          modifier="c-nav--desktop"
-          aria_label="Primary navigation"
-        %}
+        <!-- Primary desktop navigation -->
+        <nav class="c-nav c-nav--desktop" aria-label="Primary navigation">
+          <!-- Desktop navigation list -->
+          <ul class="c-nav__list u-list-reset">
+            {% for item in site.data.navigation.main %}
+              {% assign is_external = false %}
+              {% if item.url contains '://' or item.url contains '.pdf' %}
+                {% assign is_external = true %}
+              {% endif %}
+
+              <!-- Desktop navigation item -->
+              <li class="c-nav__item">
+                <a
+                  class="c-nav__link{% if page.url == item.url %} is-active{% endif %}"
+                  href="{% if is_external %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}"
+                  {% if is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+                  {{ item.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
 
         <!-- Desktop theme toggle -->
         {% include theme-toggle.html hide_label=true %}
@@ -131,6 +148,7 @@
           >
         </button>
       </div>
+
     </div>
   </div>
 

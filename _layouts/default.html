@@ -9,6 +9,15 @@
 {% include head.html %}
 
 <body>
+
+    <!-- DEBUG: show Jekyll environment -->
+    {% if jekyll.environment == "development" %}
+    <div style="position:fixed;bottom:10px;right:10px;background:#000;color:#fff;padding:6px 10px;font-size:12px;z-index:9999;">
+    ENV: {{ jekyll.environment }}
+    </div>
+    {% endif %}
+
+
     {% include header.html %}
     {{ content }}
     {% include footer.html %}

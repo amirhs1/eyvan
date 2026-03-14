@@ -10,6 +10,10 @@ permalink: /tests/
   layout primitives, and component behavior.
 -->
 
+{% if page.robots == "noindex" %}
+<meta name="robots" content="noindex">
+{% endif %}
+
 <section class="l-section">
   <h1>Development Tests</h1>
 

@@ -70,11 +70,6 @@ sass:
   style: compressed
 
 # ------------------------------------------------------------
-# Exclude test files from production builds
-# ------------------------------------------------------------
-# exclude: [ "test" ]
-
-# ------------------------------------------------------------
 # Global feature flags
 # Simple toggles used by templates and layouts.
 # ------------------------------------------------------------

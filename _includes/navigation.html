@@ -34,6 +34,7 @@
   - This include renders only navigation markup
   - Theme toggle remains separate so navigation stays a focused component
   - Navigation items support both internal and external URLs
+  - Items marked `dev_only: true` are automatically hidden in production builds
 {% endcomment %}
 
 {% assign nav_aria_label = include.aria_label | default: 'Primary navigation' %}
@@ -43,19 +44,30 @@
   class="c-nav{% if include.modifier %} {{ include.modifier }}{% endif %}"
   aria-label="{{ nav_aria_label }}"
 >
+
   <!-- Navigation list -->
   <ul class="c-nav__list u-list-reset">
+
     {% for item in site.data.navigation.main %}
+
+      <!-- Skip development-only items in production builds -->
+      {% if item.dev_only and jekyll.environment == "production" %}
+        {% continue %}
+      {% endif %}
+
+      <!-- Determine if link is external -->
       {% assign is_external = false %}
       {% if item.url contains '://' or item.url contains '.pdf' %}
         {% assign is_external = true %}
       {% endif %}
 
+      <!-- Compute final href -->
       {% assign item_href = item.url %}
       {% unless is_external %}
         {% assign item_href = item.url | relative_url %}
       {% endunless %}
 
+      <!-- Normalize URLs for active-state comparison -->
       {% assign normalized_item_url = item.url %}
       {% assign normalized_page_url = page.url %}
 
@@ -67,6 +79,7 @@
         {% assign normalized_page_url = normalized_page_url | replace: '//', '/' | replace_regex: '/$', '' %}
       {% endif %}
 
+      <!-- Determine active navigation state -->
       {% assign is_active = false %}
       {% if normalized_page_url == normalized_item_url %}
         {% assign is_active = true %}
@@ -74,6 +87,7 @@
 
       <!-- Navigation item -->
       <li class="c-nav__item">
+
         <!-- Navigation link -->
         <a
           class="c-nav__link{% if is_active %} is-active{% endif %}"
@@ -87,8 +101,11 @@
         >
           {{ item.title }}
         </a>
+
       </li>
+
     {% endfor %}
+
   </ul>
 </nav>
 <!-- End of navigation.html -->

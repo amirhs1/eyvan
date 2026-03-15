@@ -1,0 +1,846 @@
+/* ==========================================================================
+   LAYER: 0-settings
+   DESC:  Global variables, site-wide settings, and config switches.
+   ========================================================================== */
+
+/* --- ################################################ --- */
+/* --- Sub-file: _breakpoints.scss --- */
+// -----------------------------------------------------------------------------
+// Responsive Breakpoints
+// ITCSS layer: 0-settings
+//
+// Description:
+// Centralized breakpoint definitions for responsive behavior.
+// Provides named viewport thresholds for layout and component logic.
+//
+// Scope & Rules:
+// - Tokens only (no media queries here)
+// - Breakpoints must be device-agnostic
+// - Names should reflect intent, not hardware
+//
+// Notes:
+// - Consumed by mixins and layout layers
+// - Changing values affects global responsiveness
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Breakpoint values
+   ----------------------------------------------------------------------------- */
+
+$bp-xs: 22.5em; // 360px — very small viewports
+$bp-sm: 30em; // 480px — standard phones
+$bp-md: 48em; // 768px — text column / tablet
+$bp-lg: 64em; // 1024px — desktop layout shift
+$bp-xl: 80em; // 1280px — wide screens
+$bp-xxl: 90em; // 1440px — large / exhibition-scale screens
+
+
+/* -----------------------------------------------------------------------------
+   Semantic breakpoint aliases
+   ----------------------------------------------------------------------------- */
+// Prefer these aliases in layouts and modules.
+
+$bp-text: $bp-md; // Optimal line length for reading
+$bp-layout: $bp-lg; // Switch from single to multi-column layouts
+$bp-wide: $bp-xl; // Expanded grids, large imagery, hero sections
+
+/* --- ################################################ --- */
+/* --- Sub-file: _colors-art-dark.scss --- */
+// -----------------------------------------------------------------------------
+// Art Persona — Dark Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the ART persona (dark mode).
+// Allows higher contrast, emotional range, and expressive emphasis.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Accents may be more expressive than science persona
+// - Designed for visual and conceptual resonance
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   Softer contrast than science persona.
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-dark-bg;
+$ui-surface: palette.$clr-dark-surface;
+$ui-surface-raised: palette.$clr-dark-elevated;
+
+$ui-text: palette.$clr-gray-100;
+$ui-text-muted: palette.$clr-gray-400; // less suppressed than science
+$ui-border: palette.$clr-dark-highlight;
+$ui-shadow-color: rgba(palette.$clr-dark-bg, 0.6);
+
+/* -----------------------------------------------------------------------------
+   Accent System (Atmospheric)
+   Accent contributes to tone, not just interaction.
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-plum; // conceptual anchor
+$accent-secondary: palette.$clr-p-rose; // expressive highlight
+
+
+/* -----------------------------------------------------------------------------
+   Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-off-white; // avoids sharp contrast
+
+
+/* -----------------------------------------------------------------------------
+   Interaction
+   Less aggressive than science persona.
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-primary;
+$link-hover: $accent-secondary;
+
+$btn-bg: $accent-primary;
+$btn-bg-hover: palette.$clr-p-blue;
+$btn-text: palette.$clr-white;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   System Feedback
+   Shared semantics, slightly softer emotional tone.
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-azure;
+
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Dark, Subdued)
+   Code is present but visually secondary to artworks/text.
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-syntax-dark-bg;
+$base01: palette.$clr-dark-elevated;
+$base02: palette.$clr-dark-highlight;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-400;
+$base05: $ui-text;
+$base06: palette.$clr-off-white;
+$base07: palette.$clr-white;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: palette.$clr-p-indigo;
+$base0b: palette.$clr-p-green;
+$base0c: palette.$clr-p-azure;
+$base0d: palette.$clr-p-blue;
+$base0e: $accent-primary;
+$base0f: $accent-secondary;
+
+/* --- ################################################ --- */
+/* --- Sub-file: _colors-art-light.scss --- */
+// -----------------------------------------------------------------------------
+// Art Persona — Light Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the ART persona (light mode).
+// Balances softness, material sensitivity, and visual warmth.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Light counterpart to art-dark
+// - Supports editorial and exhibition-oriented layouts
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   Lighter surfaces and softer borders than science persona.
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-off-white;
+$ui-surface: palette.$clr-white;
+$ui-surface-raised: palette.$clr-gray-100;
+
+$ui-text: palette.$clr-gray-700; // softer than pure black
+$ui-text-muted: palette.$clr-gray-500;
+$ui-border: palette.$clr-gray-200;
+$ui-shadow-color: rgba(palette.$clr-gray-900, 0.08);
+
+/* -----------------------------------------------------------------------------
+   Accent System (Atmospheric)
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-indigo; // conceptual anchor
+$accent-secondary: palette.$clr-p-rose; // expressive counterpoint
+
+
+/* -----------------------------------------------------------------------------
+   Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-p-indigo;
+
+
+/* -----------------------------------------------------------------------------
+   Interaction
+   Gentle, not insistent.
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-primary;
+$link-hover: $accent-secondary;
+
+$btn-bg: $accent-primary;
+$btn-bg-hover: palette.$clr-p-blue;
+$btn-text: palette.$clr-white;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   System Feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-blue;
+
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Light, Subdued)
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-white;
+$base01: palette.$clr-gray-100;
+$base02: palette.$clr-gray-200;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-600;
+$base05: $ui-text;
+$base06: palette.$clr-gray-700;
+$base07: palette.$clr-gray-900;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: palette.$clr-p-indigo;
+$base0b: palette.$clr-p-green;
+$base0c: palette.$clr-p-azure;
+$base0d: palette.$clr-p-blue;
+$base0e: $accent-primary;
+$base0f: $accent-secondary;
+
+/* --- ################################################ --- */
+/* --- Sub-file: _colors-science-dark.scss --- */
+// -----------------------------------------------------------------------------
+// Science Persona — Dark Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the SCIENCE persona (dark mode).
+// Emphasizes clarity, restraint, and functional emphasis.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Intended for compile-time persona switching via config
+// - Accent usage is strictly functional
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-dark-bg;
+$ui-surface: palette.$clr-dark-surface;
+$ui-surface-raised: palette.$clr-dark-elevated;
+
+$ui-text: palette.$clr-gray-100;
+$ui-text-muted: palette.$clr-gray-500;
+$ui-border: palette.$clr-gray-800;
+$ui-shadow-color: rgba(palette.$clr-dark-bg, 0.6);
+
+/* -----------------------------------------------------------------------------
+   Accent System (Functional)
+   Accents are reserved strictly for interaction and emphasis.
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-turquoise; // primary actions
+$accent-secondary: palette.$clr-p-azure; // links, secondary emphasis
+
+
+/* -----------------------------------------------------------------------------
+   Typography & Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-white;
+
+
+/* -----------------------------------------------------------------------------
+   Interactive Elements
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-secondary;
+$link-hover: $accent-primary;
+
+$btn-bg: $accent-primary;
+$btn-bg-hover: palette.$clr-p-turquoise;
+$btn-text: palette.$clr-black;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   Status & Feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-blue;
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Dark)
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-syntax-dark-bg;
+$base01: palette.$clr-dark-elevated;
+$base02: palette.$clr-dark-highlight;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-400;
+$base05: $ui-text;
+$base06: palette.$clr-off-white;
+$base07: palette.$clr-white;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: $accent-primary;
+$base0b: palette.$clr-p-green;
+$base0c: $accent-secondary;
+$base0d: palette.$clr-p-blue;
+$base0e: palette.$clr-p-indigo;
+$base0f: palette.$clr-p-rose;
+
+/* --- ################################################ --- */
+/* --- Sub-file: _colors-science-light.scss --- */
+// -----------------------------------------------------------------------------
+// Science Persona — Light Theme
+// ITCSS layer: 0-settings
+//
+// Description:
+// Build-time semantic color mapping for the SCIENCE persona (light mode).
+// Prioritizes legibility, neutrality, and reduced visual noise.
+//
+// Scope & Rules:
+// - Consumes palette-persian tokens only
+// - No raw hex values
+// - No selectors or CSS output
+//
+// Notes:
+// - Light counterpart to science-dark
+// - Semantic roles must remain consistent across modes
+// -----------------------------------------------------------------------------
+
+@use "palette-persian" as palette;
+
+
+/* -----------------------------------------------------------------------------
+   Core UI Roles
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: palette.$clr-white;
+$ui-surface: palette.$clr-off-white;
+$ui-surface-raised: palette.$clr-gray-100;
+
+$ui-text: palette.$clr-black;
+$ui-text-muted: palette.$clr-gray-400;
+$ui-border: palette.$clr-gray-200;
+$ui-shadow-color: rgba(palette.$clr-black, 0.1);
+
+/* -----------------------------------------------------------------------------
+   Accent System (Functional)
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: palette.$clr-p-indigo; // primary actions
+$accent-secondary: palette.$clr-p-blue; // links
+
+
+/* -----------------------------------------------------------------------------
+   Typography & Content
+   ----------------------------------------------------------------------------- */
+
+$body-bg: $ui-bg;
+$body-color: $ui-text;
+$heading-color: palette.$clr-p-indigo;
+
+
+/* -----------------------------------------------------------------------------
+   Interactive Elements
+   ----------------------------------------------------------------------------- */
+
+$link-color: $accent-secondary;
+$link-hover: palette.$clr-p-azure;
+
+$btn-bg: $accent-primary;
+$btn-bg-hover: palette.$clr-p-turquoise;
+$btn-text: palette.$clr-white;
+$btn-border: transparent;
+
+
+/* -----------------------------------------------------------------------------
+   Status & Feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: palette.$clr-p-red;
+$state-success: palette.$clr-p-green;
+$state-warning: palette.$clr-p-orange;
+$state-info: palette.$clr-p-blue;
+
+
+/* -----------------------------------------------------------------------------
+   Syntax Highlighting (Base16 — Light)
+   ----------------------------------------------------------------------------- */
+
+$base00: palette.$clr-off-white;
+$base01: palette.$clr-gray-100;
+$base02: palette.$clr-gray-200;
+$base03: palette.$clr-gray-500;
+$base04: palette.$clr-gray-600;
+$base05: $ui-text;
+$base06: palette.$clr-gray-700;
+$base07: palette.$clr-gray-900;
+$base08: palette.$clr-p-red;
+$base09: palette.$clr-p-orange;
+$base0a: $accent-primary;
+$base0b: palette.$clr-p-green;
+$base0c: palette.$clr-p-azure;
+$base0d: palette.$clr-p-blue;
+$base0e: palette.$clr-p-indigo;
+$base0f: palette.$clr-p-rose;
+
+/* --- ################################################ --- */
+/* --- Sub-file: _colors.scss --- */
+// -----------------------------------------------------------------------------
+// Colors — Active Theme Resolver
+// ITCSS layer: 0-settings
+// -----------------------------------------------------------------------------
+//
+// Description:
+// Resolves the active color theme (art | science × light | dark) and exposes
+// a unified set of semantic color tokens for downstream layers.
+//
+// Scope & Rules:
+// - Configuration only (no selectors, no CSS output)
+// - Forwards exactly ONE theme implementation
+// - Acts as the public API for all color usage below 0-settings
+//
+// Usage:
+//   @use "../0-settings/colors" as color;
+//   color.$text-primary
+//
+
+@use "config" as config;
+
+// -----------------------------------------------------------------------------
+// Theme Resolution
+// -----------------------------------------------------------------------------
+
+
+@forward "colors-science-light";
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _config.scss --- */
+// -----------------------------------------------------------------------------
+// Design System Configuration
+// ITCSS layer: 0-settings
+//
+// Description:
+// Central configuration file that wires together persona,
+// theme, and global design-token imports.
+//
+// Scope & Rules:
+// - No CSS output
+// - No selectors or computed styles
+// - Import and configuration logic only
+//
+// Notes:
+// - Typically driven by site-level config (e.g. Jekyll)
+// - Acts as the entry point for settings layer
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Shape
+   ----------------------------------------------------------------------------- */
+
+$global-radius: 6px;
+$global-border-width: 1px;
+
+
+/* -----------------------------------------------------------------------------
+   Layout Constraints (Measures)
+   ----------------------------------------------------------------------------- */
+
+// Optimal line length for long-form academic and editorial content
+$measure-text: 65ch;
+
+// Maximum site width for large screens
+$measure-site: 1280px;
+
+/* -----------------------------------------------------------------------------
+   Component Constraints
+   ----------------------------------------------------------------------------- */
+
+// Minimum height for Hero and high-impact media blocks
+$hero-min-height: 230px;
+
+/* -----------------------------------------------------------------------------
+   Interaction & Motion Tokens
+   ----------------------------------------------------------------------------- */
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.2s ease;
+$transition-slow: 0.3s ease;
+
+// Accessibility
+$focus-opacity: 1;         // Allows future fading if needed
+$disabled-opacity: 0.5;    // WCAG-safe default
+
+
+/* -----------------------------------------------------------------------------
+   Motion & Performance
+   ----------------------------------------------------------------------------- */
+
+// Global animation defaults (fast, restrained, non-distracting)
+$anim-speed: 0.2s;
+$anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+// Explicit transitions to avoid layout thrashing and browser jank
+$transition-fade: opacity $anim-speed $anim-easing;
+$transition-transform: transform $anim-speed $anim-easing;
+$transition-interaction: color $anim-speed $anim-easing, 
+   background-color $anim-speed $anim-easing, 
+   border-color $anim-speed $anim-easing, box-shadow $anim-speed $anim-easing;
+
+
+/* -----------------------------------------------------------------------------
+   Focus & Accessibility
+   ----------------------------------------------------------------------------- */
+
+// Geometry only — color is defined per persona theme
+$focus-ring-width: 2px;
+$focus-ring-offset: 3px;
+
+
+/* -----------------------------------------------------------------------------
+   Z-index Scale
+   ----------------------------------------------------------------------------- */
+
+// Canonical stacking order to prevent ad-hoc z-index escalation
+$z-base: 1;
+$z-dropdown: 50;
+$z-header: 100;
+$z-overlay: 500;
+$z-modal: 1000;
+
+/* -----------------------------------------------------------------------------
+   Theme Configuration
+   ----------------------------------------------------------------------------- */
+
+$theme: science !default; // science | art
+$mode: light !default;   // light | dark
+
+/* -----------------------------------------------------------------------------
+   Elevation (Shadow Geometry)
+   ----------------------------------------------------------------------------- */
+
+$shadow-offset-y: 9px;
+$shadow-blur: 18px;
+$shadow-spread: 0;
+
+/* -----------------------------------------------------------------------------
+   Layout System
+   ----------------------------------------------------------------------------- */
+
+$grid-columns: 12 !default;
+
+/* --- ################################################ --- */
+/* --- Sub-file: _palette-persian.scss --- */
+// -----------------------------------------------------------------------------
+// Persian Color Palette
+// ITCSS layer: 0-settings
+//
+// Description:
+// Primitive color tokens derived from the Persian palette.
+// These are raw, non-semantic values used as the single source
+// of truth for all persona and theme color systems.
+//
+// Scope & Rules:
+// - Contains palette tokens only (no semantic meaning)
+// - No selectors, mixins, or functions
+// - No persona, theme, or UI role assumptions
+//
+// Notes:
+// - Consumed by all semantic color-mapping files
+// - Never imported directly into layout or component layers
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Persian Heritage Colors (Chromatic Core)
+   Culturally derived, saturated colors used for branding, accents,
+   and expressive UI elements.
+   ----------------------------------------------------------------------------- */
+
+$clr-p-plum: #701C1C;
+$clr-p-orange: #D99058;
+$clr-p-red: #CC3333;
+$clr-p-pink: #F77FBE;
+$clr-p-indigo: #32127A;
+$clr-p-turquoise: #3FE0D0;
+$clr-p-green: #00A693;
+$clr-p-blue: #1C39BB;
+$clr-p-azure: #74BBFB;
+$clr-p-rose: #FE28A2;
+
+/* -----------------------------------------------------------------------------
+   Neutral Foundations (Theme-Agnostic)
+   Grayscale and neutral values used across both light and dark themes
+   for text, borders, surfaces, and hierarchy.
+   ----------------------------------------------------------------------------- */
+
+$clr-white: #FFFFFF;
+$clr-off-white: #F5F7FA; // Light UI surface neutral
+$clr-black: #0A0A0A;
+
+$clr-gray-100: #E0E0E0;
+$clr-gray-200: #D1D1D1;
+$clr-gray-400: #707890;
+$clr-gray-500: #888891;
+$clr-gray-600: #546E7A;
+$clr-gray-700: #263238;
+$clr-gray-800: #1E1E26;
+$clr-gray-900: #101010;
+
+
+/* -----------------------------------------------------------------------------
+   Dark UI Foundations (Persian-Adapted Extensions)
+   Low-luminance surface colors derived to extend the Persian palette
+   into accessible, modern dark-mode interfaces.
+   These are raw tokens, not semantic UI assignments.
+   ----------------------------------------------------------------------------- */
+
+$clr-dark-bg: #0D0D12;
+$clr-dark-surface: #020202; // Midnight violet
+$clr-dark-elevated: #23232E;
+$clr-dark-highlight: #2D2D3A;
+$clr-syntax-dark-bg: #1A1A24;
+
+/* --- ################################################ --- */
+/* --- Sub-file: _spacing.scss --- */
+// -----------------------------------------------------------------------------
+// Spacing System
+// ITCSS layer: 0-settings
+//
+// Description:
+// Global spacing tokens defining the site’s spatial rhythm.
+// Includes a base spacing scale and semantic aliases.
+//
+// Scope & Rules:
+// - Tokens only (no selectors, no layout rules)
+// - All values are static and predictable
+// - Semantic aliases map directly to base scale values
+//
+// Notes:
+// - Used across layout, modules, and utilities
+// - Responsive behavior (e.g. clamp, media queries) is implemented in higher
+//   layers (tools/layouts)
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Base spacing scale (static, predictable)
+   ----------------------------------------------------------------------------- */
+
+$space-0: 0;
+$space-1: 0.25rem;  // 4px
+$space-2: 0.5rem;   // 8px
+$space-3: 0.75rem;  // 12px
+$space-4: 1rem;     // 16px (base unit)
+$space-5: 1.5rem;   // 24px
+$space-6: 2rem;     // 32px
+$space-7: 3rem;     // 48px
+$space-8: 4rem;     // 64px
+$space-9: 6rem;     // 96px
+
+
+/* -----------------------------------------------------------------------------
+   Inline spacing
+   ----------------------------------------------------------------------------- */
+// Use for padding, gaps, and tight horizontal relationships.
+
+$space-inline-xs: $space-1;
+$space-inline-sm: $space-2;
+$space-inline-md: $space-4;
+$space-inline-lg: $space-5;
+
+
+/* -----------------------------------------------------------------------------
+   Stack spacing (vertical rhythm)
+   ----------------------------------------------------------------------------- */
+// Use for vertical flow of content: paragraphs, blocks, media, sections.
+
+$space-stack-xs: $space-2;
+$space-stack-sm: $space-3;
+$space-stack-md: $space-5;
+$space-stack-lg: $space-7;
+$space-stack-xl: $space-9;
+
+
+/* -----------------------------------------------------------------------------
+   Section-level spacing
+   ----------------------------------------------------------------------------- */
+// Use for major layout separation (page sections, heroes, essays).
+
+$space-section-sm: $space-6;
+$space-section-md: $space-8;
+$space-section-lg: $space-9;
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _typography.scss --- */
+// -----------------------------------------------------------------------------
+// Typography Settings
+// ITCSS layer: 0-settings
+//
+// Description:
+// Global design tokens for typography across all personas and themes.
+// Defines font families, scales, weights, and typographic rhythm.
+//
+// Units:
+// - Font sizes: rem (assumes 16px browser default)
+// - Line heights: unitless
+// - Letter spacing: em
+//
+// Scope & Rules:
+// - No element selectors
+// - No layout or component styling
+// - Tokens only
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Font Families
+   ----------------------------------------------------------------------------- */
+
+// -----------------------------------------------------------------------------
+// Font Families
+// ITCSS layer: 0-settings
+// -----------------------------------------------------------------------------
+
+// 1. Display / UI (Sans-Serif)
+// Large headings, navigation, portfolio titles, hero sections
+$font-family-display: "Space Grotesk", "Inter", "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+// 2. Editorial / Body (Serif)
+// PhD research text, artist statements, long-form writing
+$font-family-body: "Literata", "Source Serif 4", "EB Garamond", Georgia, "Times New Roman", Times, serif;
+
+// 3. Technical / Data (Monospace)
+// Code blocks, ML parameters, metadata, dimensions
+$font-family-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+/* -----------------------------------------------------------------------------
+   Font Weights
+   ----------------------------------------------------------------------------- */
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+
+/* -----------------------------------------------------------------------------
+   Font Sizes (rem-based)
+   Documented with px equivalents for designer handoff reference.
+   ----------------------------------------------------------------------------- */
+
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px (Base)
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.5rem; // 24px
+$font-size-xxl: 2rem; // 32px
+$font-size-xxxl: 3rem; // 48px
+
+
+/* -----------------------------------------------------------------------------
+   Line Heights (Unitless)
+   ----------------------------------------------------------------------------- */
+
+$line-height-tight: 1.2; // Headings, tight UI labels
+$line-height-normal: 1.5; // Standard body text
+$line-height-loose: 1.75; // Academic or long-form reading
+
+
+/* -----------------------------------------------------------------------------
+   Measure (Line Length)
+   Used to limit the width of text blocks for optimal readability.
+   ----------------------------------------------------------------------------- */
+
+$text-measure-narrow: 45ch;
+$text-measure-base: 65ch;
+$text-measure-wide: 75ch;
+
+
+/* -----------------------------------------------------------------------------
+   Letter Spacing (Tracking)
+   ----------------------------------------------------------------------------- */
+
+$letter-spacing-tight:    -0.02em;
+$letter-spacing-normal:    0;
+$letter-spacing-loose-sm:  0.01em;
+$letter-spacing-loose-md:  0.05em;
+$letter-spacing-loose-lg:  0.12em;
+
+/* --------------------------------------------------
+   Fluid Type Tokens (Optional)
+   Heading-specific constraints for use with clamp()
+   Applied in the Base layer only
+   -------------------------------------------------- */
+
+$font-size-h1-min: 1.75rem; // Mobile size (~28px)
+$font-size-h1-max: 3.5rem; // Desktop size (~56px)
+
+$font-size-h2-min: 1.5rem; // Mobile size (~24px)
+$font-size-h2-max: 2.5rem; // Desktop size (~40px)
+
+/* -----------------------------------------------------------------------------
+   Rendering Settings
+   Used in Base layer for cross-browser text smoothing.
+   ----------------------------------------------------------------------------- */
+
+$font-kerning-default: normal;
+$font-smoothing-webkit: antialiased;
+$font-smoothing-moz: grayscale;
+

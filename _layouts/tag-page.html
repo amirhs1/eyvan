@@ -40,7 +40,7 @@ layout: default
 
 <!-- Tag archive header -->
 <header class="l-tag-page-header">
-  <div class="container">
+  <div class="o-container">
 
     <!-- Tag archive title -->
     <h1 class="l-tag-page-header__title">{{ tag }}</h1>
@@ -50,10 +50,10 @@ layout: default
 
 <!-- Tag archive section -->
 <section class="l-tag-page">
-  <div class="container">
+  <div class="o-container">
 
     <!-- Tag archive grid -->
-    <div class="row">
+    <div class="o-grid">
       {% for post in page.posts %}
         {% include post-card.html post=post %}
       {% endfor %}

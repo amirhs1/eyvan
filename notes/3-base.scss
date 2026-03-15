@@ -1,0 +1,312 @@
+/* ==========================================================================
+   LAYER: 3-base
+   DESC:  Unclassed HTML elements (h1, a, etc.).
+   ========================================================================== */
+
+/* --- ################################################ --- */
+/* --- Sub-file: _base.scss --- */
+// -----------------------------------------------------------------------------
+// Base — Document
+// ITCSS layer: 3-base
+//
+// Description:
+// Establishes global document-level defaults applied to the <body> element.
+// Defines baseline typography inheritance, rendering behavior, and global
+// background/foreground colors.
+//
+// Scope & Rules:
+// - Type selectors only (no classes, no IDs)
+// - Consumes design tokens from 0-settings
+// - No component, layout, or state-specific styling
+//
+// Notes:
+// - Assumes browser normalization/reset are handled in 2-generic
+// - Color theming is resolved via 0-settings/_colors.scss
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/typography" as settings-typography;
+
+body {
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-md;
+  line-height: settings-typography.$line-height-normal;
+  color: settings-colors.$body-color;
+  background-color: settings-colors.$body-bg;
+
+  overflow-x: hidden;
+
+  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
+  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
+}
+
+::selection {
+  color: settings-colors.$btn-text;
+  background-color: settings-colors.$accent-primary;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _elements.scss --- */
+// -----------------------------------------------------------------------------
+// Base — Elements
+// ITCSS layer: 3-base
+//
+// Purpose:
+// Provides baseline styling for unclassed HTML elements that require
+// minimal visual normalization beyond resets and normalize.css.
+//
+// Scope & Rules:
+// - Targets native HTML elements only (type selectors)
+// - Establishes sensible defaults without expressing component intent
+// - No layout composition or contextual styling
+// - Keeps specificity intentionally low
+//
+// Usage:
+// - Global element defaults applied site-wide
+// - Serves as a foundation for objects and components
+// - Should be overridden by higher ITCSS layers when needed
+//
+// Notes:
+// - Only elements that benefit from a visual baseline should live here
+// - Decorative or contextual treatments belong in components
+//
+// Dependencies:
+// - colors: UI border tokens
+// - spacing: vertical rhythm scale
+// ------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/spacing" as settings-spacing;
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 2px solid settings-colors.$ui-border;
+  margin: settings-spacing.$space-6 0;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _links.scss --- */
+// -----------------------------------------------------------------------------
+// Base — Links
+// ITCSS layer: 3-base
+//
+// Description:
+// Establishes default styles for anchor elements (<a>) in their unclassed form.
+// Focuses on accessibility, clarity, and neutral interaction behavior.
+//
+// Scope & Rules:
+// - Type selectors only
+// - Hover and focus-visible states only
+// - No transitions or decorative behaviors (belong in components)
+//
+// Notes:
+// - Component-specific link styling belongs in 5-components.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/config" as settings-config;
+
+a {
+  color: settings-colors.$link-color;
+  text-decoration: none;
+}
+
+a:hover {
+  color: settings-colors.$link-hover;
+}
+
+a:focus-visible {
+  outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
+  outline-offset: settings-config.$focus-ring-offset;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _lists.scss --- */
+// -----------------------------------------------------------------------------
+// Base lists
+// ITCSS layer: 3-base
+//
+// Purpose:
+// Provide neutral defaults for unclassed lists.
+//
+// Scope & rules:
+// - No bullets removed here (handled in generic/reset if needed)
+// - No indentation assumptions
+// - Components and objects control list layout
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+
+ul,
+ol,
+dl {
+  margin-bottom: settings-spacing.$space-4;
+}
+
+dd {
+  margin-left: settings-spacing.$space-4;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _media.scss --- */
+// -----------------------------------------------------------------------------
+// Base — Media
+// ITCSS layer: 3-base
+//
+// Description:
+// Provides neutral baseline styles for embedded media elements,
+// ensuring responsive behavior and predictable alignment.
+//
+// Scope & Rules:
+// - Type selectors only
+// - No captions, borders, or decorative styling
+// - No layout assumptions
+//
+// Notes:
+// - Layout patterns belong in 4-objects
+// - Presentation styles belong in 5-components
+// -----------------------------------------------------------------------------
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _spacing.scss --- */
+// -----------------------------------------------------------------------------
+// Base spacing
+// ITCSS layer: 3-base
+//
+// Purpose:
+// Establish default vertical rhythm for unclassed HTML elements.
+//
+// Scope & rules:
+// - Type selectors only (no classes)
+// - Uses spacing tokens from 0-settings
+// - No layout or component assumptions
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+
+h1, h2, h3, h4, h5, h6,
+p,
+blockquote,
+address,
+pre,
+table,
+figure,
+fieldset,
+hr {
+  margin-bottom: settings-spacing.$space-4;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _tables.scss --- */
+// -----------------------------------------------------------------------------
+// Base — Tables (Unstyled)
+// ITCSS layer: 3-bas
+//
+// Description:
+// Establishes minimal structural defaults for HTML tables without imposing
+// visual design (no colors, no zebra striping, no hover styling).
+//
+// Scope & Rules:
+// - Type selectors only
+// - No branded decisions
+//
+// Notes:
+// - Use 5-components/_tables.scss (.c-table) for styled tables.
+// -----------------------------------------------------------------------------
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+}
+
+
+/* --- ################################################ --- */
+/* --- Sub-file: _typography.scss --- */
+// -----------------------------------------------------------------------------
+// Base — Typography
+// ITCSS layer: 3-base
+//
+// Description:
+// Defines default typography styles for unclassed HTML text elements,
+// including headings, blockquotes, and preformatted text.
+//
+// Scope & Rules:
+// - Type selectors only
+// - No component styling, no layout assumptions
+// - Token-driven (fonts, sizes, weights, line-heights)
+//
+// Notes:
+// - Vertical rhythm (margins between blocks) should be handled in base spacing
+//   rules or via objects like .o-stack in 4-objects.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/typography" as settings-typography;
+@use "../0-settings/spacing" as settings-spacing;
+
+body {
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-md;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-normal;
+  color: settings-colors.$body-color; // Assuming this exists in your colors file
+  
+  // Apply those rendering tokens from your settings
+  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
+  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: settings-typography.$font-family-display;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  color: settings-colors.$heading-color;
+}
+
+/* Map heading sizes to your existing type scale */
+h1 { font-size: settings-typography.$font-size-xxxl; }
+h2 { font-size: settings-typography.$font-size-xxl; }
+h3 { font-size: settings-typography.$font-size-xl; }
+h4 { font-size: settings-typography.$font-size-lg; }
+h5 { font-size: settings-typography.$font-size-md; }
+h6 { font-size: settings-typography.$font-size-sm; }
+
+blockquote {
+  padding-left: settings-spacing.$space-4;
+  border-left: 3px solid settings-colors.$accent-primary;
+  color: settings-colors.$body-color;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: settings-typography.$font-family-mono;
+  overflow-x: auto;
+  font-size: 0.9em;
+}
+
+

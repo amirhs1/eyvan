@@ -1,0 +1,223 @@
+/* ==========================================================================
+   LAYER: 4-objects
+   DESC:  Class-based selectors which adhere to OOCSS (e.g., .layout).
+   ========================================================================== */
+
+/* --- ################################################ --- */
+/* --- Sub-file: _container.scss --- */
+// -----------------------------------------------------------------------------
+// Container Object
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides the primary centered page wrapper for global layout sections.
+// Constrains content width, applies fluid responsive inline gutters, and
+// ensures consistent horizontal alignment across templates and components.
+//
+// Scope & Rules:
+// - Layout-only object
+// - No cosmetics (no colors, borders, shadows, typography)
+// - No component-specific behavior
+// - Uses logical properties for modern writing-mode support
+//
+// Notes:
+// - Uses global measure tokens from 0-settings
+// - Uses fluid spacing tokens from 1-tools for intrinsic scaling
+// - Responsive enhancements should remain minimal and layout-focused
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Container configuration
+   ----------------------------------------------------------------------------- */
+
+$container-max-width: settings-config.$measure-site;
+$container-gutter: tools-spacing.$fluid-inline-md;
+
+
+/* -----------------------------------------------------------------------------
+   Primary container object
+   ----------------------------------------------------------------------------- */
+
+.o-container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-inline: auto;
+  padding-inline: $container-gutter;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Full-width modifier
+   ----------------------------------------------------------------------------- */
+
+.o-container--full {
+  max-width: none;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Wide-screen enhancement
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
+  .o-container {
+    padding-inline: tools-spacing.$fluid-inline-lg;
+  }
+}
+
+/* --- ################################################ --- */
+/* --- Sub-file: _grid.scss --- */
+// -----------------------------------------------------------------------------
+// Grid Object
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides a lightweight, responsive flexbox grid object for page-level and
+// component-level layout composition.
+//
+// Scope & Rules:
+// - Layout only; no cosmetic styles
+// - Token-driven via 0-settings and 1-tools
+// - Mobile-first responsive behavior
+// - Uses logical properties where appropriate
+// - Designed for composition with o-container and component/layout wrappers
+//
+// Notes:
+// - Gutters are implemented with negative margins on the grid and matching
+//   inline padding on grid items
+// - Column span and push utilities are generated for base, tablet, and desktop
+//   breakpoints
+// - This object assumes a 12-column system
+// -----------------------------------------------------------------------------
+
+@use "sass:math";
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Grid configuration
+   ----------------------------------------------------------------------------- */
+
+$grid-gutter: tools-spacing.$fluid-inline-md;
+
+/* -----------------------------------------------------------------------------
+   Internal helpers
+   ----------------------------------------------------------------------------- */
+
+/// Returns a percentage width for a given column span.
+/// @param {Number} $span - Number of columns to span
+/// @param {Number} $columns - Total number of columns in the grid
+@function grid-span($span, $columns: settings-config.$grid-columns) {
+  @if $span < 0 or $span > $columns {
+    @error "grid-span(): #{$span} must be between 0 and #{$columns}.";
+  }
+
+  @return math.percentage(math.div($span, $columns));
+}
+
+/// Applies a fixed-width flex item for a given span.
+/// @param {Number} $span - Number of columns to span
+@mixin grid-item-span($span) {
+  $basis: grid-span($span);
+
+  flex: 0 0 $basis;
+  max-inline-size: $basis;
+}
+
+/// Applies inline-start offset for a given push value.
+/// @param {Number} $span - Number of columns to push
+@mixin grid-item-push($span) {
+  margin-inline-start: grid-span($span);
+}
+
+
+/* -----------------------------------------------------------------------------
+   Grid row object
+   ----------------------------------------------------------------------------- */
+
+.o-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-inline: calc(#{$grid-gutter} * -0.5);
+}
+
+
+/* -----------------------------------------------------------------------------
+   Grid item object
+   ----------------------------------------------------------------------------- */
+
+.o-grid__item {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding-inline: calc(#{$grid-gutter} * 0.5);
+}
+
+
+/* -----------------------------------------------------------------------------
+   Base span utilities
+   ----------------------------------------------------------------------------- */
+
+@for $i from 1 through settings-config.$grid-columns {
+  .o-grid__item--span-#{$i} {
+    @include grid-item-span($i);
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+   Base push utilities
+   ----------------------------------------------------------------------------- */
+
+@for $i from 0 through (settings-config.$grid-columns - 1) {
+  .o-grid__item--push-#{$i} {
+    @include grid-item-push($i);
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+   Tablet span utilities
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
+  @for $i from 1 through settings-config.$grid-columns {
+    .o-grid__item--span-tablet-#{$i} {
+      @include grid-item-span($i);
+    }
+  }
+
+  @for $i from 0 through (settings-config.$grid-columns - 1) {
+    .o-grid__item--push-tablet-#{$i} {
+      @include grid-item-push($i);
+    }
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+   Desktop span utilities
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-lg) {
+  @for $i from 1 through settings-config.$grid-columns {
+    .o-grid__item--span-desktop-#{$i} {
+      @include grid-item-span($i);
+    }
+  }
+
+  @for $i from 0 through (settings-config.$grid-columns - 1) {
+    .o-grid__item--push-desktop-#{$i} {
+      @include grid-item-push($i);
+    }
+  }
+}
+

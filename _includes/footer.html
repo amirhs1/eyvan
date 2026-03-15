@@ -1,23 +1,28 @@
 {% comment %}
   Site Footer Component
   Purpose: Render the global site footer with brand, footer metadata,
-  and reusable social/CV actions.
+  and reusable social/CV links.
 
   Structure:
   - Left: brand link
   - Center: tagline and copyright
-  - Right: social/CV actions
+  - Right: social/CV links
 
   Architecture:
-  - Component-level site chrome
-  - Uses ITCSS + BEM naming
-  - Reuses the shared social actions include
-  - Footer-specific layout belongs to the footer wrapper, not the social include
+  - Uses ITCSS + BEM naming:
+    - Objects: o-
+    - Components: c-
+    - Utilities: u-
+    - State: is-
+  - Component shell: c-site-footer
+  - Internal footer layout is delegated to the o-site-footer object
+  - Reuses the shared social links include:
+    - social-links.html
 
   Accessibility:
   - Uses semantic footer element
-  - Social links accessibility is delegated to social-actions.html
-  - Brand link has an explicit homepage destination
+  - Social links accessibility is delegated to social-links.html
+  - Brand link has an explicit homepage aria-label
 
   Data dependencies:
   - site.title
@@ -29,15 +34,17 @@
   Notes:
   - This footer is intentionally minimal
   - Primary navigation remains in the header, not repeated here
+  - Layout classes are separated from footer cosmetic component classes
 {% endcomment %}
 
 <!-- footer.html -->
 <footer class="c-site-footer">
+  <!-- Footer outer container -->
   <div class="o-container">
-    <!-- Footer layout -->
-    <div class="c-site-footer__inner">
-      <!-- Footer brand -->
-      <div class="c-site-footer__brand">
+    <!-- Footer layout object -->
+    <div class="o-site-footer">
+      <!-- Footer brand column -->
+      <div class="o-site-footer__brand">
         <a
           class="c-site-footer__brand-link"
           href="{{ '/' | relative_url }}"
@@ -47,8 +54,8 @@
         </a>
       </div>
 
-      <!-- Footer meta -->
-      <div class="c-site-footer__meta">
+      <!-- Footer meta column -->
+      <div class="o-site-footer__meta">
         {% if site.data.footer.tagline %}
           <!-- Footer tagline -->
           <p class="c-site-footer__tagline">
@@ -70,8 +77,8 @@
         {% endif %}
       </div>
 
-      <!-- Footer actions -->
-      <div class="c-site-footer__actions">
+      <!-- Footer actions column -->
+      <div class="o-site-footer__actions">
         <nav class="c-social-links c-social-links--footer" aria-label="Social links">
           {% include social-links.html %}
         </nav>

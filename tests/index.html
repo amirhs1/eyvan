@@ -18,8 +18,9 @@ robots: noindex
 
   Architecture:
   - Uses Jekyll's site.html_pages collection
-  - Filters pages by URL prefix instead of page.dir
+  - Filters pages by URL prefix
   - Excludes this index page itself
+  - Excludes pages without a usable title
   - Sorts pages by title for stable output
 
   Data dependencies:
@@ -41,7 +42,10 @@ robots: noindex
 
   <ul>
     {% for test_page in sorted_pages %}
-      {% if test_page.url != page.url and test_page.url contains '/tests/' %}
+      {% if test_page.url != page.url
+         and test_page.url != nil
+         and test_page.url != ''
+         and test_page.url contains '/tests/' %}
         {% assign has_test_pages = true %}
         <li>
           <a href="{{ test_page.url | relative_url }}">

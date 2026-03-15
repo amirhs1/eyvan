@@ -1,0 +1,99 @@
+// -----------------------------------------------------------------------------
+// Site Header Object
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides the structural layout for the global site header.
+// Arranges the brand, desktop navigation, desktop actions, and mobile controls
+// without applying cosmetic component styling.
+//
+// Scope & Rules:
+// - Layout only
+// - No colors, borders, shadows, or typography
+// - No nav, brand, social-links, or theme-toggle appearance styles
+// - Mobile overlay/menu styling belongs to the mobile-menu component
+//
+// Notes:
+// - Mobile-first
+// - Desktop nav/actions are hidden on small screens
+// - Mobile controls are hidden from the layout breakpoint upward
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -------------------------------------------------------------------------- */
+/* Object root                                                                */
+/* -------------------------------------------------------------------------- */
+
+.o-site-header {
+  display: flex;
+  align-items: center;
+
+  column-gap: tools-spacing.$fluid-inline-md;
+  row-gap: tools-spacing.$space-stack-xs;
+
+  inline-size: 100%;
+  min-block-size: 4.5rem;
+
+  padding-block: tools-spacing.$fluid-stack-md;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header zones                                                               */
+/* -------------------------------------------------------------------------- */
+
+.o-site-header__brand {
+  flex: 0 0 auto;
+  min-inline-size: 0;
+}
+
+.o-site-header__nav {
+  display: none;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.o-site-header__actions {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  min-inline-size: 0;
+}
+
+.o-site-header__mobile-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  margin-inline-start: auto;
+  min-inline-size: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Layout breakpoint and up                                                   */
+/* -------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
+  .o-site-header {
+    min-block-size: 5.5rem;
+    column-gap: tools-spacing.$fluid-inline-lg;
+  }
+
+  .o-site-header__nav {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    gap: tools-spacing.$fluid-inline-sm;
+  }
+
+  .o-site-header__actions {
+    display: flex;
+    flex: 0 0 auto;
+  }
+
+  .o-site-header__mobile-controls {
+    display: none;
+  }
+}

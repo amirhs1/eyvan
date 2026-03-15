@@ -19,13 +19,17 @@ main:
     dev_only: true
     children:
       - title: "Trumps Test"
-        url: "/tests/trumps-test/"
+        url: "/tests/7-trumps-test/"
         dev_only: true
 
-      - title: "O-Container Test"
-        url: "/tests/o-container-test/"
+      - title: "Container Object Test"
+        url: "/tests/4-objects/container-test/"
         dev_only: true
 
-      - title: "O-Grid Test"
-        url: "/tests/o-grid-test/"
+      - title: "Grid Object Test"
+        url: "/tests/4-objects/grid-test/"
+        dev_only: true
+
+      - title: "Site Header Object Test"
+        url: "/tests/4-objects/site-header-test/"
         dev_only: true

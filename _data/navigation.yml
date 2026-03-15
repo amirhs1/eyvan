@@ -17,3 +17,15 @@ main:
   - title: "Tests"
     url: "/tests/"
     dev_only: true
+    children:
+      - title: "Trumps Test"
+        url: "/tests/trumps-test/"
+        dev_only: true
+
+      - title: "O-Container Test"
+        url: "/tests/o-container-test/"
+        dev_only: true
+
+      - title: "O-Grid Test"
+        url: "/tests/o-grid-test/"
+        dev_only: true

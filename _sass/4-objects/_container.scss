@@ -1,0 +1,64 @@
+// -----------------------------------------------------------------------------
+// Container Object
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides the primary centered page wrapper for global layout sections.
+// Constrains content width, applies fluid responsive inline gutters, and
+// ensures consistent horizontal alignment across templates and components.
+//
+// Scope & Rules:
+// - Layout-only object
+// - No cosmetics (no colors, borders, shadows, typography)
+// - No component-specific behavior
+// - Uses logical properties for modern writing-mode support
+//
+// Notes:
+// - Uses global measure tokens from 0-settings
+// - Uses fluid spacing tokens from 1-tools for intrinsic scaling
+// - Responsive enhancements should remain minimal and layout-focused
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Container configuration
+   ----------------------------------------------------------------------------- */
+
+$container-max-width: settings-config.$measure-site;
+$container-gutter: tools-spacing.$fluid-inline-md;
+
+
+/* -----------------------------------------------------------------------------
+   Primary container object
+   ----------------------------------------------------------------------------- */
+
+.o-container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-inline: auto;
+  padding-inline: $container-gutter;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Full-width modifier
+   ----------------------------------------------------------------------------- */
+
+.o-container--full {
+  max-width: none;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Wide-screen enhancement
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
+  .o-container {
+    padding-inline: tools-spacing.$fluid-inline-lg;
+  }
+}

@@ -1,0 +1,254 @@
+---
+layout: page
+title: O-Container Test
+permalink: /tests/o-container-test/
+---
+{% comment %}
+  Container Object Test Page
+  Purpose: Visually verify that the 4-objects container object compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base container behavior
+  - Viewport edge separation
+  - Container inside full-width section
+  - Max-width constraint
+  - Full-width modifier
+  - Responsive inline gutters
+  - Nested layout content
+
+  Notes:
+  - Each section explains the expected behavior before the test element.
+  - Resize the browser window to verify max-width and gutter behavior.
+  - Use browser DevTools to inspect computed max-width, margin-inline,
+    and padding-inline values if something appears incorrect.
+  - This test intentionally adds light temporary helper styling so the
+    container boundaries are easy to see during visual inspection.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-container-test-box {
+    padding: 1rem;
+    border: 1px dashed #999;
+    background: #f9f9f9;
+  }
+
+  .c-container-test-box--strong {
+    border-width: 2px;
+  }
+
+  .c-container-test-full-width-section {
+    padding-block: 1.5rem;
+    background: #f3f3f3;
+  }
+
+  .c-container-test-measure {
+    min-height: 4rem;
+  }
+
+  .c-container-test-viewport-edge {
+    border: 2px solid #ddd;
+    padding-block: 0.5rem;
+  }
+
+  .c-container-test-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  /* Test helper only: this breakpoint is for the demo grid, not for o-container */
+  @media (min-width: 48rem) {
+    .c-container-test-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+<section class="l-section">
+  <div class="o-container">
+    <h1>O-Container Test</h1>
+
+    <p>
+      This page verifies the functionality of the <code>.o-container</code> object and the
+      <code>.o-container--full</code> modifier defined in the <strong>4-objects</strong> Sass layer.
+    </p>
+
+    <p>
+      <em>
+        Development note: the helper styles on this page exist only to make container boundaries easier to inspect
+        visually.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Container Behavior -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Base container behavior</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The dashed box below should appear <strong>centered in the viewport</strong> with visible horizontal space on both
+      sides. The content should not touch the browser edges because <code>.o-container</code> applies inline gutter
+      padding.
+    </p>
+
+    <div class="c-container-test-box">
+      <strong>Base test:</strong>
+      This block is wrapped by <code>.o-container</code>.
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Viewport Edge Separation -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Viewport edge separation</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The dashed test box should never touch the outer boundary of the viewport. The <code>.o-container</code> inline
+      padding should keep content separated from the viewport edges at all screen sizes.
+    </p>
+  </div>
+
+  <div class="c-container-test-viewport-edge">
+    <div class="o-container">
+      <div class="c-container-test-box">
+        <strong>Edge test:</strong>
+        This box should always remain inset from the viewport edges.
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Container Inside Full-Width Section -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Container inside full-width section</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The gray background section should stretch across the
+      <strong>full browser width</strong>, while the dashed content box inside it should remain
+      <strong>centered and width-constrained</strong>. This verifies that <code>.o-container</code> works correctly
+      inside a full-width layout section.
+    </p>
+  </div>
+
+  <section class="c-container-test-full-width-section">
+    <div class="o-container">
+      <div class="c-container-test-box">
+        <strong>Containment test:</strong>
+        The section background is full width, but this content stays constrained.
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Max-Width Constraint -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Max-width constraint</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      On narrow screens, the container should expand naturally to fit the viewport minus its inline gutters. On wide
+      screens, it should
+      <strong>stop growing</strong> once it reaches its configured maximum width.
+    </p>
+
+    <div class="c-container-test-box c-container-test-box--strong c-container-test-measure">
+      <strong>Max-width test:</strong>
+      Resize the browser to a very wide viewport. This box should eventually stop expanding horizontally.
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Full-Width Modifier -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Full-width modifier</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The dashed box below should span the full available width of its parent while still keeping inline gutter padding.
+      Unlike the default container, it should <strong>not</strong> stop growing at the normal max-width.
+    </p>
+  </div>
+
+  <div class="o-container o-container--full">
+    <div class="c-container-test-box c-container-test-box--strong">
+      <strong>Full modifier test:</strong>
+      This wrapper uses <code>.o-container.o-container--full</code>.
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Responsive Inline Gutters -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Responsive inline gutters</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      At smaller viewport widths, the container should use the smaller inline gutter value. At the configured wide
+      breakpoint, the left and right padding should become <strong>visibly larger</strong>.
+    </p>
+
+    <div class="c-container-test-box">
+      <strong>Gutter test:</strong>
+      Watch the space between this box and the viewport edge as you resize. The inline padding should increase at the
+      wide breakpoint.
+    </div>
+
+    <p>
+      <em>
+        Tip: Use browser DevTools to inspect <code>.o-container</code> and confirm the computed
+        <code>padding-inline</code> value before and after the wide breakpoint.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Nested Layout Content -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Nested layout content</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The container should act as a stable outer wrapper for nested layout content such as cards, grids, and page
+      sections. The three blocks below should remain aligned inside the same centered container boundary.
+    </p>
+
+    <div class="c-container-test-grid">
+      <div class="c-container-test-box">Grid item one</div>
+      <div class="c-container-test-box">Grid item two</div>
+      <div class="c-container-test-box">Grid item three</div>
+    </div>
+  </div>
+</section>

@@ -4,7 +4,7 @@ title: Trumps Test
 permalink: /tests/trumps-test/
 ---
 
-<!--
+{% comment %}
   Trumps Utilities Test Page
   Purpose: Visually verify that 7-trumps utilities compile and behave
   correctly across the site.
@@ -22,7 +22,7 @@ permalink: /tests/trumps-test/
   - Use browser DevTools to inspect applied styles if something appears incorrect.
   - Motion styling is separated from the animate utility so the test more clearly
     verifies transition behavior.
--->
+{% endcomment %}
 
 <style>
   .c-motion-test {
@@ -35,7 +35,6 @@ permalink: /tests/trumps-test/
 </style>
 
 <section class="l-section">
-  <h1>7-Trumps Utilities Test</h1>
 
   <p>
     This page verifies the functionality of the utility and state classes

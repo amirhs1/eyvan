@@ -51,7 +51,7 @@ permalink: /projects/
 
 <!-- Projects page header -->
 <header class="l-page-header c-page-header">
-  <div class="container">
+  <div class="o-container">
 
     <!-- Projects page title -->
     <h1 class="c-page-header__title">Projects</h1>
@@ -66,7 +66,7 @@ permalink: /projects/
 
 <!-- Projects filter navigation -->
 <nav class="c-projects-filter" aria-label="Project filters">
-  <div class="container">
+  <div class="o-container">
 
     <!-- Filter inner wrapper -->
     <div class="c-projects-filter__inner">
@@ -97,10 +97,10 @@ permalink: /projects/
 
 <!-- Projects archive section -->
 <section class="c-projects-archive">
-  <div class="container">
+  <div class="o-container">
 
     <!-- Projects archive grid -->
-    <div class="row">
+    <div class="o-grid">
       {% for post in all_posts %}
         {% include post-card.html post=post %}
       {% endfor %}

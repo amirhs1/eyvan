@@ -42,7 +42,7 @@ title: Home
 
 <!-- Latest projects section -->
 <section class="l-section l-section--projects">
-  <div class="container">
+  <div class="o-container">
 
     <!-- Section header -->
     <header class="c-section-header">
@@ -50,7 +50,7 @@ title: Home
     </header>
 
     <!-- Latest projects grid -->
-    <div class="row">
+    <div class="o-grid">
       {% for post in site.posts limit:6 %}
         {% include post-card.html post=post %}
       {% endfor %}

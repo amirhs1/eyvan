@@ -53,9 +53,9 @@ layout: default
 
 <!-- Cover image -->
 {% if page.image %}
-<div class="container">
-  <div class="row">
-    <div class="col col-12">
+<div class="o-container">
+  <div class="o-grid">
+    <div class="o-grid__item o-grid__item--span-12">
 
       <!-- Post cover image wrapper -->
       <div class="c-post-cover">
@@ -78,11 +78,11 @@ layout: default
 {% endif %}
 
 <!-- Post layout container -->
-<div class="container animate">
-  <div class="row">
+<div class="o-container animate">
+  <div class="o-grid">
 
     <!-- Post article -->
-    <article class="col col-12 c-post">
+    <article class="o-grid__item o-grid__item--span-12 c-post">
 
       <!-- Post header -->
       <header class="c-post__header">
@@ -203,9 +203,9 @@ layout: default
 </div>
 
 <!-- Post navigation -->
-<div class="container">
-  <div class="row">
-    <div class="col col-10 col-d-12 push-d-0 push-1">
+<div class="o-container">
+  <div class="o-grid">
+    <div class="o-grid__item o-grid__item--span-10 o-grid__item--span-desktop-12 o-grid__item--push-desktop-0 o-grid__item--push-1">
       {% include post-navigation.html %}
     </div>
   </div>

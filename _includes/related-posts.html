@@ -33,7 +33,7 @@
 {% if related_posts and related_posts.size > 0 %}
   <!-- Related posts section -->
   <section class="c-related-posts" aria-labelledby="related-posts-title">
-    <div class="container">
+    <div class="o-container">
 
       <!-- Related posts header -->
       <header class="c-section-header">
@@ -46,7 +46,7 @@
       </header>
 
       <!-- Related posts grid -->
-      <div class="row">
+      <div class="o-grid">
         {% for post in related_posts limit:3 %}
           {% include post-card.html post=post %}
         {% endfor %}

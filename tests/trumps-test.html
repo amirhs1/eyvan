@@ -1,0 +1,208 @@
+---
+layout: page
+title: Trumps Test
+permalink: /tests/trumps-test/
+---
+
+<!--
+  Trumps Utilities Test Page
+  Purpose: Visually verify that 7-trumps utilities compile and behave
+  correctly across the site.
+
+  Structure:
+  - Accessibility utilities
+  - Visibility utilities
+  - State hooks
+  - Motion utilities
+  - Print utilities
+  - Native HTML hidden attribute
+
+  Notes:
+  - Each section explains the expected behavior before the test element.
+  - Use browser DevTools to inspect applied styles if something appears incorrect.
+  - Motion styling is separated from the animate utility so the test more clearly
+    verifies transition behavior.
+-->
+
+<style>
+  .c-motion-test {
+    padding: 2rem;
+    border: 1px dashed #999;
+    background: #f9f9f9;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>
+
+<section class="l-section">
+  <h1>7-Trumps Utilities Test</h1>
+
+  <p>
+    This page verifies the functionality of the utility and state classes
+    defined in the <strong>7-trumps</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Accessibility Utilities -->
+  <!-- ============================================================= -->
+
+  <h2>Accessibility utilities</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The list below should have <strong>no bullets, margins, or padding</strong>
+    because the <code>.u-list-reset</code> utility removes default list styling.
+  </p>
+
+  <ul class="u-list-reset">
+    <li>List item one</li>
+    <li>List item two</li>
+    <li>List item three</li>
+  </ul>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The button below should visually show only a star symbol.
+    A screen reader should announce <strong>“Save this item”</strong>
+    because that text is visually hidden with <code>.u-visually-hidden</code>.
+  </p>
+
+  <button type="button">
+    <span aria-hidden="true">★</span>
+    <span class="u-visually-hidden">Save this item</span>
+  </button>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Visibility Utilities -->
+  <!-- ============================================================= -->
+
+  <h2>Visibility utilities</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The following paragraph uses <code>.u-hidden</code> and should
+    <strong>not appear at all</strong> in the page layout.
+  </p>
+
+  <p class="u-hidden">You should never see this text.</p>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The next paragraph uses <code>.u-invisible</code>.
+    It should take up space in the layout but the text itself should
+    <strong>not be visible</strong>.
+  </p>
+
+  <p class="u-invisible">
+    This paragraph is invisible but still occupies layout space.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- State Hooks -->
+  <!-- ============================================================= -->
+
+  <h2>State hooks</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The <code>.is-active</code> class typically acts as a state hook.
+    By itself it usually has <strong>no visual styling</strong>.
+    Components such as navigation links apply styling when the class is present.
+  </p>
+
+  <p class="is-active">
+    This paragraph has the <code>.is-active</code> class applied.
+    It may not visually change unless a component stylesheet targets it.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Motion Utilities -->
+  <!-- ============================================================= -->
+
+  <h2>Motion utilities</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The box below starts hidden and shifted downward.
+    After the page loads, it should <strong>smoothly fade in and slide up</strong>.
+    If reduced motion is enabled at the OS or browser level, the movement may be
+    reduced or removed.
+  </p>
+
+  <div class="animate c-motion-test js-motion-test">
+    <strong>Motion Test:</strong> This block should animate into view.
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+      const el = document.querySelector('.js-motion-test');
+
+      if (el) {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          });
+        });
+      }
+    });
+  </script>
+
+  <p>
+    <em>
+      Tip: To test reduced motion, use your browser DevTools to emulate
+      <code>prefers-reduced-motion: reduce</code>.
+    </em>
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Print Utilities -->
+  <!-- ============================================================= -->
+
+  <h2>Print utilities</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The following paragraph uses <code>.u-print-hidden</code>.
+    It should appear normally on screen but disappear in print preview.
+  </p>
+
+  <p class="u-print-hidden">This text should disappear in print view.</p>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The next paragraph uses <code>.u-print-only</code>.
+    It should <strong>not appear on screen</strong> but should appear in print preview.
+  </p>
+
+  <p class="u-print-only">This text should appear only in print mode.</p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Hidden Attribute -->
+  <!-- ============================================================= -->
+
+  <h2>Native hidden attribute</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The element below uses the native HTML <code>hidden</code> attribute.
+    It should never be visible. The trumps layer reinforces this with
+    <code>[hidden] { display: none !important; }</code>.
+  </p>
+
+  <div hidden>
+    If you can see this text, the hidden rule is not working.
+  </div>
+</section>

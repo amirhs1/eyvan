@@ -8,6 +8,7 @@
 │   └── social-links.yml
 ├── _drafts
 ├── _includes
+│   ├── dev-debug.html
 │   ├── footer.html
 │   ├── google-analytics.html
 │   ├── head.html
@@ -15,6 +16,7 @@
 │   ├── hero.html
 │   ├── math.html
 │   ├── mobile-menu.html
+│   ├── navigation.html
 │   ├── post-card.html
 │   ├── post-navigation.html
 │   ├── post-share.html
@@ -29,6 +31,7 @@
 │   ├── post.html
 │   └── tag-page.html
 ├── _sass
+│   ├── _manifest.scss
 │   ├── 0-settings
 │   │   ├── _breakpoints.scss
 │   │   ├── _colors-art-dark.scss
@@ -61,6 +64,11 @@
 │   ├── 5-components
 │   ├── 6-layouts
 │   ├── 7-trumps
+│   │   ├── _a11y.scss
+│   │   ├── _motion.scss
+│   │   ├── _print.scss
+│   │   ├── _states.scss
+│   │   └── _visibility.scss
 │   ├── make_copy.sh
 │   ├── merging_files_in_one.sh
 │   └── merging_per_folder.sh
@@ -68,7 +76,7 @@
 ├── about.html
 ├── assets
 │   ├── css
-│   │   └── main.scss
+│   │   └── test.scss
 │   ├── favicon
 │   │   ├── favicon.ico
 │   │   └── site.webmanifest
@@ -92,6 +100,9 @@
 ├── LICENSE
 ├── package.json
 ├── projects.html
-└── README.md
+├── README.md
+└── tests
+    ├── index.html
+    └── trump-test.html
 
-23 directories, 72 files
+24 directories, 82 files

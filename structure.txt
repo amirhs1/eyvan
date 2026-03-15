@@ -76,7 +76,7 @@
 ├── about.html
 ├── assets
 │   ├── css
-│   │   └── test.scss
+│   │   └── main.scss
 │   ├── favicon
 │   │   ├── favicon.ico
 │   │   └── site.webmanifest
@@ -103,6 +103,6 @@
 ├── README.md
 └── tests
     ├── index.html
-    └── trump-test.html
+    └── trumps-test.html
 
 24 directories, 82 files

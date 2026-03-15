@@ -105,3 +105,9 @@ $mode: light !default;   // light | dark
 $shadow-offset-y: 9px;
 $shadow-blur: 18px;
 $shadow-spread: 0;
+
+/* -----------------------------------------------------------------------------
+   Layout System
+   ----------------------------------------------------------------------------- */
+
+$grid-columns: 12 !default;

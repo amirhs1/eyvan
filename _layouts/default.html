@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">    
+<html lang="en">
 
-<!--
+{% comment %}
   Base site layout: wraps all pages with shared head, header, footer, and scripts.
-  Injects page-specific markup through {{ content }}.
--->
+  Injects page-specific markup through the layout content placeholder.
+{% endcomment %}
 
 {% include head.html %}
 
 <body>
-    {% include header.html %}
-    {{ content }}
-    {% include footer.html %}
+  {% include header.html %}
+  {{ content }}
+  {% include footer.html %}
 
-    {% include dev-debug.html %}
-
-    {% include math.html %}
-    {% include scripts.html %}
+  {% include dev-debug.html %}
+  {% include math.html %}
+  {% include scripts.html %}
 </body>
 
 </html>

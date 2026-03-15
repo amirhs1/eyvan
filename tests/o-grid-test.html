@@ -1,0 +1,423 @@
+---
+layout: page
+title: O-Grid Test
+permalink: /tests/o-grid-test/
+---
+{% comment %}
+  Grid Object Test Page
+  Purpose: Visually verify that the 4-objects grid object compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base grid row behavior
+  - Full-width default grid items
+  - Equal column spans
+  - Mixed column spans
+  - Base push utilities
+  - Tablet span utilities
+  - Desktop span utilities
+  - Responsive span progression
+  - Nested content inside grid items
+
+  Notes:
+  - Each section explains the expected behavior before the test element.
+  - Resize the browser window to verify tablet and desktop span changes.
+  - Use browser DevTools to inspect computed flex-basis, max-inline-size,
+    margin-inline-start, and padding-inline values if something appears incorrect.
+  - This test intentionally adds light temporary helper styling so the
+    grid item boundaries are easy to see during visual inspection.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-grid-test-box {
+    min-height: 4rem;
+    padding: 1rem;
+    border: 1px dashed #999;
+    background: #f9f9f9;
+  }
+
+  .c-grid-test-box--strong {
+    border-width: 2px;
+  }
+
+  .c-grid-test-box--tall {
+    min-height: 7rem;
+  }
+
+  .c-grid-test-stack > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .c-grid-test-label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .c-grid-test-nested {
+    display: grid;
+    gap: 0.5rem;
+  }
+</style>
+
+<section class="l-section">
+  <div class="o-container">
+    <h1>O-Grid Test</h1>
+
+    <p>
+      This page verifies the functionality of the <code>.o-grid</code> object and the
+      <code>.o-grid__item</code> span and push utility classes defined in the
+      <strong>4-objects</strong> Sass layer.
+    </p>
+
+    <p>
+      <em>
+        Development note: the helper styles on this page exist only to make grid boundaries easier to inspect visually.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Grid Row Behavior -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Base grid row behavior</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The two boxes below should sit on separate rows because each
+      <code>.o-grid__item</code> defaults to <code>inline-size: 100%</code> unless a span utility changes it.
+      The row should also apply horizontal negative margins to balance each item's inline padding.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Item 1</span>
+          Default <code>.o-grid__item</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Item 2</span>
+          Default <code>.o-grid__item</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Full-Width Default Grid Items -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Full-width default grid items</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      Each item below should span the full row width because no
+      <code>--span-*</code> class is applied. This verifies the mobile-first base behavior.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item">
+        <div class="c-grid-test-box">Default item A</div>
+      </div>
+
+      <div class="o-grid__item">
+        <div class="c-grid-test-box">Default item B</div>
+      </div>
+
+      <div class="o-grid__item">
+        <div class="c-grid-test-box">Default item C</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Equal Column Spans -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Equal column spans</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The three boxes below should sit on the same row, each taking one third of the available width because they use
+      <code>.o-grid__item--span-4</code> in a 12-column grid.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Span 4</span>
+          <code>.o-grid__item--span-4</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Span 4</span>
+          <code>.o-grid__item--span-4</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Span 4</span>
+          <code>.o-grid__item--span-4</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mixed Column Spans -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Mixed column spans</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The first row should contain a 3-column, 6-column, and 3-column layout.
+      This verifies that different span utilities can be composed in the same row and still total 12 columns.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-3">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Span 3</span>
+          <code>--span-3</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-6">
+        <div class="c-grid-test-box c-grid-test-box--strong">
+          <span class="c-grid-test-label">Span 6</span>
+          <code>--span-6</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-3">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Span 3</span>
+          <code>--span-3</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Push Utilities -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Base push utilities</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The first box below should begin after a 2-column offset because it uses
+      <code>.o-grid__item--push-2</code>. The second box should wrap naturally to the next available row if there is not
+      enough remaining space.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-4 o-grid__item--push-2">
+        <div class="c-grid-test-box c-grid-test-box--strong">
+          <span class="c-grid-test-label">Push 2 + Span 4</span>
+          <code>--push-2 --span-4</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Span 4</span>
+          <code>--span-4</code>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <em>
+        Tip: Inspect the pushed item in DevTools and confirm that
+        <code>margin-inline-start</code> is a percentage based on the configured 12-column grid.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tablet Span Utilities -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Tablet span utilities</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      On small screens, both items should appear full width because only tablet utilities are applied.
+      At the tablet breakpoint, they should become two equal columns using
+      <code>.o-grid__item--span-tablet-6</code>.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-tablet-6">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Tablet span 6</span>
+          <code>--span-tablet-6</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-tablet-6">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Tablet span 6</span>
+          <code>--span-tablet-6</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Desktop Span Utilities -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Desktop span utilities</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      On small and tablet screens, each item should remain full width.
+      At the desktop breakpoint, the three items should line up as equal 4-column columns using
+      <code>.o-grid__item--span-desktop-4</code>.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-desktop-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Desktop span 4</span>
+          <code>--span-desktop-4</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-desktop-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Desktop span 4</span>
+          <code>--span-desktop-4</code>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-desktop-4">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Desktop span 4</span>
+          <code>--span-desktop-4</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Responsive Span Progression -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Responsive span progression</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The three items below should demonstrate progressive responsive behavior:
+      full width on small screens, two-up at tablet where applicable, and a multi-column desktop arrangement.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-3">
+        <div class="c-grid-test-box c-grid-test-box--tall">
+          <span class="c-grid-test-label">Item A</span>
+          <div class="c-grid-test-stack">
+            <div><code>--span-12</code></div>
+            <div><code>--span-tablet-6</code></div>
+            <div><code>--span-desktop-3</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+        <div class="c-grid-test-box c-grid-test-box--strong c-grid-test-box--tall">
+          <span class="c-grid-test-label">Item B</span>
+          <div class="c-grid-test-stack">
+            <div><code>--span-12</code></div>
+            <div><code>--span-tablet-6</code></div>
+            <div><code>--span-desktop-6</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-12 o-grid__item--span-desktop-3">
+        <div class="c-grid-test-box c-grid-test-box--tall">
+          <span class="c-grid-test-label">Item C</span>
+          <div class="c-grid-test-stack">
+            <div><code>--span-12</code></div>
+            <div><code>--span-tablet-12</code></div>
+            <div><code>--span-desktop-3</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Nested Content Inside Grid Items -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Nested content inside grid items</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      Grid items should work as stable layout wrappers for nested content.
+      The inner blocks below should remain contained within their respective grid columns without overflow issues.
+    </p>
+
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-6">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Nested content in span 6</span>
+          <div class="c-grid-test-nested">
+            <div class="c-grid-test-box">Nested block 1</div>
+            <div class="c-grid-test-box">Nested block 2</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="o-grid__item o-grid__item--span-6">
+        <div class="c-grid-test-box">
+          <span class="c-grid-test-label">Another nested content area</span>
+          <div class="c-grid-test-nested">
+            <div class="c-grid-test-box">Nested block A</div>
+            <div class="c-grid-test-box">Nested block B</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

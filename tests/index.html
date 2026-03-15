@@ -2,28 +2,59 @@
 layout: page
 title: Tests
 permalink: /tests/
+robots: noindex
 ---
 
-<!--
-  Tests index page
-  Lists development-only test pages used for verifying utilities,
-  layout primitives, and component behavior.
--->
+{% comment %}
+  Tests Index Page
+  Purpose: Render a development-only index of HTML test pages located
+  under /tests/ so new test files appear automatically.
 
-{% if page.robots == "noindex" %}
-<meta name="robots" content="noindex">
-{% endif %}
+  Structure:
+  - Page heading
+  - Auto-generated test page list
+  - Empty-state fallback
+  - Development note
+
+  Architecture:
+  - Uses Jekyll's site.html_pages collection
+  - Filters pages by URL prefix instead of page.dir
+  - Excludes this index page itself
+  - Sorts pages by title for stable output
+
+  Data dependencies:
+  - site.html_pages
+  - page.url
+  - page.title
+
+  Notes:
+  - Each test page should have front matter and a title
+  - Intended for development-only usage
+{% endcomment %}
+
+{% assign sorted_pages = site.html_pages | sort: "title" %}
 
 <section class="l-section">
   <h1>Development Tests</h1>
 
+  {% assign has_test_pages = false %}
+
   <ul>
-    <li>
-      <a href="{{ '/tests/trumps-test/' | relative_url }}">
-        Trumps Utilities Test
-      </a>
-    </li>
+    {% for test_page in sorted_pages %}
+      {% if test_page.url != page.url and test_page.url contains '/tests/' %}
+        {% assign has_test_pages = true %}
+        <li>
+          <a href="{{ test_page.url | relative_url }}">
+            {{ test_page.title | default: test_page.name }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
   </ul>
+
+  {% unless has_test_pages %}
+    <p>No test pages were found in <code>/tests/</code>.</p>
+  {% endunless %}
 
   <p>
     These pages exist only for development verification and may be removed

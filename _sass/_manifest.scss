@@ -53,17 +53,15 @@
 @use "3-base/tables" as base-tables;
 @use "3-base/typography" as base-typography;
 
-/*
+
 // -----------------------------------------------------------------------------
 // 4. OBJECTS
 // Structural, cosmetic-free patterns
 // -----------------------------------------------------------------------------
 
-@use "4-objects/figure" as object-figure;
-@use "4-objects/header" as object-header;
-@use "4-objects/stack" as object-stack;
-@use "4-objects/table" as object-table;
+@use "4-objects/container" as object-container;
 
+/*
 // -----------------------------------------------------------------------------
 // 5. COMPONENTS
 // Designed UI components

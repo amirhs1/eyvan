@@ -30,6 +30,17 @@
 │   ├── page.html
 │   ├── post.html
 │   └── tag-page.html
+├── _posts
+│   ├── 2020-05-05-you-got-to-cool-that-shit-off-and-thats-the-double-truth.md
+│   ├── 2020-05-06-welcome-to-jekyll.md
+│   ├── 2020-05-07-the-senate-that-our-ability-to-use-the-force-has-diminished.md
+│   ├── 2020-05-08-the-reason-were-gathered-here-on-our-god-given-day.md
+│   ├── 2020-05-09-i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live.md
+│   ├── 2020-05-10-if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all.md
+│   ├── 2020-05-11-make-your-own-gems.md
+│   ├── 2020-05-12-sample-post.md
+│   ├── 2020-05-15-blockqoute.md
+│   └── 2020-05-17-code-style.md
 ├── _sass
 │   ├── _manifest.scss
 │   ├── 0-settings
@@ -62,7 +73,10 @@
 │   │   └── _typography.scss
 │   ├── 4-objects
 │   │   ├── _container.scss
-│   │   └── _grid.scss
+│   │   ├── _grid.scss
+│   │   ├── _hero.scss
+│   │   ├── _site-footer.scss
+│   │   └── _site-header.scss
 │   ├── 5-components
 │   ├── 6-layouts
 │   ├── 7-trumps
@@ -74,6 +88,87 @@
 │   ├── make_copy.sh
 │   ├── merging_files_in_one.sh
 │   └── merging_per_folder.sh
+├── _site
+│   ├── 404.html
+│   ├── about
+│   │   └── index.html
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── main.css
+│   │   │   └── main.css.map
+│   │   ├── favicon
+│   │   │   ├── favicon.ico
+│   │   │   └── site.webmanifest
+│   │   ├── files
+│   │   │   └── resume.pdf
+│   │   ├── fonts
+│   │   ├── icons
+│   │   ├── images
+│   │   │   └── posts
+│   │   └── js
+│   │       ├── common.js
+│   │       ├── jquery-3.3.1.min.js
+│   │       ├── jquery.fitvids.js
+│   │       ├── jquery.waitforimages.min.js
+│   │       └── post-share.js
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── iwan-jekyll.gemspec
+│   ├── LICENSE
+│   ├── package.json
+│   ├── project
+│   │   ├── blockqoute
+│   │   │   └── index.html
+│   │   ├── code-style
+│   │   │   └── index.html
+│   │   ├── i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live
+│   │   │   └── index.html
+│   │   ├── if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all
+│   │   │   └── index.html
+│   │   ├── make-your-own-gems
+│   │   │   └── index.html
+│   │   ├── sample-post
+│   │   │   └── index.html
+│   │   ├── the-reason-were-gathered-here-on-our-god-given-day
+│   │   │   └── index.html
+│   │   ├── the-senate-that-our-ability-to-use-the-force-has-diminished
+│   │   │   └── index.html
+│   │   ├── welcome-to-jekyll
+│   │   │   └── index.html
+│   │   └── you-got-to-cool-that-shit-off-and-thats-the-double-truth
+│   │       └── index.html
+│   ├── projects
+│   │   └── index.html
+│   ├── sitemap.xml
+│   ├── tag
+│   │   ├── blog
+│   │   │   └── index.html
+│   │   ├── code
+│   │   │   └── index.html
+│   │   ├── docs
+│   │   │   └── index.html
+│   │   ├── frontpage
+│   │   │   └── index.html
+│   │   ├── jekyll
+│   │   │   └── index.html
+│   │   └── syntax
+│   │       └── index.html
+│   └── tests
+│       ├── 4-objects
+│       │   ├── container
+│       │   │   └── index.html
+│       │   ├── grid
+│       │   │   └── index.html
+│       │   ├── hero
+│       │   │   └── index.html
+│       │   ├── site-footer
+│       │   │   └── index.html
+│       │   └── site-header
+│       │       └── index.html
+│       ├── 7-trumps
+│       │   └── trumps
+│       │       └── index.html
+│       └── index.html
 ├── 404.html
 ├── about.html
 ├── assets
@@ -104,9 +199,13 @@
 ├── projects.html
 ├── README.md
 └── tests
+    ├── 4-objects
+    │   ├── test-container.html
+    │   ├── test-grid.html
+    │   ├── test-hero.html
+    │   ├── test-site-footer.html
+    │   └── test-site-header.html
     ├── index.html
-    ├── o-container-test.html
-    ├── o-grid-test.html
-    └── trumps-test.html
+    └── test-7-trumps.html
 
-24 directories, 86 files
+65 directories, 144 files

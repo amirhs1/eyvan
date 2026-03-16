@@ -1,0 +1,221 @@
+// -----------------------------------------------------------------------------
+// Button Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Provides the shared button system used by hero CTAs and section CTAs.
+//
+// Scope & Rules:
+// - Owns button cosmetics and interaction states
+// - Owns inline alignment, padding, radius, typography, and icon treatment
+// - Does NOT own page-level placement or hero action-group spacing
+//
+// Supported selectors:
+// - .c-button
+// - .c-button--primary
+// - .c-button--secondary
+// - .c-button--small
+// - .c-button--large
+// - .c-button--with-icon
+// - .c-button__icon-circle
+// - .c-button__icon
+// - .c-button__label
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-type;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$button-radius: max(settings-config.$global-radius, 0.875rem);
+$button-border-width: settings-config.$global-border-width;
+
+$button-padding-block-sm: settings-spacing.$space-3;
+$button-padding-inline-sm: settings-spacing.$space-6;
+
+$button-padding-block-lg: settings-spacing.$space-4;
+$button-padding-inline-lg: settings-spacing.$space-7;
+
+$button-gap-default: settings-spacing.$space-2;
+$button-icon-circle-size: 1.25rem;
+$button-icon-size: 0.875rem;
+$button-shadow: 0 0 0.125rem settings-colors.$ui-shadow-color;
+
+/* -----------------------------------------------------------------------------
+   Base button
+   ----------------------------------------------------------------------------- */
+
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $button-gap-default;
+
+  min-block-size: 2.75rem;
+  padding-block: $button-padding-block-sm;
+  padding-inline: $button-padding-inline-sm;
+
+  border: $button-border-width solid transparent;
+  border-radius: $button-radius;
+
+  font-family: settings-type.$font-family-display;
+  font-size: settings-type.$font-size-md;
+  font-weight: settings-type.$font-weight-bold;
+  line-height: 1.2;
+  letter-spacing: settings-type.$letter-spacing-normal;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+
+  box-shadow: $button-shadow;
+  transition:
+    settings-config.$transition-interaction,
+    transform settings-config.$transition-base;
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+
+  &:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: settings-config.$disabled-opacity;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Variants
+   ----------------------------------------------------------------------------- */
+
+.c-button--primary {
+  background-color: settings-colors.$btn-bg;
+  border-color: settings-colors.$btn-border;
+  color: settings-colors.$btn-text;
+
+  &:visited {
+    color: settings-colors.$btn-text;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: settings-colors.$btn-bg-hover;
+    border-color: settings-colors.$btn-bg-hover;
+    color: settings-colors.$btn-text;
+  }
+}
+
+.c-button--secondary {
+  background-color: settings-colors.$ui-surface;
+  border-color: settings-colors.$ui-border;
+  color: settings-colors.$ui-text;
+
+  &:visited {
+    color: settings-colors.$ui-text;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: settings-colors.$ui-surface-raised;
+    border-color: settings-colors.$accent-secondary;
+    color: settings-colors.$ui-text;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Size modifiers
+   ----------------------------------------------------------------------------- */
+
+.c-button--small {
+  min-block-size: 2.75rem;
+  padding-block: $button-padding-block-sm;
+  padding-inline: $button-padding-inline-sm;
+  font-size: settings-type.$font-size-md;
+}
+
+.c-button--large {
+  min-block-size: 3.25rem;
+  padding-block: $button-padding-block-lg;
+  padding-inline: $button-padding-inline-lg;
+  font-size: settings-type.$font-size-lg;
+}
+
+/* -----------------------------------------------------------------------------
+   Icon composition
+   ----------------------------------------------------------------------------- */
+
+.c-button--with-icon {
+  gap: tools-spacing.$space-stack-xs;
+}
+
+.c-button__icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  inline-size: $button-icon-circle-size;
+  block-size: $button-icon-circle-size;
+  border-radius: 50%;
+
+  background-color: settings-colors.$btn-bg;
+  color: settings-colors.$btn-text;
+
+  transition:
+    transform settings-config.$transition-base,
+    background-color settings-config.$transition-base;
+}
+
+.c-button__icon {
+  display: inline-block;
+  inline-size: $button-icon-size;
+  block-size: $button-icon-size;
+  flex: 0 0 auto;
+}
+
+.c-button__label {
+  display: inline-block;
+  min-inline-size: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Interaction details for icon buttons
+   ----------------------------------------------------------------------------- */
+
+.c-button--secondary.c-button--with-icon:hover .c-button__icon-circle,
+.c-button--secondary.c-button--with-icon:focus-visible .c-button__icon-circle {
+  transform: scale(0.94);
+  background-color: settings-colors.$btn-bg-hover;
+}
+
+/* -----------------------------------------------------------------------------
+   Small-screen behavior
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(22.5em) {
+  .c-button {
+    min-inline-size: max-content;
+  }
+}

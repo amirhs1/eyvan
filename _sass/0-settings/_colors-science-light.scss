@@ -29,6 +29,7 @@ $ui-surface-raised: palette.$clr-gray-100;
 
 $ui-text: palette.$clr-black;
 $ui-text-muted: palette.$clr-gray-400;
+
 $ui-border: palette.$clr-gray-200;
 $ui-shadow-color: rgba(palette.$clr-black, 0.1);
 
@@ -56,10 +57,10 @@ $heading-color: palette.$clr-p-indigo;
 $link-color: $accent-secondary;
 $link-hover: palette.$clr-p-azure;
 
-$btn-bg: $accent-primary;
-$btn-bg-hover: palette.$clr-p-turquoise;
-$btn-text: palette.$clr-white;
-$btn-border: transparent;
+$button-bg: $accent-primary;
+$button-bg-hover: palette.$clr-p-turquoise;
+$button-text: palette.$clr-white;
+$button-border: transparent;
 
 
 /* -----------------------------------------------------------------------------
@@ -70,6 +71,21 @@ $state-error: palette.$clr-p-red;
 $state-success: palette.$clr-p-green;
 $state-warning: palette.$clr-p-orange;
 $state-info: palette.$clr-p-blue;
+
+
+/* -----------------------------------------------------------------------------
+   Interaction helpers
+   ----------------------------------------------------------------------------- */
+
+$focus-ring-color: $accent-primary;
+
+
+/* -----------------------------------------------------------------------------
+   Text selection
+   ----------------------------------------------------------------------------- */
+
+$selection-text: $ui-surface;
+$selection-bg: $accent-primary;
 
 
 /* -----------------------------------------------------------------------------

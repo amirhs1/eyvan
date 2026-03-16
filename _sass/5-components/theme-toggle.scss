@@ -1,0 +1,205 @@
+// -----------------------------------------------------------------------------
+// Theme Toggle Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the reusable light/dark theme toggle button used in desktop and
+// mobile contexts.
+//
+// Structure:
+// - .c-theme-toggle
+//   - .c-theme-toggle__icons
+//     - .c-theme-toggle__icon--sun
+//     - .c-theme-toggle__icon--moon
+//   - .c-theme-toggle__label (optional)
+//
+// Scope & Rules:
+// - Component styling only
+// - No page-level layout responsibilities
+// - Supports icon-only and labeled variants
+// - Visual theme state is driven by html[data-theme]
+//
+// Notes:
+// - Desktop usage is icon-only by default
+// - Mobile usage uses the .c-theme-toggle--mobile modifier
+// - JavaScript updates aria-label, aria-pressed, and visible text
+// - Light theme shows the moon icon (action: switch to dark theme)
+// - Dark theme shows the sun icon (action: switch to light theme)
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/typography" as settings-typography;
+@use "../0-settings/palette-persian" as settings-palette;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+// -----------------------------------------------------------------------------
+// Component configuration
+// -----------------------------------------------------------------------------
+
+$theme-toggle-size: 2.75rem;
+$theme-toggle-icon-size: 1.125rem;
+$theme-toggle-radius: 9999px;
+$theme-toggle-border-width: settings-config.$global-border-width;
+
+// -----------------------------------------------------------------------------
+// Root button
+// -----------------------------------------------------------------------------
+
+.c-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: tools-spacing.$fluid-inline-sm;
+
+  min-inline-size: $theme-toggle-size;
+  min-block-size: $theme-toggle-size;
+  padding-block: 0.625rem;
+  padding-inline: 0.625rem;
+
+  border: $theme-toggle-border-width solid settings-colors.$ui-border;
+  border-radius: $theme-toggle-radius;
+  background-color: settings-colors.$ui-surface;
+  color: settings-colors.$ui-text;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background-color settings-config.$transition-base,
+    border-color settings-config.$transition-base,
+    color settings-config.$transition-base,
+    box-shadow settings-config.$transition-base,
+    transform settings-config.$transition-fast;
+
+  &:hover {
+    border-color: settings-colors.$accent-primary;
+    color: settings-colors.$accent-primary;
+    background-color: settings-colors.$ui-surface-raised;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:focus-visible {
+    outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
+    outline-offset: settings-config.$focus-ring-offset;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Icon group
+// -----------------------------------------------------------------------------
+
+.c-theme-toggle__icons {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: $theme-toggle-icon-size;
+  block-size: $theme-toggle-icon-size;
+  flex: 0 0 auto;
+}
+
+.c-theme-toggle__icon {
+  grid-area: 1 / 1;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+
+  transition:
+    opacity settings-config.$transition-base,
+    transform settings-config.$transition-base;
+}
+
+// -----------------------------------------------------------------------------
+// Visible text label
+// -----------------------------------------------------------------------------
+
+.c-theme-toggle__label {
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+// -----------------------------------------------------------------------------
+// Desktop / compact default
+// -----------------------------------------------------------------------------
+
+.c-theme-toggle:not(.c-theme-toggle--mobile) {
+  inline-size: $theme-toggle-size;
+  block-size: $theme-toggle-size;
+  padding: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Mobile modifier
+// -----------------------------------------------------------------------------
+
+.c-theme-toggle--mobile {
+  justify-content: flex-start;
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding-inline: tools-spacing.$fluid-inline-sm;
+  border-radius: settings-config.$global-radius;
+}
+
+// -----------------------------------------------------------------------------
+// Theme-driven icon visibility
+// -----------------------------------------------------------------------------
+
+html[data-theme="light"] .c-theme-toggle__icon--sun {
+  opacity: 0;
+  transform: scale(0.8) rotate(-20deg);
+  pointer-events: none;
+}
+
+html[data-theme="light"] .c-theme-toggle__icon--moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+html[data-theme="dark"] .c-theme-toggle__icon--sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+html[data-theme="dark"] .c-theme-toggle__icon--moon {
+  opacity: 0;
+  transform: scale(0.8) rotate(20deg);
+  pointer-events: none;
+}
+
+// -----------------------------------------------------------------------------
+// Theme-driven button surface
+// -----------------------------------------------------------------------------
+
+html[data-theme="dark"] .c-theme-toggle {
+  background-color: settings-palette.$clr-dark-elevated;
+  border-color: settings-palette.$clr-dark-highlight;
+  color: settings-palette.$clr-gray-100;
+
+  &:hover {
+    background-color: settings-palette.$clr-dark-highlight;
+    border-color: settings-palette.$clr-p-turquoise;
+    color: settings-palette.$clr-p-turquoise;
+  }
+
+  &:focus-visible {
+    outline-color: settings-palette.$clr-p-turquoise;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Optional responsive refinement
+// -----------------------------------------------------------------------------
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
+  .c-theme-toggle--mobile {
+    inline-size: auto;
+  }
+}

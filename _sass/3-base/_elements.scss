@@ -20,18 +20,18 @@
 // Notes:
 // - Only elements that benefit from a visual baseline should live here
 // - Decorative or contextual treatments belong in components
+// - Theme-aware colors are consumed via global CSS custom properties defined
+//   in 3-base/_base.scss
 //
 // Dependencies:
-// - colors: UI border tokens
 // - spacing: vertical rhythm scale
 // ------------------------------------------------------------------------
 
-@use "../0-settings/colors" as settings-colors;
 @use "../0-settings/spacing" as settings-spacing;
 
 hr {
   display: block;
-  border: 0;
-  border-top: 2px solid settings-colors.$ui-border;
   margin: settings-spacing.$space-6 0;
+  border: 0;
+  border-top: 2px solid var(--color-border);
 }

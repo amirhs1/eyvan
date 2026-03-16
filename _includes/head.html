@@ -128,12 +128,44 @@
   >
 
   <!-- Browser UI theme colors -->
-  <meta name="theme-color" content="#32127A"> <!-- Default fallback color -->
+  <!-- Default theme-color (updated dynamically by JS) -->
+  <meta name="theme-color" content="#32127A" data-theme-color-meta>
+
+  <!-- System preference fallbacks -->
   <meta name="theme-color" content="#32127A" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#3FE0D0" media="(prefers-color-scheme: dark)">
 
   <!-- Browser color scheme hint -->
   <meta name="color-scheme" content="light dark">
+  
+  <!-- Early Theme Initialization (prevents flash of wrong theme) -->
+  <script>
+    (function () {
+      var storageKey = 'theme';
+      var root = document.documentElement;
+      var savedTheme = null;
+
+      try {
+        savedTheme = localStorage.getItem(storageKey);
+      } catch (e) {}
+
+      var systemPrefersDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      var theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+      root.setAttribute('data-theme', theme);
+
+      var themeColorMeta = document.querySelector('[data-theme-color-meta]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute(
+          'content',
+          theme === 'dark' ? '#3FE0D0' : '#32127A'
+        );
+      }
+    })();
+  </script>
 
   <!-- Open Graph social preview metadata -->
   <meta property="og:site_name" content="{{ site.title }}">

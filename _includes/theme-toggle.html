@@ -4,9 +4,10 @@
 
   Structure:
   - Toggle button
-  - Sun icon
-  - Moon icon
-  - Accessible text label
+  - Icon group
+    - Sun icon
+    - Moon icon
+  - Screen-reader label
   - Optional visible label for contexts such as the mobile menu
 
   Architecture:
@@ -14,21 +15,24 @@
   - Accepts:
     - include.modifier: optional extra class, e.g. c-theme-toggle--mobile
     - include.hide_label: boolean-like flag controlling visible text label rendering
-  - Visual state is expected to be controlled by CSS and JavaScript
+  - Visual state is controlled by CSS and JavaScript
+  - JavaScript targets the button via:
+    - data-theme-toggle
 
   Accessibility:
-  - Uses aria-label to describe the action
+  - Uses aria-label to describe the next toggle action
   - Uses aria-pressed to expose toggle state
   - Decorative icons use alt="" and aria-hidden="true"
-  - Always includes a visually hidden live label hook
+  - Always includes a visually hidden label for assistive technology
 
   Notes:
-  - The visible label is hidden by default when include.hide_label is true
+  - The visible label is omitted when include.hide_label is true
   - JavaScript should update:
     - aria-label
     - aria-pressed
-    - [data-theme-label] text
-    - icon visibility/state classes as needed
+    - [data-theme-label-sr] text
+    - [data-theme-label-visible] text
+    - theme/state classes or attributes as needed
 {% endcomment %}
 
 {% assign should_hide_label = include.hide_label | default: true %}
@@ -41,30 +45,33 @@
   aria-pressed="false"
   data-theme-toggle
 >
-  <!-- Sun icon -->
-  <img
-    class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-    src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-    alt=""
-    aria-hidden="true"
-  >
+  <!-- Theme toggle icon group -->
+  <span class="c-theme-toggle__icons" aria-hidden="true">
+    <!-- Sun icon -->
+    <img
+      class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+      src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+      alt=""
+      aria-hidden="true"
+    >
 
-  <!-- Moon icon -->
-  <img
-    class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-    src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-    alt=""
-    aria-hidden="true"
-  >
+    <!-- Moon icon -->
+    <img
+      class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+      src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+      alt=""
+      aria-hidden="true"
+    >
+  </span>
 
   <!-- Screen-reader label -->
-  <span class="u-visually-hidden" data-theme-label>
+  <span class="u-visually-hidden" data-theme-label-sr>
     Switch to dark theme
   </span>
 
   {% unless should_hide_label %}
     <!-- Visible theme toggle label -->
-    <span class="c-theme-toggle__label" data-theme-label>
+    <span class="c-theme-toggle__label" data-theme-label-visible>
       Switch to dark theme
     </span>
   {% endunless %}

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Site Header Object Test
-permalink: /tests/4-objects/site-header-test/
+permalink: /tests/4-objects/site-header/
 robots: noindex
 ---
 {% comment %}
@@ -255,30 +255,33 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      Long text inside the structural zones should wrap instead of forcing obvious horizontal overflow. This verifies
-      that the object zones can shrink reasonably with <code>min-inline-size: 0</code>.
+      This test should stress the zone that is actually flexible in the header object. At the layout breakpoint and
+      above, the nav zone should absorb long content and wrap without causing obvious horizontal overflow, because it is
+      the middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The brand and
+      actions zones remain short here because they are content-sized structural edges, not equal flexible regions.
     </p>
 
     <div class="c-site-header-test-frame">
       <div class="o-site-header">
         <div class="o-site-header__brand">
           <div class="c-site-header-test-block c-site-header-test-block--strong">
-            <div class="c-site-header-test-text">
-              Brand Name Role Descriptor With Intentionally Long Text To Stress Test Shrink And Wrapping Behavior Inside
-              The Brand Zone
-            </div>
+            <div class="c-site-header-test-text">Brand</div>
           </div>
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center">
-            <div class="c-site-header-test-text">Navigation area with intentionally long placeholder content</div>
+          <div class="c-site-header-test-block c-site-header-test-block--center c-site-header-test-block--strong">
+            <div class="c-site-header-test-text">
+              Navigation area with intentionally long placeholder content to verify that the flexible middle header zone
+              can absorb length, shrink reasonably, and wrap inside the available space without forcing obvious
+              horizontal overflow
+            </div>
           </div>
         </div>
 
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block c-site-header-test-block--end">
-            <div class="c-site-header-test-text">Action area with long placeholder content</div>
+            <div class="c-site-header-test-text">Actions</div>
           </div>
         </div>
 
@@ -292,8 +295,9 @@ robots: noindex
 
     <p>
       <em>
-        Resize the viewport and confirm that the test blocks stay inside the container without obvious horizontal
-        overflow.
+        Resize the viewport and confirm that the long nav content stays inside the container at the layout breakpoint and
+        above. On smaller screens, the nav and actions zones should still remain hidden while brand and mobile controls
+        remain visible.
       </em>
     </p>
   </div>

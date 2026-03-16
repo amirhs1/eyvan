@@ -61,7 +61,8 @@
 
 @use "4-objects/container" as object-container;
 @use "4-objects/grid" as object-grid;
-    
+@use "4-objects/site-header" as object-site-header;
+@use "4-objects/site-footer" as object-site-footer;
 /*
 // -----------------------------------------------------------------------------
 // 5. COMPONENTS

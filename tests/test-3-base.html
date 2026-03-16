@@ -1,0 +1,481 @@
+---
+layout: page
+title: Base Elements Test
+permalink: /tests/3-base/base/
+robots: noindex
+---
+{% comment %}
+  Base Elements Test Page
+  Purpose: Visually verify that the 3-base Sass layer compiles
+  and applies sensible defaults to unclassed HTML elements.
+
+  Structure:
+  - Document and body baseline
+  - Headings and paragraph rhythm
+  - Links and focus-visible states
+  - Lists
+  - Media
+  - Blockquote and preformatted text
+  - Tables
+  - Horizontal rule and spacing rhythm
+
+  Notes:
+  - This page tests only native element styling from the 3-base layer:
+    - html
+    - body
+    - ::selection
+    - hr
+    - a
+    - ul, ol, dl, dd
+    - img
+    - table, th, td
+    - h1-h6
+    - p
+    - blockquote
+    - pre, code, kbd, samp
+    - default block spacing
+  - Helper styles below are temporary and exist only to make test sections
+    easier to inspect.
+  - This page intentionally avoids component classes for the content being tested.
+  - Resize the browser window and use keyboard tab navigation where relevant.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .base-test-frame {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fafafa;
+  }
+
+  .base-test-frame--narrow {
+    max-width: 42rem;
+  }
+
+  .base-test-stack > * + * {
+    margin-top: 1rem;
+  }
+
+  .base-test-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .base-test-grid--two {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .base-test-note {
+    max-width: 46rem;
+  }
+
+  .base-test-swatch-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .base-test-swatch {
+    min-width: 10rem;
+    padding: 0.75rem 1rem;
+    border: 1px dashed #999;
+    background: #f3f3f3;
+  }
+
+  .base-test-media-box {
+    max-width: 20rem;
+  }
+
+  .base-test-table-wrap {
+    overflow-x: auto;
+  }
+
+  .base-test-focus-link {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    border: 1px dashed #999;
+    background: #f3f3f3;
+  }
+
+  .base-test-selection {
+    padding: 0.75rem 1rem;
+    border: 1px dashed #999;
+    background: #f3f3f3;
+  }
+
+  .base-test-code-block {
+    max-width: 100%;
+  }
+</style>
+
+<section class="l-section">
+  <div class="o-container">
+    <p>
+      This page verifies the default styling of native HTML elements defined in the
+      <strong>3-base</strong> Sass layer.
+    </p>
+
+    <p>
+      <em>
+        Development note: helper styles on this page exist only to make spacing,
+        boundaries, and test cases easier to inspect. The actual elements under test
+        are intentionally left unclassed.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Document and Body Baseline -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Document and body baseline</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      The page should inherit the site’s default body font, text color, background color,
+      and readable line-height. Text selection should also pick up the global selection styling.
+    </p>
+
+    <div class="base-test-frame">
+      <div class="base-test-stack">
+        <p>
+          This paragraph checks the default body typography and readable measure.
+          It should look like normal site copy without needing any component class.
+        </p>
+
+        <p class="base-test-selection">
+          Select part of this sentence with your mouse to verify the global
+          <code>::selection</code> styling.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Headings and Paragraph Rhythm -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Headings and paragraph rhythm</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      Headings should visibly step down in size from <code>h1</code> to <code>h6</code>,
+      use the display font settings, and maintain consistent spacing beneath each block.
+      Paragraphs should follow the default body text rhythm.
+    </p>
+
+    <div class="base-test-frame base-test-frame--narrow">
+      <h1>Heading level one</h1>
+      <p>
+        Paragraph text beneath <code>h1</code>. This checks default spacing and text rhythm.
+      </p>
+
+      <h2>Heading level two</h2>
+      <p>
+        Paragraph text beneath <code>h2</code>. This should feel slightly more compact in hierarchy.
+      </p>
+
+      <h3>Heading level three</h3>
+      <p>
+        Paragraph text beneath <code>h3</code>.
+      </p>
+
+      <h4>Heading level four</h4>
+      <p>
+        Paragraph text beneath <code>h4</code>.
+      </p>
+
+      <h5>Heading level five</h5>
+      <p>
+        Paragraph text beneath <code>h5</code>.
+      </p>
+
+      <h6>Heading level six</h6>
+      <p>
+        Paragraph text beneath <code>h6</code>.
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Links and Focus States -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Links and focus-visible states</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      Plain links should use the global link color, change on hover if defined,
+      and show a visible focus outline when reached with keyboard navigation.
+      Use the <kbd>Tab</kbd> key to inspect focus-visible behavior.
+    </p>
+
+    <div class="base-test-frame">
+      <div class="base-test-stack">
+        <p>
+          Inline text link example:
+          <a href="#inline-link-test">Read more about this example</a>.
+        </p>
+
+        <p>
+          Another inline link with slightly longer text:
+          <a href="#longer-inline-link-test">Visit the detailed documentation for this section</a>.
+        </p>
+
+        <p>
+          Keyboard focus test:
+          <a class="base-test-focus-link" href="#focus-visible-test">Tab to this link</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Lists -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Lists</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      Unordered, ordered, and description lists should retain native semantics and
+      receive sensible bottom spacing. Description details should be indented.
+    </p>
+
+    <div class="base-test-frame">
+      <div class="base-test-grid base-test-grid--two">
+        <div>
+          <h3>Unordered list</h3>
+          <ul>
+            <li>First unordered item</li>
+            <li>Second unordered item</li>
+            <li>Third unordered item</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Ordered list</h3>
+          <ol>
+            <li>First ordered item</li>
+            <li>Second ordered item</li>
+            <li>Third ordered item</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3>Description list</h3>
+      <dl>
+        <dt>HTML</dt>
+        <dd>The structural layer of web content.</dd>
+
+        <dt>CSS</dt>
+        <dd>The presentation layer used to style content.</dd>
+
+        <dt>Jekyll</dt>
+        <dd>A static site generator commonly used with GitHub Pages.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Media -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Media</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      Images should scale responsively, not overflow their container, preserve
+      aspect ratio, and align predictably with surrounding content.
+    </p>
+
+    <div class="base-test-frame">
+      <div class="base-test-media-box">
+        <img
+          src="https://placehold.co/800x500"
+          alt="Placeholder landscape used to test responsive image behavior"
+        >
+      </div>
+
+      <p>
+        The image above should shrink with its container and should not exceed the width
+        of the framed test area.
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Blockquote and Inline Code -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Blockquote and inline code</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      The blockquote should show its base visual treatment, including left padding
+      and border. Inline code-like elements should use the mono font family.
+    </p>
+
+    <div class="base-test-frame base-test-frame--narrow">
+      <blockquote>
+        Good defaults make the rest of the system easier to build.
+      </blockquote>
+
+      <p>
+        Inline code example: <code>bundle exec jekyll serve</code>
+      </p>
+
+      <p>
+        Keyboard input example: press <kbd>Tab</kbd> to move focus.
+      </p>
+
+      <p>
+        Sample output example: <samp>Server running at http://127.0.0.1:4000/</samp>
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Preformatted Text -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Preformatted text</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      <code>pre</code> and code content should use the mono font. Long lines should
+      become horizontally scrollable rather than breaking the page layout.
+    </p>
+
+    <div class="base-test-frame">
+      <pre class="base-test-code-block"><code>---
+layout: page
+title: Base Elements Test
+permalink: /tests/3-base/base-elements/
+robots: noindex
+---</code></pre>
+
+      <pre class="base-test-code-block"><code>ThisIsAnIntentionallyLongUnbrokenLineToCheckWhetherHorizontalOverflowIsHandledInsideThePreElementRatherThanBreakingTheWholePageLayout</code></pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tables -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Tables</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      Tables should span the available width, collapse borders structurally,
+      and keep header and cell text left-aligned by default.
+    </p>
+
+    <div class="base-test-frame">
+      <div class="base-test-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Status</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Portfolio redesign</td>
+              <td>In progress</td>
+              <td>2026</td>
+            </tr>
+            <tr>
+              <td>Notebook archive</td>
+              <td>Planned</td>
+              <td>2026</td>
+            </tr>
+            <tr>
+              <td>Case study refresh</td>
+              <td>Complete</td>
+              <td>2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Horizontal Rule and Vertical Rhythm -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Horizontal rule and vertical rhythm</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      The horizontal rule should appear as a distinct separator with consistent
+      vertical spacing above and below it. Standard block elements should also
+      maintain a stable margin rhythm.
+    </p>
+
+    <div class="base-test-frame base-test-frame--narrow">
+      <p>Paragraph before the rule.</p>
+
+      <hr>
+
+      <p>Paragraph after the rule.</p>
+
+      <figure>
+        <img
+          src="https://placehold.co/640x360"
+          alt="Placeholder image used to inspect spacing around figure elements"
+        >
+      </figure>
+
+      <table>
+        <tr>
+          <th>Element</th>
+          <th>Check</th>
+        </tr>
+        <tr>
+          <td>Paragraph</td>
+          <td>Bottom spacing present</td>
+        </tr>
+      </table>
+
+      <blockquote>
+        This final section is mainly for visually checking stacked block spacing.
+      </blockquote>
+
+      <pre><code>Spacing rhythm check</code></pre>
+    </div>
+  </div>
+</section>

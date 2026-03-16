@@ -1,0 +1,406 @@
+---
+layout: page
+title: Hero Object Test
+permalink: /tests/4-objects/hero/
+robots: noindex
+---
+{% comment %}
+  Hero Object Test Page
+  Purpose: Visually verify that the 4-objects hero object compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base object layout
+  - Mobile-first stacked behavior
+  - Layout breakpoint two-column behavior
+  - Content width constraint
+  - Media width constraint
+  - Long content stress test
+
+  Notes:
+  - This page tests only the structural responsibilities of:
+    - .o-hero
+    - .o-hero__content
+    - .o-hero__media
+  - Helper styles below are temporary and exist only for testing.
+  - This page intentionally avoids realistic hero component styling so the
+    object layer can be inspected in isolation.
+  - Resize the browser window to verify breakpoint behavior.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-hero-test-frame {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fafafa;
+  }
+
+  .c-hero-test-block {
+    min-inline-size: 0;
+    padding: 1rem;
+    border: 1px dashed #999;
+    background: #f3f3f3;
+  }
+
+  .c-hero-test-block--strong {
+    border-width: 2px;
+  }
+
+  .c-hero-test-label {
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .c-hero-test-text {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .c-hero-test-stack > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .c-hero-test-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .c-hero-test-chip {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #999;
+    background: #fff;
+    white-space: nowrap;
+  }
+
+  .c-hero-test-media-box {
+    min-block-size: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .c-hero-test-media-box--tall {
+    min-block-size: 320px;
+  }
+
+  .c-hero-test-center {
+    text-align: center;
+  }
+</style>
+
+<section class="l-section">
+  <div class="o-container">
+    <p>
+      This page verifies the functionality of the <code>.o-hero</code> object and its structural child zones defined in
+      the <strong>4-objects</strong> Sass layer.
+    </p>
+
+    <p>
+      <em>
+        Development note: the helper styles on this page exist only to make the layout boundaries easy to inspect.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Object Layout -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Base object layout</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The hero should render as a grid object with two structural children:
+      <code>.o-hero__content</code> and <code>.o-hero__media</code>.
+      On smaller screens, they should stack vertically in that order.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block c-hero-test-block--strong">
+            <span class="c-hero-test-label">Content region</span>
+            <div class="c-hero-test-text">First structural region</div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-block--strong c-hero-test-media-box c-hero-test-center">
+            <div>
+              <span class="c-hero-test-label">Media region</span>
+              <div class="c-hero-test-text">Second structural region</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mobile-First Stacked Behavior -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Mobile-first stacked behavior</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      On smaller screens, the object should use a single-column grid.
+      The content region should appear above the media region with vertical spacing between them.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block">
+            <div class="c-hero-test-stack">
+              <div><span class="c-hero-test-label">Eyebrow</span></div>
+              <div class="c-hero-test-text">Intro line for the hero object test</div>
+              <div><span class="c-hero-test-label">Title</span></div>
+              <div class="c-hero-test-text">Hero content stacks first on mobile</div>
+              <div><span class="c-hero-test-label">Actions</span></div>
+              <div class="c-hero-test-actions">
+                <span class="c-hero-test-chip">Primary CTA</span>
+                <span class="c-hero-test-chip">Secondary CTA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-media-box c-hero-test-center">
+            <div>
+              <span class="c-hero-test-label">Media</span>
+              <div class="c-hero-test-text">Media stacks below content on mobile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Layout Breakpoint Two-Column Behavior -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Layout breakpoint two-column behavior</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      At the layout breakpoint and above, the hero should switch from a single-column stack to a two-column grid. The
+      content region should remain on the left and the media region should move to the right.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block c-hero-test-block--strong">
+            <span class="c-hero-test-label">Left content column</span>
+            <div class="c-hero-test-text">
+              This region should remain on the left side when the two-column layout activates.
+            </div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-block--strong c-hero-test-media-box c-hero-test-center">
+            <div>
+              <span class="c-hero-test-label">Right media column</span>
+              <div class="c-hero-test-text">
+                This region should align to the right side at the layout breakpoint and above.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Content Width Constraint -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Content width constraint</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      At the layout breakpoint and above, the content region should not expand endlessly. Its readable line length should
+      be constrained by the object rule that applies a maximum inline size to <code>.o-hero__content</code>.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block c-hero-test-block--strong">
+            <span class="c-hero-test-label">Constrained content region</span>
+            <div class="c-hero-test-text">
+              This intentionally long paragraph exists to help verify that the content side of the hero object does not
+              become too wide for comfortable reading once the two-column layout is active. The object should preserve a
+              sensible reading measure instead of stretching this text across the entire available width.
+            </div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-media-box c-hero-test-center">
+            <div>
+              <span class="c-hero-test-label">Media</span>
+              <div class="c-hero-test-text">Companion media region</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Media Width Constraint and End Alignment -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Media width constraint and end alignment</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      At the layout breakpoint and above, the media region should align toward the inline end of its grid area rather
+      than stretching awkwardly. Its width should remain capped instead of always filling the full track width.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block">
+            <span class="c-hero-test-label">Content</span>
+            <div class="c-hero-test-text">
+              Keep an eye on the media box at larger widths. It should feel anchored to the right side of the hero
+              rather than floating or over-expanding.
+            </div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-block--strong c-hero-test-media-box--tall c-hero-test-center">
+            <div>
+              <span class="c-hero-test-label">Constrained media box</span>
+              <div class="c-hero-test-text">
+                This box should stay visually bounded and aligned at the end of the media column.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long Content Stress Test -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Long content stress test</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The hero object gives both child regions <code>min-inline-size: 0</code>. This test checks that long content can
+      shrink and wrap inside the available grid space without causing obvious horizontal overflow.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block c-hero-test-block--strong">
+            <span class="c-hero-test-label">Long content region</span>
+            <div class="c-hero-test-text">
+              This is intentionally long placeholder content for the hero content region to verify that the object can
+              absorb text length, preserve layout integrity, and allow wrapping inside the available inline space without
+              forcing obvious horizontal overflow when the viewport becomes narrow or when the two-column layout becomes
+              active.
+            </div>
+
+            <div class="c-hero-test-actions" style="margin-top: 0.75rem;">
+              <span class="c-hero-test-chip">Primary call to action</span>
+              <span class="c-hero-test-chip">Secondary call to action with a longer label</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-media-box--tall c-hero-test-center">
+            <div class="c-hero-test-text">
+              Media placeholder with enough size to stress the second region while the first region contains long text.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <em>
+        Resize the viewport and confirm that both regions stay inside the container, stack cleanly on small screens, and
+        shift to a two-column layout at the layout breakpoint and above.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Combined Responsive Check -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Combined responsive check</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      This final example approximates the real hero include structure: content on the left, media on the right, stacked
+      on mobile and side by side on larger viewports.
+    </p>
+
+    <div class="c-hero-test-frame">
+      <div class="o-hero">
+        <div class="o-hero__content">
+          <div class="c-hero-test-block">
+            <div class="c-hero-test-stack">
+              <div class="c-hero-test-text">Optional eyebrow</div>
+              <div class="c-hero-test-text"><strong>Main hero title</strong></div>
+              <div class="c-hero-test-text">
+                Short supporting description for the final responsive object check.
+              </div>
+              <div class="c-hero-test-actions">
+                <span class="c-hero-test-chip">Primary</span>
+                <span class="c-hero-test-chip">Secondary</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="o-hero__media">
+          <div class="c-hero-test-block c-hero-test-media-box c-hero-test-center">
+            <div class="c-hero-test-text">Final media region</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

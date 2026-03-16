@@ -111,3 +111,19 @@ $shadow-spread: 0;
    ----------------------------------------------------------------------------- */
 
 $grid-columns: 12 !default;
+
+/* -----------------------------------------------------------------------------
+   Component Constraints
+   ----------------------------------------------------------------------------- */
+
+// Minimum height for Hero and high-impact media blocks
+$hero-min-height: 230px;
+
+// Maximum readable width for hero text content
+$measure-hero-content: 42rem;
+
+// Default maximum width for hero media on desktop
+$measure-hero-media: 32rem;
+
+// Expanded maximum width for hero media on wide screens
+$measure-hero-media-wide: 36rem;

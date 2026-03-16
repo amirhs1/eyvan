@@ -1,0 +1,97 @@
+// -----------------------------------------------------------------------------
+// Hero Object
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides the structural two-region layout for the homepage hero.
+// Arranges hero content and hero media responsively without applying
+// cosmetic component styling.
+//
+// Scope & Rules:
+// - Layout only
+// - No colors, borders, shadows, radii, or typography
+// - No button, title, eyebrow, or image appearance rules
+// - Content styling belongs to c-hero and related components
+//
+// Notes:
+// - Mobile-first
+// - Stacks content and media on smaller screens
+// - Switches to a two-column layout at the layout breakpoint
+// - Uses logical properties where appropriate
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Object root
+   ----------------------------------------------------------------------------- */
+
+.o-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  row-gap: tools-spacing.$fluid-section-sm;
+
+  inline-size: 100%;
+  min-inline-size: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Object children
+   ----------------------------------------------------------------------------- */
+
+.o-hero__content,
+.o-hero__media {
+  min-inline-size: 0;
+}
+
+.o-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  row-gap: tools-spacing.$fluid-stack-md;
+}
+
+.o-hero__media {
+  inline-size: 100%;
+}
+
+/* -----------------------------------------------------------------------------
+   Tablet breakpoint
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
+
+  .o-hero {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: tools-spacing.$fluid-inline-lg;
+    row-gap: 0;
+    min-block-size: settings-config.$hero-min-height;
+  }
+
+  .o-hero__content {
+    max-inline-size: settings-config.$measure-hero-content;
+  }
+
+  .o-hero__media {
+    justify-self: end;
+    inline-size: min(100%, settings-config.$measure-hero-media);
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+   Wide breakpoint
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
+
+  .o-hero__media {
+    inline-size: min(100%, settings-config.$measure-hero-media-wide);
+  }
+
+}

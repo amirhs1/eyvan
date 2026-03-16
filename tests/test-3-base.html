@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Base Elements Test
-permalink: /tests/3-base/base/
+permalink: /tests/3-base/base-elements/
 robots: noindex
 ---
 {% comment %}
@@ -11,6 +11,7 @@ robots: noindex
 
   Structure:
   - Document and body baseline
+  - Theme token surfaces and runtime theme switching
   - Headings and paragraph rhythm
   - Links and focus-visible states
   - Lists
@@ -21,12 +22,13 @@ robots: noindex
 
   Notes:
   - This page tests only native element styling from the 3-base layer:
+    - :root
     - html
     - body
     - ::selection
-    - hr
     - a
-    - ul, ol, dl, dd
+    - hr
+    - ul, ol, dl, dt, dd
     - img
     - table, th, td
     - h1-h6
@@ -34,9 +36,11 @@ robots: noindex
     - blockquote
     - pre, code, kbd, samp
     - default block spacing
+  - This page also helps inspect runtime theme custom properties used by
+    the document root and body.
   - Helper styles below are temporary and exist only to make test sections
     easier to inspect.
-  - This page intentionally avoids component classes for the content being tested.
+  - The actual content under test is intentionally mostly unclassed.
   - Resize the browser window and use keyboard tab navigation where relevant.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -44,8 +48,8 @@ robots: noindex
 <style>
   .base-test-frame {
     padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fafafa;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-surface, #fafafa);
   }
 
   .base-test-frame--narrow {
@@ -65,24 +69,27 @@ robots: noindex
     .base-test-grid--two {
       grid-template-columns: 1fr 1fr;
     }
+
+    .base-test-grid--three {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .base-test-note {
     max-width: 46rem;
   }
 
-  .base-test-swatch-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    align-items: center;
+  .base-test-focus-link {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    border: 1px dashed var(--color-ui-border, #999);
+    background: var(--color-ui-surface-raised, #f3f3f3);
   }
 
-  .base-test-swatch {
-    min-width: 10rem;
+  .base-test-selection {
     padding: 0.75rem 1rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
+    border: 1px dashed var(--color-ui-border, #999);
+    background: var(--color-ui-surface-raised, #f3f3f3);
   }
 
   .base-test-media-box {
@@ -93,21 +100,105 @@ robots: noindex
     overflow-x: auto;
   }
 
-  .base-test-focus-link {
-    display: inline-block;
-    padding: 0.5rem 0.75rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
-  }
-
-  .base-test-selection {
-    padding: 0.75rem 1rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
-  }
-
   .base-test-code-block {
     max-width: 100%;
+  }
+
+  .base-test-token-card {
+    padding: 1rem;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-surface-raised, #fff);
+  }
+
+  .base-test-token-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .base-test-token-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-surface, #f5f5f5);
+  }
+
+  .base-test-swatch {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 999px;
+    flex: 0 0 auto;
+  }
+
+  .base-test-theme-panel {
+    padding: 1rem;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-bg, #fff);
+    color: var(--color-ui-text, inherit);
+  }
+
+  .base-test-surface {
+    padding: 1rem;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-surface, #f7f7f7);
+  }
+
+  .base-test-surface-raised {
+    padding: 1rem;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-surface-raised, #fff);
+    box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, var(--color-ui-shadow-color, #000) 18%, transparent);
+  }
+
+  .base-test-accent-link {
+    color: var(--color-link-color);
+  }
+
+  .base-test-muted {
+    color: var(--color-ui-text-muted);
+  }
+
+  .base-test-status-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .base-test-status {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-ui-border, #ddd);
+    background: var(--color-ui-surface, #f7f7f7);
+  }
+
+  .base-test-status--error {
+    border-inline-start: 0.35rem solid var(--color-state-error);
+  }
+
+  .base-test-status--success {
+    border-inline-start: 0.35rem solid var(--color-state-success);
+  }
+
+  .base-test-status--warning {
+    border-inline-start: 0.35rem solid var(--color-state-warning);
+  }
+
+  .base-test-status--info {
+    border-inline-start: 0.35rem solid var(--color-state-info);
+  }
+
+  .base-test-theme-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .base-test-small {
+    font-size: 0.9375rem;
   }
 </style>
 
@@ -121,8 +212,8 @@ robots: noindex
     <p>
       <em>
         Development note: helper styles on this page exist only to make spacing,
-        boundaries, and test cases easier to inspect. The actual elements under test
-        are intentionally left unclassed.
+        boundaries, and theme token behavior easier to inspect. The native HTML
+        elements remain the primary thing under test.
       </em>
     </p>
   </div>
@@ -138,21 +229,114 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      The page should inherit the site’s default body font, text color, background color,
-      and readable line-height. Text selection should also pick up the global selection styling.
+      The page should inherit the site’s default body font family, body font size,
+      regular weight, readable line-height, body foreground color, and body background
+      color. Horizontal overflow should not appear from ordinary page content.
     </p>
 
     <div class="base-test-frame">
       <div class="base-test-stack">
         <p>
           This paragraph checks the default body typography and readable measure.
-          It should look like normal site copy without needing any component class.
+          It should look like ordinary site copy without needing component classes.
+        </p>
+
+        <p>
+          This second paragraph helps inspect default body rhythm and color.
+          It should feel visually consistent with the rest of the site content.
         </p>
 
         <p class="base-test-selection">
           Select part of this sentence with your mouse to verify the global
           <code>::selection</code> styling.
         </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Theme Tokens and Runtime Switching -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Theme tokens and runtime theme switching</h2>
+
+    <p class="base-test-note">
+      <strong>Expected behavior:</strong>
+      The document-level custom properties should drive the surfaces, text, link,
+      muted text, status accents, and selection colors. When the site theme changes,
+      these samples should update without needing component-specific overrides.
+    </p>
+
+    <div class="base-test-frame">
+      <div class="base-test-stack">
+        <div class="base-test-theme-actions">
+          {% include theme-toggle.html hide_label=false %}
+          <span class="base-test-small">
+            Toggle the site theme and inspect the panels, chips, links, and status markers below.
+          </span>
+        </div>
+
+        <div class="base-test-theme-panel">
+          <div class="base-test-grid base-test-grid--two">
+            <div class="base-test-surface">
+              <h3>UI surface</h3>
+              <p>
+                This panel is mapped to <code>--color-ui-surface</code>.
+              </p>
+              <p class="base-test-muted">
+                This muted sentence helps inspect <code>--color-ui-text-muted</code>.
+              </p>
+              <p>
+                <a class="base-test-accent-link" href="#theme-link-test">This is a themed link</a>
+              </p>
+            </div>
+
+            <div class="base-test-surface-raised">
+              <h3>Raised surface</h3>
+              <p>
+                This panel is mapped to <code>--color-ui-surface-raised</code> and should remain
+                visually distinct from the standard surface.
+              </p>
+            </div>
+          </div>
+
+          <div class="base-test-token-chip-row">
+            <span class="base-test-token-chip">
+              <span class="base-test-swatch" style="background: var(--color-ui-bg);"></span>
+              UI bg
+            </span>
+
+            <span class="base-test-token-chip">
+              <span class="base-test-swatch" style="background: var(--color-body-bg);"></span>
+              Body bg
+            </span>
+
+            <span class="base-test-token-chip">
+              <span class="base-test-swatch" style="background: var(--color-link-color);"></span>
+              Link
+            </span>
+
+            <span class="base-test-token-chip">
+              <span class="base-test-swatch" style="background: var(--color-accent-primary);"></span>
+              Accent primary
+            </span>
+
+            <span class="base-test-token-chip">
+              <span class="base-test-swatch" style="background: var(--color-accent-secondary);"></span>
+              Accent secondary
+            </span>
+          </div>
+
+          <div class="base-test-status-row" style="margin-top: 1rem;">
+            <div class="base-test-status base-test-status--error">Error token</div>
+            <div class="base-test-status base-test-status--success">Success token</div>
+            <div class="base-test-status base-test-status--warning">Warning token</div>
+            <div class="base-test-status base-test-status--info">Info token</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -168,9 +352,8 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      Headings should visibly step down in size from <code>h1</code> to <code>h6</code>,
-      use the display font settings, and maintain consistent spacing beneath each block.
-      Paragraphs should follow the default body text rhythm.
+      Headings should visibly step down in size from <code>h1</code> to <code>h6</code>
+      and maintain consistent spacing. Paragraphs should follow the default body rhythm.
     </p>
 
     <div class="base-test-frame base-test-frame--narrow">
@@ -217,9 +400,9 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      Plain links should use the global link color, change on hover if defined,
-      and show a visible focus outline when reached with keyboard navigation.
-      Use the <kbd>Tab</kbd> key to inspect focus-visible behavior.
+      Plain links should use the global link token, change on hover if defined,
+      and show a visible focus treatment when reached with keyboard navigation.
+      Use the <kbd>Tab</kbd> key to inspect focus behavior.
     </p>
 
     <div class="base-test-frame">
@@ -254,7 +437,7 @@ robots: noindex
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
       Unordered, ordered, and description lists should retain native semantics and
-      receive sensible bottom spacing. Description details should be indented.
+      receive sensible spacing. Description details should be visually nested below terms.
     </p>
 
     <div class="base-test-frame">
@@ -303,14 +486,14 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      Images should scale responsively, not overflow their container, preserve
-      aspect ratio, and align predictably with surrounding content.
+      Images should scale responsively, preserve aspect ratio, and not overflow
+      their container.
     </p>
 
     <div class="base-test-frame">
       <div class="base-test-media-box">
         <img
-          src="https://placehold.co/800x500"
+          src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
           alt="Placeholder landscape used to test responsive image behavior"
         >
       </div>
@@ -333,8 +516,8 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      The blockquote should show its base visual treatment, including left padding
-      and border. Inline code-like elements should use the mono font family.
+      The blockquote should show its base visual treatment. Inline code-like
+      elements should use the mono font family and remain readable inline.
     </p>
 
     <div class="base-test-frame base-test-frame--narrow">
@@ -368,7 +551,7 @@ robots: noindex
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
       <code>pre</code> and code content should use the mono font. Long lines should
-      become horizontally scrollable rather than breaking the page layout.
+      become horizontally scrollable rather than breaking page layout.
     </p>
 
     <div class="base-test-frame">
@@ -394,8 +577,8 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      Tables should span the available width, collapse borders structurally,
-      and keep header and cell text left-aligned by default.
+      Tables should span available width, keep header and cell content readable,
+      and remain horizontally scrollable on narrow screens when necessary.
     </p>
 
     <div class="base-test-frame">
@@ -441,9 +624,8 @@ robots: noindex
 
     <p class="base-test-note">
       <strong>Expected behavior:</strong>
-      The horizontal rule should appear as a distinct separator with consistent
-      vertical spacing above and below it. Standard block elements should also
-      maintain a stable margin rhythm.
+      The horizontal rule should appear as a distinct separator with stable spacing
+      above and below it. Stacked block elements should maintain consistent rhythm.
     </p>
 
     <div class="base-test-frame base-test-frame--narrow">
@@ -455,7 +637,7 @@ robots: noindex
 
       <figure>
         <img
-          src="https://placehold.co/640x360"
+          src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
           alt="Placeholder image used to inspect spacing around figure elements"
         >
       </figure>

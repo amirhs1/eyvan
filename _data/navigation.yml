@@ -17,39 +17,43 @@ main:
   - title: "Tests"
     url: "/tests/"
     dev_only: true
-    children:
-      - title: "Trumps Test"
-        url: "/tests/7-trumps/"
-        dev_only: true
-
-      - title: "Container Object Test"
-        url: "/tests/4-objects/container/"
-        dev_only: true
-
-      - title: "Grid Object Test"
-        url: "/tests/4-objects/grid/"
-        dev_only: true
-
-      - title: "Site Header Object Test"
-        url: "/tests/4-objects/site-header/"
-        dev_only: true
-      
-      - title: "Site Footer Object Test"
-        url: "/tests/4-objects/site-footer/"
-        dev_only: true
-
-      - title: "Hero Object Test"
-        url: "/tests/4-objects/hero/"
-        dev_only: true
-      
+    children:      
       - title: "Base Elements Test"
         url: "/tests/3-base/base/"
         dev_only: true
+
+      - title: "Object Container Test"
+        url: "/tests/4-objects/container/"
+        dev_only: true
+
+      - title: "Object Grid Test"
+        url: "/tests/4-objects/grid/"
+        dev_only: true
+
+      - title: "Object Site Header Test"
+        url: "/tests/4-objects/site-header/"
+        dev_only: true
       
-      - title: "Navigation Component Test"
+      - title: "Object Site Footer Test"
+        url: "/tests/4-objects/site-footer/"
+        dev_only: true
+
+      - title: "Object Hero Test"
+        url: "/tests/4-objects/hero/"
+        dev_only: true
+      
+      - title: "Component Navigation Test"
         url: "/tests/5-components/navigation/"
         dev_only: true
 
-      - title: "Button Component Test"
+      - title: "Component Button Test"
         url: "/tests/5-components/button/"
+        dev_only: true
+
+      - title: "Component Theme Toggle Test"
+        url: "/tests/5-components/theme-toggle/"
+        dev_only: true
+      
+      - title: "Trumps Test"
+        url: "/tests/7-trumps/"
         dev_only: true

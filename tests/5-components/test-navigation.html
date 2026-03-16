@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Navigation Component Test
-permalink: /tests/5-components/navigation/
+title: Component Navigation Test
+permalink: /tests/5-components/test-navigation/
 robots: noindex
 ---
 
 {% comment %}
-  Navigation Component Test Page
+  Component Navigation Test Page
   Purpose: Visually verify that the 5-components navigation system compiles
   and behaves correctly across the site.
 
@@ -14,8 +14,9 @@ robots: noindex
   - Base navigation structure
   - Desktop navigation variant
   - Active and current-page states
+  - Desktop list wrapping behavior
   - Mobile navigation variant
-  - Long-label wrapping behavior
+  - Mobile long-label wrapping behavior
   - External-link behavior
   - Header mobile toggle states
 
@@ -52,20 +53,17 @@ robots: noindex
   }
 
   .c-navigation-test-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: grid;
     gap: 1rem;
   }
 
   .c-navigation-test-label {
-    min-inline-size: 12rem;
     margin: 0;
     font-weight: 600;
   }
 
   .c-navigation-test-box {
-    inline-size: min(100%, 48rem);
+    inline-size: min(100%, 52rem);
     padding: 1rem;
     border: 1px solid #ddd;
     background: #fff;
@@ -76,14 +74,14 @@ robots: noindex
   }
 
   .c-navigation-test-box--mobile {
-    inline-size: min(100%, 26rem);
+    inline-size: min(100%, 28rem);
   }
 
   .c-navigation-test-box--toggle {
     display: flex;
     align-items: center;
     gap: 1rem;
-    inline-size: min(100%, 22rem);
+    inline-size: min(100%, 24rem);
   }
 
   .c-navigation-test-note {
@@ -92,8 +90,14 @@ robots: noindex
     font-size: 0.95rem;
   }
 
-  .c-navigation-test-spacer {
-    block-size: 0.5rem;
+  .c-navigation-test-fill {
+    padding: 0.75rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
+  }
+
+  .c-navigation-test-desktop-wrap {
+    inline-size: min(100%, 20rem);
   }
 </style>
 
@@ -114,8 +118,9 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     The navigation list below should render as a horizontal flex row with
-    aligned items and no default list bullets because
-    <code>.c-nav__list</code> works together with <code>.u-list-reset</code>.
+    aligned items, consistent spacing between links, and no default list bullets
+    because <code>.c-nav__list</code> is used together with
+    <code>.u-list-reset</code>.
   </p>
 
   <div class="c-navigation-test-frame">
@@ -154,27 +159,23 @@ robots: noindex
   </p>
 
   <div class="c-navigation-test-frame">
-    <div class="c-navigation-test-row">
-      <p class="c-navigation-test-label">Desktop nav test:</p>
-
-      <div class="c-navigation-test-box">
-        <nav class="c-nav c-nav--desktop" aria-label="Test desktop navigation">
-          <ul class="c-nav__list u-list-reset">
-            <li class="c-nav__item">
-              <a class="c-nav__link" href="#">Home</a>
-            </li>
-            <li class="c-nav__item">
-              <a class="c-nav__link" href="#">Projects</a>
-            </li>
-            <li class="c-nav__item">
-              <a class="c-nav__link" href="#">Writing</a>
-            </li>
-            <li class="c-nav__item">
-              <a class="c-nav__link" href="#">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <div class="c-navigation-test-box">
+      <nav class="c-nav c-nav--desktop" aria-label="Test desktop navigation">
+        <ul class="c-nav__list u-list-reset">
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Home</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Projects</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Writing</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Research</a>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <p class="c-navigation-test-note">
@@ -194,7 +195,7 @@ robots: noindex
     <strong>Expected behavior:</strong>
     Links with <code>.is-active</code> or
     <code>aria-current="page"</code> should use the active color.
-    In the non-mobile navigation style, they should also show a
+    In the default or desktop-style navigation, they should also show a
     <strong>small circular marker</strong> near the bottom.
   </p>
 
@@ -220,6 +221,43 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
+  <!-- Desktop List Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Desktop list wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    In the desktop variant, the <strong>list</strong> may wrap onto multiple
+    rows because <code>.c-nav--desktop .c-nav__list</code> allows wrapping.
+    However, each individual link should still stay on a single line because
+    <code>.c-nav__link</code> uses <code>white-space: nowrap</code>.
+  </p>
+
+  <div class="c-navigation-test-frame">
+    <div class="c-navigation-test-box c-navigation-test-desktop-wrap">
+      <nav class="c-nav c-nav--desktop" aria-label="Test desktop wrapping">
+        <ul class="c-nav__list u-list-reset">
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Public Writing</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Selected Projects</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Research Notes</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
   <!-- Mobile Navigation Variant -->
   <!-- ============================================================= -->
 
@@ -228,9 +266,9 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     The mobile variant should stack links vertically, stretch items to the
-    available width, align link text to the left, and show separators between
-    links. Its active link should <strong>not</strong> render the circular
-    marker used by the desktop/default style.
+    available width, align text to the left, increase link size, and add a
+    bottom border to each link. Its active link should <strong>not</strong>
+    render the circular marker used by the default or desktop style.
   </p>
 
   <div class="c-navigation-test-frame">
@@ -257,46 +295,30 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Long-label Wrapping Behavior -->
+  <!-- Mobile Long-label Wrapping Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Long-label wrapping behavior</h2>
+  <h2>Mobile long-label wrapping behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    In the default or desktop-style navigation, links should stay on a single
-    line because <code>.c-nav__link</code> uses <code>white-space: nowrap</code>.
-    In the mobile variant, long labels should be able to wrap because the mobile
-    modifier changes that to <code>white-space: normal</code>.
+    In the mobile variant, long labels should be able to wrap because the
+    mobile modifier changes link whitespace behavior from
+    <code>nowrap</code> to <code>normal</code>.
   </p>
 
-  <div class="c-navigation-test-frame c-navigation-test-stack">
-    <div class="c-navigation-test-box c-navigation-test-box--narrow">
-      <p class="c-navigation-test-note"><strong>Default/base navigation:</strong></p>
-      <nav class="c-nav" aria-label="Test long labels base">
-        <ul class="c-nav__list u-list-reset">
-          <li class="c-nav__item">
-            <a class="c-nav__link" href="#">Very Long Navigation Label Example</a>
-          </li>
-          <li class="c-nav__item">
-            <a class="c-nav__link" href="#">Another Long Label</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-
+  <div class="c-navigation-test-frame">
     <div class="c-navigation-test-box c-navigation-test-box--mobile">
-      <p class="c-navigation-test-note"><strong>Mobile navigation:</strong></p>
       <nav class="c-nav c-nav--mobile" aria-label="Test long labels mobile">
         <ul class="c-nav__list u-list-reset">
           <li class="c-nav__item">
             <a class="c-nav__link" href="#">
-              Very Long Navigation Label Example That Should Wrap on Mobile
+              Very Long Navigation Label Example That Should Wrap in the Mobile Menu
             </a>
           </li>
           <li class="c-nav__item">
             <a class="c-nav__link" href="#">
-              Another Long Editorial Navigation Label for Wrapping
+              Another Long Editorial Navigation Label for Responsive Wrapping
             </a>
           </li>
         </ul>
@@ -350,9 +372,10 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     The toggle button should render as a circular icon button.
-    On hover it should change color/background.
+    On hover it should change color and background.
     The version with <code>aria-expanded="true"</code> should show the expanded
-    state styling. At and above the layout breakpoint, the toggle should become
+    state styling, including the raised-surface background and border.
+    At and above the layout breakpoint, the toggle should become
     <strong>hidden</strong>.
   </p>
 

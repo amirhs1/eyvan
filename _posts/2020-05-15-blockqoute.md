@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Blockquote
-image: "assets/images/posts/23.jpg"
+image: "images/posts/23.jpg"
 tags: [jekyll, docs]
 ---
 

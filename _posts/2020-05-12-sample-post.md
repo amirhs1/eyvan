@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sample Post
-image: "assets/images/posts/25.png"
+image: "images/posts/25.png"
 tags: [jekyll, docs]
 ---
 Markdown (or Textile), Liquid, HTML & CSS go in. Static sites come out ready for deployment.

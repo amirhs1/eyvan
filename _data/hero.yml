@@ -26,7 +26,7 @@ description_html: >-
 # Main image displayed in the homepage hero.
 # Use a real image path when ready.
 # ------------------------------------------------------------
-image: "/assets/images/hero-placeholder.jpg"
+image: "images/hero-placeholder.jpg"
 image_alt: "Portrait or representative image for the homepage hero"
 
 # ------------------------------------------------------------
@@ -35,7 +35,7 @@ image_alt: "Portrait or representative image for the homepage hero"
 # Examples: contact page, email anchor, booking page.
 # ------------------------------------------------------------
 cta_button_primary_text: "Download my resume"
-cta_button_primary_link: "/assets/files/resume.pdf"
+cta_button_primary_link: "files/resume.pdf"
 
 # ------------------------------------------------------------
 # Secondary call to action

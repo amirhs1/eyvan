@@ -6,7 +6,6 @@
 │   ├── hero.yml
 │   ├── navigation.yml
 │   └── social-links.yml
-├── _drafts
 ├── _includes
 │   ├── dev-debug.html
 │   ├── footer.html
@@ -30,17 +29,6 @@
 │   ├── page.html
 │   ├── post.html
 │   └── tag-page.html
-├── _posts
-│   ├── 2020-05-05-you-got-to-cool-that-shit-off-and-thats-the-double-truth.md
-│   ├── 2020-05-06-welcome-to-jekyll.md
-│   ├── 2020-05-07-the-senate-that-our-ability-to-use-the-force-has-diminished.md
-│   ├── 2020-05-08-the-reason-were-gathered-here-on-our-god-given-day.md
-│   ├── 2020-05-09-i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live.md
-│   ├── 2020-05-10-if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all.md
-│   ├── 2020-05-11-make-your-own-gems.md
-│   ├── 2020-05-12-sample-post.md
-│   ├── 2020-05-15-blockqoute.md
-│   └── 2020-05-17-code-style.md
 ├── _sass
 │   ├── _manifest.scss
 │   ├── 0-settings
@@ -78,6 +66,9 @@
 │   │   ├── _site-footer.scss
 │   │   └── _site-header.scss
 │   ├── 5-components
+│   │   ├── _button.scss
+│   │   ├── _navigation.scss
+│   │   └── _theme-toggle.scss
 │   ├── 6-layouts
 │   ├── 7-trumps
 │   │   ├── _a11y.scss
@@ -88,107 +79,64 @@
 │   ├── make_copy.sh
 │   ├── merging_files_in_one.sh
 │   └── merging_per_folder.sh
-├── _site
-│   ├── 404.html
-│   ├── about
-│   │   └── index.html
-│   ├── assets
-│   │   ├── css
-│   │   │   ├── main.css
-│   │   │   └── main.css.map
-│   │   ├── favicon
-│   │   │   ├── favicon.ico
-│   │   │   └── site.webmanifest
-│   │   ├── files
-│   │   │   └── resume.pdf
-│   │   ├── fonts
-│   │   ├── icons
-│   │   ├── images
-│   │   │   └── posts
-│   │   └── js
-│   │       ├── common.js
-│   │       ├── jquery-3.3.1.min.js
-│   │       ├── jquery.fitvids.js
-│   │       ├── jquery.waitforimages.min.js
-│   │       └── post-share.js
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── iwan-jekyll.gemspec
-│   ├── LICENSE
-│   ├── package.json
-│   ├── project
-│   │   ├── blockqoute
-│   │   │   └── index.html
-│   │   ├── code-style
-│   │   │   └── index.html
-│   │   ├── i-was-not-going-to-stand-by-and-see-another-marine-die-just-to-live
-│   │   │   └── index.html
-│   │   ├── if-you-have-an-opportunity-to-use-your-voice-you-should-use-it-all
-│   │   │   └── index.html
-│   │   ├── make-your-own-gems
-│   │   │   └── index.html
-│   │   ├── sample-post
-│   │   │   └── index.html
-│   │   ├── the-reason-were-gathered-here-on-our-god-given-day
-│   │   │   └── index.html
-│   │   ├── the-senate-that-our-ability-to-use-the-force-has-diminished
-│   │   │   └── index.html
-│   │   ├── welcome-to-jekyll
-│   │   │   └── index.html
-│   │   └── you-got-to-cool-that-shit-off-and-thats-the-double-truth
-│   │       └── index.html
-│   ├── projects
-│   │   └── index.html
-│   ├── sitemap.xml
-│   ├── tag
-│   │   ├── blog
-│   │   │   └── index.html
-│   │   ├── code
-│   │   │   └── index.html
-│   │   ├── docs
-│   │   │   └── index.html
-│   │   ├── frontpage
-│   │   │   └── index.html
-│   │   ├── jekyll
-│   │   │   └── index.html
-│   │   └── syntax
-│   │       └── index.html
-│   └── tests
-│       ├── 4-objects
-│       │   ├── container
-│       │   │   └── index.html
-│       │   ├── grid
-│       │   │   └── index.html
-│       │   ├── hero
-│       │   │   └── index.html
-│       │   ├── site-footer
-│       │   │   └── index.html
-│       │   └── site-header
-│       │       └── index.html
-│       ├── 7-trumps
-│       │   └── trumps
-│       │       └── index.html
-│       └── index.html
 ├── 404.html
 ├── about.html
 ├── assets
 │   ├── css
 │   │   └── main.scss
 │   ├── favicon
+│   │   ├── android-chrome-192x192.png
+│   │   ├── android-chrome-512x512.png
+│   │   ├── apple-touch-icon.png
+│   │   ├── favicon-16x16.png
+│   │   ├── favicon-32x32.png
 │   │   ├── favicon.ico
 │   │   └── site.webmanifest
 │   ├── files
 │   │   └── resume.pdf
 │   ├── fonts
+│   │   ├── JetBrains-Mono-normal-100-800-latin.woff2
+│   │   ├── Literata-normal-200-900-latin.woff2
+│   │   └── Space-Grotesk-normal-300-700-latin.woff2
 │   ├── icons
+│   │   ├── cv-sharp.svg
+│   │   ├── logo-discord.svg
+│   │   ├── logo-github.svg
+│   │   ├── logo-google_scholar.svg
+│   │   ├── logo-instagram.svg
+│   │   ├── logo-linkedin.svg
+│   │   ├── logo-pinterest.svg
+│   │   ├── logo-rss.svg
+│   │   ├── logo-twitter.svg
+│   │   ├── logo-youtube.svg
+│   │   ├── mail-sharp.svg
+│   │   ├── menu-sharp.svg
+│   │   ├── moon-sharp.svg
+│   │   ├── print-sharp.svg
+│   │   ├── send-sharp.svg
+│   │   ├── share-sharp.svg
+│   │   ├── sunny-sharp.svg
+│   │   └── timer-sharp.svg
 │   ├── images
+│   │   ├── avatar.jpg
+│   │   ├── hero-placeholder.jpg
+│   │   ├── logo.svg
 │   │   └── posts
+│   │       ├── 11.jpg
+│   │       ├── 15.jpg
+│   │       ├── 16.jpg
+│   │       ├── 19.jpg
+│   │       ├── 20.jpg
+│   │       ├── 23.jpg
+│   │       ├── 25.png
+│   │       └── 8.jpg
 │   └── js
 │       ├── common.js
 │       ├── jquery-3.3.1.min.js
 │       ├── jquery.fitvids.js
 │       ├── jquery.waitforimages.min.js
-│       └── post-share.js
+│       ├── post-share.js
+│       └── theme-toggle.js
 ├── favicon.ico
 ├── Gemfile
 ├── Gemfile.lock
@@ -198,6 +146,7 @@
 ├── package.json
 ├── projects.html
 ├── README.md
+├── structure.txt
 └── tests
     ├── 4-objects
     │   ├── test-container.html
@@ -205,7 +154,10 @@
     │   ├── test-hero.html
     │   ├── test-site-footer.html
     │   └── test-site-header.html
+    ├── 5-components
+    │   └── test-button.html
     ├── index.html
+    ├── test-3-base.html
     └── test-7-trumps.html
 
-65 directories, 144 files
+25 directories, 136 files

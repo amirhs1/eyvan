@@ -41,3 +41,7 @@ main:
       - title: "Hero Object Test"
         url: "/tests/4-objects/hero/"
         dev_only: true
+      
+      - title: "Base Elements Test"
+        url: "/tests/3-base/base/"
+        dev_only: true

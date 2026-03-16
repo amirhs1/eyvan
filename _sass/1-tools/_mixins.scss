@@ -25,8 +25,8 @@
 /// Mobile-first media query helper.
 /// @param {Number} $breakpoint - Token from _breakpoints.scss (e.g. $bp-md)
 @mixin mq-up($breakpoint) {
-  @if meta.type-of($breakpoint) != 'number' or math.is-unitless($breakpoint) {
-    @error 'mq-up expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}';
+  @if meta.type-of($breakpoint) != "number" or math.is-unitless($breakpoint) {
+    @error "mq-up expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}";
   }
 
   @media (min-width: $breakpoint) {
@@ -83,13 +83,11 @@
    Hooks into _config.scss
    ----------------------------------------------------------------------------- */
 
-/// Standard focus-ring logic using focus-visible.
-/// Relies on design tokens for consistency.
+/// Standard focus-ring declarations.
+/// Apply inside a :focus-visible selector in the component.
 @mixin focus-ring {
-  &:focus-visible {
-    outline: settings-config.$focus-ring-width solid currentColor;
-    outline-offset: settings-config.$focus-ring-offset;
-  }
+  outline: settings-config.$focus-ring-width solid var(--color-focus-ring-color);
+  outline-offset: settings-config.$focus-ring-offset;
 }
 
 /// Resets standard list styling for navigation and UI elements.

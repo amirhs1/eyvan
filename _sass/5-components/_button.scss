@@ -22,7 +22,6 @@
 // - .c-button__label
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as settings-colors;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-type;
@@ -45,7 +44,7 @@ $button-padding-inline-lg: settings-spacing.$space-7;
 $button-gap-default: settings-spacing.$space-2;
 $button-icon-circle-size: 1.25rem;
 $button-icon-size: 0.875rem;
-$button-shadow: 0 0 0.125rem settings-colors.$ui-shadow-color;
+$button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
 
 /* -----------------------------------------------------------------------------
    Base button
@@ -79,7 +78,10 @@ $button-shadow: 0 0 0.125rem settings-colors.$ui-shadow-color;
 
   box-shadow: $button-shadow;
   transition:
-    settings-config.$transition-interaction,
+    background-color settings-config.$transition-base,
+    border-color settings-config.$transition-base,
+    color settings-config.$transition-base,
+    box-shadow settings-config.$transition-base,
     transform settings-config.$transition-base;
 
   &:visited {
@@ -110,37 +112,25 @@ $button-shadow: 0 0 0.125rem settings-colors.$ui-shadow-color;
    Variants
    ----------------------------------------------------------------------------- */
 
-.c-button--primary {
-  background-color: settings-colors.$btn-bg;
-  border-color: settings-colors.$btn-border;
-  color: settings-colors.$btn-text;
+/* -----------------------------------------------------------------------------
+   Variants
+   ----------------------------------------------------------------------------- */
 
-  &:visited {
-    color: settings-colors.$btn-text;
-  }
-
-  &:hover,
-  &:focus-visible {
-    background-color: settings-colors.$btn-bg-hover;
-    border-color: settings-colors.$btn-bg-hover;
-    color: settings-colors.$btn-text;
-  }
-}
-
+.c-button--primary,
 .c-button--secondary {
-  background-color: settings-colors.$ui-surface;
-  border-color: settings-colors.$ui-border;
-  color: settings-colors.$ui-text;
+  background-color: var(--color-button-bg);
+  border-color: var(--color-button-border);
+  color: var(--color-button-text);
 
   &:visited {
-    color: settings-colors.$ui-text;
+    color: var(--color-button-text);
   }
 
   &:hover,
   &:focus-visible {
-    background-color: settings-colors.$ui-surface-raised;
-    border-color: settings-colors.$accent-secondary;
-    color: settings-colors.$ui-text;
+    background-color: var(--color-button-bg-hover);
+    border-color: var(--color-button-bg-hover);
+    color: var(--color-button-text);
   }
 }
 
@@ -180,12 +170,13 @@ $button-shadow: 0 0 0.125rem settings-colors.$ui-shadow-color;
   block-size: $button-icon-circle-size;
   border-radius: 50%;
 
-  background-color: settings-colors.$btn-bg;
-  color: settings-colors.$btn-text;
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
 
   transition:
     transform settings-config.$transition-base,
-    background-color settings-config.$transition-base;
+    background-color settings-config.$transition-base,
+    color settings-config.$transition-base;
 }
 
 .c-button__icon {
@@ -207,7 +198,7 @@ $button-shadow: 0 0 0.125rem settings-colors.$ui-shadow-color;
 .c-button--secondary.c-button--with-icon:hover .c-button__icon-circle,
 .c-button--secondary.c-button--with-icon:focus-visible .c-button__icon-circle {
   transform: scale(0.94);
-  background-color: settings-colors.$btn-bg-hover;
+  background-color: var(--color-button-bg-hover);
 }
 
 /* -----------------------------------------------------------------------------

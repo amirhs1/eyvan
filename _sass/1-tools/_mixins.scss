@@ -11,8 +11,12 @@
 // - Token-driven where applicable (0-settings)
 // - No design decisions
 // -----------------------------------------------------------------------------
+
 @use "sass:meta";
 @use "sass:math";
+
+@use "../0-settings/config" as settings-config;
+
 /* -----------------------------------------------------------------------------
    Responsive Media Queries
    Hooks into _breakpoints.scss
@@ -38,8 +42,8 @@
 /// Standardizes font rendering across platforms.
 /// Use sparingly and intentionally (OS-dependent behavior).
 @mixin font-smoothing {
-  -webkit-font-smoothing: $font-smoothing-webkit;
-  -moz-osx-font-smoothing: $font-smoothing-moz;
+  -webkit-font-smoothing: settings-config.$font-smoothing-webkit;
+  -moz-osx-font-smoothing: settings-config.$font-smoothing-moz;
 }
 
 /* -----------------------------------------------------------------------------
@@ -83,8 +87,8 @@
 /// Relies on design tokens for consistency.
 @mixin focus-ring {
   &:focus-visible {
-    outline: $focus-ring-width solid currentColor;
-    outline-offset: $focus-ring-offset;
+    outline: settings-config.$focus-ring-width solid currentColor;
+    outline-offset: settings-config.$focus-ring-offset;
   }
 }
 

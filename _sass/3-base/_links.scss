@@ -13,21 +13,22 @@
 //
 // Notes:
 // - Component-specific link styling belongs in 5-components.
+// - Theme-aware colors are consumed via global CSS custom properties defined
+//   in 3-base/_base.scss.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as settings-colors;
 @use "../0-settings/config" as settings-config;
 
 a {
-  color: settings-colors.$link-color;
+  color: var(--color-link);
   text-decoration: none;
 }
 
 a:hover {
-  color: settings-colors.$link-hover;
+  color: var(--color-link-hover);
 }
 
 a:focus-visible {
-  outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
+  outline: settings-config.$focus-ring-width solid var(--color-link);
   outline-offset: settings-config.$focus-ring-offset;
 }

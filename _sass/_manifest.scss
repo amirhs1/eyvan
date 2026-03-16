@@ -65,12 +65,15 @@
 @use "4-objects/site-footer" as object-site-footer;
 @use "4-objects/hero" as object-hero;
 
-/*
+
 // -----------------------------------------------------------------------------
 // 5. COMPONENTS
 // Designed UI components
 // -----------------------------------------------------------------------------
 
+@use "5-components/button" as component-button;
+
+/*
 @use "5-components/avatar" as component-avatar;
 @use "5-components/blockquote" as component-blockquote;
 @use "5-components/box" as component-box;

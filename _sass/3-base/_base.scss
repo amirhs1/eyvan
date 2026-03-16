@@ -3,9 +3,9 @@
 // ITCSS layer: 3-base
 //
 // Description:
-// Establishes global document-level defaults applied to the <body> element.
-// Defines baseline typography inheritance, rendering behavior, and global
-// background/foreground colors.
+// Establishes global document-level defaults applied to the document root and
+// <body> element. Defines baseline typography inheritance, rendering behavior,
+// and runtime theme custom properties.
 //
 // Scope & Rules:
 // - Type selectors only (no classes, no IDs)
@@ -14,26 +14,81 @@
 //
 // Notes:
 // - Assumes browser normalization/reset are handled in 2-generic
-// - Color theming is resolved via 0-settings/_colors.scss
+// - Compile-time default colors remain available via 0-settings/_colors.scss
+// - Runtime light/dark theme switching is powered by CSS custom properties
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/colors" as settings-colors;
 @use "../0-settings/typography" as settings-typography;
+@use "../0-settings/colors-science-light" as theme-light;
+@use "../0-settings/colors-science-dark" as theme-dark;
+
+/* -----------------------------------------------------------------------------
+   Global theme tokens
+   ----------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  --color-bg: #{theme-light.$ui-bg};
+  --color-surface: #{theme-light.$ui-surface};
+  --color-surface-raised: #{theme-light.$ui-surface-raised};
+  --color-text: #{theme-light.$ui-text};
+  --color-text-muted: #{theme-light.$ui-text-muted};
+  --color-border: #{theme-light.$ui-border};
+  --color-link: #{theme-light.$accent-primary};
+  --color-link-hover: #{theme-light.$accent-primary};
+}
+
+html[data-theme="dark"] {
+  --color-bg: #{theme-dark.$ui-bg};
+  --color-surface: #{theme-dark.$ui-surface};
+  --color-surface-raised: #{theme-dark.$ui-surface-raised};
+  --color-text: #{theme-dark.$ui-text};
+  --color-text-muted: #{theme-dark.$ui-text-muted};
+  --color-border: #{theme-dark.$ui-border};
+  --color-link: #{theme-dark.$accent-primary};
+  --color-link-hover: #{theme-dark.$accent-primary};
+}
+
+/* -----------------------------------------------------------------------------
+   Document root
+   ----------------------------------------------------------------------------- */
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* -----------------------------------------------------------------------------
+   Body
+   ----------------------------------------------------------------------------- */
 
 body {
+  overflow-x: hidden;
+
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-md;
+  font-weight: settings-typography.$font-weight-regular;
   line-height: settings-typography.$line-height-normal;
-  color: settings-colors.$body-color;
-  background-color: settings-colors.$body-bg;
 
-  overflow-x: hidden;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 
   -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
   -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
+/* -----------------------------------------------------------------------------
+   Text selection
+   ----------------------------------------------------------------------------- */
+
 ::selection {
-  color: settings-colors.$btn-text;
-  background-color: settings-colors.$accent-primary;
+  color: var(--color-surface);
+  background-color: var(--color-link);
 }

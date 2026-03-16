@@ -14,23 +14,12 @@
 // Notes:
 // - Vertical rhythm (margins between blocks) should be handled in base spacing
 //   rules or via objects like .o-stack in 4-objects.
+// - Theme-aware colors are consumed via global CSS custom properties defined
+//   in 3-base/_base.scss.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as settings-colors;
 @use "../0-settings/typography" as settings-typography;
 @use "../0-settings/spacing" as settings-spacing;
-
-body {
-  font-family: settings-typography.$font-family-body;
-  font-size: settings-typography.$font-size-md;
-  font-weight: settings-typography.$font-weight-regular;
-  line-height: settings-typography.$line-height-normal;
-  color: settings-colors.$body-color; // Assuming this exists in your colors file
-  
-  // Apply those rendering tokens from your settings
-  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
-  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
-}
 
 h1,
 h2,
@@ -41,7 +30,7 @@ h6 {
   font-family: settings-typography.$font-family-display;
   font-weight: settings-typography.$font-weight-bold;
   line-height: settings-typography.$line-height-tight;
-  color: settings-colors.$heading-color;
+  color: var(--color-text);
 }
 
 /* Map heading sizes to your existing type scale */
@@ -54,8 +43,8 @@ h6 { font-size: settings-typography.$font-size-sm; }
 
 blockquote {
   padding-left: settings-spacing.$space-4;
-  border-left: 3px solid settings-colors.$accent-primary;
-  color: settings-colors.$body-color;
+  border-left: 3px solid var(--color-link);
+  color: var(--color-text);
 }
 
 pre,
@@ -63,6 +52,6 @@ code,
 kbd,
 samp {
   font-family: settings-typography.$font-family-mono;
-  overflow-x: auto;
   font-size: 0.9em;
+  overflow-x: auto;
 }

@@ -1,0 +1,81 @@
+// -----------------------------------------------------------------------------
+// Site Footer Object
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides the structural layout for the global site footer.
+// Arranges the brand, meta, and actions regions without applying cosmetic
+// component styling.
+//
+// Scope & Rules:
+// - Layout only
+// - No colors, borders, shadows, or typography
+// - No brand, social-links, or footer text appearance styles
+// - Footer surface/background styling belongs to the site-footer component
+//
+// Notes:
+// - Mobile-first
+// - Footer regions stack on smaller screens
+// - Footer regions align into a horizontal layout from the layout breakpoint up
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+
+.o-site-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: tools-spacing.$fluid-stack-md;
+
+  inline-size: 100%;
+  padding-block: tools-spacing.$fluid-section-sm;
+}
+
+.o-site-footer__brand,
+.o-site-footer__meta,
+.o-site-footer__actions {
+  min-inline-size: 0;
+  display: flex;
+  align-items: center;
+}
+
+.o-site-footer__brand,
+.o-site-footer__actions {
+  justify-content: center;
+}
+
+.o-site-footer__meta {
+  flex-direction: column;
+  row-gap: tools-spacing.$space-stack-xs;
+  align-items: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Desktop layout shift                                                       */
+/* -------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
+  .o-site-footer {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: tools-spacing.$fluid-inline-lg;
+  }
+
+  .o-site-footer__brand {
+    flex: 1 1 0%;
+    justify-content: flex-start;
+  }
+
+  .o-site-footer__meta {
+    flex: 1 1 0%;
+    align-items: center;
+  }
+
+  .o-site-footer__actions {
+    flex: 1 1 0%;
+    justify-content: flex-end;
+  }
+}

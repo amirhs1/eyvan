@@ -1,0 +1,593 @@
+---
+layout: page
+title: Component Theme Toggle Test
+permalink: /tests/5-components/theme-toggle/
+robots: noindex
+---
+{% comment %}
+  Component Theme Toggle Test Page
+  Purpose: Visually verify that the 5-components theme-toggle component
+  compiles and behaves correctly across desktop and mobile contexts.
+
+  Structure:
+  - Base component rendering
+  - Compact desktop/icon-only variant
+  - Mobile labeled variant
+  - Light theme icon state
+  - Dark theme icon state
+  - Disabled states
+  - Width and alignment behavior
+  - Long label stress test
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-theme-toggle
+    - .c-theme-toggle__icons
+    - .c-theme-toggle__icon
+    - .c-theme-toggle__icon--sun
+    - .c-theme-toggle__icon--moon
+    - .c-theme-toggle__label
+    - .c-theme-toggle--mobile
+  - Helper styles below are temporary and exist only for testing.
+  - This page intentionally avoids relying on production JavaScript behavior.
+  - Theme-specific icon visibility is tested by scoping examples inside
+    wrappers that set html-like [data-theme] states locally.
+  - Resize the browser window to verify responsive behavior.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-theme-toggle-test-frame {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fafafa;
+  }
+
+  .c-theme-toggle-test-frame[data-theme="light"] {
+    --color-ui-surface: #ffffff;
+    --color-ui-surface-raised: #f3f4f6;
+    --color-ui-border: #c7c9d1;
+    --color-ui-text: #1f2937;
+    --color-link-color: #32127a;
+  }
+
+  .c-theme-toggle-test-frame[data-theme="dark"] {
+    --color-ui-surface: #111827;
+    --color-ui-surface-raised: #1f2937;
+    --color-ui-border: #4b5563;
+    --color-ui-text: #f9fafb;
+    --color-link-color: #3fe0d0;
+    background: #0b1220;
+    border-color: #334155;
+    color: #f9fafb;
+  }
+
+  .c-theme-toggle-test-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .c-theme-toggle-test-stack > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .c-theme-toggle-test-panel {
+    padding: 0.75rem;
+    border: 1px dashed #999;
+    background: rgba(127, 127, 127, 0.08);
+  }
+
+  .c-theme-toggle-test-panel--wide {
+    width: 100%;
+  }
+
+  .c-theme-toggle-test-label {
+    font-weight: 600;
+  }
+
+  .c-theme-toggle-test-note {
+    font-size: 0.9375rem;
+  }
+
+  .c-theme-toggle-test-mobile-shell {
+    max-width: 26rem;
+    padding: 1rem;
+    border: 1px dashed #999;
+    background: rgba(127, 127, 127, 0.08);
+  }
+
+  .c-theme-toggle-test-inline-shell {
+    display: inline-flex;
+    padding: 0.5rem;
+    border: 1px dashed #999;
+    background: rgba(127, 127, 127, 0.08);
+  }
+
+  .c-theme-toggle-test-fill-shell {
+    width: 100%;
+    max-width: 30rem;
+    padding: 0.75rem;
+    border: 1px dashed #999;
+    background: rgba(127, 127, 127, 0.08);
+  }
+
+  .c-theme-toggle-test-local-theme[data-theme="light"] .c-theme-toggle__icon--sun {
+    opacity: 0;
+    transform: scale(0.8) rotate(-20deg);
+    pointer-events: none;
+  }
+
+  .c-theme-toggle-test-local-theme[data-theme="light"] .c-theme-toggle__icon--moon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .c-theme-toggle-test-local-theme[data-theme="dark"] .c-theme-toggle__icon--sun {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .c-theme-toggle-test-local-theme[data-theme="dark"] .c-theme-toggle__icon--moon {
+    opacity: 0;
+    transform: scale(0.8) rotate(20deg);
+    pointer-events: none;
+  }
+
+  .c-theme-toggle-test-long-label {
+    white-space: normal;
+  }
+</style>
+
+<section class="l-section">
+  <div class="o-container">
+    <p>
+      This page verifies the functionality of the <code>.c-theme-toggle</code> component and its variants
+      defined in the <strong>5-components</strong> Sass layer.
+    </p>
+
+    <p>
+      <em>
+        Development note: the helper styles on this page exist only to make component boundaries and state behavior
+        easier to inspect.
+      </em>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Component Rendering -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Base component rendering</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The base theme toggle should render as a compact circular button. It should contain the icon group and no visible
+      text label in the default desktop-style form.
+    </p>
+
+    <div class="c-theme-toggle-test-frame" data-theme="light">
+      <div class="c-theme-toggle-test-row">
+        <div class="c-theme-toggle-test-inline-shell">
+          <button
+            class="c-theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Compact Desktop Variant -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Compact desktop variant</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The default non-mobile version should keep a fixed square footprint. It should center its icon group and remain
+      visually compact for header usage.
+    </p>
+
+    <div class="c-theme-toggle-test-frame" data-theme="light">
+      <div class="c-theme-toggle-test-row">
+        <div class="c-theme-toggle-test-panel">
+          <div class="c-theme-toggle-test-label">Desktop example</div>
+          <div class="c-theme-toggle-test-note">Icon-only header-style toggle.</div>
+        </div>
+
+        <div class="c-theme-toggle-test-inline-shell">
+          <button
+            class="c-theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mobile Labeled Variant -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Mobile labeled variant</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The <code>.c-theme-toggle--mobile</code> modifier should expand the control to fill the available inline space on
+      smaller screens, align its contents to the start, and show the visible text label.
+    </p>
+
+    <div class="c-theme-toggle-test-frame" data-theme="light">
+      <div class="c-theme-toggle-test-mobile-shell">
+        <button
+          class="c-theme-toggle c-theme-toggle--mobile"
+          type="button"
+          aria-label="Switch to dark theme"
+          aria-pressed="false"
+        >
+          <span class="c-theme-toggle__icons" aria-hidden="true">
+            <img
+              class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+              src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+              alt=""
+              aria-hidden="true"
+            >
+            <img
+              class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+              src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+              alt=""
+              aria-hidden="true"
+            >
+          </span>
+
+          <span class="u-visually-hidden">Switch to dark theme</span>
+          <span class="c-theme-toggle__label">Switch to dark theme</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Light Theme Icon State -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Light theme icon state</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      In light theme, the moon icon should be visible because the action is to switch to dark theme. The sun icon
+      should be visually hidden.
+    </p>
+
+    <div class="c-theme-toggle-test-frame c-theme-toggle-test-local-theme" data-theme="light">
+      <div class="c-theme-toggle-test-row">
+        <div class="c-theme-toggle-test-inline-shell">
+          <button
+            class="c-theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Dark Theme Icon State -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Dark theme icon state</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      In dark theme, the sun icon should be visible because the action is to switch to light theme. The moon icon
+      should be visually hidden.
+    </p>
+
+    <div class="c-theme-toggle-test-frame c-theme-toggle-test-local-theme" data-theme="dark">
+      <div class="c-theme-toggle-test-row">
+        <div class="c-theme-toggle-test-inline-shell">
+          <button
+            class="c-theme-toggle"
+            type="button"
+            aria-label="Switch to light theme"
+            aria-pressed="true"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to light theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Disabled States -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Disabled states</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      Disabled versions should appear reduced in opacity, should not suggest interactivity, and should not apply the
+      active press transform.
+    </p>
+
+    <div class="c-theme-toggle-test-frame" data-theme="light">
+      <div class="c-theme-toggle-test-row">
+        <div class="c-theme-toggle-test-inline-shell">
+          <button
+            class="c-theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+            disabled
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+          </button>
+        </div>
+
+        <div class="c-theme-toggle-test-fill-shell">
+          <button
+            class="c-theme-toggle c-theme-toggle--mobile"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+            aria-disabled="true"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+            <span class="c-theme-toggle__label">Switch to dark theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Width and Alignment Behavior -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Width and alignment behavior</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      The mobile modifier should stretch to fill a constrained shell on smaller screens, while the default version
+      should remain compact and content-sized.
+    </p>
+
+    <div class="c-theme-toggle-test-frame" data-theme="light">
+      <div class="c-theme-toggle-test-stack">
+        <div class="c-theme-toggle-test-inline-shell">
+          <button
+            class="c-theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+          </button>
+        </div>
+
+        <div class="c-theme-toggle-test-fill-shell">
+          <button
+            class="c-theme-toggle c-theme-toggle--mobile"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            <span class="c-theme-toggle__icons" aria-hidden="true">
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+              <img
+                class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+
+            <span class="u-visually-hidden">Switch to dark theme</span>
+            <span class="c-theme-toggle__label">Switch to dark theme</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long Label Stress Test -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Long label stress test</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      This test stresses the labeled mobile variant. The control should remain usable and visually stable even with a
+      long visible label. The button should still align its icon and text cleanly and stay inside the available width.
+    </p>
+
+    <div class="c-theme-toggle-test-frame" data-theme="light">
+      <div class="c-theme-toggle-test-fill-shell">
+        <button
+          class="c-theme-toggle c-theme-toggle--mobile"
+          type="button"
+          aria-label="Switch to dark theme"
+          aria-pressed="false"
+        >
+          <span class="c-theme-toggle__icons" aria-hidden="true">
+            <img
+              class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+              src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
+              alt=""
+              aria-hidden="true"
+            >
+            <img
+              class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+              src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
+              alt=""
+              aria-hidden="true"
+            >
+          </span>
+
+          <span class="u-visually-hidden">Switch to dark theme</span>
+          <span class="c-theme-toggle__label c-theme-toggle-test-long-label">
+            Switch to dark theme with a longer visible label used only for component stress testing
+          </span>
+        </button>
+      </div>
+
+      <p>
+        <em>
+          Resize the viewport and confirm that the mobile variant remains inside its container. Also verify that the
+          default desktop variant stays compact while the mobile modifier behaves like a wider labeled control.
+        </em>
+      </p>
+    </div>
+  </div>
+</section>

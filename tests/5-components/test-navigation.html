@@ -1,0 +1,414 @@
+---
+layout: page
+title: Navigation Component Test
+permalink: /tests/5-components/navigation/
+robots: noindex
+---
+
+{% comment %}
+  Navigation Component Test Page
+  Purpose: Visually verify that the 5-components navigation system compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base navigation structure
+  - Desktop navigation variant
+  - Active and current-page states
+  - Mobile navigation variant
+  - Long-label wrapping behavior
+  - External-link behavior
+  - Header mobile toggle states
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-nav
+    - .c-nav--desktop
+    - .c-nav--mobile
+    - .c-nav__list
+    - .c-nav__item
+    - .c-nav__link
+    - .c-nav-toggle
+    - .c-nav-toggle__icon
+    - .is-active
+    - [aria-current="page"]
+  - The mobile menu panel shell is intentionally not tested here because it
+    belongs to the separate mobile-menu component.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive visibility behavior.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-navigation-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-navigation-test-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .c-navigation-test-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .c-navigation-test-label {
+    min-inline-size: 12rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .c-navigation-test-box {
+    inline-size: min(100%, 48rem);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-navigation-test-box--narrow {
+    inline-size: min(100%, 22rem);
+  }
+
+  .c-navigation-test-box--mobile {
+    inline-size: min(100%, 26rem);
+  }
+
+  .c-navigation-test-box--toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    inline-size: min(100%, 22rem);
+  }
+
+  .c-navigation-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-navigation-test-spacer {
+    block-size: 0.5rem;
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the navigation classes defined in
+    the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Navigation Structure -->
+  <!-- ============================================================= -->
+
+  <h2>Base navigation structure</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The navigation list below should render as a horizontal flex row with
+    aligned items and no default list bullets because
+    <code>.c-nav__list</code> works together with <code>.u-list-reset</code>.
+  </p>
+
+  <div class="c-navigation-test-frame">
+    <nav class="c-nav" aria-label="Test base navigation">
+      <ul class="c-nav__list u-list-reset">
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">Home</a>
+        </li>
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">Projects</a>
+        </li>
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">About</a>
+        </li>
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Desktop Navigation Variant -->
+  <!-- ============================================================= -->
+
+  <h2>Desktop navigation variant</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The desktop variant uses <code>.c-nav--desktop</code>.
+    Below the layout breakpoint it should be <strong>hidden</strong>.
+    At and above the layout breakpoint it should become
+    <strong>visible</strong>.
+  </p>
+
+  <div class="c-navigation-test-frame">
+    <div class="c-navigation-test-row">
+      <p class="c-navigation-test-label">Desktop nav test:</p>
+
+      <div class="c-navigation-test-box">
+        <nav class="c-nav c-nav--desktop" aria-label="Test desktop navigation">
+          <ul class="c-nav__list u-list-reset">
+            <li class="c-nav__item">
+              <a class="c-nav__link" href="#">Home</a>
+            </li>
+            <li class="c-nav__item">
+              <a class="c-nav__link" href="#">Projects</a>
+            </li>
+            <li class="c-nav__item">
+              <a class="c-nav__link" href="#">Writing</a>
+            </li>
+            <li class="c-nav__item">
+              <a class="c-nav__link" href="#">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <p class="c-navigation-test-note">
+      Resize the browser width to confirm the desktop navigation visibility rule.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Active and Current Page States -->
+  <!-- ============================================================= -->
+
+  <h2>Active and current-page states</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Links with <code>.is-active</code> or
+    <code>aria-current="page"</code> should use the active color.
+    In the non-mobile navigation style, they should also show a
+    <strong>small circular marker</strong> near the bottom.
+  </p>
+
+  <div class="c-navigation-test-frame">
+    <nav class="c-nav" aria-label="Test active states">
+      <ul class="c-nav__list u-list-reset">
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">Overview</a>
+        </li>
+        <li class="c-nav__item">
+          <a class="c-nav__link is-active" href="#">Projects</a>
+        </li>
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#" aria-current="page">Research</a>
+        </li>
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mobile Navigation Variant -->
+  <!-- ============================================================= -->
+
+  <h2>Mobile navigation variant</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The mobile variant should stack links vertically, stretch items to the
+    available width, align link text to the left, and show separators between
+    links. Its active link should <strong>not</strong> render the circular
+    marker used by the desktop/default style.
+  </p>
+
+  <div class="c-navigation-test-frame">
+    <div class="c-navigation-test-box c-navigation-test-box--mobile">
+      <nav class="c-nav c-nav--mobile" aria-label="Test mobile navigation">
+        <ul class="c-nav__list u-list-reset">
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Home</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link is-active" href="#">Projects</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#" aria-current="page">Publications</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long-label Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Long-label wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    In the default or desktop-style navigation, links should stay on a single
+    line because <code>.c-nav__link</code> uses <code>white-space: nowrap</code>.
+    In the mobile variant, long labels should be able to wrap because the mobile
+    modifier changes that to <code>white-space: normal</code>.
+  </p>
+
+  <div class="c-navigation-test-frame c-navigation-test-stack">
+    <div class="c-navigation-test-box c-navigation-test-box--narrow">
+      <p class="c-navigation-test-note"><strong>Default/base navigation:</strong></p>
+      <nav class="c-nav" aria-label="Test long labels base">
+        <ul class="c-nav__list u-list-reset">
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Very Long Navigation Label Example</a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">Another Long Label</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="c-navigation-test-box c-navigation-test-box--mobile">
+      <p class="c-navigation-test-note"><strong>Mobile navigation:</strong></p>
+      <nav class="c-nav c-nav--mobile" aria-label="Test long labels mobile">
+        <ul class="c-nav__list u-list-reset">
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">
+              Very Long Navigation Label Example That Should Wrap on Mobile
+            </a>
+          </li>
+          <li class="c-nav__item">
+            <a class="c-nav__link" href="#">
+              Another Long Editorial Navigation Label for Wrapping
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- External-link Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>External-link behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The external link below should look visually like the other navigation links.
+    In your real include, external links also receive
+    <code>target="_blank"</code> and <code>rel="noopener noreferrer"</code>.
+  </p>
+
+  <div class="c-navigation-test-frame">
+    <nav class="c-nav" aria-label="Test external link navigation">
+      <ul class="c-nav__list u-list-reset">
+        <li class="c-nav__item">
+          <a class="c-nav__link" href="#">Projects</a>
+        </li>
+        <li class="c-nav__item">
+          <a
+            class="c-nav__link"
+            href="https://example.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            External CV
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Header Mobile Toggle -->
+  <!-- ============================================================= -->
+
+  <h2>Header mobile toggle</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The toggle button should render as a circular icon button.
+    On hover it should change color/background.
+    The version with <code>aria-expanded="true"</code> should show the expanded
+    state styling. At and above the layout breakpoint, the toggle should become
+    <strong>hidden</strong>.
+  </p>
+
+  <div class="c-navigation-test-frame c-navigation-test-stack">
+    <div class="c-navigation-test-box c-navigation-test-box--toggle">
+      <button
+        class="c-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="test-mobile-menu"
+        aria-label="Open menu"
+        data-nav-toggle
+      >
+        <span class="u-visually-hidden">Open menu</span>
+        <img
+          class="c-nav-toggle__icon"
+          src="{{ '/assets/icons/menu-sharp.svg' | relative_url }}"
+          alt=""
+          aria-hidden="true"
+        >
+      </button>
+
+      <p class="c-navigation-test-note">
+        Collapsed state: <code>aria-expanded="false"</code>
+      </p>
+    </div>
+
+    <div class="c-navigation-test-box c-navigation-test-box--toggle">
+      <button
+        class="c-nav-toggle"
+        type="button"
+        aria-expanded="true"
+        aria-controls="test-mobile-menu"
+        aria-label="Close menu"
+        data-nav-toggle
+      >
+        <span class="u-visually-hidden">Close menu</span>
+        <img
+          class="c-nav-toggle__icon"
+          src="{{ '/assets/icons/menu-sharp.svg' | relative_url }}"
+          alt=""
+          aria-hidden="true"
+        >
+      </button>
+
+      <p class="c-navigation-test-note">
+        Expanded state: <code>aria-expanded="true"</code>
+      </p>
+    </div>
+  </div>
+
+  <p>
+    <em>
+      Tip: Resize the browser window to confirm that
+      <code>.c-nav--desktop</code> and <code>.c-nav-toggle</code> switch
+      visibility at the layout breakpoint.
+    </em>
+  </p>
+</section>

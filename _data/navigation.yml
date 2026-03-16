@@ -45,3 +45,11 @@ main:
       - title: "Base Elements Test"
         url: "/tests/3-base/base/"
         dev_only: true
+      
+      - title: "Navigation Component Test"
+        url: "/tests/5-components/navigation/"
+        dev_only: true
+
+      - title: "Button Component Test"
+        url: "/tests/5-components/button/"
+        dev_only: true

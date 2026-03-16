@@ -59,10 +59,10 @@ $heading-color: palette.$clr-off-white; // avoids sharp contrast
 $link-color: $accent-primary;
 $link-hover: $accent-secondary;
 
-$btn-bg: $accent-primary;
-$btn-bg-hover: palette.$clr-p-blue;
-$btn-text: palette.$clr-white;
-$btn-border: transparent;
+$button-bg: $accent-primary;
+$button-bg-hover: palette.$clr-p-blue;
+$button-text: palette.$clr-white;
+$button-border: transparent;
 
 
 /* -----------------------------------------------------------------------------
@@ -74,6 +74,21 @@ $state-error: palette.$clr-p-red;
 $state-success: palette.$clr-p-green;
 $state-warning: palette.$clr-p-orange;
 $state-info: palette.$clr-p-azure;
+
+
+/* -----------------------------------------------------------------------------
+   Interaction helpers
+   ----------------------------------------------------------------------------- */
+
+$focus-ring-color: $accent-primary;
+
+
+/* -----------------------------------------------------------------------------
+   Text selection
+   ----------------------------------------------------------------------------- */
+
+$selection-text: $ui-surface;
+$selection-bg: $accent-primary;
 
 
 /* -----------------------------------------------------------------------------

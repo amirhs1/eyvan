@@ -25,13 +25,13 @@
 // - JavaScript updates aria-label, aria-pressed, and visible text
 // - Light theme shows the moon icon (action: switch to dark theme)
 // - Dark theme shows the sun icon (action: switch to light theme)
+// - Surface, border, and text colors are driven by global CSS custom
+//   properties defined in the base theme layer
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as settings-colors;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/typography" as settings-typography;
-@use "../0-settings/palette-persian" as settings-palette;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 
@@ -59,10 +59,10 @@ $theme-toggle-border-width: settings-config.$global-border-width;
   padding-block: 0.625rem;
   padding-inline: 0.625rem;
 
-  border: $theme-toggle-border-width solid settings-colors.$ui-border;
+  border: $theme-toggle-border-width solid var(--color-ui-border);
   border-radius: $theme-toggle-radius;
-  background-color: settings-colors.$ui-surface;
-  color: settings-colors.$ui-text;
+  background-color: var(--color-ui-surface);
+  color: var(--color-ui-text);
 
   cursor: pointer;
   user-select: none;
@@ -76,9 +76,9 @@ $theme-toggle-border-width: settings-config.$global-border-width;
     transform settings-config.$transition-fast;
 
   &:hover {
-    border-color: settings-colors.$accent-primary;
-    color: settings-colors.$accent-primary;
-    background-color: settings-colors.$ui-surface-raised;
+    border-color: var(--color-link-color);
+    background-color: var(--color-ui-surface-raised);
+    color: var(--color-link-color);
   }
 
   &:active {
@@ -86,8 +86,14 @@ $theme-toggle-border-width: settings-config.$global-border-width;
   }
 
   &:focus-visible {
-    outline: settings-config.$focus-ring-width solid settings-colors.$accent-primary;
-    outline-offset: settings-config.$focus-ring-offset;
+    @include tools-mixins.focus-ring;
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 }
 
@@ -172,26 +178,6 @@ html[data-theme="dark"] .c-theme-toggle__icon--moon {
   opacity: 0;
   transform: scale(0.8) rotate(20deg);
   pointer-events: none;
-}
-
-// -----------------------------------------------------------------------------
-// Theme-driven button surface
-// -----------------------------------------------------------------------------
-
-html[data-theme="dark"] .c-theme-toggle {
-  background-color: settings-palette.$clr-dark-elevated;
-  border-color: settings-palette.$clr-dark-highlight;
-  color: settings-palette.$clr-gray-100;
-
-  &:hover {
-    background-color: settings-palette.$clr-dark-highlight;
-    border-color: settings-palette.$clr-p-turquoise;
-    color: settings-palette.$clr-p-turquoise;
-  }
-
-  &:focus-visible {
-    outline-color: settings-palette.$clr-p-turquoise;
-  }
 }
 
 // -----------------------------------------------------------------------------

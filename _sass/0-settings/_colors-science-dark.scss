@@ -57,10 +57,10 @@ $heading-color: palette.$clr-white;
 $link-color: $accent-secondary;
 $link-hover: $accent-primary;
 
-$btn-bg: $accent-primary;
-$btn-bg-hover: palette.$clr-p-turquoise;
-$btn-text: palette.$clr-black;
-$btn-border: transparent;
+$button-bg: $accent-primary;
+$button-bg-hover: palette.$clr-p-turquoise;
+$button-text: palette.$clr-black;
+$button-border: transparent;
 
 
 /* -----------------------------------------------------------------------------
@@ -71,6 +71,22 @@ $state-error: palette.$clr-p-red;
 $state-success: palette.$clr-p-green;
 $state-warning: palette.$clr-p-orange;
 $state-info: palette.$clr-p-blue;
+
+
+/* -----------------------------------------------------------------------------
+   Interaction helpers
+   ----------------------------------------------------------------------------- */
+
+$focus-ring-color: $accent-primary;
+
+
+/* -----------------------------------------------------------------------------
+   Text selection
+   ----------------------------------------------------------------------------- */
+
+$selection-text: $ui-surface;
+$selection-bg: $accent-primary;
+
 
 /* -----------------------------------------------------------------------------
    Syntax Highlighting (Base16 — Dark)

@@ -14,41 +14,136 @@
 //
 // Notes:
 // - Assumes browser normalization/reset are handled in 2-generic
-// - Compile-time default colors remain available via 0-settings/_colors.scss
 // - Runtime light/dark theme switching is powered by CSS custom properties
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/colors" as settings-colors;
 @use "../0-settings/typography" as settings-typography;
-@use "../0-settings/colors-science-light" as theme-light;
-@use "../0-settings/colors-science-dark" as theme-dark;
+@use "../0-settings/colors" as settings-colors;
 
 /* -----------------------------------------------------------------------------
-   Global theme tokens
+   Global theme tokens (light)
    ----------------------------------------------------------------------------- */
 
 :root {
   color-scheme: light dark;
 
-  --color-bg: #{theme-light.$ui-bg};
-  --color-surface: #{theme-light.$ui-surface};
-  --color-surface-raised: #{theme-light.$ui-surface-raised};
-  --color-text: #{theme-light.$ui-text};
-  --color-text-muted: #{theme-light.$ui-text-muted};
-  --color-border: #{theme-light.$ui-border};
-  --color-link: #{theme-light.$accent-primary};
-  --color-link-hover: #{theme-light.$accent-primary};
+  /* Core UI roles */
+  --color-ui-bg: #{settings-colors.$light-ui-bg};
+  --color-ui-surface: #{settings-colors.$light-ui-surface};
+  --color-ui-surface-raised: #{settings-colors.$light-ui-surface-raised};
+
+  --color-ui-text: #{settings-colors.$light-ui-text};
+  --color-ui-text-muted: #{settings-colors.$light-ui-text-muted};
+
+  --color-ui-border: #{settings-colors.$light-ui-border};
+  --color-ui-shadow-color: #{settings-colors.$light-ui-shadow-color};
+
+  /* Typography & content */
+  --color-body-bg: #{settings-colors.$light-body-bg};
+  --color-body-color: #{settings-colors.$light-body-color};
+  --color-heading-color: #{settings-colors.$light-heading-color};
+
+  /* Accent system */
+  --color-accent-primary: #{settings-colors.$light-accent-primary};
+  --color-accent-secondary: #{settings-colors.$light-accent-secondary};
+
+  /* Interactive elements */
+  --color-link-color: #{settings-colors.$light-link-color};
+  --color-link-hover: #{settings-colors.$light-link-hover};
+
+  --color-button-bg: #{settings-colors.$light-button-bg};
+  --color-button-bg-hover: #{settings-colors.$light-button-bg-hover};
+  --color-button-text: #{settings-colors.$light-button-text};
+  --color-button-border: #{settings-colors.$light-button-border};
+
+  /* Status & feedback */
+  --color-state-error: #{settings-colors.$light-state-error};
+  --color-state-success: #{settings-colors.$light-state-success};
+  --color-state-warning: #{settings-colors.$light-state-warning};
+  --color-state-info: #{settings-colors.$light-state-info};
+
+  /* Interaction helpers */
+  --color-focus-ring-color: #{settings-colors.$light-focus-ring-color};
+
+  /* Text selection */
+  --color-selection-text: #{settings-colors.$light-selection-text};
+  --color-selection-bg: #{settings-colors.$light-selection-bg};
+
+  /* Syntax highlighting */
+  --color-syntax-base00: #{settings-colors.$light-base00};
+  --color-syntax-base01: #{settings-colors.$light-base01};
+  --color-syntax-base02: #{settings-colors.$light-base02};
+  --color-syntax-base03: #{settings-colors.$light-base03};
+  --color-syntax-base04: #{settings-colors.$light-base04};
+  --color-syntax-base05: #{settings-colors.$light-base05};
+  --color-syntax-base06: #{settings-colors.$light-base06};
+  --color-syntax-base07: #{settings-colors.$light-base07};
+  --color-syntax-base08: #{settings-colors.$light-base08};
+  --color-syntax-base09: #{settings-colors.$light-base09};
+  --color-syntax-base0a: #{settings-colors.$light-base0a};
+  --color-syntax-base0b: #{settings-colors.$light-base0b};
+  --color-syntax-base0c: #{settings-colors.$light-base0c};
+  --color-syntax-base0d: #{settings-colors.$light-base0d};
+  --color-syntax-base0e: #{settings-colors.$light-base0e};
+  --color-syntax-base0f: #{settings-colors.$light-base0f};
 }
 
+/* -----------------------------------------------------------------------------
+   Dark theme override
+   ----------------------------------------------------------------------------- */
+
 html[data-theme="dark"] {
-  --color-bg: #{theme-dark.$ui-bg};
-  --color-surface: #{theme-dark.$ui-surface};
-  --color-surface-raised: #{theme-dark.$ui-surface-raised};
-  --color-text: #{theme-dark.$ui-text};
-  --color-text-muted: #{theme-dark.$ui-text-muted};
-  --color-border: #{theme-dark.$ui-border};
-  --color-link: #{theme-dark.$accent-primary};
-  --color-link-hover: #{theme-dark.$accent-primary};
+  --color-ui-bg: #{settings-colors.$dark-ui-bg};
+  --color-ui-surface: #{settings-colors.$dark-ui-surface};
+  --color-ui-surface-raised: #{settings-colors.$dark-ui-surface-raised};
+
+  --color-ui-text: #{settings-colors.$dark-ui-text};
+  --color-ui-text-muted: #{settings-colors.$dark-ui-text-muted};
+
+  --color-ui-border: #{settings-colors.$dark-ui-border};
+  --color-ui-shadow-color: #{settings-colors.$dark-ui-shadow-color};
+
+  --color-body-bg: #{settings-colors.$dark-body-bg};
+  --color-body-color: #{settings-colors.$dark-body-color};
+  --color-heading-color: #{settings-colors.$dark-heading-color};
+
+  --color-accent-primary: #{settings-colors.$dark-accent-primary};
+  --color-accent-secondary: #{settings-colors.$dark-accent-secondary};
+
+  --color-link-color: #{settings-colors.$dark-link-color};
+  --color-link-hover: #{settings-colors.$dark-link-hover};
+
+  --color-button-bg: #{settings-colors.$dark-button-bg};
+  --color-button-bg-hover: #{settings-colors.$dark-button-bg-hover};
+  --color-button-text: #{settings-colors.$dark-button-text};
+  --color-button-border: #{settings-colors.$dark-button-border};
+
+  --color-state-error: #{settings-colors.$dark-state-error};
+  --color-state-success: #{settings-colors.$dark-state-success};
+  --color-state-warning: #{settings-colors.$dark-state-warning};
+  --color-state-info: #{settings-colors.$dark-state-info};
+
+  --color-focus-ring-color: #{settings-colors.$dark-focus-ring-color};
+
+  --color-selection-text: #{settings-colors.$dark-selection-text};
+  --color-selection-bg: #{settings-colors.$dark-selection-bg};
+
+  --color-syntax-base00: #{settings-colors.$dark-base00};
+  --color-syntax-base01: #{settings-colors.$dark-base01};
+  --color-syntax-base02: #{settings-colors.$dark-base02};
+  --color-syntax-base03: #{settings-colors.$dark-base03};
+  --color-syntax-base04: #{settings-colors.$dark-base04};
+  --color-syntax-base05: #{settings-colors.$dark-base05};
+  --color-syntax-base06: #{settings-colors.$dark-base06};
+  --color-syntax-base07: #{settings-colors.$dark-base07};
+  --color-syntax-base08: #{settings-colors.$dark-base08};
+  --color-syntax-base09: #{settings-colors.$dark-base09};
+  --color-syntax-base0a: #{settings-colors.$dark-base0a};
+  --color-syntax-base0b: #{settings-colors.$dark-base0b};
+  --color-syntax-base0c: #{settings-colors.$dark-base0c};
+  --color-syntax-base0d: #{settings-colors.$dark-base0d};
+  --color-syntax-base0e: #{settings-colors.$dark-base0e};
+  --color-syntax-base0f: #{settings-colors.$dark-base0f};
 }
 
 /* -----------------------------------------------------------------------------
@@ -56,8 +151,8 @@ html[data-theme="dark"] {
    ----------------------------------------------------------------------------- */
 
 html {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--color-ui-bg);
+  color: var(--color-ui-text);
 }
 
 /* -----------------------------------------------------------------------------
@@ -72,16 +167,11 @@ body {
   font-weight: settings-typography.$font-weight-regular;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: var(--color-body-color);
+  background-color: var(--color-body-bg);
 
   -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
   -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
-
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
 }
 
 /* -----------------------------------------------------------------------------
@@ -89,6 +179,6 @@ body {
    ----------------------------------------------------------------------------- */
 
 ::selection {
-  color: var(--color-surface);
-  background-color: var(--color-link);
+  color: var(--color-selection-text);
+  background-color: var(--color-selection-bg);
 }

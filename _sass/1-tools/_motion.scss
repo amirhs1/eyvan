@@ -11,14 +11,15 @@
 // - No selectors, no class names
 // - No design decisions (colors, layout, spacing)
 // - Safe to use across all layers
-// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 @use "../0-settings/config" as settings-config;
 
 /// Simple hover scale interaction
-/// @param {Number} $scale
+/// @param {Number} $scale - Hover scale factor
 @mixin hover-scale($scale: 1.05) {
-  transition: transform settings-config.$transition-interaction;
+  transition: transform settings-config.$transition-fast;
+
   &:hover {
     transform: scale($scale);
   }
@@ -28,6 +29,29 @@
 @mixin reveal-base {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity settings-config.$transition-slow,
-              transform settings-config.$transition-slow;
+  transition:
+    opacity settings-config.$transition-slow,
+    transform settings-config.$transition-slow;
+}
+
+/// Standard transition for common interactive UI properties
+@mixin transition-interaction {
+  transition: settings-config.$transition-interaction;
+}
+
+/// Standard transform transition
+@mixin transition-transform {
+  transition: settings-config.$transition-transform;
+}
+
+/// Standard opacity fade transition
+@mixin transition-fade {
+  transition: settings-config.$transition-fade;
+}
+
+/// Combined transition for interactive UI plus transform motion
+@mixin transition-ui-with-transform {
+  transition:
+    settings-config.$transition-interaction,
+    settings-config.$transition-transform;
 }

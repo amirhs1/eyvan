@@ -30,7 +30,6 @@
   Accessibility:
   - Hero image uses configurable alt text
   - CTA links remain semantic anchor elements
-  - Decorative arrow icon is hidden from assistive technology
 
   Data dependencies:
   - site.data.author.name
@@ -127,15 +126,9 @@
 
               <!-- Hero secondary action -->
               <a
-                class="c-button c-button--secondary c-button--small c-button--with-icon"
+                class="c-button c-button--secondary c-button--small"
                 href="{{ hero_secondary_link | relative_url }}"
               >
-                <!-- Decorative secondary action icon -->
-                <span class="c-button__icon-circle" aria-hidden="true">
-                  <ion-icon class="c-button__icon" name="arrow-down-outline"></ion-icon>
-                </span>
-
-                <!-- Secondary action label -->
                 <span class="c-button__label">
                   {{ hero_secondary_text }}
                 </span>

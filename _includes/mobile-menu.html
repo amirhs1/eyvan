@@ -49,8 +49,10 @@
           aria-label="Close menu"
           data-nav-close
         >
-          <!-- Visible close symbol -->
-          <span class="c-mobile-menu__close-symbol" aria-hidden="true">&times;</span>
+          <!-- Decorative close icon -->
+          <span class="c-mobile-menu__close-icon" aria-hidden="true">
+            {% include icons/close-circle.svg %}
+          </span>
 
           <!-- Screen-reader label for close button -->
           <span class="u-visually-hidden">Close menu</span>
@@ -58,8 +60,7 @@
       </div>
 
       <!-- Mobile primary navigation -->
-      {%
-        include navigation.html
+      {% include navigation.html
         modifier="c-nav--mobile"
         aria_label="Mobile navigation"
       %}

@@ -9,25 +9,23 @@ Features:
 - Print button support (browser print dialog)
 
 Dependencies:
-- .js-share-btn
-- .js-print-btn
+- .js-share-button
+- .js-print-button
 
 Related component:
 - _includes/post-share.html
 */
 
 (function () {
-
   // Section: Element references
-  const shareBtn = document.querySelector('.js-share-btn');
-  const printBtn = document.querySelector('.js-print-btn');
+  const shareButtons = document.querySelectorAll('.js-share-button');
+  const printButtons = document.querySelectorAll('.js-print-button');
 
   // Section: Native share / clipboard fallback
-  if (shareBtn) {
-    shareBtn.addEventListener('click', async function (e) {
-
-      const title = e.currentTarget.getAttribute('data-title');
-      const url = e.currentTarget.getAttribute('data-url');
+  shareButtons.forEach((button) => {
+    button.addEventListener('click', async function (e) {
+      const title = e.currentTarget.getAttribute('data-title') || document.title;
+      const url = e.currentTarget.getAttribute('data-url') || window.location.href;
 
       // Subsection: Use Web Share API when available
       if (navigator.share) {
@@ -37,27 +35,39 @@ Related component:
             url: url
           });
         } catch (err) {
-          console.debug('Share cancelled or failed', err);
+          console.debug('Share cancelled or failed:', err);
         }
 
       // Subsection: Clipboard fallback
-      } else {
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
           await navigator.clipboard.writeText(url);
           alert('Link copied to clipboard.');
         } catch (err) {
           console.error('Clipboard copy failed:', err);
         }
-      }
 
+      // Subsection: Legacy fallback
+      } else {
+        try {
+          const tempInput = document.createElement('input');
+          tempInput.value = url;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+          alert('Link copied to clipboard.');
+        } catch (err) {
+          console.error('Fallback copy failed:', err);
+        }
+      }
     });
-  }
+  });
 
   // Section: Print / Save as PDF
-  if (printBtn) {
-    printBtn.addEventListener('click', function () {
+  printButtons.forEach((button) => {
+    button.addEventListener('click', function () {
       window.print();
     });
-  }
-
+  });
 })();

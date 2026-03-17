@@ -205,8 +205,8 @@ Put here:
 
 JS/state hooks that can stay in this file if needed:
 
-* `.js-print-btn`
-* `.js-share-btn`
+* `.js-print-button`
+* `.js-share-button`
 
 Why:
 

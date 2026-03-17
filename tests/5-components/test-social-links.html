@@ -1,0 +1,559 @@
+---
+layout: page
+title: Component Social Links Test
+permalink: /tests/5-components/test-social-links/
+robots: noindex
+---
+
+{% comment %}
+  Component Social Links Test Page
+  Purpose: Visually verify that the 5-components social-links system compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base icon-link primitive
+  - Base social-links group
+  - Footer modifier
+  - Mobile modifier
+  - CV item variant
+  - Text-fallback icon variant
+  - Wrapping behavior
+  - Mixed-state stress test
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-icon-link
+    - .c-icon-link__icon
+    - .c-social-links
+    - .c-social-links__item
+    - .c-social-links__icon
+    - .c-social-links--footer
+    - .c-social-links--mobile
+    - .c-social-links__item--cv
+    - .c-social-links__icon--text
+  - The component styles reusable social and CV actions used in the header,
+    footer, and mobile menu.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive behavior of the mobile
+    modifier.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-social-links-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-social-links-test-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .c-social-links-test-box {
+    inline-size: min(100%, 52rem);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-social-links-test-box--narrow {
+    inline-size: min(100%, 18rem);
+  }
+
+  .c-social-links-test-box--mobile {
+    inline-size: min(100%, 24rem);
+  }
+
+  .c-social-links-test-box--footer {
+    inline-size: min(100%, 30rem);
+  }
+
+  .c-social-links-test-label {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .c-social-links-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-social-links-test-dark {
+    padding: 1rem;
+    border: 1px solid #222;
+    background: #1f1f1f;
+    color: #f5f5f5;
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the social-link classes defined in
+    the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Icon-link Primitive -->
+  <!-- ============================================================= -->
+
+  <h2>Base icon-link primitive</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Each <code>.c-icon-link</code> should render as a circular inline-flex
+    button-like link with centered content, border, and hover/focus states.
+    The inner <code>.c-icon-link__icon</code> should remain centered and inherit
+    the current text color.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box">
+      <div class="c-social-links">
+        <a
+          class="c-icon-link"
+          href="#"
+          aria-label="GitHub"
+        >
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link"
+          href="#"
+          aria-label="LinkedIn"
+        >
+          <span class="u-visually-hidden">LinkedIn</span>
+          <span class="c-icon-link__icon" aria-hidden="true">
+            {% include icons/linkedin.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link"
+          href="#"
+          aria-label="CV PDF"
+        >
+          <span class="u-visually-hidden">CV PDF</span>
+          <span class="c-icon-link__icon" aria-hidden="true">
+            {% include icons/cv.svg %}
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Social-links Group -->
+  <!-- ============================================================= -->
+
+  <h2>Base social-links group</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The base <code>.c-social-links</code> group should lay out items in a
+    horizontal flex row, align them vertically, and allow wrapping when needed.
+    Spacing between items should be consistent.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box">
+      <nav class="c-social-links" aria-label="Test social links base">
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="GitHub"
+        >
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="LinkedIn"
+        >
+          <span class="u-visually-hidden">LinkedIn</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/linkedin.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="Instagram"
+        >
+          <span class="u-visually-hidden">Instagram</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/instagram.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="YouTube"
+        >
+          <span class="u-visually-hidden">YouTube</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/youtube.svg %}
+          </span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Footer Modifier -->
+  <!-- ============================================================= -->
+
+  <h2>Footer modifier</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The footer variant <code>.c-social-links--footer</code> should center the
+    group and slightly reduce the icon-link size compared with the base
+    variant.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box c-social-links-test-box--footer">
+      <nav class="c-social-links c-social-links--footer" aria-label="Test footer social links">
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="GitHub"
+        >
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="LinkedIn"
+        >
+          <span class="u-visually-hidden">LinkedIn</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/linkedin.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="Google Scholar"
+        >
+          <span class="u-visually-hidden">Google Scholar</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/google_scholar.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item c-social-links__item--cv"
+          href="#"
+          aria-label="Open CV PDF in a new tab"
+        >
+          <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/cv.svg %}
+          </span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mobile Modifier -->
+  <!-- ============================================================= -->
+
+  <h2>Mobile modifier</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The mobile variant <code>.c-social-links--mobile</code> should keep
+    left alignment, use a larger gap, and render larger icon links on smaller
+    screens. At and above the text breakpoint, the icon-link size should reduce
+    back down.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box c-social-links-test-box--mobile">
+      <nav class="c-social-links c-social-links--mobile" aria-label="Test mobile social links">
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="GitHub"
+        >
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="LinkedIn"
+        >
+          <span class="u-visually-hidden">LinkedIn</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/linkedin.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="Instagram"
+        >
+          <span class="u-visually-hidden">Instagram</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/instagram.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item c-social-links__item--cv"
+          href="#"
+          aria-label="Open CV PDF in a new tab"
+        >
+          <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/cv.svg %}
+          </span>
+        </a>
+      </nav>
+    </div>
+
+    <p class="c-social-links-test-note">
+      Resize the browser width to verify the mobile modifier size change across
+      the breakpoint.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- CV Item Variant -->
+  <!-- ============================================================= -->
+
+  <h2>CV item variant</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The CV item modifier <code>.c-social-links__item--cv</code> should render
+    the inner icon slightly smaller than the default social icons.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box">
+      <nav class="c-social-links" aria-label="Test CV item variant">
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="GitHub"
+        >
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item c-social-links__item--cv"
+          href="#"
+          aria-label="Open CV PDF in a new tab"
+        >
+          <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/cv.svg %}
+          </span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Text-fallback Icon Variant -->
+  <!-- ============================================================= -->
+
+  <h2>Text-fallback icon variant</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The text fallback variant <code>.c-social-links__icon--text</code> should
+    still center correctly inside the circular control and display a bold,
+    uppercase fallback character.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box">
+      <nav class="c-social-links" aria-label="Test text fallback social links">
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="ORCID"
+        >
+          <span class="u-visually-hidden">ORCID</span>
+          <span
+            class="c-icon-link__icon c-social-links__icon c-social-links__icon--text"
+            aria-hidden="true"
+          >
+            O
+          </span>
+        </a>
+
+        <a
+          class="c-icon-link c-social-links__item"
+          href="#"
+          aria-label="Medium"
+        >
+          <span class="u-visually-hidden">Medium</span>
+          <span
+            class="c-icon-link__icon c-social-links__icon c-social-links__icon--text"
+            aria-hidden="true"
+          >
+            M
+          </span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The social-links group should wrap cleanly when the available inline space
+    becomes narrow.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box c-social-links-test-box--narrow">
+      <nav class="c-social-links" aria-label="Test wrapping social links">
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+          <span class="u-visually-hidden">LinkedIn</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/linkedin.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram">
+          <span class="u-visually-hidden">Instagram</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/instagram.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube">
+          <span class="u-visually-hidden">YouTube</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/youtube.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="X (Twitter)">
+          <span class="u-visually-hidden">X (Twitter)</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/twitter.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab">
+          <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/cv.svg %}
+          </span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mixed-state Stress Test -->
+  <!-- ============================================================= -->
+
+  <h2>Mixed-state stress test</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The links below should remain legible and aligned in a darker container.
+    Hover, focus-visible, and icon color inheritance should still work because
+    the component uses <code>currentColor</code>.
+  </p>
+
+  <div class="c-social-links-test-frame">
+    <div class="c-social-links-test-box c-social-links-test-dark">
+      <nav class="c-social-links c-social-links--footer" aria-label="Test dark surface social links">
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+          <span class="u-visually-hidden">GitHub</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+          <span class="u-visually-hidden">LinkedIn</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/linkedin.svg %}
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item" href="#" aria-label="Medium">
+          <span class="u-visually-hidden">Medium</span>
+          <span
+            class="c-icon-link__icon c-social-links__icon c-social-links__icon--text"
+            aria-hidden="true"
+          >
+            M
+          </span>
+        </a>
+
+        <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab">
+          <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+          <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+            {% include icons/cv.svg %}
+          </span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</section>

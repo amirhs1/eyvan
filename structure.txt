@@ -13,6 +13,27 @@
 │   ├── head.html
 │   ├── header.html
 │   ├── hero.html
+│   ├── icons
+│   │   ├── chevron-down-circle.svg
+│   │   ├── close-circle.svg
+│   │   ├── cv.svg
+│   │   ├── discord.svg
+│   │   ├── github.svg
+│   │   ├── google_scholar.svg
+│   │   ├── instagram.svg
+│   │   ├── linkedin.svg
+│   │   ├── mail.svg
+│   │   ├── menu.svg
+│   │   ├── moon.svg
+│   │   ├── pinterest.svg
+│   │   ├── print.svg
+│   │   ├── rss.svg
+│   │   ├── send.svg
+│   │   ├── share.svg
+│   │   ├── sunny.svg
+│   │   ├── timer.svg
+│   │   ├── twitter.svg
+│   │   └── youtube.svg
 │   ├── math.html
 │   ├── mobile-menu.html
 │   ├── navigation.html
@@ -96,25 +117,6 @@
 │   │   ├── JetBrains-Mono-normal-100-800-latin.woff2
 │   │   ├── Literata-normal-200-900-latin.woff2
 │   │   └── Space-Grotesk-normal-300-700-latin.woff2
-│   ├── icons
-│   │   ├── cv-sharp.svg
-│   │   ├── logo-discord.svg
-│   │   ├── logo-github.svg
-│   │   ├── logo-google_scholar.svg
-│   │   ├── logo-instagram.svg
-│   │   ├── logo-linkedin.svg
-│   │   ├── logo-pinterest.svg
-│   │   ├── logo-rss.svg
-│   │   ├── logo-twitter.svg
-│   │   ├── logo-youtube.svg
-│   │   ├── mail-sharp.svg
-│   │   ├── menu-sharp.svg
-│   │   ├── moon-sharp.svg
-│   │   ├── print-sharp.svg
-│   │   ├── send-sharp.svg
-│   │   ├── share-sharp.svg
-│   │   ├── sunny-sharp.svg
-│   │   └── timer-sharp.svg
 │   └── js
 │       ├── common.js
 │       ├── jquery-3.3.1.min.js
@@ -156,9 +158,10 @@
     │   └── test-site-header.html
     ├── 5-components
     │   ├── test-button.html
-    │   └── test-navigation.html
+    │   ├── test-navigation.html
+    │   └── test-theme-toggle.html
     ├── index.html
     ├── test-3-base.html
     └── test-7-trumps.html
 
-25 directories, 137 files
+25 directories, 140 files

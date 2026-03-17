@@ -1,0 +1,177 @@
+/* --- ################################################ --- */
+/* --- Sub-file: _post-share.scss --- */
+// -----------------------------------------------------------------------------
+// Post Share Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the share action group shown in post headers.
+//
+// Scope & Rules:
+// - Owns only post-share component cosmetics and interaction states
+// - Supports both anchor and button actions through one shared action class
+// - Does not own post header layout outside the component root
+//
+// Supported selectors:
+// - .c-post-share
+// - .c-post-share__head
+// - .c-post-share__title
+// - .c-post-share__list
+// - .c-post-share__item
+// - .c-post-share__link
+// - .c-post-share__icon
+// - .js-print-button / .js-share-button (hooks only)
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$post-share-gap: settings-spacing.$space-2;
+$post-share-margin-block-start: settings-spacing.$space-5;
+$post-share-margin-block-end: settings-spacing.$space-7;
+
+$post-share-title-margin: settings-spacing.$space-3;
+$post-share-title-font-size: settings-typography.$font-size-xs;
+$post-share-title-letter-spacing: 0.08em;
+
+$post-share-link-size: 2.75rem; // 44px-equivalent touch target
+$post-share-link-radius: 50%;
+$post-share-link-border-width: settings-config.$global-border-width;
+$post-share-link-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
+
+$post-share-icon-size: 1rem;
+
+$post-share-transition:
+  background-color settings-config.$transition-base,
+  border-color settings-config.$transition-base,
+  color settings-config.$transition-base,
+  box-shadow settings-config.$transition-base,
+  transform settings-config.$transition-base;
+
+/* -----------------------------------------------------------------------------
+   Component root
+   ----------------------------------------------------------------------------- */
+
+.c-post-share {
+  margin-block-start: $post-share-margin-block-start;
+  margin-block-end: $post-share-margin-block-end;
+}
+
+.c-post-share__head {
+  margin-block-end: $post-share-title-margin;
+}
+
+.c-post-share__title {
+  margin: 0;
+
+  font-family: settings-typography.$font-family-display;
+  font-size: $post-share-title-font-size;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1.2;
+  letter-spacing: $post-share-title-letter-spacing;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* -----------------------------------------------------------------------------
+   Action list
+   ----------------------------------------------------------------------------- */
+
+.c-post-share__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $post-share-gap;
+}
+
+.c-post-share__item {
+  display: flex;
+}
+
+/* -----------------------------------------------------------------------------
+   Shared action control
+   ----------------------------------------------------------------------------- */
+
+.c-post-share__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  inline-size: $post-share-link-size;
+  block-size: $post-share-link-size;
+  min-inline-size: $post-share-link-size;
+  min-block-size: $post-share-link-size;
+  padding: 0;
+
+  border: $post-share-link-border-width solid var(--color-border);
+  border-radius: $post-share-link-radius;
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+
+  box-shadow: $post-share-link-shadow;
+  cursor: pointer;
+  text-decoration: none;
+  appearance: none;
+
+  transition: $post-share-transition;
+
+  &:visited {
+    color: var(--color-text-muted);
+  }
+
+  &:hover {
+    background-color: var(--color-link);
+    border-color: var(--color-link);
+    color: var(--color-button-text);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.97);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Icon
+   ----------------------------------------------------------------------------- */
+
+.c-post-share__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: $post-share-icon-size;
+  block-size: $post-share-icon-size;
+  flex: 0 0 auto;
+
+  svg {
+    inline-size: 100%;
+    block-size: 100%;
+    display: block;
+    fill: currentColor;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Small-screen adjustment
+   ----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-sm) {
+  .c-post-share {
+    margin-block: settings-spacing.$space-6;
+  }
+}

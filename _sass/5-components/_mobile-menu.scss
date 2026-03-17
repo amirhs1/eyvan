@@ -43,7 +43,7 @@
    Local component tokens
    ----------------------------------------------------------------------------- */
 
-$mobile-menu-z-index: 900;
+$mobile-menu-z-index: settings-config.$z-overlay;
 $mobile-menu-close-size: 2.75rem;
 $mobile-menu-close-icon-size: 1.25rem;
 $mobile-menu-border-width: settings-config.$global-border-width;

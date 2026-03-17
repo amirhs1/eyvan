@@ -30,7 +30,7 @@
   - Uses semantic article element
   - Image alt falls back to post title
   - Date uses semantic time element
-  - Decorative icons use aria-hidden="true"
+  - Decorative icons are hidden from assistive technology
 
   Data dependencies:
   - include.post
@@ -154,12 +154,9 @@
             <span class="c-post-card__read-time">
 
               <!-- Timer icon -->
-              <img
-                class="c-post-card__icon"
-                src="{{ '/assets/icons/timer-sharp.svg' | relative_url }}"
-                alt=""
-                aria-hidden="true"
-              >
+              <span class="c-post-card__icon" aria-hidden="true">
+                {% include icons/timer.svg %}
+              </span>
 
               <!-- Read time text -->
               {% include read-time.html %}

@@ -13,19 +13,24 @@
 
   Accessibility:
   - Each link has an explicit aria-label
-  - Each icon has visually hidden text for screen readers
-  - Decorative SVG images use alt="" and aria-hidden="true"
+  - Each link includes visually hidden text for screen readers
+  - Decorative inline SVG icons are hidden from assistive technology
 
   Data dependencies:
-  - site.data.social_links.github
-  - site.data.social_links.linkedin
-  - site.data.social_links.instagram
-  - site.data.social_links.youtube
-  - site.data.social_links.twitter
-  - site.data.social_links.google_scholar
-  - site.data.social_links.orcid
-  - site.data.social_links.medium
+  - site.data.social-links.github
+  - site.data.social-links.linkedin
+  - site.data.social-links.instagram
+  - site.data.social-links.youtube
+  - site.data.social-links.twitter
+  - site.data.social-links.scholar
+  - site.data.social-links.orcid
+  - site.data.social-links.medium
   - site.cv_url
+
+  Notes:
+  - Icons are rendered inline from _includes/icons
+  - If you enable orcid or medium in data, add matching icon include files
+    or update the mapping below
 {% endcomment %}
 
 {% assign social = site.data.social-links %}
@@ -34,34 +39,35 @@
 <!-- social-links.html -->
 {% for platform in platforms %}
   {% if social[platform] %}
+    {% assign icon = nil %}
+
     {% case platform %}
       {% when 'github' %}
         {% assign label = 'GitHub' %}
-        {% assign icon = 'logo-github.svg' %}
+        {% assign icon = 'github.svg' %}
       {% when 'linkedin' %}
         {% assign label = 'LinkedIn' %}
-        {% assign icon = 'logo-linkedin.svg' %}
+        {% assign icon = 'linkedin.svg' %}
       {% when 'instagram' %}
         {% assign label = 'Instagram' %}
-        {% assign icon = 'logo-instagram.svg' %}
+        {% assign icon = 'instagram.svg' %}
       {% when 'youtube' %}
         {% assign label = 'YouTube' %}
-        {% assign icon = 'logo-youtube.svg' %}
+        {% assign icon = 'youtube.svg' %}
       {% when 'twitter' %}
         {% assign label = 'X (Twitter)' %}
-        {% assign icon = 'logo-twitter.svg' %}
+        {% assign icon = 'twitter.svg' %}
       {% when 'scholar' %}
         {% assign label = 'Google Scholar' %}
-        {% assign icon = 'logo-google_scholar.svg' %}
+        {% assign icon = 'google_scholar.svg' %}
       {% when 'orcid' %}
         {% assign label = 'ORCID' %}
-        {% assign icon = 'logo-orcid.svg' %}
+        {% assign icon = 'orcid.svg' %}
       {% when 'medium' %}
         {% assign label = 'Medium' %}
-        {% assign icon = 'logo-medium.svg' %}
+        {% assign icon = 'medium.svg' %}
       {% else %}
         {% assign label = platform | capitalize %}
-        {% assign icon = 'logo-' | append: platform | append: '.svg' %}
     {% endcase %}
 
     <!-- Social action link -->
@@ -75,13 +81,23 @@
       <!-- Screen-reader label for social action -->
       <span class="u-visually-hidden">{{ label }}</span>
 
-      <!-- Decorative social icon -->
-      <img
-        class="c-icon-link__icon c-social-links__icon"
-        src="{{ '/assets/icons/' | append: icon | relative_url }}"
-        alt=""
-        aria-hidden="true"
-      >
+      {% if icon %}
+        <!-- Decorative social icon -->
+        <span
+          class="c-icon-link__icon c-social-links__icon"
+          aria-hidden="true"
+        >
+          {% include icons/{{ icon }} %}
+        </span>
+      {% else %}
+        <!-- Text fallback when no matching inline icon include exists -->
+        <span
+          class="c-icon-link__icon c-social-links__icon c-social-links__icon--text"
+          aria-hidden="true"
+        >
+          {{ label | slice: 0, 1 }}
+        </span>
+      {% endif %}
     </a>
   {% endif %}
 {% endfor %}
@@ -99,13 +115,14 @@
   >
     <!-- Screen-reader label for CV action -->
     <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+
     <!-- Decorative CV icon -->
-    <img
+    <span
       class="c-icon-link__icon c-social-links__icon"
-      src="{{ '/assets/icons/cv-sharp.svg' | relative_url }}"
-      alt=""
       aria-hidden="true"
     >
+      {% include icons/cv.svg %}
+    </span>
   </a>
 {% endif %}
 <!-- End of social-links.html -->

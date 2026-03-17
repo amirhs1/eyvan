@@ -27,7 +27,7 @@
   Accessibility:
   - Navigation regions use aria-label
   - Menu toggle uses aria-expanded and aria-controls
-  - Decorative icons use alt="" and aria-hidden="true"
+  - Decorative inline SVG icons are hidden from assistive technology
   - Brand link has an explicit homepage aria-label
 
   Data dependencies:
@@ -90,8 +90,7 @@
       <!-- Header desktop navigation column -->
       <div class="o-site-header__nav">
         <!-- Primary desktop navigation include -->
-        {%
-          include navigation.html
+        {% include navigation.html
           modifier="c-nav--desktop"
           aria_label="Primary navigation"
         %}
@@ -123,12 +122,9 @@
           <span class="u-visually-hidden">Open menu</span>
 
           <!-- Decorative menu icon -->
-          <img
-            class="c-nav-toggle__icon"
-            src="{{ '/assets/icons/menu-sharp.svg' | relative_url }}"
-            alt=""
-            aria-hidden="true"
-          >
+          <span class="c-nav-toggle__icon" aria-hidden="true">
+            {% include icons/menu.svg %}
+          </span>
         </button>
       </div>
     </div>

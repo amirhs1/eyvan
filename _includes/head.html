@@ -128,40 +128,52 @@
   >
 
   <!-- Browser UI theme colors -->
-  <!-- Default theme-color (updated dynamically by JS) -->
-  <meta name="theme-color" content="#32127A" data-theme-color-meta>
+  <!-- This meta tag is the single source of truth for runtime browser chrome colors. -->
+  <meta
+    name="theme-color"
+    content="#32127A"
+    data-theme-color-meta
+    data-theme-color-light="#32127A"
+    data-theme-color-dark="#3FE0D0"
+  >
 
-  <!-- System preference fallbacks -->
+  <!-- System preference fallbacks for browsers that evaluate media-specific theme-color -->
   <meta name="theme-color" content="#32127A" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#3FE0D0" media="(prefers-color-scheme: dark)">
 
   <!-- Browser color scheme hint -->
   <meta name="color-scheme" content="light dark">
-  
-  <!-- Early Theme Initialization (prevents flash of wrong theme) -->
+
+  <!-- Early theme initialization (prevents flash of wrong theme) -->
   <script>
-    (function () {
-      var storageKey = 'theme';
-      var root = document.documentElement;
-      var savedTheme = null;
+    (() => {
+      const storageKey = 'theme';
+      const root = document.documentElement;
+      const themeColorMeta = document.querySelector('[data-theme-color-meta]');
+
+      let savedTheme = null;
 
       try {
         savedTheme = localStorage.getItem(storageKey);
-      } catch (e) {}
+      } catch (error) {}
 
-      var systemPrefersDark =
+      const systemPrefersDark =
         window.matchMedia &&
         window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-      var theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
 
       root.setAttribute('data-theme', theme);
 
-      var themeColorMeta = document.querySelector('[data-theme-color-meta]');
       if (themeColorMeta) {
+        const lightColor =
+          themeColorMeta.getAttribute('data-theme-color-light') || '#32127A';
+        const darkColor =
+          themeColorMeta.getAttribute('data-theme-color-dark') || '#3FE0D0';
+
         themeColorMeta.setAttribute(
           'content',
-          theme === 'dark' ? '#3FE0D0' : '#32127A'
+          theme === 'dark' ? darkColor : lightColor
         );
       }
     })();

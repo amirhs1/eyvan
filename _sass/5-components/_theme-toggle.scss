@@ -61,8 +61,11 @@ $theme-toggle-border-width: settings-config.$global-border-width;
 
   border: $theme-toggle-border-width solid var(--color-ui-border);
   border-radius: $theme-toggle-radius;
+
   background-color: var(--color-ui-surface);
   color: var(--color-ui-text);
+
+  overflow: hidden;
 
   cursor: pointer;
   user-select: none;
@@ -105,16 +108,26 @@ $theme-toggle-border-width: settings-config.$global-border-width;
   position: relative;
   display: inline-grid;
   place-items: center;
+
   inline-size: $theme-toggle-icon-size;
   block-size: $theme-toggle-icon-size;
+
   flex: 0 0 auto;
 }
 
+// -----------------------------------------------------------------------------
+// Icon elements
+// -----------------------------------------------------------------------------
+
 .c-theme-toggle__icon {
   grid-area: 1 / 1;
+  display: block;
+
   inline-size: 100%;
   block-size: 100%;
-  object-fit: contain;
+
+  fill: currentColor;
+  transform-origin: center;
 
   transition:
     opacity settings-config.$transition-base,
@@ -148,9 +161,12 @@ $theme-toggle-border-width: settings-config.$global-border-width;
 
 .c-theme-toggle--mobile {
   justify-content: flex-start;
+
   inline-size: 100%;
   min-inline-size: 0;
+
   padding-inline: tools-spacing.$fluid-inline-sm;
+
   border-radius: settings-config.$global-radius;
 }
 

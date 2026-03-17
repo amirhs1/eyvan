@@ -22,7 +22,7 @@
   Accessibility:
   - Uses aria-label to describe the next toggle action
   - Uses aria-pressed to expose toggle state
-  - Decorative icons use alt="" and aria-hidden="true"
+  - Decorative inline SVG icons are hidden from assistive technology
   - Always includes a visually hidden label for assistive technology
 
   Notes:
@@ -48,32 +48,28 @@
   <!-- Theme toggle icon group -->
   <span class="c-theme-toggle__icons" aria-hidden="true">
     <!-- Sun icon -->
-    <img
+    <span
       class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-      src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-      alt=""
       aria-hidden="true"
     >
+      {% include icons/sunny.svg %}
+    </span>
 
     <!-- Moon icon -->
-    <img
+    <span
       class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-      src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-      alt=""
       aria-hidden="true"
     >
+      {% include icons/moon.svg %}
+    </span>
   </span>
 
   <!-- Screen-reader label -->
-  <span class="u-visually-hidden" data-theme-label-sr>
-    Switch to dark theme
-  </span>
+  <span class="u-visually-hidden" data-theme-label-sr> Switch to dark theme </span>
 
   {% unless should_hide_label %}
     <!-- Visible theme toggle label -->
-    <span class="c-theme-toggle__label" data-theme-label-visible>
-      Switch to dark theme
-    </span>
+    <span class="c-theme-toggle__label" data-theme-label-visible> Switch to dark theme </span>
   {% endunless %}
 </button>
 <!-- End of theme-toggle.html -->

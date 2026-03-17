@@ -10,6 +10,7 @@ Features:
 - Updates accessible labels and aria-pressed state
 - Updates the browser UI theme-color meta tag
 - Responds to system theme changes when no manual theme is stored
+- Synchronizes theme changes across browser tabs
 
 Dependencies:
 - [data-theme-toggle]
@@ -22,42 +23,51 @@ Related component:
 - _includes/theme-toggle.html
 */
 
-(function () {
+(() => {
   'use strict';
 
   /* ==========================================================================
      Theme constants and shared references
      ========================================================================== */
 
-  var STORAGE_KEY = 'theme';
-  var THEME_LIGHT = 'light';
-  var THEME_DARK = 'dark';
+  const STORAGE_KEY = 'theme';
+  const THEME_LIGHT = 'light';
+  const THEME_DARK = 'dark';
+  const SYSTEM_THEME_QUERY = '(prefers-color-scheme: dark)';
 
-  // These should match the theme-color values defined in head.html.
-  var THEME_COLOR_LIGHT = '#32127A';
-  var THEME_COLOR_DARK = '#3FE0D0';
+  const root = document.documentElement;
+  const themeColorMeta = document.querySelector('[data-theme-color-meta]');
 
-  var root = document.documentElement;
-  var themeColorMeta = document.querySelector('[data-theme-color-meta]');
+  const THEME_COLOR_LIGHT =
+    themeColorMeta?.getAttribute('data-theme-color-light') || '#32127A';
+  const THEME_COLOR_DARK =
+    themeColorMeta?.getAttribute('data-theme-color-dark') || '#3FE0D0';
+
+  const systemThemeMediaQuery =
+    window.matchMedia ? window.matchMedia(SYSTEM_THEME_QUERY) : null;
+
+  let hasBoundSystemThemeListener = false;
+  let hasBoundStorageListener = false;
 
   /* ==========================================================================
      Theme lookup helpers
      ========================================================================== */
 
+  function isValidTheme(value) {
+    return value === THEME_LIGHT || value === THEME_DARK;
+  }
+
   function getStoredTheme() {
     try {
-      var value = localStorage.getItem(STORAGE_KEY);
-      return value === THEME_DARK || value === THEME_LIGHT ? value : null;
+      const value = localStorage.getItem(STORAGE_KEY);
+      return isValidTheme(value) ? value : null;
     } catch (error) {
       return null;
     }
   }
 
   function getSystemTheme() {
-    if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
+    if (systemThemeMediaQuery?.matches) {
       return THEME_DARK;
     }
 
@@ -65,13 +75,8 @@ Related component:
   }
 
   function getCurrentTheme() {
-    var theme = root.getAttribute('data-theme');
-
-    if (theme === THEME_DARK || theme === THEME_LIGHT) {
-      return theme;
-    }
-
-    return getSystemTheme();
+    const theme = root.getAttribute('data-theme');
+    return isValidTheme(theme) ? theme : getSystemTheme();
   }
 
   function getPreferredTheme() {
@@ -112,32 +117,36 @@ Related component:
   }
 
   function updateToggleButton(button, theme) {
-    var actionLabel = getThemeActionLabel(theme);
-    var pressedState = getThemePressedState(theme);
+    const actionLabel = getThemeActionLabel(theme);
+    const pressedState = getThemePressedState(theme);
 
     button.setAttribute('aria-label', actionLabel);
     button.setAttribute('aria-pressed', pressedState);
 
-    var srLabel = button.querySelector('[data-theme-label-sr]');
+    const srLabel = button.querySelector('[data-theme-label-sr]');
     if (srLabel) {
       srLabel.textContent = actionLabel;
     }
 
-    var visibleLabel = button.querySelector('[data-theme-label-visible]');
+    const visibleLabel = button.querySelector('[data-theme-label-visible]');
     if (visibleLabel) {
       visibleLabel.textContent = actionLabel;
     }
   }
 
   function updateAllToggleButtons(theme) {
-    var buttons = document.querySelectorAll('[data-theme-toggle]');
+    const buttons = document.querySelectorAll('[data-theme-toggle]');
 
-    buttons.forEach(function (button) {
+    buttons.forEach((button) => {
       updateToggleButton(button, theme);
     });
   }
 
   function applyTheme(theme) {
+    if (!isValidTheme(theme)) {
+      return;
+    }
+
     root.setAttribute('data-theme', theme);
     updateThemeColorMeta(theme);
     updateAllToggleButtons(theme);
@@ -156,8 +165,8 @@ Related component:
   }
 
   function toggleTheme() {
-    var currentTheme = getCurrentTheme();
-    var nextTheme = getNextTheme(currentTheme);
+    const currentTheme = getCurrentTheme();
+    const nextTheme = getNextTheme(currentTheme);
 
     persistTheme(nextTheme);
     applyTheme(nextTheme);
@@ -168,10 +177,9 @@ Related component:
      ========================================================================== */
 
   function bindToggleButtons() {
-    var buttons = document.querySelectorAll('[data-theme-toggle]');
+    const buttons = document.querySelectorAll('[data-theme-toggle]');
 
-    buttons.forEach(function (button) {
-      // Prevent duplicate event binding if init runs more than once.
+    buttons.forEach((button) => {
       if (button.dataset.themeToggleBound === 'true') {
         return;
       }
@@ -182,14 +190,11 @@ Related component:
   }
 
   function bindSystemThemeListener() {
-    if (!window.matchMedia) {
+    if (!systemThemeMediaQuery || hasBoundSystemThemeListener) {
       return;
     }
 
-    var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
     function handleSystemThemeChange(event) {
-      // Follow the OS only when the user has not chosen manually.
       if (getStoredTheme()) {
         return;
       }
@@ -197,11 +202,33 @@ Related component:
       applyTheme(event.matches ? THEME_DARK : THEME_LIGHT);
     }
 
-    if (typeof mediaQuery.addEventListener === 'function') {
-      mediaQuery.addEventListener('change', handleSystemThemeChange);
-    } else if (typeof mediaQuery.addListener === 'function') {
-      mediaQuery.addListener(handleSystemThemeChange);
+    if (typeof systemThemeMediaQuery.addEventListener === 'function') {
+      systemThemeMediaQuery.addEventListener('change', handleSystemThemeChange);
+      hasBoundSystemThemeListener = true;
+    } else if (typeof systemThemeMediaQuery.addListener === 'function') {
+      systemThemeMediaQuery.addListener(handleSystemThemeChange);
+      hasBoundSystemThemeListener = true;
     }
+  }
+
+  function bindStorageListener() {
+    if (hasBoundStorageListener) {
+      return;
+    }
+
+    window.addEventListener('storage', (event) => {
+      if (event.key !== STORAGE_KEY) {
+        return;
+      }
+
+      const nextTheme = isValidTheme(event.newValue)
+        ? event.newValue
+        : getSystemTheme();
+
+      applyTheme(nextTheme);
+    });
+
+    hasBoundStorageListener = true;
   }
 
   /* ==========================================================================
@@ -209,13 +236,16 @@ Related component:
      ========================================================================== */
 
   function initThemeToggle() {
-    applyTheme(getPreferredTheme());
     bindToggleButtons();
     bindSystemThemeListener();
+    bindStorageListener();
+    applyTheme(getPreferredTheme());
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeToggle);
+    document.addEventListener('DOMContentLoaded', initThemeToggle, {
+      once: true
+    });
   } else {
     initThemeToggle();
   }

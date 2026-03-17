@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 {% comment %}
   Post Layout
   Purpose: Render long-form article pages used for projects, essays,
@@ -26,7 +25,7 @@ layout: default
 
   Accessibility:
   - Semantic article/header structure
-  - Decorative icons use aria-hidden="true"
+  - Decorative icons are hidden from assistive technology
   - Author avatar uses descriptive alt text
 
   Data dependencies:
@@ -53,52 +52,46 @@ layout: default
 
 <!-- Cover image -->
 {% if page.image %}
-<div class="o-container">
-  <div class="o-grid">
-    <div class="o-grid__item o-grid__item--span-12">
-
-      <!-- Post cover image wrapper -->
-      <div class="c-post-cover">
-
-        <!-- Post cover image -->
-        <div class="c-post-cover__media">
-          <img
-            class="c-post-cover__image"
-            loading="lazy"
-            src="{{ page.image | relative_url }}"
-            alt="{{ page.image_alt | default: page.title | escape }}"
-          >
+  <div class="o-container">
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-12">
+        <!-- Post cover image wrapper -->
+        <div class="c-post-cover">
+          <!-- Post cover image -->
+          <div class="c-post-cover__media">
+            <img
+              class="c-post-cover__image"
+              loading="lazy"
+              src="{{ page.image | relative_url }}"
+              alt="{{ page.image_alt | default: page.title | escape }}"
+            >
+          </div>
         </div>
-
       </div>
-
     </div>
   </div>
-</div>
 {% endif %}
 
 <!-- Post layout container -->
 <div class="o-container animate">
   <div class="o-grid">
-
     <!-- Post article -->
     <article class="o-grid__item o-grid__item--span-12 c-post">
-
       <!-- Post header -->
       <header class="c-post__header">
-
         <!-- Post tags -->
         {% if page.tags and page.tags.size >= 1 %}
-        <div class="c-post__tags">
-          {% for tag in page.tags %}
-            {% assign slug = tag | slugify %}
-            <a
-              href="{{ '/tag/' | append: slug | relative_url }}"
-              class="c-post__tag">
-              {{ tag }}
-            </a>
-          {% endfor %}
-        </div>
+          <div class="c-post__tags">
+            {% for tag in page.tags %}
+              {% assign slug = tag | slugify %}
+              <a
+                href="{{ '/tag/' | append: slug | relative_url }}"
+                class="c-post__tag"
+              >
+                {{ tag }}
+              </a>
+            {% endfor %}
+          </div>
         {% endif %}
 
         <!-- Post title -->
@@ -106,90 +99,77 @@ layout: default
 
         <!-- Post subtitle -->
         {% if page.subtitle %}
-        <p class="c-post__subtitle">{{ page.subtitle | escape }}</p>
+          <p class="c-post__subtitle">{{ page.subtitle | escape }}</p>
         {% endif %}
 
         <!-- Post metadata -->
         <div class="c-post__meta">
-
           <!-- Metadata left column -->
           <div class="c-post__meta-main">
-
             <!-- Author avatar -->
             {% if has_avatar %}
-            <div class="c-post__author-image">
-              <img
-                class="c-post__author-avatar"
-                loading="lazy"
-                src="{% if page.avatar %}{{ page.avatar | relative_url }}{% else %}{{ site.data.author.avatar | relative_url }}{% endif %}"
-                alt="{{ author_display }}"
-              >
-            </div>
+              <div class="c-post__author-image">
+                <img
+                  class="c-post__author-avatar"
+                  loading="lazy"
+                  src="{% if page.avatar %}{{ page.avatar | relative_url }}{% else %}{{ site.data.author.avatar | relative_url }}{% endif %}"
+                  alt="{{ author_display }}"
+                >
+              </div>
             {% endif %}
 
             <!-- Author and date information -->
             <div class="c-post__meta-details">
-
               <!-- Author name -->
               {% if author_display %}
-              <div class="c-post__author">
-                {{ author_display }}
-              </div>
+                <div class="c-post__author">
+                  {{ author_display }}
+                </div>
               {% endif %}
 
               <!-- Date and reading time -->
               <div class="c-post__meta-inline">
-
                 <!-- Post date -->
                 {% if page.date %}
-                <div class="c-post__meta-date">
-                  <time
-                    class="c-post__date"
-                    datetime="{{ page.date | date_to_xmlschema }}">
-                    {{ page.date | date: '%B %d, %Y' }}
-                  </time>
-                </div>
+                  <div class="c-post__meta-date">
+                    <time
+                      class="c-post__date"
+                      datetime="{{ page.date | date_to_xmlschema }}"
+                    >
+                      {{ page.date | date: '%B %d, %Y' }}
+                    </time>
+                  </div>
                 {% endif %}
 
                 <!-- Meta separator -->
                 {% if page.date and site.read_time %}
-                <span class="c-post__meta-separator">•</span>
+                  <span class="c-post__meta-separator">•</span>
                 {% endif %}
 
                 <!-- Reading time -->
                 {% if site.read_time %}
-                <div class="c-post__reading-time">
+                  <div class="c-post__reading-time">
+                    <!-- Reading time icon -->
+                    <span class="c-post__meta-icon" aria-hidden="true">
+                      {% include icons/timer.svg %}
+                    </span>
 
-                  <!-- Reading time icon -->
-                  <img
-                    class="c-post__meta-icon"
-                    src="{{ '/assets/icons/timer-sharp.svg' | relative_url }}"
-                    alt=""
-                    aria-hidden="true"
-                  >
-
-                  {% include read-time.html %}
-
-                </div>
+                    {% include read-time.html %}
+                  </div>
                 {% endif %}
-
               </div>
             </div>
-
           </div>
 
           <!-- Metadata right column -->
           <div class="c-post__meta-actions">
-
             <!-- Post share actions -->
             {% if page.share != false %}
-            <div class="c-post__share">
-              {% include post-share.html %}
-            </div>
+              <div class="c-post__share">
+                {% include post-share.html %}
+              </div>
             {% endif %}
-
           </div>
-
         </div>
       </header>
 
@@ -197,7 +177,6 @@ layout: default
       <div class="c-post__content">
         {{ content }}
       </div>
-
     </article>
   </div>
 </div>

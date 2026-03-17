@@ -31,7 +31,7 @@ robots: noindex
   - Helper styles below are temporary and exist only for testing.
   - This page intentionally avoids relying on production JavaScript behavior.
   - Theme-specific icon visibility is tested by scoping examples inside
-    wrappers that set html-like [data-theme] states locally.
+    wrappers that simulate html[data-theme] states locally.
   - Resize the browser window to verify responsive behavior.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -43,7 +43,7 @@ robots: noindex
     background: #fafafa;
   }
 
-  .c-theme-toggle-test-frame[data-theme="light"] {
+  .c-theme-toggle-test-frame[data-theme='light'] {
     --color-ui-surface: #ffffff;
     --color-ui-surface-raised: #f3f4f6;
     --color-ui-border: #c7c9d1;
@@ -51,7 +51,7 @@ robots: noindex
     --color-link-color: #32127a;
   }
 
-  .c-theme-toggle-test-frame[data-theme="dark"] {
+  .c-theme-toggle-test-frame[data-theme='dark'] {
     --color-ui-surface: #111827;
     --color-ui-surface-raised: #1f2937;
     --color-ui-border: #4b5563;
@@ -77,10 +77,6 @@ robots: noindex
     padding: 0.75rem;
     border: 1px dashed #999;
     background: rgba(127, 127, 127, 0.08);
-  }
-
-  .c-theme-toggle-test-panel--wide {
-    width: 100%;
   }
 
   .c-theme-toggle-test-label {
@@ -113,23 +109,23 @@ robots: noindex
     background: rgba(127, 127, 127, 0.08);
   }
 
-  .c-theme-toggle-test-local-theme[data-theme="light"] .c-theme-toggle__icon--sun {
+  .c-theme-toggle-test-local-theme[data-theme='light'] .c-theme-toggle__icon--sun {
     opacity: 0;
     transform: scale(0.8) rotate(-20deg);
     pointer-events: none;
   }
 
-  .c-theme-toggle-test-local-theme[data-theme="light"] .c-theme-toggle__icon--moon {
+  .c-theme-toggle-test-local-theme[data-theme='light'] .c-theme-toggle__icon--moon {
     opacity: 1;
     transform: scale(1) rotate(0deg);
   }
 
-  .c-theme-toggle-test-local-theme[data-theme="dark"] .c-theme-toggle__icon--sun {
+  .c-theme-toggle-test-local-theme[data-theme='dark'] .c-theme-toggle__icon--sun {
     opacity: 1;
     transform: scale(1) rotate(0deg);
   }
 
-  .c-theme-toggle-test-local-theme[data-theme="dark"] .c-theme-toggle__icon--moon {
+  .c-theme-toggle-test-local-theme[data-theme='dark'] .c-theme-toggle__icon--moon {
     opacity: 0;
     transform: scale(0.8) rotate(20deg);
     pointer-events: none;
@@ -138,13 +134,18 @@ robots: noindex
   .c-theme-toggle-test-long-label {
     white-space: normal;
   }
+
+  .c-theme-toggle__icon svg,
+  .c-theme-toggle__icon use {
+    pointer-events: none;
+  }
 </style>
 
 <section class="l-section">
   <div class="o-container">
     <p>
-      This page verifies the functionality of the <code>.c-theme-toggle</code> component and its variants
-      defined in the <strong>5-components</strong> Sass layer.
+      This page verifies the functionality of the <code>.c-theme-toggle</code> component and its variants defined in the
+      <strong>5-components</strong> Sass layer.
     </p>
 
     <p>
@@ -180,18 +181,23 @@ robots: noindex
             aria-pressed="false"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -231,18 +237,23 @@ robots: noindex
             aria-pressed="false"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -276,18 +287,23 @@ robots: noindex
           aria-pressed="false"
         >
           <span class="c-theme-toggle__icons" aria-hidden="true">
-            <img
+            <svg
               class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-              src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-              alt=""
+              viewBox="0 0 512 512"
               aria-hidden="true"
+              focusable="false"
             >
-            <img
+              <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+            </svg>
+
+            <svg
               class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-              src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-              alt=""
+              viewBox="0 0 512 512"
               aria-hidden="true"
+              focusable="false"
             >
+              <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+            </svg>
           </span>
 
           <span class="u-visually-hidden">Switch to dark theme</span>
@@ -308,8 +324,8 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      In light theme, the moon icon should be visible because the action is to switch to dark theme. The sun icon
-      should be visually hidden.
+      In light theme, the moon icon should be visible because the action is to switch to dark theme. The sun icon should
+      be visually hidden.
     </p>
 
     <div class="c-theme-toggle-test-frame c-theme-toggle-test-local-theme" data-theme="light">
@@ -322,18 +338,23 @@ robots: noindex
             aria-pressed="false"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -354,8 +375,8 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      In dark theme, the sun icon should be visible because the action is to switch to light theme. The moon icon
-      should be visually hidden.
+      In dark theme, the sun icon should be visible because the action is to switch to light theme. The moon icon should
+      be visually hidden.
     </p>
 
     <div class="c-theme-toggle-test-frame c-theme-toggle-test-local-theme" data-theme="dark">
@@ -368,18 +389,23 @@ robots: noindex
             aria-pressed="true"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to light theme</span>
@@ -415,18 +441,23 @@ robots: noindex
             disabled
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -442,18 +473,23 @@ robots: noindex
             aria-disabled="true"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -476,7 +512,8 @@ robots: noindex
     <p>
       <strong>Expected behavior:</strong>
       The mobile modifier should stretch to fill a constrained shell on smaller screens, while the default version
-      should remain compact and content-sized.
+      should remain compact and content-sized. At the medium breakpoint and above, the mobile modifier may return to
+      <code>inline-size: auto</code>.
     </p>
 
     <div class="c-theme-toggle-test-frame" data-theme="light">
@@ -489,18 +526,23 @@ robots: noindex
             aria-pressed="false"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -515,18 +557,23 @@ robots: noindex
             aria-pressed="false"
           >
             <span class="c-theme-toggle__icons" aria-hidden="true">
-              <img
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-                src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
-              <img
+                <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+              </svg>
+
+              <svg
                 class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-                src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-                alt=""
+                viewBox="0 0 512 512"
                 aria-hidden="true"
+                focusable="false"
               >
+                <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+              </svg>
             </span>
 
             <span class="u-visually-hidden">Switch to dark theme</span>
@@ -561,18 +608,22 @@ robots: noindex
           aria-pressed="false"
         >
           <span class="c-theme-toggle__icons" aria-hidden="true">
-            <img
+            <svg
               class="c-theme-toggle__icon c-theme-toggle__icon--sun"
-              src="{{ '/assets/icons/sunny-sharp.svg' | relative_url }}"
-              alt=""
+              viewBox="0 0 512 512"
               aria-hidden="true"
+              focusable="false"
             >
-            <img
+              <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+            </svg>
+            <svg
               class="c-theme-toggle__icon c-theme-toggle__icon--moon"
-              src="{{ '/assets/icons/moon-sharp.svg' | relative_url }}"
-              alt=""
+              viewBox="0 0 512 512"
               aria-hidden="true"
+              focusable="false"
             >
+              <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+            </svg>
           </span>
 
           <span class="u-visually-hidden">Switch to dark theme</span>

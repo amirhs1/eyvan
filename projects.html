@@ -3,7 +3,6 @@ layout: default
 title: Projects
 permalink: /projects/
 ---
-
 {% comment %}
   Projects Page
   Purpose: Render the full projects archive with a page header,
@@ -25,10 +24,7 @@ permalink: /projects/
     - Layouts: l-
     - Components: c-
     - State: is-
-  - Reuses shared layout primitives:
-    - container
-    - row
-    - col
+    - Objects: o-
   - Delegates card rendering to:
     - post-card.html
 
@@ -52,25 +48,19 @@ permalink: /projects/
 <!-- Projects page header -->
 <header class="l-page-header c-page-header">
   <div class="o-container">
-
     <!-- Projects page title -->
     <h1 class="c-page-header__title">Projects</h1>
 
     <!-- Projects page subtitle -->
-    <p class="c-page-header__subtitle">
-      A selection of research, writing, and creative work.
-    </p>
-
+    <p class="c-page-header__subtitle">A selection of research, writing, and creative work.</p>
   </div>
 </header>
 
 <!-- Projects filter navigation -->
 <nav class="c-projects-filter" aria-label="Project filters">
   <div class="o-container">
-
     <!-- Filter inner wrapper -->
     <div class="c-projects-filter__inner">
-
       <!-- All projects filter chip -->
       <a
         class="c-projects-filter__chip is-active"
@@ -90,7 +80,6 @@ permalink: /projects/
           {{ tag_name }}
         </a>
       {% endfor %}
-
     </div>
   </div>
 </nav>
@@ -98,14 +87,12 @@ permalink: /projects/
 <!-- Projects archive section -->
 <section class="c-projects-archive">
   <div class="o-container">
-
     <!-- Projects archive grid -->
     <div class="o-grid">
       {% for post in all_posts %}
         {% include post-card.html post=post %}
       {% endfor %}
     </div>
-
   </div>
 </section>
 <!-- End of projects archive section -->

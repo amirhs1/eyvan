@@ -54,6 +54,18 @@ main:
         url: "/tests/5-components/theme-toggle/"
         dev_only: true
       
+      - title: "Component Mobile Menu Test"
+        url: "/tests/5-components/mobile-menu/"
+        dev_only: true
+      
+      - title: "Component Social Links Test"
+        url: "/tests/5-components/social-links/"
+        dev_only: true
+      
+      - title: "Component Icon Link Test"
+        url: "/tests/5-components/icon-link/"
+        dev_only: true
+      
       - title: "Trumps Test"
         url: "/tests/7-trumps/"
         dev_only: true

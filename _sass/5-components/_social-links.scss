@@ -6,12 +6,12 @@
 // Styles the reusable social link icon actions used in the header, footer,
 // and mobile menu.
 //
+// Dependencies:
+// - Uses the shared .c-icon-link and .c-icon-link__icon primitive classes
+//   for the clickable control and base icon sizing
+//
 // Structure:
-// - Primitive clickable icon link
-//   - .c-icon-link
-//   - .c-icon-link__icon
-// - Social links group
-//   - .c-social-links
+// - .c-social-links
 //   - .c-social-links__item
 //   - .c-social-links__icon
 //
@@ -29,79 +29,9 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
-@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
-@use "../1-tools/mixins" as tools-mixins;
-@use "../1-tools/motion" as tools-motion;
 @use "../1-tools/spacing-fluid" as tools-spacing;
-
-/* -----------------------------------------------------------------------------
-   Base clickable icon-link primitive
-   ----------------------------------------------------------------------------- */
-
-.c-icon-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
-  min-inline-size: 2.75rem;
-  min-block-size: 2.75rem;
-
-  border: settings-config.$global-border-width solid var(--color-border);
-  border-radius: 999px;
-  background-color: transparent;
-  color: var(--color-text);
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-
-  @include tools-motion.transition-ui-with-transform;
-
-  &:hover {
-    color: var(--color-ui-bg);
-    background-color: var(--color-link-hover);
-    border-color: var(--color-link-hover);
-    transform: translateY(-1px);
-    text-decoration: none;
-  }
-
-  &:focus-visible {
-    @include tools-mixins.focus-ring;
-    text-decoration: none;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.c-icon-link__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-
-  inline-size: 1.125rem;
-  block-size: 1.125rem;
-
-  line-height: 1;
-  color: inherit;
-
-  svg,
-  img {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-  }
-
-  svg {
-    fill: currentColor;
-    stroke: currentColor;
-  }
-}
 
 /* -----------------------------------------------------------------------------
    Social-links group/context styles

@@ -1,0 +1,49 @@
+# _data/share.yml
+# Ordered share actions for post-share.html
+
+- id: x
+  type: link
+  label: Share on X
+  icon: twitter.svg
+  popup_name: share-x
+  popup_width: 600
+  popup_height: 500
+  rel: nofollow noopener noreferrer
+
+- id: linkedin
+  type: link
+  label: Share on LinkedIn
+  icon: linkedin.svg
+  popup_name: share-linkedin
+  popup_width: 600
+  popup_height: 500
+  rel: nofollow noopener noreferrer
+
+- id: pinterest
+  type: link
+  label: Share on Pinterest
+  icon: pinterest.svg
+  popup_name: share-pinterest
+  popup_width: 900
+  popup_height: 600
+  rel: nofollow noopener noreferrer
+  requires_image: true
+
+- id: email
+  type: link
+  label: Share via email
+  icon: send.svg
+
+- id: print
+  type: button
+  label: Print as PDF
+  icon: print.svg
+  button_class: js-print-button
+
+- id: native
+  type: button
+  label: More share options
+  icon: share.svg
+  button_class: js-share-button
+  data_title: true
+  data_url: true

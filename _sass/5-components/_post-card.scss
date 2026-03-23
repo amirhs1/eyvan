@@ -1,0 +1,377 @@
+// -----------------------------------------------------------------------------
+// Post Card Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the reusable post/project summary card used across homepage,
+// projects archive, tag pages, and related posts.
+//
+// Structure:
+// - .c-post-card
+//   - .c-post-card__inner
+//   - .c-post-card__media
+//   - .c-post-card__image-link
+//   - .c-post-card__image
+//   - .c-post-card__content
+//   - .c-post-card__tags
+//   - .c-post-card__tag
+//   - .c-post-card__title
+//   - .c-post-card__title-link
+//   - .c-post-card__excerpt
+//   - .c-post-card__meta
+//   - .c-post-card__author
+//   - .c-post-card__avatar
+//   - .c-post-card__meta-text
+//   - .c-post-card__author-name
+//   - .c-post-card__meta-secondary
+//   - .c-post-card__date
+//   - .c-post-card__read-time
+//   - .c-post-card__icon
+//
+// Scope & Rules:
+// - Component styling only
+// - Grid placement belongs to objects/layouts
+// - Supports cards with or without image
+// - Supports cards with or without tags
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$post-card-border-width: settings-config.$global-border-width;
+
+$post-card-shadow-rest:
+  0 0 0.125rem var(--color-ui-shadow-color);
+$post-card-shadow-hover:
+  0 settings-config.$shadow-offset-y settings-config.$shadow-blur
+  rgba(var(--color-shadow-rgb, 0 0 0), 0.12);
+
+$post-card-content-padding: settings-spacing.$space-5;
+$post-card-content-padding-mobile: settings-spacing.$space-4;
+
+$post-card-title-margin-block: settings-spacing.$space-4;
+$post-card-excerpt-margin-block-end: settings-spacing.$space-5;
+
+$post-card-tag-gap: settings-spacing.$space-2;
+$post-card-tag-padding-block: settings-spacing.$space-2;
+$post-card-tag-padding-inline: settings-spacing.$space-3;
+
+$post-card-avatar-size: 2.75rem;
+$post-card-meta-gap: settings-spacing.$space-3;
+$post-card-meta-secondary-gap: settings-spacing.$space-3;
+
+$post-card-icon-size: 0.875rem;
+
+$post-card-transition:
+  background-color settings-config.$transition-base,
+  border-color settings-config.$transition-base,
+  box-shadow settings-config.$transition-base,
+  color settings-config.$transition-base,
+  transform settings-config.$transition-base;
+
+/* -----------------------------------------------------------------------------
+   Root
+   ----------------------------------------------------------------------------- */
+
+.c-post-card {
+  display: block;
+}
+
+.c-post-card__inner {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  overflow: hidden;
+
+  border: $post-card-border-width solid var(--color-ui-border);
+  border-radius: settings-config.$global-border-radius;
+  background-color: var(--color-ui-surface);
+  box-shadow: $post-card-shadow-rest;
+
+  transition: $post-card-transition;
+}
+
+.c-post-card:hover .c-post-card__inner,
+.c-post-card:focus-within .c-post-card__inner {
+  border-color: var(--color-accent-primary);
+  box-shadow: $post-card-shadow-hover;
+  transform: translateY(-0.25rem);
+}
+
+/* -----------------------------------------------------------------------------
+   Media
+   ----------------------------------------------------------------------------- */
+
+.c-post-card__media {
+  background-color: var(--color-ui-surface-raised);
+}
+
+.c-post-card__image-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: var(--color-ui-surface-raised);
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+    outline-offset: -2px;
+  }
+}
+
+.c-post-card__image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform settings-config.$transition-slow;
+}
+
+.c-post-card:hover .c-post-card__image,
+.c-post-card:focus-within .c-post-card__image {
+  transform: scale(1.03);
+}
+
+/* -----------------------------------------------------------------------------
+   Content
+   ----------------------------------------------------------------------------- */
+
+.c-post-card__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding: $post-card-content-padding;
+}
+
+/* -----------------------------------------------------------------------------
+   Tags
+   ----------------------------------------------------------------------------- */
+
+.c-post-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $post-card-tag-gap;
+  margin-block-end: settings-spacing.$space-2;
+}
+
+.c-post-card__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 2rem;
+  padding-block: $post-card-tag-padding-block;
+  padding-inline: $post-card-tag-padding-inline;
+
+  border: 1px solid transparent;
+  border-radius: settings-config.$global-border-radius;
+  background-color: var(--color-accent-primary);
+  color: var(--color-button-text);
+
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1;
+  letter-spacing: settings-typography.$letter-spacing-loose-sm;
+  text-decoration: none;
+  text-transform: capitalize;
+
+  transition: $post-card-transition;
+
+  &:visited {
+    color: var(--color-button-text);
+  }
+
+  &:hover {
+    background-color: var(--color-link-hover);
+    color: var(--color-button-text);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Title + excerpt
+   ----------------------------------------------------------------------------- */
+
+.c-post-card__title {
+  margin: 0 0 $post-card-title-margin-block;
+
+  font-family: settings-typography.$font-family-display;
+  font-size: clamp(
+    settings-typography.$font-size-xl,
+    2vw,
+    settings-typography.$font-size-xxl
+  );
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+}
+
+.c-post-card__title-link {
+  color: var(--color-heading);
+  text-decoration: none;
+  transition: color settings-config.$transition-base;
+
+  &:visited {
+    color: var(--color-heading);
+  }
+
+  &:hover {
+    color: var(--color-link-hover);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+    border-radius: 0.125rem;
+  }
+}
+
+.c-post-card__excerpt {
+  display: -webkit-box;
+  margin: 0 0 $post-card-excerpt-margin-block-end;
+  overflow: hidden;
+
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-sm;
+  line-height: settings-typography.$line-height-loose;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* -----------------------------------------------------------------------------
+   Meta
+   ----------------------------------------------------------------------------- */
+
+.c-post-card__meta {
+  display: flex;
+  align-items: center;
+  gap: $post-card-meta-gap;
+  margin-block-start: auto;
+  min-inline-size: 0;
+  padding-block-start: settings-spacing.$space-3;
+  border-block-start: 1px solid var(--color-ui-border);
+}
+
+.c-post-card__author {
+  flex: 0 0 auto;
+}
+
+.c-post-card__avatar {
+  display: block;
+  inline-size: $post-card-avatar-size;
+  block-size: $post-card-avatar-size;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-ui-surface-raised);
+}
+
+.c-post-card__meta-text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+  gap: settings-spacing.$space-1;
+}
+
+.c-post-card__author-name {
+  overflow: hidden;
+  color: var(--color-text);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-post-card__meta-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $post-card-meta-secondary-gap;
+
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: settings-typography.$line-height-tight;
+}
+
+.c-post-card__date {
+  color: inherit;
+  white-space: nowrap;
+}
+
+.c-post-card__read-time {
+  display: inline-flex;
+  align-items: center;
+  gap: settings-spacing.$space-1;
+  min-inline-size: 0;
+  white-space: nowrap;
+}
+
+.c-post-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: $post-card-icon-size;
+  block-size: $post-card-icon-size;
+  color: currentColor;
+
+  svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+   ----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-post-card__content {
+    padding: $post-card-content-padding-mobile;
+  }
+
+  .c-post-card__title {
+    margin-block-end: settings-spacing.$space-3;
+  }
+
+  .c-post-card__excerpt {
+    margin-block-end: settings-spacing.$space-4;
+  }
+}
+
+@media (max-width: settings-breakpoints.$bp-sm) {
+  .c-post-card__meta {
+    align-items: flex-start;
+  }
+
+  .c-post-card__avatar {
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+  }
+
+  .c-post-card__meta-secondary {
+    gap: settings-spacing.$space-2;
+  }
+}

@@ -91,6 +91,7 @@
 │   ├── 5-components
 │   │   ├── _brand.scss
 │   │   ├── _button.scss
+│   │   ├── _hero.scss
 │   │   ├── _icon-link.scss
 │   │   ├── _mobile-menu.scss
 │   │   ├── _navigation.scss
@@ -165,6 +166,7 @@
     ├── 5-components
     │   ├── test-brand.html
     │   ├── test-button.html
+    │   ├── test-hero.html
     │   ├── test-icon-link.html
     │   ├── test-mobile-menu.html
     │   ├── test-navigation.html
@@ -176,4 +178,4 @@
     ├── test-3-base.html
     └── test-7-trumps.html
 
-25 directories, 152 files
+25 directories, 154 files

@@ -122,7 +122,7 @@
           <img
             class="c-post-card__avatar"
             src="{{ site.data.author.avatar | relative_url }}"
-            alt="{{ site.data.author.name | escape }}"
+            alt="{{ site.data.author.name | default: 'Site author' | escape }}"
           >
         </div>
         {% endif %}
@@ -159,7 +159,7 @@
               </span>
 
               <!-- Read time text -->
-              {% include read-time.html %}
+              {% include read-time.html content=include.post.content %}
 
             </span>
 

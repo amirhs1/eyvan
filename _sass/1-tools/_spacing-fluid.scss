@@ -40,6 +40,7 @@
    ----------------------------------------------------------------------------- */
 // Used where fluid spacing is unnecessary or undesirable.
 
+$space-stack-xxs: settings-spacing.$space-1; // 4px
 $space-stack-xs: settings-spacing.$space-2; // 8px
 $space-stack-sm: settings-spacing.$space-3; // 12px
 

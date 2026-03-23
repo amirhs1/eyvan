@@ -81,8 +81,9 @@
 @use "5-components/mobile-menu" as component-mobile-menu;
 @use "5-components/site-header" as component-site-header;
 @use "5-components/site-footer" as component-site-footer;
-@use "5-components/hero" as component-hero;
 
+@use "5-components/hero" as component-hero;
+@use "5-components/post-card" as component-post-card;
 @use "5-components/post-share" as component-post-share;
 
 /*

@@ -1,0 +1,94 @@
+// -----------------------------------------------------------------------------
+// Site Header Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the global header shell that wraps the site-header object.
+// This file owns only the outer header chrome: background, border, elevation,
+// sticky behavior, and shell-level state transitions.
+//
+// Scope & Rules:
+// - Component shell only
+// - No layout responsibilities already owned by .o-site-header
+// - No styling for navigation, brand, social-links, theme-toggle, or
+//   mobile-menu internals
+// - No descendant rules for .c-nav, .c-brand, .c-social-links,
+//   .c-theme-toggle, or .c-mobile-menu
+//
+// Notes:
+// - Applied to the <header class="c-site-header"> root in header.html
+// - Designed to sit above page content and below modal-level overlays
+// - Uses theme-driven CSS custom properties from the base layer
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/motion" as tools-motion;
+
+/* -----------------------------------------------------------------------------
+   Local configuration
+   ----------------------------------------------------------------------------- */
+
+$site-header-border-width: 1px;
+$site-header-blur: 18px;
+$site-header-shadow:
+  0 settings-config.$shadow-offset-y settings-config.$shadow-blur
+  settings-config.$shadow-spread var(--color-ui-shadow-color);
+
+/* -----------------------------------------------------------------------------
+   Component root
+   ----------------------------------------------------------------------------- */
+
+.c-site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: settings-config.$z-header;
+
+  background-color: color-mix(
+    in srgb,
+    var(--color-ui-bg) 88%,
+    transparent
+  );
+  border-block-end: $site-header-border-width solid var(--color-border-muted);
+  box-shadow: $site-header-shadow;
+
+  -webkit-backdrop-filter: blur($site-header-blur);
+  backdrop-filter: blur($site-header-blur);
+
+  @include tools-motion.transition-interaction;
+}
+
+/* -----------------------------------------------------------------------------
+   Reduced-transparency fallback
+   ----------------------------------------------------------------------------- */
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .c-site-header {
+    background-color: var(--color-ui-bg);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   High-contrast / forced-colors support
+   ----------------------------------------------------------------------------- */
+
+@media (forced-colors: active) {
+  .c-site-header {
+    border-block-end-color: CanvasText;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Wide-screen refinement
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
+  .c-site-header {
+    border-block-end-width: 1px;
+  }
+}

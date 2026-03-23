@@ -1,0 +1,160 @@
+// -----------------------------------------------------------------------------
+// Brand Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the reusable site brand shown in the global header.
+// The component displays a logo plus a two-line text stack (name + role) on
+// larger viewports, and collapses to a logo-only treatment in tighter header
+// contexts.
+//
+// Structure:
+// - .c-brand
+//   - .c-brand__logo
+//   - .c-brand__text
+//   - .c-brand__name
+//   - .c-brand__role
+//
+// Scope & Rules:
+// - Component styling only
+// - Layout placement belongs to the surrounding header object
+// - The whole brand remains a single homepage link
+// - Visual collapse is triggered by:
+//   - smaller viewports
+//   - .c-site-header.is-shrunk on the parent header
+//
+// Notes:
+// - The logo is treated as a fixed visual unit
+// - The text column is flexible and may collapse away when space is limited
+// - This avoids brittle hard-coded 1/3–2/3 layout math while preserving the
+//   intended visual proportion
+// - Brand text colors stay stable on hover/focus so the interaction cue is the
+//   pointer cursor and focus ring, not a text-only color shift
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+
+.c-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: settings-spacing.$space-inline-md;
+  min-inline-size: 0;
+  color: inherit;
+  text-decoration: none;
+  transition: settings-config.$transition-transform;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+    border-radius: settings-config.$global-radius;
+  }
+}
+
+.c-brand__logo {
+  flex: 0 0 auto;
+  inline-size: settings-config.$brand-logo-size;
+  block-size: settings-config.$brand-logo-size;
+  display: block;
+  object-fit: contain;
+  transition: settings-config.$transition-transform;
+}
+
+.c-brand__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-inline-size: 0;
+  max-inline-size: settings-config.$brand-text-max-width;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+  transition:
+    max-inline-size settings-config.$transition-base,
+    opacity settings-config.$transition-fast;
+}
+
+.c-brand__name {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+  text-overflow: ellipsis;
+}
+
+.c-brand__role {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+/* Keep brand text colors stable on link interaction states */
+.c-brand__name,
+.c-brand:hover .c-brand__name,
+.c-brand:focus-visible .c-brand__name,
+.c-brand:active .c-brand__name {
+  color: var(--color-text);
+}
+
+.c-brand__role,
+.c-brand:hover .c-brand__role,
+.c-brand:focus-visible .c-brand__role,
+.c-brand:active .c-brand__role {
+  color: var(--color-text-muted);
+}
+
+/* Collapse to logo-only on tighter viewports */
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-brand {
+    gap: settings-spacing.$space-inline-sm;
+  }
+
+  .c-brand__logo {
+    inline-size: settings-config.$brand-logo-size-collapsed;
+    block-size: settings-config.$brand-logo-size-collapsed;
+  }
+
+  .c-brand__text {
+    max-inline-size: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* Collapse to logo-only when the header enters its shrunk state */
+.c-site-header.is-shrunk .c-brand {
+  gap: settings-spacing.$space-inline-sm;
+}
+
+.c-site-header.is-shrunk .c-brand__logo {
+  inline-size: settings-config.$brand-logo-size-collapsed;
+  block-size: settings-config.$brand-logo-size-collapsed;
+}
+
+.c-site-header.is-shrunk .c-brand__text {
+  max-inline-size: 0;
+  opacity: 0;
+  pointer-events: none;
+}

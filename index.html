@@ -45,8 +45,8 @@ title: Home
   <div class="o-container">
 
     <!-- Section header -->
-    <header class="c-section-header">
-      <h2 class="c-section-header__title">Latest Projects</h2>
+    <header class="c-home-projects__header">
+      <h2 class="c-home-projects__title">Latest Projects</h2>
     </header>
 
     <!-- Latest projects grid -->
@@ -54,16 +54,18 @@ title: Home
       {% for post in site.posts limit:6 %}
         {% include post-card.html post=post %}
       {% endfor %}
-    </div>
 
-    <!-- Section CTA -->
-    <div class="c-section-cta">
-      <a
-        class="c-button c-button--primary"
-        href="{{ '/projects/' | relative_url }}"
-      >
-        View All Projects
-      </a>
+      <!-- Section CTA -->
+      <div class="o-grid__item o-grid__item--span-12">
+        <div class="c-home-projects__actions">
+          <a
+            class="c-button c-button--primary c-home-projects__button"
+            href="{{ '/projects/' | relative_url }}"
+          >
+            View All Projects
+          </a>
+        </div>
+      </div>
     </div>
 
   </div>

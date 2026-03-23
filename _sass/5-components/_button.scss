@@ -32,7 +32,6 @@
    Local component tokens
    ----------------------------------------------------------------------------- */
 
-$button-radius: max(settings-config.$global-radius, 0.875rem);
 $button-border-width: settings-config.$global-border-width;
 
 $button-padding-block-sm: settings-spacing.$space-3;
@@ -61,7 +60,7 @@ $button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
   padding-inline: $button-padding-inline-sm;
 
   border: $button-border-width solid transparent;
-  border-radius: $button-radius;
+  border-radius: settings-config.$global-button-radius;
 
   font-family: settings-type.$font-family-display;
   font-size: settings-type.$font-size-md;

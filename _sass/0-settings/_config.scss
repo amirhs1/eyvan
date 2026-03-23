@@ -41,6 +41,28 @@ $measure-site: 1280px;
 // Minimum height for Hero and high-impact media blocks
 $hero-min-height: 230px;
 
+// Maximum readable width for hero text content
+$measure-hero-content: 42rem;
+
+// Default maximum width for hero media on desktop
+$measure-hero-media: 32rem;
+
+// Expanded maximum width for hero media on wide screens
+$measure-hero-media-wide: 36rem;
+
+/* -----------------------------------------------------------------------------
+   Brand Component Tokens
+   ----------------------------------------------------------------------------- */
+
+// Desktop brand logo size
+$brand-logo-size: 2.625rem; // 42px
+
+// Collapsed/mobile brand logo size
+$brand-logo-size-collapsed: 2.375rem; // 38px
+
+// Maximum visible width of the brand text stack
+$brand-text-max-width: 18rem;
+
 /* -----------------------------------------------------------------------------
    Interaction & Motion Tokens
    ----------------------------------------------------------------------------- */
@@ -66,9 +88,10 @@ $anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
 // Explicit transitions to avoid layout thrashing and browser jank
 $transition-fade: opacity $anim-speed $anim-easing;
 $transition-transform: transform $anim-speed $anim-easing;
-$transition-interaction: color $anim-speed $anim-easing, 
-   background-color $anim-speed $anim-easing, 
-   border-color $anim-speed $anim-easing, box-shadow $anim-speed $anim-easing;
+$transition-interaction: color $anim-speed $anim-easing,
+  background-color $anim-speed $anim-easing,
+  border-color $anim-speed $anim-easing,
+  box-shadow $anim-speed $anim-easing;
 
 
 /* -----------------------------------------------------------------------------
@@ -96,7 +119,7 @@ $z-modal: 1000;
    ----------------------------------------------------------------------------- */
 
 $theme: science !default; // science | art
-$mode: light !default;   // light | dark
+$mode: light !default; // light | dark
 
 /* -----------------------------------------------------------------------------
    Elevation (Shadow Geometry)
@@ -111,19 +134,3 @@ $shadow-spread: 0;
    ----------------------------------------------------------------------------- */
 
 $grid-columns: 12 !default;
-
-/* -----------------------------------------------------------------------------
-   Component Constraints
-   ----------------------------------------------------------------------------- */
-
-// Minimum height for Hero and high-impact media blocks
-$hero-min-height: 230px;
-
-// Maximum readable width for hero text content
-$measure-hero-content: 42rem;
-
-// Default maximum width for hero media on desktop
-$measure-hero-media: 32rem;
-
-// Expanded maximum width for hero media on wide screens
-$measure-hero-media-wide: 36rem;

@@ -1,0 +1,506 @@
+---
+layout: page
+title: Component Site Header Test
+permalink: /tests/5-components/test-site-header/
+robots: noindex
+---
+{% comment %}
+  Component Site Header Test Page
+  Purpose: Visually verify that the 5-components site-header shell compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base site-header shell
+  - Long-page sticky behavior
+  - Background and border shell treatment
+  - Visual separation over contrasting content
+  - Wide-content stress case
+  - Shell-only state hook preview
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-site-header
+  - This component owns only the outer header shell:
+    - sticky positioning
+    - top attachment
+    - z-index layering
+    - background treatment
+    - border treatment
+    - shadow/elevation
+    - backdrop blur / translucent chrome behavior
+    - shell-level transition behavior
+  - This page intentionally does not test internal component styling for:
+    - .c-brand
+    - .c-nav
+    - .c-social-links
+    - .c-theme-toggle
+    - .c-mobile-menu
+  - Internal layout is represented with simple temporary filler blocks only.
+  - Helper styles below are temporary and exist only for testing.
+  - Scroll the page to verify sticky behavior.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-site-header-test-page {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .c-site-header-test-frame {
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%);
+  }
+
+  .c-site-header-test-label {
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+  }
+
+  .c-site-header-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-site-header-test-box {
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-site-header-test-fill {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 1rem;
+    min-block-size: 4.5rem;
+    padding: 1rem;
+  }
+
+  .c-site-header-test-fill--compact {
+    min-block-size: 4rem;
+  }
+
+  .c-site-header-test-fill--wide {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr) auto auto;
+  }
+
+  .c-site-header-test-brand,
+  .c-site-header-test-nav,
+  .c-site-header-test-actions,
+  .c-site-header-test-toggle {
+    padding: 0.75rem 1rem;
+    border: 1px dashed #bbb;
+    background: rgba(255, 255, 255, 0.72);
+    color: #222;
+  }
+
+  .c-site-header-test-brand {
+    min-inline-size: 0;
+  }
+
+  .c-site-header-test-brand strong,
+  .c-site-header-test-nav strong,
+  .c-site-header-test-actions strong,
+  .c-site-header-test-toggle strong {
+    display: block;
+    margin-block-end: 0.2rem;
+    font-size: 0.95rem;
+  }
+
+  .c-site-header-test-brand span,
+  .c-site-header-test-nav span,
+  .c-site-header-test-actions span,
+  .c-site-header-test-toggle span {
+    display: block;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .c-site-header-test-brand,
+  .c-site-header-test-nav {
+    min-inline-size: 0;
+  }
+
+  .c-site-header-test-nav {
+    overflow-wrap: anywhere;
+  }
+
+  .c-site-header-test-scroll-area {
+    display: grid;
+    gap: 1rem;
+    padding: 1.25rem;
+    min-block-size: 90rem;
+    background: linear-gradient(180deg, rgba(50, 18, 122, 0.06), rgba(63, 224, 208, 0.05)),
+      repeating-linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.03) 0,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 2.75rem
+      );
+  }
+
+  .c-site-header-test-scroll-card {
+    max-inline-size: 52rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .c-site-header-test-contrast-zone {
+    padding: 1.25rem;
+    background: radial-gradient(circle at top left, rgba(63, 224, 208, 0.22), transparent 40%),
+      radial-gradient(circle at bottom right, rgba(50, 18, 122, 0.18), transparent 45%),
+      linear-gradient(135deg, #f7f7fb 0%, #ececff 100%);
+  }
+
+  .c-site-header-test-contrast-block {
+    min-block-size: 8rem;
+    padding: 1rem;
+    border: 1px dashed #b7b7c9;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .c-site-header-test-state-preview {
+    position: relative;
+  }
+
+  .c-site-header-test-state-preview .is-shrunk-note {
+    margin: 0;
+    padding: 0.75rem 1rem 1rem;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-site-header.is-shrunk {
+    /* no visual helper override here on purpose */
+  }
+
+  @media (max-width: 56rem) {
+    .c-site-header-test-fill,
+    .c-site-header-test-fill--wide {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the site-header shell classes defined in the
+    <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Site-header Shell -->
+  <!-- ============================================================= -->
+
+  <h2>Base site-header shell</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The header root should render as a distinct site chrome layer with its own background, bottom border, and subtle
+    elevation. The shell should feel visually separate from the content below even though the internal blocks shown here
+    are only temporary test fillers.
+  </p>
+
+  <div class="c-site-header-test-frame">
+    <header class="c-site-header">
+      <div class="c-site-header-test-box">
+        <div class="c-site-header-test-fill">
+          <div class="c-site-header-test-brand">
+            <strong>Brand area</strong>
+            <span>Temporary filler representing the brand component</span>
+          </div>
+
+          <div class="c-site-header-test-nav">
+            <strong>Navigation area</strong>
+            <span>Temporary filler representing desktop navigation and theme toggle</span>
+          </div>
+
+          <div class="c-site-header-test-actions">
+            <strong>Actions</strong>
+            <span>Social/CV fillers</span>
+          </div>
+
+          <div class="c-site-header-test-toggle">
+            <strong>Mobile control</strong>
+            <span>Toggle filler</span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long-page Sticky Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Long-page sticky behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    As you scroll this long test area, the header should remain
+    <strong>stuck to the top of the viewport</strong>. It should stay above the scrolling content and continue to show
+    its shell styling while attached.
+  </p>
+
+  <div class="c-site-header-test-frame">
+    <header class="c-site-header">
+      <div class="c-site-header-test-box">
+        <div class="c-site-header-test-fill c-site-header-test-fill--compact">
+          <div class="c-site-header-test-brand">
+            <strong>Sticky shell test</strong>
+            <span>Scroll downward inside the page to verify top attachment</span>
+          </div>
+
+          <div class="c-site-header-test-nav">
+            <strong>Header content</strong>
+            <span>Only placeholder content is shown here</span>
+          </div>
+
+          <div class="c-site-header-test-actions">
+            <strong>Layering</strong>
+            <span>Should stay above page content</span>
+          </div>
+
+          <div class="c-site-header-test-toggle">
+            <strong>Top edge</strong>
+            <span>Should remain flush to viewport top</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="c-site-header-test-scroll-area">
+      <div class="c-site-header-test-scroll-card">
+        <p class="c-site-header-test-note">
+          Scroll through this section and confirm that the header remains pinned at the top rather than scrolling away
+          with the content.
+        </p>
+      </div>
+
+      <div class="c-site-header-test-scroll-card">
+        <p>The content here exists only to create enough page length for sticky behavior testing.</p>
+      </div>
+
+      <div class="c-site-header-test-scroll-card">
+        <p>
+          Watch for consistent border, shadow, and background treatment while the header is attached during scrolling.
+        </p>
+      </div>
+
+      <div class="c-site-header-test-scroll-card">
+        <p>Also verify that the header remains readable over changing page backgrounds beneath it.</p>
+      </div>
+
+      <div class="c-site-header-test-scroll-card">
+        <p>
+          If your shell uses translucency or blur, it should still preserve clear visual separation from underlying
+          content.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Background and Border Shell Treatment -->
+  <!-- ============================================================= -->
+
+  <h2>Background and border shell treatment</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The shell should present a clear chrome treatment rather than looking like a plain unstyled container. The bottom
+    border should be visible, and the header background should read as a deliberate site frame.
+  </p>
+
+  <div class="c-site-header-test-frame">
+    <div class="c-site-header-test-contrast-zone">
+      <header class="c-site-header">
+        <div class="c-site-header-test-box">
+          <div class="c-site-header-test-fill">
+            <div class="c-site-header-test-brand">
+              <strong>Border visibility</strong>
+              <span>The lower edge of the shell should be easy to perceive</span>
+            </div>
+
+            <div class="c-site-header-test-nav">
+              <strong>Background treatment</strong>
+              <span>The shell should not disappear into the page background</span>
+            </div>
+
+            <div class="c-site-header-test-actions">
+              <strong>Elevation</strong>
+              <span>A subtle shadow may be visible beneath the shell</span>
+            </div>
+
+            <div class="c-site-header-test-toggle">
+              <strong>Chrome</strong>
+              <span>Should feel like a global frame element</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="c-site-header-test-contrast-block">
+        Under this header, the contrasting background helps reveal whether the shell’s background, border, and elevation
+        are visually working.
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Visual Separation Over Contrasting Content -->
+  <!-- ============================================================= -->
+
+  <h2>Visual separation over contrasting content</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The header shell should remain legible and visually separated even when the surrounding page background becomes more
+    complex or higher-contrast.
+  </p>
+
+  <div class="c-site-header-test-frame">
+    <div class="c-site-header-test-contrast-zone">
+      <header class="c-site-header">
+        <div class="c-site-header-test-box">
+          <div class="c-site-header-test-fill">
+            <div class="c-site-header-test-brand">
+              <strong>Complex background test</strong>
+              <span>Helps reveal blur/translucency behavior</span>
+            </div>
+
+            <div class="c-site-header-test-nav">
+              <strong>Readability</strong>
+              <span>Shell should still feel stable and distinct</span>
+            </div>
+
+            <div class="c-site-header-test-actions">
+              <strong>Separation</strong>
+              <span>Should not visually collapse into the page behind it</span>
+            </div>
+
+            <div class="c-site-header-test-toggle">
+              <strong>Consistency</strong>
+              <span>Same shell treatment as other tests</span>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Wide-content Stress Case -->
+  <!-- ============================================================= -->
+
+  <h2>Wide-content stress case</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Even when the internal placeholder content becomes longer and denser, the component being tested here should remain
+    only the <strong>outer shell</strong>. The shell should still provide the same chrome, border, and elevation
+    treatment without taking on layout responsibilities that belong elsewhere.
+  </p>
+
+  <div class="c-site-header-test-frame">
+    <header class="c-site-header">
+      <div class="c-site-header-test-box">
+        <div class="c-site-header-test-fill c-site-header-test-fill--wide">
+          <div class="c-site-header-test-brand">
+            <strong>Brand placeholder with intentionally longer content</strong>
+            <span>Example name and secondary descriptor to stress the shell wrapper</span>
+          </div>
+
+          <div class="c-site-header-test-nav">
+            <strong>Longer middle-area placeholder content</strong>
+            <span>
+              Example navigation / action filler with extra wording to ensure the shell remains stable around more
+              demanding inner content
+            </span>
+          </div>
+
+          <div class="c-site-header-test-actions">
+            <strong>Desktop actions placeholder</strong>
+            <span>Several compact utilities could appear here in the real header</span>
+          </div>
+
+          <div class="c-site-header-test-toggle">
+            <strong>Mobile control placeholder</strong>
+            <span>Shown here only as a stress-case block</span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Shell-only State Hook Preview -->
+  <!-- ============================================================= -->
+
+  <h2>Shell-only state hook preview</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    If you later introduce a shell-level state hook such as
+    <code>.c-site-header.is-shrunk</code>, it should affect only the header shell treatment and not reach into the
+    internal component styling. This preview is mainly here to make future regression checks easy.
+  </p>
+
+  <div class="c-site-header-test-frame c-site-header-test-state-preview">
+    <header class="c-site-header is-shrunk">
+      <div class="c-site-header-test-box">
+        <div class="c-site-header-test-fill c-site-header-test-fill--compact">
+          <div class="c-site-header-test-brand">
+            <strong>State preview</strong>
+            <span>Future shell-only state hook placeholder</span>
+          </div>
+
+          <div class="c-site-header-test-nav">
+            <strong>No internal restyling</strong>
+            <span>Descendant components should remain owned by their own files</span>
+          </div>
+
+          <div class="c-site-header-test-actions">
+            <strong>Regression check</strong>
+            <span>Useful if you add a compact shell state later</span>
+          </div>
+
+          <div class="c-site-header-test-toggle">
+            <strong>Optional hook</strong>
+            <span>Currently only a preview fixture</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <p class="is-shrunk-note">
+      This section is only a future-proof test fixture. If your current
+      <code>_site-header.scss</code> does not style <code>.is-shrunk</code>, this example may look identical to the base
+      header.
+    </p>
+  </div>
+
+  <p>
+    <em>
+      Tip: The most important checks on this page are sticky top behavior, shell/background treatment, bottom border
+      visibility, and consistent visual separation from scrolling page content.
+    </em>
+  </p>
+</section>

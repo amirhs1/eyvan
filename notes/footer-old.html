@@ -16,19 +16,19 @@
     - State: is-
   - Component shell: c-site-footer
   - Internal footer layout is delegated to the o-site-footer object
-  - Reuses shared includes:
-    - brand.html
+  - Reuses the shared social links include:
     - social-links.html
 
   Accessibility:
   - Uses semantic footer element
   - Social links accessibility is delegated to social-links.html
-  - Brand link accessibility is delegated to brand.html
+  - Brand link has an explicit homepage aria-label
 
   Data dependencies:
-  - brand.html dependencies
+  - site.title
   - site.data.footer.tagline
   - site.data.footer.copyright
+  - site.data.author.name
   - social-links.html dependencies
 
   Notes:
@@ -45,11 +45,24 @@
     <div class="o-site-footer">
       <!-- Footer brand column -->
       <div class="o-site-footer__brand">
-        {% include brand.html %}
+        <a
+          class="c-site-footer__brand-link"
+          href="{{ '/' | relative_url }}"
+          aria-label="Go to homepage"
+        >
+          {{ site.data.author.name | default: site.title }}
+        </a>
       </div>
 
       <!-- Footer meta column -->
       <div class="o-site-footer__meta">
+        {% if site.data.footer.tagline %}
+          <!-- Footer tagline -->
+          <p class="c-site-footer__tagline">
+            {{ site.data.footer.tagline }}
+          </p>
+        {% endif %}
+
         {% if site.data.footer.copyright %}
           <!-- Footer copyright -->
           <p class="c-site-footer__copyright">
@@ -60,13 +73,6 @@
           <p class="c-site-footer__copyright">
             © {{ site.time | date: '%Y' }}
             {{ site.data.author.name | default: site.title }}. All rights reserved.
-          </p>
-        {% endif %}
-
-        {% if site.data.footer.tagline %}
-          <!-- Footer tagline -->
-          <p class="c-site-footer__tagline">
-            {{ site.data.footer.tagline }}
           </p>
         {% endif %}
       </div>

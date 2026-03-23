@@ -16,19 +16,19 @@
     - State: is-
   - Component shell: c-site-footer
   - Internal footer layout is delegated to the o-site-footer object
-  - Reuses shared includes:
-    - brand.html
+  - Reuses the shared social links include:
     - social-links.html
 
   Accessibility:
   - Uses semantic footer element
   - Social links accessibility is delegated to social-links.html
-  - Brand link accessibility is delegated to brand.html
+  - Brand link has an explicit homepage aria-label
 
   Data dependencies:
-  - brand.html dependencies
+  - site.title
   - site.data.footer.tagline
   - site.data.footer.copyright
+  - site.data.author.name
   - social-links.html dependencies
 
   Notes:
@@ -45,7 +45,33 @@
     <div class="o-site-footer">
       <!-- Footer brand column -->
       <div class="o-site-footer__brand">
-        {% include brand.html %}
+        <a
+          class="c-brand"
+          href="{{ '/' | relative_url }}"
+          aria-label="Go to homepage"
+        >
+          {% if site.logo %}
+            <!-- Brand logo -->
+            <img
+              class="c-brand__logo"
+              src="{{ site.logo | relative_url }}"
+              alt="{{ site.title | escape }}"
+            >
+          {% endif %}
+
+          <!-- Brand text -->
+          <span class="c-brand__text">
+            <span class="c-brand__name">
+              {{ site.data.author.name | default: site.title }}
+            </span>
+
+            {% if site.data.author.role %}
+              <span class="c-brand__role">
+                {{ site.data.author.role }}
+              </span>
+            {% endif %}
+          </span>
+        </a>
       </div>
 
       <!-- Footer meta column -->

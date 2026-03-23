@@ -1,0 +1,55 @@
+{% comment %}
+  Brand Component
+  Purpose: Render the reusable site brand link with optional logo,
+  author/site name, and optional role.
+
+  Accepts:
+  - include.logo_fetchpriority: optional value for the logo fetchpriority
+    attribute, e.g. "high"
+
+  Data dependencies:
+  - site.logo
+  - site.title
+  - site.data.author.name
+  - site.data.author.role
+
+  Notes:
+  - Used by header.html and footer.html
+  - Keeps brand markup centralized so visual/content changes happen in one place
+{% endcomment %}
+
+<!-- brand.html -->
+<!-- Brand home link -->
+<a
+  class="c-brand"
+  href="{{ '/' | relative_url }}"
+  aria-label="Go to homepage"
+>
+  {% if site.logo %}
+    <!-- Brand logo -->
+    <img
+      class="c-brand__logo"
+      src="{{ site.logo | relative_url }}"
+      alt="{{ site.title | escape }}"
+      {% if include.logo_fetchpriority %}
+        fetchpriority="{{ include.logo_fetchpriority }}"
+      {% endif %}
+    >
+  {% endif %}
+
+  <!-- Brand text -->
+  <span class="c-brand__text">
+    <!-- Brand primary name -->
+    <span class="c-brand__name">
+      {{ site.data.author.name | default: site.title }}
+    </span>
+
+    {% if site.data.author.role %}
+      <!-- Brand secondary role -->
+      <span class="c-brand__role">
+        {{ site.data.author.role }}
+      </span>
+    {% endif %}
+  </span>
+</a>
+<!-- End of brand.html -->

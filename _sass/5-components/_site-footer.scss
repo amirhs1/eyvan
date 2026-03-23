@@ -1,0 +1,110 @@
+// -----------------------------------------------------------------------------
+// Site Footer Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the global footer shell and its footer-specific cosmetic elements.
+//
+// Structure:
+// - .c-site-footer
+//   - .c-site-footer__brand
+//   - .c-site-footer__meta
+//   - .c-site-footer__tagline
+//   - .c-site-footer__copyright
+//
+// Used in:
+// - footer.html
+//
+// Scope & Rules:
+// - Component styling only
+// - Structural column layout belongs to the surrounding o-site-footer object
+// - Brand internals belong to brand.html and the brand component
+// - This file styles footer presentation, spacing, and typography
+//
+// Notes:
+// - The meta wrapper receives its own component class so this file does not
+//   style object selectors directly.
+// - Tagline is intentionally smaller and lower-contrast than copyright.
+// - Tagline and copyright are centered and separated with a tight gap.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+
+// -----------------------------------------------------------------------------
+// Footer shell
+// -----------------------------------------------------------------------------
+
+.c-site-footer {
+  margin-block-start: settings-spacing.$space-section-md;
+  padding-block: settings-spacing.$space-stack-md;
+
+  background-color: var(--color-ui-surface);
+  border-block-start: 1px solid var(--color-ui-border-subtle);
+  color: var(--color-text-secondary);
+}
+
+// -----------------------------------------------------------------------------
+// Brand wrapper
+// -----------------------------------------------------------------------------
+
+// Wrapper-only styling.
+// Brand internals belong to the brand component.
+
+.c-site-footer__brand {
+  // Slightly reduce prominence compared to header brand
+  opacity: 1;
+  color: inherit;
+}
+
+// -----------------------------------------------------------------------------
+// Footer meta wrapper
+// -----------------------------------------------------------------------------
+
+.c-site-footer__meta {
+  text-align: center;
+}
+
+// -----------------------------------------------------------------------------
+// Copyright (primary text)
+// -----------------------------------------------------------------------------
+
+.c-site-footer__copyright {
+  margin: 0;
+
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: settings-typography.$line-height-normal;
+
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+// -----------------------------------------------------------------------------
+// Tagline (secondary / de-emphasized)
+// -----------------------------------------------------------------------------
+
+.c-site-footer__tagline {
+  margin: 0;
+  max-inline-size: 42ch;
+
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-normal;
+
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
+// -----------------------------------------------------------------------------
+// Responsive refinement
+// -----------------------------------------------------------------------------
+
+@media (min-width: settings-breakpoints.$bp-md) {
+  .c-site-footer {
+    padding-block: settings-spacing.$space-stack-lg;
+  }
+}

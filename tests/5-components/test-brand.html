@@ -13,21 +13,25 @@ robots: noindex
   Structure:
   - Base brand structure
   - Long-text truncation behavior
-  - Narrow-width collapse behavior
+  - Compact modifier behavior
+  - Responsive collapse behavior
   - Header shrunk-state behavior
   - No-role variant
   - Logo-only stress case
+  - Stable text color behavior
 
   Notes:
   - This page tests only the component responsibilities of:
     - .c-brand
+    - .c-brand--compact
     - .c-brand__logo
     - .c-brand__text
     - .c-brand__name
     - .c-brand__role
   - The surrounding header object layout is intentionally not tested here.
-  - Responsive collapse is expected below the configured medium breakpoint.
-  - The shrunk-state behavior is triggered by:
+  - Compact/collapsed presentation may be triggered by:
+    - smaller viewports
+    - .c-brand--compact
     - .c-site-header.is-shrunk on an ancestor
   - Helper styles below are temporary and exist only for testing.
   - Resize the browser window to verify responsive collapse behavior.
@@ -43,11 +47,6 @@ robots: noindex
   }
 
   .c-brand-test-stack {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .c-brand-test-row {
     display: grid;
     gap: 1rem;
   }
@@ -78,21 +77,10 @@ robots: noindex
     font-size: 0.95rem;
   }
 
-  .c-brand-test-fill {
-    padding: 0.75rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
-  }
-
   .c-brand-test-header-shell {
     padding: 1rem;
     border: 1px solid #ddd;
     background: #fff;
-  }
-
-  .c-brand-test-header-shell.is-shrunk {
-    outline: 2px dashed #bbb;
-    outline-offset: 0.25rem;
   }
 
   .c-brand-test-meta {
@@ -124,6 +112,13 @@ robots: noindex
     display: flex;
     inline-size: 100%;
     max-inline-size: 100%;
+  }
+
+  .c-brand-test-hover-pad {
+    display: inline-block;
+    padding: 0.5rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
   }
 </style>
 
@@ -164,7 +159,7 @@ robots: noindex
 
         <span class="c-brand__text">
           <span class="c-brand__name">John Doe</span>
-          <span class="c-brand__role">Computational Social Scientist</span>
+          <span class="c-brand__role">Applied Scientist</span>
         </span>
       </a>
     </div>
@@ -205,7 +200,7 @@ robots: noindex
             John Doe With a Very Long Professional Display Name
           </span>
           <span class="c-brand__role">
-            Interdisciplinary Researcher in Computational Social Science and Digital Humanities
+            Applied Scientist in Computational Social Science and Digital Humanities
           </span>
         </span>
       </a>
@@ -215,17 +210,53 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Narrow-width Collapse Behavior -->
+  <!-- Compact Modifier Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Narrow-width collapse behavior</h2>
+  <h2>Compact modifier behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    On tighter viewports, the component should collapse from
-    <strong>logo + text</strong> to <strong>logo only</strong>.
-    The text stack should visually disappear by reducing its maximum inline
-    size and opacity.
+    Applying <code>.c-brand--compact</code> should force the compact treatment
+    regardless of viewport width. The logo should shrink and the text stack
+    should collapse away.
+  </p>
+
+  <div class="c-brand-test-frame">
+    <div class="c-brand-test-box">
+      <a
+        class="c-brand c-brand--compact"
+        href="#"
+        aria-label="Go to homepage"
+      >
+        <img
+          class="c-brand__logo"
+          src="{{ '/images/logo.svg' | relative_url }}"
+          alt="Site logo"
+        >
+
+        <span class="c-brand__text">
+          <span class="c-brand__name">John Doe</span>
+          <span class="c-brand__role">Applied Scientist</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Responsive Collapse Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Responsive collapse behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Below the component’s responsive collapse breakpoint, the default
+    <code>.c-brand</code> should shift from <strong>logo + text</strong> to
+    <strong>logo only</strong>. The text stack should visually disappear and
+    the logo should use the collapsed size.
   </p>
 
   <div class="c-brand-test-frame">
@@ -243,14 +274,14 @@ robots: noindex
 
         <span class="c-brand__text">
           <span class="c-brand__name">John Doe</span>
-          <span class="c-brand__role">Computational Social Scientist</span>
+          <span class="c-brand__role">Applied Scientist</span>
         </span>
       </a>
     </div>
 
     <p class="c-brand-test-note">
-      Resize the browser window below the medium breakpoint to confirm that the
-      text stack collapses away and the logo shrinks to its collapsed size.
+      Resize the browser window to confirm that the default brand collapses at
+      the responsive breakpoint without needing the compact modifier.
     </p>
   </div>
 
@@ -287,7 +318,7 @@ robots: noindex
 
           <span class="c-brand__text">
             <span class="c-brand__name">John Doe</span>
-            <span class="c-brand__role">Computational Social Scientist</span>
+            <span class="c-brand__role">Applied Scientist</span>
           </span>
         </a>
 
@@ -316,7 +347,7 @@ robots: noindex
 
           <span class="c-brand__text">
             <span class="c-brand__name">John Doe</span>
-            <span class="c-brand__role">Computational Social Scientist</span>
+            <span class="c-brand__role">Applied Scientist</span>
           </span>
         </a>
 
@@ -395,11 +426,55 @@ robots: noindex
     </div>
   </div>
 
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Stable Text Color Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Stable text color behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Hover and focus should not cause the brand name or role text to shift to a
+    different link color. The interaction cue should come from the pointer
+    cursor and focus ring rather than a text-only color change.
+  </p>
+
+  <div class="c-brand-test-frame">
+    <div class="c-brand-test-box">
+      <div class="c-brand-test-hover-pad">
+        <a
+          class="c-brand"
+          href="#"
+          aria-label="Go to homepage"
+        >
+          <img
+            class="c-brand__logo"
+            src="{{ '/images/logo.svg' | relative_url }}"
+            alt="Site logo"
+          >
+
+          <span class="c-brand__text">
+            <span class="c-brand__name">John Doe</span>
+            <span class="c-brand__role">Applied Scientist</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <p class="c-brand-test-note">
+      Hover this brand and tab to it with the keyboard. The focus ring should
+      appear on the whole brand link, while the text colors should remain
+      stable.
+    </p>
+  </div>
+
   <p>
     <em>
-      Tip: Test both keyboard focus and browser resizing. The focus ring should
-      appear on the whole brand link, while hover and focus should keep the
-      text colors stable.
+      Tip: This component is used as the reusable brand include in the site
+      header and footer, so this test should verify both its standalone
+      behavior and its compact header-related states.
     </em>
   </p>
 </section>

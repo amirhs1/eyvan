@@ -7,7 +7,7 @@
 // ensuring responsive behavior and predictable alignment.
 //
 // Scope & Rules:
-// - Type selectors only
+// - Type selectors only for neutral media defaults
 // - No captions, borders, or decorative styling
 // - No layout assumptions
 //
@@ -16,8 +16,22 @@
 // - Presentation styles belong in 5-components
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
+
 img {
+  display: block;
   max-width: 100%;
   height: auto;
-  vertical-align: middle;
+  max-inline-size: 100%;
+  block-size: auto;
+  // vertical-align: middle;
+}
+
+// Content images (sharp corners globally)
+.c-hero__image,
+.c-post-card__image,
+.c-article__image,
+.c-post-cover__image,
+.c-post-nav__media img {
+  border-radius: settings-config.$global-border-radius;
 }

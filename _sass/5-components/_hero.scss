@@ -129,7 +129,8 @@
 .c-hero__media {
   min-block-size: settings-config.$hero-min-height;
   overflow: hidden;
-  border-radius: max(settings-config.$global-radius, 1.5rem);
+  // border-radius: max(settings-config.$global-radius, 1.5rem);
+  border-radius: settings-config.$global-border-radius;
   background-color: var(--color-surface-alt);
   box-shadow:
     0 settings-config.$shadow-offset-y settings-config.$shadow-blur

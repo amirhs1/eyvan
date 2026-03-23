@@ -4,23 +4,26 @@
 
   Behavior:
   - Uses words-per-minute from site config (default: 200)
+  - Accepts optional content passed into the include
+  - Falls back to page.content when no include content is provided
   - Ensures a minimum display of 1 minute
   - Returns text only so the parent layout controls markup
 
   Dependencies:
   - site.words_per_minute (optional)
-  - page.content
+  - include.content (optional)
+  - page.content (fallback)
 
   Usage:
-  {% raw %}{% include read-time.html %}{% endraw %}
+  {% raw %}{% include read-time.html content=page.content %}{% endraw %}
+  {% raw %}{% include read-time.html content=include.post.content %}{% endraw %}
 {% endcomment %}
 
 {% assign wpm = site.words_per_minute | default: 200 %}
-{% assign words = page.content | strip_html | number_of_words %}
+{% assign content_source = include.content | default: page.content %}
+{% assign words = content_source | strip_html | number_of_words %}
 
-<!-- read-time.html -->
 {% if words > 0 %}
   {% assign read_time = words | divided_by: wpm | at_least: 1 %}
   {{ read_time }} min read
 {% endif %}
-<!-- End of read-time.html -->

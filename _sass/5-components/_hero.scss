@@ -1,0 +1,162 @@
+// -----------------------------------------------------------------------------
+// Hero Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the visual presentation of the homepage hero component.
+//
+// Scope & Rules:
+// - Component styling only
+// - Structural layout belongs to 4-objects/_hero.scss
+// - Reuses the shared .c-button component for hero actions
+// - No grid, column, or object-level layout rules here
+//
+// Supported selectors:
+// - .c-hero
+// - .c-hero__eyebrow
+// - .c-hero__title
+// - .c-hero__description
+// - .c-hero__actions
+// - .c-hero__media
+// - .c-hero__image
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Component root
+   ----------------------------------------------------------------------------- */
+
+.c-hero {
+  padding-block: tools-spacing.$fluid-section-sm;
+}
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
+  .c-hero {
+    padding-block: tools-spacing.$fluid-section-md;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Eyebrow
+   ----------------------------------------------------------------------------- */
+
+.c-hero__eyebrow {
+  margin-block: 0 settings-spacing.$space-stack-sm;
+
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Title
+   ----------------------------------------------------------------------------- */
+
+.c-hero__title {
+  margin-block: 0 settings-spacing.$space-stack-sm;
+
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  font-size: clamp(
+    settings-typography.$font-size-h1-min,
+    5vw,
+    settings-typography.$font-size-h1-max
+  );
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1.08;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+}
+
+/* -----------------------------------------------------------------------------
+   Description
+   ----------------------------------------------------------------------------- */
+
+.c-hero__description {
+  max-inline-size: settings-config.$measure-text;
+  color: var(--color-text);
+}
+
+.c-hero__description > *:first-child {
+  margin-block-start: 0;
+}
+
+.c-hero__description > *:last-child {
+  margin-block-end: 0;
+}
+
+.c-hero__description p {
+  font-size: settings-typography.$font-size-md;
+  line-height: settings-typography.$line-height-loose;
+}
+
+.c-hero__description strong {
+  color: var(--color-heading);
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-text) {
+  .c-hero__description p {
+    font-size: settings-typography.$font-size-lg;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Actions
+   ----------------------------------------------------------------------------- */
+
+.c-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-inline-sm;
+  margin-block-start: tools-spacing.$fluid-stack-md;
+}
+
+/* -----------------------------------------------------------------------------
+   Media shell
+   ----------------------------------------------------------------------------- */
+
+.c-hero__media {
+  min-block-size: settings-config.$hero-min-height;
+  overflow: hidden;
+  border-radius: max(settings-config.$global-radius, 1.5rem);
+  background-color: var(--color-surface-alt);
+  box-shadow:
+    0 settings-config.$shadow-offset-y settings-config.$shadow-blur
+    rgba(var(--color-shadow-rgb, 0 0 0), 0.08);
+}
+
+.c-hero__image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: settings-config.$hero-min-height;
+  object-fit: cover;
+  object-position: center;
+  background-color: var(--color-surface-alt);
+}
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
+  .c-hero__media,
+  .c-hero__image {
+    min-block-size: 18rem;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Accessibility
+   ----------------------------------------------------------------------------- */
+
+.c-hero .c-button:focus-visible {
+  @include tools-mixins.focus-ring;
+}

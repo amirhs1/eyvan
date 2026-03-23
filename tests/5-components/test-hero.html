@@ -1,0 +1,417 @@
+---
+layout: page
+title: Component Hero Test
+permalink: /tests/5-components/test-hero/
+robots: noindex
+---
+
+{% comment %}
+  Component Hero Test Page
+  Purpose: Visually verify that the 5-components hero component compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base hero structure
+  - Hero without eyebrow
+  - Description rich-text flow
+  - Action wrapping behavior
+  - Media shell and image treatment
+  - Long-title stress test
+  - Fallback content shape
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-hero
+    - .c-hero__eyebrow
+    - .c-hero__title
+    - .c-hero__description
+    - .c-hero__actions
+    - .c-hero__media
+    - .c-hero__image
+  - Structural layout belongs to the separate 4-objects hero object.
+  - Button styling belongs to the shared button component and is reused here.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive spacing and type scaling.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-hero-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-hero-test-stack {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .c-hero-test-row {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .c-hero-test-label {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .c-hero-test-box {
+    inline-size: min(100%, 72rem);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-hero-test-box--narrow {
+    inline-size: min(100%, 34rem);
+  }
+
+  .c-hero-test-box--media {
+    inline-size: min(100%, 30rem);
+  }
+
+  .c-hero-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-hero-test-fill {
+    padding: 0.75rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
+  }
+
+  .c-hero-test-layout {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    .c-hero-test-layout {
+      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+      align-items: center;
+    }
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the hero classes defined in
+    the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Hero Structure -->
+  <!-- ============================================================= -->
+
+  <h2>Base hero structure</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The base hero should render a clear visual hierarchy:
+    optional eyebrow, large title, readable description, action group,
+    and a rounded media panel. The component root should add section-level
+    vertical spacing.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box">
+      <section class="c-hero">
+        <div class="c-hero-test-layout">
+          <div>
+            <p class="c-hero__eyebrow">Research · Writing · Design</p>
+
+            <h1 class="c-hero__title">
+              Hi there, I am Iwan John Doe
+            </h1>
+
+            <div class="c-hero__description">
+              <p>
+                <strong>Researcher and writer</strong> based in
+                <strong>Toronto</strong>. This block tests the default
+                description width, paragraph spacing reset behavior, and
+                emphasized text styling inside the hero copy.
+              </p>
+            </div>
+
+            <div class="c-hero__actions">
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Get in touch
+              </a>
+
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                <span class="c-button__label">See my work</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="c-hero__media">
+              <img
+                class="c-hero__image"
+                src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+                alt="Placeholder portrait for hero component testing"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Hero Without Eyebrow -->
+  <!-- ============================================================= -->
+
+  <h2>Hero without eyebrow</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When the eyebrow element is omitted, the title should still sit cleanly
+    at the top of the content stack with no awkward extra gap reserved for
+    a missing eyebrow.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box">
+      <section class="c-hero">
+        <div class="c-hero-test-layout">
+          <div>
+            <h1 class="c-hero__title">
+              A clean hero title without an eyebrow label
+            </h1>
+
+            <div class="c-hero__description">
+              <p>
+                This variation verifies that the hero component still feels
+                balanced when the optional <code>.c-hero__eyebrow</code> is
+                not rendered.
+              </p>
+            </div>
+
+            <div class="c-hero__actions">
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Primary action
+              </a>
+
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                <span class="c-button__label">Secondary action</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="c-hero__media">
+              <img
+                class="c-hero__image"
+                src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+                alt="Decorative test image for hero without eyebrow"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Description Rich-text Flow -->
+  <!-- ============================================================= -->
+
+  <h2>Description rich-text flow</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The description block should keep a readable text measure, remove extra
+    margin above the first child and below the last child, and style
+    <code>strong</code> text with stronger emphasis.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box c-hero-test-box--narrow">
+      <div class="c-hero__description">
+        <p>
+          This first paragraph should start flush at the top of the container,
+          not with an extra top margin.
+        </p>
+
+        <p>
+          The text measure should remain comfortable for reading, and
+          <strong>strong emphasis</strong> should visibly stand out from the
+          surrounding copy.
+        </p>
+
+        <p>
+          This final paragraph should end cleanly without an extra bottom
+          margin hanging below the content block.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Action Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Action wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The action group should align items in a horizontal row when space is
+    available, but allow them to wrap cleanly onto multiple lines in tighter
+    widths because <code>.c-hero__actions</code> uses flex wrapping.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box c-hero-test-box--narrow">
+      <div class="c-hero__actions">
+        <a class="c-button c-button--primary c-button--small" href="#">
+          Book a Consultation
+        </a>
+
+        <a class="c-button c-button--secondary c-button--small" href="#">
+          <span class="c-button__label">Browse Selected Research Projects</span>
+        </a>
+
+        <a class="c-button c-button--secondary c-button--small" href="#">
+          <span class="c-button__label">Read Writing Samples</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="c-hero-test-note">
+      Reduce the viewport width to confirm that the buttons wrap instead of
+      overflowing.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Media Shell and Image Treatment -->
+  <!-- ============================================================= -->
+
+  <h2>Media shell and image treatment</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The media wrapper should appear as a rounded clipped panel with an
+    alternate surface background and shadow. The image should fill the shell,
+    preserve coverage with <code>object-fit: cover</code>, and stay centered.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box c-hero-test-box--media">
+      <div class="c-hero__media">
+        <img
+          class="c-hero__image"
+          src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+          alt="Hero media test image"
+        >
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long-title Stress Test -->
+  <!-- ============================================================= -->
+
+  <h2>Long-title stress test</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The hero title should scale fluidly and wrap naturally across multiple
+    lines without collapsing the hierarchy or creating inconsistent spacing.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box c-hero-test-box--narrow">
+      <h1 class="c-hero__title">
+        Designing a clean, maintainable, research-focused portfolio website
+        with strong content hierarchy and resilient responsive behavior
+      </h1>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Fallback Content Shape -->
+  <!-- ============================================================= -->
+
+  <h2>Fallback content shape</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The fallback-style description below mirrors the include logic where role,
+    location, and site description may be combined into a single paragraph.
+    The resulting copy should still read comfortably and look visually stable.
+  </p>
+
+  <div class="c-hero-test-frame">
+    <div class="c-hero-test-box">
+      <section class="c-hero">
+        <div class="c-hero-test-layout">
+          <div>
+            <p class="c-hero__eyebrow">Default content fallback</p>
+
+            <h1 class="c-hero__title">
+              Hi there, I am Example Author
+            </h1>
+
+            <div class="c-hero__description">
+              <p>
+                <strong>Computational social scientist</strong> based in
+                <strong>Can</strong>. I build research tools, publish
+                long-form writing, and design clear digital experiences for
+                technical and public audiences.
+              </p>
+            </div>
+
+            <div class="c-hero__actions">
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Get in touch
+              </a>
+
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                <span class="c-button__label">See my work</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="c-hero__media">
+              <img
+                class="c-hero__image"
+                src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+                alt="Fallback hero image example"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <p>
+    <em>
+      Tip: Resize the browser window to verify hero spacing, title scaling,
+      description readability, action wrapping, and media behavior across
+      breakpoints.
+    </em>
+  </p>
+</section>

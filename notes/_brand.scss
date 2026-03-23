@@ -15,16 +15,12 @@
 //   - .c-brand__name
 //   - .c-brand__role
 //
-// Modifiers:
-// - .c-brand--compact
-//
 // Scope & Rules:
 // - Component styling only
 // - Layout placement belongs to the surrounding header object
 // - The whole brand remains a single homepage link
-// - Compact/collapsed presentation may be triggered by:
+// - Visual collapse is triggered by:
 //   - smaller viewports
-//   - .c-brand--compact
 //   - .c-site-header.is-shrunk on the parent header
 //
 // Notes:
@@ -42,42 +38,15 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
 
-/* -----------------------------------------------------------------------------
-   Local state mixin
-   ----------------------------------------------------------------------------- */
-
-@mixin brand-collapsed {
-  gap: settings-spacing.$space-inline-sm;
-
-  .c-brand__logo {
-    @include tools-mixins.size-square(
-      settings-config.$brand-logo-size-collapsed
-    );
-  }
-
-  .c-brand__text {
-    @include tools-mixins.collapse-inline;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   Brand root
-   ----------------------------------------------------------------------------- */
-
 .c-brand {
   display: inline-flex;
   align-items: center;
   gap: settings-spacing.$space-inline-md;
   min-inline-size: 0;
-  max-inline-size: 100%;
   color: inherit;
   text-decoration: none;
-  vertical-align: middle;
   transition: settings-config.$transition-transform;
-  -webkit-tap-highlight-color: transparent;
 
-  &:link,
-  &:visited,
   &:hover,
   &:focus-visible,
   &:active {
@@ -91,13 +60,10 @@
   }
 }
 
-/* -----------------------------------------------------------------------------
-   Elements
-   ----------------------------------------------------------------------------- */
-
 .c-brand__logo {
   flex: 0 0 auto;
-  @include tools-mixins.size-square(settings-config.$brand-logo-size);
+  inline-size: settings-config.$brand-logo-size;
+  block-size: settings-config.$brand-logo-size;
   display: block;
   object-fit: contain;
   transition: settings-config.$transition-transform;
@@ -144,10 +110,7 @@
   text-transform: uppercase;
 }
 
-/* -----------------------------------------------------------------------------
-   Stable text colors inside link states
-   ----------------------------------------------------------------------------- */
-
+/* Keep brand text colors stable on link interaction states */
 .c-brand__name,
 .c-brand:hover .c-brand__name,
 .c-brand:focus-visible .c-brand__name,
@@ -162,23 +125,36 @@
   color: var(--color-text-muted);
 }
 
-/* -----------------------------------------------------------------------------
-   Compact states
-   ----------------------------------------------------------------------------- */
-
-/* Portable component-level modifier */
-.c-brand--compact {
-  @include brand-collapsed;
-}
-
-/* Responsive collapse */
+/* Collapse to logo-only on tighter viewports */
 @media (max-width: settings-breakpoints.$bp-md) {
   .c-brand {
-    @include brand-collapsed;
+    gap: settings-spacing.$space-inline-sm;
+  }
+
+  .c-brand__logo {
+    inline-size: settings-config.$brand-logo-size-collapsed;
+    block-size: settings-config.$brand-logo-size-collapsed;
+  }
+
+  .c-brand__text {
+    max-inline-size: 0;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
-/* Pragmatic header-driven collapse */
+/* Collapse to logo-only when the header enters its shrunk state */
 .c-site-header.is-shrunk .c-brand {
-  @include brand-collapsed;
+  gap: settings-spacing.$space-inline-sm;
+}
+
+.c-site-header.is-shrunk .c-brand__logo {
+  inline-size: settings-config.$brand-logo-size-collapsed;
+  block-size: settings-config.$brand-logo-size-collapsed;
+}
+
+.c-site-header.is-shrunk .c-brand__text {
+  max-inline-size: 0;
+  opacity: 0;
+  pointer-events: none;
 }

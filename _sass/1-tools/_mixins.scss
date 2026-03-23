@@ -9,21 +9,22 @@
 // Scope & Rules:
 // - No standalone CSS output
 // - Token-driven where applicable (0-settings)
+// - No component selectors
 // - No design decisions
 // -----------------------------------------------------------------------------
 
-@use "sass:meta";
 @use "sass:math";
+@use "sass:meta";
 
 @use "../0-settings/config" as settings-config;
 
 /* -----------------------------------------------------------------------------
    Responsive Media Queries
-   Hooks into _breakpoints.scss
    ----------------------------------------------------------------------------- */
 
 /// Mobile-first media query helper.
-/// @param {Number} $breakpoint - Token from _breakpoints.scss (e.g. $bp-md)
+/// @param {Number} $breakpoint - Breakpoint token with units
+///   (for example: 48rem or settings-breakpoints.$bp-md)
 @mixin mq-up($breakpoint) {
   @if meta.type-of($breakpoint) != "number" or math.is-unitless($breakpoint) {
     @error "mq-up expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}";
@@ -36,11 +37,10 @@
 
 /* -----------------------------------------------------------------------------
    Typography Helpers
-   Hooks into _typography.scss
    ----------------------------------------------------------------------------- */
 
 /// Standardizes font rendering across platforms.
-/// Use sparingly and intentionally (OS-dependent behavior).
+/// Use sparingly and only if the related config tokens are defined.
 @mixin font-smoothing {
   -webkit-font-smoothing: settings-config.$font-smoothing-webkit;
   -moz-osx-font-smoothing: settings-config.$font-smoothing-moz;
@@ -50,12 +50,11 @@
    Accessibility & Visibility
    ----------------------------------------------------------------------------- */
 
-/// Hides element visually while remaining accessible to screen readers.
-/// Modern replacement for legacy "sr-only" patterns.
+/// Hides an element visually while keeping it available to assistive technology.
 @mixin visually-hidden {
   position: absolute !important;
-  width: 1px;
-  height: 1px;
+  inline-size: 1px;
+  block-size: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;
@@ -65,11 +64,11 @@
   border: 0;
 }
 
-/// Resets visually-hidden styles (e.g. for skip links on focus).
+/// Resets visually-hidden styles, for example on skip-link focus.
 @mixin visually-hidden-reset {
   position: static !important;
-  width: auto;
-  height: auto;
+  inline-size: auto;
+  block-size: auto;
   padding: 0;
   margin: 0;
   overflow: visible;
@@ -80,19 +79,37 @@
 
 /* -----------------------------------------------------------------------------
    Interactive & UI Helpers
-   Hooks into _config.scss
    ----------------------------------------------------------------------------- */
 
-/// Standard focus-ring declarations.
-/// Apply inside a :focus-visible selector in the component.
+/// Applies the project-standard focus ring geometry.
+/// Intended for use inside a :focus-visible selector.
 @mixin focus-ring {
   outline: settings-config.$focus-ring-width solid var(--color-focus-ring-color);
   outline-offset: settings-config.$focus-ring-offset;
 }
 
-/// Resets standard list styling for navigation and UI elements.
+/// Removes default list styling for navigational and UI lists.
 @mixin list-reset {
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Generic Layout Utilities
+   ----------------------------------------------------------------------------- */
+
+/// Collapses inline content smoothly.
+/// Useful for text labels, compact states, and responsive hide/show patterns.
+@mixin collapse-inline {
+  max-inline-size: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/// Applies equal inline and block size.
+/// @param {Number} $size - Length token or value with units.
+@mixin size-square($size) {
+  inline-size: $size;
+  block-size: $size;
 }

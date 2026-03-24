@@ -1,0 +1,301 @@
+---
+layout: page
+title: Component Related Posts Test
+permalink: /tests/5-components/test-related-posts/
+robots: noindex
+---
+
+{% comment %}
+  Component Related Posts Test Page
+  Purpose: Visually verify that the 5-components related-posts section
+  compiles and behaves correctly across the site.
+
+  Structure:
+  - Base related-posts section shell
+  - Header and title spacing
+  - Local grid rhythm with shared post cards
+  - Narrow-width responsive check
+  - Multiple-section isolation check
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-related-posts
+    - .c-related-posts__header
+    - .c-related-posts__title
+    - .c-related-posts .o-grid (local row-gap rhythm)
+  - Grid column behavior belongs to the shared o-grid object.
+  - Card appearance belongs to the separate post-card component.
+  - Visibility logic is intentionally not tested here because the real
+    related-posts include is rendered conditionally by Liquid only when
+    related posts exist.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive spacing changes.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-related-posts-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-related-posts-test-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .c-related-posts-test-box {
+    inline-size: min(100%, 72rem);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-related-posts-test-box--narrow {
+    inline-size: min(100%, 26rem);
+  }
+
+  .c-related-posts-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-related-posts-test-fill {
+    padding: 1rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
+  }
+
+  .c-related-posts-test-spacer {
+    block-size: 1rem;
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the related-posts classes defined in
+    the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Related Posts Section Shell -->
+  <!-- ============================================================= -->
+
+  <h2>Base related-posts section shell</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The section should render with a visible
+    <strong>top border</strong>, clear
+    <strong>top spacing</strong> from the content above it, and internal
+    <strong>top padding</strong> before the header. This shell spacing belongs
+    to <code>.c-related-posts</code>, while the card grid and card visuals are
+    delegated elsewhere.
+  </p>
+
+  <div class="c-related-posts-test-frame">
+    <div class="c-related-posts-test-box">
+      <div class="c-related-posts-test-fill">
+        Content above the related posts section
+      </div>
+
+      <section class="c-related-posts" aria-labelledby="test-related-posts-title-base">
+        <div class="o-container">
+          <header class="c-related-posts__header">
+            <h2 class="c-related-posts__title" id="test-related-posts-title-base">
+              You may also like
+            </h2>
+          </header>
+
+          <div class="o-grid">
+            {% for post in site.posts limit:3 %}
+              {% include post-card.html post=post %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Header and Title Spacing -->
+  <!-- ============================================================= -->
+
+  <h2>Header and title spacing</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The section header should have
+    <strong>bottom spacing</strong> before the grid starts, and the title should
+    look like a section heading with no accidental browser-default margin
+    collapse. The title should use the display-style typography defined by the
+    component.
+  </p>
+
+  <div class="c-related-posts-test-frame">
+    <div class="c-related-posts-test-box">
+      <section class="c-related-posts" aria-labelledby="test-related-posts-title-header">
+        <div class="o-container">
+          <header class="c-related-posts__header">
+            <h2 class="c-related-posts__title" id="test-related-posts-title-header">
+              Related writing and projects
+            </h2>
+          </header>
+
+          <div class="o-grid">
+            {% for post in site.posts limit:2 %}
+              {% include post-card.html post=post %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Local Grid Rhythm -->
+  <!-- ============================================================= -->
+
+  <h2>Local grid rhythm</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Inside the related-posts section, the local rule
+    <code>.c-related-posts .o-grid</code> should add vertical rhythm between
+    card rows. This means when enough cards wrap onto additional rows, the
+    rows should not visually collapse together.
+  </p>
+
+  <div class="c-related-posts-test-frame">
+    <div class="c-related-posts-test-box">
+      <section class="c-related-posts" aria-labelledby="test-related-posts-title-grid">
+        <div class="o-container">
+          <header class="c-related-posts__header">
+            <h2 class="c-related-posts__title" id="test-related-posts-title-grid">
+              More to explore
+            </h2>
+          </header>
+
+          <div class="o-grid">
+            {% for post in site.posts limit:6 %}
+              {% include post-card.html post=post %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="c-related-posts-test-note">
+      Check that wrapped rows have consistent vertical separation inside this
+      section.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Narrow-width Responsive Check -->
+  <!-- ============================================================= -->
+
+  <h2>Narrow-width responsive check</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    At narrower viewport widths, the section should reduce its
+    <strong>top margin</strong>, <strong>top padding</strong>, and
+    <strong>header bottom spacing</strong>. The local grid row gap should also
+    tighten further on the smallest viewport range.
+  </p>
+
+  <div class="c-related-posts-test-frame">
+    <div class="c-related-posts-test-box c-related-posts-test-box--narrow">
+      <section class="c-related-posts" aria-labelledby="test-related-posts-title-narrow">
+        <div class="o-container">
+          <header class="c-related-posts__header">
+            <h2 class="c-related-posts__title" id="test-related-posts-title-narrow">
+              You may also like
+            </h2>
+          </header>
+
+          <div class="o-grid">
+            {% for post in site.posts limit:4 %}
+              {% include post-card.html post=post %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="c-related-posts-test-note">
+      Resize the browser window and compare this narrow frame with the wider
+      examples above to verify the responsive spacing adjustments.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Multiple-section Isolation Check -->
+  <!-- ============================================================= -->
+
+  <h2>Multiple-section isolation check</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Each related-posts section should style only its own shell and internal
+    grid rhythm. Rendering two sections on the same page helps confirm the
+    component remains self-contained and repeatable.
+  </p>
+
+  <div class="c-related-posts-test-frame c-related-posts-test-stack">
+    <section class="c-related-posts" aria-labelledby="test-related-posts-title-a">
+      <div class="o-container">
+        <header class="c-related-posts__header">
+          <h2 class="c-related-posts__title" id="test-related-posts-title-a">
+            First related section
+          </h2>
+        </header>
+
+        <div class="o-grid">
+          {% for post in site.posts limit:3 %}
+            {% include post-card.html post=post %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="c-related-posts" aria-labelledby="test-related-posts-title-b">
+      <div class="o-container">
+        <header class="c-related-posts__header">
+          <h2 class="c-related-posts__title" id="test-related-posts-title-b">
+            Second related section
+          </h2>
+        </header>
+
+        <div class="o-grid">
+          {% for post in site.posts offset:1 limit:3 %}
+            {% include post-card.html post=post %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <p>
+    <em>
+      Tip: This component should stay visually small and section-focused.
+      The section shell comes from <code>.c-related-posts</code>, while the
+      responsive columns still come from the shared grid object and the card
+      styling still comes from the separate post-card component.
+    </em>
+  </p>
+</section>

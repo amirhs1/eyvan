@@ -1,0 +1,116 @@
+// -----------------------------------------------------------------------------
+// Related Posts Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the related posts section shown beneath article pages.
+// This component owns only the section shell, heading, and local spacing
+// around the shared post-card grid.
+//
+// Structure:
+// - .c-related-posts
+//   - .c-related-posts__header
+//   - .c-related-posts__title
+//
+// Scope & Rules:
+// - Component styling only
+// - Grid layout belongs to the shared o-grid object
+// - Card appearance belongs to 5-components/_post-card.scss
+// - Visibility logic belongs to Liquid in related-posts.html
+//
+// Notes:
+// - The include already renders conditionally only when related posts exist
+// - This file should stay intentionally small and section-focused
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$related-posts-margin-block-start: tools-spacing.$fluid-section-sm;
+$related-posts-header-margin-block-end: tools-spacing.$fluid-stack-md;
+$related-posts-title-padding-block-end: settings-spacing.$space-3;
+$related-posts-title-border-width: settings-config.$global-border-width;
+
+/* -----------------------------------------------------------------------------
+   Root section
+   ----------------------------------------------------------------------------- */
+
+.c-related-posts {
+  margin-block-start: $related-posts-margin-block-start;
+  padding-block-start: tools-spacing.$fluid-stack-md;
+  border-block-start: $related-posts-title-border-width solid var(--color-ui-border);
+}
+
+/* -----------------------------------------------------------------------------
+   Header
+   ----------------------------------------------------------------------------- */
+
+.c-related-posts__header {
+  margin-block-end: $related-posts-header-margin-block-end;
+}
+
+/* -----------------------------------------------------------------------------
+   Title
+   ----------------------------------------------------------------------------- */
+
+.c-related-posts__title {
+  margin: 0;
+  padding-block-end: $related-posts-title-padding-block-end;
+
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  font-size: clamp(
+    settings-typography.$font-size-xl,
+    2vw,
+    settings-typography.$font-size-xxl
+  );
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+}
+
+/* -----------------------------------------------------------------------------
+   Local grid rhythm
+   Applies only inside the related-posts section.
+   ----------------------------------------------------------------------------- */
+
+.c-related-posts .o-grid {
+  row-gap: settings-spacing.$space-5;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+   ----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-related-posts {
+    margin-block-start: settings-spacing.$space-7;
+    padding-block-start: settings-spacing.$space-5;
+  }
+
+  .c-related-posts__header {
+    margin-block-end: settings-spacing.$space-5;
+  }
+}
+
+@media (max-width: settings-breakpoints.$bp-sm) {
+  .c-related-posts {
+    margin-block-start: settings-spacing.$space-6;
+    padding-block-start: settings-spacing.$space-4;
+  }
+
+  .c-related-posts__header {
+    margin-block-end: settings-spacing.$space-4;
+  }
+
+  .c-related-posts .o-grid {
+    row-gap: settings-spacing.$space-4;
+  }
+}

@@ -4,24 +4,26 @@
   homepage, projects archive, tag pages, and related posts.
 
   Structure:
-  - Card media
-    - Optional post image
-  - Card content
-    - Optional tags
-    - Post title
-    - Post excerpt
-    - Post meta
-      - Author avatar
-      - Author name
-      - Publish date
-      - Read time with timer icon
+  - Card root
+    - Card inner
+      - Card media
+        - Optional post image
+      - Card content
+        - Optional tags
+        - Post title
+        - Post excerpt
+        - Post meta
+          - Author avatar
+          - Author name
+          - Publish date
+          - Read time with timer icon
 
   Architecture:
   - Uses ITCSS + BEM naming:
-    - Objects: grid layout classes (col)
     - Components: c-post-card
     - Utilities: u-
     - State: is-
+  - Layout/grid placement belongs to the parent template
   - Designed to live inside responsive grid systems
   - Accepts a post object through:
     - include.post
@@ -57,7 +59,7 @@
 {% assign post = include.post %}
 
 <!-- Post card -->
-<article class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 c-post-card">
+<article class="c-post-card">
   <div class="c-post-card__inner">
     {% if post.image %}
       <!-- Post card media -->

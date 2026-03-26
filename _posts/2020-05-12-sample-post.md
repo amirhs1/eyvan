@@ -2,10 +2,9 @@
 layout: post
 title: Sample Post
 image: "images/posts/25.png"
-tags: [physics]
+tags: [jekyll, docs]
 ---
-
-Markdown (or Textile), Liquid, HTML & CSS go in. Static sites come out ready for deployment [jekyll, docs].
+Markdown (or Textile), Liquid, HTML & CSS go in. Static sites come out ready for deployment.
 
 #### Headings
 

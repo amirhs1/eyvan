@@ -37,6 +37,7 @@ layout: default
   - page.avatar
   - page.author / page.authors
   - site.data.author.avatar
+  - site.data.author.name
   - site.read_time
 {% endcomment %}
 
@@ -47,7 +48,7 @@ layout: default
 {% elsif page.author %}
   {% assign author_display = page.author %}
 {% else %}
-  {% assign author_display = site.data.author.author_name %}
+  {% assign author_display = site.data.author.name %}
 {% endif %}
 
 <!-- Cover image -->

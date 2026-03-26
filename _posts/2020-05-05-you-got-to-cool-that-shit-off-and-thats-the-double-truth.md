@@ -1,6 +1,8 @@
 ---
 layout: post
 title: You got to cool that off. And that's the double-truth
+subtitle: This is a short subtitle
+author: John Doe
 tags: [frontpage, jekyll, blog]
 image: "images/posts/20.jpg"
 ---

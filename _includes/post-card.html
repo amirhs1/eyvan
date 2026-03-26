@@ -43,6 +43,9 @@
   - include.post.description
   - include.post.content
   - include.post.date
+  - include.post.author
+  - include.post.authors
+  - include.post.avatar
   - site.data.author.name
   - site.data.author.avatar
   - read-time.html include
@@ -56,7 +59,16 @@
     - related-posts.html
 {% endcomment %}
 
+<!-- Precomputed variables -->
 {% assign post = include.post %}
+{% assign has_avatar = post.avatar | default: site.data.author.avatar %}
+{% if post.authors %}
+  {% assign author_display = post.authors | join: ', ' %}
+{% elsif post.author %}
+  {% assign author_display = post.author %}
+{% else %}
+  {% assign author_display = site.data.author.name %}
+{% endif %}
 
 <!-- Post card -->
 <article class="c-post-card">
@@ -115,23 +127,23 @@
 
       <!-- Post card meta -->
       <div class="c-post-card__meta">
-        {% if site.data.author.avatar %}
+        {% if has_avatar %}
           <!-- Author avatar -->
           <div class="c-post-card__author">
             <img
               class="c-post-card__avatar"
-              src="{{ site.data.author.avatar | relative_url }}"
-              alt="{{ site.data.author.name | default: 'Site author' | escape }}"
+              src="{{ has_avatar | relative_url }}"
+              alt="{{ author_display | default: 'Site author' | escape }}"
             >
           </div>
         {% endif %}
 
         <!-- Author metadata -->
         <div class="c-post-card__meta-text">
-          {% if site.data.author.name %}
+          {% if author_display %}
             <!-- Author name -->
             <div class="c-post-card__author-name">
-              {{ site.data.author.name }}
+              {{ author_display }}
             </div>
           {% endif %}
 
@@ -155,7 +167,7 @@
               </span>
 
               <!-- Read time text -->
-              {% include read-time.html content=include.post.content %}
+              {% include read-time.html content=post.content %}
             </span>
           </div>
         </div>

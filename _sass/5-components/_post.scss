@@ -1,0 +1,515 @@
+// -----------------------------------------------------------------------------
+// Post Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the long-form post article layout used by _layouts/post.html.
+//
+// Structure:
+// - .c-post
+//   - .c-post__header
+//   - .c-post__title
+//   - .c-post__subtitle
+//   - .c-post__tags
+//   - .c-post__tag
+//   - .c-post__meta
+//     - .c-post__meta-main
+//     - .c-post__meta-details
+//     - .c-post__meta-inline
+//     - .c-post__meta-date
+//     - .c-post__meta-separator
+//     - .c-post__meta-actions
+//   - .c-post__author-image
+//   - .c-post__author-avatar
+//   - .c-post__author
+//   - .c-post__reading-time
+//   - .c-post__meta-icon
+//   - .c-post__share
+//   - .c-post__content
+// - .c-post-cover
+//   - .c-post-cover__media
+//   - .c-post-cover__image
+//
+// Scope & Rules:
+// - Component styling only
+// - Page/grid/container layout belongs to layout and object layers
+// - Long-form typography is scoped to .c-post__content
+// - Share control visuals remain owned by _post-share.scss; this file only
+//   aligns the share component within the post metadata row
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$post-max-width: 52rem;
+$post-content-inline-size: settings-config.$measure-text;
+
+$post-page-offset-top: tools-spacing.$fluid-stack-md;
+$post-cover-gap: tools-spacing.$fluid-section-sm;
+$post-header-gap: tools-spacing.$fluid-stack-md;
+$post-header-gap-lg: tools-spacing.$fluid-stack-lg;
+
+$post-tag-gap: settings-spacing.$space-2;
+$post-tag-padding-block: settings-spacing.$space-2;
+$post-tag-padding-inline: settings-spacing.$space-3;
+
+$post-meta-gap: settings-spacing.$space-4;
+$post-meta-inline-gap: settings-spacing.$space-3;
+$post-meta-avatar-size: 3rem;
+$post-meta-avatar-size-sm: 2.75rem;
+$post-meta-icon-size: 0.875rem;
+
+$post-content-top-border-width: settings-config.$global-border-width;
+
+$post-transition:
+  color settings-config.$transition-base,
+  background-color settings-config.$transition-base,
+  border-color settings-config.$transition-base,
+  box-shadow settings-config.$transition-base,
+  transform settings-config.$transition-base;
+
+/* -----------------------------------------------------------------------------
+   Cover
+   ----------------------------------------------------------------------------- */
+
+.c-post-cover {
+  margin-block-start: $post-page-offset-top;
+  margin-block-end: $post-cover-gap;
+}
+
+.c-post-cover__media {
+  overflow: hidden;
+  background-color: var(--color-ui-surface-raised);
+}
+
+.c-post-cover__image {
+  display: block;
+  inline-size: 100%;
+  max-block-size: min(42rem, 70vh);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* -----------------------------------------------------------------------------
+   Post shell
+   ----------------------------------------------------------------------------- */
+
+.c-post {
+  inline-size: min(100%, $post-max-width);
+  margin-inline: auto;
+  padding-block-start: $post-page-offset-top;
+}
+
+/* Avoid double top spacing when a cover image is present before the article */
+.c-post-cover + .o-container .c-post {
+  padding-block-start: 0;
+}
+
+.c-post__header {
+  display: flex;
+  flex-direction: column;
+  gap: $post-header-gap;
+  margin-block-end: tools-spacing.$fluid-stack-lg;
+}
+
+/* When there is no subtitle, tighten title-to-meta spacing slightly */
+.c-post__title + .c-post__meta {
+  margin-block-start: calc(-1 * settings-spacing.$space-2);
+}
+
+/* -----------------------------------------------------------------------------
+   Tags
+   ----------------------------------------------------------------------------- */
+
+.c-post__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $post-tag-gap;
+  margin: 0;
+}
+
+.c-post__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 2rem;
+  padding-block: $post-tag-padding-block;
+  padding-inline: $post-tag-padding-inline;
+  border: 1px solid transparent;
+  border-radius: settings-config.$global-border-radius;
+  background-color: var(--color-accent-primary);
+  color: var(--color-button-text);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1;
+  letter-spacing: settings-typography.$letter-spacing-loose-sm;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: $post-transition;
+
+  &:visited {
+    color: var(--color-button-text);
+  }
+
+  &:hover {
+    color: var(--color-button-text);
+    background-color: var(--color-link-hover);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Title + subtitle
+   ----------------------------------------------------------------------------- */
+
+.c-post__title {
+  margin: 0;
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  font-size: clamp(
+    settings-typography.$font-size-h1-min,
+    5vw,
+    settings-typography.$font-size-h1-max
+  );
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1.08;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+  text-wrap: balance;
+}
+
+.c-post__subtitle {
+  max-inline-size: $post-content-inline-size;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-loose;
+  text-wrap: pretty;
+}
+
+/* -----------------------------------------------------------------------------
+   Meta block
+   ----------------------------------------------------------------------------- */
+
+.c-post__meta {
+  display: flex;
+  flex-direction: column;
+  gap: settings-spacing.$space-4;
+  padding-block-end: tools-spacing.$fluid-stack-md;
+  border-block-end: $post-content-top-border-width solid var(--color-ui-border);
+}
+
+.c-post__meta-main {
+  display: flex;
+  align-items: center;
+  gap: $post-meta-gap;
+  min-inline-size: 0;
+}
+
+.c-post__author-image {
+  flex: 0 0 auto;
+}
+
+.c-post__author-avatar {
+  display: block;
+  inline-size: $post-meta-avatar-size;
+  block-size: $post-meta-avatar-size;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-ui-surface-raised);
+}
+
+.c-post__meta-details {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+  gap: settings-spacing.$space-1;
+}
+
+.c-post__author {
+  overflow: hidden;
+  margin: 0;
+  color: var(--color-text);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-post__meta-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $post-meta-inline-gap;
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: settings-typography.$line-height-tight;
+}
+
+.c-post__meta-date {
+  display: inline-flex;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.c-post__date {
+  color: inherit;
+  white-space: nowrap;
+}
+
+.c-post__meta-separator {
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+.c-post__reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: settings-spacing.$space-1;
+  min-inline-size: 0;
+  white-space: nowrap;
+}
+
+.c-post__meta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: $post-meta-icon-size;
+  block-size: $post-meta-icon-size;
+  color: currentColor;
+
+  svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+.c-post__meta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.c-post__share {
+  inline-size: 100%;
+}
+
+/* Inline alignment for the shared post-share component inside post meta */
+.c-post__share .c-post-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+  margin-block: 0;
+}
+
+.c-post__share .c-post-share__head {
+  display: flex;
+  align-items: center;
+  margin-block-end: 0;
+}
+
+.c-post__share .c-post-share__title {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.c-post__share .c-post-share__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-2;
+}
+
+/* -----------------------------------------------------------------------------
+   Content
+   ----------------------------------------------------------------------------- */
+
+.c-post__content {
+  inline-size: min(100%, $post-content-inline-size);
+  margin-inline: auto;
+  color: var(--color-text);
+}
+
+.c-post__content > *:first-child {
+  margin-block-start: 0;
+}
+
+.c-post__content > *:last-child {
+  margin-block-end: 0;
+}
+
+.c-post__content h2,
+.c-post__content h3,
+.c-post__content h4,
+.c-post__content h5,
+.c-post__content h6 {
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.c-post__content p,
+.c-post__content li,
+.c-post__content blockquote,
+.c-post__content td,
+.c-post__content th {
+  font-size: settings-typography.$font-size-md;
+  line-height: settings-typography.$line-height-loose;
+}
+
+.c-post__content a {
+  color: var(--color-link);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-ui-border);
+  transition: $post-transition;
+
+  &:visited {
+    color: var(--color-link);
+  }
+
+  &:hover {
+    color: var(--color-link-hover);
+    border-bottom-color: currentColor;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+}
+
+.c-post__content img,
+.c-post__content .js-reframe,
+.c-post__content iframe,
+.c-post__content video {
+  overflow: hidden;
+}
+
+.c-post__content figure {
+  margin-inline: 0;
+}
+
+.c-post__content figcaption {
+  margin-block-start: settings-spacing.$space-2;
+  color: var(--color-text-muted);
+  font-size: settings-typography.$font-size-sm;
+  line-height: settings-typography.$line-height-normal;
+}
+
+.c-post__content pre {
+  padding: settings-spacing.$space-4;
+  overflow-x: auto;
+  background-color: var(--color-ui-surface);
+  border: settings-config.$global-border-width solid var(--color-ui-border);
+}
+
+.c-post__content code,
+.c-post__content kbd,
+.c-post__content samp {
+  font-family: settings-typography.$font-family-mono;
+}
+
+.c-post__content hr {
+  border-top-color: var(--color-ui-border);
+}
+
+/* -----------------------------------------------------------------------------
+   Tablet and up
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
+  .c-post__header {
+    gap: $post-header-gap-lg;
+  }
+
+  .c-post__meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: tools-spacing.$fluid-inline-md;
+  }
+
+  .c-post__meta-main {
+    flex: 1 1 auto;
+    align-items: center;
+  }
+
+  .c-post__meta-actions {
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .c-post__share {
+    inline-size: auto;
+  }
+
+  .c-post__share .c-post-share {
+    justify-content: flex-end;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Small-screen refinements
+   ----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-sm) {
+  .c-post__title {
+    text-wrap: pretty;
+  }
+
+  .c-post__subtitle {
+    font-size: settings-typography.$font-size-md;
+  }
+
+  .c-post__meta-main {
+    align-items: flex-start;
+    gap: settings-spacing.$space-3;
+  }
+
+  .c-post__author-avatar {
+    inline-size: $post-meta-avatar-size-sm;
+    block-size: $post-meta-avatar-size-sm;
+  }
+
+  .c-post__meta-inline {
+    gap: settings-spacing.$space-2;
+  }
+
+  .c-post__share .c-post-share__title {
+    inline-size: 100%;
+  }
+}

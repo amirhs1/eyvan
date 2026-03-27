@@ -21,7 +21,7 @@
   - site.data.social-links.linkedin
   - site.data.social-links.instagram
   - site.data.social-links.youtube
-  - site.data.social-links.twitter
+  - site.data.social-links.x
   - site.data.social-links.scholar
   - site.data.social-links.orcid
   - site.data.social-links.medium
@@ -34,7 +34,7 @@
 {% endcomment %}
 
 {% assign social = site.data.social-links %}
-{% assign platforms = 'github,linkedin,instagram,youtube,twitter,scholar,orcid,medium' | split: ',' %}
+{% assign platforms = 'github,linkedin,instagram,youtube,x,scholar,orcid,medium' | split: ',' %}
 
 <!-- social-links.html -->
 {% for platform in platforms %}
@@ -54,9 +54,9 @@
       {% when 'youtube' %}
         {% assign label = 'YouTube' %}
         {% assign icon = 'youtube.svg' %}
-      {% when 'twitter' %}
+      {% when 'x' %}
         {% assign label = 'X (Twitter)' %}
-        {% assign icon = 'twitter.svg' %}
+        {% assign icon = 'x.svg' %}
       {% when 'scholar' %}
         {% assign label = 'Google Scholar' %}
         {% assign icon = 'google_scholar.svg' %}

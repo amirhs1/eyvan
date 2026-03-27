@@ -1,0 +1,95 @@
+// -----------------------------------------------------------------------------
+// Icon Link Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the reusable icon-only interactive control used by social links
+// and other compact icon actions rendered as anchors or buttons.
+//
+// Structure:
+// - .c-icon-link
+//   - .c-icon-link__icon
+//
+// Scope & Rules:
+// - Component styling only
+// - Provides the shared clickable surface, sizing, alignment, and interactive
+//   states for compact icon controls
+// - Can be used on both <a> and <button> elements
+//
+// Notes:
+// - Social-link-specific layout and context modifiers belong in
+//   _social-links.scss
+// - Feature-specific icon actions with different structure or state logic
+//   (for example theme toggle) should remain in their own component files
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as settings-config;
+@use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/motion" as tools-motion;
+
+/* -----------------------------------------------------------------------------
+   Base clickable icon-link primitive
+   ----------------------------------------------------------------------------- */
+
+.c-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+
+  border: settings-config.$global-border-width solid var(--color-border);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--color-text);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  @include tools-motion.transition-ui-with-transform;
+
+  &:hover {
+    color: var(--color-ui-bg);
+    background-color: var(--color-link-hover);
+    border-color: var(--color-link-hover);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.c-icon-link__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+
+  line-height: 1;
+  color: inherit;
+
+  svg,
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  svg {
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}

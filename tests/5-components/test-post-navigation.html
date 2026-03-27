@@ -1,0 +1,593 @@
+---
+layout: page
+title: Component Post Navigation Test
+permalink: /tests/5-components/test-post-navigation/
+robots: noindex
+---
+
+{% comment %}
+  Component Post Navigation Test Page
+  Purpose: Visually verify that the 5-components post navigation component
+  compiles and behaves correctly across common content states.
+
+  Structure:
+  - Base two-card navigation
+  - Previous-only state
+  - Next-only state
+  - Cards without media
+  - Mixed media state
+  - Long-title stress test
+  - Narrow-width wrapping behavior
+  - Hover and focus interaction check
+
+  Notes:
+  - This page tests only the component responsibilities of:
+    - .c-post-nav
+    - .c-post-nav__item
+    - .c-post-nav__item--prev
+    - .c-post-nav__item--next
+    - .c-post-nav__media
+    - .c-post-nav__content
+    - .c-post-nav__label
+    - .c-post-nav__label--prev
+    - .c-post-nav__label--next
+    - .c-post-nav__title
+  - Layout/grid/container placement belongs to object and layout layers.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify wrapping, content shrink behavior,
+    media handling, and title balance.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-post-nav-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-post-nav-test-stack {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .c-post-nav-test-row {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .c-post-nav-test-label {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .c-post-nav-test-box {
+    inline-size: min(100%, 72rem);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-post-nav-test-box--narrow {
+    inline-size: min(100%, 34rem);
+  }
+
+  .c-post-nav-test-box--tight {
+    inline-size: min(100%, 26rem);
+  }
+
+  .c-post-nav-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-post-nav-test-fill {
+    padding: 0.75rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
+  }
+
+  .c-post-nav-test-kbd {
+    display: inline-block;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background: #fff;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the post navigation classes
+    defined in the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Two-card Navigation -->
+  <!-- ============================================================= -->
+
+  <h2>Base two-card navigation</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The component should render two equal-width navigation cards with clear
+    directional hierarchy: previous card aligned left, next card aligned
+    right, both with consistent padding, rounded corners, readable labels,
+    and balanced titles.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/11.jpg' | relative_url }}"
+              alt="Preview image for previous post"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Building a Research Workflow with Small, Reusable Tools
+            </h2>
+          </div>
+        </a>
+
+        <a class="c-post-nav__item c-post-nav__item--next" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Designing a Clean Portfolio Homepage in Jekyll
+            </h2>
+          </div>
+
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/15.jpg' | relative_url }}"
+              alt="Preview image for next post"
+            >
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Previous-only State -->
+  <!-- ============================================================= -->
+
+  <h2>Previous-only state</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When only the previous link exists, the component should still look
+    stable and intentional. The single card should remain readable and not
+    break because the second item is absent.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/16.jpg' | relative_url }}"
+              alt="Preview image for previous-only post navigation card"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Annotating Data for Reproducible Computational Research
+            </h2>
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Next-only State -->
+  <!-- ============================================================= -->
+
+  <h2>Next-only state</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When only the next link exists, the card should keep its right-aligned
+    content treatment and remain visually coherent on its own.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--next" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Publishing Notebook-Based Writing on a Static Site
+            </h2>
+          </div>
+
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/19.jpg' | relative_url }}"
+              alt="Preview image for next-only post navigation card"
+            >
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Cards Without Media -->
+  <!-- ============================================================= -->
+
+  <h2>Cards without media</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    If the image block is omitted, spacing and alignment should still feel
+    deliberate. The content block should expand naturally without leaving
+    awkward gaps for missing media.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              A Text-only Previous Navigation Card
+            </h2>
+          </div>
+        </a>
+
+        <a class="c-post-nav__item c-post-nav__item--next" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              A Text-only Next Navigation Card
+            </h2>
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Mixed Media State -->
+  <!-- ============================================================= -->
+
+  <h2>Mixed media state</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The component should support asymmetric content states where one card has
+    an image and the other does not. Alignment and spacing should remain
+    visually balanced.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/20.jpg' | relative_url }}"
+              alt="Preview image for mixed-state previous post"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Previous card with media
+            </h2>
+          </div>
+        </a>
+
+        <a class="c-post-nav__item c-post-nav__item--next" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Next card without media should still align correctly
+            </h2>
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long-title Stress Test -->
+  <!-- ============================================================= -->
+
+  <h2>Long-title stress test</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Long titles should wrap naturally, preserve hierarchy, and avoid
+    overflowing or collapsing the card layout. The balanced text treatment
+    should remain readable across multiple lines.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/23.jpg' | relative_url }}"
+              alt="Preview image for long-title previous post"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Designing a maintainable research portfolio with clear content
+              hierarchy, responsive cards, and resilient image handling
+            </h2>
+          </div>
+        </a>
+
+        <a class="c-post-nav__item c-post-nav__item--next" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Refactoring repeated include patterns into smaller, more focused
+              Jekyll components without sacrificing readability
+            </h2>
+          </div>
+
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/25.png' | relative_url }}"
+              alt="Preview image for long-title next post"
+            >
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Narrow-width Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Narrow-width wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    At tighter container widths, the cards should wrap into a vertical stack
+    instead of becoming unusably cramped. Content should continue to shrink
+    cleanly because the component allows flex wrapping and uses
+    <code>min-inline-size: 0</code> on key children.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box c-post-nav-test-box--narrow">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/8.jpg' | relative_url }}"
+              alt="Preview image for narrow-width previous card"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Previous card in a constrained container
+            </h2>
+          </div>
+        </a>
+
+        <a class="c-post-nav__item c-post-nav__item--next" href="#">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Next card should wrap below without overflow
+            </h2>
+          </div>
+
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/11.jpg' | relative_url }}"
+              alt="Preview image for narrow-width next card"
+            >
+          </div>
+        </a>
+      </nav>
+    </div>
+
+    <p class="c-post-nav-test-note">
+      Reduce the viewport width further to confirm that the cards stack
+      cleanly and remain readable.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tight-width Single-card Check -->
+  <!-- ============================================================= -->
+
+  <h2>Tight-width single-card check</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    A single card in a very tight container should still preserve image size,
+    spacing, and title wrapping without causing horizontal overflow.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box c-post-nav-test-box--tight">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/15.jpg' | relative_url }}"
+              alt="Preview image for tight-width navigation test"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Testing a very narrow single navigation card
+            </h2>
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Hover and Focus Interaction Check -->
+  <!-- ============================================================= -->
+
+  <h2>Hover and focus interaction check</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    On hover, the card should lift slightly and deepen its shadow. On
+    keyboard focus, the link should show a visible focus treatment while
+    keeping the title color consistent.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <nav class="c-post-nav" aria-label="Post navigation">
+        <a class="c-post-nav__item c-post-nav__item--prev" href="#focus-test-prev">
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/19.jpg' | relative_url }}"
+              alt="Preview image for interaction test previous card"
+            >
+          </div>
+
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--prev">
+              Previous post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Hover and keyboard-focus interaction test
+            </h2>
+          </div>
+        </a>
+
+        <a class="c-post-nav__item c-post-nav__item--next" href="#focus-test-next">
+          <div class="c-post-nav__content">
+            <span class="c-post-nav__label c-post-nav__label--next">
+              Next post
+            </span>
+
+            <h2 class="c-post-nav__title">
+              Confirm title color remains stable across interactive states
+            </h2>
+          </div>
+
+          <div class="c-post-nav__media">
+            <img
+              loading="lazy"
+              src="{{ '/images/posts/20.jpg' | relative_url }}"
+              alt="Preview image for interaction test next card"
+            >
+          </div>
+        </a>
+      </nav>
+    </div>
+
+    <p class="c-post-nav-test-note">
+      Use <span class="c-post-nav-test-kbd">Tab</span> to move focus onto each
+      card and confirm that focus is clearly visible.
+    </p>
+  </div>
+
+  <p>
+    <em>
+      Tip: Resize the browser window and test both mouse hover and keyboard
+      focus to verify card wrapping, media placement, title balancing, and
+      interactive state behavior.
+    </em>
+  </p>
+</section>

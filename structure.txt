@@ -96,7 +96,9 @@
 │   │   ├── _mobile-menu.scss
 │   │   ├── _navigation.scss
 │   │   ├── _post-card.scss
+│   │   ├── _post-navigation.scss
 │   │   ├── _post-share.scss
+│   │   ├── _post.scss
 │   │   ├── _related-posts.scss
 │   │   ├── _site-footer.scss
 │   │   ├── _site-header.scss
@@ -173,6 +175,8 @@
     │   ├── test-mobile-menu.html
     │   ├── test-navigation.html
     │   ├── test-post-card.html
+    │   ├── test-post-navigation.html
+    │   ├── test-post.html
     │   ├── test-related-post.html
     │   ├── test-site-footer.html
     │   ├── test-site-header.html
@@ -182,4 +186,4 @@
     ├── test-3-base.html
     └── test-7-trumps.html
 
-25 directories, 158 files
+25 directories, 162 files

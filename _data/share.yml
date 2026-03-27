@@ -4,7 +4,7 @@
 - id: x
   type: link
   label: Share on X
-  icon: twitter.svg
+  icon: x.svg
   popup_name: share-x
   popup_width: 600
   popup_height: 500

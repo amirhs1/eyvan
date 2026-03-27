@@ -53,7 +53,7 @@
     <h4 class="c-post-share__title">Share this post</h4>
   </div>
 
-  <div class="c-post-share__list" role="list">
+  <ul class="c-post-share__list u-list-reset">
     {% for item in share_items %}
       {% assign href = nil %}
       {% assign onclick = nil %}
@@ -81,41 +81,37 @@
             {% capture href %}mailto:?subject={{ page.title | uri_escape }}&body={{ 'I thought you might enjoy this post:' | uri_escape }}%0A%0A{{ page.title | uri_escape }}%0A{{ page.url | absolute_url | uri_escape }}{% endcapture %}
         {% endcase %}
 
-        {% if item.type == 'link' %}
-          <a
-            class="c-icon-link c-post-share__link"
-            href="{{ href | strip }}"
-            role="listitem"
-            {% if onclick %}onclick="{{ onclick | strip }}"{% endif %}
-            {% if item.rel %}rel="{{ item.rel }}"{% endif %}
-            title="{{ item.label }}"
-            aria-label="{{ item.label }}"
-          >
-            <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
-              {% include icons/{{ item.icon }} %}
-            </span>
-          </a>
-        {% elsif item.type == 'button' %}
-          <button
-            class="c-icon-link c-post-share__link{% if item.button_class %} {{ item.button_class }}{% endif %}"
-            type="button"
-            role="listitem"
-            title="{{ item.label }}"
-            aria-label="{{ item.label }}"
-            {% if item.data_title %}data-title="{{ page.title | escape }}"{% endif %}
-            {% if item.data_url %}data-url="{{ page.url | absolute_url }}"{% endif %}
-          >
-            <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
-              {% include icons/{{ item.icon }} %}
-            </span>
-          </button>
-        {% endif %}
+        <li class="c-post-share__item">
+          {% if item.type == 'link' %}
+            <a
+              class="c-icon-link c-post-share__link"
+              href="{{ href | strip }}"
+              {% if onclick %}onclick="{{ onclick | strip }}"{% endif %}
+              {% if item.rel %}rel="{{ item.rel }}"{% endif %}
+              title="{{ item.label }}"
+              aria-label="{{ item.label }}"
+            >
+              <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                {% include icons/{{ item.icon }} %}
+              </span>
+            </a>
+          {% elsif item.type == 'button' %}
+            <button
+              class="c-icon-link c-post-share__link{% if item.button_class %} {{ item.button_class }}{% endif %}"
+              type="button"
+              title="{{ item.label }}"
+              aria-label="{{ item.label }}"
+              {% if item.data_title %}data-title="{{ page.title | escape }}"{% endif %}
+              {% if item.data_url %}data-url="{{ page.url | absolute_url }}"{% endif %}
+            >
+              <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                {% include icons/{{ item.icon }} %}
+              </span>
+            </button>
+          {% endif %}
+        </li>
       {% endunless %}
     {% endfor %}
-  </div>
+  </ul>
 </div>
 <!-- End of post-share.html -->
-
-
-
-

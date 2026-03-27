@@ -34,9 +34,9 @@
    ----------------------------------------------------------------------------- */
 
 $related-posts-margin-block-start: tools-spacing.$fluid-section-sm;
+$related-posts-padding-block-start: tools-spacing.$fluid-stack-md;
 $related-posts-header-margin-block-end: tools-spacing.$fluid-stack-md;
 $related-posts-title-padding-block-end: settings-spacing.$space-3;
-$related-posts-title-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Root section
@@ -44,8 +44,8 @@ $related-posts-title-border-width: settings-config.$global-border-width;
 
 .c-related-posts {
   margin-block-start: $related-posts-margin-block-start;
-  padding-block-start: tools-spacing.$fluid-stack-md;
-  border-block-start: $related-posts-title-border-width solid var(--color-ui-border);
+  padding-block-start: $related-posts-padding-block-start;
+  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
 }
 
 /* -----------------------------------------------------------------------------

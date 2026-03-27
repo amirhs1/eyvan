@@ -84,9 +84,12 @@
 
 @use "5-components/hero" as component-hero;
 @use "5-components/post-card" as component-post-card;
-@use "5-components/post-share" as component-post-share;
-
 @use "5-components/related-posts" as component-related-posts;
+
+@use "5-components/post-share" as component-post-share;
+@use "5-components/post-navigation" as component-post-navigation;
+@use "5-components/post" as component-post;
+
 
 /*
 @use "5-components/avatar" as component-avatar;

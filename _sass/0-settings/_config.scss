@@ -136,3 +136,25 @@ $shadow-spread: 0;
    ----------------------------------------------------------------------------- */
 
 $grid-columns: 12 !default;
+
+
+/* -----------------------------------------------------------------------------
+   Card system tokens
+   ----------------------------------------------------------------------------- */
+
+$card-border-width: $global-border-width;
+
+$card-shadow-rest:
+  0 0 0.125rem var(--color-ui-shadow-color);
+
+$card-shadow-hover:
+  0 $shadow-offset-y $shadow-blur rgba(var(--color-shadow-rgb, 0 0 0), 0.12);
+
+$card-lift-hover: -0.25rem;
+
+$card-transition:
+  background-color $transition-base,
+  border-color $transition-base,
+  color $transition-base,
+  box-shadow $transition-base,
+  transform $transition-base;

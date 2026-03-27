@@ -55,3 +55,8 @@
     settings-config.$transition-interaction,
     settings-config.$transition-transform;
 }
+
+/// Shared card transition pattern
+@mixin transition-card {
+  transition: settings-config.$card-transition;
+}

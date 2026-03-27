@@ -40,18 +40,11 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/motion" as tools-motion;
 
 /* -----------------------------------------------------------------------------
    Local component tokens
    ----------------------------------------------------------------------------- */
-
-$post-card-border-width: settings-config.$global-border-width;
-
-$post-card-shadow-rest:
-  0 0 0.125rem var(--color-ui-shadow-color);
-$post-card-shadow-hover:
-  0 settings-config.$shadow-offset-y settings-config.$shadow-blur
-  rgba(var(--color-shadow-rgb, 0 0 0), 0.12);
 
 $post-card-content-padding: settings-spacing.$space-5;
 $post-card-content-padding-mobile: settings-spacing.$space-4;
@@ -64,17 +57,12 @@ $post-card-tag-padding-block: settings-spacing.$space-2;
 $post-card-tag-padding-inline: settings-spacing.$space-3;
 
 $post-card-avatar-size: 2.75rem;
+$post-card-avatar-size-mobile: 2.5rem;
+
 $post-card-meta-gap: settings-spacing.$space-3;
 $post-card-meta-secondary-gap: settings-spacing.$space-3;
 
 $post-card-icon-size: 0.875rem;
-
-$post-card-transition:
-  background-color settings-config.$transition-base,
-  border-color settings-config.$transition-base,
-  box-shadow settings-config.$transition-base,
-  color settings-config.$transition-base,
-  transform settings-config.$transition-base;
 
 /* -----------------------------------------------------------------------------
    Root
@@ -90,19 +78,19 @@ $post-card-transition:
   block-size: 100%;
   overflow: hidden;
 
-  border: $post-card-border-width solid var(--color-ui-border);
+  border: settings-config.$card-border-width solid var(--color-ui-border);
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-ui-surface);
-  box-shadow: $post-card-shadow-rest;
+  box-shadow: settings-config.$card-shadow-rest;
 
-  transition: $post-card-transition;
+  @include tools-motion.transition-card;
 }
 
 .c-post-card:hover .c-post-card__inner,
 .c-post-card:focus-within .c-post-card__inner {
   border-color: var(--color-accent-primary);
-  box-shadow: $post-card-shadow-hover;
-  transform: translateY(-0.25rem);
+  box-shadow: settings-config.$card-shadow-hover;
+  transform: translateY(settings-config.$card-lift-hover);
 }
 
 /* -----------------------------------------------------------------------------
@@ -131,7 +119,8 @@ $post-card-transition:
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
-  transition: transform settings-config.$transition-slow;
+
+  @include tools-motion.transition-transform;
 }
 
 .c-post-card:hover .c-post-card__image,
@@ -183,7 +172,7 @@ $post-card-transition:
   text-decoration: none;
   text-transform: capitalize;
 
-  transition: $post-card-transition;
+  @include tools-motion.transition-ui-with-transform;
 
   &:visited {
     color: var(--color-button-text);
@@ -222,7 +211,8 @@ $post-card-transition:
 .c-post-card__title-link {
   color: var(--color-heading);
   text-decoration: none;
-  transition: color settings-config.$transition-base;
+
+  @include tools-motion.transition-interaction;
 
   &:visited {
     color: var(--color-heading);
@@ -367,8 +357,8 @@ $post-card-transition:
   }
 
   .c-post-card__avatar {
-    inline-size: 2.5rem;
-    block-size: 2.5rem;
+    inline-size: $post-card-avatar-size-mobile;
+    block-size: $post-card-avatar-size-mobile;
   }
 
   .c-post-card__meta-secondary {

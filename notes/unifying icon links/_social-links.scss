@@ -1,0 +1,107 @@
+// -----------------------------------------------------------------------------
+// Social Links Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the reusable social link icon actions used in the header, footer,
+// and mobile menu.
+//
+// Dependencies:
+// - Uses the shared .c-icon-link and .c-icon-link__icon primitive classes
+//   for the clickable control and base icon sizing
+//
+// Structure:
+// - .c-social-links
+//   - .c-social-links__item
+//   - .c-social-links__icon
+//
+// Modifiers:
+// - .c-social-links--footer
+// - .c-social-links--mobile
+// - .c-social-links__item--cv
+// - .c-social-links__icon--text
+//
+// Scope & Rules:
+// - Component styling only
+// - Parent layout/alignment belongs to the surrounding object/component
+// - Icons inherit currentColor for theme compatibility
+// - Works for inline SVG icons and text fallbacks
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Social-links group/context styles
+   ----------------------------------------------------------------------------- */
+
+.c-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: settings-spacing.$space-2;
+}
+
+.c-social-links__item {
+  flex: 0 0 auto;
+}
+
+.c-social-links__item--cv {
+  .c-icon-link__icon {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+}
+
+.c-social-links__icon {
+  color: inherit;
+}
+
+.c-social-links__icon--text {
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Context modifiers
+   ----------------------------------------------------------------------------- */
+
+.c-social-links--footer {
+  justify-content: center;
+
+  .c-icon-link {
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    min-inline-size: 2.5rem;
+    min-block-size: 2.5rem;
+  }
+}
+
+.c-social-links--mobile {
+  justify-content: flex-start;
+  gap: tools-spacing.$fluid-inline-sm;
+
+  .c-icon-link {
+    inline-size: 3rem;
+    block-size: 3rem;
+    min-inline-size: 3rem;
+    min-block-size: 3rem;
+  }
+}
+
+@media (min-width: settings-breakpoints.$bp-text) {
+  .c-social-links--mobile {
+    .c-icon-link {
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+      min-inline-size: 2.75rem;
+      min-block-size: 2.75rem;
+    }
+  }
+}

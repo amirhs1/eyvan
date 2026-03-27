@@ -43,6 +43,7 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/motion" as tools-motion;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -68,13 +69,6 @@ $post-meta-avatar-size-sm: 2.75rem;
 $post-meta-icon-size: 0.875rem;
 
 $post-content-top-border-width: settings-config.$global-border-width;
-
-$post-transition:
-  color settings-config.$transition-base,
-  background-color settings-config.$transition-base,
-  border-color settings-config.$transition-base,
-  box-shadow settings-config.$transition-base,
-  transform settings-config.$transition-base;
 
 /* -----------------------------------------------------------------------------
    Cover
@@ -147,6 +141,7 @@ $post-transition:
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-accent-primary);
   color: var(--color-button-text);
+
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
@@ -154,7 +149,8 @@ $post-transition:
   letter-spacing: settings-typography.$letter-spacing-loose-sm;
   text-decoration: none;
   text-transform: capitalize;
-  transition: $post-transition;
+
+  @include tools-motion.transition-ui-with-transform;
 
   &:visited {
     color: var(--color-button-text);
@@ -202,13 +198,17 @@ $post-transition:
   text-wrap: pretty;
 }
 
+
 /* -----------------------------------------------------------------------------
    Meta block
    ----------------------------------------------------------------------------- */
 
 .c-post__meta {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  min-inline-size: 0;
   gap: settings-spacing.$space-4;
   padding-block-end: tools-spacing.$fluid-stack-md;
   border-block-end: $post-content-top-border-width solid var(--color-ui-border);
@@ -218,6 +218,7 @@ $post-transition:
   display: flex;
   align-items: center;
   gap: $post-meta-gap;
+  flex: 1 1 28rem;
   min-inline-size: 0;
 }
 
@@ -259,6 +260,7 @@ $post-transition:
   flex-wrap: wrap;
   align-items: center;
   gap: $post-meta-inline-gap;
+  min-inline-size: 0;
   color: var(--color-text-muted);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
@@ -280,12 +282,14 @@ $post-transition:
 .c-post__meta-separator {
   color: var(--color-text-muted);
   user-select: none;
+  white-space: nowrap;
 }
 
 .c-post__reading-time {
   display: inline-flex;
   align-items: center;
   gap: settings-spacing.$space-1;
+  flex: 0 0 auto;
   min-inline-size: 0;
   white-space: nowrap;
 }
@@ -297,7 +301,10 @@ $post-transition:
   flex: 0 0 auto;
   inline-size: $post-meta-icon-size;
   block-size: $post-meta-icon-size;
+  min-inline-size: $post-meta-icon-size;
+  min-block-size: $post-meta-icon-size;
   color: currentColor;
+  line-height: 1;
 
   svg {
     display: block;
@@ -311,17 +318,26 @@ $post-transition:
 .c-post__meta-actions {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  min-inline-size: 0;
+  margin-inline-start: auto;
 }
 
 .c-post__share {
-  inline-size: 100%;
+  inline-size: auto;
+  min-inline-size: 0;
 }
 
-/* Inline alignment for the shared post-share component inside post meta */
+
+/* -----------------------------------------------------------------------------
+   Share integration
+   Contextual layout for the shared post-share component inside post meta
+   ----------------------------------------------------------------------------- */
+
 .c-post__share .c-post-share {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: unwrap;
   align-items: center;
   gap: settings-spacing.$space-3;
   margin-block: 0;
@@ -355,149 +371,20 @@ $post-transition:
 }
 
 /* -----------------------------------------------------------------------------
-   Content
-   ----------------------------------------------------------------------------- */
-
-.c-post__content {
-  inline-size: min(100%, $post-content-inline-size);
-  margin-inline: auto;
-  color: var(--color-text);
-}
-
-.c-post__content > *:first-child {
-  margin-block-start: 0;
-}
-
-.c-post__content > *:last-child {
-  margin-block-end: 0;
-}
-
-.c-post__content h2,
-.c-post__content h3,
-.c-post__content h4,
-.c-post__content h5,
-.c-post__content h6 {
-  color: var(--color-heading);
-  text-wrap: balance;
-}
-
-.c-post__content p,
-.c-post__content li,
-.c-post__content blockquote,
-.c-post__content td,
-.c-post__content th {
-  font-size: settings-typography.$font-size-md;
-  line-height: settings-typography.$line-height-loose;
-}
-
-.c-post__content a {
-  color: var(--color-link);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-ui-border);
-  transition: $post-transition;
-
-  &:visited {
-    color: var(--color-link);
-  }
-
-  &:hover {
-    color: var(--color-link-hover);
-    border-bottom-color: currentColor;
-    text-decoration: none;
-  }
-
-  &:focus-visible {
-    @include tools-mixins.focus-ring;
-  }
-}
-
-.c-post__content img,
-.c-post__content .js-reframe,
-.c-post__content iframe,
-.c-post__content video {
-  overflow: hidden;
-}
-
-.c-post__content figure {
-  margin-inline: 0;
-}
-
-.c-post__content figcaption {
-  margin-block-start: settings-spacing.$space-2;
-  color: var(--color-text-muted);
-  font-size: settings-typography.$font-size-sm;
-  line-height: settings-typography.$line-height-normal;
-}
-
-.c-post__content pre {
-  padding: settings-spacing.$space-4;
-  overflow-x: auto;
-  background-color: var(--color-ui-surface);
-  border: settings-config.$global-border-width solid var(--color-ui-border);
-}
-
-.c-post__content code,
-.c-post__content kbd,
-.c-post__content samp {
-  font-family: settings-typography.$font-family-mono;
-}
-
-.c-post__content hr {
-  border-top-color: var(--color-ui-border);
-}
-
-/* -----------------------------------------------------------------------------
-   Tablet and up
-   ----------------------------------------------------------------------------- */
-
-@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
-  .c-post__header {
-    gap: $post-header-gap-lg;
-  }
-
-  .c-post__meta {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: tools-spacing.$fluid-inline-md;
-  }
-
-  .c-post__meta-main {
-    flex: 1 1 auto;
-    align-items: center;
-  }
-
-  .c-post__meta-actions {
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: flex-end;
-  }
-
-  .c-post__share {
-    inline-size: auto;
-  }
-
-  .c-post__share .c-post-share {
-    justify-content: flex-end;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   Small-screen refinements
+   Responsive adjustments
    ----------------------------------------------------------------------------- */
 
 @media (max-width: settings-breakpoints.$bp-sm) {
-  .c-post__title {
-    text-wrap: pretty;
-  }
-
-  .c-post__subtitle {
-    font-size: settings-typography.$font-size-md;
+  .c-post__meta {
+    align-items: flex-start;
   }
 
   .c-post__meta-main {
-    align-items: flex-start;
-    gap: settings-spacing.$space-3;
+    flex: 1 1 100%;
+  }
+
+  .c-post__meta-actions {
+    margin-inline-start: 0;
   }
 
   .c-post__author-avatar {
@@ -507,9 +394,5 @@ $post-transition:
 
   .c-post__meta-inline {
     gap: settings-spacing.$space-2;
-  }
-
-  .c-post__share .c-post-share__title {
-    inline-size: 100%;
   }
 }

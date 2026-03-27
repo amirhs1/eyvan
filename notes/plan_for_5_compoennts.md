@@ -457,3 +457,102 @@ projects-archive
 ```
 
 Next, I can turn this into a **starter scaffold for each missing SCSS file**, with the standard header comments and empty block/element structure.
+
+
+Here are the **three next-step recommendations**, clearly listed and scoped:
+
+---
+
+## 1. Extract a shared card object (`4-objects/_card.scss`)
+
+**Goal:** Remove duplication and unify all “card-like” components.
+
+**Applies to:**
+
+* `.c-post-card`
+* `.c-post-nav__item`
+* parts of `.c-post-share__link`
+
+**What to do:**
+
+* Create a base object like `.o-card`
+* Move shared structure:
+
+  * border
+  * radius
+  * shadow
+  * hover lift
+  * transition
+* Let components extend or compose it
+
+**Why:**
+
+* One source of truth for all cards
+* Cleaner components
+* Easier global changes
+
+---
+
+## 2. Extract a shared meta row object (`4-objects/_meta-row.scss`)
+
+**Goal:** Standardize author/date/reading-time layout.
+
+**Applies to:**
+
+* `.c-post__meta`
+* `.c-post-card__meta`
+
+**What to include:**
+
+* avatar + text alignment
+* inline metadata (date, read time)
+* icon + text pairing
+* spacing + wrapping behavior
+
+**Why:**
+
+* You currently duplicate this logic
+* Ensures consistent metadata UI across the site
+* Reduces future layout bugs
+
+---
+
+## 3. Unify tag styles into a shared object (`4-objects/_tag.scss`)
+
+**Goal:** Eliminate duplicated tag/button styles.
+
+**Applies to:**
+
+* `.c-post__tag`
+* `.c-post-card__tag`
+
+**What to include:**
+
+* padding
+* typography
+* background
+* hover behavior
+* border-radius
+
+**Usage:**
+
+* Create `.o-tag`
+* Extend or compose in components
+
+**Why:**
+
+* Same visual pattern used in multiple places
+* Currently duplicated
+* Easy win with high consistency impact
+
+---
+
+## Priority order (recommended)
+
+1. **Card object** → biggest architectural improvement
+2. **Tag object** → easiest + high visual consistency
+3. **Meta row object** → most complex, but valuable
+
+---
+
+If you want next, I can design the **exact `.o-card` implementation** tailored to your current system (clean and minimal, no over-engineering).

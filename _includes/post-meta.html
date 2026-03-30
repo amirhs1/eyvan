@@ -1,0 +1,117 @@
+{% comment %}
+  Post Meta Component
+  Purpose: Render reusable author and publication metadata for post-based UI,
+  including cards and post headers.
+
+  Structure:
+  - Component root (c-post-meta)
+    - Optional avatar wrapper
+      - Author avatar image
+    - Meta content wrapper
+      - Author name
+      - Meta details group
+        - Publish date
+        - Optional read time
+          - Read time icon
+          - Read time text
+
+  Architecture:
+  - Uses ITCSS + BEM naming
+  - Component block:
+    - c-post-meta
+  - Designed as a standalone component to be included in:
+    - post-card.html
+    - post.html
+  - Accepts:
+    - include.meta_post: post/page object
+    - include.show_avatar: boolean-like flag controlling avatar visibility
+
+  Accessibility:
+  - Uses a semantic time element for the publish date
+  - Decorative timer icon is hidden from assistive technology
+  - Avatar alt text falls back to the resolved author name
+
+  Data dependencies:
+  - include.meta_post
+  - include.meta_post.author
+  - include.meta_post.authors
+  - include.meta_post.avatar
+  - include.meta_post.date
+  - include.meta_post.content
+  - include.show_avatar
+  - site.data.author.name
+  - site.data.author.avatar
+  - site.read_time
+  - read-time.html include
+
+  Notes:
+  - This component centralizes metadata markup so cards and full post headers
+    share the same structure
+  - Spacing between date and read time should be handled in CSS, not with
+    hardcoded separators in the markup
+{% endcomment %}
+
+{% assign meta_post = include.meta_post %}
+{% if meta_post %}
+  {% assign author_avatar = meta_post.avatar | default: site.data.author.avatar %}
+
+  {% if meta_post.authors %}
+    {% assign author_display = meta_post.authors | join: ', ' %}
+  {% elsif meta_post.author %}
+    {% assign author_display = meta_post.author %}
+  {% else %}
+    {% assign author_display = site.data.author.name %}
+  {% endif %}
+
+  <!-- post-meta.html -->
+  <div class="c-post-meta">
+    {% if include.show_avatar and author_avatar %}
+      <!-- Author avatar -->
+      <div class="c-post-meta__author">
+        <img
+          class="c-post-meta__avatar"
+          loading="lazy"
+          src="{{ author_avatar | relative_url }}"
+          alt="{{ author_display | default: 'Site author' | escape }}"
+        >
+      </div>
+    {% endif %}
+
+    <!-- Meta content -->
+    <div class="c-post-meta__content">
+      {% if author_display %}
+        <!-- Author name -->
+        <span class="c-post-meta__author-name">
+          {{ author_display }}
+        </span>
+      {% endif %}
+
+      {% if meta_post.date or site.read_time %}
+        <!-- Date and reading time -->
+        <div class="c-post-meta__details">
+          {% if meta_post.date %}
+            <!-- Publish date -->
+            <time
+              class="c-post-meta__date"
+              datetime="{{ meta_post.date | date_to_xmlschema }}"
+            >
+              {{ meta_post.date | date: '%B %d, %Y' }}
+            </time>
+          {% endif %}
+
+          {% if site.read_time and meta_post.content %}
+            <!-- Read time -->
+            <span class="c-post-meta__read-time">
+              <span class="c-post-meta__icon" aria-hidden="true">
+                {% include icons/timer.svg %}
+              </span>
+
+              {% include read-time.html content=meta_post.content %}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <!-- End of post-meta.html -->
+{% endif %}

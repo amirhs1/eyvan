@@ -61,6 +61,7 @@
 {% assign sorted_scored_posts = scored_posts | sort | reverse %}
 
 {% if sorted_scored_posts.size > 0 %}
+  <!-- related-posts.html -->
   <section class="c-related-posts" aria-labelledby="related-posts-title">
     <div class="o-container">
       <header class="c-related-posts__header">
@@ -81,4 +82,5 @@
       </div>
     </div>
   </section>
+  <!-- End of related-posts.html -->
 {% endif %}

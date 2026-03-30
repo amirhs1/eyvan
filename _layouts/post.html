@@ -9,7 +9,13 @@ layout: default
   Structure:
   - Optional cover image
   - Article wrapper
-    - Header (tags, title, subtitle, metadata, share actions)
+    - Post header
+      - Optional tag list
+      - Post title
+      - Optional subtitle
+      - Header row
+        - Post metadata
+        - Optional share actions
     - Post body content
   - Post navigation
   - Related posts section
@@ -18,47 +24,45 @@ layout: default
   - Layout layer of the site
   - Uses ITCSS + BEM naming
   - Delegates reusable UI fragments to:
-    - read-time.html
+    - post-meta.html
     - post-share.html
     - post-navigation.html
     - related-posts.html
+  - The post metadata markup is centralized in post-meta.html
+  - The header row in this layout is responsible only for composition and layout
 
   Accessibility:
-  - Semantic article/header structure
-  - Decorative icons are hidden from assistive technology
-  - Author avatar uses descriptive alt text
+  - Uses semantic article and header elements
+  - Cover image alt text falls back to the post title
+  - Metadata and share control accessibility are delegated to their includes
 
   Data dependencies:
   - page.title
   - page.subtitle
   - page.image
+  - page.image_alt
   - page.tags
-  - page.date
-  - page.avatar
-  - page.author / page.authors
-  - site.data.author.avatar
-  - site.data.author.name
-  - site.read_time
+  - page.share
+  - content
+  - post-meta.html dependencies
+  - post-share.html dependencies
+  - post-navigation.html dependencies
+  - related-posts.html dependencies
+
+  Notes:
+  - This layout owns the overall page structure for individual posts
+  - Reusable post metadata is rendered through post-meta.html
+  - Share actions are optional and can be disabled with:
+    page.share: false
 {% endcomment %}
 
-<!-- Precomputed variables -->
-{% assign has_avatar = page.avatar | default: site.data.author.avatar %}
-{% if page.authors %}
-  {% assign author_display = page.authors | join: ', ' %}
-{% elsif page.author %}
-  {% assign author_display = page.author %}
-{% else %}
-  {% assign author_display = site.data.author.name %}
-{% endif %}
-
-<!-- Cover image -->
 {% if page.image %}
+  <!-- Cover image -->
   <div class="o-container">
     <div class="o-grid">
       <div class="o-grid__item o-grid__item--span-12">
-        <!-- Post cover image wrapper -->
         <div class="c-post-cover">
-          <!-- Post cover image -->
+          <!-- Cover image media -->
           <div class="c-post-cover__media">
             <img
               class="c-post-cover__image"
@@ -76,12 +80,11 @@ layout: default
 <!-- Post layout container -->
 <div class="o-container animate">
   <div class="o-grid">
-    <!-- Post article -->
     <article class="o-grid__item o-grid__item--span-12 c-post">
       <!-- Post header -->
       <header class="c-post__header">
-        <!-- Post tags -->
         {% if page.tags and page.tags.size >= 1 %}
+          <!-- Post tags -->
           <div class="c-post__tags">
             {% for tag in page.tags %}
               {% assign slug = tag | slugify %}
@@ -98,73 +101,20 @@ layout: default
         <!-- Post title -->
         <h1 class="c-post__title">{{ page.title | escape }}</h1>
 
-        <!-- Post subtitle -->
         {% if page.subtitle %}
+          <!-- Post subtitle -->
           <p class="c-post__subtitle">{{ page.subtitle | escape }}</p>
         {% endif %}
 
-        <!-- Post metadata -->
-        <div class="c-post__meta">
-          <!-- Metadata left column -->
-          <div class="c-post__meta-main">
-            <!-- Author avatar -->
-            {% if has_avatar %}
-              <div class="c-post__author-image">
-                <img
-                  class="c-post__author-avatar"
-                  loading="lazy"
-                  src="{% if page.avatar %}{{ page.avatar | relative_url }}{% else %}{{ site.data.author.avatar | relative_url }}{% endif %}"
-                  alt="{{ author_display }}"
-                >
-              </div>
-            {% endif %}
-
-            <!-- Author and date information -->
-            <div class="c-post__meta-details">
-              <!-- Author name -->
-              {% if author_display %}
-                <div class="c-post__author">
-                  {{ author_display }}
-                </div>
-              {% endif %}
-
-              <!-- Date and reading time -->
-              <div class="c-post__meta-inline">
-                <!-- Post date -->
-                {% if page.date %}
-                  <div class="c-post__meta-date">
-                    <time
-                      class="c-post__date"
-                      datetime="{{ page.date | date_to_xmlschema }}"
-                    >
-                      {{ page.date | date: '%B %d, %Y' }}
-                    </time>
-                  </div>
-                {% endif %}
-
-                <!-- Meta separator -->
-                {% if page.date and site.read_time %}
-                  <span class="c-post__meta-separator">•</span>
-                {% endif %}
-
-                <!-- Reading time -->
-                {% if site.read_time %}
-                  <div class="c-post__reading-time">
-                    <!-- Reading time icon -->
-                    <span class="c-post__meta-icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-
-                    {% include read-time.html %}
-                  </div>
-                {% endif %}
-              </div>
-            </div>
+        <!-- Post header row -->
+        <div class="c-post__header-row">
+          <!-- Post metadata -->
+          <div class="c-post__header-meta">
+            {% include post-meta.html meta_post=page show_avatar=true %}
           </div>
 
-          <!-- Metadata right column -->
-          <div class="c-post__meta-actions">
-            <!-- Post share actions -->
+          <!-- Post header actions -->
+          <div class="c-post__header-actions">
             {% if page.share != false %}
               <div class="c-post__share">
                 {% include post-share.html %}

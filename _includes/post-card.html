@@ -6,49 +6,41 @@
   Structure:
   - Card root
     - Card inner
-      - Card media
-        - Optional post image
+      - Optional media block
+        - Linked post image
       - Card content
-        - Optional tags
+        - Optional tag list
         - Post title
         - Post excerpt
-        - Post meta
-          - Author avatar
-          - Author name
-          - Publish date
-          - Read time with timer icon
+        - Post metadata wrapper
+          - Shared post metadata component
 
   Architecture:
-  - Uses ITCSS + BEM naming:
-    - Components: c-post-card
-    - Utilities: u-
-    - State: is-
-  - Layout/grid placement belongs to the parent template
+  - Uses ITCSS + BEM naming
+  - Component block:
+    - c-post-card
+  - Layout and grid placement belong to the parent template
   - Designed to live inside responsive grid systems
-  - Accepts a post object through:
-    - include.post
+  - Accepts:
+    - include.post: post object
+  - Delegates reusable metadata rendering to:
+    - post-meta.html
 
   Accessibility:
-  - Uses semantic article element
-  - Image alt falls back to post title
-  - Date uses semantic time element
-  - Decorative icons are hidden from assistive technology
+  - Uses a semantic article element
+  - Linked image alt text falls back to the post title
+  - Metadata accessibility is delegated to post-meta.html
 
   Data dependencies:
   - include.post
   - include.post.title
   - include.post.url
   - include.post.image
+  - include.post.image_alt
   - include.post.tags
   - include.post.description
   - include.post.content
-  - include.post.date
-  - include.post.author
-  - include.post.authors
-  - include.post.avatar
-  - site.data.author.name
-  - site.data.author.avatar
-  - read-time.html include
+  - post-meta.html dependencies
 
   Notes:
   - Designed as the canonical listing card for posts/projects
@@ -57,20 +49,13 @@
     - projects.html
     - tag-page.html
     - related-posts.html
+  - This file owns the card shell and layout only
+  - Shared author/date/read-time markup is centralized in post-meta.html
 {% endcomment %}
 
-<!-- Precomputed variables -->
 {% assign post = include.post %}
-{% assign has_avatar = post.avatar | default: site.data.author.avatar %}
-{% if post.authors %}
-  {% assign author_display = post.authors | join: ', ' %}
-{% elsif post.author %}
-  {% assign author_display = post.author %}
-{% else %}
-  {% assign author_display = site.data.author.name %}
-{% endif %}
 
-<!-- Post card -->
+<!-- post-card.html -->
 <article class="c-post-card">
   <div class="c-post-card__inner">
     {% if post.image %}
@@ -125,54 +110,11 @@
         {% endif %}
       </p>
 
-      <!-- Post card meta -->
+      <!-- Post card metadata -->
       <div class="c-post-card__meta">
-        {% if has_avatar %}
-          <!-- Author avatar -->
-          <div class="c-post-card__author">
-            <img
-              class="c-post-card__avatar"
-              src="{{ has_avatar | relative_url }}"
-              alt="{{ author_display | default: 'Site author' | escape }}"
-            >
-          </div>
-        {% endif %}
-
-        <!-- Author metadata -->
-        <div class="c-post-card__meta-text">
-          {% if author_display %}
-            <!-- Author name -->
-            <div class="c-post-card__author-name">
-              {{ author_display }}
-            </div>
-          {% endif %}
-
-          <!-- Date and read time -->
-          <div class="c-post-card__meta-secondary">
-            {% if post.date %}
-              <!-- Publish date -->
-              <time
-                class="c-post-card__date"
-                datetime="{{ post.date | date_to_xmlschema }}"
-              >
-                {{ post.date | date: '%B %d, %Y' }}
-              </time>
-            {% endif %}
-
-            <!-- Read time -->
-            <span class="c-post-card__read-time">
-              <!-- Timer icon -->
-              <span class="c-post-card__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-
-              <!-- Read time text -->
-              {% include read-time.html content=post.content %}
-            </span>
-          </div>
-        </div>
+        {% include post-meta.html meta_post=post show_avatar=true %}
       </div>
     </div>
   </div>
 </article>
-<!-- End of post-card -->
+<!-- End of post-card.html -->

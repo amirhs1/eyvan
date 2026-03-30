@@ -4,54 +4,40 @@ title: Component Post Test
 permalink: /tests/5-components/test-post/
 robots: noindex
 ---
-
 {% comment %}
   Component Post Test Page
-  Purpose: Visually verify that the 5-components post component compiles
+  Purpose: Visually verify that the 5-components post shell compiles
   and behaves correctly across the site.
 
   Structure:
-  - Post shell with cover image
-  - Post shell without cover image
-  - Tags wrapping behavior
-  - Metadata with long author content
-  - Share alignment inside metadata
-  - Long-form content typography
-  - Rich media and code treatment
-  - Content edge-spacing reset
-  - Small-screen title and meta behavior
+  - Cover media block
+  - Post shell width and spacing
+  - Title and subtitle
+  - Tag group
+  - Header row with metadata and share actions
+  - Title-to-header-row spacing without subtitle
+  - Long-title balancing behavior
+  - Responsive stacking behavior for header row
 
   Notes:
   - This page tests only the component responsibilities of:
     - .c-post
     - .c-post__header
-    - .c-post__tags
-    - .c-post__tag
     - .c-post__title
     - .c-post__subtitle
-    - .c-post__meta
-    - .c-post__meta-main
-    - .c-post__meta-details
-    - .c-post__meta-inline
-    - .c-post__meta-date
-    - .c-post__meta-separator
-    - .c-post__meta-actions
-    - .c-post__author-image
-    - .c-post__author-avatar
-    - .c-post__author
-    - .c-post__reading-time
-    - .c-post__meta-icon
+    - .c-post__tags
+    - .c-post__tag
+    - .c-post__header-row
+    - .c-post__header-meta
+    - .c-post__header-actions
     - .c-post__share
-    - .c-post__content
     - .c-post-cover
     - .c-post-cover__media
     - .c-post-cover__image
-  - Grid, container, and page layout belong to layout and object layers.
-  - Share action styling belongs primarily to the shared post-share component;
-    this test focuses on the alignment rules applied by the post component.
+  - Shared metadata internals belong to the separate post-meta component.
+  - Shared share-control visuals belong to the separate post-share component.
   - Helper styles below are temporary and exist only for testing.
-  - Resize the browser window to verify title wrapping, meta alignment,
-    share placement, avatar sizing, and long-form reading measure.
+  - Resize the browser window to verify responsive header-row stacking.
   - This page is intended for development testing only.
 {% endcomment %}
 
@@ -68,16 +54,6 @@ robots: noindex
     gap: 1.5rem;
   }
 
-  .c-post-test-row {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-post-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
   .c-post-test-box {
     inline-size: min(100%, 72rem);
     padding: 1rem;
@@ -89,12 +65,9 @@ robots: noindex
     inline-size: min(100%, 38rem);
   }
 
-  .c-post-test-box--content {
-    inline-size: min(100%, 60rem);
-  }
-
-  .c-post-test-box--media {
-    inline-size: min(100%, 54rem);
+  .c-post-test-label {
+    margin: 0;
+    font-weight: 600;
   }
 
   .c-post-test-note {
@@ -104,41 +77,71 @@ robots: noindex
   }
 
   .c-post-test-fill {
-    padding: 0.75rem;
+    padding: 1rem;
     border: 1px dashed #ccc;
     background: #fcfcfc;
   }
 
-  .c-post-test-share-button {
-    display: inline-flex;
+  .c-post-test-meta-demo {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    min-inline-size: 2.5rem;
-    min-block-size: 2.5rem;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ccc;
-    background: #fff;
-    color: inherit;
-    text-decoration: none;
+    gap: 0.875rem;
+    min-inline-size: 0;
   }
 
-  .c-post-test-icon {
+  .c-post-test-meta-author {
     display: inline-flex;
-    inline-size: 0.875rem;
-    block-size: 0.875rem;
     align-items: center;
     justify-content: center;
+    inline-size: 3rem;
+    block-size: 3rem;
     border-radius: 50%;
-    background: currentColor;
-    opacity: 0.25;
+    background: #ddd;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex: 0 0 auto;
   }
 
-  .c-post-test-cover-shell {
-    inline-size: min(100%, 72rem);
-    margin-inline: auto;
+  .c-post-test-meta-body {
+    display: grid;
+    gap: 0.25rem;
+    min-inline-size: 0;
   }
 
-  .c-post-test-image {
+  .c-post-test-meta-line {
+    margin: 0;
+    color: #333;
+    font-size: 0.95rem;
+  }
+
+  .c-post-test-share-demo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .c-post-test-share-label {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .c-post-test-share-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    background: #f4f4f4;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .c-post-test-cover-image {
     display: block;
     inline-size: 100%;
     block-size: auto;
@@ -147,554 +150,306 @@ robots: noindex
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the post classes defined in
-    the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the post classes defined in the <strong>5-components</strong> Sass layer.
   </p>
 
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Post Shell with Cover Image -->
+  <!-- Cover Media Block -->
   <!-- ============================================================= -->
 
-  <h2>Post shell with cover image</h2>
+  <h2>Cover media block</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    The cover image should sit above the article with its own component-level
-    spacing. The post shell below it should avoid adding duplicate top padding,
-    so the handoff between cover and article feels intentional rather than too
-    tall.
+    The cover wrapper should create top and bottom spacing around the media. The media box should clip overflow, apply
+    the raised-surface background, and round the corners. The image should fill the available width and crop with
+    <code>object-fit: cover</code> when needed.
   </p>
 
   <div class="c-post-test-frame">
-    <div class="c-post-test-cover-shell">
-      <div class="c-post-cover">
-        <div class="c-post-cover__media">
-          <img
-            class="c-post-cover__image"
-            src="{{ '/images/posts/25.png' | relative_url }}"
-            alt="Test cover image for post component"
-          >
+    <div class="c-post-cover">
+      <div class="c-post-cover__media">
+        <img
+          class="c-post-cover__image"
+          src="{{ '/images/posts/25.png' | relative_url }}"
+          alt="Test post cover image"
+        >
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Post Shell Width and Spacing -->
+  <!-- ============================================================= -->
+
+  <h2>Post shell width and spacing</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The post shell should remain centered and limited to a readable line length, rather than stretching full-width
+    across the page.
+  </p>
+
+  <div class="c-post-test-frame">
+    <article class="c-post">
+      <div class="c-post-test-fill">
+        <p class="c-post-test-note">
+          This inner box should appear constrained by the
+          <code>.c-post</code> max-width and centered alignment.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Title and Subtitle -->
+  <!-- ============================================================= -->
+
+  <h2>Title and subtitle</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The title should use the display typography scale with balanced wrapping. The subtitle should appear below it with a
+    softer muted color and a readable measure.
+  </p>
+
+  <div class="c-post-test-frame">
+    <article class="c-post">
+      <header class="c-post__header">
+        <h1 class="c-post__title">Designing a Cleaner Jekyll Portfolio with Reusable Components</h1>
+
+        <p class="c-post__subtitle">
+          A practical exploration of how to structure long-form content shells, supporting metadata, and reusable share
+          actions without mixing layout concerns across layers.
+        </p>
+      </header>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tag Group -->
+  <!-- ============================================================= -->
+
+  <h2>Tag group</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Tags should render as a wrapping inline group with consistent spacing, pill-like shape, bold display text, and
+    hover/focus interaction.
+  </p>
+
+  <div class="c-post-test-frame">
+    <article class="c-post">
+      <header class="c-post__header">
+        <div class="c-post__tags">
+          <a class="c-post__tag" href="#">jekyll</a>
+          <a class="c-post__tag" href="#">scss</a>
+          <a class="c-post__tag" href="#">portfolio</a>
+          <a class="c-post__tag" href="#">design systems</a>
+          <a class="c-post__tag" href="#">accessibility</a>
         </div>
-      </div>
-    </div>
-
-    <div class="o-container">
-      <div class="o-grid">
-        <article class="o-grid__item o-grid__item--span-12 c-post">
-          <header class="c-post__header">
-            <div class="c-post__tags">
-              <a class="c-post__tag" href="#">Research</a>
-              <a class="c-post__tag" href="#">Design Systems</a>
-              <a class="c-post__tag" href="#">Case Study</a>
-            </div>
-
-            <h1 class="c-post__title">
-              Building a readable, resilient long-form article layout for a
-              research portfolio
-            </h1>
-
-            <p class="c-post__subtitle">
-              This variation verifies title hierarchy, subtitle readability,
-              metadata spacing, and the cover-to-article spacing handoff.
-            </p>
-
-            <div class="c-post__meta">
-              <div class="c-post__meta-main">
-                <div class="c-post__author-image">
-                  <img
-                    class="c-post__author-avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
-                    alt="Example Author"
-                  >
-                </div>
-
-                <div class="c-post__meta-details">
-                  <div class="c-post__author">Example Author</div>
-
-                  <div class="c-post__meta-inline">
-                    <div class="c-post__meta-date">
-                      <time class="c-post__date" datetime="2026-03-26">
-                        March 26, 2026
-                      </time>
-                    </div>
-
-                    <span class="c-post__meta-separator">•</span>
-
-                    <div class="c-post__reading-time">
-                      <span class="c-post__meta-icon" aria-hidden="true">
-                        <span class="c-post-test-icon"></span>
-                      </span>
-
-                      <span>8 min read</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="c-post__meta-actions">
-                <div class="c-post__share">
-                  <div class="c-post-share" aria-label="Share this post">
-                    <div class="c-post-share__head">
-                      <h4 class="c-post-share__title">Share this post</h4>
-                    </div>
-
-                    <ul class="c-post-share__list u-list-reset">
-                      <li class="c-post-share__item">
-                        <a class="c-post-test-share-button" href="#" aria-label="Share to X">X</a>
-                      </li>
-                      <li class="c-post-share__item">
-                        <a class="c-post-test-share-button" href="#" aria-label="Share to LinkedIn">in</a>
-                      </li>
-                      <li class="c-post-share__item">
-                        <button class="c-post-test-share-button" type="button" aria-label="Copy link">⧉</button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
-
-          <div class="c-post__content">
-            <p>
-              This compact content block exists only to confirm that the full
-              post shell feels visually stable when a cover image precedes the
-              article container.
-            </p>
-          </div>
-        </article>
-      </div>
-    </div>
+      </header>
+    </article>
   </div>
 
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Post Shell Without Subtitle -->
+  <!-- Header Row with Metadata and Share Actions -->
   <!-- ============================================================= -->
 
-  <h2>Post shell without subtitle</h2>
+  <h2>Header row with metadata and share actions</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    When the subtitle is omitted, the metadata row should sit slightly closer
-    to the title because the component applies a small tightening rule between
-    <code>.c-post__title</code> and <code>.c-post__meta</code>.
+    The header row should place metadata on the left and share actions on the right, keep both aligned vertically, allow
+    wrapping when needed, and render a bottom border below the row.
   </p>
 
   <div class="c-post-test-frame">
-    <div class="o-container">
-      <div class="o-grid">
-        <article class="o-grid__item o-grid__item--span-12 c-post">
-          <header class="c-post__header">
-            <h1 class="c-post__title">
-              A post title without subtitle content should still feel compact
-            </h1>
+    <article class="c-post">
+      <header class="c-post__header">
+        <h1 class="c-post__title">A Post Header with Shared Metadata and Share Controls</h1>
 
-            <div class="c-post__meta">
-              <div class="c-post__meta-main">
-                <div class="c-post__author-image">
-                  <img
-                    class="c-post__author-avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
-                    alt="Compact Layout Author"
-                  >
-                </div>
+        <p class="c-post__subtitle">
+          This example verifies the contextual placement rules owned by the post shell rather than the internal styles
+          of the shared subcomponents.
+        </p>
 
-                <div class="c-post__meta-details">
-                  <div class="c-post__author">Compact Layout Author</div>
+        <div class="c-post__header-row">
+          <div class="c-post__header-meta">
+            <div class="c-post-meta c-post-test-meta-demo">
+              <div class="c-post-meta__author c-post-test-meta-author">AV</div>
 
-                  <div class="c-post__meta-inline">
-                    <div class="c-post__meta-date">
-                      <time class="c-post__date" datetime="2026-03-26">
-                        March 26, 2026
-                      </time>
-                    </div>
-
-                    <span class="c-post__meta-separator">•</span>
-
-                    <div class="c-post__reading-time">
-                      <span class="c-post__meta-icon" aria-hidden="true">
-                        <span class="c-post-test-icon"></span>
-                      </span>
-
-                      <span>4 min read</span>
-                    </div>
-                  </div>
-                </div>
+              <div class="c-post-test-meta-body">
+                <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
+                <p class="c-post-test-meta-line">March 30, 2026 · 8 min read</p>
               </div>
+            </div>
+          </div>
 
-              <div class="c-post__meta-actions">
-                <div class="c-post__share">
-                  <div class="c-post-share" aria-label="Share this post">
-                    <div class="c-post-share__head">
-                      <h4 class="c-post-share__title">Share this post</h4>
-                    </div>
+          <div class="c-post__header-actions">
+            <div class="c-post__share">
+              <div class="c-post-share">
+                <div class="c-post-share__head">
+                  <p class="c-post-share__title c-post-test-share-label">Share this post</p>
+                </div>
 
-                    <ul class="c-post-share__list u-list-reset">
-                      <li class="c-post-share__item">
-                        <a class="c-post-test-share-button" href="#" aria-label="Email post">@</a>
-                      </li>
-                    </ul>
-                  </div>
+                <div class="c-post-share__list">
+                  <span class="c-post-share__link c-post-test-share-icon">X</span>
+                  <span class="c-post-share__link c-post-test-share-icon">in</span>
+                  <span class="c-post-share__link c-post-test-share-icon">@</span>
+                  <span class="c-post-share__link c-post-test-share-icon">⤴</span>
                 </div>
               </div>
             </div>
-          </header>
-        </article>
-      </div>
-    </div>
+          </div>
+        </div>
+      </header>
+    </article>
   </div>
 
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Tags Wrapping Behavior -->
+  <!-- Title-to-Header-row Spacing Without Subtitle -->
   <!-- ============================================================= -->
 
-  <h2>Tags wrapping behavior</h2>
+  <h2>Title-to-header-row spacing without subtitle</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    Tags should render as clear pill-like links, keep consistent internal
-    padding, and wrap onto new lines cleanly in constrained widths without
-    colliding or stretching awkwardly.
+    When the subtitle is absent, the header row should sit slightly closer to the title because
+    <code>.c-post__title + .c-post__header-row</code> applies tighter spacing.
+  </p>
+
+  <div class="c-post-test-frame">
+    <article class="c-post">
+      <header class="c-post__header">
+        <h1 class="c-post__title">Post Title Without a Subtitle</h1>
+
+        <div class="c-post__header-row">
+          <div class="c-post__header-meta">
+            <div class="c-post-meta c-post-test-meta-demo">
+              <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+
+              <div class="c-post-test-meta-body">
+                <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
+                <p class="c-post-test-meta-line">March 30, 2026 · 5 min read</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="c-post__header-actions">
+            <div class="c-post__share">
+              <div class="c-post-share">
+                <div class="c-post-share__list">
+                  <span class="c-post-share__link c-post-test-share-icon">X</span>
+                  <span class="c-post-share__link c-post-test-share-icon">in</span>
+                  <span class="c-post-share__link c-post-test-share-icon">@</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Long-title Balancing Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Long-title balancing behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    A long heading should wrap in a more balanced way rather than leaving an awkward final line with only one or two
+    short words.
+  </p>
+
+  <div class="c-post-test-frame">
+    <article class="c-post c-post-test-box--narrow">
+      <header class="c-post__header">
+        <h1 class="c-post__title">
+          Building a Maintainable and Readable Long-Form Article Component for a Small Jekyll Portfolio Website
+        </h1>
+
+        <p class="c-post__subtitle">
+          Narrow this example further by resizing the browser to observe title wrapping and subtitle readability.
+        </p>
+      </header>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Responsive Header-row Stacking -->
+  <!-- ============================================================= -->
+
+  <h2>Responsive header-row stacking</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    At smaller widths, the header row should shift from a side-by-side layout to a stacked layout. Metadata should take
+    the full row, share actions should move below it, and share content should align to the left.
   </p>
 
   <div class="c-post-test-frame">
     <div class="c-post-test-box c-post-test-box--narrow">
-      <div class="c-post__tags">
-        <a class="c-post__tag" href="#">Long-form Writing</a>
-        <a class="c-post__tag" href="#">Human Computer Interaction</a>
-        <a class="c-post__tag" href="#">Methods</a>
-        <a class="c-post__tag" href="#">Qualitative Analysis</a>
-        <a class="c-post__tag" href="#">Interface Design</a>
-      </div>
+      <article class="c-post">
+        <header class="c-post__header">
+          <h1 class="c-post__title">Responsive Header Row Example</h1>
+
+          <p class="c-post__subtitle">Resize this narrow example to confirm the mobile stacking behavior.</p>
+
+          <div class="c-post__header-row">
+            <div class="c-post__header-meta">
+              <div class="c-post-meta c-post-test-meta-demo">
+                <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+
+                <div class="c-post-test-meta-body">
+                  <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
+                  <p class="c-post-test-meta-line">March 30, 2026 · 11 min read</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="c-post__header-actions">
+              <div class="c-post__share">
+                <div class="c-post-share">
+                  <div class="c-post-share__head">
+                    <p class="c-post-share__title c-post-test-share-label">Share</p>
+                  </div>
+
+                  <div class="c-post-share__list">
+                    <span class="c-post-share__link c-post-test-share-icon">X</span>
+                    <span class="c-post-share__link c-post-test-share-icon">in</span>
+                    <span class="c-post-share__link c-post-test-share-icon">@</span>
+                    <span class="c-post-share__link c-post-test-share-icon">⤴</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+      </article>
     </div>
 
     <p class="c-post-test-note">
-      Reduce the viewport width to confirm that the tags wrap rather than
-      overflow.
+      Resize the browser width to verify that the metadata and share zones stack correctly below the small-screen
+      breakpoint.
     </p>
   </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Metadata with Long Author Content -->
-  <!-- ============================================================= -->
-
-  <h2>Metadata with long author content</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The author line should remain on a single line and gracefully truncate with
-    an ellipsis when the available inline space becomes tight. The date and
-    reading-time row should wrap when needed without breaking the overall meta
-    block.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--narrow">
-      <div class="c-post__meta">
-        <div class="c-post__meta-main">
-          <div class="c-post__author-image">
-            <img
-              class="c-post__author-avatar"
-              src="{{ '/images/avatar.jpg' | relative_url }}"
-              alt="Dr. Alexandria Example-Surname"
-            >
-          </div>
-
-          <div class="c-post__meta-details">
-            <div class="c-post__author">
-              Dr. Alexandria Example-Surname for the Centre for Interdisciplinary
-              Research and Public Writing
-            </div>
-
-            <div class="c-post__meta-inline">
-              <div class="c-post__meta-date">
-                <time class="c-post__date" datetime="2026-03-26">
-                  March 26, 2026
-                </time>
-              </div>
-
-              <span class="c-post__meta-separator">•</span>
-
-              <div class="c-post__reading-time">
-                <span class="c-post__meta-icon" aria-hidden="true">
-                  <span class="c-post-test-icon"></span>
-                </span>
-
-                <span>17 min read</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Share Alignment Inside Metadata -->
-  <!-- ============================================================= -->
-
-  <h2>Share alignment inside metadata</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The shared post-share markup should align naturally inside
-    <code>.c-post__meta-actions</code>. On wider screens the share cluster
-    should sit at the end of the metadata row; on narrow screens it should fall
-    below the author/date block and remain left-aligned.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box">
-      <div class="c-post__meta">
-        <div class="c-post__meta-main">
-          <div class="c-post__author-image">
-            <img
-              class="c-post__author-avatar"
-              src="{{ '/images/avatar.jpg' | relative_url }}"
-              alt="Share Alignment Author"
-            >
-          </div>
-
-          <div class="c-post__meta-details">
-            <div class="c-post__author">Share Alignment Author</div>
-
-            <div class="c-post__meta-inline">
-              <div class="c-post__meta-date">
-                <time class="c-post__date" datetime="2026-03-26">
-                  March 26, 2026
-                </time>
-              </div>
-
-              <span class="c-post__meta-separator">•</span>
-
-              <div class="c-post__reading-time">
-                <span class="c-post__meta-icon" aria-hidden="true">
-                  <span class="c-post-test-icon"></span>
-                </span>
-
-                <span>6 min read</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="c-post__meta-actions">
-          <div class="c-post__share">
-            <div class="c-post-share" aria-label="Share this post">
-              <div class="c-post-share__head">
-                <h4 class="c-post-share__title">Share this post</h4>
-              </div>
-
-              <ul class="c-post-share__list u-list-reset">
-                <li class="c-post-share__item">
-                  <a class="c-post-test-share-button" href="#" aria-label="Share to X">X</a>
-                </li>
-                <li class="c-post-share__item">
-                  <a class="c-post-test-share-button" href="#" aria-label="Share to LinkedIn">in</a>
-                </li>
-                <li class="c-post-share__item">
-                  <a class="c-post-test-share-button" href="#" aria-label="Share by email">@</a>
-                </li>
-                <li class="c-post-share__item">
-                  <button class="c-post-test-share-button" type="button" aria-label="Print post">⎙</button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p class="c-post-test-note">
-      Resize the browser window to verify the row-to-stack transition in the
-      metadata area.
-    </p>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Long-form Content Typography -->
-  <!-- ============================================================= -->
-
-  <h2>Long-form content typography</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The content column should maintain a readable text measure, style headings
-    distinctly, and apply the same long-form font sizing to paragraphs, list
-    items, blockquotes, and table cells.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--content">
-      <div class="c-post__content">
-        <p>
-          This opening paragraph should begin flush at the top of the content
-          region without an extra top margin. It also verifies the default text
-          color and reading measure used inside <code>.c-post__content</code>.
-        </p>
-
-        <h2>Section heading level two</h2>
-
-        <p>
-          Links inside the content region should appear with a subtle underline
-          treatment driven by a bottom border, like
-          <a href="#">this inline example link</a>. Hover and focus states
-          should remain visible without feeling overly decorative.
-        </p>
-
-        <blockquote>
-          <p>
-            This blockquote should inherit the long-form text sizing and sit
-            comfortably within the article measure.
-          </p>
-        </blockquote>
-
-        <h3>List and table content</h3>
-
-        <ul>
-          <li>List items should match the long-form paragraph sizing.</li>
-          <li>Wrapped list content should remain easy to scan and read.</li>
-          <li>Spacing should feel editorial rather than cramped.</li>
-        </ul>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Element</th>
-              <th>Behavior under test</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Paragraphs</td>
-              <td>Readable measure, comfortable line height, stable rhythm</td>
-            </tr>
-            <tr>
-              <td>Table cells</td>
-              <td>Shared long-form font sizing inside the content scope</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Rich Media and Code Treatment -->
-  <!-- ============================================================= -->
-
-  <h2>Rich media and code treatment</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Figures should align to the content column, captions should appear smaller
-    and muted, embedded media wrappers should clip overflow cleanly, and code
-    blocks should scroll horizontally instead of breaking the layout.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--media">
-      <div class="c-post__content">
-        <figure>
-          <img
-            class="c-post-test-image"
-            src="{{ '/images/posts/11.jpg' | relative_url }}"
-            alt="Figure example for post content testing"
-          >
-          <figcaption>
-            Figure captions should sit close to the media and appear visually
-            secondary to the body copy.
-          </figcaption>
-        </figure>
-
-        <div class="js-reframe c-post-test-fill">
-          Embedded media wrappers should clip overflow cleanly.
-        </div>
-
-        <pre><code>const article = {
-  title: "Post component test",
-  purpose: "Verify readable long-form styles",
-  checks: ["measure", "links", "captions", "overflow"]
-};</code></pre>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Content Edge-spacing Reset -->
-  <!-- ============================================================= -->
-
-  <h2>Content edge-spacing reset</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The first direct child in the content region should not carry extra top
-    margin, and the last direct child should not leave extra bottom margin
-    below the article body.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--narrow">
-      <div class="c-post__content">
-        <p>
-          This first paragraph should start flush with the top edge of the test
-          box rather than hanging downward with inherited top spacing.
-        </p>
-
-        <p>
-          The final paragraph below should end cleanly at the bottom of the
-          content block.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Small-screen Title Stress Test -->
-  <!-- ============================================================= -->
-
-  <h2>Small-screen title stress test</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The title should wrap naturally across multiple lines and remain readable
-    on smaller screens, where the component switches to a friendlier text-wrap
-    behavior.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--narrow">
-      <h1 class="c-post__title">
-        Designing a clean, readable, annotation-friendly article view for long,
-        research-heavy posts with resilient metadata and responsive content
-        blocks
-      </h1>
-    </div>
-  </div>
-
-  <p>
-    <em>
-      Tip: Resize the browser window to verify cover spacing, title wrapping,
-      tag flow, metadata alignment, share placement, content measure, caption
-      styling, and code overflow behavior across breakpoints.
-    </em>
-  </p>
 </section>

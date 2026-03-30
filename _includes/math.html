@@ -43,9 +43,9 @@
   - If you later switch to KaTeX, this is the file to replace
 {% endcomment %}
 
-<!-- math.html -->
-{% if page.math %}
 
+{% if page.math %}
+  <!-- math.html -->
   <!-- MathJax configuration -->
   <script>
     window.MathJax = {
@@ -70,5 +70,5 @@
     async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
+  <!-- End of math.html -->
 {% endif %}
-<!-- End of math.html -->

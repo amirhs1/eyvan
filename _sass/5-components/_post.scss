@@ -12,18 +12,11 @@
 //   - .c-post__subtitle
 //   - .c-post__tags
 //   - .c-post__tag
-//   - .c-post__meta
-//     - .c-post__meta-main
-//     - .c-post__meta-details
-//     - .c-post__meta-inline
-//     - .c-post__meta-date
-//     - .c-post__meta-separator
-//     - .c-post__meta-actions
-//   - .c-post__author-image
-//   - .c-post__author-avatar
-//   - .c-post__author
-//   - .c-post__reading-time
-//   - .c-post__meta-icon
+//   - .c-post__header-row
+//     - .c-post__header-meta
+//       - shared .c-post-meta component
+//     - .c-post__header-actions
+//       - shared .c-post-share component
 //   - .c-post__share
 //   - .c-post__content
 // - .c-post-cover
@@ -34,8 +27,9 @@
 // - Component styling only
 // - Page/grid/container layout belongs to layout and object layers
 // - Long-form typography is scoped to .c-post__content
-// - Share control visuals remain owned by _post-share.scss; this file only
-//   aligns the share component within the post metadata row
+// - Shared author/date/read-time styling is delegated to _post-meta.scss
+// - Share control visuals remain owned by _post-share.scss
+// - This file owns only post-shell layout and contextual component placement
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
@@ -54,19 +48,20 @@ $post-max-width: 52rem;
 $post-content-inline-size: settings-config.$measure-text;
 
 $post-page-offset-top: tools-spacing.$fluid-stack-md;
-$post-cover-gap: tools-spacing.$fluid-section-sm;
+$post-cover-gap: tools-spacing.$fluid-stack-md;
 $post-header-gap: tools-spacing.$fluid-stack-md;
-$post-header-gap-lg: tools-spacing.$fluid-stack-lg;
+$post-header-margin-block-end: tools-spacing.$fluid-stack-lg;
 
 $post-tag-gap: settings-spacing.$space-2;
 $post-tag-padding-block: settings-spacing.$space-2;
 $post-tag-padding-inline: settings-spacing.$space-3;
 
-$post-meta-gap: settings-spacing.$space-4;
-$post-meta-inline-gap: settings-spacing.$space-3;
-$post-meta-avatar-size: 3rem;
-$post-meta-avatar-size-sm: 2.75rem;
-$post-meta-icon-size: 0.875rem;
+$post-header-row-gap: settings-spacing.$space-4;
+$post-header-row-padding-block-end: tools-spacing.$fluid-stack-md;
+
+$post-header-meta-min-width: 28rem;
+$post-header-meta-avatar-size: 3rem;
+$post-header-meta-avatar-size-mobile: 2.75rem;
 
 $post-content-top-border-width: settings-config.$global-border-width;
 
@@ -82,6 +77,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 .c-post-cover__media {
   overflow: hidden;
   background-color: var(--color-ui-surface-raised);
+  border-radius: settings-config.$global-border-radius;
 }
 
 .c-post-cover__image {
@@ -102,8 +98,8 @@ $post-content-top-border-width: settings-config.$global-border-width;
   padding-block-start: $post-page-offset-top;
 }
 
-/* Avoid double top spacing when a cover image is present before the article */
-.c-post-cover + .o-container .c-post {
+/* Avoid double top spacing when a cover image is rendered above the article */
+.o-container + .o-container .c-post {
   padding-block-start: 0;
 }
 
@@ -111,11 +107,11 @@ $post-content-top-border-width: settings-config.$global-border-width;
   display: flex;
   flex-direction: column;
   gap: $post-header-gap;
-  margin-block-end: tools-spacing.$fluid-stack-lg;
+  margin-block-end: $post-header-margin-block-end;
 }
 
-/* When there is no subtitle, tighten title-to-meta spacing slightly */
-.c-post__title + .c-post__meta {
+/* Slightly tighten title-to-header-row spacing when subtitle is absent */
+.c-post__title + .c-post__header-row {
   margin-block-start: calc(-1 * settings-spacing.$space-2);
 }
 
@@ -137,6 +133,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
   min-block-size: 2rem;
   padding-block: $post-tag-padding-block;
   padding-inline: $post-tag-padding-inline;
+
   border: 1px solid transparent;
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-accent-primary);
@@ -198,169 +195,70 @@ $post-content-top-border-width: settings-config.$global-border-width;
   text-wrap: pretty;
 }
 
-
 /* -----------------------------------------------------------------------------
-   Meta block
+   Header row
+   Contextual layout for metadata and share actions
    ----------------------------------------------------------------------------- */
 
-.c-post__meta {
+.c-post__header-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   min-inline-size: 0;
-  gap: settings-spacing.$space-4;
-  padding-block-end: tools-spacing.$fluid-stack-md;
+  gap: $post-header-row-gap;
+  padding-block-end: $post-header-row-padding-block-end;
   border-block-end: $post-content-top-border-width solid var(--color-ui-border);
 }
 
-.c-post__meta-main {
-  display: flex;
-  align-items: center;
-  gap: $post-meta-gap;
-  flex: 1 1 28rem;
+.c-post__header-meta {
+  flex: 1 1 $post-header-meta-min-width;
   min-inline-size: 0;
 }
 
-.c-post__author-image {
-  flex: 0 0 auto;
-}
-
-.c-post__author-avatar {
-  display: block;
-  inline-size: $post-meta-avatar-size;
-  block-size: $post-meta-avatar-size;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: var(--color-ui-surface-raised);
-}
-
-.c-post__meta-details {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  min-inline-size: 0;
-  gap: settings-spacing.$space-1;
-}
-
-.c-post__author {
-  overflow: hidden;
-  margin: 0;
-  color: var(--color-text);
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-sm;
-  font-weight: settings-typography.$font-weight-bold;
-  line-height: settings-typography.$line-height-tight;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.c-post__meta-inline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: $post-meta-inline-gap;
-  min-inline-size: 0;
-  color: var(--color-text-muted);
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-xs;
-  font-weight: settings-typography.$font-weight-medium;
-  line-height: settings-typography.$line-height-tight;
-}
-
-.c-post__meta-date {
-  display: inline-flex;
-  align-items: center;
-  min-inline-size: 0;
-}
-
-.c-post__date {
-  color: inherit;
-  white-space: nowrap;
-}
-
-.c-post__meta-separator {
-  color: var(--color-text-muted);
-  user-select: none;
-  white-space: nowrap;
-}
-
-.c-post__reading-time {
-  display: inline-flex;
-  align-items: center;
-  gap: settings-spacing.$space-1;
-  flex: 0 0 auto;
-  min-inline-size: 0;
-  white-space: nowrap;
-}
-
-.c-post__meta-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  inline-size: $post-meta-icon-size;
-  block-size: $post-meta-icon-size;
-  min-inline-size: $post-meta-icon-size;
-  min-block-size: $post-meta-icon-size;
-  color: currentColor;
-  line-height: 1;
-
-  svg {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-    fill: currentColor;
-    stroke: currentColor;
-  }
-}
-
-.c-post__meta-actions {
+.c-post__header-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   min-inline-size: 0;
   margin-inline-start: auto;
 }
 
-.c-post__share {
-  inline-size: auto;
-  min-inline-size: 0;
-}
+/* -----------------------------------------------------------------------------
+   Shared post-meta integration
+   Contextual sizing only; internal layout belongs to _post-meta.scss
+   ----------------------------------------------------------------------------- */
 
+.c-post__header-meta .c-post-meta__author {
+  inline-size: $post-header-meta-avatar-size;
+  block-size: $post-header-meta-avatar-size;
+}
 
 /* -----------------------------------------------------------------------------
    Share integration
-   Contextual layout for the shared post-share component inside post meta
+   Contextual layout only; visuals belong to _post-share.scss
    ----------------------------------------------------------------------------- */
+
+.c-post__share {
+  min-inline-size: 0;
+}
 
 .c-post__share .c-post-share {
   display: flex;
-  flex-wrap: unwrap;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: settings-spacing.$space-3;
-  margin-block: 0;
+  margin: 0;
 }
 
 .c-post__share .c-post-share__head {
-  display: flex;
-  align-items: center;
-  margin-block-end: 0;
+  margin: 0;
 }
 
 .c-post__share .c-post-share__title {
-  display: flex;
-  align-items: center;
   margin: 0;
-  color: var(--color-text-muted);
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-xs;
-  font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
-  letter-spacing: settings-typography.$letter-spacing-loose-md;
-  text-align: left;
-  text-transform: uppercase;
 }
 
 .c-post__share .c-post-share__list {
@@ -375,24 +273,26 @@ $post-content-top-border-width: settings-config.$global-border-width;
    ----------------------------------------------------------------------------- */
 
 @media (max-width: settings-breakpoints.$bp-sm) {
-  .c-post__meta {
+  .c-post__header-row {
     align-items: flex-start;
   }
 
-  .c-post__meta-main {
+  .c-post__header-meta {
     flex: 1 1 100%;
   }
 
-  .c-post__meta-actions {
+  .c-post__header-actions {
+    justify-content: flex-start;
+    flex: 1 1 100%;
     margin-inline-start: 0;
   }
 
-  .c-post__author-avatar {
-    inline-size: $post-meta-avatar-size-sm;
-    block-size: $post-meta-avatar-size-sm;
+  .c-post__header-meta .c-post-meta__author {
+    inline-size: $post-header-meta-avatar-size-mobile;
+    block-size: $post-header-meta-avatar-size-mobile;
   }
 
-  .c-post__meta-inline {
-    gap: settings-spacing.$space-2;
+  .c-post__share .c-post-share {
+    justify-content: flex-start;
   }
 }

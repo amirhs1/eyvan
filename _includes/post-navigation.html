@@ -44,8 +44,8 @@
 
 {% assign has_previous_post = page.previous.url %}
 {% assign has_next_post = page.next.url %}
-<!-- post-navigation.html -->
 {% if has_previous_post or has_next_post %}
+  <!-- post-navigation.html -->
   <nav class="c-post-nav animate" aria-label="Post navigation">
     {% if has_previous_post %}
       <!-- Previous post link -->
@@ -103,5 +103,5 @@
       </a>
     {% endif %}
   </nav>
+  <!-- End of post-navigation.html -->
 {% endif %}
-<!-- End of post-navigation.html -->

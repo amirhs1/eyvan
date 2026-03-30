@@ -19,20 +19,13 @@
 //   - .c-post-card__title-link
 //   - .c-post-card__excerpt
 //   - .c-post-card__meta
-//   - .c-post-card__author
-//   - .c-post-card__avatar
-//   - .c-post-card__meta-text
-//   - .c-post-card__author-name
-//   - .c-post-card__meta-secondary
-//   - .c-post-card__date
-//   - .c-post-card__read-time
-//   - .c-post-card__icon
+//     - shared .c-post-meta component
 //
 // Scope & Rules:
 // - Component styling only
-// - Grid placement belongs to objects/layouts
-// - Supports cards with or without image
-// - Supports cards with or without tags
+// - Grid placement belongs to layout/object layers
+// - Shared author/date/read-time styling is delegated to _post-meta.scss
+// - This file owns the card shell, spacing, media, and metadata wrapper only
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
@@ -46,23 +39,17 @@
    Local component tokens
    ----------------------------------------------------------------------------- */
 
-$post-card-content-padding: settings-spacing.$space-5;
-$post-card-content-padding-mobile: settings-spacing.$space-4;
-
-$post-card-title-margin-block: settings-spacing.$space-4;
-$post-card-excerpt-margin-block-end: settings-spacing.$space-5;
+$post-card-content-padding: settings-spacing.$space-3;
+$post-card-content-padding-mobile: settings-spacing.$space-3;
 
 $post-card-tag-gap: settings-spacing.$space-2;
 $post-card-tag-padding-block: settings-spacing.$space-2;
 $post-card-tag-padding-inline: settings-spacing.$space-3;
 
-$post-card-avatar-size: 2.75rem;
-$post-card-avatar-size-mobile: 2.5rem;
+$post-card-title-margin-block-end: settings-spacing.$space-3;
+$post-card-excerpt-margin-block-end: settings-spacing.$space-4;
 
-$post-card-meta-gap: settings-spacing.$space-3;
-$post-card-meta-secondary-gap: settings-spacing.$space-3;
-
-$post-card-icon-size: 0.875rem;
+$post-card-meta-padding-block-start: settings-spacing.$space-3;
 
 /* -----------------------------------------------------------------------------
    Root
@@ -70,6 +57,7 @@ $post-card-icon-size: 0.875rem;
 
 .c-post-card {
   display: block;
+  block-size: 100%;
 }
 
 .c-post-card__inner {
@@ -119,6 +107,7 @@ $post-card-icon-size: 0.875rem;
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
+  object-position: center;
 
   @include tools-motion.transition-transform;
 }
@@ -191,12 +180,13 @@ $post-card-icon-size: 0.875rem;
 }
 
 /* -----------------------------------------------------------------------------
-   Title + excerpt
+   Title
    ----------------------------------------------------------------------------- */
 
 .c-post-card__title {
-  margin: 0 0 $post-card-title-margin-block;
+  margin: 0 0 $post-card-title-margin-block-end;
 
+  color: var(--color-heading);
   font-family: settings-typography.$font-family-display;
   font-size: clamp(
     settings-typography.$font-size-xl,
@@ -209,13 +199,13 @@ $post-card-icon-size: 0.875rem;
 }
 
 .c-post-card__title-link {
-  color: var(--color-heading);
+  color: inherit;
   text-decoration: none;
 
   @include tools-motion.transition-interaction;
 
   &:visited {
-    color: var(--color-heading);
+    color: inherit;
   }
 
   &:hover {
@@ -228,6 +218,10 @@ $post-card-icon-size: 0.875rem;
     border-radius: 0.125rem;
   }
 }
+
+/* -----------------------------------------------------------------------------
+   Excerpt
+   ----------------------------------------------------------------------------- */
 
 .c-post-card__excerpt {
   display: -webkit-box;
@@ -244,124 +238,22 @@ $post-card-icon-size: 0.875rem;
 }
 
 /* -----------------------------------------------------------------------------
-   Meta
+   Metadata wrapper
    ----------------------------------------------------------------------------- */
 
 .c-post-card__meta {
-  display: flex;
-  align-items: center;
-  gap: $post-card-meta-gap;
   margin-block-start: auto;
   min-inline-size: 0;
-  padding-block-start: settings-spacing.$space-3;
+  padding-block-start: $post-card-meta-padding-block-start;
   border-block-start: 1px solid var(--color-ui-border);
-}
-
-.c-post-card__author {
-  flex: 0 0 auto;
-}
-
-.c-post-card__avatar {
-  display: block;
-  inline-size: $post-card-avatar-size;
-  block-size: $post-card-avatar-size;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: var(--color-ui-surface-raised);
-}
-
-.c-post-card__meta-text {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  min-inline-size: 0;
-  gap: settings-spacing.$space-1;
-}
-
-.c-post-card__author-name {
-  overflow: hidden;
-  color: var(--color-text);
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-sm;
-  font-weight: settings-typography.$font-weight-bold;
-  line-height: settings-typography.$line-height-tight;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.c-post-card__meta-secondary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: $post-card-meta-secondary-gap;
-
-  color: var(--color-text-muted);
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-xs;
-  font-weight: settings-typography.$font-weight-medium;
-  line-height: settings-typography.$line-height-tight;
-}
-
-.c-post-card__date {
-  color: inherit;
-  white-space: nowrap;
-}
-
-.c-post-card__read-time {
-  display: inline-flex;
-  align-items: center;
-  gap: settings-spacing.$space-1;
-  min-inline-size: 0;
-  white-space: nowrap;
-}
-
-.c-post-card__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  inline-size: $post-card-icon-size;
-  block-size: $post-card-icon-size;
-  color: currentColor;
-
-  svg {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-    fill: currentColor;
-    stroke: currentColor;
-  }
 }
 
 /* -----------------------------------------------------------------------------
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@media (max-width: settings-breakpoints.$bp-sm) {
   .c-post-card__content {
     padding: $post-card-content-padding-mobile;
-  }
-
-  .c-post-card__title {
-    margin-block-end: settings-spacing.$space-3;
-  }
-
-  .c-post-card__excerpt {
-    margin-block-end: settings-spacing.$space-4;
-  }
-}
-
-@media (max-width: settings-breakpoints.$bp-sm) {
-  .c-post-card__meta {
-    align-items: flex-start;
-  }
-
-  .c-post-card__avatar {
-    inline-size: $post-card-avatar-size-mobile;
-    block-size: $post-card-avatar-size-mobile;
-  }
-
-  .c-post-card__meta-secondary {
-    gap: settings-spacing.$space-2;
   }
 }

@@ -24,6 +24,8 @@
 {% assign words = content_source | strip_html | number_of_words %}
 
 {% if words > 0 %}
+  <!-- read-time.html -->
   {% assign read_time = words | divided_by: wpm | at_least: 1 %}
   {{ read_time }} min read
+  <!-- End of read-time.html -->
 {% endif %}

@@ -4,19 +4,21 @@ title: Component Post Card Test
 permalink: /tests/5-components/test-post-card/
 robots: noindex
 ---
-
 {% comment %}
   Component Post Card Test Page
   Purpose: Visually verify that the 5-components post-card system compiles
   and behaves correctly across the site.
 
   Structure:
-  - Full post card with image, tags, excerpt, and meta
-  - Post card without image
-  - Post card without tags
-  - Post card with long content values
-  - Multi-card grid behavior
-  - Focus and link interaction coverage
+  - Base post-card structure
+  - Card shell hover and focus-within behavior
+  - Media and image-link behavior
+  - Image zoom interaction
+  - Tags row wrapping behavior
+  - Title link interaction
+  - Excerpt clamping behavior
+  - Metadata wrapper alignment behavior
+  - Full-height card behavior in uneven rows
 
   Notes:
   - This page tests only the component responsibilities of:
@@ -32,18 +34,12 @@ robots: noindex
     - .c-post-card__title-link
     - .c-post-card__excerpt
     - .c-post-card__meta
-    - .c-post-card__author
-    - .c-post-card__avatar
-    - .c-post-card__meta-text
-    - .c-post-card__author-name
-    - .c-post-card__meta-secondary
-    - .c-post-card__date
-    - .c-post-card__read-time
-    - .c-post-card__icon
-  - Grid wrapper classes are included where useful because the real include
-    places the card inside the shared object grid.
+  - Grid placement is intentionally not tested here because layout and object
+    layers own card placement in archive grids.
+  - Shared metadata presentation below .c-post-card__meta is represented with
+    simple placeholder markup because detailed post-meta styling belongs to a
+    separate shared metadata responsibility.
   - Helper styles below are temporary and exist only for testing.
-  - Replace placeholder text or images if you want to test specific content edge cases.
   - This page is intended for development testing only.
 {% endcomment %}
 
@@ -57,33 +53,34 @@ robots: noindex
 
   .c-post-card-test-stack {
     display: grid;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .c-post-card-test-grid {
     display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-post-card-test-grid--two-up {
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  }
-
-  .c-post-card-test-grid--three-up {
+    gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   }
 
+  .c-post-card-test-grid--two-up {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .c-post-card-test-label {
-    margin: 0 0 0.75rem;
+    margin: 0;
     font-weight: 600;
   }
 
   .c-post-card-test-box {
-    inline-size: min(100%, 42rem);
+    inline-size: min(100%, 26rem);
+  }
+
+  .c-post-card-test-box--wide {
+    inline-size: min(100%, 34rem);
   }
 
   .c-post-card-test-box--narrow {
-    inline-size: min(100%, 22rem);
+    inline-size: min(100%, 18rem);
   }
 
   .c-post-card-test-note {
@@ -93,99 +90,99 @@ robots: noindex
   }
 
   .c-post-card-test-fill {
-    padding: 0.75rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
+    block-size: 100%;
+  }
+
+  .c-post-card-test-placeholder-image {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    min-block-size: 12rem;
+    object-fit: cover;
+    background: linear-gradient(135deg, #dfe7ff 0%, #c8f1ec 100%);
+  }
+
+  .c-post-card-test-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    align-items: center;
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .c-post-card-test-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .c-post-card-test-long-text {
+    max-inline-size: 60ch;
+  }
+
+  @media (max-width: 48rem) {
+    .c-post-card-test-grid--two-up {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the post card classes defined in
-    the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the post-card classes defined in the <strong>5-components</strong> Sass
+    layer.
   </p>
 
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Full Post Card -->
+  <!-- Base Post-card Structure -->
   <!-- ============================================================= -->
 
-  <h2>Full post card</h2>
+  <h2>Base post-card structure</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    This example exercises the complete component structure. The card should
-    render with media, tag links, title, excerpt, and the full meta row with
-    avatar, author name, publish date, and read-time content.
+    The card below should render as a full card unit with a bordered shell, clipped rounded corners, a media area on
+    top, padded content, tags, title, excerpt, and a metadata area separated by a top border.
   </p>
 
   <div class="c-post-card-test-frame">
     <div class="c-post-card-test-box">
       <article class="c-post-card">
         <div class="c-post-card__inner">
-
           <div class="c-post-card__media">
             <a class="c-post-card__image-link" href="#">
               <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/11.jpg' | relative_url }}"
-                alt="Example project cover image"
-                loading="lazy"
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23dfe7ff'/%3E%3Ccircle cx='930' cy='180' r='110' fill='%23c8f1ec'/%3E%3Crect x='110' y='420' width='980' height='170' rx='24' fill='%2396b4ff'/%3E%3Crect x='110' y='620' width='620' height='42' rx='21' fill='%23778ce6'/%3E%3C/svg%3E"
+                alt="Placeholder project cover"
               >
             </a>
           </div>
 
           <div class="c-post-card__content">
-
             <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">Research</a>
-              <a class="c-post-card__tag" href="#">Data Visualization</a>
-              <a class="c-post-card__tag" href="#">Case Study</a>
+              <a class="c-post-card__tag" href="#">research</a>
+              <a class="c-post-card__tag" href="#">data visualization</a>
             </div>
 
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Designing a Research Dashboard for Public Data Storytelling
-              </a>
-            </h2>
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Base post card example </a>
+            </h3>
 
             <p class="c-post-card__excerpt">
-              This example checks the default card composition with a realistic
-              title length, a short multi-line excerpt, and the complete meta
-              block underneath the main content area.
+              This example verifies the default shell, media region, padded content area, tags row, title, excerpt, and
+              the metadata wrapper at the bottom of the card.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-
-                <div class="c-post-card__meta-secondary">
-                  <time
-                    class="c-post-card__date"
-                    datetime="2026-03-23"
-                  >
-                    March 23, 2026
-                  </time>
-
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    6 min read
-                  </span>
-                </div>
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">March 30, 2026</span>
+                <span class="c-post-card-test-meta-item">5 min read</span>
               </div>
             </div>
-
           </div>
         </div>
       </article>
@@ -195,16 +192,169 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Post Card Without Image -->
+  <!-- Card Shell Hover and Focus-within Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Post card without image</h2>
+  <h2>Card shell hover and focus-within behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    When no media block is present, the card should still feel balanced and the
-    content area should become the primary visual entry point without leaving an
-    awkward empty gap above it.
+    When you hover the card, or tab into either the image link or the title link, the card shell should show the
+    interactive state: stronger emphasis, accent border color, and a slight upward lift.
+  </p>
+
+  <div class="c-post-card-test-frame">
+    <div class="c-post-card-test-box">
+      <article class="c-post-card">
+        <div class="c-post-card__inner">
+          <div class="c-post-card__media">
+            <a class="c-post-card__image-link" href="#">
+              <img
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23efe4ff'/%3E%3Crect x='100' y='100' width='1000' height='220' rx='28' fill='%23c8b6ff'/%3E%3Crect x='100' y='370' width='760' height='150' rx='20' fill='%23998ce8'/%3E%3Crect x='100' y='560' width='460' height='56' rx='28' fill='%236d63bf'/%3E%3C/svg%3E"
+                alt="Placeholder interactive cover"
+              >
+            </a>
+          </div>
+
+          <div class="c-post-card__content">
+            <div class="c-post-card__tags">
+              <a class="c-post-card__tag" href="#">interaction</a>
+            </div>
+
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Hover and keyboard focus test </a>
+            </h3>
+
+            <p class="c-post-card__excerpt">
+              Hover this card and also tab into its links to confirm that the same shell interaction applies on
+              <code>:hover</code> and <code>:focus-within</code>.
+            </p>
+
+            <div class="c-post-card__meta">
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Accessible interaction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="c-post-card-test-note">
+      Tip: use the keyboard Tab key to verify the <code>:focus-within</code>
+      card state, not only the mouse hover state.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Media and Image-link Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Media and image-link behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The media link should behave like a block-level clickable region with a stable <code>16 / 10</code> aspect ratio.
+    The image should fully cover that region without distortion.
+  </p>
+
+  <div class="c-post-card-test-frame">
+    <div class="c-post-card-test-box c-post-card-test-box--narrow">
+      <article class="c-post-card">
+        <div class="c-post-card__inner">
+          <div class="c-post-card__media">
+            <a class="c-post-card__image-link" href="#">
+              <img
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23d9f3ef'/%3E%3Crect x='120' y='120' width='960' height='510' rx='36' fill='%2383d1c4'/%3E%3Ccircle cx='320' cy='300' r='90' fill='%23f7fffd'/%3E%3Crect x='470' y='250' width='420' height='90' rx='18' fill='%2362b5a8'/%3E%3C/svg%3E"
+                alt="Placeholder image for aspect ratio test"
+              >
+            </a>
+          </div>
+
+          <div class="c-post-card__content">
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Media aspect ratio test </a>
+            </h3>
+
+            <p class="c-post-card__excerpt">
+              The image area should remain proportionally consistent even when the card becomes narrower.
+            </p>
+
+            <div class="c-post-card__meta">
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Aspect ratio check</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Image Zoom Interaction -->
+  <!-- ============================================================= -->
+
+  <h2>Image zoom interaction</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    On card hover or focus-within, the image should scale up slightly while staying clipped within the media region.
+  </p>
+
+  <div class="c-post-card-test-frame">
+    <div class="c-post-card-test-box">
+      <article class="c-post-card">
+        <div class="c-post-card__inner">
+          <div class="c-post-card__media">
+            <a class="c-post-card__image-link" href="#">
+              <img
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23ffe9d8'/%3E%3Crect x='90' y='120' width='1020' height='520' rx='28' fill='%23ffbf8a'/%3E%3Crect x='160' y='190' width='360' height='380' rx='18' fill='%23fff4ea'/%3E%3Crect x='580' y='220' width='360' height='70' rx='18' fill='%23db874c'/%3E%3Crect x='580' y='330' width='260' height='70' rx='18' fill='%23db874c'/%3E%3C/svg%3E"
+                alt="Placeholder image for zoom test"
+              >
+            </a>
+          </div>
+
+          <div class="c-post-card__content">
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Image zoom on interaction </a>
+            </h3>
+
+            <p class="c-post-card__excerpt">
+              Hover this card and watch the image, not just the shell. The image should enlarge subtly without
+              overflowing outside the rounded card.
+            </p>
+
+            <div class="c-post-card__meta">
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Transform check</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tags Row Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Tags row wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The tags area should render as a wrapping flex row with consistent spacing. Each tag should look like a pill-style
+    interactive element with hover and focus styling.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -212,49 +362,27 @@ robots: noindex
       <article class="c-post-card">
         <div class="c-post-card__inner">
           <div class="c-post-card__content">
-
             <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">Essay</a>
+              <a class="c-post-card__tag" href="#">machine learning</a>
+              <a class="c-post-card__tag" href="#">visual essay</a>
+              <a class="c-post-card__tag" href="#">field notes</a>
+              <a class="c-post-card__tag" href="#">long category</a>
             </div>
 
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Notes on Building a Simpler Personal Website
-              </a>
-            </h2>
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Tags wrapping example </a>
+            </h3>
 
             <p class="c-post-card__excerpt">
-              This state verifies that the post card still looks intentional
-              when the optional image section is omitted entirely.
+              Narrow the viewport or tab through the pills to confirm tag wrapping, hover treatment, and focus
+              visibility.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2026-02-18">
-                    February 18, 2026
-                  </time>
-
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    3 min read
-                  </span>
-                </div>
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Tag group check</span>
               </div>
             </div>
-
           </div>
         </div>
       </article>
@@ -264,160 +392,36 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Post Card Without Tags -->
+  <!-- Title Link Interaction -->
   <!-- ============================================================= -->
 
-  <h2>Post card without tags</h2>
+  <h2>Title link interaction</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    When the tags row is absent, the title should move up naturally and the
-    spacing above the headline should still feel consistent and deliberate.
+    The title link should inherit the title styling by default, switch to the link-hover color on hover, and show a
+    visible focus style on keyboard focus.
   </p>
 
   <div class="c-post-card-test-frame">
     <div class="c-post-card-test-box">
       <article class="c-post-card">
         <div class="c-post-card__inner">
-
-          <div class="c-post-card__media">
-            <a class="c-post-card__image-link" href="#">
-              <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/15.jpg' | relative_url }}"
-                alt="Example project image without tags"
-                loading="lazy"
-              >
-            </a>
-          </div>
-
           <div class="c-post-card__content">
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                A Single-topic Card Without Category Labels
-              </a>
-            </h2>
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Title link interaction example </a>
+            </h3>
 
             <p class="c-post-card__excerpt">
-              This state checks whether the vertical rhythm still works when
-              the optional tag group is not rendered above the title.
+              Hover the title itself and then tab directly to it to verify link color change and keyboard focus
+              treatment.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2026-01-12">
-                    January 12, 2026
-                  </time>
-
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    4 min read
-                  </span>
-                </div>
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Link state check</span>
               </div>
             </div>
-          </div>
-
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Long Content Stress Test -->
-  <!-- ============================================================= -->
-
-  <h2>Long content stress test</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    This example checks wrapping and overflow behavior. Long tag labels, a
-    longer title, and a longer excerpt should wrap cleanly without breaking the
-    card layout or causing collisions in the meta region.
-  </p>
-
-  <div class="c-post-card-test-frame">
-    <div class="c-post-card-test-box">
-      <article class="c-post-card">
-        <div class="c-post-card__inner">
-
-          <div class="c-post-card__media">
-            <a class="c-post-card__image-link" href="#">
-              <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/19.jpg' | relative_url }}"
-                alt="Long content example image"
-                loading="lazy"
-              >
-            </a>
-          </div>
-
-          <div class="c-post-card__content">
-
-            <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">Computational Social Science</a>
-              <a class="c-post-card__tag" href="#">Long-form Analysis</a>
-              <a class="c-post-card__tag" href="#">Interface Systems Research</a>
-            </div>
-
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Evaluating How a Content-heavy Card Component Handles Long Titles,
-                Dense Metadata, and Multi-line Descriptive Copy in Real Layouts
-              </a>
-            </h2>
-
-            <p class="c-post-card__excerpt">
-              Use this example to verify that your spacing, line-height, tag
-              wrapping, and content width rules still feel calm and readable
-              when the card receives more realistic editorial content instead of
-              short placeholder strings.
-            </p>
-
-            <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">
-                  John Doe with Collaborators
-                </div>
-
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2025-12-02">
-                    December 02, 2025
-                  </time>
-
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    11 min read
-                  </span>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </article>
@@ -427,327 +431,216 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Multi-card Grid Behavior -->
+  <!-- Excerpt Clamping Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Multi-card grid behavior</h2>
+  <h2>Excerpt clamping behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    When several cards appear together, they should feel visually consistent as
-    a group. This section is useful for checking repeated rhythm, equal spacing,
-    and how the card component behaves inside archive-style collections.
+    The excerpt should visually clamp to approximately three lines and hide overflow, preventing excessively long
+    summaries from stretching the card.
   </p>
 
   <div class="c-post-card-test-frame">
-    <div class="c-post-card-test-grid c-post-card-test-grid--three-up">
-
+    <div class="c-post-card-test-box c-post-card-test-box--narrow">
       <article class="c-post-card">
         <div class="c-post-card__inner">
-          <div class="c-post-card__media">
-            <a class="c-post-card__image-link" href="#">
-              <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/20.jpg' | relative_url }}"
-                alt="Archive example one"
-                loading="lazy"
-              >
-            </a>
-          </div>
-
           <div class="c-post-card__content">
-            <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">Writing</a>
-            </div>
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Long excerpt clamp example </a>
+            </h3>
 
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Archive Card One
-              </a>
-            </h2>
-
-            <p class="c-post-card__excerpt">
-              A short example card for repeated-grid testing.
+            <p class="c-post-card__excerpt c-post-card-test-long-text">
+              This intentionally overlong excerpt exists to confirm that the post-card summary text is line-clamped
+              rather than fully expanded. The card should remain compact and visually consistent even when the source
+              content contains a much longer abstract, summary, editorial note, or project description than the design
+              expects in its archive and related-post contexts.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2025-10-14">
-                    October 14, 2025
-                  </time>
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    2 min read
-                  </span>
-                </div>
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Clamp check</span>
               </div>
             </div>
           </div>
         </div>
       </article>
-
-      <article class="c-post-card">
-        <div class="c-post-card__inner">
-          <div class="c-post-card__content">
-            <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">UI</a>
-              <a class="c-post-card__tag" href="#">Jekyll</a>
-            </div>
-
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Archive Card Two Without Media
-              </a>
-            </h2>
-
-            <p class="c-post-card__excerpt">
-              This card omits the image to help compare mixed-content layouts in
-              the same listing grid.
-            </p>
-
-            <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2025-09-03">
-                    September 03, 2025
-                  </time>
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    5 min read
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="c-post-card">
-        <div class="c-post-card__inner">
-          <div class="c-post-card__media">
-            <a class="c-post-card__image-link" href="#">
-              <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/23.jpg' | relative_url }}"
-                alt="Archive example three"
-                loading="lazy"
-              >
-            </a>
-          </div>
-
-          <div class="c-post-card__content">
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Archive Card Three
-              </a>
-            </h2>
-
-            <p class="c-post-card__excerpt">
-              Another compact card for scanning repeated card alignment and spacing.
-            </p>
-
-            <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2025-08-11">
-                    August 11, 2025
-                  </time>
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    7 min read
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
     </div>
   </div>
 
   <hr>
 
-    <hr>
-
   <!-- ============================================================= -->
-  <!-- Post Card Without Avatar -->
+  <!-- Metadata Wrapper Alignment Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Post card without avatar</h2>
+  <h2>Metadata wrapper alignment behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    When the avatar image is omitted, the meta row should still align cleanly
-    and remain readable. The author and secondary metadata should not depend on
-    the avatar being present in order to preserve spacing or layout stability.
+    The metadata wrapper should stay pinned to the bottom of the content area because it uses automatic top margin. This
+    should keep the footer zone aligned even when cards have different title and excerpt lengths.
   </p>
 
   <div class="c-post-card-test-frame">
-    <div class="c-post-card-test-box">
+    <div class="c-post-card-test-grid c-post-card-test-grid--two-up">
+      <div class="c-post-card-test-fill">
+        <article class="c-post-card">
+          <div class="c-post-card__inner">
+            <div class="c-post-card__content">
+              <h3 class="c-post-card__title">
+                <a class="c-post-card__title-link" href="#"> Short content card </a>
+              </h3>
+
+              <p class="c-post-card__excerpt">Short excerpt.</p>
+
+              <div class="c-post-card__meta">
+                <div class="c-post-card-test-meta">
+                  <span class="c-post-card-test-meta-item">Meta row</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="c-post-card-test-fill">
+        <article class="c-post-card">
+          <div class="c-post-card__inner">
+            <div class="c-post-card__content">
+              <div class="c-post-card__tags">
+                <a class="c-post-card__tag" href="#">analysis</a>
+                <a class="c-post-card__tag" href="#">writing</a>
+              </div>
+
+              <h3 class="c-post-card__title">
+                <a class="c-post-card__title-link" href="#">
+                  Much longer title to create more vertical variation between cards
+                </a>
+              </h3>
+
+              <p class="c-post-card__excerpt">
+                This second card uses more content so you can compare the bottom alignment of the metadata wrapper
+                across cards of unequal content height within the same row.
+              </p>
+
+              <div class="c-post-card__meta">
+                <div class="c-post-card-test-meta">
+                  <span class="c-post-card-test-meta-item">Meta row</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Full-height Card Behavior in Uneven Rows -->
+  <!-- ============================================================= -->
+
+  <h2>Full-height card behavior in uneven rows</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Because <code>.c-post-card</code> and <code>.c-post-card__inner</code>
+    use full-height behavior, cards placed in equal-height grid tracks should stretch cleanly and keep their internal
+    structure intact.
+  </p>
+
+  <div class="c-post-card-test-frame">
+    <div class="c-post-card-test-grid">
       <article class="c-post-card">
         <div class="c-post-card__inner">
-
           <div class="c-post-card__media">
             <a class="c-post-card__image-link" href="#">
               <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/21.jpg' | relative_url }}"
-                alt="Example card without avatar"
-                loading="lazy"
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23e8efff'/%3E%3Crect x='140' y='140' width='920' height='460' rx='32' fill='%239ab3ff'/%3E%3C/svg%3E"
+                alt="Placeholder cover one"
               >
             </a>
           </div>
 
           <div class="c-post-card__content">
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Card one </a>
+            </h3>
 
-            <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">Profile UI</a>
-              <a class="c-post-card__tag" href="#">Fallback State</a>
-            </div>
-
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Testing the Post Card Meta Block Without an Author Avatar
-              </a>
-            </h2>
-
-            <p class="c-post-card__excerpt">
-              This state verifies that the author and reading metadata still
-              sit correctly when the optional avatar image is not rendered.
-            </p>
+            <p class="c-post-card__excerpt">Short content.</p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2026-03-10">
-                    March 10, 2026
-                  </time>
-
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    5 min read
-                  </span>
-                </div>
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Bottom aligned</span>
               </div>
             </div>
-
           </div>
         </div>
       </article>
-    </div>
-  </div>
-  
-  <!-- ============================================================= -->
-  <!-- Link and Focus Interaction -->
-  <!-- ============================================================= -->
 
-  <h2>Link and focus interaction</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Use keyboard tab navigation here. Tag links, the image link, and the title
-    link should all receive your intended focus treatment clearly and
-    consistently.
-  </p>
-
-  <div class="c-post-card-test-frame">
-    <div class="c-post-card-test-box">
       <article class="c-post-card">
         <div class="c-post-card__inner">
-
           <div class="c-post-card__media">
             <a class="c-post-card__image-link" href="#">
               <img
-                class="c-post-card__image"
-                src="{{ '/images/posts/25.png' | relative_url }}"
-                alt="Focus test image"
-                loading="lazy"
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23e6fbf7'/%3E%3Crect x='120' y='120' width='960' height='210' rx='24' fill='%2379d7c3'/%3E%3Crect x='120' y='380' width='680' height='230' rx='24' fill='%2355b59f'/%3E%3C/svg%3E"
+                alt="Placeholder cover two"
               >
             </a>
           </div>
 
           <div class="c-post-card__content">
             <div class="c-post-card__tags">
-              <a class="c-post-card__tag" href="#">Focus State</a>
-              <a class="c-post-card__tag" href="#">Accessibility</a>
+              <a class="c-post-card__tag" href="#">case study</a>
             </div>
 
-            <h2 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#">
-                Keyboard Navigation and Focus Ring Check
-              </a>
-            </h2>
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Card two with more content and one extra row of detail </a>
+            </h3>
 
             <p class="c-post-card__excerpt">
-              Tab through this card to confirm that all interactive elements are
-              discoverable and that focus styles are not clipped or obscured.
+              This card is intentionally taller in its content section so you can compare equal-height behavior across
+              neighboring cards.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card__author">
-                <img
-                  class="c-post-card__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
-                  alt="Author avatar"
-                >
-              </div>
-
-              <div class="c-post-card__meta-text">
-                <div class="c-post-card__author-name">John Doe</div>
-                <div class="c-post-card__meta-secondary">
-                  <time class="c-post-card__date" datetime="2026-03-01">
-                    March 01, 2026
-                  </time>
-                  <span class="c-post-card__read-time">
-                    <span class="c-post-card__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
-                    8 min read
-                  </span>
-                </div>
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">Bottom aligned</span>
               </div>
             </div>
           </div>
+        </div>
+      </article>
 
+      <article class="c-post-card">
+        <div class="c-post-card__inner">
+          <div class="c-post-card__content">
+            <div class="c-post-card__tags">
+              <a class="c-post-card__tag" href="#">notes</a>
+              <a class="c-post-card__tag" href="#">prototype</a>
+              <a class="c-post-card__tag" href="#">ux</a>
+            </div>
+
+            <h3 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#"> Card three without media </a>
+            </h3>
+
+            <p class="c-post-card__excerpt">
+              This variant confirms that the content stack still behaves sensibly when the media block is omitted from
+              the markup.
+            </p>
+
+            <div class="c-post-card__meta">
+              <div class="c-post-card-test-meta">
+                <span class="c-post-card-test-meta-item">No media variant</span>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     </div>
@@ -755,9 +648,8 @@ robots: noindex
 
   <p>
     <em>
-      Tip: review this page at multiple widths to confirm that card spacing,
-      media ratio, text wrapping, and grouped-card rhythm still feel stable in
-      archive-like layouts.
+      Tip: Test both mouse and keyboard interaction. For this component, the most important checks are shell
+      hover/focus, image zoom, tag wrapping, excerpt clamping, and metadata alignment.
     </em>
   </p>
 </section>

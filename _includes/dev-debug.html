@@ -31,35 +31,34 @@
 {% endcomment %}
 
 {% if jekyll.environment == "development" %}
+  <!-- dev-debug.html -->
+  <div
+    class="dev-debug"
+    aria-hidden="true"
+    style="
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #111;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: monospace;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    "
+  >
 
-<!-- Development debug panel -->
-<div
-  class="dev-debug"
-  aria-hidden="true"
-  style="
-    position: fixed;
-    bottom: 12px;
-    right: 12px;
-    z-index: 9999;
-    background: #111;
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-family: monospace;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  "
->
+    <!-- Environment -->
+    <div>ENV: {{ jekyll.environment }}</div>
 
-  <!-- Environment -->
-  <div>ENV: {{ jekyll.environment }}</div>
+    <!-- Current page -->
+    <div>PAGE: {{ page.url }}</div>
 
-  <!-- Current page -->
-  <div>PAGE: {{ page.url }}</div>
+    <!-- Layout -->
+    <div>LAYOUT: {{ page.layout }}</div>
 
-  <!-- Layout -->
-  <div>LAYOUT: {{ page.layout }}</div>
-
-</div>
-
+  </div>
+  <!-- End of dev-debug.html -->
 {% endif %}

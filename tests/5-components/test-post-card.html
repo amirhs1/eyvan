@@ -4,6 +4,7 @@ title: Component Post Card Test
 permalink: /tests/5-components/test-post-card/
 robots: noindex
 ---
+
 {% comment %}
   Component Post Card Test Page
   Purpose: Visually verify that the 5-components post-card system compiles
@@ -12,9 +13,10 @@ robots: noindex
   Structure:
   - Base post-card structure
   - Card shell hover and focus-within behavior
+  - Image-link focus-visible behavior
   - Media and image-link behavior
   - Image zoom interaction
-  - Tags row wrapping behavior
+  - Tags row wrapping and capitalization behavior
   - Title link interaction
   - Excerpt clamping behavior
   - Metadata wrapper alignment behavior
@@ -36,9 +38,9 @@ robots: noindex
     - .c-post-card__meta
   - Grid placement is intentionally not tested here because layout and object
     layers own card placement in archive grids.
-  - Shared metadata presentation below .c-post-card__meta is represented with
-    simple placeholder markup because detailed post-meta styling belongs to a
-    separate shared metadata responsibility.
+  - Shared metadata presentation inside .c-post-card__meta is represented with
+    the real .c-post-meta structure where helpful, because detailed metadata
+    styling belongs to the separate post-meta component.
   - Helper styles below are temporary and exist only for testing.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -66,17 +68,8 @@ robots: noindex
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .c-post-card-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
   .c-post-card-test-box {
     inline-size: min(100%, 26rem);
-  }
-
-  .c-post-card-test-box--wide {
-    inline-size: min(100%, 34rem);
   }
 
   .c-post-card-test-box--narrow {
@@ -102,23 +95,42 @@ robots: noindex
     background: linear-gradient(135deg, #dfe7ff 0%, #c8f1ec 100%);
   }
 
+  .c-post-card-test-long-text {
+    max-inline-size: 60ch;
+  }
+
   .c-post-card-test-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-inline-size: 0;
+  }
+
+  .c-post-card-test-avatar {
+    inline-size: 2rem;
+    block-size: 2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d7d7d7 0%, #bdbdbd 100%);
+    flex: 0 0 auto;
+  }
+
+  .c-post-card-test-meta-content {
+    display: grid;
+    gap: 0.25rem;
+    min-inline-size: 0;
+  }
+
+  .c-post-card-test-meta-author {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .c-post-card-test-meta-details {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 0.75rem;
-    align-items: center;
     color: #666;
     font-size: 0.95rem;
-  }
-
-  .c-post-card-test-meta-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .c-post-card-test-long-text {
-    max-inline-size: 60ch;
   }
 
   @media (max-width: 48rem) {
@@ -130,8 +142,8 @@ robots: noindex
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the post-card classes defined in the <strong>5-components</strong> Sass
-    layer.
+    This page verifies the functionality of the post-card classes defined in
+    the <strong>5-components</strong> Sass layer.
   </p>
 
   <hr>
@@ -144,8 +156,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The card below should render as a full card unit with a bordered shell, clipped rounded corners, a media area on
-    top, padded content, tags, title, excerpt, and a metadata area separated by a top border.
+    The card below should render as a full card unit with a bordered shell,
+    clipped rounded corners, a media area on top, padded content, tags,
+    title, excerpt, and a metadata area separated by a top border.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -168,19 +181,28 @@ robots: noindex
               <a class="c-post-card__tag" href="#">data visualization</a>
             </div>
 
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Base post card example </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Base post card example</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              This example verifies the default shell, media region, padded content area, tags row, title, excerpt, and
-              the metadata wrapper at the bottom of the card.
+              This example verifies the default shell, media region, padded
+              content area, tags row, title, excerpt, and the metadata wrapper
+              at the bottom of the card.
             </p>
 
             <div class="c-post-card__meta">
               <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">March 30, 2026</span>
-                <span class="c-post-card-test-meta-item">5 min read</span>
+                <div class="c-post-card-test-avatar" aria-hidden="true"></div>
+
+                <div class="c-post-card-test-meta-content">
+                  <span class="c-post-card-test-meta-author">Site author</span>
+
+                  <div class="c-post-card-test-meta-details">
+                    <span>March 30, 2026</span>
+                    <span>5 min read</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -199,8 +221,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When you hover the card, or tab into either the image link or the title link, the card shell should show the
-    interactive state: stronger emphasis, accent border color, and a slight upward lift.
+    When you hover the card, or tab into either the image link or the title
+    link, the card shell should change border color, use the hover shadow, and
+    lift slightly upward.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -222,18 +245,19 @@ robots: noindex
               <a class="c-post-card__tag" href="#">interaction</a>
             </div>
 
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Hover and keyboard focus test </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Hover and keyboard focus test</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              Hover this card and also tab into its links to confirm that the same shell interaction applies on
-              <code>:hover</code> and <code>:focus-within</code>.
+              Hover this card and also tab into its links to confirm that the
+              same shell interaction applies on <code>:hover</code> and
+              <code>:focus-within</code>.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Accessible interaction</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Accessible interaction</span>
               </div>
             </div>
           </div>
@@ -250,6 +274,56 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
+  <!-- Image-link Focus-visible Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Image-link focus-visible behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When the image link receives keyboard focus, it should show a visible focus
+    ring inside the media area. Because the card also uses
+    <code>:focus-within</code>, the shell should respond at the same time.
+  </p>
+
+  <div class="c-post-card-test-frame">
+    <div class="c-post-card-test-box">
+      <article class="c-post-card">
+        <div class="c-post-card__inner">
+          <div class="c-post-card__media">
+            <a class="c-post-card__image-link" href="#">
+              <img
+                class="c-post-card__image c-post-card-test-placeholder-image"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'%3E%3Crect width='1200' height='750' fill='%23e7f7ff'/%3E%3Crect x='140' y='120' width='920' height='500' rx='28' fill='%2399d8ff'/%3E%3Ccircle cx='360' cy='310' r='90' fill='%23ffffff'/%3E%3Crect x='520' y='250' width='300' height='80' rx='18' fill='%2351a8df'/%3E%3C/svg%3E"
+                alt="Placeholder image-link focus test"
+              >
+            </a>
+          </div>
+
+          <div class="c-post-card__content">
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Image-link focus test</a>
+            </h2>
+
+            <p class="c-post-card__excerpt">
+              Tab to the image first and confirm that the link itself shows a
+              focus ring.
+            </p>
+
+            <div class="c-post-card__meta">
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Focus ring check</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
   <!-- Media and Image-link Behavior -->
   <!-- ============================================================= -->
 
@@ -257,8 +331,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The media link should behave like a block-level clickable region with a stable <code>16 / 10</code> aspect ratio.
-    The image should fully cover that region without distortion.
+    The media link should behave like a block-level clickable region with a
+    stable <code>16 / 10</code> aspect ratio. The image should fully cover that
+    region without distortion.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -276,17 +351,18 @@ robots: noindex
           </div>
 
           <div class="c-post-card__content">
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Media aspect ratio test </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Media aspect ratio test</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              The image area should remain proportionally consistent even when the card becomes narrower.
+              The image area should remain proportionally consistent even when
+              the card becomes narrower.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Aspect ratio check</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Aspect ratio check</span>
               </div>
             </div>
           </div>
@@ -305,7 +381,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    On card hover or focus-within, the image should scale up slightly while staying clipped within the media region.
+    On card hover or focus-within, the image should scale up slightly while
+    staying clipped within the media region.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -323,18 +400,18 @@ robots: noindex
           </div>
 
           <div class="c-post-card__content">
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Image zoom on interaction </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Image zoom on interaction</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              Hover this card and watch the image, not just the shell. The image should enlarge subtly without
-              overflowing outside the rounded card.
+              Hover this card and watch the image, not just the shell. The image
+              should enlarge subtly without overflowing outside the rounded card.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Transform check</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Transform check</span>
               </div>
             </div>
           </div>
@@ -346,15 +423,17 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Tags Row Wrapping Behavior -->
+  <!-- Tags Row Wrapping and Capitalization Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Tags row wrapping behavior</h2>
+  <h2>Tags row wrapping and capitalization behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    The tags area should render as a wrapping flex row with consistent spacing. Each tag should look like a pill-style
-    interactive element with hover and focus styling.
+    The tags area should render as a wrapping flex row with consistent spacing.
+    Each tag should preserve normal link behavior, and lowercase source text
+    should appear capitalized because the component applies
+    <code>text-transform: capitalize</code>.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -369,18 +448,18 @@ robots: noindex
               <a class="c-post-card__tag" href="#">long category</a>
             </div>
 
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Tags wrapping example </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Tags wrapping example</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              Narrow the viewport or tab through the pills to confirm tag wrapping, hover treatment, and focus
-              visibility.
+              Narrow the viewport or tab through the links to confirm wrapping
+              and capitalization.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Tag group check</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Tag group check</span>
               </div>
             </div>
           </div>
@@ -399,8 +478,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The title link should inherit the title styling by default, switch to the link-hover color on hover, and show a
-    visible focus style on keyboard focus.
+    The title link should inherit the title styling by default, switch to the
+    hover color on hover, and show a visible focus ring on keyboard focus.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -408,18 +487,18 @@ robots: noindex
       <article class="c-post-card">
         <div class="c-post-card__inner">
           <div class="c-post-card__content">
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Title link interaction example </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Title link interaction example</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              Hover the title itself and then tab directly to it to verify link color change and keyboard focus
-              treatment.
+              Hover the title itself and then tab directly to it to verify link
+              color change and keyboard focus treatment.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Link state check</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Link state check</span>
               </div>
             </div>
           </div>
@@ -438,8 +517,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The excerpt should visually clamp to approximately three lines and hide overflow, preventing excessively long
-    summaries from stretching the card.
+    The excerpt should visually clamp to <strong>3 lines</strong> and hide
+    overflow, preventing excessively long summaries from stretching the card.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -447,20 +526,22 @@ robots: noindex
       <article class="c-post-card">
         <div class="c-post-card__inner">
           <div class="c-post-card__content">
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Long excerpt clamp example </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Long excerpt clamp example</a>
+            </h2>
 
             <p class="c-post-card__excerpt c-post-card-test-long-text">
-              This intentionally overlong excerpt exists to confirm that the post-card summary text is line-clamped
-              rather than fully expanded. The card should remain compact and visually consistent even when the source
-              content contains a much longer abstract, summary, editorial note, or project description than the design
-              expects in its archive and related-post contexts.
+              This intentionally overlong excerpt exists to confirm that the
+              post-card summary text is line-clamped rather than fully expanded.
+              The card should remain compact and visually consistent even when
+              the source content contains a much longer abstract, summary,
+              editorial note, or project description than the design expects in
+              its archive and related-post contexts.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Clamp check</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Clamp check</span>
               </div>
             </div>
           </div>
@@ -479,8 +560,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The metadata wrapper should stay pinned to the bottom of the content area because it uses automatic top margin. This
-    should keep the footer zone aligned even when cards have different title and excerpt lengths.
+    The metadata wrapper should stay pinned to the bottom of the content area
+    because it uses automatic top margin. This should keep the footer zone
+    aligned even when cards have different title and excerpt lengths.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -489,15 +571,15 @@ robots: noindex
         <article class="c-post-card">
           <div class="c-post-card__inner">
             <div class="c-post-card__content">
-              <h3 class="c-post-card__title">
-                <a class="c-post-card__title-link" href="#"> Short content card </a>
-              </h3>
+              <h2 class="c-post-card__title">
+                <a class="c-post-card__title-link" href="#">Short content card</a>
+              </h2>
 
               <p class="c-post-card__excerpt">Short excerpt.</p>
 
               <div class="c-post-card__meta">
-                <div class="c-post-card-test-meta">
-                  <span class="c-post-card-test-meta-item">Meta row</span>
+                <div class="c-post-card-test-meta-content">
+                  <span class="c-post-card-test-meta-author">Meta row</span>
                 </div>
               </div>
             </div>
@@ -514,20 +596,21 @@ robots: noindex
                 <a class="c-post-card__tag" href="#">writing</a>
               </div>
 
-              <h3 class="c-post-card__title">
+              <h2 class="c-post-card__title">
                 <a class="c-post-card__title-link" href="#">
                   Much longer title to create more vertical variation between cards
                 </a>
-              </h3>
+              </h2>
 
               <p class="c-post-card__excerpt">
-                This second card uses more content so you can compare the bottom alignment of the metadata wrapper
-                across cards of unequal content height within the same row.
+                This second card uses more content so you can compare the bottom
+                alignment of the metadata wrapper across cards of unequal content
+                height within the same row.
               </p>
 
               <div class="c-post-card__meta">
-                <div class="c-post-card-test-meta">
-                  <span class="c-post-card-test-meta-item">Meta row</span>
+                <div class="c-post-card-test-meta-content">
+                  <span class="c-post-card-test-meta-author">Meta row</span>
                 </div>
               </div>
             </div>
@@ -548,8 +631,8 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     Because <code>.c-post-card</code> and <code>.c-post-card__inner</code>
-    use full-height behavior, cards placed in equal-height grid tracks should stretch cleanly and keep their internal
-    structure intact.
+    use full-height behavior, cards placed in equal-height grid tracks should
+    stretch cleanly and keep their internal structure intact.
   </p>
 
   <div class="c-post-card-test-frame">
@@ -567,15 +650,15 @@ robots: noindex
           </div>
 
           <div class="c-post-card__content">
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Card one </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Card one</a>
+            </h2>
 
             <p class="c-post-card__excerpt">Short content.</p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Bottom aligned</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Bottom aligned</span>
               </div>
             </div>
           </div>
@@ -599,18 +682,20 @@ robots: noindex
               <a class="c-post-card__tag" href="#">case study</a>
             </div>
 
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Card two with more content and one extra row of detail </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">
+                Card two with more content and one extra row of detail
+              </a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              This card is intentionally taller in its content section so you can compare equal-height behavior across
-              neighboring cards.
+              This card is intentionally taller in its content section so you
+              can compare equal-height behavior across neighboring cards.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">Bottom aligned</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">Bottom aligned</span>
               </div>
             </div>
           </div>
@@ -626,18 +711,18 @@ robots: noindex
               <a class="c-post-card__tag" href="#">ux</a>
             </div>
 
-            <h3 class="c-post-card__title">
-              <a class="c-post-card__title-link" href="#"> Card three without media </a>
-            </h3>
+            <h2 class="c-post-card__title">
+              <a class="c-post-card__title-link" href="#">Card three without media</a>
+            </h2>
 
             <p class="c-post-card__excerpt">
-              This variant confirms that the content stack still behaves sensibly when the media block is omitted from
-              the markup.
+              This variant confirms that the content stack still behaves
+              sensibly when the media block is omitted from the markup.
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <span class="c-post-card-test-meta-item">No media variant</span>
+              <div class="c-post-card-test-meta-content">
+                <span class="c-post-card-test-meta-author">No media variant</span>
               </div>
             </div>
           </div>
@@ -648,8 +733,10 @@ robots: noindex
 
   <p>
     <em>
-      Tip: Test both mouse and keyboard interaction. For this component, the most important checks are shell
-      hover/focus, image zoom, tag wrapping, excerpt clamping, and metadata alignment.
+      Tip: Test both mouse and keyboard interaction. For this component, the
+      most important checks are shell hover/focus, image-link focus ring,
+      image zoom, tag wrapping/capitalization, excerpt clamping, and metadata
+      alignment.
     </em>
   </p>
 </section>

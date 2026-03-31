@@ -4,6 +4,7 @@ title: Component Post Test
 permalink: /tests/5-components/test-post/
 robots: noindex
 ---
+
 {% comment %}
   Component Post Test Page
   Purpose: Visually verify that the 5-components post shell compiles
@@ -11,11 +12,13 @@ robots: noindex
 
   Structure:
   - Cover media block
+  - Cover + article spacing integration
   - Post shell width and spacing
   - Title and subtitle
   - Tag group
   - Header row with metadata and share actions
   - Title-to-header-row spacing without subtitle
+  - Post body content
   - Long-title balancing behavior
   - Responsive stacking behavior for header row
 
@@ -31,6 +34,7 @@ robots: noindex
     - .c-post__header-meta
     - .c-post__header-actions
     - .c-post__share
+    - .c-post__content
     - .c-post-cover
     - .c-post-cover__media
     - .c-post-cover__image
@@ -63,11 +67,6 @@ robots: noindex
 
   .c-post-test-box--narrow {
     inline-size: min(100%, 38rem);
-  }
-
-  .c-post-test-label {
-    margin: 0;
-    font-weight: 600;
   }
 
   .c-post-test-note {
@@ -114,13 +113,6 @@ robots: noindex
     font-size: 0.95rem;
   }
 
-  .c-post-test-share-demo {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
   .c-post-test-share-label {
     margin: 0;
     font-size: 0.95rem;
@@ -140,17 +132,12 @@ robots: noindex
     font-size: 0.85rem;
     font-weight: 700;
   }
-
-  .c-post-test-cover-image {
-    display: block;
-    inline-size: 100%;
-    block-size: auto;
-  }
 </style>
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the post classes defined in the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the post classes defined in
+    the <strong>5-components</strong> Sass layer.
   </p>
 
   <hr>
@@ -163,9 +150,10 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The cover wrapper should create top and bottom spacing around the media. The media box should clip overflow, apply
-    the raised-surface background, and round the corners. The image should fill the available width and crop with
-    <code>object-fit: cover</code> when needed.
+    The cover wrapper should create top and bottom spacing around the media.
+    The media box should clip overflow, apply the raised-surface background,
+    and round the corners. The image should fill the available width and crop
+    with <code>object-fit: cover</code> when needed.
   </p>
 
   <div class="c-post-test-frame">
@@ -183,6 +171,48 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
+  <!-- Cover + Article Spacing Integration -->
+  <!-- ============================================================= -->
+
+  <h2>Cover and article spacing integration</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When a cover image is followed by the post article, the spacing between
+    those two blocks should feel intentional and not doubled. This section
+    mirrors the real post layout order more closely.
+  </p>
+
+  <div class="c-post-test-frame c-post-test-stack">
+    <div class="c-post-test-box">
+      <div class="c-post-cover">
+        <div class="c-post-cover__media">
+          <img
+            class="c-post-cover__image"
+            src="{{ '/images/posts/25.png' | relative_url }}"
+            alt="Integrated cover image test"
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="c-post-test-box">
+      <article class="c-post">
+        <header class="c-post__header">
+          <h1 class="c-post__title">Cover Followed by Post Article</h1>
+
+          <p class="c-post__subtitle">
+            This example verifies the visual transition from the cover block
+            into the article shell.
+          </p>
+        </header>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
   <!-- Post Shell Width and Spacing -->
   <!-- ============================================================= -->
 
@@ -190,8 +220,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The post shell should remain centered and limited to a readable line length, rather than stretching full-width
-    across the page.
+    The post shell should remain centered and limited to a readable line length,
+    rather than stretching full-width across the page.
   </p>
 
   <div class="c-post-test-frame">
@@ -215,18 +245,22 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The title should use the display typography scale with balanced wrapping. The subtitle should appear below it with a
-    softer muted color and a readable measure.
+    The title should use the display typography scale with balanced wrapping.
+    The subtitle should appear below it with a softer muted color and a readable
+    measure.
   </p>
 
   <div class="c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
-        <h1 class="c-post__title">Designing a Cleaner Jekyll Portfolio with Reusable Components</h1>
+        <h1 class="c-post__title">
+          Designing a Cleaner Jekyll Portfolio with Reusable Components
+        </h1>
 
         <p class="c-post__subtitle">
-          A practical exploration of how to structure long-form content shells, supporting metadata, and reusable share
-          actions without mixing layout concerns across layers.
+          A practical exploration of how to structure long-form content shells,
+          supporting metadata, and reusable share actions without mixing layout
+          concerns across layers.
         </p>
       </header>
     </article>
@@ -242,8 +276,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    Tags should render as a wrapping inline group with consistent spacing, pill-like shape, bold display text, and
-    hover/focus interaction.
+    Tags should render as a wrapping inline group with consistent spacing,
+    pill-like shape, bold display text, and hover or focus interaction.
   </p>
 
   <div class="c-post-test-frame">
@@ -270,8 +304,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The header row should place metadata on the left and share actions on the right, keep both aligned vertically, allow
-    wrapping when needed, and render a bottom border below the row.
+    The header row should place metadata on the left and share actions on the
+    right, keep both aligned vertically, allow wrapping when needed, and render
+    a bottom border below the row.
   </p>
 
   <div class="c-post-test-frame">
@@ -280,8 +315,8 @@ robots: noindex
         <h1 class="c-post__title">A Post Header with Shared Metadata and Share Controls</h1>
 
         <p class="c-post__subtitle">
-          This example verifies the contextual placement rules owned by the post shell rather than the internal styles
-          of the shared subcomponents.
+          This example verifies the contextual placement rules owned by the post
+          shell rather than the internal styles of the shared subcomponents.
         </p>
 
         <div class="c-post__header-row">
@@ -327,8 +362,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When the subtitle is absent, the header row should sit slightly closer to the title because
-    <code>.c-post__title + .c-post__header-row</code> applies tighter spacing.
+    When the subtitle is absent, the header row should sit slightly closer to
+    the title because <code>.c-post__title + .c-post__header-row</code> applies
+    tighter spacing.
   </p>
 
   <div class="c-post-test-frame">
@@ -367,6 +403,59 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
+  <!-- Post Body Content -->
+  <!-- ============================================================= -->
+
+  <h2>Post body content</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The content area should remain within the readable post measure, feel
+    visually separated from the header, and support typical long-form content
+    such as headings, paragraphs, links, lists, quotes, and inline code.
+  </p>
+
+  <div class="c-post-test-frame">
+    <article class="c-post">
+      <header class="c-post__header">
+        <h1 class="c-post__title">Post Body Content Example</h1>
+
+        <p class="c-post__subtitle">
+          This section verifies the article body wrapper used in the real post layout.
+        </p>
+      </header>
+
+      <div class="c-post__content">
+        <p>
+          This is a paragraph of long-form content with an
+          <a href="#">inline link</a> and some <code>inline code</code>.
+          The body should sit comfortably below the header and remain easy to read.
+        </p>
+
+        <h2>Section heading</h2>
+
+        <p>
+          The content wrapper should support standard article rhythm, including
+          headings, paragraph spacing, and readable line length.
+        </p>
+
+        <blockquote>
+          A blockquote helps verify that long-form content remains visually
+          balanced inside the post shell.
+        </blockquote>
+
+        <ul>
+          <li>First list item in the article body</li>
+          <li>Second list item for spacing verification</li>
+          <li>Third list item with slightly longer text for wrapping</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
   <!-- Long-title Balancing Behavior -->
   <!-- ============================================================= -->
 
@@ -374,22 +463,25 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    A long heading should wrap in a more balanced way rather than leaving an awkward final line with only one or two
-    short words.
+    A long heading should wrap in a more balanced way rather than leaving an
+    awkward final line with only one or two short words.
   </p>
 
   <div class="c-post-test-frame">
-    <article class="c-post c-post-test-box--narrow">
-      <header class="c-post__header">
-        <h1 class="c-post__title">
-          Building a Maintainable and Readable Long-Form Article Component for a Small Jekyll Portfolio Website
-        </h1>
+    <div class="c-post-test-box c-post-test-box--narrow">
+      <article class="c-post">
+        <header class="c-post__header">
+          <h1 class="c-post__title">
+            Building a Maintainable and Readable Long-Form Article Component for a Small Jekyll Portfolio Website
+          </h1>
 
-        <p class="c-post__subtitle">
-          Narrow this example further by resizing the browser to observe title wrapping and subtitle readability.
-        </p>
-      </header>
-    </article>
+          <p class="c-post__subtitle">
+            Narrow this example further by resizing the browser to observe title
+            wrapping and subtitle readability.
+          </p>
+        </header>
+      </article>
+    </div>
   </div>
 
   <hr>
@@ -402,8 +494,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    At smaller widths, the header row should shift from a side-by-side layout to a stacked layout. Metadata should take
-    the full row, share actions should move below it, and share content should align to the left.
+    At smaller widths, the header row should shift from a side-by-side layout
+    to a stacked layout. Metadata should take the full row, share actions should
+    move below it, and share content should align to the left.
   </p>
 
   <div class="c-post-test-frame">
@@ -412,7 +505,9 @@ robots: noindex
         <header class="c-post__header">
           <h1 class="c-post__title">Responsive Header Row Example</h1>
 
-          <p class="c-post__subtitle">Resize this narrow example to confirm the mobile stacking behavior.</p>
+          <p class="c-post__subtitle">
+            Resize this narrow example to confirm the mobile stacking behavior.
+          </p>
 
           <div class="c-post__header-row">
             <div class="c-post__header-meta">
@@ -448,8 +543,8 @@ robots: noindex
     </div>
 
     <p class="c-post-test-note">
-      Resize the browser width to verify that the metadata and share zones stack correctly below the small-screen
-      breakpoint.
+      Resize the browser width to verify that the metadata and share zones stack
+      correctly below the small-screen breakpoint.
     </p>
   </div>
 </section>

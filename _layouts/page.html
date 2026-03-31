@@ -9,7 +9,7 @@ layout: default
 
   Structure:
   - Page layout container
-  - Page article wrapper
+  - Page wrapper
     - Optional featured image
     - Page header
       - Title
@@ -20,13 +20,14 @@ layout: default
     - Page body content
 
   Architecture:
-  - Layout layer of the site
   - Uses ITCSS + BEM naming:
     - Objects: o-
     - Layouts: l-
     - Components: c-
+  - Layout owns placement through l-page*
+  - Component owns page-specific presentation through c-page*
+  - Object owns long-form typography through o-prose
   - Delegates content rendering to the page body via `{{ content }}`
-  - Reuses shared component classes for article presentation
 
   Accessibility:
   - Uses semantic article and header structure
@@ -53,16 +54,16 @@ layout: default
 <!-- Page layout container -->
 <div class="o-container">
 
-  <!-- Page article -->
-  <article class="l-page c-article">
+  <!-- Page wrapper -->
+  <article class="l-page c-page">
 
     <!-- Optional page featured image -->
     {% if page.image %}
-    <div class="c-article__media">
+    <div class="c-page__media">
       <img
         src="{{ page.image | relative_url }}"
         alt="{{ page.image_alt | default: page.title | escape }}"
-        class="c-article__image">
+        class="c-page__image">
     </div>
     {% endif %}
 
@@ -70,30 +71,25 @@ layout: default
     <header class="l-page__header">
 
       <!-- Page title -->
-      <h1 class="c-article__title">{{ page.title | escape }}</h1>
+      <h1 class="c-page__title">{{ page.title | escape }}</h1>
 
       <!-- Page subtitle -->
       {% if page.subtitle %}
-      <p class="c-article__subtitle">{{ page.subtitle }}</p>
+      <p class="c-page__subtitle">{{ page.subtitle }}</p>
       {% endif %}
 
       <!-- Page metadata -->
       {% if page.author or page.date %}
-      <div class="c-article__meta">
+      <div class="c-page__meta">
 
         <!-- Page author -->
         {% if page.author %}
-        <span class="c-article__author">By {{ page.author }}</span>
-        {% endif %}
-
-        <!-- Metadata separator -->
-        {% if page.author and page.date %}
-        <span class="c-article__meta-sep" aria-hidden="true">|</span>
+        <span class="c-page__author">By {{ page.author }}</span>
         {% endif %}
 
         <!-- Page date -->
         {% if page.date %}
-        <time class="c-article__date" datetime="{{ page.date | date_to_xmlschema }}">
+        <time class="c-page__date" datetime="{{ page.date | date_to_xmlschema }}">
           {{ page.date | date: "%B %d, %Y" }}
         </time>
         {% endif %}
@@ -105,7 +101,7 @@ layout: default
       {% if page.tags %}
       <div class="l-page__tags">
         {% for tag in page.tags %}
-        <span class="c-tag">{{ tag }}</span>
+        <span class="c-page__tag">{{ tag }}</span>
         {% endfor %}
       </div>
       {% endif %}
@@ -114,11 +110,11 @@ layout: default
 
     <!-- Optional header divider -->
     {% if page.subtitle or page.author or page.date or page.tags or page.image %}
-    <hr class="c-article__divider">
+    <hr class="c-page__divider">
     {% endif %}
 
     <!-- Page body content -->
-    <div class="l-page__body">
+    <div class="l-page__body o-prose">
       {{ content }}
     </div>
 

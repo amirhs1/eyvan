@@ -36,8 +36,6 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
-@use "../1-tools/mixins" as tools-mixins;
-@use "../1-tools/motion" as tools-motion;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -53,8 +51,6 @@ $post-header-gap: tools-spacing.$fluid-stack-md;
 $post-header-margin-block-end: tools-spacing.$fluid-stack-lg;
 
 $post-tag-gap: settings-spacing.$space-2;
-$post-tag-padding-block: settings-spacing.$space-2;
-$post-tag-padding-inline: settings-spacing.$space-3;
 
 $post-header-row-gap: settings-spacing.$space-4;
 $post-header-row-padding-block-end: tools-spacing.$fluid-stack-md;
@@ -127,42 +123,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 }
 
 .c-post__tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-block-size: 2rem;
-  padding-block: $post-tag-padding-block;
-  padding-inline: $post-tag-padding-inline;
-
-  border: 1px solid transparent;
-  border-radius: settings-config.$global-border-radius;
-  background-color: var(--color-accent-primary);
-  color: var(--color-button-text);
-
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-xs;
-  font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
-  letter-spacing: settings-typography.$letter-spacing-loose-sm;
-  text-decoration: none;
   text-transform: capitalize;
-
-  @include tools-motion.transition-ui-with-transform;
-
-  &:visited {
-    color: var(--color-button-text);
-  }
-
-  &:hover {
-    color: var(--color-button-text);
-    background-color: var(--color-link-hover);
-    text-decoration: none;
-    transform: translateY(-1px);
-  }
-
-  &:focus-visible {
-    @include tools-mixins.focus-ring;
-  }
 }
 
 /* -----------------------------------------------------------------------------

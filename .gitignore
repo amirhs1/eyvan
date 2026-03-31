@@ -1,6 +1,32 @@
+# -----------------------------
+# Jekyll build output
+# -----------------------------
 _site/
-.sass-cache/
 .jekyll-cache/
-.jekyll-metadat
-structure.text
+.jekyll-metadata
+.sass-cache/
+
+# -----------------------------
+# Ruby / Bundler
+# -----------------------------
+.bundle/
+vendor/bundle/
+Gemfile.lock
+
+# -----------------------------
+# OS files
+# -----------------------------
 .DS_Store
+Thumbs.db
+
+# -----------------------------
+# Editor / IDE
+# -----------------------------
+.vscode/
+.idea/
+
+# -----------------------------
+# Project-specific
+# -----------------------------
+structure.txt
+

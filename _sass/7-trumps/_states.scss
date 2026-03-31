@@ -40,3 +40,12 @@
 .is-hidden {
   display: none !important;
 }
+
+/* -----------------------------------------------------------------------------
+   Mobile Menu Open State
+   Locks background scrolling while the mobile menu is open.
+   ----------------------------------------------------------------------------- */
+
+body.is-mobile-menu-open {
+  overflow: hidden;
+}

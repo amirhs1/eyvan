@@ -58,7 +58,8 @@
       <!-- Header desktop navigation column -->
       <div class="o-site-header__nav">
         <!-- Primary desktop navigation include -->
-        {% include navigation.html
+        {%
+          include navigation.html
           modifier="c-nav--desktop"
           aria_label="Primary navigation"
         %}
@@ -79,7 +80,7 @@
       <div class="o-site-header__mobile-controls">
         <!-- Mobile menu toggle button -->
         <button
-          class="c-nav-toggle"
+          class="c-nav-toggle c-icon-link"
           type="button"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -90,15 +91,15 @@
           <span class="u-visually-hidden">Open menu</span>
 
           <!-- Decorative menu icon -->
-          <span class="c-nav-toggle__icon" aria-hidden="true">
+          <span class="c-nav-toggle__icon c-icon-link__icon" aria-hidden="true">
             {% include icons/menu.svg %}
           </span>
         </button>
       </div>
     </div>
   </div>
-
-  <!-- Mobile menu include -->
-  {% include mobile-menu.html %}
 </header>
+
+<!-- Mobile menu include -->
+{% include mobile-menu.html %}
 <!-- End of header.html -->

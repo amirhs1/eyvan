@@ -13,6 +13,7 @@
 // - Desktop/mobile behavior is controlled through c-nav--desktop,
 //   c-nav--mobile, and c-nav-toggle
 // - Mobile menu panel shell styling belongs in _mobile-menu.scss
+// - Visual styling for compact icon controls belongs in _icon-link.scss
 //
 // Notes:
 // - navigation.html renders the nav root, list, items, and links
@@ -165,50 +166,24 @@
 
 /* -----------------------------------------------------------------------------
    Mobile menu toggle
-   Kept in this file intentionally because you want one SCSS file for the
-   navigation system.
+   Structural/responsive behavior only.
+   Visual button styling is delegated to .c-icon-link.
    ----------------------------------------------------------------------------- */
 
 .c-nav-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
 
   inline-size: 2.75rem;
   block-size: 2.75rem;
-  padding: settings-spacing.$space-2;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+
+  padding: 0;
   margin: 0;
-  border: 1px solid transparent;
-  border-radius: 999px;
-
-  color: var(--color-ui-text);
-  background-color: transparent;
   cursor: pointer;
-
-  transition:
-    color settings-config.$transition-base,
-    background-color settings-config.$transition-base,
-    border-color settings-config.$transition-base,
-    transform settings-config.$transition-base;
-
-  &:focus-visible {
-    @include tools-mixins.focus-ring;
-  }
-}
-
-.c-nav-toggle:hover {
-  color: var(--color-accent-primary);
-  background-color: var(--color-ui-surface-raised);
-}
-
-.c-nav-toggle[aria-expanded="true"] {
-  color: var(--color-accent-primary);
-  background-color: var(--color-ui-surface-raised);
-  border-color: var(--color-ui-border);
-}
-
-.c-nav-toggle[aria-expanded="false"] {
-  color: var(--color-ui-text);
 }
 
 .c-nav-toggle[data-nav-toggle] {
@@ -216,9 +191,26 @@
 }
 
 .c-nav-toggle__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  color: inherit;
+}
+
+.c-nav-toggle__icon svg,
+.c-nav-toggle__icon img {
   display: block;
-  inline-size: 1.5rem;
-  block-size: 1.5rem;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.c-nav-toggle__icon svg {
+  fill: currentColor;
+  stroke: currentColor;
 }
 
 /* -----------------------------------------------------------------------------

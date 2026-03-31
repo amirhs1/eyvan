@@ -4,38 +4,39 @@
 //
 // Description:
 // Styles the full-screen mobile/tablet navigation panel used by the global
-// header. This component owns the overlay shell, inner panel layout, close
-// control, and footer action area.
+// header. This component owns the overlay shell, inner panel layout, top bar,
+// primary navigation region, and footer action area.
 //
 // Structure:
 // - .c-mobile-menu
 //   - .o-container
 //   - .c-mobile-menu__inner
 //     - .c-mobile-menu__top
-//       - .c-mobile-menu__close
-//         - .c-mobile-menu__close-icon
+//       - .c-mobile-menu__top-left
+//         - .c-theme-toggle.c-theme-toggle--mobile
+//       - .c-mobile-menu__top-right
+//         - .c-mobile-menu__close.c-icon-link
+//           - .c-mobile-menu__close-icon.c-icon-link__icon
 //     - .c-nav.c-nav--mobile
 //     - .c-mobile-menu__footer
 //       - .c-social-links.c-social-links--mobile
-//       - .c-theme-toggle.c-theme-toggle--mobile
 //
 // Scope & Rules:
 // - Component styling only
-// - Owns the mobile overlay/panel shell
-// - Does not restyle desktop navigation
-// - Relies on navigation.scss for .c-nav--mobile link styling
-// - Relies on theme-toggle.scss for toggle cosmetics
+// - Owns the mobile overlay/panel shell and local layout
+// - Does not redefine the shared visual systems of:
+//   - .c-theme-toggle
+//   - .c-icon-link
+//   - .c-social-links
 //
 // Notes:
 // - Hidden state is controlled by the [hidden] attribute in markup/JS
 // - This component is mobile-first and is disabled at the layout breakpoint up
-// - Uses theme CSS custom properties from the base layer
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
-@use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 
@@ -44,8 +45,6 @@
    ----------------------------------------------------------------------------- */
 
 $mobile-menu-z-index: settings-config.$z-overlay;
-$mobile-menu-close-size: 2.75rem;
-$mobile-menu-close-icon-size: 1.25rem;
 $mobile-menu-border-width: settings-config.$global-border-width;
 $mobile-menu-backdrop: color-mix(in srgb, var(--color-ui-bg) 78%, transparent);
 $mobile-menu-shadow:
@@ -59,6 +58,7 @@ $mobile-menu-shadow:
   position: fixed;
   inset: 0;
   z-index: $mobile-menu-z-index;
+  isolation: isolate;
 
   padding-block:
     max(
@@ -85,7 +85,6 @@ $mobile-menu-shadow:
 
 /* -----------------------------------------------------------------------------
    Outer container behavior
-   Keeps the overlay aligned with site gutters.
    ----------------------------------------------------------------------------- */
 
 .c-mobile-menu > .o-container {
@@ -106,7 +105,6 @@ $mobile-menu-shadow:
 
   border: $mobile-menu-border-width solid var(--color-ui-border);
   border-radius: max(settings-config.$global-radius, 1rem);
-
   background-color: var(--color-ui-surface);
   box-shadow: $mobile-menu-shadow;
 }
@@ -118,66 +116,77 @@ $mobile-menu-shadow:
 .c-mobile-menu__top {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  gap: settings-spacing.$space-3;
+
   margin-block-end: tools-spacing.$fluid-stack-md;
   padding-block-end: settings-spacing.$space-3;
   border-block-end: 1px solid var(--color-ui-border);
 }
 
+.c-mobile-menu__top-left,
+.c-mobile-menu__top-right {
+  display: flex;
+  align-items: center;
+}
+
+.c-mobile-menu__top-left {
+  flex: 1 1 auto;
+  justify-content: flex-start;
+  min-inline-size: 0;
+}
+
+.c-mobile-menu__top-right {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+/* -----------------------------------------------------------------------------
+   Theme toggle placement in top-left
+   Keep shared button styling from _theme-toggle.scss.
+   ----------------------------------------------------------------------------- */
+
+.c-mobile-menu__top-left .c-theme-toggle--mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.c-mobile-menu__top-left .c-theme-toggle--mobile .c-theme-toggle__label {
+  display: none;
+}
+
 /* -----------------------------------------------------------------------------
    Close button
+   Reuses shared icon-link visuals; only local structure belongs here.
    ----------------------------------------------------------------------------- */
 
 .c-mobile-menu__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
-
-  inline-size: $mobile-menu-close-size;
-  block-size: $mobile-menu-close-size;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
   padding: 0;
-  margin: 0;
-  border: $mobile-menu-border-width solid var(--color-ui-border);
-  border-radius: 999px;
-
-  background-color: var(--color-ui-surface);
-  color: var(--color-ui-text);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-
-  transition:
-    background-color settings-config.$transition-base,
-    border-color settings-config.$transition-base,
-    color settings-config.$transition-base,
-    transform settings-config.$transition-fast,
-    box-shadow settings-config.$transition-base;
-}
-
-.c-mobile-menu__close:hover {
-  background-color: var(--color-ui-surface-raised);
-  border-color: var(--color-accent-primary);
-  color: var(--color-accent-primary);
-}
-
-.c-mobile-menu__close:active {
-  transform: translateY(1px);
-}
-
-.c-mobile-menu__close:focus-visible {
-  @include tools-mixins.focus-ring;
+  flex: 0 0 auto;
 }
 
 .c-mobile-menu__close-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: $mobile-menu-close-icon-size;
-  block-size: $mobile-menu-close-icon-size;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
   flex: 0 0 auto;
 }
 
 .c-mobile-menu__close-icon svg {
+  display: block;
   inline-size: 100%;
   block-size: 100%;
   fill: currentColor;
@@ -214,7 +223,6 @@ $mobile-menu-shadow:
 
 /* -----------------------------------------------------------------------------
    Mobile social links
-   Keeps footer actions tidy without taking over shared social-link styling.
    ----------------------------------------------------------------------------- */
 
 .c-mobile-menu__footer .c-social-links--mobile {
@@ -226,17 +234,6 @@ $mobile-menu-shadow:
 
 .c-mobile-menu__footer .c-social-links--mobile .c-social-links__item {
   flex: 0 0 auto;
-}
-
-/* -----------------------------------------------------------------------------
-   Mobile theme toggle placement
-   Lets the shared component keep its own appearance rules.
-   ----------------------------------------------------------------------------- */
-
-.c-mobile-menu__footer .c-theme-toggle--mobile {
-  justify-content: flex-start;
-  inline-size: 100%;
-  min-inline-size: 0;
 }
 
 /* -----------------------------------------------------------------------------
@@ -253,7 +250,7 @@ $mobile-menu-shadow:
 
 /* -----------------------------------------------------------------------------
    Desktop behavior
-   The mobile overlay should never appear from the layout breakpoint upward.
+    The mobile overlay should never appear from the layout breakpoint upward.
    ----------------------------------------------------------------------------- */
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {

@@ -143,14 +143,19 @@ robots: noindex
     background: #fff;
   }
 
-  .c-mobile-menu-test-close-demo--hover .c-mobile-menu__close {
-    background-color: var(--color-ui-surface-raised);
+  .c-mobile-menu-test-close-demo--hover .c-mobile-menu__close,
+  .c-mobile-menu-test-close-demo--focus .c-mobile-menu__close {
     border-color: var(--color-accent-primary);
+    background-color: var(--color-ui-surface-raised);
     color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-primary) 18%, transparent);
   }
 
   .c-mobile-menu-test-close-demo--active .c-mobile-menu__close {
     transform: translateY(1px);
+    border-color: var(--color-accent-primary);
+    background-color: var(--color-ui-surface-raised);
+    color: var(--color-accent-primary);
   }
 
   .c-mobile-menu-test-svg-icon {
@@ -163,7 +168,10 @@ robots: noindex
 <section class="l-section">
   <p>
     This page verifies the functionality of the mobile-menu classes defined in
-    the <strong>5-components</strong> Sass layer.
+    the <strong>5-components</strong> Sass layer. The overlay examples below
+    are expected to render only below the layout breakpoint. At desktop and
+    wider viewports, the test frames may appear empty because the component is
+    intentionally disabled there.
   </p>
 
   <hr>
@@ -191,29 +199,46 @@ robots: noindex
         <div class="o-container">
           <div class="c-mobile-menu__inner">
             <div class="c-mobile-menu__top">
-              <button
-                class="c-mobile-menu__close"
-                type="button"
-                aria-label="Close menu"
-              >
-                <span class="c-mobile-menu__close-icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button
+                  class="c-mobile-menu__close c-icon-link"
+                  type="button"
+                  aria-label="Close menu"
+                >
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
             </div>
 
             <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
@@ -229,20 +254,6 @@ robots: noindex
                   <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
                 </a>
               </nav>
-
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-                <span class="c-theme-toggle__label">Switch to dark theme</span>
-              </button>
             </div>
           </div>
         </div>
@@ -260,9 +271,11 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The visible menu should cover the test box like an overlay,
-    use a blurred/tinted backdrop, and place the menu panel inside the site
-    container with padding around the edges.
+    Below the layout breakpoint, the visible menu should cover the test box like
+    an overlay, use a blurred/tinted backdrop, and place the menu panel inside
+    the site container with padding around the edges. At desktop and wider
+    viewports, an empty test frame is the correct result because the component
+    is intentionally disabled there.
   </p>
 
   <div class="c-mobile-menu-test-frame">
@@ -271,30 +284,48 @@ robots: noindex
         <div class="o-container">
           <div class="c-mobile-menu__inner">
             <div class="c-mobile-menu__top">
-              <button
-                class="c-mobile-menu__close"
-                type="button"
-                aria-label="Close menu"
-                data-nav-close
-              >
-                <span class="c-mobile-menu__close-icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                  data-theme-toggle
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button
+                  class="c-mobile-menu__close c-icon-link"
+                  type="button"
+                  aria-label="Close menu"
+                  data-nav-close
+                >
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
             </div>
 
             <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
@@ -321,21 +352,6 @@ robots: noindex
                   <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span>
                 </a>
               </nav>
-
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-                data-theme-toggle
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-                <span class="c-theme-toggle__label">Switch to dark theme</span>
-              </button>
             </div>
           </div>
         </div>
@@ -357,9 +373,11 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The inner panel should be a vertical flex layout with:
-    a top close row, a main navigation area that can grow, and a footer action
-    area at the bottom separated by a border.
+    Below the layout breakpoint, the inner panel should be a vertical flex layout
+    with a top bar, a main navigation area that can grow, and a footer action
+    area at the bottom separated by a border. At desktop and wider viewports,
+    an empty test frame is the correct result because the component is
+    intentionally disabled there.
   </p>
 
   <div class="c-mobile-menu-test-frame">
@@ -368,25 +386,42 @@ robots: noindex
         <div class="o-container">
           <div class="c-mobile-menu__inner">
             <div class="c-mobile-menu__top">
-              <button class="c-mobile-menu__close" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
             </div>
 
             <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
@@ -414,20 +449,93 @@ robots: noindex
                   <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">S</span>
                 </a>
               </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-                <span class="c-theme-toggle__label">Switch to dark theme</span>
-              </button>
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Top Bar Layout -->
+  <!-- ============================================================= -->
+
+  <h2>Top bar layout</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Below the layout breakpoint, the top bar should place the mobile theme
+    toggle on the left and the close control on the right. Both controls should
+    align vertically and the row should end with a divider. At desktop and wider
+    viewports, an empty test frame is the correct result because the component
+    is intentionally disabled there.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">About</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+                  <span class="u-visually-hidden">LinkedIn</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
+                </a>
+              </nav>
             </div>
           </div>
         </div>
@@ -445,9 +553,10 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The footer action area should stack as a grid,
+    Below the layout breakpoint, the footer action area should stack as a grid,
     while the social links inside it should wrap cleanly onto multiple rows when
-    there are many actions.
+    there are many actions. At desktop and wider viewports, an empty test frame
+    is the correct result because the component is intentionally disabled there.
   </p>
 
   <div class="c-mobile-menu-test-frame">
@@ -456,25 +565,42 @@ robots: noindex
         <div class="o-container">
           <div class="c-mobile-menu__inner">
             <div class="c-mobile-menu__top">
-              <button class="c-mobile-menu__close" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
             </div>
 
             <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
@@ -491,22 +617,9 @@ robots: noindex
                 <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"><span class="u-visually-hidden">Instagram</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">I</span></a>
                 <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"><span class="u-visually-hidden">YouTube</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">Y</span></a>
                 <a class="c-icon-link c-social-links__item" href="#" aria-label="Twitter"><span class="u-visually-hidden">Twitter</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">X</span></a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="Scholar"><span class="u-visually-hidden">Scholar</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">S</span></a>
                 <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF"><span class="u-visually-hidden">CV PDF</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span></a>
               </nav>
-
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-                <span class="c-theme-toggle__label">Switch to dark theme</span>
-              </button>
             </div>
           </div>
         </div>
@@ -524,8 +637,10 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When the content becomes tall, the overlay should scroll vertically rather
-    than clipping the panel content.
+    Below the layout breakpoint, when the content becomes tall, the overlay
+    should scroll vertically rather than clipping the panel content. At desktop
+    and wider viewports, an empty test frame is the correct result because the
+    component is intentionally disabled there.
   </p>
 
   <div class="c-mobile-menu-test-frame">
@@ -534,25 +649,42 @@ robots: noindex
         <div class="o-container">
           <div class="c-mobile-menu__inner">
             <div class="c-mobile-menu__top">
-              <button class="c-mobile-menu__close" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
             </div>
 
             <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
@@ -583,20 +715,6 @@ robots: noindex
                   <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
                 </a>
               </nav>
-
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-                <span class="c-theme-toggle__label">Switch to dark theme</span>
-              </button>
             </div>
           </div>
         </div>
@@ -618,25 +736,26 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The close button should be circular, centered, and use the shared border and
-    surface tokens. On hover it should shift to the accent color and raised
-    surface. On active it should move slightly downward.
+    The close button should be circular, visually aligned with the shared
+    icon-link system, and keep the close icon centered. In this test section,
+    helper styles simulate hover/focus and active states so the differences are
+    visible without user interaction.
   </p>
 
   <div class="c-mobile-menu-test-frame c-mobile-menu-test-stack">
     <div class="c-mobile-menu-test-close-state-row">
       <div class="c-mobile-menu-test-close-demo">
-        <button class="c-mobile-menu__close" type="button" aria-label="Close menu">
-          <span class="c-mobile-menu__close-icon" aria-hidden="true">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
             <svg
               class="c-mobile-menu-test-svg-icon"
               viewBox="0 0 24 24"
-              fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
               <path
                 d="M6 6L18 18M18 6L6 18"
+                fill="none"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
@@ -652,17 +771,17 @@ robots: noindex
       </div>
 
       <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--hover">
-        <button class="c-mobile-menu__close" type="button" aria-label="Close menu">
-          <span class="c-mobile-menu__close-icon" aria-hidden="true">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
             <svg
               class="c-mobile-menu-test-svg-icon"
               viewBox="0 0 24 24"
-              fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
               <path
                 d="M6 6L18 18M18 6L6 18"
+                fill="none"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
@@ -677,18 +796,44 @@ robots: noindex
         </p>
       </div>
 
-      <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--active">
-        <button class="c-mobile-menu__close" type="button" aria-label="Close menu">
-          <span class="c-mobile-menu__close-icon" aria-hidden="true">
+      <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--focus">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
             <svg
               class="c-mobile-menu-test-svg-icon"
               viewBox="0 0 24 24"
-              fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
               <path
                 d="M6 6L18 18M18 6L6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="u-visually-hidden">Close menu</span>
+        </button>
+
+        <p class="c-mobile-menu-test-note">
+          Simulated focus state
+        </p>
+      </div>
+
+      <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--active">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+            <svg
+              class="c-mobile-menu-test-svg-icon"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                fill="none"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
@@ -708,7 +853,8 @@ robots: noindex
   <p>
     <em>
       Tip: This component is meant for mobile and tablet contexts only.
-      At the layout breakpoint and above, the mobile menu should no longer appear.
+      At the layout breakpoint and above, the mobile menu is expected to be fully
+      hidden, so empty test frames are the correct result.
     </em>
   </p>
 </section>

@@ -40,33 +40,6 @@ The work should happen in this order:
 
 ### 2.3 Update `index.html`
 
-**Goal**  
-Rename generic section layout classes to homepage-specific layout classes.
-
-**Rename plan**
-
-Rename:
-
-- `.l-section` → `.l-homepage-section`
-- `.l-section--projects` → `.l-homepage-section--projects`
-
-Keep component classes grouped under the home namespace:
-
-- `.c-home-projects__header`
-- `.c-home-projects__title`
-- `.c-home-projects__actions`
-- `.c-home-projects__button`
-
-**Do not create**
-
-- `.o-home-section`
-
-**Why**
-
-This is a layout concern, not an object concern.
-
----
-
 ## Phase 3 — Add the highest-confidence shared objects
 
 ### 3.1 Create `4-objects/_o-tag.scss`
@@ -182,8 +155,6 @@ This is a true generic arrangement pattern and fits ITCSS very well.
 ## Phase 4 — Simplify metadata before extracting a metadata object
 
 ### 4.1 Revise the metadata markup in `post-card.html` and `post.html`
-
-Done
 
 ### 4.2 Create `4-objects/_o-post-metadata.scss`
 

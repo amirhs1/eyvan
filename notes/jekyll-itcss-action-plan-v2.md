@@ -44,8 +44,6 @@ The work should happen in this order:
 
 ### 3.1 Create `4-objects/_o-tag.scss`
 
-
-
 ### 3.2 Create `4-objects/_o-prose.scss`
 
 **Goal**  

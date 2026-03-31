@@ -4,6 +4,7 @@ title: Component Button Test
 permalink: /tests/5-components/button/
 robots: noindex
 ---
+
 {% comment %}
   Component Button Test Page
   Purpose: Visually verify that the 5-components button system compiles
@@ -11,18 +12,23 @@ robots: noindex
 
   Structure:
   - Base button
-  - Primary and secondary variants
+  - Shared action variants
+  - Tag variants
   - Size modifiers
   - Icon composition
+  - Icon button with longer label
   - Disabled state
-  - Small-screen wrapping behavior
-  - Combined responsive examples
+  - Small-screen behavior
+  - White-space stress test
+  - Combined responsive check
 
   Notes:
   - This page tests only the cosmetic and interaction responsibilities of:
     - .c-button
     - .c-button--primary
     - .c-button--secondary
+    - .c-button--tag
+    - .c-button--tag-small
     - .c-button--small
     - .c-button--large
     - .c-button--with-icon
@@ -123,7 +129,7 @@ robots: noindex
 
     <div class="c-button-test-frame">
       <div class="c-button-test-row">
-        <a class="c-button c-button--primary" href="#base-link"> Base button as link </a>
+        <a class="c-button c-button--primary" href="#base-link">Base button as link</a>
 
         <button class="c-button c-button--secondary" type="button">Base button as button</button>
       </div>
@@ -133,24 +139,64 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Variants -->
+  <!-- Shared Action Variants -->
   <!-- ============================================================= -->
 
   <div class="o-container">
-    <h2>Primary and secondary variants</h2>
+    <h2>Shared action variants</h2>
 
     <p>
       <strong>Expected behavior:</strong>
-      The primary and secondary variants should look visually distinct while preserving the same button structure,
-      spacing, and typography. Hover and focus-visible states should change the visual treatment without breaking
-      layout.
+      The primary and secondary action variants should currently render with the same shared visual treatment. This
+      test mainly verifies that both modifiers compile correctly, preserve structure, and respond consistently on hover
+      and focus-visible states.
     </p>
 
     <div class="c-button-test-frame">
       <div class="c-button-test-row">
-        <a class="c-button c-button--primary" href="#primary"> Primary action </a>
+        <a class="c-button c-button--primary" href="#primary">Primary action</a>
 
-        <a class="c-button c-button--secondary" href="#secondary"> Secondary action </a>
+        <a class="c-button c-button--secondary" href="#secondary">Secondary action</a>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tag Variants -->
+  <!-- ============================================================= -->
+
+  <div class="o-container">
+    <h2>Tag variants</h2>
+
+    <p>
+      <strong>Expected behavior:</strong>
+      Tag buttons should render as compact button-like links with smaller height, tighter padding, and capitalized text.
+      The small tag variant should be visibly more compact than the default tag variant.
+    </p>
+
+    <div class="c-button-test-frame">
+      <div class="c-button-test-stack">
+        <div class="c-button-test-row">
+          <span class="c-button-test-label">Default tag:</span>
+
+          <a class="c-button c-button--tag" href="#tag-research">Research</a>
+
+          <a class="c-button c-button--tag" href="#tag-writing">Writing Notes</a>
+
+          <a class="c-button c-button--tag" href="#tag-creative-work">Creative Work</a>
+        </div>
+
+        <div class="c-button-test-row">
+          <span class="c-button-test-label">Small tag:</span>
+
+          <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-research">Research</a>
+
+          <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-writing">Writing Notes</a>
+
+          <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-creative-work">Creative Work</a>
+        </div>
       </div>
     </div>
   </div>
@@ -167,7 +213,7 @@ robots: noindex
     <p>
       <strong>Expected behavior:</strong>
       The small and large modifiers should change the button height, padding, and font size while preserving alignment,
-      border radius, and variant styling.
+      border radius, and the shared action styling.
     </p>
 
     <div class="c-button-test-frame">
@@ -175,17 +221,17 @@ robots: noindex
         <div class="c-button-test-row">
           <span class="c-button-test-label">Primary sizes:</span>
 
-          <a class="c-button c-button--primary c-button--small" href="#small-primary"> Small primary </a>
+          <a class="c-button c-button--primary c-button--small" href="#small-primary">Small primary</a>
 
-          <a class="c-button c-button--primary c-button--large" href="#large-primary"> Large primary </a>
+          <a class="c-button c-button--primary c-button--large" href="#large-primary">Large primary</a>
         </div>
 
         <div class="c-button-test-row">
           <span class="c-button-test-label">Secondary sizes:</span>
 
-          <a class="c-button c-button--secondary c-button--small" href="#small-secondary"> Small secondary </a>
+          <a class="c-button c-button--secondary c-button--small" href="#small-secondary">Small secondary</a>
 
-          <a class="c-button c-button--secondary c-button--large" href="#large-secondary"> Large secondary </a>
+          <a class="c-button c-button--secondary c-button--large" href="#large-secondary">Large secondary</a>
         </div>
       </div>
     </div>
@@ -202,8 +248,8 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      Buttons using <code>.c-button--with-icon</code> should align the icon circle and label on one line with consistent
-      spacing. The icon circle should remain circular and should not stretch.
+      Buttons using <code>.c-button--with-icon</code> should align the icon circle and label on one line with
+      consistent spacing. The icon circle should remain circular and should not stretch.
     </p>
 
     <div class="c-button-test-frame">
@@ -258,7 +304,7 @@ robots: noindex
             <span class="c-button__icon c-button-test-icon">↓</span>
           </span>
 
-          <span class="c-button__label"> Read the project overview </span>
+          <span class="c-button__label">Read the project overview</span>
         </a>
       </div>
     </div>
@@ -305,14 +351,15 @@ robots: noindex
 
     <p class="c-button-test-note">
       <strong>Expected behavior:</strong>
-      On very narrow screens, buttons should still remain usable and not collapse awkwardly. Above the component’s small
-      breakpoint, the button can expand to its content width more confidently. Resize the viewport to inspect this.
+      On very narrow screens, buttons should still remain usable and not collapse awkwardly. Once the viewport reaches
+      the component’s min-width breakpoint, the button should prefer its content width more explicitly. Resize the
+      viewport to inspect this behavior.
     </p>
 
     <div class="c-button-test-frame">
       <div class="c-button-test-surface c-button-test-long-wrap">
         <div class="c-button-test-row c-button-test-row--column">
-          <a class="c-button c-button--primary c-button-test-fill" href="#narrow-primary"> Narrow primary test </a>
+          <a class="c-button c-button--primary c-button-test-fill" href="#narrow-primary">Narrow primary test</a>
 
           <a
             class="c-button c-button--secondary c-button--with-icon c-button-test-fill"
@@ -371,21 +418,25 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      This final example combines the main button patterns in one place: primary, secondary, size modifiers, and icon
-      composition. The row should wrap cleanly as horizontal space decreases.
+      This final example combines the main button patterns in one place: shared action variants, tag variants, size
+      modifiers, and icon composition. The row should wrap cleanly as horizontal space decreases.
     </p>
 
     <div class="c-button-test-frame">
       <div class="c-button-test-row">
-        <a class="c-button c-button--primary c-button--small" href="#final-1"> Small primary </a>
+        <a class="c-button c-button--primary c-button--small" href="#final-1">Small primary</a>
 
-        <a class="c-button c-button--primary c-button--large" href="#final-2"> Large primary </a>
+        <a class="c-button c-button--primary c-button--large" href="#final-2">Large primary</a>
 
-        <a class="c-button c-button--secondary c-button--small" href="#final-3"> Small secondary </a>
+        <a class="c-button c-button--secondary c-button--small" href="#final-3">Small secondary</a>
+
+        <a class="c-button c-button--tag" href="#final-4">Research</a>
+
+        <a class="c-button c-button--tag c-button--tag-small" href="#final-5">Notes</a>
 
         <a
           class="c-button c-button--secondary c-button--small c-button--with-icon"
-          href="#final-4"
+          href="#final-6"
         >
           <span class="c-button__icon-circle" aria-hidden="true">
             <span class="c-button__icon c-button-test-icon">↓</span>

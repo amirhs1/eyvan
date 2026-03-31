@@ -4,9 +4,9 @@
   global header using shared navigation data.
 
   Structure:
-  - Top: close control
+  - Top: theme toggle (left) + close control (right)
   - Middle: primary navigation links
-  - Bottom: social links + theme toggle
+  - Bottom: social links
 
   Architecture:
   - Reusable header subcomponent included by header.html
@@ -42,25 +42,37 @@
     <div class="c-mobile-menu__inner">
       <!-- Mobile menu top bar -->
       <div class="c-mobile-menu__top">
-        <!-- Mobile menu close button -->
-        <button
-          class="c-mobile-menu__close"
-          type="button"
-          aria-label="Close menu"
-          data-nav-close
-        >
-          <!-- Decorative close icon -->
-          <span class="c-mobile-menu__close-icon" aria-hidden="true">
-            {% include icons/close-circle.svg %}
-          </span>
+        <!-- Left: theme toggle -->
+        <div class="c-mobile-menu__top-left">
+          {%
+            include theme-toggle.html
+            modifier="c-theme-toggle--mobile"
+            hide_label=true
+          %}
+        </div>
 
-          <!-- Screen-reader label for close button -->
-          <span class="u-visually-hidden">Close menu</span>
-        </button>
+        <!-- Right: close button -->
+        <div class="c-mobile-menu__top-right">
+          <button
+            class="c-mobile-menu__close c-icon-link"
+            type="button"
+            aria-label="Close menu"
+            data-nav-close
+          >
+            <!-- Decorative close icon -->
+            <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+              {% include icons/close-circle.svg %}
+            </span>
+
+            <!-- Screen-reader label for close button -->
+            <span class="u-visually-hidden">Close menu</span>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile primary navigation -->
-      {% include navigation.html
+      {%
+        include navigation.html
         modifier="c-nav--mobile"
         aria_label="Mobile navigation"
       %}
@@ -71,9 +83,6 @@
         <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
           {% include social-links.html %}
         </nav>
-
-        <!-- Mobile theme toggle -->
-        {% include theme-toggle.html modifier="c-theme-toggle--mobile" hide_label=false %}
       </div>
     </div>
   </div>

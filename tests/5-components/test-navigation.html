@@ -4,7 +4,6 @@ title: Component Navigation Test
 permalink: /tests/5-components/test-navigation/
 robots: noindex
 ---
-
 {% comment %}
   Component Navigation Test Page
   Purpose: Visually verify that the 5-components navigation system compiles
@@ -103,8 +102,8 @@ robots: noindex
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the navigation classes defined in
-    the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the navigation classes defined in the <strong>5-components</strong> Sass
+    layer.
   </p>
 
   <hr>
@@ -117,9 +116,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The navigation list below should render as a horizontal flex row with
-    aligned items, consistent spacing between links, and no default list bullets
-    because <code>.c-nav__list</code> is used together with
+    The navigation list below should render as a horizontal flex row with aligned items, consistent spacing between
+    links, and no default list bullets because <code>.c-nav__list</code> is used together with
     <code>.u-list-reset</code>.
   </p>
 
@@ -152,10 +150,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The desktop variant uses <code>.c-nav--desktop</code>.
-    Below the layout breakpoint it should be <strong>hidden</strong>.
-    At and above the layout breakpoint it should become
-    <strong>visible</strong>.
+    The desktop variant uses <code>.c-nav--desktop</code>. Below the layout breakpoint it should be
+    <strong>hidden</strong>. At and above the layout breakpoint it should become <strong>visible</strong>.
   </p>
 
   <div class="c-navigation-test-frame">
@@ -178,9 +174,7 @@ robots: noindex
       </nav>
     </div>
 
-    <p class="c-navigation-test-note">
-      Resize the browser width to confirm the desktop navigation visibility rule.
-    </p>
+    <p class="c-navigation-test-note">Resize the browser width to confirm the desktop navigation visibility rule.</p>
   </div>
 
   <hr>
@@ -193,10 +187,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    Links with <code>.is-active</code> or
-    <code>aria-current="page"</code> should use the active color.
-    In the default or desktop-style navigation, they should also show a
-    <strong>small circular marker</strong> near the bottom.
+    Links with <code>.is-active</code> or <code>aria-current="page"</code> should use the active color. In the default
+    or desktop-style navigation, they should also show a <strong>small circular marker</strong> near the bottom.
   </p>
 
   <div class="c-navigation-test-frame">
@@ -228,10 +220,10 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    In the desktop variant, the <strong>list</strong> may wrap onto multiple
-    rows because <code>.c-nav--desktop .c-nav__list</code> allows wrapping.
-    However, each individual link should still stay on a single line because
-    <code>.c-nav__link</code> uses <code>white-space: nowrap</code>.
+    In the desktop variant, the <strong>list</strong> may wrap onto multiple rows because
+    <code>.c-nav--desktop .c-nav__list</code> allows wrapping. However, each individual link remains on a single line
+    because <code>.c-nav__link</code> uses <code>white-space: nowrap</code>. As a result, multiple items may still
+    appear on the same row if there is enough horizontal space.
   </p>
 
   <div class="c-navigation-test-frame">
@@ -265,9 +257,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The mobile variant should stack links vertically, stretch items to the
-    available width, align text to the left, increase link size, and add a
-    bottom border to each link. Its active link should <strong>not</strong>
+    The mobile variant should stack links vertically, stretch items to the available width, align text to the left,
+    increase link size, and add a bottom border to each link. Its active link should <strong>not</strong>
     render the circular marker used by the default or desktop style.
   </p>
 
@@ -302,8 +293,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    In the mobile variant, long labels should be able to wrap because the
-    mobile modifier changes link whitespace behavior from
+    In the mobile variant, long labels should be able to wrap because the mobile modifier changes link whitespace
+    behavior from
     <code>nowrap</code> to <code>normal</code>.
   </p>
 
@@ -312,14 +303,10 @@ robots: noindex
       <nav class="c-nav c-nav--mobile" aria-label="Test long labels mobile">
         <ul class="c-nav__list u-list-reset">
           <li class="c-nav__item">
-            <a class="c-nav__link" href="#">
-              Very Long Navigation Label Example That Should Wrap in the Mobile Menu
-            </a>
+            <a class="c-nav__link" href="#"> Very Long Navigation Label Example That Should Wrap in the Mobile Menu </a>
           </li>
           <li class="c-nav__item">
-            <a class="c-nav__link" href="#">
-              Another Long Editorial Navigation Label for Responsive Wrapping
-            </a>
+            <a class="c-nav__link" href="#"> Another Long Editorial Navigation Label for Responsive Wrapping </a>
           </li>
         </ul>
       </nav>
@@ -336,9 +323,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The external link below should look visually like the other navigation links.
-    In your real include, external links also receive
-    <code>target="_blank"</code> and <code>rel="noopener noreferrer"</code>.
+    The external link below should look visually like the other navigation links. In the real include, external links
+    should also open in a new tab and carry
+    <code>rel="noopener noreferrer"</code>.
   </p>
 
   <div class="c-navigation-test-frame">
@@ -371,18 +358,17 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The toggle button should render as a circular icon button.
-    On hover it should change color and background.
-    The version with <code>aria-expanded="true"</code> should show the expanded
-    state styling, including the raised-surface background and border.
-    At and above the layout breakpoint, the toggle should become
-    <strong>hidden</strong>.
+    The toggle button should render as a compact icon button. The two examples below simulate the collapsed and expanded
+    states using
+    <code>aria-expanded</code>. When <code>aria-expanded="true"</code>, the button should display its active or
+    open-state styling compared to the default collapsed state. At and above the layout breakpoint, the toggle should
+    become <strong>hidden</strong>.
   </p>
 
   <div class="c-navigation-test-frame c-navigation-test-stack">
     <div class="c-navigation-test-box c-navigation-test-box--toggle">
       <button
-        class="c-nav-toggle"
+        class="c-nav-toggle c-icon-link"
         type="button"
         aria-expanded="false"
         aria-controls="test-mobile-menu"
@@ -390,22 +376,17 @@ robots: noindex
         data-nav-toggle
       >
         <span class="u-visually-hidden">Open menu</span>
-        <img
-          class="c-nav-toggle__icon"
-          src="{{ '/assets/icons/menu-sharp.svg' | relative_url }}"
-          alt=""
-          aria-hidden="true"
-        >
+        <span class="c-nav-toggle__icon c-icon-link__icon" aria-hidden="true">
+          {% include icons/menu.svg %}
+        </span>
       </button>
 
-      <p class="c-navigation-test-note">
-        Collapsed state: <code>aria-expanded="false"</code>
-      </p>
+      <p class="c-navigation-test-note">Collapsed state: <code>aria-expanded="false"</code></p>
     </div>
 
     <div class="c-navigation-test-box c-navigation-test-box--toggle">
       <button
-        class="c-nav-toggle"
+        class="c-nav-toggle c-icon-link"
         type="button"
         aria-expanded="true"
         aria-controls="test-mobile-menu"
@@ -413,25 +394,20 @@ robots: noindex
         data-nav-toggle
       >
         <span class="u-visually-hidden">Close menu</span>
-        <img
-          class="c-nav-toggle__icon"
-          src="{{ '/assets/icons/menu-sharp.svg' | relative_url }}"
-          alt=""
-          aria-hidden="true"
-        >
+        <span class="c-nav-toggle__icon c-icon-link__icon" aria-hidden="true">
+          {% include icons/menu.svg %}
+        </span>
       </button>
 
-      <p class="c-navigation-test-note">
-        Expanded state: <code>aria-expanded="true"</code>
-      </p>
+      <p class="c-navigation-test-note">Expanded state: <code>aria-expanded="true"</code></p>
     </div>
   </div>
 
   <p>
     <em>
-      Tip: Resize the browser window to confirm that
-      <code>.c-nav--desktop</code> and <code>.c-nav-toggle</code> switch
-      visibility at the layout breakpoint.
+      Tip: This test compares state styling only. It does not test icon swapping between open and close controls. Resize
+      the browser window to confirm that
+      <code>.c-nav--desktop</code> and <code>.c-nav-toggle</code> switch visibility at the layout breakpoint.
     </em>
   </p>
 </section>

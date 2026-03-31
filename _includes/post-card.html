@@ -77,13 +77,14 @@
 
     <!-- Post card content -->
     <div class="c-post-card__content">
-      {% if post.tags %}
+      {% if post.tags and post.tags.size >= 1 %}
         <!-- Post card tags -->
         <div class="c-post-card__tags">
           {% for tag in post.tags %}
+            {% assign slug = tag | slugify %}
             <a
-              class="c-post-card__tag"
-              href="{{ '/tag/' | append: tag | slugify | append: '/' | relative_url }}"
+              class="c-button c-button--tag c-button--tag-small c-post-card__tag"
+              href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
             >
               {{ tag }}
             </a>

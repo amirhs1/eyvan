@@ -44,42 +44,7 @@ The work should happen in this order:
 
 ### 3.1 Create `4-objects/_o-tag.scss`
 
-**Goal**  
-Unify tag styling across page types while preserving context-specific class names.
 
-**Applies to**
-
-- `.c-post__tag`
-- `.c-post-card__tag`
-- `.c-page__tag`
-- possible future tag archive tag elements
-
-**What `o-tag` should own**
-
-- inline-flex alignment
-- padding
-- border-radius
-- border
-- background
-- default font family
-- default font weight
-- default font size
-- line-height
-- transition
-- baseline hover and focus behavior for linked tags
-- optional wrapping behavior
-
-**What component classes can still override**
-
-- size
-- local spacing
-- context-specific colors if needed
-
-**Why**
-
-This is the strongest reuse case in the project.
-
----
 
 ### 3.2 Create `4-objects/_o-prose.scss`
 

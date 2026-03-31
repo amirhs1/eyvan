@@ -89,8 +89,8 @@ layout: default
             {% for tag in page.tags %}
               {% assign slug = tag | slugify %}
               <a
-                href="{{ '/tag/' | append: slug | relative_url }}"
-                class="c-post__tag"
+                class="c-button c-button--tag c-post__tag"
+                href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
               >
                 {{ tag }}
               </a>

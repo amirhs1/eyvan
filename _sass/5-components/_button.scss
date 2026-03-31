@@ -3,17 +3,20 @@
 // ITCSS layer: 5-components
 //
 // Description:
-// Provides the shared button system used by hero CTAs and section CTAs.
+// Provides the shared button system used by hero CTAs, section CTAs,
+// and tag-style button links.
 //
 // Scope & Rules:
 // - Owns button cosmetics and interaction states
 // - Owns inline alignment, padding, radius, typography, and icon treatment
-// - Does NOT own page-level placement or hero action-group spacing
+// - Does NOT own page-level placement or component-specific outer spacing
 //
 // Supported selectors:
 // - .c-button
 // - .c-button--primary
 // - .c-button--secondary
+// - .c-button--tag
+// - .c-button--tag-small
 // - .c-button--small
 // - .c-button--large
 // - .c-button--with-icon
@@ -44,6 +47,12 @@ $button-gap-default: settings-spacing.$space-2;
 $button-icon-circle-size: 1.25rem;
 $button-icon-size: 0.875rem;
 $button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
+
+$button-tag-padding-block: settings-spacing.$space-2;
+$button-tag-padding-inline: settings-spacing.$space-3;
+
+$button-tag-padding-block-small: settings-spacing.$space-1;
+$button-tag-padding-inline-small: settings-spacing.$space-2;
 
 /* -----------------------------------------------------------------------------
    Base button
@@ -111,10 +120,6 @@ $button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
    Variants
    ----------------------------------------------------------------------------- */
 
-/* -----------------------------------------------------------------------------
-   Variants
-   ----------------------------------------------------------------------------- */
-
 .c-button--primary,
 .c-button--secondary {
   background-color: var(--color-button-bg);
@@ -131,6 +136,46 @@ $button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
     border-color: var(--color-button-bg-hover);
     color: var(--color-button-text);
   }
+}
+
+/* -----------------------------------------------------------------------------
+   Tag variants
+   ----------------------------------------------------------------------------- */
+
+.c-button--tag {
+  min-block-size: 2.125rem;
+  padding-block: $button-tag-padding-block;
+  padding-inline: $button-tag-padding-inline;
+
+  border-color: transparent;
+  border-radius: settings-config.$global-button-radius;
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+
+  font-size: settings-type.$font-size-sm;
+  font-weight: settings-type.$font-weight-bold;
+  letter-spacing: settings-type.$letter-spacing-loose-sm;
+  line-height: 1;
+  text-transform: capitalize;
+
+  &:visited {
+    color: var(--color-button-text);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-button-bg-hover);
+    border-color: transparent;
+    color: var(--color-button-text);
+  }
+}
+
+.c-button--tag-small {
+  min-block-size: 1.75rem;
+  padding-block: $button-tag-padding-block-small;
+  padding-inline: $button-tag-padding-inline-small;
+  font-size: settings-type.$font-size-xs;
+  letter-spacing: settings-type.$letter-spacing-normal;
 }
 
 /* -----------------------------------------------------------------------------

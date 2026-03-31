@@ -43,8 +43,7 @@ $post-card-content-padding: settings-spacing.$space-3;
 $post-card-content-padding-mobile: settings-spacing.$space-3;
 
 $post-card-tag-gap: settings-spacing.$space-2;
-$post-card-tag-padding-block: settings-spacing.$space-2;
-$post-card-tag-padding-inline: settings-spacing.$space-3;
+$post-card-tag-margin-block-end: settings-spacing.$space-2;
 
 $post-card-title-margin-block-end: settings-spacing.$space-3;
 $post-card-excerpt-margin-block-end: settings-spacing.$space-4;
@@ -137,46 +136,11 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
   display: flex;
   flex-wrap: wrap;
   gap: $post-card-tag-gap;
-  margin-block-end: settings-spacing.$space-2;
+  margin-block-end: $post-card-tag-margin-block-end;
 }
 
 .c-post-card__tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-block-size: 2rem;
-  padding-block: $post-card-tag-padding-block;
-  padding-inline: $post-card-tag-padding-inline;
-
-  border: 1px solid transparent;
-  border-radius: settings-config.$global-border-radius;
-  background-color: var(--color-accent-primary);
-  color: var(--color-button-text);
-
-  font-family: settings-typography.$font-family-display;
-  font-size: settings-typography.$font-size-xs;
-  font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
-  letter-spacing: settings-typography.$letter-spacing-loose-sm;
-  text-decoration: none;
   text-transform: capitalize;
-
-  @include tools-motion.transition-ui-with-transform;
-
-  &:visited {
-    color: var(--color-button-text);
-  }
-
-  &:hover {
-    background-color: var(--color-link-hover);
-    color: var(--color-button-text);
-    text-decoration: none;
-    transform: translateY(-1px);
-  }
-
-  &:focus-visible {
-    @include tools-mixins.focus-ring;
-  }
 }
 
 /* -----------------------------------------------------------------------------

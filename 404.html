@@ -3,12 +3,43 @@ layout: page
 title: Page not found
 permalink: /404.html
 ---
-<div class="container">
-    <div class="row">
-        <div class="col col-12" style="text-align: center">
-            <h2>404</h2>
-            <p>The requested page could not be found.</p>
-            <p><a href="{{site.baseurl}}/">Back to the home</a></p>
-        </div>
+
+{% comment %}
+  404 Page
+  Purpose: Provide a simple fallback page when a route is not found.
+
+  Structure:
+  - Container
+    - Centered message block
+      - Error code
+      - Description
+      - CTA back to homepage
+
+  Notes:
+  - Keeps structure intentionally minimal
+  - Uses existing button component for CTA
+{% endcomment %}
+
+<div class="o-container">
+  <section class="c-404">
+    <div class="c-404__inner">
+
+      <!-- Error code -->
+      <h1 class="c-404__title">404</h1>
+
+      <!-- Description -->
+      <p class="c-404__description">
+        The requested page could not be found.
+      </p>
+
+      <!-- CTA -->
+      <a
+        class="c-button c-button--primary c-404__action"
+        href="{{ '/' | relative_url }}"
+      >
+        Back to home
+      </a>
+
     </div>
+  </section>
 </div>

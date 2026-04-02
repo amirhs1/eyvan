@@ -126,23 +126,6 @@ Own page-level layout structure for `projects.html`.
 
 ### 5.3 Create `6-layouts/_l-page.scss`
 
-**Goal**  
-Own layout structure for generic content pages.
-
-**Suggested scope**
-
-- `.l-page`
-- `.l-page__header`
-- `.l-page__tags`
-- `.l-page__body`
-
-**What this file should own**
-
-- spacing between page header, tag row, and content body
-- page-level layout placement only
-
----
-
 ### 5.4 Create `6-layouts/_l-tag-page.scss`
 
 **Goal**  
@@ -164,30 +147,6 @@ Own the tag archive page layout.
 ## Phase 6 — Add the missing components
 
 ### 6.1 Create `5-components/_c-page.scss`
-
-**Goal**  
-Style the renamed `c-page*` component in `_layouts/page.html`.
-
-**Suggested scope**
-
-- `.c-page`
-- `.c-page__media`
-- `.c-page__image`
-- `.c-page__title`
-- `.c-page__subtitle`
-- `.c-page__meta`
-- `.c-page__author`
-- `.c-page__date`
-- `.c-page__divider`
-- `.c-page__tag`
-
-**What this file should own**
-
-- visual styles specific to generic pages
-- page image treatment
-- page-specific typography for title/subtitle/meta
-
----
 
 ### 6.2 Create `5-components/_c-projects.scss`
 

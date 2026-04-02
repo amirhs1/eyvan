@@ -1,0 +1,216 @@
+// -----------------------------------------------------------------------------
+// Page Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the generic static page layout used by _layouts/page.html.
+//
+// Structure:
+// - .c-page
+//   - .c-page__media
+//   - .c-page__image
+//   - .c-page__header
+//   - .c-page__title
+//   - .c-page__subtitle
+//   - .c-page__meta
+//     - shared .c-entry-meta component
+//   - .c-page__tags
+//   - .c-page__tag
+//   - .c-page__divider
+//   - .c-page__body
+//
+// Scope & Rules:
+// - Component styling only
+// - Outer page containment belongs to .o-container
+// - Long-form typography and content rhythm belong to .o-prose
+// - Shared metadata visuals are delegated to _entry-meta.scss
+// - Shared tag button visuals are delegated to _button.scss
+// - This file owns only page-shell spacing, featured media, and local layout
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$page-offset-top: tools-spacing.$fluid-stack-md;
+$page-media-gap: tools-spacing.$fluid-stack-md;
+$page-header-gap: tools-spacing.$space-stack-sm;
+$page-header-margin-block-end: tools-spacing.$fluid-stack-md;
+
+$page-header-inline-size: settings-typography.$text-measure-wide;
+$page-subtitle-inline-size: settings-typography.$text-measure-base;
+
+$page-tag-gap: settings-spacing.$space-2;
+$page-meta-padding-block-start: settings-spacing.$space-1;
+$page-divider-margin-block: tools-spacing.$fluid-stack-md;
+
+$page-image-max-block-size: min(34rem, 60vh);
+
+/* -----------------------------------------------------------------------------
+   Page shell
+   ----------------------------------------------------------------------------- */
+
+.c-page {
+  min-inline-size: 0;
+  padding-block-start: $page-offset-top;
+}
+
+/* -----------------------------------------------------------------------------
+   Featured media
+   ----------------------------------------------------------------------------- */
+
+.c-page__media {
+  overflow: hidden;
+  margin-block-end: $page-media-gap;
+  background-color: var(--color-ui-surface-raised);
+  border-radius: settings-config.$global-border-radius;
+}
+
+.c-page__image {
+  display: block;
+  inline-size: 100%;
+  max-block-size: $page-image-max-block-size;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* -----------------------------------------------------------------------------
+   Header
+   ----------------------------------------------------------------------------- */
+
+.c-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: $page-header-gap;
+  max-inline-size: $page-header-inline-size;
+  margin-inline: auto;
+  margin-block-end: $page-header-margin-block-end;
+}
+
+/* -----------------------------------------------------------------------------
+   Title + subtitle
+   ----------------------------------------------------------------------------- */
+
+.c-page__title {
+  margin: 0;
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  font-size: clamp(
+    settings-typography.$font-size-h1-min,
+    5vw,
+    settings-typography.$font-size-h1-max
+  );
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: 1.08;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+  text-wrap: balance;
+}
+
+.c-page__subtitle {
+  max-inline-size: $page-subtitle-inline-size;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-body;
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-loose;
+  text-wrap: pretty;
+}
+
+/* -----------------------------------------------------------------------------
+   Meta
+   Contextual wrapper only; internals belong to _entry-meta.scss
+   ----------------------------------------------------------------------------- */
+
+.c-page__meta {
+  min-inline-size: 0;
+  padding-block-start: $page-meta-padding-block-start;
+}
+
+/* -----------------------------------------------------------------------------
+   Tags
+   ----------------------------------------------------------------------------- */
+
+.c-page__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $page-tag-gap;
+  margin: 0;
+}
+
+.c-page__tag {
+  text-transform: capitalize;
+}
+
+/* -----------------------------------------------------------------------------
+   Divider
+   ----------------------------------------------------------------------------- */
+
+.c-page__divider {
+  max-inline-size: $page-header-inline-size;
+  margin-block: $page-divider-margin-block;
+  margin-inline: auto;
+  border: 0;
+  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
+}
+
+/* -----------------------------------------------------------------------------
+   Body
+   ----------------------------------------------------------------------------- */
+
+.c-page__body {
+  min-inline-size: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+   ----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-page {
+    padding-block-start: settings-spacing.$space-5;
+  }
+
+  .c-page__media {
+    margin-block-end: settings-spacing.$space-5;
+  }
+
+  .c-page__header {
+    gap: settings-spacing.$space-3;
+    margin-block-end: settings-spacing.$space-5;
+  }
+
+  .c-page__divider {
+    margin-block: settings-spacing.$space-5;
+  }
+}
+
+@media (max-width: settings-breakpoints.$bp-sm) {
+  .c-page {
+    padding-block-start: settings-spacing.$space-4;
+  }
+
+  .c-page__media {
+    margin-block-end: settings-spacing.$space-4;
+    border-radius: settings-config.$global-radius;
+  }
+
+  .c-page__header {
+    gap: settings-spacing.$space-2;
+    margin-block-end: settings-spacing.$space-4;
+  }
+
+  .c-page__subtitle {
+    font-size: settings-typography.$font-size-md;
+  }
+
+  .c-page__divider {
+    margin-block: settings-spacing.$space-4;
+  }
+}

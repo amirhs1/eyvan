@@ -46,45 +46,6 @@ The work should happen in this order:
 
 ### 3.2 Create `4-objects/_o-prose.scss`
 
-**Goal**  
-Create a reusable object for long-form content areas.
-
-**Use in**
-
-- `post.html`
-- `page.html`
-- future long-form content pages
-
-**What `o-prose` should own**
-
-- readable content width if needed
-- spacing between headings, paragraphs, lists, blockquotes, tables, images, code, and embeds
-- typography rhythm
-- content-specific link treatment if needed
-- list indentation and list marker behavior for prose content
-
-**What it should not own**
-
-- outer page width containment
-- page shell spacing
-- component-specific header styles
-
-**Difference from `o-container`**
-
-- `o-container` controls page-level horizontal containment
-- `o-prose` controls long-form content rhythm and readability
-
-**Difference from `3-base`**
-
-- `3-base` styles raw elements globally
-- `o-prose` styles long-form elements inside a specific content context
-
-**Why**
-
-This is a clean ITCSS object and avoids stuffing content rules into `3-base`.
-
----
-
 ### 3.3 Create `4-objects/_o-action-cluster.scss`
 
 **Goal**  
@@ -120,37 +81,6 @@ This is a true generic arrangement pattern and fits ITCSS very well.
 ### 4.1 Revise the metadata markup in `post-card.html` and `post.html`
 
 ### 4.2 Create `4-objects/_o-post-metadata.scss`
-
-**Goal**  
-Create a small, honest metadata object after the markup is simplified.
-
-**Preferred name**
-
-- `o-post-metadata`
-
-**Recommended first version**
-
-Use only the pieces that match your real content model:
-
-- `.o-post-metadata`
-- `.o-post-metadata__avatar`
-- `.o-post-metadata__content`
-- `.o-post-metadata__author`
-- `.o-post-metadata__date`
-- `.o-post-metadata__read-time`
-- `.o-post-metadata__icon`
-
-**Do not overbuild yet**
-
-Avoid introducing extra abstraction such as:
-
-- `__primary`
-- `__secondary`
-- `__item`
-- `__body`
-
-unless the simplified HTML clearly needs them.
-
 
 ## Phase 5 — Fill the missing `6-layouts` layer
 

@@ -1,21 +1,22 @@
 // -----------------------------------------------------------------------------
-// Post Meta Component
+// Entry Meta Component
 // ITCSS layer: 5-components
 //
 // Description:
-// Styles the reusable post metadata component used in post cards and
-// post headers. This component renders author, date, and reading time.
+// Styles the reusable entry metadata component used in post cards,
+// post headers, and page headers. This component renders author,
+// date, and optional reading time.
 //
 // Structure:
-// - .c-post-meta
-//   - .c-post-meta__author
-//   - .c-post-meta__avatar
-//   - .c-post-meta__content
-//   - .c-post-meta__author-name
-//   - .c-post-meta__details
-//   - .c-post-meta__date
-//   - .c-post-meta__read-time
-//   - .c-post-meta__icon
+// - .c-entry-meta
+//   - .c-entry-meta__author
+//   - .c-entry-meta__avatar
+//   - .c-entry-meta__content
+//   - .c-entry-meta__author-name
+//   - .c-entry-meta__details
+//   - .c-entry-meta__date
+//   - .c-entry-meta__read-time
+//   - .c-entry-meta__icon
 //
 // Scope & Rules:
 // - Component styling only
@@ -30,38 +31,38 @@
    Local component tokens
    ----------------------------------------------------------------------------- */
 
-$post-meta-avatar-size: 2.75rem;
-$post-meta-icon-size: 0.875rem;
-$post-meta-gap: settings-spacing.$space-3;
-$post-meta-content-gap: settings-spacing.$space-1;
-$post-meta-details-gap: settings-spacing.$space-2;
+$entry-meta-avatar-size: 2.75rem;
+$entry-meta-icon-size: 0.875rem;
+$entry-meta-gap: settings-spacing.$space-3;
+$entry-meta-content-gap: settings-spacing.$space-1;
+$entry-meta-details-gap: settings-spacing.$space-2;
 
 /* -----------------------------------------------------------------------------
    Root
    ----------------------------------------------------------------------------- */
 
-.c-post-meta {
+.c-entry-meta {
   display: flex;
   align-items: center;
   min-inline-size: 0;
-  gap: $post-meta-gap;
+  gap: $entry-meta-gap;
 }
 
 /* -----------------------------------------------------------------------------
    Avatar
    ----------------------------------------------------------------------------- */
 
-.c-post-meta__author {
+.c-entry-meta__author {
   display: block;
   flex: 0 0 auto;
-  inline-size: $post-meta-avatar-size;
-  block-size: $post-meta-avatar-size;
+  inline-size: $entry-meta-avatar-size;
+  block-size: $entry-meta-avatar-size;
   overflow: hidden;
   border-radius: 50%;
   background-color: var(--color-ui-surface-raised);
 }
 
-.c-post-meta__avatar {
+.c-entry-meta__avatar {
   display: block;
   inline-size: 100%;
   block-size: 100%;
@@ -73,18 +74,19 @@ $post-meta-details-gap: settings-spacing.$space-2;
    Content
    ----------------------------------------------------------------------------- */
 
-.c-post-meta__content {
+.c-entry-meta__content {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: center;
   min-inline-size: 0;
-  gap: $post-meta-content-gap;
+  gap: $entry-meta-content-gap;
 }
 
-.c-post-meta__author-name {
+.c-entry-meta__author-name {
   display: block;
   overflow: hidden;
+  min-inline-size: 0;
   margin: 0;
 
   color: var(--color-text);
@@ -100,12 +102,12 @@ $post-meta-details-gap: settings-spacing.$space-2;
    Details row
    ----------------------------------------------------------------------------- */
 
-.c-post-meta__details {
+.c-entry-meta__details {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: unwrap;
   align-items: center;
   min-inline-size: 0;
-  gap: $post-meta-details-gap;
+  gap: $entry-meta-details-gap;
 
   color: var(--color-text-muted);
   font-family: settings-typography.$font-family-display;
@@ -114,14 +116,14 @@ $post-meta-details-gap: settings-spacing.$space-2;
   line-height: 1.2;
 }
 
-.c-post-meta__date {
+.c-entry-meta__date {
   display: inline-block;
   flex: 0 0 auto;
   color: inherit;
   white-space: nowrap;
 }
 
-.c-post-meta__read-time {
+.c-entry-meta__read-time {
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
@@ -134,27 +136,27 @@ $post-meta-details-gap: settings-spacing.$space-2;
    Icon
    ----------------------------------------------------------------------------- */
 
-.c-post-meta__icon {
+.c-entry-meta__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  inline-size: $post-meta-icon-size;
-  block-size: $post-meta-icon-size;
-  min-inline-size: $post-meta-icon-size;
-  min-block-size: $post-meta-icon-size;
+  inline-size: $entry-meta-icon-size;
+  block-size: $entry-meta-icon-size;
+  min-inline-size: $entry-meta-icon-size;
+  min-block-size: $entry-meta-icon-size;
   color: currentColor;
   line-height: 1;
 }
 
-.c-post-meta__icon svg {
+.c-entry-meta__icon svg {
   display: block;
   inline-size: 100%;
   block-size: 100%;
 }
 
-.c-post-meta__icon svg,
-.c-post-meta__icon svg * {
+.c-entry-meta__icon svg,
+.c-entry-meta__icon svg * {
   vector-effect: non-scaling-stroke;
 }
 
@@ -163,11 +165,11 @@ $post-meta-details-gap: settings-spacing.$space-2;
    ----------------------------------------------------------------------------- */
 
 @media (max-width: 48rem) {
-  .c-post-meta {
+  .c-entry-meta {
     align-items: flex-start;
   }
 
-  .c-post-meta__content {
+  .c-entry-meta__content {
     padding-block-start: 0.125rem;
   }
 }

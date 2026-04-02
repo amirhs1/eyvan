@@ -14,7 +14,7 @@
 //   - .c-post__tag
 //   - .c-post__header-row
 //     - .c-post__header-meta
-//       - shared .c-post-meta component
+//       - shared .c-entry-meta component
 //     - .c-post__header-actions
 //       - shared .c-post-share component
 //   - .c-post__share
@@ -27,7 +27,7 @@
 // - Component styling only
 // - Page/grid/container layout belongs to layout and object layers
 // - Readable body measure belongs to .o-prose
-// - Shared author/date/read-time styling is delegated to _post-meta.scss
+// - Shared author/date/read-time styling is delegated to _entry-meta.scss
 // - Share control visuals remain owned by _post-share.scss
 // - This file owns only post-shell layout and contextual component placement
 // -----------------------------------------------------------------------------
@@ -53,9 +53,9 @@ $post-header-margin-block-end: tools-spacing.$fluid-stack-lg;
 $post-tag-gap: settings-spacing.$space-2;
 
 $post-header-row-gap: settings-spacing.$space-4;
+$post-header-row-gap-mobile: settings-spacing.$space-3;
 $post-header-row-padding-block-end: tools-spacing.$fluid-stack-md;
 
-$post-header-meta-min-width: 20rem;
 $post-header-meta-avatar-size: 3rem;
 $post-header-meta-avatar-size-mobile: 2.75rem;
 
@@ -178,7 +178,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 }
 
 .c-post__header-meta {
-  flex: 1 1 $post-header-meta-min-width;
+  flex: 0 1 auto;
   min-inline-size: 0;
 }
 
@@ -186,17 +186,17 @@ $post-content-top-border-width: settings-config.$global-border-width;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   min-inline-size: 0;
   margin-inline-start: auto;
 }
 
 /* -----------------------------------------------------------------------------
-   Shared post-meta integration
-   Contextual sizing only; internal layout belongs to _post-meta.scss
+   Shared entry-meta integration
+   Contextual sizing only; internal layout belongs to _entry-meta.scss
    ----------------------------------------------------------------------------- */
 
-.c-post__header-meta .c-post-meta__author {
+.c-post__header-meta .c-entry-meta__author {
   inline-size: $post-header-meta-avatar-size;
   block-size: $post-header-meta-avatar-size;
 }
@@ -212,7 +212,6 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 .c-post__share .c-post-share {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: settings-spacing.$space-3;
@@ -241,20 +240,33 @@ $post-content-top-border-width: settings-config.$global-border-width;
 @media (max-width: settings-breakpoints.$bp-sm) {
   .c-post__header-row {
     align-items: flex-start;
+    gap: $post-header-row-gap-mobile;
+    row-gap: settings-spacing.$space-2;
+  }
+
+  .c-post__header-meta {
+    flex: 0 0 100%;
+    max-inline-size: 100%;
   }
 
   .c-post__header-actions {
-    flex-basis: 100%;
     justify-content: flex-start;
+    flex: 0 0 100%;
+    max-inline-size: 100%;
     margin-inline-start: 0;
   }
 
-  .c-post__header-meta .c-post-meta__author {
+  .c-post__header-meta .c-entry-meta__author {
     inline-size: $post-header-meta-avatar-size-mobile;
     block-size: $post-header-meta-avatar-size-mobile;
   }
 
+  .c-post__share {
+    inline-size: 100%;
+  }
+
   .c-post__share .c-post-share {
     justify-content: flex-start;
+    inline-size: 100%;
   }
 }

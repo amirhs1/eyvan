@@ -24,11 +24,11 @@ layout: default
   - Layout layer of the site
   - Uses ITCSS + BEM naming
   - Delegates reusable UI fragments to:
-    - post-meta.html
+    - entry-meta.html
     - post-share.html
     - post-navigation.html
     - related-posts.html
-  - The post metadata markup is centralized in post-meta.html
+  - The post metadata markup is centralized in entry-meta.html
   - The header row in this layout is responsible only for composition and layout
 
   Accessibility:
@@ -44,14 +44,14 @@ layout: default
   - page.tags
   - page.share
   - content
-  - post-meta.html dependencies
+  - entry-meta.html dependencies
   - post-share.html dependencies
   - post-navigation.html dependencies
   - related-posts.html dependencies
 
   Notes:
   - This layout owns the overall page structure for individual posts
-  - Reusable post metadata is rendered through post-meta.html
+  - Reusable post metadata is rendered through entry-meta.html
   - Share actions are optional and can be disabled with:
     page.share: false
 {% endcomment %}
@@ -91,6 +91,7 @@ layout: default
               <a
                 class="c-button c-button--tag c-post__tag"
                 href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+                aria-label="View posts tagged {{ tag }}"
               >
                 {{ tag }}
               </a>
@@ -110,9 +111,8 @@ layout: default
         <div class="c-post__header-row">
           <!-- Post metadata -->
           <div class="c-post__header-meta">
-            {% include post-meta.html meta_post=page show_avatar=true %}
+            {% include entry-meta.html entry_meta=page show_avatar=true %}
           </div>
-
           <!-- Post header actions -->
           <div class="c-post__header-actions">
             {% if page.share != false %}

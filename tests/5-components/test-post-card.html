@@ -39,8 +39,8 @@ robots: noindex
   - Grid placement is intentionally not tested here because layout and object
     layers own card placement in archive grids.
   - Shared metadata presentation inside .c-post-card__meta is represented with
-    the real .c-post-meta structure where helpful, because detailed metadata
-    styling belongs to the separate post-meta component.
+    the real .c-entry-meta structure where helpful, because detailed metadata
+    styling belongs to the separate entry-meta component.
   - Helper styles below are temporary and exist only for testing.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -97,40 +97,6 @@ robots: noindex
 
   .c-post-card-test-long-text {
     max-inline-size: 60ch;
-  }
-
-  .c-post-card-test-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-inline-size: 0;
-  }
-
-  .c-post-card-test-avatar {
-    inline-size: 2rem;
-    block-size: 2rem;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #d7d7d7 0%, #bdbdbd 100%);
-    flex: 0 0 auto;
-  }
-
-  .c-post-card-test-meta-content {
-    display: grid;
-    gap: 0.25rem;
-    min-inline-size: 0;
-  }
-
-  .c-post-card-test-meta-author {
-    font-weight: 600;
-    color: #333;
-  }
-
-  .c-post-card-test-meta-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.75rem;
-    color: #666;
-    font-size: 0.95rem;
   }
 
   @media (max-width: 48rem) {
@@ -192,15 +158,27 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta">
-                <div class="c-post-card-test-avatar" aria-hidden="true"></div>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
 
-                <div class="c-post-card-test-meta-content">
-                  <span class="c-post-card-test-meta-author">Site author</span>
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Site author</p>
 
-                  <div class="c-post-card-test-meta-details">
-                    <span>March 30, 2026</span>
-                    <span>5 min read</span>
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+
+                    <span class="c-entry-meta__read-time">
+                      <span class="c-entry-meta__icon" aria-hidden="true">
+                        {% include icons/timer.svg %}
+                      </span>
+                      <span>5 min read</span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -256,8 +234,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Accessible interaction</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Accessible interaction</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -311,8 +303,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Focus ring check</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Focus ring check</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -361,8 +367,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Aspect ratio check</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Aspect ratio check</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -410,8 +430,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Transform check</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Transform check</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -458,8 +492,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Tag group check</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Tag group check</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -497,8 +545,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Link state check</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Link state check</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -540,8 +602,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Clamp check</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Clamp check</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -578,8 +654,22 @@ robots: noindex
               <p class="c-post-card__excerpt">Short excerpt.</p>
 
               <div class="c-post-card__meta">
-                <div class="c-post-card-test-meta-content">
-                  <span class="c-post-card-test-meta-author">Meta row</span>
+                <div class="c-entry-meta">
+                  <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                    <img
+                      class="c-entry-meta__avatar"
+                      src="{{ '/images/avatar.jpg' | relative_url }}"
+                      alt="Author avatar"
+                    >
+                  </a>
+
+                  <div class="c-entry-meta__content">
+                    <p class="c-entry-meta__author-name">Meta row</p>
+
+                    <div class="c-entry-meta__details">
+                      <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -609,8 +699,22 @@ robots: noindex
               </p>
 
               <div class="c-post-card__meta">
-                <div class="c-post-card-test-meta-content">
-                  <span class="c-post-card-test-meta-author">Meta row</span>
+                <div class="c-entry-meta">
+                  <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                    <img
+                      class="c-entry-meta__avatar"
+                      src="{{ '/images/avatar.jpg' | relative_url }}"
+                      alt="Author avatar"
+                    >
+                  </a>
+
+                  <div class="c-entry-meta__content">
+                    <p class="c-entry-meta__author-name">Meta row</p>
+
+                    <div class="c-entry-meta__details">
+                      <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -657,8 +761,22 @@ robots: noindex
             <p class="c-post-card__excerpt">Short content.</p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Bottom aligned</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Bottom aligned</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -694,8 +812,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">Bottom aligned</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Bottom aligned</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -721,8 +853,22 @@ robots: noindex
             </p>
 
             <div class="c-post-card__meta">
-              <div class="c-post-card-test-meta-content">
-                <span class="c-post-card-test-meta-author">No media variant</span>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
+
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">No media variant</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -1,84 +1,85 @@
 ---
 layout: page
-title: Component Post Meta Test
-permalink: /tests/5-components/test-post-meta/
+title: Component Entry Meta Test
+permalink: /tests/5-components/test-entry-meta/
 robots: noindex
 ---
+
 {% comment %}
-  Component Post Meta Test Page
-  Purpose: Visually verify that the 5-components post-meta component compiles
+  Component Entry Meta Test Page
+  Purpose: Visually verify that the 5-components entry-meta component compiles
   and behaves correctly across the site.
 
   Structure:
-  - Base post meta structure
+  - Base entry-meta structure
   - Avatar rendering and cropping
   - Author-name truncation behavior
   - Details row layout
-  - Details row wrapping behavior
+  - Details row single-line behavior
   - Read-time icon alignment
   - Narrow-width responsive behavior
 
   Notes:
   - This page tests only the component responsibilities of:
-    - .c-post-meta
-    - .c-post-meta__author
-    - .c-post-meta__avatar
-    - .c-post-meta__content
-    - .c-post-meta__author-name
-    - .c-post-meta__details
-    - .c-post-meta__date
-    - .c-post-meta__read-time
-    - .c-post-meta__icon
+    - .c-entry-meta
+    - .c-entry-meta__author
+    - .c-entry-meta__avatar
+    - .c-entry-meta__content
+    - .c-entry-meta__author-name
+    - .c-entry-meta__details
+    - .c-entry-meta__date
+    - .c-entry-meta__read-time
+    - .c-entry-meta__icon
   - Helper styles below are temporary and exist only for testing.
   - Resize the browser window to verify narrow-screen alignment behavior.
   - This page is intended for development testing only.
 {% endcomment %}
 
 <style>
-  .c-post-meta-test-frame {
+  .c-entry-meta-test-frame {
     padding: 1.5rem;
     margin-block: 1.5rem;
     border: 1px dashed #999;
     background: #fafafa;
   }
 
-  .c-post-meta-test-stack {
+  .c-entry-meta-test-stack {
     display: grid;
     gap: 1rem;
   }
 
-  .c-post-meta-test-row {
+  .c-entry-meta-test-row {
     display: grid;
     gap: 1rem;
   }
 
-  .c-post-meta-test-label {
+  .c-entry-meta-test-label {
     margin: 0;
     font-weight: 600;
   }
 
-  .c-post-meta-test-box {
+  .c-entry-meta-test-box {
     inline-size: min(100%, 52rem);
     padding: 1rem;
     border: 1px solid #ddd;
     background: #fff;
   }
 
-  .c-post-meta-test-box--narrow {
+  .c-entry-meta-test-box--narrow {
     inline-size: min(100%, 18rem);
   }
 
-  .c-post-meta-test-box--very-narrow {
+  .c-entry-meta-test-box--very-narrow {
     inline-size: min(100%, 14rem);
   }
 
-  .c-post-meta-test-note {
+  .c-entry-meta-test-note {
     margin: 0;
     color: #555;
     font-size: 0.95rem;
   }
 
-  .c-post-meta-test-fill {
+  .c-entry-meta-test-fill {
     padding: 0.75rem;
     border: 1px dashed #ccc;
     background: #fcfcfc;
@@ -87,17 +88,17 @@ robots: noindex
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the post metadata classes defined in the <strong>5-components</strong> Sass
-    layer.
+    This page verifies the functionality of the entry metadata classes defined in the
+    <strong>5-components</strong> Sass layer.
   </p>
 
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Base Post Meta Structure -->
+  <!-- Base Entry Meta Structure -->
   <!-- ============================================================= -->
 
-  <h2>Base post meta structure</h2>
+  <h2>Base entry-meta structure</h2>
 
   <p>
     <strong>Expected behavior:</strong>
@@ -105,25 +106,25 @@ robots: noindex
     on the right. The content block should contain the author name followed by a muted details row.
   </p>
 
-  <div class="c-post-meta-test-frame">
-    <div class="c-post-meta-test-box">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame">
+    <div class="c-entry-meta-test-box">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Iwan van der Drift</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Iwan van der Drift</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2026-03-30"> March 30, 2026 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>7 min read</span>
@@ -146,28 +147,28 @@ robots: noindex
     <strong>Expected behavior:</strong>
     The avatar wrapper should render as a fixed-size circle with hidden overflow. The image inside should fill the shape
     and crop cleanly because
-    <code>.c-post-meta__avatar</code> uses object-fit cover.
+    <code>.c-entry-meta__avatar</code> uses <code>object-fit: cover</code>.
   </p>
 
-  <div class="c-post-meta-test-frame">
-    <div class="c-post-meta-test-box">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame">
+    <div class="c-entry-meta-test-box">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Avatar crop test</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Avatar crop test</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2026-03-30"> March 30, 2026 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>4 min read</span>
@@ -188,33 +189,33 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The author name should stay on a single line and truncate with an ellipsis when horizontal space becomes too small
-    because
-    <code>.c-post-meta__author-name</code> uses <code>overflow: hidden</code>, <code>text-overflow: ellipsis</code>, and
+    The author name should stay on a single line and truncate with an ellipsis when horizontal space becomes too small.
+    This behavior depends on the combination of <code>min-inline-size: 0</code>,
+    <code>overflow: hidden</code>, <code>text-overflow: ellipsis</code>, and
     <code>white-space: nowrap</code>.
   </p>
 
-  <div class="c-post-meta-test-frame">
-    <div class="c-post-meta-test-box c-post-meta-test-box--narrow">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame">
+    <div class="c-entry-meta-test-box c-entry-meta-test-box--narrow">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">
             Dr. Iwan van der Drift with an Intentionally Very Long Author Name for Overflow Testing
           </p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2026-03-30"> March 30, 2026 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>9 min read</span>
@@ -239,25 +240,25 @@ robots: noindex
     group. The read-time group should align its icon and text on the same line.
   </p>
 
-  <div class="c-post-meta-test-frame">
-    <div class="c-post-meta-test-box">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame">
+    <div class="c-entry-meta-test-box">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Details row test</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Details row test</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2025-11-18"> November 18, 2025 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2025-11-18">November 18, 2025</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>12 min read</span>
@@ -271,37 +272,37 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Details Row Wrapping Behavior -->
+  <!-- Details Row Single-line Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Details row wrapping behavior</h2>
+  <h2>Details row single-line behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    The details row should be allowed to wrap onto a new line when space is too small because
-    <code>.c-post-meta__details</code> uses <code>flex-wrap: wrap</code>. However, the date and read-time items should
-    each remain internally unbroken because both use <code>white-space: nowrap</code>.
+    In the current component, the details row should try to remain on a single line as one compact metadata strip.
+    The date and read-time items should also remain internally unbroken because both use
+    <code>white-space: nowrap</code>.
   </p>
 
-  <div class="c-post-meta-test-frame">
-    <div class="c-post-meta-test-box c-post-meta-test-box--very-narrow">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame">
+    <div class="c-entry-meta-test-box c-entry-meta-test-box--very-narrow">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Wrapping details test</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Compact details test</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2024-08-11"> August 11, 2024 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2024-08-11">August 11, 2024</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>18 min read</span>
@@ -326,25 +327,25 @@ robots: noindex
     should not stretch the line height or collapse when the text changes.
   </p>
 
-  <div class="c-post-meta-test-frame c-post-meta-test-stack">
-    <div class="c-post-meta-test-box">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame c-entry-meta-test-stack">
+    <div class="c-entry-meta-test-box">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Short read-time label</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Short read-time label</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2025-02-09"> February 9, 2025 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2025-02-09">February 9, 2025</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>3 min read</span>
@@ -354,24 +355,24 @@ robots: noindex
       </div>
     </div>
 
-    <div class="c-post-meta-test-box">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+    <div class="c-entry-meta-test-box">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Long read-time label</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Long read-time label</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2025-02-09"> February 9, 2025 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2025-02-09">February 9, 2025</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>24 min read</span>
@@ -397,25 +398,25 @@ robots: noindex
     relative to each other.
   </p>
 
-  <div class="c-post-meta-test-frame">
-    <div class="c-post-meta-test-box c-post-meta-test-box--narrow">
-      <div class="c-post-meta">
-        <a class="c-post-meta__author" href="#" aria-label="View author profile">
+  <div class="c-entry-meta-test-frame">
+    <div class="c-entry-meta-test-box c-entry-meta-test-box--narrow">
+      <div class="c-entry-meta">
+        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
           <img
-            class="c-post-meta__avatar"
+            class="c-entry-meta__avatar"
             src="{{ '/images/avatar.jpg' | relative_url }}"
             alt="Author avatar"
           >
         </a>
 
-        <div class="c-post-meta__content">
-          <p class="c-post-meta__author-name">Responsive alignment behavior in a narrow container</p>
+        <div class="c-entry-meta__content">
+          <p class="c-entry-meta__author-name">Responsive alignment behavior in a narrow container</p>
 
-          <div class="c-post-meta__details">
-            <time class="c-post-meta__date" datetime="2026-03-30"> March 30, 2026 </time>
+          <div class="c-entry-meta__details">
+            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
 
-            <span class="c-post-meta__read-time">
-              <span class="c-post-meta__icon" aria-hidden="true">
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
               <span>11 min read</span>
@@ -425,7 +426,7 @@ robots: noindex
       </div>
     </div>
 
-    <p class="c-post-meta-test-note">
+    <p class="c-entry-meta-test-note">
       Resize the browser width to verify the
       <code>@media (max-width: 48rem)</code> alignment change.
     </p>

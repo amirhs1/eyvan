@@ -7,10 +7,10 @@ layout: default
   active tag.
 
   Structure:
-  - Tag archive header
-    - Archive title
   - Tag archive section
+    - Reusable section heading
     - Reusable post card grid
+    - Optional empty state
 
   Architecture:
   - Layout layer of the site
@@ -18,13 +18,16 @@ layout: default
     - Layouts: l-
     - Components: c-
     - Objects: o-
-  - Reuses shared grid/container primitives
-  - Delegates repeated card markup to:
+  - Reuses shared UI fragments:
+    - section-heading.html
     - post-card.html
+  - Reuses shared layout objects:
+    - o-container
+    - o-grid
 
   Accessibility:
-  - Uses a semantic page header for the archive title
-  - Uses a semantic section for the archive listing
+  - Uses a semantic section
+  - The archive section is labeled by its heading through aria-labelledby
 
   Data dependencies:
   - page.tag
@@ -36,28 +39,52 @@ layout: default
   - Grid item layout is owned by this layout, not by post-card.html
 {% endcomment %}
 
-<!-- Precomputed tag variable -->
 {% assign tag = page.tag %}
+{% assign tag_posts = page.posts %}
+{% assign tag_post_count = tag_posts | size %}
+{% assign tag_words = tag | replace: '-', ' ' | replace: '_', ' ' | split: ' ' %}
 
-<!-- Tag archive header -->
-<header class="l-tag-page-header">
-  <div class="o-container">
-    <!-- Tag archive title -->
-    <h1 class="l-tag-page-header__title">{{ tag }}</h1>
-  </div>
-</header>
+{% capture tag_display %}
+  {% for word in tag_words %}
+    {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+  {% endfor %}
+{% endcapture %}
 
-<!-- Tag archive section -->
-<section class="l-tag-page">
-  <div class="o-container">
-    <!-- Tag archive grid -->
-    <div class="o-grid">
-      {% for post in page.posts %}
-        <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
-          {% include post-card.html post=post %}
-        </div>
-      {% endfor %}
+{% capture tag_title %}{{ tag_display | strip }} ({{ tag_post_count }}){% endcapture %}
+
+<!-- Tag archive page -->
+<div class="o-container">
+  <section class="l-tag-page" aria-labelledby="tag-page-title">
+    <!-- Tag archive heading -->
+    <div class="l-tag-page__heading">
+    {% 
+      include section-heading.html id="tag-page-title" 
+      heading_level="h1" 
+      modifier="lg" 
+      eyebrow="TAG ARCHIVE" 
+      title=tag_title 
+      action_label="All Tags" 
+      action_variant="primary"
+      action_url="/tags/" 
+      action_aria_label="View all tags" %}
     </div>
-  </div>
-</section>
-<!-- End of tag archive section -->
+
+    <!-- Tag archive section -->
+    {% if tag_posts and tag_post_count > 0 %}
+      <div class="l-tag-page__grid">
+        <!-- Tag archive grid -->
+        <div class="o-grid">
+          {% for post in tag_posts %}
+            <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+              {% include post-card.html post=post %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <div class="l-tag-page__empty o-prose">
+        <p>No posts are currently available for this tag.</p>
+      </div>
+    {% endif %}
+  </section>
+</div>

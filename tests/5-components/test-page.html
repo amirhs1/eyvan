@@ -1,0 +1,438 @@
+---
+layout: page
+title: Component Page Test
+permalink: /tests/5-components/test-page/
+robots: noindex
+---
+{% comment %}
+  Component Page Test Page
+  Purpose: Visually verify that the 5-components page system compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Base page shell
+  - Page with featured image
+  - Title and subtitle treatment
+  - Metadata wrapper placement
+  - Tag wrapping behavior
+  - Divider behavior
+  - Body wrapper behavior
+  - Narrow-width page behavior
+
+  Notes:
+  - This page tests only the component responsibilities of:
+  - .c-page
+  - .c-page__media
+  - .c-page__image
+  - .c-page__header
+  - .c-page__title
+  - .c-page__subtitle
+  - .c-page__meta
+  - .c-page__tags
+  - .c-page__tag
+  - .c-page__divider
+  - .c-page__body
+  - Shared typography inside .o-prose is not tested here because it belongs
+  to the prose object.
+  - Shared metadata visuals are not tested here because they belong to the
+  entry-meta component.
+  - Shared tag/button visuals are not tested here because they belong to the
+  button component.
+  - Helper styles below are temporary and exist only for testing.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-page-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-page-test-stack {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .c-page-test-box {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-page-test-box--narrow {
+    inline-size: min(100%, 30rem);
+  }
+
+  .c-page-test-box--very-narrow {
+    inline-size: min(100%, 22rem);
+  }
+
+  .c-page-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-page-test-fill {
+    padding: 0.75rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
+  }
+
+  .c-page-test-placeholder-image {
+    display: grid;
+    place-items: center;
+    min-block-size: 14rem;
+    color: #555;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
+      linear-gradient(225deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
+      linear-gradient(315deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem,
+      linear-gradient(45deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem, #f7f7f7;
+  }
+
+  .c-page-test-meta-demo {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    color: #444;
+    font-size: 0.95rem;
+  }
+
+  .c-page-test-meta-demo time {
+    white-space: nowrap;
+  }
+
+  .c-page-test-body-demo > *:first-child {
+    margin-top: 0;
+  }
+
+  .c-page-test-body-demo > *:last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the page classes defined in the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Base Page Shell -->
+  <!-- ============================================================= -->
+
+  <h2>Base page shell</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The page block below should render as a clean standalone page shell with top spacing, a vertically stacked header, a
+    divider, and a body region. The component should feel centered and readable rather than stretched edge to edge.
+  </p>
+
+  <div class="c-page-test-frame">
+    <article class="c-page">
+      <header class="c-page__header">
+        <h1 class="c-page__title">Base Page Title Example</h1>
+
+        <p class="c-page__subtitle">This subtitle checks the page header rhythm and readable line length.</p>
+      </header>
+
+      <hr class="c-page__divider">
+
+      <div class="c-page__body o-prose c-page-test-body-demo">
+        <p>
+          This body content is here to confirm that the page component provides the correct wrapper and separation from
+          the header.
+        </p>
+
+        <p>
+          The text styling itself is mainly owned by <code>.o-prose</code>, but the page component still owns the body
+          container placement.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Page with Featured Image -->
+  <!-- ============================================================= -->
+
+  <h2>Page with featured image</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The featured media block should appear above the header, span the available page width, clip cleanly to the
+    component radius, and keep the image area visually contained.
+  </p>
+
+  <div class="c-page-test-frame">
+    <article class="c-page">
+      <div class="c-page__media">
+        <div class="c-page__image c-page-test-placeholder-image">Featured image area</div>
+      </div>
+
+      <header class="c-page__header">
+        <h1 class="c-page__title">Page Title with Featured Image</h1>
+
+        <p class="c-page__subtitle">This verifies the spacing between the media block and the page header.</p>
+      </header>
+
+      <hr class="c-page__divider">
+
+      <div class="c-page__body o-prose c-page-test-body-demo">
+        <p>
+          The image should feel visually attached to the page shell but clearly separated from the header by consistent
+          vertical spacing.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Title and Subtitle Treatment -->
+  <!-- ============================================================= -->
+
+  <h2>Title and subtitle treatment</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The title should read as the strongest visual element in the header. The subtitle should appear below it with a
+    quieter color, softer emphasis, and a narrower readable measure.
+  </p>
+
+  <div class="c-page-test-frame">
+    <article class="c-page">
+      <header class="c-page__header">
+        <h1 class="c-page__title">A Longer Page Title Example for Checking Balance and Hierarchy</h1>
+
+        <p class="c-page__subtitle">
+          This longer subtitle is used to confirm that subtitle width remains readable and does not visually overpower
+          the main title.
+        </p>
+      </header>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Metadata Wrapper Placement -->
+  <!-- ============================================================= -->
+
+  <h2>Metadata wrapper placement</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The metadata row should sit naturally below the subtitle inside the header. This test checks the page component’s
+    wrapper spacing only, not the internal design of the metadata component itself.
+  </p>
+
+  <div class="c-page-test-frame">
+    <article class="c-page">
+      <header class="c-page__header">
+        <h1 class="c-page__title">Page Title with Metadata</h1>
+
+        <p class="c-page__subtitle">
+          The metadata should feel attached to the heading group rather than to the body content below.
+        </p>
+
+        <div class="c-page__meta">
+          <div class="c-page-test-meta-demo">
+            <span>Author Name</span>
+            <time datetime="2026-04-01">April 1, 2026</time>
+          </div>
+        </div>
+      </header>
+
+      <hr class="c-page__divider">
+
+      <div class="c-page__body o-prose c-page-test-body-demo">
+        <p>This confirms that the meta wrapper has the correct local placement and spacing inside the page header.</p>
+      </div>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tag Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Tag wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The tags row should render as a flexible wrapping row with consistent gaps. When there are many tags, the row should
+    wrap onto additional lines cleanly rather than colliding or collapsing.
+  </p>
+
+  <div class="c-page-test-frame">
+    <article class="c-page">
+      <header class="c-page__header">
+        <h1 class="c-page__title">Page Title with Multiple Tags</h1>
+
+        <div class="c-page__tags">
+          <a class="c-button c-button--tag c-page__tag" href="#">Jekyll</a>
+          <a class="c-button c-button--tag c-page__tag" href="#">GitHub Pages</a>
+          <a class="c-button c-button--tag c-page__tag" href="#">Portfolio Design</a>
+          <a class="c-button c-button--tag c-page__tag" href="#">Research Notes</a>
+          <a class="c-button c-button--tag c-page__tag" href="#">Longer Example Tag</a>
+        </div>
+      </header>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Divider Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Divider behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The divider should appear as a restrained horizontal rule aligned to the page content measure, with clear breathing
+    room above and below it.
+  </p>
+
+  <div class="c-page-test-frame c-page-test-stack">
+    <div class="c-page-test-box">
+      <article class="c-page">
+        <header class="c-page__header">
+          <h1 class="c-page__title">Header with Divider</h1>
+
+          <p class="c-page__subtitle">This version includes a divider between the header and the body.</p>
+        </header>
+
+        <hr class="c-page__divider">
+
+        <div class="c-page__body o-prose c-page-test-body-demo">
+          <p>The divider should not feel too heavy or too wide relative to the title block above it.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="c-page-test-box">
+      <article class="c-page">
+        <header class="c-page__header">
+          <h1 class="c-page__title">Header without Divider</h1>
+
+          <p class="c-page__subtitle">
+            Compare this version to the one above to see the spacing effect of the divider more clearly.
+          </p>
+        </header>
+
+        <div class="c-page__body o-prose c-page-test-body-demo">
+          <p>
+            Without the divider, the body begins immediately after the header block, so the separation should feel
+            lighter.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Body Wrapper Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Body wrapper behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The body wrapper should accommodate typical long-form content without overflow issues. Embedded content should
+    remain contained within the page body area.
+  </p>
+
+  <div class="c-page-test-frame">
+    <article class="c-page">
+      <header class="c-page__header">
+        <h1 class="c-page__title">Body Wrapper Containment Test</h1>
+      </header>
+
+      <hr class="c-page__divider">
+
+      <div class="c-page__body o-prose c-page-test-body-demo">
+        <p>Normal paragraph content should remain readable and neatly aligned within the page body wrapper.</p>
+
+        <div class="c-page-test-fill">This placeholder block simulates embedded content inside the page body.</div>
+
+        <p>
+          The body region should continue below the embedded block without collapsing or introducing awkward overflow.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Narrow-width Page Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Narrow-width page behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    In a narrower container, the page component should still preserve hierarchy, spacing, and clean tag wrapping.
+    Nothing should collide, and the title block should remain readable.
+  </p>
+
+  <div class="c-page-test-frame c-page-test-stack">
+    <div class="c-page-test-box c-page-test-box--narrow">
+      <article class="c-page">
+        <header class="c-page__header">
+          <h1 class="c-page__title">Narrow Container Page Example</h1>
+
+          <p class="c-page__subtitle">This subtitle checks how the header behaves in a tighter width.</p>
+
+          <div class="c-page__tags">
+            <a class="c-button c-button--tag c-page__tag" href="#">Jekyll</a>
+            <a class="c-button c-button--tag c-page__tag" href="#">Portfolio</a>
+            <a class="c-button c-button--tag c-page__tag" href="#">Responsive Layout</a>
+          </div>
+        </header>
+      </article>
+    </div>
+
+    <div class="c-page-test-box c-page-test-box--very-narrow">
+      <article class="c-page">
+        <header class="c-page__header">
+          <h1 class="c-page__title">Very Narrow Page Test with a Longer Title</h1>
+
+          <p class="c-page__subtitle">The subtitle should wrap naturally and still feel visually secondary.</p>
+
+          <div class="c-page__meta">
+            <div class="c-page-test-meta-demo">
+              <span>Author Name</span>
+              <time datetime="2026-04-01">April 1, 2026</time>
+            </div>
+          </div>
+
+          <div class="c-page__tags">
+            <a class="c-button c-button--tag c-page__tag" href="#">Long Tag Example</a>
+            <a class="c-button c-button--tag c-page__tag" href="#">UI</a>
+          </div>
+        </header>
+
+        <hr class="c-page__divider">
+
+        <div class="c-page__body o-prose c-page-test-body-demo">
+          <p>This version helps you visually inspect wrapping and vertical rhythm under tighter width constraints.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

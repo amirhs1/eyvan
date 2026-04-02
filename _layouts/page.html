@@ -22,10 +22,9 @@ layout: default
   Architecture:
   - Uses ITCSS + BEM naming:
     - Objects: o-
-    - Layouts: l-
     - Components: c-
-  - Layout owns placement through l-page*
-  - Component owns page-specific presentation through c-page*
+  - Object owns outer containment through o-container
+  - Component owns page-specific structure and presentation through c-page*
   - Object owns long-form typography through o-prose
   - Delegates shared metadata rendering to `entry-meta.html`
   - Delegates content rendering to the page body via `{{ content }}`
@@ -59,65 +58,61 @@ layout: default
 
 <!-- Page layout container -->
 <div class="o-container">
-
   <!-- Page wrapper -->
-  <article class="l-page c-page">
-
+  <article class="c-page">
     <!-- Optional page featured image -->
     {% if page.image %}
-    <div class="c-page__media">
-      <img
-        src="{{ page.image | relative_url }}"
-        alt="{{ page.image_alt | default: page.title | escape }}"
-        class="c-page__image">
-    </div>
+      <div class="c-page__media">
+        <img
+          class="c-page__image"
+          src="{{ page.image | relative_url }}"
+          alt="{{ page.image_alt | default: page.title | escape }}"
+        >
+      </div>
     {% endif %}
 
     <!-- Page header -->
-    <header class="l-page__header">
-
+    <header class="c-page__header">
       <!-- Page title -->
       <h1 class="c-page__title">{{ page.title | escape }}</h1>
 
       <!-- Page subtitle -->
       {% if page.subtitle %}
-      <p class="c-page__subtitle">{{ page.subtitle | escape }}</p>
+        <p class="c-page__subtitle">{{ page.subtitle | escape }}</p>
       {% endif %}
 
       <!-- Page metadata -->
       {% if page.author or page.authors or page.date %}
-      <div class="c-page__meta">
-        {% include entry-meta.html entry_meta=page show_avatar=false show_read_time=false %}
-      </div>
+        <div class="c-page__meta">
+          {% include entry-meta.html entry_meta=page show_avatar=false show_read_time=false %}
+        </div>
       {% endif %}
 
       <!-- Page tags -->
       {% if page.tags %}
-      <div class="l-page__tags">
-        {% for tag in page.tags %}
-          {% assign slug = tag | slugify %}
-          <a
-            class="c-button c-button--tag c-page__tag"
-            href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
-            aria-label="View pages tagged {{ tag }}"
-          >
-            {{ tag }}
-          </a>
-        {% endfor %}
-      </div>
+        <div class="c-page__tags">
+          {% for tag in page.tags %}
+            {% assign slug = tag | slugify %}
+            <a
+              class="c-button c-button--tag c-page__tag"
+              href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+              aria-label="View pages tagged {{ tag }}"
+            >
+              {{ tag }}
+            </a>
+          {% endfor %}
+        </div>
       {% endif %}
-
     </header>
 
     <!-- Optional header divider -->
     {% if page.subtitle or page.author or page.authors or page.date or page.tags or page.image %}
-    <hr class="c-page__divider">
+      <hr class="c-page__divider">
     {% endif %}
 
     <!-- Page body content -->
-    <div class="l-page__body o-prose">
+    <div class="c-page__body o-prose">
       {{ content }}
     </div>
-
   </article>
 </div>

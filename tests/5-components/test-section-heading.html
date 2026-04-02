@@ -1,0 +1,822 @@
+---
+layout: page
+title: Component Section Heading Test
+permalink: /tests/5-components/test-section-heading/
+robots: noindex
+---
+
+{% comment %}
+Component Section Heading Test Page
+Purpose: Visually verify that the section-heading component compiles
+and behaves correctly across the site.
+
+Structure:
+- Full component structure
+- Root spacing behavior
+- Head row with content only
+- Head row with content and actions
+- Content stack structure
+- Eyebrow element
+- Title element
+- Description element
+- Actions element
+- Small modifier
+- Medium modifier
+- Large modifier
+- Important content combinations
+- Responsive stacking behavior
+
+Notes:
+- This page tests only the component responsibilities of:
+- .c-section-heading
+- .c-section-heading__head
+- .c-section-heading__content
+- .c-section-heading__eyebrow
+- .c-section-heading__title
+- .c-section-heading__description
+- .c-section-heading__actions
+- .c-section-heading--sm
+- .c-section-heading--md
+- .c-section-heading--lg
+- Helper styles below are temporary and exist only for testing.
+- Resize the browser window to verify responsive stacking behavior.
+- This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+.c-section-heading-test-frame {
+  padding: 1.5rem;
+  margin-block: 1.5rem;
+  border: 1px dashed #999;
+  background: #fafafa;
+}
+
+.c-section-heading-test-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.c-section-heading-test-row {
+  display: grid;
+  gap: 1rem;
+}
+
+.c-section-heading-test-label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.c-section-heading-test-box {
+  inline-size: min(100%, 60rem);
+  padding: 1rem;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.c-section-heading-test-box--narrow {
+  inline-size: min(100%, 24rem);
+}
+
+.c-section-heading-test-note {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.c-section-heading-test-fill {
+  padding: 0.75rem;
+  border: 1px dashed #ccc;
+  background: #fcfcfc;
+}
+
+.c-section-heading-test-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.c-section-heading-test-divider {
+  margin-block-start: 1rem;
+}
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the section-heading classes defined
+    in the <strong>5-components</strong> Sass layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Full Component Structure -->
+  <!-- ============================================================= -->
+
+  <h2>Full component structure</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    This test shows the complete component API in one example:
+    <code>.c-section-heading</code>,
+    <code>.c-section-heading__head</code>,
+    <code>.c-section-heading__content</code>,
+    <code>.c-section-heading__eyebrow</code>,
+    <code>.c-section-heading__title</code>,
+    <code>.c-section-heading__description</code>,
+    and <code>.c-section-heading__actions</code>.
+    The content stack should appear on the left and the actions area on the
+    right on wider screens.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              .c-section-heading__eyebrow
+            </p>
+
+            <h2 class="c-section-heading__title">
+              .c-section-heading__title
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                .c-section-heading__description inside
+                .c-section-heading__content inside
+                .c-section-heading__head inside .c-section-heading
+              </p>
+            </div>
+          </div>
+
+          <div class="c-section-heading__actions">
+            <div class="c-section-heading-test-actions">
+              <a class="c-button c-button--primary c-button--small" href="#">
+                .c-section-heading__actions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-section-heading-test-fill c-section-heading-test-divider">
+        Following content to verify the root block spacing below
+        <code>.c-section-heading</code>.
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Root Spacing Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Root spacing behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The root <code>.c-section-heading</code> should add bottom spacing.
+    The dashed block below it should not sit too close to the heading block.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              .c-section-heading
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-section-heading-test-fill">
+        This block exists only to verify the
+        <code>margin-block-end</code> owned by
+        <code>.c-section-heading</code>.
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Head Row with Content Only -->
+  <!-- ============================================================= -->
+
+  <h2>Head row with content only</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading__head</code> should still work when it contains
+    only <code>.c-section-heading__content</code> and no actions block.
+    Nothing should look misaligned or leave an empty right-side gap.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              .c-section-heading__eyebrow
+            </p>
+
+            <h2 class="c-section-heading__title">
+              .c-section-heading__head + .c-section-heading__content
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                This combination omits
+                <code>.c-section-heading__actions</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Head Row with Content and Actions -->
+  <!-- ============================================================= -->
+
+  <h2>Head row with content and actions</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When both content and actions are present, the head row should distribute
+    them horizontally on wider screens with visible gap between the two sides.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              .c-section-heading__head
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                This test verifies the main two-column composition:
+                content on the left, actions on the right.
+              </p>
+            </div>
+          </div>
+
+          <div class="c-section-heading__actions">
+            <div class="c-section-heading-test-actions">
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                Action A
+              </a>
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Action B
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Content Stack Structure -->
+  <!-- ============================================================= -->
+
+  <h2>Content stack structure</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading__content</code> should stack its children with a
+    consistent vertical gap. The eyebrow, title, and description should appear
+    as a clean vertical rhythm group.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              First child: .c-section-heading__eyebrow
+            </p>
+
+            <h2 class="c-section-heading__title">
+              Second child: .c-section-heading__title
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                Third child: .c-section-heading__description
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Eyebrow Element -->
+  <!-- ============================================================= -->
+
+  <h2>Eyebrow element</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading__eyebrow</code> should appear smaller than the
+    title, use uppercase styling, and visually read as a muted label above the
+    title.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              .c-section-heading__eyebrow
+            </p>
+
+            <h2 class="c-section-heading__title">
+              Compare eyebrow against title
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Title Element -->
+  <!-- ============================================================= -->
+
+  <h2>Title element</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading__title</code> should have no default margin and
+    should visually function as the main heading inside the component.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              .c-section-heading__title
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Description Element -->
+  <!-- ============================================================= -->
+
+  <h2>Description element</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading__description</code> should use a readable maximum
+    width on wider screens. Its first and last child margin trimming should
+    prevent extra top or bottom paragraph spacing.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              Description width and margin trimming
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                First paragraph inside
+                <code>.c-section-heading__description</code>.
+              </p>
+              <p>
+                Second paragraph inside
+                <code>.c-section-heading__description</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Actions Element -->
+  <!-- ============================================================= -->
+
+  <h2>Actions element</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading__actions</code> should shrink to its content,
+    align to the top edge of the head row, and right-align on wider screens.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              Actions alignment test
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                The action group should sit at the top-right of the head row.
+              </p>
+            </div>
+          </div>
+
+          <div class="c-section-heading__actions">
+            <div class="c-section-heading-test-actions">
+              <a class="c-button c-button--primary c-button--small" href="#">
+                One
+              </a>
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                Two
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Small Modifier -->
+  <!-- ============================================================= -->
+
+  <h2>Small modifier</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading--sm</code> should apply the smallest title size
+    and weight of the three variants.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--sm">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              .c-section-heading--sm
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Medium Modifier -->
+  <!-- ============================================================= -->
+
+  <h2>Medium modifier</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading--md</code> should apply the middle title size and
+    weight and should read as the default heading size.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              .c-section-heading--md
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Large Modifier -->
+  <!-- ============================================================= -->
+
+  <h2>Large modifier</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>.c-section-heading--lg</code> should apply the largest and strongest
+    title treatment of the three variants.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--lg">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              .c-section-heading--lg
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Modifier Comparison -->
+  <!-- ============================================================= -->
+
+  <h2>Modifier comparison</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The three titles below should clearly step up in size and emphasis from
+    <code>--sm</code> to <code>--md</code> to <code>--lg</code>.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-stack">
+      <div class="c-section-heading-test-box">
+        <div class="c-section-heading c-section-heading--sm">
+          <div class="c-section-heading__head">
+            <div class="c-section-heading__content">
+              <h2 class="c-section-heading__title">
+                .c-section-heading--sm
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-section-heading-test-box">
+        <div class="c-section-heading c-section-heading--md">
+          <div class="c-section-heading__head">
+            <div class="c-section-heading__content">
+              <h2 class="c-section-heading__title">
+                .c-section-heading--md
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-section-heading-test-box">
+        <div class="c-section-heading c-section-heading--lg">
+          <div class="c-section-heading__head">
+            <div class="c-section-heading__content">
+              <h2 class="c-section-heading__title">
+                .c-section-heading--lg
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Important Combination: eyebrow + title -->
+  <!-- ============================================================= -->
+
+  <h2>Important combination: eyebrow + title</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    This common combination should render as a compact two-item stack with no
+    description and no actions.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              .c-section-heading__eyebrow
+            </p>
+            <h2 class="c-section-heading__title">
+              eyebrow + title
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Important Combination: title + description -->
+  <!-- ============================================================= -->
+
+  <h2>Important combination: title + description</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    This common combination should work cleanly without an eyebrow and without
+    actions.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              title + description
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                <code>.c-section-heading__description</code> should sit
+                directly below the title with the normal content gap.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Important Combination: title + actions -->
+  <!-- ============================================================= -->
+
+  <h2>Important combination: title + actions</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    This combination should work without eyebrow or description. It tests the
+    leanest two-column variant of the component.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <h2 class="c-section-heading__title">
+              title + actions
+            </h2>
+          </div>
+
+          <div class="c-section-heading__actions">
+            <div class="c-section-heading-test-actions">
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Action
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Important Combination: full content + actions + large modifier -->
+  <!-- ============================================================= -->
+
+  <h2>Important combination: full content + actions + large modifier</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    This combines every major part of the component with
+    <code>.c-section-heading--lg</code>.
+    It is the strongest real-world composition and should still remain aligned
+    and readable.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      <div class="c-section-heading c-section-heading--lg">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              full combination
+            </p>
+
+            <h2 class="c-section-heading__title">
+              .c-section-heading--lg + full component structure
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                This test combines eyebrow, title, description, and actions in
+                the largest modifier.
+              </p>
+            </div>
+          </div>
+
+          <div class="c-section-heading__actions">
+            <div class="c-section-heading-test-actions">
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                Secondary
+              </a>
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Primary
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Responsive Stacking Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Responsive stacking behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Below the component breakpoint, <code>.c-section-heading__head</code>
+    should stack vertically and
+    <code>.c-section-heading__actions</code> should left-align instead of
+    right-align. The narrow box below makes that behavior easier to inspect.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box c-section-heading-test-box--narrow">
+      <div class="c-section-heading c-section-heading--md">
+        <div class="c-section-heading__head">
+          <div class="c-section-heading__content">
+            <p class="c-section-heading__eyebrow">
+              responsive behavior
+            </p>
+
+            <h2 class="c-section-heading__title">
+              narrow width test
+            </h2>
+
+            <div class="c-section-heading__description">
+              <p>
+                Resize the browser to verify that the head switches from row to
+                column and that the actions move below the content.
+              </p>
+            </div>
+          </div>
+
+          <div class="c-section-heading__actions">
+            <div class="c-section-heading-test-actions">
+              <a class="c-button c-button--secondary c-button--small" href="#">
+                Action one
+              </a>
+              <a class="c-button c-button--primary c-button--small" href="#">
+                Action two
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="c-section-heading-test-note">
+      Tip: compare this narrow case with the wider full-structure tests above.
+    </p>
+  </div>
+</section>

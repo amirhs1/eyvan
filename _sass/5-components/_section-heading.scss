@@ -1,0 +1,168 @@
+// -----------------------------------------------------------------------------
+// Section Heading Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the reusable section heading block used across homepage sections,
+// archive sections, tag pages, and page subsections.
+//
+// Structure:
+// - .c-section-heading
+//   - .c-section-heading__head
+//   - .c-section-heading__content
+//   - .c-section-heading__eyebrow
+//   - .c-section-heading__title
+//   - .c-section-heading__description
+//   - .c-section-heading__actions
+//
+// Modifiers:
+// - .c-section-heading--sm
+// - .c-section-heading--md
+// - .c-section-heading--lg
+//
+// Scope & Rules:
+// - Component styling only
+// - Owns the section heading UI block
+// - Does NOT own:
+//   - outer section spacing
+//   - container or grid layout
+//   - section body/content layout
+//   - page-level shell spacing
+//
+// Notes:
+// - Intended to be reused by index.html, projects.html, tag-page.html,
+//   and optional subsections inside static pages
+// - The section body should be placed by the parent template immediately
+//   after this heading block
+// - Heading size/style variants use existing typography tokens only
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$section-heading-gap: settings-spacing.$space-3;
+$section-heading-head-gap: tools-spacing.$fluid-inline-md;
+$section-heading-margin-block-end: tools-spacing.$fluid-stack-md;
+$section-heading-description-max-width: 42rem;
+
+/* -----------------------------------------------------------------------------
+   Root
+   ----------------------------------------------------------------------------- */
+
+.c-section-heading {
+  margin-block-end: $section-heading-margin-block-end;
+}
+
+/* -----------------------------------------------------------------------------
+   Head row
+   ----------------------------------------------------------------------------- */
+
+.c-section-heading__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $section-heading-head-gap;
+}
+
+.c-section-heading__content {
+  display: grid;
+  gap: $section-heading-gap;
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+.c-section-heading__actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+/* -----------------------------------------------------------------------------
+   Eyebrow
+   ----------------------------------------------------------------------------- */
+
+.c-section-heading__eyebrow {
+  margin: 0;
+
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-medium;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Title
+   ----------------------------------------------------------------------------- */
+
+.c-section-heading__title {
+  margin: 0;
+
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+}
+
+/* Small */
+.c-section-heading--sm .c-section-heading__title {
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-medium;
+}
+
+/* Medium (default) */
+.c-section-heading--md .c-section-heading__title {
+  font-size: settings-typography.$font-size-xl;
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+/* Large */
+.c-section-heading--lg .c-section-heading__title {
+  font-size: settings-typography.$font-size-xxl;
+  font-weight: settings-typography.$font-weight-black;
+}
+
+/* -----------------------------------------------------------------------------
+   Description
+   ----------------------------------------------------------------------------- */
+
+.c-section-heading__description {
+  max-inline-size: $section-heading-description-max-width;
+  color: var(--color-text-muted);
+}
+
+.c-section-heading__description > :first-child {
+  margin-block-start: 0;
+}
+
+.c-section-heading__description > :last-child {
+  margin-block-end: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+   ----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-section-heading__head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .c-section-heading__actions {
+    justify-content: flex-start;
+  }
+
+  .c-section-heading__description {
+    max-inline-size: none;
+  }
+}

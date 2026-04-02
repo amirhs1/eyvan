@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{% comment %}
+  Tag Page Layout
+  Purpose: Render a tag archive page listing all posts associated with the
+  active tag.
+
+  Structure:
+  - Tag archive header
+    - Archive title
+  - Tag archive section
+    - Reusable post card grid
+
+  Architecture:
+  - Layout layer of the site
+  - Uses ITCSS + BEM naming:
+    - Layouts: l-
+    - Components: c-
+    - Objects: o-
+  - Reuses shared grid/container primitives
+  - Delegates repeated card markup to:
+    - post-card.html
+
+  Accessibility:
+  - Uses a semantic page header for the archive title
+  - Uses a semantic section for the archive listing
+
+  Data dependencies:
+  - page.tag
+  - page.posts
+
+  Notes:
+  - Intended for generated tag archive pages
+  - Card markup is centralized in post-card.html
+  - Grid item layout is owned by this layout, not by post-card.html
+{% endcomment %}
+
+<!-- Precomputed tag variable -->
+{% assign tag = page.tag %}
+
+<!-- Tag archive header -->
+<header class="l-tag-page-header">
+  <div class="o-container">
+    <!-- Tag archive title -->
+    <h1 class="l-tag-page-header__title">{{ tag }}</h1>
+  </div>
+</header>
+
+<!-- Tag archive section -->
+<section class="l-tag-page">
+  <div class="o-container">
+    <!-- Tag archive grid -->
+    <div class="o-grid">
+      {% for post in page.posts %}
+        <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+          {% include post-card.html post=post %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- End of tag archive section -->

@@ -11,7 +11,7 @@ title: Home
   Structure:
   - Hero include
   - Latest projects section
-    - Reusable section heading component
+    - Section header
     - Post card grid (6 latest posts)
     - Section CTA linking to the full projects archive
 
@@ -24,15 +24,14 @@ title: Home
     - c-homepage-projects
   - Delegates reusable UI fragments to:
     - hero.html
-    - section-heading.html
     - post-card.html
   - Reuses shared layout objects:
     - o-container
     - o-grid
 
   Accessibility:
-  - Uses a semantic section
-  - The projects section is labeled by its heading through aria-labelledby
+  - Uses a semantic section and section header
+  - The projects section is labeled by its heading
   - Project cards are rendered through a reusable article include
 
   Data dependencies:
@@ -41,8 +40,6 @@ title: Home
   Notes:
   - Projects are currently stored as Jekyll posts
   - The homepage shows the 6 most recent posts only
-  - The section heading is rendered through section-heading.html
-  - The section CTA remains a homepage-specific action below the grid
 {% endcomment %}
 
 <!-- Homepage hero section -->
@@ -54,12 +51,15 @@ title: Home
     class="c-homepage-projects"
     aria-labelledby="homepage-projects-title"
   >
-    <!-- Reusable section heading -->
-    {% include section-heading.html
-      id="homepage-projects-title"
-      title="Latest Projects"
-      modifier="lg"
-    %}
+    <!-- Section header -->
+    <header class="c-homepage-projects__header">
+      <h2
+        class="c-homepage-projects__title"
+        id="homepage-projects-title"
+      >
+        Latest Projects
+      </h2>
+    </header>
 
     <!-- Latest projects grid -->
     <div class="o-grid">
@@ -68,17 +68,21 @@ title: Home
           {% include post-card.html post=post %}
         </div>
       {% endfor %}
-    </div>
 
-    <!-- Section CTA -->
-    <div class="c-homepage-projects__actions">
-      <a
-        class="c-button c-button--section-cta c-homepage-projects__button"
-        href="{{ '/projects/' | relative_url }}"
-      >
-        View All Projects
-      </a>
+      <!-- Section CTA -->
+      <div class="o-grid__item o-grid__item--span-12">
+        <div class="c-homepage-projects__actions">
+          <a
+            class="c-button c-button--primary c-homepage-projects__button"
+            href="{{ '/projects/' | relative_url }}"
+          >
+            View All Projects
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </div>
 <!-- End of latest projects section -->
+
+

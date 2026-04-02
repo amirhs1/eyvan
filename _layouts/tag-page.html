@@ -71,18 +71,16 @@ layout: default
 
     <!-- Tag archive section -->
     {% if tag_posts and tag_post_count > 0 %}
-      <div class="l-tag-page__grid">
-        <!-- Tag archive grid -->
-        <div class="o-grid">
-          {% for post in tag_posts %}
-            <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
-              {% include post-card.html post=post %}
-            </div>
-          {% endfor %}
-        </div>
+      <!-- Tag archive grid -->
+      <div class="o-grid">
+        {% for post in tag_posts %}
+          <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+            {% include post-card.html post=post %}
+          </div>
+        {% endfor %}
       </div>
     {% else %}
-      <div class="l-tag-page__empty o-prose">
+      <div class="o-prose">
         <p>No posts are currently available for this tag.</p>
       </div>
     {% endif %}

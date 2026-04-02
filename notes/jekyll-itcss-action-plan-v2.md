@@ -48,34 +48,6 @@ The work should happen in this order:
 
 ### 3.3 Create `4-objects/_o-action-cluster.scss`
 
-**Goal**  
-Unify repeated inline action groups.
-
-**Applies to**
-
-- `post-share.html`
-- social link groupings where useful
-
-**What `o-action-cluster` should own**
-
-- flex or inline-flex arrangement
-- wrapping behavior
-- gap
-- alignment
-
-**What it should not own**
-
-- icon sizing
-- button or link visuals
-- color
-- borders
-
-**Why**
-
-This is a true generic arrangement pattern and fits ITCSS very well.
-
----
-
 ## Phase 4 — Simplify metadata before extracting a metadata object
 
 ### 4.1 Revise the metadata markup in `post-card.html` and `post.html`
@@ -88,41 +60,7 @@ Your layout layer is the biggest structural gap right now.
 
 ### 5.1 Create `6-layouts/_l-homepage.scss`
 
-**Goal**  
-Own homepage-specific layout spacing and section structure.
-
-**Suggested scope**
-
-- `.l-homepage-section`
-- `.l-homepage-section--projects`
-
-**What this file should own**
-
-- vertical spacing between homepage sections
-- section placement
-- home-specific spacing modifiers
-
----
-
 ### 5.2 Create `6-layouts/_l-projects.scss`
-
-**Goal**  
-Own page-level layout structure for `projects.html`.
-
-**Suggested scope**
-
-- `.l-projects`
-- `.l-projects__header`
-- `.l-projects__filters`
-- `.l-projects__archive`
-
-**What this file should own**
-
-- spacing between major page zones
-- page-level layout relationships
-- archive/filter/header separation
-
----
 
 ### 5.3 Create `6-layouts/_l-page.scss`
 

@@ -1,0 +1,104 @@
+---
+layout: default
+title: Projects
+permalink: /projects/
+---
+{% comment %}
+  Projects Page
+  Purpose: Render the full projects archive with a page-specific header,
+  tag-based filter navigation, and a responsive grid of post cards.
+
+  Structure:
+  - Projects layout wrapper
+    - Header
+      - Title
+      - Subtitle
+    - Filters
+      - All projects link
+      - Tag links generated from site tags
+    - Archive
+      - Reusable post card grid
+
+  Architecture:
+  - Page-level template rendered through the default layout
+  - Uses ITCSS + BEM naming:
+    - Layouts: l-
+    - Components: c-
+    - State: is-
+    - Objects: o-
+  - Delegates card rendering to:
+    - post-card.html
+
+  Accessibility:
+  - Uses semantic header, nav, and section elements
+  - Filter links remain standard links for keyboard and screen-reader access
+
+  Data dependencies:
+  - site.posts
+  - site.tags
+
+  Notes:
+  - The "All" chip is the active state for the unfiltered archive page
+  - Tag links assume tag archive pages are available
+{% endcomment %}
+
+<!-- Precomputed projects archive data -->
+{% assign all_posts = site.posts %}
+{% assign sorted_tags = site.tags | sort %}
+
+<!-- Projects page layout -->
+<div class="l-projects">
+  <!-- Projects page header -->
+  <header class="l-projects__header c-projects-header">
+    <div class="o-container">
+      <!-- Projects page title -->
+      <h1 class="c-projects-header__title">Projects</h1>
+
+      <!-- Projects page subtitle -->
+      <p class="c-projects-header__subtitle">A selection of research, writing, and creative work.</p>
+    </div>
+  </header>
+
+  <!-- Projects filter navigation -->
+  <nav class="l-projects__filters c-projects-filter" aria-label="Project filters">
+    <div class="o-container">
+      <!-- Filter inner wrapper -->
+      <div class="c-projects-filter__inner">
+        <!-- All projects filter chip -->
+        <a
+          class="c-projects-filter__chip is-active"
+          href="{{ '/projects/' | relative_url }}"
+        >
+          All
+        </a>
+
+        {% for tag in sorted_tags %}
+          {% assign tag_name = tag[0] %}
+
+          <!-- Tag filter chip -->
+          <a
+            class="c-projects-filter__chip"
+            href="{{ '/tag/' | append: tag_name | slugify | append: '/' | relative_url }}"
+          >
+            {{ tag_name }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Projects archive section -->
+  <section class="l-projects__archive c-projects-archive">
+    <div class="o-container">
+      <!-- Projects archive grid -->
+      <div class="o-grid">
+        {% for post in all_posts %}
+          <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+            {% include post-card.html post=post %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- End of projects archive section -->
+</div>

@@ -54,11 +54,11 @@ $heading-color: palette.$clr-p-indigo;
    Interactive Elements
    ----------------------------------------------------------------------------- */
 
-$link-color: $accent-secondary;
-$link-hover: palette.$clr-p-azure;
+$link-color: $accent-primary;
+$link-hover: $accent-secondary;
 
 $button-bg: $accent-primary;
-$button-bg-hover: palette.$clr-p-turquoise;
+$button-bg-hover: $accent-secondary;
 $button-text: palette.$clr-white;
 $button-border: transparent;
 

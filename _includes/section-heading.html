@@ -1,0 +1,132 @@
+{% comment %}
+  Section Heading Component
+  Purpose: Render a reusable section heading block for content sections such as
+  homepage sections, archive sections, tag pages, and page subsections.
+
+  Structure:
+  - Section heading root
+    - Optional eyebrow
+    - Head row
+      - Content group
+        - Title
+        - Optional description
+      - Optional actions
+
+  Architecture:
+  - Reusable include stored in _includes
+  - Uses ITCSS + BEM naming:
+    - Component prefix: c-section-heading
+  - Owns only the heading UI block
+  - Does NOT own:
+    - outer section spacing
+    - container/grid layout
+    - section body/content layout
+
+  Accepts:
+  - include.title: required heading text
+  - include.id: optional heading id for aria-labelledby
+  - include.heading_level: optional heading tag (h1-h6), defaults to h2
+  - include.modifier: optional size/style modifier (sm, md, lg)
+  - include.eyebrow: optional short label above the title
+  - include.description: optional plain-text description
+  - include.description_html: optional rich description HTML
+  - include.action_label: optional action link text
+  - include.action_url: optional action link href
+  - include.action_aria_label: optional action aria-label
+  - include.action_new_tab: optional boolean-like flag for opening in new tab
+  - include.action_variant: optional button variant suffix, defaults to secondary
+  - include.action_size: optional button size suffix, defaults to small
+
+  Accessibility:
+  - Uses a semantic header element
+  - Supports explicit heading levels
+  - Supports explicit heading id for section aria-labelledby wiring
+  - Action link gets an explicit aria-label when provided
+
+  Notes:
+  - Use this include inside a section/page-specific wrapper
+  - Render the section body immediately after this include in the parent file
+{% endcomment %}
+
+{% assign section_title = include.title %}
+
+{% if section_title %}
+  {% assign heading_level = include.heading_level | default: 'h2' %}
+  {% unless heading_level == 'h1' or heading_level == 'h2' or heading_level == 'h3' or heading_level == 'h4' or heading_level == 'h5' or heading_level == 'h6' %}
+    {% assign heading_level = 'h2' %}
+  {% endunless %}
+
+  {% assign heading_id = include.id %}
+  {% assign modifier = include.modifier | default: 'md' %}
+  {% unless modifier == 'sm' or modifier == 'md' or modifier == 'lg' %}
+    {% assign modifier = 'md' %}
+  {% endunless %}
+
+  {% assign eyebrow = include.eyebrow %}
+  {% assign description = include.description %}
+  {% assign description_html = include.description_html %}
+
+  {% assign action_label = include.action_label %}
+  {% assign action_url = include.action_url %}
+  {% assign action_aria_label = include.action_aria_label | default: action_label %}
+  {% assign action_new_tab = include.action_new_tab | default: false %}
+  {% assign action_variant = include.action_variant | default: 'secondary' %}
+  {% assign action_size = include.action_size | default: 'small' %}
+
+  {% capture heading_open %}
+    <{{ heading_level }}
+      class="c-section-heading__title"
+      {% if heading_id %}id="{{ heading_id }}"{% endif %}
+    >
+  {% endcapture %}
+
+  {% capture heading_close %}
+    </{{ heading_level }}>
+  {% endcapture %}
+
+  <!-- section-heading.html -->
+  <header class="c-section-heading c-section-heading--{{ modifier }}">
+    <div class="c-section-heading__head">
+      <div class="c-section-heading__content">
+        {% if eyebrow %}
+          <p class="c-section-heading__eyebrow">
+            {{ eyebrow }}
+          </p>
+        {% endif %}
+
+        {{ heading_open | strip }}
+          {{ section_title }}
+        {{ heading_close | strip }}
+
+        {% if description or description_html %}
+          <div class="c-section-heading__description">
+            {% if description_html %}
+              {{ description_html }}
+            {% else %}
+              <p>{{ description }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if action_label and action_url %}
+        <div class="c-section-heading__actions">
+          <a
+            class="c-button c-button--{{ action_variant }} c-button--{{ action_size }}"
+            href="{{ action_url | relative_url }}"
+            {% if action_aria_label %}aria-label="{{ action_aria_label }}"{% endif %}
+            {% if action_new_tab %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {% endif %}
+          >
+            <span class="c-button__label">
+              {{ action_label }}
+            </span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </header>
+  <!-- End of section-heading.html -->
+{% endif %}

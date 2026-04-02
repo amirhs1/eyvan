@@ -15,6 +15,7 @@
 // - .c-button
 // - .c-button--primary
 // - .c-button--secondary
+// - .c-button--section-cta
 // - .c-button--tag
 // - .c-button--tag-small
 // - .c-button--small
@@ -117,11 +118,12 @@ $button-tag-padding-inline-small: settings-spacing.$space-2;
 }
 
 /* -----------------------------------------------------------------------------
-   Variants
+   Filled variants
    ----------------------------------------------------------------------------- */
 
 .c-button--primary,
-.c-button--secondary {
+.c-button--secondary,
+.c-button--section-cta {
   background-color: var(--color-button-bg);
   border-color: var(--color-button-border);
   color: var(--color-button-text);
@@ -136,6 +138,16 @@ $button-tag-padding-inline-small: settings-spacing.$space-2;
     border-color: var(--color-button-bg-hover);
     color: var(--color-button-text);
   }
+}
+
+/* -----------------------------------------------------------------------------
+   Section CTA variant
+   ----------------------------------------------------------------------------- */
+
+.c-button--section-cta {
+  display: flex;
+  inline-size: 100%;
+  min-inline-size: 100%;
 }
 
 /* -----------------------------------------------------------------------------
@@ -252,5 +264,9 @@ $button-tag-padding-inline-small: settings-spacing.$space-2;
 @include tools-mixins.mq-up(22.5em) {
   .c-button {
     min-inline-size: max-content;
+  }
+
+  .c-button--section-cta {
+    min-inline-size: 100%;
   }
 }

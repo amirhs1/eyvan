@@ -1,0 +1,114 @@
+// -----------------------------------------------------------------------------
+// Object — Prose
+// ITCSS layer: 4-objects
+//
+// Description:
+// Provides scoped long-form content rhythm and readability.
+// Intended for Markdown-rendered and content-heavy areas such as page bodies,
+// post bodies, and future essay/documentation templates.
+//
+// Scope & Rules:
+// - Root object: .o-prose
+// - Child element rules are scoped inside .o-prose only
+// - No page-shell containment (handled by layout wrappers / o-container)
+// - No component cosmetics (colors belong to 3-base or theme)
+// - Uses tokens from 0-settings and tools from 1-tools
+//
+// What this object owns:
+// - Readable text measure
+// - Long-form line-height
+// - Vertical rhythm between prose elements
+// - Scoped list indentation and marker restoration
+// - Scoped prose link affordance
+//
+// What this object does NOT own:
+// - Outer layout containment
+// - Decorative colors (headings, links)
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as tool-spacing-fluid;
+
+.o-prose {
+  max-inline-size: settings-typography.$text-measure-base;
+  margin-inline: auto;
+  line-height: settings-typography.$line-height-loose;
+
+  // Reset element margins so the object owns vertical rhythm
+  > * {
+    margin-block: 0;
+  }
+
+  // Flow rhythm between direct children
+  > * + * {
+    margin-block-start: tool-spacing-fluid.$fluid-stack-md;
+  }
+
+  // Headings
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: settings-typography.$line-height-tight;
+    text-align: start;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin-block-start: tool-spacing-fluid.$fluid-stack-lg;
+  }
+
+  h4,
+  h5,
+  h6 {
+    margin-block-start: tool-spacing-fluid.$fluid-stack-md;
+  }
+
+  > h1:first-child,
+  > h2:first-child,
+  > h3:first-child,
+  > h4:first-child,
+  > h5:first-child,
+  > h6:first-child {
+    margin-block-start: 0;
+  }
+
+  // Lists
+  ul,
+  ol {
+    padding-inline-start: settings-spacing.$space-6;
+    list-style-position: outside;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li + li {
+    margin-block-start: settings-spacing.$space-2;
+  }
+
+  li > ul,
+  li > ol {
+    margin-block-start: settings-spacing.$space-2;
+  }
+
+  // Links
+  a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  // Preformatted content
+  pre {
+    overflow-x: auto;
+  }
+}

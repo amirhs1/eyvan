@@ -1,0 +1,458 @@
+---
+layout: page
+title: Object Prose Test
+permalink: /tests/4-objects/test-prose/
+robots: noindex
+---
+{% comment %}
+  Object Prose Test Page
+  Purpose: Visually verify that the 4-objects prose object compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Scoped readable measure
+  - Vertical rhythm between direct children
+  - Heading spacing behavior
+  - First-child heading reset
+  - List indentation and nested-list spacing
+  - Link affordance
+  - Preformatted content overflow
+  - Scope containment outside the prose object
+
+  Notes:
+  - This page tests only the object responsibilities of:
+  - .o-prose
+  - Headings inside .o-prose
+  - Paragraph flow inside .o-prose
+  - Lists inside .o-prose
+  - Links inside .o-prose
+  - pre inside .o-prose
+  - The outer layout container is intentionally not tested here because it
+  belongs to layout wrappers and container objects.
+  - Decorative heading and link colors are intentionally not tested here
+  because they belong to base/theme layers rather than this object.
+  - Helper styles below are temporary and exist only for testing.
+  - This page is intended for development testing only.
+{% endcomment %}
+
+<style>
+  .c-prose-test-frame {
+    padding: 1.5rem;
+    margin-block: 1.5rem;
+    border: 1px dashed #999;
+    background: #fafafa;
+  }
+
+  .c-prose-test-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .c-prose-test-row {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .c-prose-test-label {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .c-prose-test-box {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .c-prose-test-box--wide {
+    inline-size: min(100%, 78rem);
+  }
+
+  .c-prose-test-box--narrow {
+    inline-size: min(100%, 26rem);
+  }
+
+  .c-prose-test-box--code {
+    inline-size: min(100%, 52rem);
+  }
+
+  .c-prose-test-note {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .c-prose-test-fill {
+    padding: 0.75rem;
+    border: 1px dashed #ccc;
+    background: #fcfcfc;
+  }
+
+  .c-prose-test-rule {
+    margin-block: 1rem;
+  }
+
+  .c-prose-test-pre {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    white-space: pre;
+  }
+
+  .c-prose-test-compare {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .c-prose-test-compare {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the prose object classes defined in the <strong>4-objects</strong> Sass
+    layer.
+  </p>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Scoped Readable Measure -->
+  <!-- ============================================================= -->
+
+  <h2>Scoped readable measure</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The prose block below should not stretch to the full width of its wider parent container. Instead,
+    <code>.o-prose</code> should apply a readable text measure and center the content with automatic inline margins.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <div class="c-prose-test-box c-prose-test-box--wide">
+      <article class="o-prose">
+        <h3>Readable line length</h3>
+        <p>
+          This paragraph is intentionally placed inside a wider test box so that the prose object can demonstrate its
+          own measure. The text column should remain comfortably readable rather than spanning the full available width
+          of the parent container.
+        </p>
+        <p>
+          The left and right edges of the prose content should appear centered within the wider test frame, showing that
+          the object owns readable line length independently of page-shell containment.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Vertical Rhythm Between Direct Children -->
+  <!-- ============================================================= -->
+
+  <h2>Vertical rhythm between direct children</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Direct children of <code>.o-prose</code> should not keep browser-default margins. Instead, spacing between adjacent
+    elements should come from the object’s flow rhythm, producing even and deliberate vertical separation.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <article class="o-prose">
+      <p>
+        This is the opening paragraph. It should sit at the start of the prose block without unexpected browser-default
+        top or bottom margins.
+      </p>
+
+      <p>This second paragraph should be separated from the first by the prose object’s controlled stack spacing.</p>
+
+      <blockquote>
+        <p>
+          This blockquote is included as another direct child so you can verify that the same flow rhythm applies across
+          different content types.
+        </p>
+      </blockquote>
+
+      <p>
+        This paragraph should again follow the same vertical rhythm rather than using whatever default margins the
+        browser would normally assign.
+      </p>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Heading Spacing Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Heading spacing behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Headings inside <code>.o-prose</code> should use tighter heading line-height and start-aligned text. Larger headings
+    (<code>h1</code>–<code>h3</code>) should receive a larger top spacing than smaller headings (<code>h4</code>–<code
+      >h6</code
+    >) when they follow earlier content.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <article class="o-prose">
+      <p>
+        This paragraph comes before several headings so the top spacing differences between heading levels can be
+        inspected visually.
+      </p>
+
+      <h2>Section heading level two</h2>
+      <p>
+        This paragraph follows an <code>h2</code>. The heading should appear clearly separated from the preceding
+        paragraph.
+      </p>
+
+      <h3>Section heading level three</h3>
+      <p>This paragraph follows an <code>h3</code>. It should behave similarly to the larger heading group.</p>
+
+      <h4>Section heading level four</h4>
+      <p>
+        This paragraph follows an <code>h4</code>. The heading should still gain top spacing, but it should feel
+        slightly tighter than the spacing used for <code>h2</code> and <code>h3</code>.
+      </p>
+
+      <h5>Section heading level five</h5>
+      <p>This final paragraph helps confirm the smaller-heading spacing pattern.</p>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- First-child Heading Reset -->
+  <!-- ============================================================= -->
+
+  <h2>First-child heading reset</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When a heading is the <strong>first direct child</strong> inside <code>.o-prose</code>, it should
+    <strong>not</strong> receive extra top margin. The prose block should begin cleanly at the heading.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <article class="o-prose">
+      <h1>Opening heading without extra top offset</h1>
+      <p>
+        The heading above should sit flush at the top of the prose flow rather than appearing pushed downward by the
+        larger heading spacing rule.
+      </p>
+      <p>
+        This confirms that the first-child heading reset overrides the general top-margin behavior applied to headings
+        inside the object.
+      </p>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- List Indentation and Nested-list Spacing -->
+  <!-- ============================================================= -->
+
+  <h2>List indentation and nested-list spacing</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Unordered and ordered lists inside <code>.o-prose</code> should restore visible markers and indentation. Consecutive
+    list items should have spacing between them, and nested lists should gain a small top gap from the parent list item
+    content.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <article class="o-prose">
+      <h3>Unordered list</h3>
+      <ul>
+        <li>First unordered item with standard bullet marker.</li>
+        <li>
+          Second unordered item with nested content.
+          <ul>
+            <li>Nested unordered item one.</li>
+            <li>Nested unordered item two.</li>
+          </ul>
+        </li>
+        <li>Third unordered item after the nested list example.</li>
+      </ul>
+
+      <h3>Ordered list</h3>
+      <ol>
+        <li>First ordered item with decimal marker.</li>
+        <li>
+          Second ordered item with a nested ordered list.
+          <ol>
+            <li>Nested ordered item one.</li>
+            <li>Nested ordered item two.</li>
+          </ol>
+        </li>
+        <li>Third ordered item after the nested list example.</li>
+      </ol>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Link Affordance -->
+  <!-- ============================================================= -->
+
+  <h2>Link affordance</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Links inside <code>.o-prose</code> should render with an underline and a visible underline offset so that inline
+    links are easy to identify in long-form reading content.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <article class="o-prose">
+      <p>
+        This paragraph includes an
+        <a href="https://example.com">inline example link</a>
+        so you can verify the underline treatment and underline offset.
+      </p>
+
+      <p>
+        Here is another
+        <a href="#">internal-style example link</a>
+        inside a second paragraph to confirm that the same treatment applies consistently throughout the prose object.
+      </p>
+    </article>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Scope Containment Outside the Prose Object -->
+  <!-- ============================================================= -->
+
+  <h2>Scope containment outside the prose object</h2>
+
+  <p>
+    <strong>What to look for before comparing:</strong>
+  </p>
+
+  <ul>
+    <li>
+      The <code>.o-prose</code> example should form a more readable long-form text column instead of stretching too
+      comfortably across the available width.
+    </li>
+    <li>
+      Spacing between the heading, paragraphs, list, and final paragraph should feel more deliberate and article-like in
+      the <code>.o-prose</code> block.
+    </li>
+    <li>
+      List indentation, nested-list spacing, and inline-link treatment should be controlled by the prose object only
+      inside the <code>.o-prose</code> block.
+    </li>
+    <li>
+      The non-prose example should render as ordinary page content inside a plain container, without the scoped
+      long-form behavior of <code>.o-prose</code>.
+    </li>
+  </ul>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Both blocks below contain the <strong>exact same content</strong>. The only difference is that the first block uses
+    <code>.o-prose</code> and the second does not. Any visual difference should therefore come from the prose object
+    itself, not from different text or markup.
+  </p>
+
+  <div class="c-prose-test-frame">
+    <div class="c-prose-test-box c-prose-test-box--wide">
+      <div class="c-prose-test-compare">
+        <div class="c-prose-test-box">
+          <p class="c-prose-test-label">Inside <code>.o-prose</code></p>
+
+          <article class="o-prose">
+            <h3>Sample long-form content</h3>
+
+            <p>
+              This section is intentionally written with enough content to reveal readable measure, vertical rhythm,
+              list indentation, and inline-link styling in a realistic article-like block.
+            </p>
+
+            <p>
+              The comparison matters most in a wider container, where scoped prose should feel more controlled and
+              comfortable to read than a plain content wrapper. Here is an
+              <a href="#">inline example link</a>
+              to help inspect link treatment.
+            </p>
+
+            <ul>
+              <li>First list item for marker and indentation checking.</li>
+              <li>
+                Second list item with nested structure.
+                <ul>
+                  <li>Nested item one for spacing comparison.</li>
+                  <li>Nested item two for spacing comparison.</li>
+                </ul>
+              </li>
+              <li>Third list item after the nested list.</li>
+            </ul>
+
+            <p>
+              This final paragraph follows the list so you can inspect the rhythm between different direct children of
+              the content block.
+            </p>
+          </article>
+        </div>
+
+        <div class="c-prose-test-box">
+          <p class="c-prose-test-label">Outside <code>.o-prose</code></p>
+
+          <article>
+            <h3>Sample long-form content</h3>
+
+            <p>
+              This section is intentionally written with enough content to reveal readable measure, vertical rhythm,
+              list indentation, and inline-link styling in a realistic article-like block.
+            </p>
+
+            <p>
+              The comparison matters most in a wider container, where scoped prose should feel more controlled and
+              comfortable to read than a plain content wrapper. Here is an
+              <a href="#">inline example link</a>
+              to help inspect link treatment.
+            </p>
+
+            <ul>
+              <li>First list item for marker and indentation checking.</li>
+              <li>
+                Second list item with nested structure.
+                <ul>
+                  <li>Nested item one for spacing comparison.</li>
+                  <li>Nested item two for spacing comparison.</li>
+                </ul>
+              </li>
+              <li>Third list item after the nested list.</li>
+            </ul>
+
+            <p>
+              This final paragraph follows the list so you can inspect the rhythm between different direct children of
+              the content block.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    <em>
+      Tip: the strongest differences are usually readable measure and vertical rhythm. If your base layer already styles
+      links and lists globally, those parts may look similar even when the prose scope is working correctly.
+    </em>
+  </p>
+</section>

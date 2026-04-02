@@ -43,21 +43,6 @@ robots: noindex
     background: #fafafa;
   }
 
-  .c-hero-test-stack {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-hero-test-row {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-hero-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
   .c-hero-test-box {
     inline-size: min(100%, 72rem);
     padding: 1rem;
@@ -77,12 +62,6 @@ robots: noindex
     margin: 0;
     color: #555;
     font-size: 0.95rem;
-  }
-
-  .c-hero-test-fill {
-    padding: 0.75rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
   }
 
   .c-hero-test-layout {
@@ -116,8 +95,8 @@ robots: noindex
     <strong>Expected behavior:</strong>
     The base hero should render a clear visual hierarchy:
     optional eyebrow, large title, readable description, action group,
-    and a rounded media panel. The component root should add section-level
-    vertical spacing.
+    and a rounded media panel. The component root should also add
+    section-level vertical padding above and below the hero.
   </p>
 
   <div class="c-hero-test-frame">
@@ -233,8 +212,8 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     The description block should keep a readable text measure, remove extra
-    margin above the first child and below the last child, and style
-    <code>strong</code> text with stronger emphasis.
+    margin above the first child and below the last child, use the body text
+    color, and style <code>strong</code> text with stronger emphasis.
   </p>
 
   <div class="c-hero-test-frame">
@@ -271,7 +250,7 @@ robots: noindex
     <strong>Expected behavior:</strong>
     The action group should align items in a horizontal row when space is
     available, but allow them to wrap cleanly onto multiple lines in tighter
-    widths because <code>.c-hero__actions</code> uses flex wrapping.
+    widths because <code>.c-hero__actions</code> uses flex wrapping and gap.
   </p>
 
   <div class="c-hero-test-frame">
@@ -309,7 +288,8 @@ robots: noindex
     <strong>Expected behavior:</strong>
     The media wrapper should appear as a rounded clipped panel with an
     alternate surface background and shadow. The image should fill the shell,
-    preserve coverage with <code>object-fit: cover</code>, and stay centered.
+    preserve coverage with <code>object-fit: cover</code>, stay centered, and
+    maintain a stable minimum height.
   </p>
 
   <div class="c-hero-test-frame">
@@ -376,7 +356,7 @@ robots: noindex
             <div class="c-hero__description">
               <p>
                 <strong>Computational social scientist</strong> based in
-                <strong>Can</strong>. I build research tools, publish
+                <strong>Canada</strong>. I build research tools, publish
                 long-form writing, and design clear digital experiences for
                 technical and public audiences.
               </p>

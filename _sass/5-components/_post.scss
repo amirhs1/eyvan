@@ -26,7 +26,7 @@
 // Scope & Rules:
 // - Component styling only
 // - Page/grid/container layout belongs to layout and object layers
-// - Long-form typography is scoped to .c-post__content
+// - Readable body measure belongs to .o-prose
 // - Shared author/date/read-time styling is delegated to _post-meta.scss
 // - Share control visuals remain owned by _post-share.scss
 // - This file owns only post-shell layout and contextual component placement
@@ -42,8 +42,8 @@
    Local component tokens
    ----------------------------------------------------------------------------- */
 
-$post-max-width: 52rem;
-$post-content-inline-size: settings-config.$measure-text;
+$post-header-inline-size: settings-typography.$text-measure-wide;
+$post-subtitle-inline-size: settings-typography.$text-measure-base;
 
 $post-page-offset-top: tools-spacing.$fluid-stack-md;
 $post-cover-gap: tools-spacing.$fluid-stack-md;
@@ -55,7 +55,7 @@ $post-tag-gap: settings-spacing.$space-2;
 $post-header-row-gap: settings-spacing.$space-4;
 $post-header-row-padding-block-end: tools-spacing.$fluid-stack-md;
 
-$post-header-meta-min-width: 28rem;
+$post-header-meta-min-width: 20rem;
 $post-header-meta-avatar-size: 3rem;
 $post-header-meta-avatar-size-mobile: 2.75rem;
 
@@ -89,8 +89,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
    ----------------------------------------------------------------------------- */
 
 .c-post {
-  inline-size: min(100%, $post-max-width);
-  margin-inline: auto;
+  min-inline-size: 0;
   padding-block-start: $post-page-offset-top;
 }
 
@@ -103,7 +102,13 @@ $post-content-top-border-width: settings-config.$global-border-width;
   display: flex;
   flex-direction: column;
   gap: $post-header-gap;
+  max-inline-size: $post-header-inline-size;
+  margin-inline: auto;
   margin-block-end: $post-header-margin-block-end;
+}
+
+.c-post__content {
+  min-inline-size: 0;
 }
 
 /* Slightly tighten title-to-header-row spacing when subtitle is absent */
@@ -146,7 +151,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 }
 
 .c-post__subtitle {
-  max-inline-size: $post-content-inline-size;
+  max-inline-size: $post-subtitle-inline-size;
   margin: 0;
   color: var(--color-text-muted);
   font-family: settings-typography.$font-family-body;
@@ -238,13 +243,9 @@ $post-content-top-border-width: settings-config.$global-border-width;
     align-items: flex-start;
   }
 
-  .c-post__header-meta {
-    flex: 1 1 100%;
-  }
-
   .c-post__header-actions {
+    flex-basis: 100%;
     justify-content: flex-start;
-    flex: 1 1 100%;
     margin-inline-start: 0;
   }
 

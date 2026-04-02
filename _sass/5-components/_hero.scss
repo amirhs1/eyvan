@@ -82,7 +82,7 @@
    ----------------------------------------------------------------------------- */
 
 .c-hero__description {
-  max-inline-size: settings-config.$measure-text;
+  max-inline-size: settings-typography.$text-measure-base;
   color: var(--color-text);
 }
 

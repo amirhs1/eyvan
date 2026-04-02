@@ -40,6 +40,8 @@ robots: noindex
     - .c-post-cover__image
   - Shared metadata internals belong to the separate post-meta component.
   - Shared share-control visuals belong to the separate post-share component.
+  - Tag cosmetics are not owned by this file; this test checks only contextual
+    grouping and capitalization behavior.
   - Helper styles below are temporary and exist only for testing.
   - Resize the browser window to verify responsive header-row stacking.
   - This page is intended for development testing only.
@@ -132,6 +134,12 @@ robots: noindex
     font-size: 0.85rem;
     font-weight: 700;
   }
+
+  .c-post-test-container-shell {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
 </style>
 
 <section class="l-section">
@@ -178,35 +186,40 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When a cover image is followed by the post article, the spacing between
-    those two blocks should feel intentional and not doubled. This section
-    mirrors the real post layout order more closely.
+    When a cover container is immediately followed by an article container,
+    the post should remove its own top padding so the vertical spacing does not
+    feel doubled. This section mirrors the real adjacent
+    <code>.o-container + .o-container .c-post</code> relationship.
   </p>
 
-  <div class="c-post-test-frame c-post-test-stack">
-    <div class="c-post-test-box">
-      <div class="c-post-cover">
-        <div class="c-post-cover__media">
-          <img
-            class="c-post-cover__image"
-            src="{{ '/images/posts/25.png' | relative_url }}"
-            alt="Integrated cover image test"
-          >
+  <div class="c-post-test-frame">
+    <div class="o-container">
+      <div class="c-post-test-container-shell">
+        <div class="c-post-cover">
+          <div class="c-post-cover__media">
+            <img
+              class="c-post-cover__image"
+              src="{{ '/images/posts/25.png' | relative_url }}"
+              alt="Integrated cover image test"
+            >
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="c-post-test-box">
-      <article class="c-post">
-        <header class="c-post__header">
-          <h1 class="c-post__title">Cover Followed by Post Article</h1>
+    <div class="o-container">
+      <div class="c-post-test-container-shell">
+        <article class="c-post">
+          <header class="c-post__header">
+            <h1 class="c-post__title">Cover Followed by Post Article</h1>
 
-          <p class="c-post__subtitle">
-            This example verifies the visual transition from the cover block
-            into the article shell.
-          </p>
-        </header>
-      </article>
+            <p class="c-post__subtitle">
+              This example verifies the visual transition from the cover block
+              into the article shell without duplicated top spacing.
+            </p>
+          </header>
+        </article>
+      </div>
     </div>
   </div>
 
@@ -220,18 +233,21 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The post shell should remain centered and limited to a readable line length,
+    The post shell should apply top spacing when used on its own, while the
+    header content remains centered and limited to a readable line length
     rather than stretching full-width across the page.
   </p>
 
   <div class="c-post-test-frame">
     <article class="c-post">
-      <div class="c-post-test-fill">
-        <p class="c-post-test-note">
-          This inner box should appear constrained by the
-          <code>.c-post</code> max-width and centered alignment.
-        </p>
-      </div>
+      <header class="c-post__header">
+        <div class="c-post-test-fill">
+          <p class="c-post-test-note">
+            This inner box should appear constrained by the
+            <code>.c-post__header</code> max-width and centered alignment.
+          </p>
+        </div>
+      </header>
     </article>
   </div>
 
@@ -276,8 +292,10 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    Tags should render as a wrapping inline group with consistent spacing,
-    pill-like shape, bold display text, and hover or focus interaction.
+    Tags should render as a wrapping inline group with consistent spacing.
+    Individual tag text should be capitalized by the component context even when
+    the source markup is lowercase. Visual tag cosmetics belong to the shared
+    tag or button styles rather than this file.
   </p>
 
   <div class="c-post-test-frame">
@@ -410,9 +428,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The content area should remain within the readable post measure, feel
-    visually separated from the header, and support typical long-form content
-    such as headings, paragraphs, links, lists, quotes, and inline code.
+    The content area should remain structurally separated from the header and
+    support typical long-form content. Readability styling for article rhythm
+    belongs primarily to the prose object layered inside the content area.
   </p>
 
   <div class="c-post-test-frame">
@@ -423,20 +441,33 @@ robots: noindex
         <p class="c-post__subtitle">
           This section verifies the article body wrapper used in the real post layout.
         </p>
+
+        <div class="c-post__header-row">
+          <div class="c-post__header-meta">
+            <div class="c-post-meta c-post-test-meta-demo">
+              <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+
+              <div class="c-post-test-meta-body">
+                <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
+                <p class="c-post-test-meta-line">March 30, 2026 · 7 min read</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </header>
 
-      <div class="c-post__content">
+      <div class="c-post__content o-prose">
         <p>
           This is a paragraph of long-form content with an
           <a href="#">inline link</a> and some <code>inline code</code>.
-          The body should sit comfortably below the header and remain easy to read.
+          The body should sit below the header and remain easy to read.
         </p>
 
         <h2>Section heading</h2>
 
         <p>
-          The content wrapper should support standard article rhythm, including
-          headings, paragraph spacing, and readable line length.
+          The content wrapper should support standard article structure while
+          allowing the prose object to handle detailed text rhythm.
         </p>
 
         <blockquote>
@@ -495,7 +526,7 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     At smaller widths, the header row should shift from a side-by-side layout
-    to a stacked layout. Metadata should take the full row, share actions should
+    to a stacked layout. Metadata should take the main row, share actions should
     move below it, and share content should align to the left.
   </p>
 

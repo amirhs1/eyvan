@@ -119,6 +119,7 @@
 // Page-level composition
 // -----------------------------------------------------------------------------
 
+@use "6-layouts/site-main" as layout-site-main;
 @use "6-layouts/tag-page" as layout-tag-page;
 
 // -----------------------------------------------------------------------------

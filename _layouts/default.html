@@ -10,7 +10,11 @@
 
 <body>
   {% include header.html %}
-  {{ content }}
+  
+  <main class="l-site-main" id="main-content">
+    {{ content }}
+  </main>
+
   {% include footer.html %}
 
   {% include dev-debug.html %}

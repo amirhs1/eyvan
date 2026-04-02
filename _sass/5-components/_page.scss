@@ -21,11 +21,12 @@
 //
 // Scope & Rules:
 // - Component styling only
+// - Outer page-shell spacing belongs to .l-site-main
 // - Outer page containment belongs to .o-container
 // - Long-form typography and content rhythm belong to .o-prose
 // - Shared metadata visuals are delegated to _entry-meta.scss
 // - Shared tag button visuals are delegated to _button.scss
-// - This file owns only page-shell spacing, featured media, and local layout
+// - This file owns only local page layout, featured media, and internal spacing
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
@@ -38,7 +39,6 @@
    Local component tokens
    ----------------------------------------------------------------------------- */
 
-$page-offset-top: tools-spacing.$fluid-stack-md;
 $page-media-gap: tools-spacing.$fluid-stack-md;
 $page-header-gap: tools-spacing.$space-stack-sm;
 $page-header-margin-block-end: tools-spacing.$fluid-stack-md;
@@ -58,7 +58,6 @@ $page-image-max-block-size: min(34rem, 60vh);
 
 .c-page {
   min-inline-size: 0;
-  padding-block-start: $page-offset-top;
 }
 
 /* -----------------------------------------------------------------------------
@@ -173,10 +172,6 @@ $page-image-max-block-size: min(34rem, 60vh);
    ----------------------------------------------------------------------------- */
 
 @media (max-width: settings-breakpoints.$bp-md) {
-  .c-page {
-    padding-block-start: settings-spacing.$space-5;
-  }
-
   .c-page__media {
     margin-block-end: settings-spacing.$space-5;
   }
@@ -192,10 +187,6 @@ $page-image-max-block-size: min(34rem, 60vh);
 }
 
 @media (max-width: settings-breakpoints.$bp-sm) {
-  .c-page {
-    padding-block-start: settings-spacing.$space-4;
-  }
-
   .c-page__media {
     margin-block-end: settings-spacing.$space-4;
     border-radius: settings-config.$global-radius;

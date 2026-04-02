@@ -8,6 +8,7 @@
 // Scope & Rules:
 // - Component styling only
 // - Structural layout belongs to 4-objects/_hero.scss
+// - Outer page-shell spacing belongs to .l-site-main
 // - Reuses the shared .c-button component for hero actions
 // - No grid, column, or object-level layout rules here
 //
@@ -33,13 +34,7 @@
    ----------------------------------------------------------------------------- */
 
 .c-hero {
-  padding-block: tools-spacing.$fluid-section-sm;
-}
-
-@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
-  .c-hero {
-    padding-block: tools-spacing.$fluid-section-md;
-  }
+  min-inline-size: 0;
 }
 
 /* -----------------------------------------------------------------------------
@@ -129,7 +124,6 @@
 .c-hero__media {
   min-block-size: settings-config.$hero-min-height;
   overflow: hidden;
-  // border-radius: max(settings-config.$global-radius, 1.5rem);
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-surface-alt);
   box-shadow:

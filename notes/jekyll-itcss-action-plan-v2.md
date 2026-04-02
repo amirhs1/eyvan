@@ -66,22 +66,6 @@ Your layout layer is the biggest structural gap right now.
 
 ### 5.4 Create `6-layouts/_l-tag-page.scss`
 
-**Goal**  
-Own the tag archive page layout.
-
-**Suggested scope**
-
-- `.l-tag-page`
-- `.l-tag-page__header`
-- `.l-tag-page__title`
-
-**What this file should own**
-
-- spacing
-- structural layout for the tag archive page
-
----
-
 ## Phase 6 — Add the missing components
 
 ### 6.1 Create `5-components/_c-page.scss`

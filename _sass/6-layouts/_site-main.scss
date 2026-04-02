@@ -1,0 +1,40 @@
+// -----------------------------------------------------------------------------
+// Site Main Layout
+// ITCSS layer: 6-layouts
+//
+// Description:
+// Owns the global page-shell spacing between the persistent site header,
+// page content, and persistent site footer.
+//
+// Scope & Rules:
+// - Layout-only
+// - Owns only outer vertical spacing for the main content region
+// - Does not own horizontal containment
+// - Does not own component or prose rhythm
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+.l-site-main {
+  padding-block: tools-spacing.$fluid-section-sm;
+}
+
+@media (min-width: settings-breakpoints.$bp-layout) {
+  .l-site-main {
+    padding-block: tools-spacing.$fluid-section-md;
+  }
+}
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .l-site-main {
+    padding-block: settings-spacing.$space-5;
+  }
+}
+
+@media (max-width: settings-breakpoints.$bp-sm) {
+  .l-site-main {
+    padding-block: settings-spacing.$space-4;
+  }
+}

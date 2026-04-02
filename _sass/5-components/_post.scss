@@ -45,7 +45,6 @@
 $post-header-inline-size: settings-typography.$text-measure-wide;
 $post-subtitle-inline-size: settings-typography.$text-measure-base;
 
-$post-page-offset-top: tools-spacing.$fluid-stack-md;
 $post-cover-gap: tools-spacing.$fluid-stack-md;
 $post-header-gap: tools-spacing.$fluid-stack-md;
 $post-header-margin-block-end: tools-spacing.$fluid-stack-lg;
@@ -66,7 +65,6 @@ $post-content-top-border-width: settings-config.$global-border-width;
    ----------------------------------------------------------------------------- */
 
 .c-post-cover {
-  margin-block-start: $post-page-offset-top;
   margin-block-end: $post-cover-gap;
 }
 
@@ -90,12 +88,6 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 .c-post {
   min-inline-size: 0;
-  padding-block-start: $post-page-offset-top;
-}
-
-/* Avoid double top spacing when a cover image is rendered above the article */
-.o-container + .o-container .c-post {
-  padding-block-start: 0;
 }
 
 .c-post__header {

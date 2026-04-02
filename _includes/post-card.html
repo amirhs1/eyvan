@@ -24,12 +24,12 @@
   - Accepts:
     - include.post: post object
   - Delegates reusable metadata rendering to:
-    - post-meta.html
+    - entry-meta.html
 
   Accessibility:
   - Uses a semantic article element
   - Linked image alt text falls back to the post title
-  - Metadata accessibility is delegated to post-meta.html
+  - Metadata accessibility is delegated to entry-meta.html
 
   Data dependencies:
   - include.post
@@ -40,7 +40,7 @@
   - include.post.tags
   - include.post.description
   - include.post.content
-  - post-meta.html dependencies
+  - entry-meta.html dependencies
 
   Notes:
   - Designed as the canonical listing card for posts/projects
@@ -50,7 +50,7 @@
     - tag-page.html
     - related-posts.html
   - This file owns the card shell and layout only
-  - Shared author/date/read-time markup is centralized in post-meta.html
+  - Shared author/date/read-time markup is centralized in entry-meta.html
 {% endcomment %}
 
 {% assign post = include.post %}
@@ -85,6 +85,7 @@
             <a
               class="c-button c-button--tag c-button--tag-small c-post-card__tag"
               href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+              aria-label="View posts tagged {{ tag }}"
             >
               {{ tag }}
             </a>
@@ -113,7 +114,7 @@
 
       <!-- Post card metadata -->
       <div class="c-post-card__meta">
-        {% include post-meta.html meta_post=post show_avatar=true %}
+        {% include entry-meta.html entry_meta=post show_avatar=true %}
       </div>
     </div>
   </div>

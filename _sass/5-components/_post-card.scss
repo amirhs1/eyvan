@@ -19,12 +19,12 @@
 //   - .c-post-card__title-link
 //   - .c-post-card__excerpt
 //   - .c-post-card__meta
-//     - shared .c-post-meta component
+//     - shared .c-entry-meta component
 //
 // Scope & Rules:
 // - Component styling only
 // - Grid placement belongs to layout/object layers
-// - Shared author/date/read-time styling is delegated to _post-meta.scss
+// - Shared author/date/read-time styling is delegated to _entry-meta.scss
 // - This file owns the card shell, spacing, media, and metadata wrapper only
 // -----------------------------------------------------------------------------
 

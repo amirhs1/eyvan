@@ -38,7 +38,7 @@ robots: noindex
     - .c-post-cover
     - .c-post-cover__media
     - .c-post-cover__image
-  - Shared metadata internals belong to the separate post-meta component.
+  - Shared metadata internals belong to the separate entry-meta component.
   - Shared share-control visuals belong to the separate post-share component.
   - Tag cosmetics are not owned by this file; this test checks only contextual
     grouping and capitalization behavior.
@@ -81,38 +81,6 @@ robots: noindex
     padding: 1rem;
     border: 1px dashed #ccc;
     background: #fcfcfc;
-  }
-
-  .c-post-test-meta-demo {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    min-inline-size: 0;
-  }
-
-  .c-post-test-meta-author {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: 3rem;
-    block-size: 3rem;
-    border-radius: 50%;
-    background: #ddd;
-    font-size: 0.8rem;
-    font-weight: 700;
-    flex: 0 0 auto;
-  }
-
-  .c-post-test-meta-body {
-    display: grid;
-    gap: 0.25rem;
-    min-inline-size: 0;
-  }
-
-  .c-post-test-meta-line {
-    margin: 0;
-    color: #333;
-    font-size: 0.95rem;
   }
 
   .c-post-test-share-label {
@@ -339,12 +307,28 @@ robots: noindex
 
         <div class="c-post__header-row">
           <div class="c-post__header-meta">
-            <div class="c-post-meta c-post-test-meta-demo">
-              <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+            <div class="c-entry-meta">
+              <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                <img
+                  class="c-entry-meta__avatar"
+                  src="{{ '/images/avatar.jpg' | relative_url }}"
+                  alt="Author avatar"
+                >
+              </a>
 
-              <div class="c-post-test-meta-body">
-                <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
-                <p class="c-post-test-meta-line">March 30, 2026 · 8 min read</p>
+              <div class="c-entry-meta__content">
+                <p class="c-entry-meta__author-name">Author Name</p>
+
+                <div class="c-entry-meta__details">
+                  <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+
+                  <span class="c-entry-meta__read-time">
+                    <span class="c-entry-meta__icon" aria-hidden="true">
+                      {% include icons/timer.svg %}
+                    </span>
+                    <span>8 min read</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -392,12 +376,28 @@ robots: noindex
 
         <div class="c-post__header-row">
           <div class="c-post__header-meta">
-            <div class="c-post-meta c-post-test-meta-demo">
-              <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+            <div class="c-entry-meta">
+              <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                <img
+                  class="c-entry-meta__avatar"
+                  src="{{ '/images/avatar.jpg' | relative_url }}"
+                  alt="Author avatar"
+                >
+              </a>
 
-              <div class="c-post-test-meta-body">
-                <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
-                <p class="c-post-test-meta-line">March 30, 2026 · 5 min read</p>
+              <div class="c-entry-meta__content">
+                <p class="c-entry-meta__author-name">Author Name</p>
+
+                <div class="c-entry-meta__details">
+                  <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+
+                  <span class="c-entry-meta__read-time">
+                    <span class="c-entry-meta__icon" aria-hidden="true">
+                      {% include icons/timer.svg %}
+                    </span>
+                    <span>5 min read</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -444,12 +444,28 @@ robots: noindex
 
         <div class="c-post__header-row">
           <div class="c-post__header-meta">
-            <div class="c-post-meta c-post-test-meta-demo">
-              <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+            <div class="c-entry-meta">
+              <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                <img
+                  class="c-entry-meta__avatar"
+                  src="{{ '/images/avatar.jpg' | relative_url }}"
+                  alt="Author avatar"
+                >
+              </a>
 
-              <div class="c-post-test-meta-body">
-                <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
-                <p class="c-post-test-meta-line">March 30, 2026 · 7 min read</p>
+              <div class="c-entry-meta__content">
+                <p class="c-entry-meta__author-name">Author Name</p>
+
+                <div class="c-entry-meta__details">
+                  <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+
+                  <span class="c-entry-meta__read-time">
+                    <span class="c-entry-meta__icon" aria-hidden="true">
+                      {% include icons/timer.svg %}
+                    </span>
+                    <span>7 min read</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -526,7 +542,7 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     At smaller widths, the header row should shift from a side-by-side layout
-    to a stacked layout. Metadata should take the main row, share actions should
+    to a stacked layout. Metadata should take the top row, share actions should
     move below it, and share content should align to the left.
   </p>
 
@@ -542,12 +558,28 @@ robots: noindex
 
           <div class="c-post__header-row">
             <div class="c-post__header-meta">
-              <div class="c-post-meta c-post-test-meta-demo">
-                <div class="c-post-meta__author c-post-test-meta-author">AV</div>
+              <div class="c-entry-meta">
+                <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+                  <img
+                    class="c-entry-meta__avatar"
+                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    alt="Author avatar"
+                  >
+                </a>
 
-                <div class="c-post-test-meta-body">
-                  <p class="c-post-test-meta-line"><strong>Author Name</strong></p>
-                  <p class="c-post-test-meta-line">March 30, 2026 · 11 min read</p>
+                <div class="c-entry-meta__content">
+                  <p class="c-entry-meta__author-name">Author Name</p>
+
+                  <div class="c-entry-meta__details">
+                    <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+
+                    <span class="c-entry-meta__read-time">
+                      <span class="c-entry-meta__icon" aria-hidden="true">
+                        {% include icons/timer.svg %}
+                      </span>
+                      <span>11 min read</span>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

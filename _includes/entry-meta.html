@@ -1,0 +1,122 @@
+{% comment %}
+  Entry Meta Component
+  Purpose: Render reusable author and publication metadata for content-entry UI,
+  including cards, post headers, and page headers.
+
+  Structure:
+  - Component root (c-entry-meta)
+    - Optional avatar wrapper
+      - Author avatar image
+    - Meta content wrapper
+      - Author name
+      - Meta details group
+        - Publish date
+        - Optional read time
+          - Read time icon
+          - Read time text
+
+  Architecture:
+  - Uses ITCSS + BEM naming
+  - Component block:
+    - c-entry-meta
+  - Designed as a standalone component to be included in:
+    - post-card.html
+    - post.html
+    - page.html
+  - Accepts:
+    - include.entry_meta: post/page object
+    - include.show_avatar: boolean-like flag controlling avatar visibility
+    - include.show_read_time: boolean-like flag controlling read-time visibility
+
+  Accessibility:
+  - Uses a semantic time element for the publish date
+  - Decorative timer icon is hidden from assistive technology
+  - Avatar alt text falls back to the resolved author name
+
+  Data dependencies:
+  - include.entry_meta
+  - include.entry_meta.author
+  - include.entry_meta.authors
+  - include.entry_meta.avatar
+  - include.entry_meta.date
+  - include.entry_meta.content
+  - include.show_avatar
+  - include.show_read_time
+  - site.data.author.name
+  - site.data.author.avatar
+  - site.read_time
+  - read-time.html include
+
+  Notes:
+  - This component centralizes metadata markup so cards, posts, and pages
+    share the same structure
+  - Spacing between date and read time should be handled in CSS, not with
+    hardcoded separators in the markup
+{% endcomment %}
+
+{% assign entry_meta = include.entry_meta %}
+{% assign show_avatar = include.show_avatar | default: false %}
+{% assign show_read_time = include.show_read_time | default: true %}
+
+{% if entry_meta %}
+  {% assign author_avatar = entry_meta.avatar | default: site.data.author.avatar %}
+
+  {% if entry_meta.authors %}
+    {% assign author_display = entry_meta.authors | join: ', ' %}
+  {% elsif entry_meta.author %}
+    {% assign author_display = entry_meta.author %}
+  {% else %}
+    {% assign author_display = site.data.author.name %}
+  {% endif %}
+
+  <!-- entry-meta.html -->
+  <div class="c-entry-meta">
+    {% if show_avatar and author_avatar %}
+      <!-- Author avatar -->
+      <div class="c-entry-meta__author">
+        <img
+          class="c-entry-meta__avatar"
+          loading="lazy"
+          src="{{ author_avatar | relative_url }}"
+          alt="{{ author_display | default: 'Site author' | escape }}"
+        >
+      </div>
+    {% endif %}
+
+    <!-- Meta content -->
+    <div class="c-entry-meta__content">
+      {% if author_display %}
+        <!-- Author name -->
+        <span class="c-entry-meta__author-name">
+          {{ author_display }}
+        </span>
+      {% endif %}
+
+      {% if entry_meta.date or (show_read_time and site.read_time and entry_meta.content) %}
+        <!-- Date and reading time -->
+        <div class="c-entry-meta__details">
+          {% if entry_meta.date %}
+            <!-- Publish date -->
+            <time
+              class="c-entry-meta__date"
+              datetime="{{ entry_meta.date | date_to_xmlschema }}"
+            >
+              {{ entry_meta.date | date: '%B %d, %Y' }}
+            </time>
+          {% endif %}
+
+          {% if show_read_time and site.read_time and entry_meta.content %}
+            <!-- Read time -->
+            <span class="c-entry-meta__read-time">
+              <span class="c-entry-meta__icon" aria-hidden="true">
+                {% include icons/timer.svg %}
+              </span>
+              {% include read-time.html content=entry_meta.content %}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <!-- End of entry-meta.html -->
+{% endif %}

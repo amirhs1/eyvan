@@ -27,13 +27,14 @@ layout: default
   - Layout owns placement through l-page*
   - Component owns page-specific presentation through c-page*
   - Object owns long-form typography through o-prose
+  - Delegates shared metadata rendering to `entry-meta.html`
   - Delegates content rendering to the page body via `{{ content }}`
 
   Accessibility:
   - Uses semantic article and header structure
-  - Decorative metadata separator uses aria-hidden="true"
   - Page image uses author-provided alt text when available,
     otherwise falls back to the page title
+  - Metadata accessibility is delegated to entry-meta.html
 
   Data dependencies:
   - page.title
@@ -41,14 +42,19 @@ layout: default
   - page.image
   - page.image_alt
   - page.author
+  - page.authors
+  - page.avatar
   - page.date
   - page.tags
   - content
+  - entry-meta.html dependencies
 
   Notes:
   - This layout is intended for static pages rather than posts
-  - Tags are rendered as non-linked labels in this layout
-  - The divider is rendered only when header-related metadata exists
+  - Tags are rendered as linked labels using the shared tag button component
+  - The divider is rendered only when header-related content exists
+  - Shared content metadata is rendered through entry-meta.html
+    with avatar and reading time disabled for pages
 {% endcomment %}
 
 <!-- Page layout container -->
@@ -75,25 +81,13 @@ layout: default
 
       <!-- Page subtitle -->
       {% if page.subtitle %}
-      <p class="c-page__subtitle">{{ page.subtitle }}</p>
+      <p class="c-page__subtitle">{{ page.subtitle | escape }}</p>
       {% endif %}
 
       <!-- Page metadata -->
-      {% if page.author or page.date %}
+      {% if page.author or page.authors or page.date %}
       <div class="c-page__meta">
-
-        <!-- Page author -->
-        {% if page.author %}
-        <span class="c-page__author">By {{ page.author }}</span>
-        {% endif %}
-
-        <!-- Page date -->
-        {% if page.date %}
-        <time class="c-page__date" datetime="{{ page.date | date_to_xmlschema }}">
-          {{ page.date | date: "%B %d, %Y" }}
-        </time>
-        {% endif %}
-
+        {% include entry-meta.html entry_meta=page show_avatar=false show_read_time=false %}
       </div>
       {% endif %}
 
@@ -101,7 +95,14 @@ layout: default
       {% if page.tags %}
       <div class="l-page__tags">
         {% for tag in page.tags %}
-        <span class="c-page__tag">{{ tag }}</span>
+          {% assign slug = tag | slugify %}
+          <a
+            class="c-button c-button--tag c-page__tag"
+            href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+            aria-label="View pages tagged {{ tag }}"
+          >
+            {{ tag }}
+          </a>
         {% endfor %}
       </div>
       {% endif %}
@@ -109,7 +110,7 @@ layout: default
     </header>
 
     <!-- Optional header divider -->
-    {% if page.subtitle or page.author or page.date or page.tags or page.image %}
+    {% if page.subtitle or page.author or page.authors or page.date or page.tags or page.image %}
     <hr class="c-page__divider">
     {% endif %}
 

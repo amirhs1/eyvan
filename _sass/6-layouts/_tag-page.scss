@@ -1,0 +1,38 @@
+// -----------------------------------------------------------------------------
+// Layout — Tag Page
+// ITCSS layer: 6-layouts
+//
+// Description:
+// Controls page-level composition for the tag archive layout.
+// Owns spacing between the section heading, post grid, and empty state.
+//
+// Structure:
+// - .l-tag-page
+//   - .l-tag-page__heading
+//   - .l-tag-page__grid
+//   - .l-tag-page__empty
+//
+// Rules:
+// - Layout only
+// - No component cosmetics
+// - No card styling
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/spacing-fluid" as fluid;
+
+.l-tag-page {
+  padding-block: fluid.fluid-space(32px, 48px);
+}
+
+.l-tag-page__heading {
+  margin-block-end: fluid.fluid-space(24px, 32px);
+}
+
+.l-tag-page__grid {
+  margin-block-start: 0;
+}
+
+.l-tag-page__empty {
+  margin-block-start: fluid.fluid-space(24px, 32px);
+}

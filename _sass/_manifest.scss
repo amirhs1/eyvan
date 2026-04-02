@@ -112,18 +112,15 @@
 @use "5-components/syntax-highlighting" as component-syntax-highlighting;
 @use "5-components/tables" as component-tables;
 @use "5-components/tags" as component-tags;
-
+*/
 
 // -----------------------------------------------------------------------------
 // 6. LAYOUTS
 // Page-level composition
 // -----------------------------------------------------------------------------
 
-@use "6-layouts/home" as layout-home;
-@use "6-layouts/page" as layout-page;
-@use "6-layouts/post" as layout-post;
-@use "6-layouts/tags" as layout-tags;
-*/
+@use "6-layouts/tag-page" as layout-tag-page;
+
 // -----------------------------------------------------------------------------
 // 7. TRUMPS
 // Utilities, helpers, overrides (highest specificity)

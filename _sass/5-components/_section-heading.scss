@@ -129,7 +129,7 @@ $section-heading-description-max-width: 42rem;
    ----------------------------------------------------------------------------- */
 
 .c-section-heading__description {
-  max-inline-size: $section-heading-description-max-width;
+  max-inline-size: none;
   color: var(--color-text-muted);
 }
 

@@ -11,6 +11,10 @@
 <body>
   {% include header.html %}
   
+  {% comment %}
+    Global page-shell spacing is owned by .l-site-main.
+    Child layouts/components should keep only internal spacing.
+  {% endcomment %}
   <main class="l-site-main" id="main-content">
     {{ content }}
   </main>

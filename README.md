@@ -17,6 +17,7 @@ This theme follows the same logic:
 - Clean, minimalist layout  
 - Responsive design  
 - Jekyll and GitHub Pages compatible  
+- GitHub Actions deployment ready (recommended for custom plugins)
 - Easy to customize typography and colors  
 - Suitable for portfolios, blogs, and academic sites  
 
@@ -51,6 +52,18 @@ This theme follows the same logic:
 - Most site settings can be modified in `_config.yml`.
 - Layout and structure can be adjusted in `_layouts` and `_includes`.  
 - Styles are located in the `assets` or `_sass` directory, depending on the setup.
+
+## Deployment
+
+This theme uses the `jekyll-tagging` plugin, which is **not supported** by the default GitHub Pages build engine.
+
+For that reason, the recommended production setup is:
+
+1. Build and deploy with **GitHub Actions**.
+2. Publish to **GitHub Pages** from the workflow artifact.
+3. Attach a custom domain in the repository’s Pages settings (and add a `CNAME` file if needed).
+
+In short: use GitHub Pages for hosting, but let GitHub Actions do the build.
 
 ## Attribution
 

@@ -11,6 +11,7 @@
 // - Owns only outer vertical spacing for the main content region
 // - Does not own horizontal containment
 // - Does not own component or prose rhythm
+// - Top/bottom page-shell rhythm should not be duplicated in page/layout roots
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;

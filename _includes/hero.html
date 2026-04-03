@@ -77,82 +77,80 @@
 
 <!-- hero.html -->
 <section class="c-hero animate">
-  <!-- Hero outer container -->
-  <div class="o-container">
-    <!-- Hero grid row -->
-    <div class="o-grid">
-      <!-- Hero full-width column -->
-      <div class="o-grid__item o-grid__item--span-12">
-        <!-- Hero layout object -->
-        <div class="o-hero">
-          <!-- Hero content block -->
-          <div class="o-hero__content">
-            {% if hero.eyebrow %}
-              <!-- Hero eyebrow -->
-              <p class="c-hero__eyebrow">
-                {{ hero.eyebrow }}
+  <!-- Hero grid row -->
+  <div class="o-grid">
+    <!-- Hero full-width column -->
+    <div class="o-grid__item o-grid__item--span-12">
+      <!-- Hero layout object -->
+      <div class="o-hero">
+        <!-- Hero content block -->
+        <div class="o-hero__content">
+          {% if hero.eyebrow %}
+            <!-- Hero eyebrow -->
+            <p class="c-hero__eyebrow">
+              {{ hero.eyebrow }}
+            </p>
+          {% endif %}
+
+          <!-- Hero title -->
+          <h1 class="c-hero__title">
+            {{ hero_title | strip }}
+          </h1>
+
+          <!-- Hero description -->
+          <div class="c-hero__description">
+            {% if hero_description_html %}
+              {{ hero_description_html }}
+            {% else %}
+              <p>
+                {% if hero_role %}<strong>{{ hero_role }}</strong>{% endif %}
+                {% if hero_role and hero_location %} based in {% endif %}
+                {% if hero_location %}<strong>{{ hero_location }}</strong>{% endif %}
+                {% if hero_role or hero_location %}. {% endif %}
+                {{ site.description }}
               </p>
             {% endif %}
-
-            <!-- Hero title -->
-            <h1 class="c-hero__title">
-              {{ hero_title | strip }}
-            </h1>
-
-            <!-- Hero description -->
-            <div class="c-hero__description">
-              {% if hero_description_html %}
-                {{ hero_description_html }}
-              {% else %}
-                <p>
-                  {% if hero_role %}<strong>{{ hero_role }}</strong>{% endif %}
-                  {% if hero_role and hero_location %} based in {% endif %}
-                  {% if hero_location %}<strong>{{ hero_location }}</strong>{% endif %}
-                  {% if hero_role or hero_location %}. {% endif %}
-                  {{ site.description }}
-                </p>
-              {% endif %}
-            </div>
-
-            <!-- Hero action group -->
-            <div class="c-hero__actions">
-              <!-- Hero primary action -->
-              <a
-                class="c-button c-button--primary c-button--small"
-                href="{{ hero_primary_link | relative_url }}"
-              >
-                {{ hero_primary_text }}
-              </a>
-
-              <!-- Hero secondary action -->
-              <a
-                class="c-button c-button--secondary c-button--small"
-                href="{{ hero_secondary_link | relative_url }}"
-              >
-                <span class="c-button__label">
-                  {{ hero_secondary_text }}
-                </span>
-              </a>
-            </div>
           </div>
 
-          <!-- Hero media block -->
-          <div class="o-hero__media">
-            <!-- Hero image wrapper -->
-            <div class="c-hero__media">
-              <img
-                class="c-hero__image"
-                src="{{ hero_image_src | relative_url }}"
-                alt="{{ hero_image_alt | escape }}"
-                loading="eager"
-                fetchpriority="high"
-              >
-            </div>
-          </div>
+          <!-- Hero action group -->
+          <div class="c-hero__actions">
+            <!-- Hero primary action -->
+            <a
+              class="c-button c-button--primary c-button--small"
+              href="{{ hero_primary_link | relative_url }}"
+            >
+              {{ hero_primary_text }}
+            </a>
 
+            <!-- Hero secondary action -->
+            <a
+              class="c-button c-button--secondary c-button--small"
+              href="{{ hero_secondary_link | relative_url }}"
+            >
+              <span class="c-button__label">
+                {{ hero_secondary_text }}
+              </span>
+            </a>
+          </div>
         </div>
+
+        <!-- Hero media block -->
+        <div class="o-hero__media">
+          <!-- Hero image wrapper -->
+          <div class="c-hero__media">
+            <img
+              class="c-hero__image"
+              src="{{ hero_image_src | relative_url }}"
+              alt="{{ hero_image_alt | escape }}"
+              loading="eager"
+              fetchpriority="high"
+            >
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
+
 <!-- End of hero.html -->

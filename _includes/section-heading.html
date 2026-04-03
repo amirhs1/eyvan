@@ -5,12 +5,12 @@
 
   Structure:
   - Section heading root
-    - Optional eyebrow
-    - Head row
-      - Content group
+    - Content group
+      - Optional eyebrow
+      - Head row
         - Title
-        - Optional description
-      - Optional actions
+        - Optional actions
+      - Optional description
 
   Architecture:
   - Reusable include stored in _includes
@@ -86,44 +86,44 @@
 
   <!-- section-heading.html -->
   <header class="c-section-heading c-section-heading--{{ modifier }}">
-    <div class="c-section-heading__head">
-      <div class="c-section-heading__content">
-        {% if eyebrow %}
-          <p class="c-section-heading__eyebrow">
-            {{ eyebrow }}
-          </p>
-        {% endif %}
+    <div class="c-section-heading__content">
+      {% if eyebrow %}
+        <p class="c-section-heading__eyebrow">
+          {{ eyebrow }}
+        </p>
+      {% endif %}
 
+      <div class="c-section-heading__head">
         {{ heading_open | strip }}
           {{ section_title }}
         {{ heading_close | strip }}
 
-        {% if description or description_html %}
-          <div class="c-section-heading__description">
-            {% if description_html %}
-              {{ description_html }}
-            {% else %}
-              <p>{{ description }}</p>
-            {% endif %}
+        {% if action_label and action_url %}
+          <div class="c-section-heading__actions">
+            <a
+              class="c-button c-button--{{ action_variant }} c-button--{{ action_size }}"
+              href="{{ action_url | relative_url }}"
+              {% if action_aria_label %}aria-label="{{ action_aria_label }}"{% endif %}
+              {% if action_new_tab %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+              <span class="c-button__label">
+                {{ action_label }}
+              </span>
+            </a>
           </div>
         {% endif %}
       </div>
 
-      {% if action_label and action_url %}
-        <div class="c-section-heading__actions">
-          <a
-            class="c-button c-button--{{ action_variant }} c-button--{{ action_size }}"
-            href="{{ action_url | relative_url }}"
-            {% if action_aria_label %}aria-label="{{ action_aria_label }}"{% endif %}
-            {% if action_new_tab %}
-              target="_blank"
-              rel="noopener noreferrer"
-            {% endif %}
-          >
-            <span class="c-button__label">
-              {{ action_label }}
-            </span>
-          </a>
+      {% if description or description_html %}
+        <div class="c-section-heading__description">
+          {% if description_html %}
+            {{ description_html }}
+          {% else %}
+            <p>{{ description }}</p>
+          {% endif %}
         </div>
       {% endif %}
     </div>

@@ -27,11 +27,9 @@
 // - Uses the existing .animate hook without redefining it here
 //
 // Notes:
-// - Visual direction follows the reference inspiration, but selector naming is
-//   aligned to the current project markup
-// - Image corner rounding is already reinforced globally in 3-base/_media.scss
-// - Cards use a minimum flex basis so they wrap before text becomes unusably
-//   cramped inside narrow parent containers
+// - Root layout uses CSS Grid so previous/next cards stay side by side when
+//   space allows and stack only at the text breakpoint
+// - Each card also uses CSS Grid internally for robust media/content alignment
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
@@ -55,8 +53,6 @@ $post-nav-card-padding-inline: settings-spacing.$space-5;
 $post-nav-card-padding-block-mobile: settings-spacing.$space-4;
 $post-nav-card-padding-inline-mobile: settings-spacing.$space-4;
 
-$post-nav-item-min-width: 18rem;
-
 $post-nav-media-width: 7.8125rem; // 125px
 $post-nav-media-height: 6.875rem; // 110px
 $post-nav-media-gap: settings-spacing.$space-4;
@@ -69,8 +65,8 @@ $post-nav-content-gap: settings-spacing.$space-2;
    ----------------------------------------------------------------------------- */
 
 .c-post-nav {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: $post-nav-gap;
   margin-block: tools-spacing.$fluid-section-sm 0;
 }
@@ -80,10 +76,10 @@ $post-nav-content-gap: settings-spacing.$space-2;
    ----------------------------------------------------------------------------- */
 
 .c-post-nav__item {
-  display: flex;
+  display: grid;
   align-items: center;
-  flex: 1 1 $post-nav-item-min-width;
   min-inline-size: 0;
+  inline-size: 100%;
 
   padding-block: $post-nav-card-padding-block;
   padding-inline: $post-nav-card-padding-inline;
@@ -95,7 +91,11 @@ $post-nav-content-gap: settings-spacing.$space-2;
     linear-gradient(
       90deg,
       var(--color-accent-primary) 0%,
-      color-mix(in srgb, var(--color-accent-primary) 72%, var(--color-ui-surface)) 167%
+      color-mix(
+        in srgb,
+        var(--color-accent-primary) 72%,
+        var(--color-ui-surface)
+      ) 167%
     );
   box-shadow: settings-config.$card-shadow-rest;
 
@@ -127,13 +127,15 @@ $post-nav-content-gap: settings-spacing.$space-2;
    ----------------------------------------------------------------------------- */
 
 .c-post-nav__item--prev {
-  justify-content: flex-start;
+  grid-template-columns: auto minmax(0, 1fr);
   text-align: left;
+  justify-items: start;
 }
 
 .c-post-nav__item--next {
-  justify-content: flex-end;
+  grid-template-columns: minmax(0, 1fr) auto;
   text-align: right;
+  justify-items: end;
 }
 
 /* -----------------------------------------------------------------------------
@@ -143,7 +145,6 @@ $post-nav-content-gap: settings-spacing.$space-2;
 .c-post-nav__media {
   position: relative;
   display: block;
-  flex: 0 0 auto;
   inline-size: $post-nav-media-width;
   min-inline-size: $post-nav-media-width;
   block-size: $post-nav-media-height;
@@ -154,8 +155,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
 }
 
 .c-post-nav__media img {
-  position: absolute;
-  inset: 0;
+  display: block;
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
@@ -168,6 +168,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
 
 .c-post-nav__item--next .c-post-nav__media {
   margin-inline-start: $post-nav-media-gap;
+  justify-self: end;
 }
 
 /* -----------------------------------------------------------------------------
@@ -176,7 +177,6 @@ $post-nav-content-gap: settings-spacing.$space-2;
 
 .c-post-nav__content {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
   min-inline-size: 0;
   gap: $post-nav-content-gap;
@@ -223,7 +223,6 @@ $post-nav-content-gap: settings-spacing.$space-2;
   text-wrap: balance;
 }
 
-/* Preserve title color inside interactive states */
 .c-post-nav__item:hover .c-post-nav__title,
 .c-post-nav__item:focus-visible .c-post-nav__title,
 .c-post-nav__item:active .c-post-nav__title {
@@ -234,13 +233,13 @@ $post-nav-content-gap: settings-spacing.$space-2;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@media (max-width: settings-breakpoints.$bp-text) {
   .c-post-nav {
+    grid-template-columns: 1fr;
     gap: $post-nav-gap-mobile;
   }
 
   .c-post-nav__item {
-    flex-basis: 100%;
     padding-block: $post-nav-card-padding-block-mobile;
     padding-inline: $post-nav-card-padding-inline-mobile;
   }

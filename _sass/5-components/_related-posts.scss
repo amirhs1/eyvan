@@ -24,7 +24,6 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
-@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tools-spacing;
@@ -45,7 +44,6 @@ $related-posts-title-padding-block-end: settings-spacing.$space-3;
 .c-related-posts {
   margin-block-start: $related-posts-margin-block-start;
   padding-block-start: $related-posts-padding-block-start;
-  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
 }
 
 /* -----------------------------------------------------------------------------
@@ -89,7 +87,7 @@ $related-posts-title-padding-block-end: settings-spacing.$space-3;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@media (max-width: settings-breakpoints.$bp-text) {
   .c-related-posts {
     margin-block-start: settings-spacing.$space-7;
     padding-block-start: settings-spacing.$space-5;

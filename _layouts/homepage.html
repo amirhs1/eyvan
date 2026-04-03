@@ -1,0 +1,92 @@
+---
+layout: default
+---
+
+{% comment %}
+  Homepage
+  Purpose: Render the homepage entry point with the hero section and a
+  preview grid of the latest projects.
+
+  Structure:
+  - Homepage content container
+    - Homepage layout wrapper
+      - Hero section
+      - Latest projects section
+        - Reusable section heading component
+        - Post card grid (6 latest posts)
+        - Section CTA linking to the full projects archive
+
+  Architecture:
+  - Page-level template rendered through the default layout
+  - Uses ITCSS + BEM naming:
+    - Layouts: l-
+    - Components: c-
+    - Objects: o-
+  - Homepage-specific layout composition is scoped to:
+    - l-homepage
+  - Delegates reusable UI fragments to:
+    - hero.html
+    - section-heading.html
+    - post-card.html
+  - Reuses shared layout objects:
+    - o-container
+    - o-grid
+
+  Accessibility:
+  - The projects section is labeled by its heading through aria-labelledby
+  - Project cards are rendered through a reusable article include
+
+  Data dependencies:
+  - site.posts
+
+  Notes:
+  - Projects are currently stored as Jekyll posts
+  - The homepage shows the 6 most recent posts only
+  - The section heading is rendered through section-heading.html
+  - The section CTA remains a homepage-specific action below the grid
+{% endcomment %}
+
+<div class="o-container">
+  <div class="l-homepage">
+
+    <!-- Homepage hero -->
+    <div class="l-homepage__hero">
+      {% include hero.html %}
+    </div>
+
+    <!-- Latest projects section -->
+    <section
+      class="l-homepage__projects"
+      aria-labelledby="homepage-projects-title"
+    >
+      <!-- Section heading -->
+      <div class="l-homepage__projects-heading">
+        {% include section-heading.html
+          id="homepage-projects-title"
+          title="Latest Projects"
+          modifier="lg"
+        %}
+      </div>
+
+      <!-- Projects grid -->
+      <div class="l-homepage__projects-grid o-grid">
+        {% for post in site.posts limit:6 %}
+          <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+            {% include post-card.html post=post %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Section CTA -->
+      <div class="l-homepage__projects-actions">
+        <a
+          class="c-button c-button--section-cta"
+          href="{{ '/projects/' | relative_url }}"
+        >
+          View All Projects
+        </a>
+      </div>
+    </section>
+  </div>
+</div>
+

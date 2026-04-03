@@ -12,6 +12,7 @@ and behaves correctly across the site.
 
 Structure:
 - Full component structure
+- Real include usage
 - Root spacing behavior
 - Head row with content only
 - Head row with content and actions
@@ -19,10 +20,14 @@ Structure:
 - Eyebrow element
 - Title element
 - Description element
+- Description API: text vs HTML
 - Actions element
+- Action variants and sizes
+- Heading levels
 - Small modifier
 - Medium modifier
 - Large modifier
+- Modifier comparison
 - Important content combinations
 - Responsive stacking behavior
 
@@ -38,6 +43,8 @@ Notes:
 - .c-section-heading--sm
 - .c-section-heading--md
 - .c-section-heading--lg
+- This page also tests the Liquid include API of:
+- _includes/section-heading.html
 - Helper styles below are temporary and exist only for testing.
 - Resize the browser window to verify responsive stacking behavior.
 - This page is intended for development testing only.
@@ -103,7 +110,8 @@ Notes:
 <section class="l-section">
   <p>
     This page verifies the functionality of the section-heading classes defined
-    in the <strong>5-components</strong> Sass layer.
+    in the <strong>5-components</strong> Sass layer and the Liquid API of the
+    reusable include.
   </p>
 
   <hr>
@@ -164,6 +172,36 @@ Notes:
         Following content to verify the root block spacing below
         <code>.c-section-heading</code>.
       </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Real Include Usage -->
+  <!-- ============================================================= -->
+
+  <h2>Real include usage</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    This test uses the actual <code>section-heading.html</code> include rather
+    than handwritten markup. It verifies that the include API produces the
+    expected component structure and layout.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-box">
+      {% include section-heading.html
+        id="test-include-title"
+        heading_level="h2"
+        modifier="md"
+        eyebrow="INCLUDE TEST"
+        title="Rendered via include"
+        description="This description comes from the include API."
+        action_label="Action"
+        action_url="#"
+      %}
     </div>
   </div>
 
@@ -430,6 +468,39 @@ Notes:
   <hr>
 
   <!-- ============================================================= -->
+  <!-- Description API: text vs HTML -->
+  <!-- ============================================================= -->
+
+  <h2>Description API: text vs HTML</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The first example uses <code>description</code>, which the include should
+    wrap in a paragraph. The second uses <code>description_html</code>, which
+    should render as raw HTML inside the description wrapper.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-stack">
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="Plain description"
+          description="This should be wrapped in a paragraph by the include."
+        %}
+      </div>
+
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="HTML description"
+          description_html="<p><strong>Bold HTML</strong> inside description.</p><p>Second paragraph rendered from description_html.</p>"
+        %}
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
   <!-- Actions Element -->
   <!-- ============================================================= -->
 
@@ -468,6 +539,94 @@ Notes:
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Action Variants and Sizes -->
+  <!-- ============================================================= -->
+
+  <h2>Action variants and sizes</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    These examples use the real include API to verify that action button
+    variants and sizes are passed through correctly.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-stack">
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="Primary small action"
+          action_label="Primary small"
+          action_variant="primary"
+          action_size="small"
+          action_url="#"
+        %}
+      </div>
+
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="Secondary small action"
+          action_label="Secondary small"
+          action_variant="secondary"
+          action_size="small"
+          action_url="#"
+        %}
+      </div>
+
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="New-tab action"
+          action_label="Open in new tab"
+          action_variant="primary"
+          action_size="small"
+          action_url="https://example.com"
+          action_new_tab=true
+        %}
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Heading Levels -->
+  <!-- ============================================================= -->
+
+  <h2>Heading levels</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The semantic heading level should change when passed through the include
+    API, while the component styling should remain visually consistent.
+  </p>
+
+  <div class="c-section-heading-test-frame">
+    <div class="c-section-heading-test-stack">
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="Heading level h1"
+          heading_level="h1"
+        %}
+      </div>
+
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="Heading level h3"
+          heading_level="h3"
+        %}
+      </div>
+
+      <div class="c-section-heading-test-box">
+        {% include section-heading.html
+          title="Invalid heading level falls back to h2"
+          heading_level="div"
+        %}
       </div>
     </div>
   </div>

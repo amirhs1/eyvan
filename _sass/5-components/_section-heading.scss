@@ -8,12 +8,12 @@
 //
 // Structure:
 // - .c-section-heading
-//   - .c-section-heading__head
 //   - .c-section-heading__content
 //   - .c-section-heading__eyebrow
+//   - .c-section-heading__head
 //   - .c-section-heading__title
-//   - .c-section-heading__description
 //   - .c-section-heading__actions
+//   - .c-section-heading__description
 //
 // Modifiers:
 // - .c-section-heading--sm
@@ -52,11 +52,13 @@ $section-heading-margin-block-end: tools-spacing.$fluid-stack-md;
 $section-heading-description-max-width: 42rem;
 
 /* -----------------------------------------------------------------------------
-   Root
+   Content stack
    ----------------------------------------------------------------------------- */
 
-.c-section-heading {
-  margin-block-end: $section-heading-margin-block-end;
+.c-section-heading__content {
+  display: grid;
+  gap: $section-heading-gap;
+  min-inline-size: 0;
 }
 
 /* -----------------------------------------------------------------------------
@@ -65,22 +67,25 @@ $section-heading-description-max-width: 42rem;
 
 .c-section-heading__head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: $section-heading-head-gap;
 }
 
-.c-section-heading__content {
-  display: grid;
-  gap: $section-heading-gap;
+.c-section-heading__title {
+  margin: 0;
   min-inline-size: 0;
-  flex: 1 1 auto;
+
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  line-height: settings-typography.$line-height-tight;
+  letter-spacing: settings-typography.$letter-spacing-tight;
 }
 
 .c-section-heading__actions {
   display: flex;
   flex: 0 0 auto;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -101,33 +106,21 @@ $section-heading-description-max-width: 42rem;
 }
 
 /* -----------------------------------------------------------------------------
-   Title
+   Title size variants
    ----------------------------------------------------------------------------- */
 
-.c-section-heading__title {
-  margin: 0;
-
-  color: var(--color-heading);
-  font-family: settings-typography.$font-family-display;
-  line-height: settings-typography.$line-height-tight;
-  letter-spacing: settings-typography.$letter-spacing-tight;
-}
-
-/* Small */
 .c-section-heading--sm .c-section-heading__title {
-  font-size: settings-typography.$font-size-lg;
+  font-size: settings-typography.$font-size-xl;
   font-weight: settings-typography.$font-weight-medium;
 }
 
-/* Medium (default) */
 .c-section-heading--md .c-section-heading__title {
-  font-size: settings-typography.$font-size-xl;
+  font-size: settings-typography.$font-size-xxl;
   font-weight: settings-typography.$font-weight-bold;
 }
 
-/* Large */
 .c-section-heading--lg .c-section-heading__title {
-  font-size: settings-typography.$font-size-xxl;
+  font-size: settings-typography.$font-size-xxxl;
   font-weight: settings-typography.$font-weight-black;
 }
 

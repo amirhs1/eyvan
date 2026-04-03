@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// Layout — Homepage
+// ITCSS layer: 6-layouts
+//
+// Description:
+// Controls page-level composition for the homepage.
+// Owns responsive vertical spacing between:
+// - Hero section
+// - Projects section
+// - Internal projects elements (heading, grid, CTA)
+//
+// Structure:
+// - .l-homepage
+//   - .l-homepage__hero
+//   - .l-homepage__projects
+//     - .l-homepage__projects-heading
+//     - .l-homepage__projects-grid
+//     - .l-homepage__projects-actions
+//
+// Rules:
+// - Layout only
+// - No component cosmetics
+// - No empty rulesets
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/spacing-fluid" as fluid;
+
+// -----------------------------------------------------------------------------
+// Homepage vertical stack (hero → projects → future sections)
+// -----------------------------------------------------------------------------
+
+.l-homepage {
+  display: grid;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-4,
+    settings-spacing.$space-6
+  );
+}
+
+// -----------------------------------------------------------------------------
+// Projects section stack (heading → grid → CTA)
+// -----------------------------------------------------------------------------
+
+.l-homepage__projects {
+  display: grid;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-4,
+    settings-spacing.$space-6
+  );
+}
+
+.l-homepage__projects-actions {
+  display: flex;
+  justify-content: center;
+}

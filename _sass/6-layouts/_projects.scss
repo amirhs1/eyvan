@@ -1,0 +1,61 @@
+// -----------------------------------------------------------------------------
+// Layout — Projects Page
+// ITCSS layer: 6-layouts
+//
+// Description:
+// Controls page-level composition for the projects archive page.
+// Owns responsive vertical spacing between:
+// - Page heading
+// - Tag navigation
+// - Archive grid
+//
+// Structure:
+// - .l-projects
+//   - .l-projects__heading
+//   - .l-projects__tags
+//     - .l-projects__tags-list
+//   - .l-projects__archive
+//
+// Rules:
+// - Layout only
+// - No component cosmetics
+// - No button styling
+// - No card styling
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/spacing-fluid" as fluid;
+
+// -----------------------------------------------------------------------------
+// Projects page vertical stack
+// -----------------------------------------------------------------------------
+
+.l-projects {
+  display: grid;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-4,
+    settings-spacing.$space-6
+  );
+}
+
+// -----------------------------------------------------------------------------
+// Tag navigation wrapper
+// -----------------------------------------------------------------------------
+
+.l-projects__tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-2,
+    settings-spacing.$space-3
+  );
+  align-items: center;
+}
+
+// -----------------------------------------------------------------------------
+// Archive section
+// -----------------------------------------------------------------------------
+
+.l-projects__archive {
+  min-inline-size: 0;
+}

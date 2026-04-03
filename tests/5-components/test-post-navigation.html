@@ -8,16 +8,18 @@ robots: noindex
 {% comment %}
   Component Post Navigation Test Page
   Purpose: Visually verify that the 5-components post navigation component
-  compiles and behaves correctly across common content states.
+  compiles and behaves correctly across all supported content states.
 
   Structure:
   - Base two-card navigation
   - Previous-only state
   - Next-only state
+  - No-navigation state
   - Cards without media
   - Mixed media state
   - Long-title stress test
-  - Narrow-width wrapping behavior
+  - Narrow-width stacking behavior
+  - Tight-width single-card check
   - Hover and focus interaction check
 
   Notes:
@@ -33,9 +35,16 @@ robots: noindex
     - .c-post-nav__label--next
     - .c-post-nav__title
   - Layout/grid/container placement belongs to object and layout layers.
+  - The root component uses CSS Grid:
+    - two columns when space allows
+    - one column below the text breakpoint
+  - Each card also uses internal grid layout:
+    - previous card: media then content
+    - next card: content then media
+  - Media is optional.
   - Helper styles below are temporary and exist only for testing.
-  - Resize the browser window to verify wrapping, content shrink behavior,
-    media handling, and title balance.
+  - Resize the browser window to verify the two-column to one-column shift,
+    card integrity, content shrink behavior, and media placement.
   - This page is intended for development testing only.
 {% endcomment %}
 
@@ -45,21 +54,6 @@ robots: noindex
     margin-block: 1.5rem;
     border: 1px dashed #999;
     background: #fafafa;
-  }
-
-  .c-post-nav-test-stack {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-post-nav-test-row {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-post-nav-test-label {
-    margin: 0;
-    font-weight: 600;
   }
 
   .c-post-nav-test-box {
@@ -83,10 +77,12 @@ robots: noindex
     font-size: 0.95rem;
   }
 
-  .c-post-nav-test-fill {
-    padding: 0.75rem;
+  .c-post-nav-test-empty {
+    padding: 1rem;
     border: 1px dashed #ccc;
+    color: #666;
     background: #fcfcfc;
+    font-style: italic;
   }
 
   .c-post-nav-test-kbd {
@@ -116,10 +112,10 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The component should render two equal-width navigation cards with clear
-    directional hierarchy: previous card aligned left, next card aligned
-    right, both with consistent padding, rounded corners, readable labels,
-    and balanced titles.
+    The root component should render two cards side by side when space allows.
+    The previous card should place media first and content second. The next
+    card should place content first and media second. Labels, titles, spacing,
+    and alignment should feel consistent across both cards.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -178,9 +174,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When only the previous link exists, the component should still look
-    stable and intentional. The single card should remain readable and not
-    break because the second item is absent.
+    When only the previous link exists, the component should still look stable
+    and intentional. The single card should preserve the previous-card media
+    and content order and should not depend on the second card being present.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -220,7 +216,8 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     When only the next link exists, the card should keep its right-aligned
-    content treatment and remain visually coherent on its own.
+    content treatment and internal content-first, media-second structure. It
+    should remain visually coherent on its own.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -252,6 +249,30 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
+  <!-- No-navigation State -->
+  <!-- ============================================================= -->
+
+  <h2>No-navigation state</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    In the real include, nothing should render when neither previous nor next
+    exists. This test shows an intentionally empty frame so you can confirm
+    that the correct behavior for that state is the absence of the component.
+  </p>
+
+  <div class="c-post-nav-test-frame">
+    <div class="c-post-nav-test-box">
+      <div class="c-post-nav-test-empty">
+        Intentionally empty: no .c-post-nav markup should be rendered when no
+        previous or next post exists.
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
   <!-- Cards Without Media -->
   <!-- ============================================================= -->
 
@@ -259,7 +280,7 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    If the image block is omitted, spacing and alignment should still feel
+    If the media block is omitted, spacing and alignment should still feel
     deliberate. The content block should expand naturally without leaving
     awkward gaps for missing media.
   </p>
@@ -305,7 +326,7 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     The component should support asymmetric content states where one card has
-    an image and the other does not. Alignment and spacing should remain
+    media and the other does not. Internal alignment and spacing should remain
     visually balanced.
   </p>
 
@@ -358,8 +379,9 @@ robots: noindex
   <p>
     <strong>Expected behavior:</strong>
     Long titles should wrap naturally, preserve hierarchy, and avoid
-    overflowing or collapsing the card layout. The balanced text treatment
-    should remain readable across multiple lines.
+    overflowing or collapsing the card layout. Because the content area uses
+    <code>min-inline-size: 0</code>, text should shrink and wrap instead of
+    forcing overflow.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -381,7 +403,8 @@ robots: noindex
 
             <h2 class="c-post-nav__title">
               Designing a maintainable research portfolio with clear content
-              hierarchy, responsive cards, and resilient image handling
+              hierarchy, responsive navigation cards, resilient image handling,
+              and readable multi-line title wrapping across constrained widths
             </h2>
           </div>
         </a>
@@ -394,7 +417,8 @@ robots: noindex
 
             <h2 class="c-post-nav__title">
               Refactoring repeated include patterns into smaller, more focused
-              Jekyll components without sacrificing readability
+              Jekyll components without sacrificing readability, card balance,
+              or the integrity of the previous and next navigation layout
             </h2>
           </div>
 
@@ -413,17 +437,16 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Narrow-width Wrapping Behavior -->
+  <!-- Narrow-width Stacking Behavior -->
   <!-- ============================================================= -->
 
-  <h2>Narrow-width wrapping behavior</h2>
+  <h2>Narrow-width stacking behavior</h2>
 
   <p>
     <strong>Expected behavior:</strong>
-    At tighter container widths, the cards should wrap into a vertical stack
-    instead of becoming unusably cramped. Content should continue to shrink
-    cleanly because the component allows flex wrapping and uses
-    <code>min-inline-size: 0</code> on key children.
+    At narrower widths, the root grid should shift from two columns to one
+    column, so the two cards stack vertically. The cards should remain
+    readable and should not overflow horizontally.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -456,7 +479,7 @@ robots: noindex
             </span>
 
             <h2 class="c-post-nav__title">
-              Next card should wrap below without overflow
+              Next card should stack below without overflow
             </h2>
           </div>
 
@@ -487,7 +510,7 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    A single card in a very tight container should still preserve image size,
+    A single card in a very tight container should still preserve media size,
     spacing, and title wrapping without causing horizontal overflow.
   </p>
 
@@ -527,9 +550,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    On hover, the card should lift slightly and deepen its shadow. On
-    keyboard focus, the link should show a visible focus treatment while
-    keeping the title color consistent.
+    On hover, the card should lift slightly, deepen its shadow, and keep its
+    title color unchanged. On keyboard focus, the link should show a clear
+    visible focus treatment.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -586,8 +609,8 @@ robots: noindex
   <p>
     <em>
       Tip: Resize the browser window and test both mouse hover and keyboard
-      focus to verify card wrapping, media placement, title balancing, and
-      interactive state behavior.
+      focus to verify the two-column to one-column shift, media placement,
+      title wrapping, and interactive state behavior.
     </em>
   </p>
 </section>

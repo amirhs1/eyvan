@@ -1,148 +1,132 @@
 // -----------------------------------------------------------------------------
-// Grid Object
+// Object — Grid
 // ITCSS layer: 4-objects
 //
 // Description:
-// Provides a lightweight, responsive flexbox grid object for page-level and
-// component-level layout composition.
+// Provides the site's reusable responsive grid object.
+// Owns:
+// - grid display
+// - column structure
+// - horizontal and vertical spacing between grid items
+// - item span and push utilities across breakpoints
 //
-// Scope & Rules:
-// - Layout only; no cosmetic styles
-// - Token-driven via 0-settings and 1-tools
-// - Mobile-first responsive behavior
-// - Uses logical properties where appropriate
-// - Designed for composition with o-container and component/layout wrappers
+// Structure:
+// - .o-grid
+//   - .o-grid__item
+//
+// Rules:
+// - Layout only
+// - No component cosmetics
+// - No card-specific styling
+// - Spacing between items is handled here through gap, not margins
 //
 // Notes:
-// - Gutters are implemented with negative margins on the grid and matching
-//   inline padding on grid items
-// - Column span and push utilities are generated for base, tablet, and desktop
-//   breakpoints
-// - This object assumes a 12-column system
+// - Reused by page layouts and section layouts across the site
+// - Grid items should not add external margins for layout spacing
 // -----------------------------------------------------------------------------
 
-@use "sass:math";
-@use "../0-settings/config" as settings-config;
 @use "../0-settings/breakpoints" as settings-breakpoints;
-@use "../1-tools/spacing-fluid" as tools-spacing;
-@use "../1-tools/mixins" as tools-mixins;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/spacing-fluid" as tools-fluid;
 
-/* -----------------------------------------------------------------------------
-   Grid configuration
-   ----------------------------------------------------------------------------- */
-
-$grid-gutter: tools-spacing.$fluid-inline-md;
-
-/* -----------------------------------------------------------------------------
-   Internal helpers
-   ----------------------------------------------------------------------------- */
-
-/// Returns a percentage width for a given column span.
-/// @param {Number} $span - Number of columns to span
-/// @param {Number} $columns - Total number of columns in the grid
-@function grid-span($span, $columns: settings-config.$grid-columns) {
-  @if $span < 0 or $span > $columns {
-    @error "grid-span(): #{$span} must be between 0 and #{$columns}.";
-  }
-
-  @return math.percentage(math.div($span, $columns));
-}
-
-/// Applies a fixed-width flex item for a given span.
-/// @param {Number} $span - Number of columns to span
-@mixin grid-item-span($span) {
-  $basis: grid-span($span);
-
-  flex: 0 0 $basis;
-  max-inline-size: $basis;
-}
-
-/// Applies inline-start offset for a given push value.
-/// @param {Number} $span - Number of columns to push
-@mixin grid-item-push($span) {
-  margin-inline-start: grid-span($span);
-}
-
-
-/* -----------------------------------------------------------------------------
-   Grid row object
-   ----------------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+// Root grid object
+// -----------------------------------------------------------------------------
 
 .o-grid {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  margin-inline: calc(#{$grid-gutter} * -0.5);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: tools-fluid.fluid-space(
+    settings-spacing.$space-4,
+    settings-spacing.$space-6
+  );
 }
 
+// -----------------------------------------------------------------------------
+// Gap modifiers
+// -----------------------------------------------------------------------------
 
-/* -----------------------------------------------------------------------------
-   Grid item object
-   ----------------------------------------------------------------------------- */
+.o-grid--compact {
+  gap: tools-fluid.fluid-space(
+    settings-spacing.$space-3,
+    settings-spacing.$space-4
+  );
+}
+
+.o-grid--spacious {
+  gap: tools-fluid.fluid-space(
+    settings-spacing.$space-5,
+    settings-spacing.$space-7
+  );
+}
+
+// -----------------------------------------------------------------------------
+// Grid item base
+// -----------------------------------------------------------------------------
 
 .o-grid__item {
-  box-sizing: border-box;
   min-inline-size: 0;
-  inline-size: 100%;
-  padding-inline: calc(#{$grid-gutter} * 0.5);
+  grid-column: span 12;
 }
 
+// -----------------------------------------------------------------------------
+// Default span utilities
+// -----------------------------------------------------------------------------
 
-/* -----------------------------------------------------------------------------
-   Base span utilities
-   ----------------------------------------------------------------------------- */
-
-@for $i from 1 through settings-config.$grid-columns {
+@for $i from 1 through 12 {
   .o-grid__item--span-#{$i} {
-    @include grid-item-span($i);
+    grid-column: span #{$i};
   }
 }
 
+// -----------------------------------------------------------------------------
+// Default push utilities
+// -----------------------------------------------------------------------------
 
-/* -----------------------------------------------------------------------------
-   Base push utilities
-   ----------------------------------------------------------------------------- */
-
-@for $i from 0 through (settings-config.$grid-columns - 1) {
+@for $i from 0 through 11 {
   .o-grid__item--push-#{$i} {
-    @include grid-item-push($i);
+    grid-column-start: #{$i + 1};
   }
 }
 
+// -----------------------------------------------------------------------------
+// Text / tablet breakpoint utilities
+// Maps to:
+// - .o-grid__item--span-tablet-*
+// - .o-grid__item--push-tablet-*
+// -----------------------------------------------------------------------------
 
-/* -----------------------------------------------------------------------------
-   Tablet span utilities
-   ----------------------------------------------------------------------------- */
-
-@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
-  @for $i from 1 through settings-config.$grid-columns {
+@media (min-width: settings-breakpoints.$bp-text) {
+  @for $i from 1 through 12 {
     .o-grid__item--span-tablet-#{$i} {
-      @include grid-item-span($i);
+      grid-column: span #{$i};
     }
   }
 
-  @for $i from 0 through (settings-config.$grid-columns - 1) {
+  @for $i from 0 through 11 {
     .o-grid__item--push-tablet-#{$i} {
-      @include grid-item-push($i);
+      grid-column-start: #{$i + 1};
     }
   }
 }
 
+// -----------------------------------------------------------------------------
+// Layout / desktop breakpoint utilities
+// Maps to:
+// - .o-grid__item--span-desktop-*
+// - .o-grid__item--push-desktop-*
+// -----------------------------------------------------------------------------
 
-/* -----------------------------------------------------------------------------
-   Desktop span utilities
-   ----------------------------------------------------------------------------- */
-
-@include tools-mixins.mq-up(settings-breakpoints.$bp-lg) {
-  @for $i from 1 through settings-config.$grid-columns {
+@media (min-width: settings-breakpoints.$bp-layout) {
+  @for $i from 1 through 12 {
     .o-grid__item--span-desktop-#{$i} {
-      @include grid-item-span($i);
+      grid-column: span #{$i};
     }
   }
 
-  @for $i from 0 through (settings-config.$grid-columns - 1) {
+  @for $i from 0 through 11 {
     .o-grid__item--push-desktop-#{$i} {
-      @include grid-item-push($i);
+      grid-column-start: #{$i + 1};
     }
   }
 }

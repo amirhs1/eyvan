@@ -72,8 +72,8 @@ Your layout layer is the biggest structural gap right now.
 
 ### 6.2 Create `5-components/_c-projects.scss`
 
-**Goal**  
 Keep all projects-page-specific visual components together.
+**Goal**  
 
 **Suggested scope**
 
@@ -95,37 +95,7 @@ Keep all projects-page-specific visual components together.
 
 ### 6.3 Create `5-components/_c-home.scss`
 
-**Goal**  
-Keep homepage-specific visual components together.
-
-**Suggested scope**
-
-- `.c-home-projects__header`
-- `.c-home-projects__title`
-- `.c-home-projects__actions`
-- `.c-home-projects__button`
-
-**What this file should own**
-
-- homepage section header look
-- homepage CTA/button alignment
-
----
-
 ### 6.4 Optional: create `5-components/_c-tag-page.scss`
-
-**Goal**  
-Only create this if the tag archive needs component-level styling beyond layout.
-
-**Create only if needed**
-
-Examples:
-
-- special tag archive title styling
-- archive-specific labels or counts
-- page-specific visual treatment that does not belong in layout
-
----
 
 ## Phase 7 — Clean up `3-base` and move mis-layered selectors
 
@@ -258,152 +228,3 @@ Create it only if multiple components truly share the same media wrapper logic.
 
 Some media behavior can stay inside component files until duplication is clear.
 
----
-
-## Suggested file list after the refactor
-
-### 4-objects
-
-Create or consider creating:
-
-- `_o-tag.scss`
-- `_o-post-metadata.scss`
-- `_o-prose.scss`
-- `_o-action-cluster.scss`
-- `_o-card.scss` only later if justified
-- `_o-media-frame.scss` only if justified
-
-### 5-components
-
-Create:
-
-- `_c-page.scss`
-- `_c-projects.scss`
-- `_c-home.scss`
-- `_c-tag-page.scss` only if needed
-
-### 6-layouts
-
-Create:
-
-- `_l-homepage.scss`
-- `_l-projects.scss`
-- `_l-page.scss`
-- `_l-tag-page.scss`
-
----
-
-## Recommended implementation order
-
-### Priority 1
-
-Fix the mobile menu in `assets/js/common.js`.
-
-### Priority 2
-
-Rename and clean up `page.html`:
-
-- `c-article*` → `c-page*`
-- `c-tag` → `c-page__tag`
-- add `o-prose` to the content body
-
-### Priority 3
-
-Rename and clean up `projects.html`:
-
-- introduce `l-projects*`
-- rename `c-page-header*` → `c-projects-header*`
-
-### Priority 4
-
-Rename and clean up `index.html`:
-
-- `l-section*` → `l-homepage-section*`
-
-### Priority 5
-
-Implement the strongest shared objects:
-
-- `_o-tag.scss`
-- `_o-prose.scss`
-- `_o-action-cluster.scss`
-
-### Priority 6
-
-Simplify metadata markup in:
-
-- `_includes/post-card.html`
-- `_layouts/post.html`
-
-Then implement:
-
-- `_o-post-metadata.scss`
-
-### Priority 7
-
-Create the missing layout files:
-
-- `_l-homepage.scss`
-- `_l-projects.scss`
-- `_l-page.scss`
-- `_l-tag-page.scss`
-
-### Priority 8
-
-Create the missing component files:
-
-- `_c-page.scss`
-- `_c-projects.scss`
-- `_c-home.scss`
-- optional `_c-tag-page.scss`
-
-### Priority 9
-
-Clean up `3-base`:
-
-- move mis-layered image/media selectors out of base
-- split list fixes between base and `o-prose`
-
-### Priority 10
-
-Re-evaluate whether `_o-card.scss` and `_o-media-frame.scss` are truly needed.
-
----
-
-## Decision summary
-
-### Implement now
-
-- mobile menu JS in `assets/js/common.js`
-- rename `c-article*` → `c-page*`
-- rename `c-tag` → `c-page__tag`
-- rename projects layout/component classes
-- rename homepage section layout classes
-- `o-tag`
-- `o-prose`
-- `o-action-cluster`
-- later in this cycle: `o-post-metadata`
-- missing `6-layouts` files
-- missing `5-components` files
-
-### Implement later only if needed
-
-- `o-card`
-- `o-media-frame`
-- `_c-tag-page.scss`
-
-### Do not do right now
-
-- do not create a shared `post-meta.html` include
-- do not place component selectors in `3-base`
-- do not create `o-home-section`
-
----
-
-## Final note
-
-This plan keeps the architecture disciplined without over-engineering it.
-
-The most important principle for the next pass is:
-
-**first stabilize naming and HTML structure, then extract shared objects only where reuse is clearly real.**

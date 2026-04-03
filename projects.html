@@ -2,95 +2,108 @@
 layout: default
 title: Projects
 permalink: /projects/
+description: A full archive of projects, research, writing, and creative work.
 ---
+
 {% comment %}
   Projects Page
-  Purpose: Render the full projects archive with a page-specific header,
-  tag-based filter navigation, and a responsive grid of post cards.
+  Purpose: Render the full projects archive with a reusable page heading,
+  optional tag navigation, and a responsive grid of post cards.
 
   Structure:
-  - Projects layout wrapper
-    - Header
-      - Title
-      - Subtitle
-    - Filters
-      - All projects link
-      - Tag links generated from site tags
-    - Archive
-      - Reusable post card grid
+  - Projects page wrapper
+    - Page heading (section-heading include)
+    - Optional tag navigation
+    - Projects archive grid
 
   Architecture:
   - Page-level template rendered through the default layout
   - Uses ITCSS + BEM naming:
     - Layouts: l-
-    - Components: c-
-    - State: is-
     - Objects: o-
-  - Delegates card rendering to:
+    - Components: c-
+  - Reuses shared UI fragments:
+    - section-heading.html
     - post-card.html
+  - Reuses shared layout objects:
+    - o-container
+    - o-grid
+  - Reuses shared button styles for tag links:
+    - c-button
+    - c-button--tag
 
   Accessibility:
-  - Uses semantic header, nav, and section elements
-  - Filter links remain standard links for keyboard and screen-reader access
+  - Uses semantic section and nav elements
+  - The archive section is labeled by its heading
+  - Tag links remain standard links for keyboard and screen-reader access
 
   Data dependencies:
   - site.posts
   - site.tags
 
   Notes:
-  - The "All" chip is the active state for the unfiltered archive page
-  - Tag links assume tag archive pages are available
+  - This page is intentionally broader than the homepage:
+    the homepage previews recent work, while this page exposes the full archive
+    plus topic-based navigation.
+  - Tag links assume tag archive pages are available at /tag/<slug>/
 {% endcomment %}
 
-<!-- Precomputed projects archive data -->
 {% assign all_posts = site.posts %}
 {% assign sorted_tags = site.tags | sort %}
 
-<!-- Projects page layout -->
-<div class="l-projects">
-  <!-- Projects page header -->
-  <header class="l-projects__header c-projects-header">
-    <div class="o-container">
-      <!-- Projects page title -->
-      <h1 class="c-projects-header__title">Projects</h1>
+<div class="o-container">
+  <div class="l-projects">
 
-      <!-- Projects page subtitle -->
-      <p class="c-projects-header__subtitle">A selection of research, writing, and creative work.</p>
+    <!-- Projects page heading -->
+    <div class="l-projects__heading">
+      {% include section-heading.html
+        id="projects-title"
+        heading_level="h1"
+        modifier="lg"
+        title="Projects"
+        description="A full archive of research, writing, and creative work. Browse everything below, or jump by topic using the tags."
+      %}
     </div>
-  </header>
 
-  <!-- Projects filter navigation -->
-  <nav class="l-projects__filters c-projects-filter" aria-label="Project filters">
-    <div class="o-container">
-      <!-- Filter inner wrapper -->
-      <div class="c-projects-filter__inner">
-        <!-- All projects filter chip -->
-        <a
-          class="c-projects-filter__chip is-active"
-          href="{{ '/projects/' | relative_url }}"
-        >
-          All
-        </a>
 
-        {% for tag in sorted_tags %}
-          {% assign tag_name = tag[0] %}
-
-          <!-- Tag filter chip -->
+    {% if sorted_tags and sorted_tags.size > 0 %}
+      <!-- Tag navigation -->
+      <nav
+        class="l-projects__tags"
+        aria-label="Browse projects by tag"
+      >
+        <div class="l-projects__tags-list">
           <a
-            class="c-projects-filter__chip"
-            href="{{ '/tag/' | append: tag_name | slugify | append: '/' | relative_url }}"
+            class="c-button c-button--tag"
+            href="{{ '/projects/' | relative_url }}"
+            aria-current="page"
           >
-            {{ tag_name }}
+            All ({{ all_posts | size }})
           </a>
-        {% endfor %}
-      </div>
-    </div>
-  </nav>
 
-  <!-- Projects archive section -->
-  <section class="l-projects__archive c-projects-archive">
-    <div class="o-container">
-      <!-- Projects archive grid -->
+          {% for tag in sorted_tags %}
+            {% assign tag_name = tag[0] %}
+            {% assign tag_posts = tag[1] %}
+            {% assign tag_count = tag_posts | size %}
+            {% assign tag_slug = tag_name | slugify %}
+
+            <a
+              class="c-button c-button--tag"
+              href="{{ '/tag/' | append: tag_slug | append: '/' | relative_url }}"
+              aria-label="View {{ tag_count }} project{% if tag_count != 1 %}s{% endif %} tagged {{ tag_name }}"
+            >
+              {{ tag_name }} ({{ tag_count }})
+            </a>
+          {% endfor %}
+        </div>
+      </nav>
+    {% endif %}
+
+    <!-- Projects archive -->
+    <section
+      class="l-projects__archive"
+      aria-labelledby="projects-title"
+    >
       <div class="o-grid">
         {% for post in all_posts %}
           <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
@@ -98,7 +111,7 @@ permalink: /projects/
           </div>
         {% endfor %}
       </div>
-    </div>
-  </section>
-  <!-- End of projects archive section -->
+    </section>
+
+  </div>
 </div>

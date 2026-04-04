@@ -8,13 +8,13 @@ title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
 url: "https://example.com"
 baseurl: ""
-default_og_image: "images/og-default.png"
+default_og_image: "assets/images/og-default.png"
 
 # ------------------------------------------------------------
 # Brand assets and global links
 # Reusable site-wide assets and URLs referenced in templates.
 # ------------------------------------------------------------
-logo: "images/logo.svg"
+logo: "assets/images/logo.svg"
 cv_url: "files/resume.pdf"
 
 # ------------------------------------------------------------

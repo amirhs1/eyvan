@@ -26,7 +26,7 @@ description_html: >-
 # Main image displayed in the homepage hero.
 # Use a real image path when ready.
 # ------------------------------------------------------------
-image: "images/hero-placeholder.jpg"
+image: "assets/images/hero-placeholder.jpg"
 image_alt: "Portrait or representative image for the homepage hero"
 
 # ------------------------------------------------------------

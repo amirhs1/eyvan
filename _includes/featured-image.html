@@ -1,0 +1,51 @@
+{% comment %}
+  Featured Image Include
+  Purpose: Render a reusable featured image element for page- and post-level
+  media blocks.
+
+  Structure:
+  - Optional image element
+
+  Accepts:
+  - include.src: required image path
+  - include.alt: optional explicit alt text
+  - include.fallback_alt: optional fallback alt text
+  - include.class: optional class attribute for the img element
+  - include.loading: optional loading attribute
+  - include.fetchpriority: optional fetchpriority attribute
+  - include.decoding: optional decoding attribute
+  - include.sizes: optional sizes attribute
+  - include.width: optional width attribute
+  - include.height: optional height attribute
+
+  Notes:
+  - This include renders only the img element
+  - Outer wrapper/layout markup remains owned by the parent template
+  - Src is normalized through relative_url
+{% endcomment %}
+
+{% assign image_src = include.src %}
+{% assign image_alt = include.alt | default: include.fallback_alt %}
+{% assign image_class = include.class %}
+{% assign image_loading = include.loading %}
+{% assign image_fetchpriority = include.fetchpriority %}
+{% assign image_decoding = include.decoding | default: 'async' %}
+{% assign image_sizes = include.sizes %}
+{% assign image_width = include.width %}
+{% assign image_height = include.height %}
+
+{% if image_src %}
+  <!-- featured-image.html -->
+  <img
+    {% if image_class %}class="{{ image_class }}"{% endif %}
+    src="{{ image_src | relative_url }}"
+    alt="{{ image_alt | default: '' | escape }}"
+    {% if image_loading %}loading="{{ image_loading }}"{% endif %}
+    {% if image_fetchpriority %}fetchpriority="{{ image_fetchpriority }}"{% endif %}
+    {% if image_decoding %}decoding="{{ image_decoding }}"{% endif %}
+    {% if image_sizes %}sizes="{{ image_sizes }}"{% endif %}
+    {% if image_width %}width="{{ image_width }}"{% endif %}
+    {% if image_height %}height="{{ image_height }}"{% endif %}
+  >
+  <!-- End of featured-image.html -->
+{% endif %}

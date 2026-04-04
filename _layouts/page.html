@@ -27,6 +27,7 @@ layout: default
   - Object owns long-form typography through o-prose
   - Delegates shared heading UI to `section-heading.html`
   - Delegates shared metadata rendering to `entry-meta.html`
+  - Delegates shared featured image rendering to `featured-image.html`
   - Delegates content rendering to the page body via `{{ content }}`
 
   Accessibility:
@@ -70,12 +71,15 @@ layout: default
   <article class="c-page">
     <!-- Optional page featured image -->
     {% if page.image %}
-      <div class="c-page__media">
-        <img
-          class="c-page__image"
-          src="{{ page.image | relative_url }}"
-          alt="{{ page.image_alt | default: page.title | escape }}"
-        >
+      <div class="c-page__media o-featured-image o-featured-image--page">
+        <div class="o-featured-image__media">
+          {% include featured-image.html
+            src=page.image
+            alt=page.image_alt
+            fallback_alt=page.title
+            class="c-page__image o-featured-image__img"
+          %}
+        </div>
       </div>
     {% endif %}
 

@@ -9,6 +9,7 @@
 //
 // Structure:
 // - .c-mobile-menu
+//   - .o-container
 //   - .c-mobile-menu__inner
 //     - .c-mobile-menu__top
 //       - .c-mobile-menu__top-left
@@ -59,11 +60,15 @@ $mobile-menu-shadow:
   z-index: $mobile-menu-z-index;
   isolation: isolate;
 
-  padding:
-    max(tools-spacing.$fluid-inline-md, env(safe-area-inset-top))
-    max(tools-spacing.$fluid-inline-md, env(safe-area-inset-right))
-    max(tools-spacing.$fluid-inline-md, env(safe-area-inset-bottom))
-    max(tools-spacing.$fluid-inline-md, env(safe-area-inset-left));
+  padding-block:
+    max(
+      tools-spacing.$fluid-stack-md,
+      env(safe-area-inset-top)
+    )
+    max(
+      tools-spacing.$fluid-stack-md,
+      env(safe-area-inset-bottom)
+    );
 
   background-color: $mobile-menu-backdrop;
   -webkit-backdrop-filter: blur(0.75rem);
@@ -79,17 +84,21 @@ $mobile-menu-shadow:
 }
 
 /* -----------------------------------------------------------------------------
+   Outer container behavior
+   ----------------------------------------------------------------------------- */
+
+.c-mobile-menu > .o-container {
+  min-block-size: 100%;
+}
+
+/* -----------------------------------------------------------------------------
    Inner panel
    ----------------------------------------------------------------------------- */
 
 .c-mobile-menu__inner {
   display: flex;
   flex-direction: column;
-  
-  flex: 1 1 auto;
-  min-block-size: 100%;
-
-  //min-block-size: calc(100dvh - (2 * tools-spacing.$fluid-stack-md));
+  min-block-size: calc(100dvh - (2 * tools-spacing.$fluid-stack-md));
   padding:
     tools-spacing.$fluid-stack-md
     tools-spacing.$fluid-inline-md;
@@ -206,7 +215,6 @@ $mobile-menu-shadow:
 
 .c-mobile-menu__footer {
   display: grid;
-  justify-content: center;
   gap: tools-spacing.$space-stack-sm;
   margin-block-start: tools-spacing.$fluid-stack-md;
   padding-block-start: tools-spacing.$space-stack-sm;
@@ -233,13 +241,6 @@ $mobile-menu-shadow:
    ----------------------------------------------------------------------------- */
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-sm) {
-  .c-mobile-menu {
-    padding:
-      max(tools-spacing.$fluid-inline-lg, env(safe-area-inset-top))
-      max(tools-spacing.$fluid-inline-lg, env(safe-area-inset-right))
-      max(tools-spacing.$fluid-inline-lg, env(safe-area-inset-bottom))
-      max(tools-spacing.$fluid-inline-lg, env(safe-area-inset-left));
-  }
   .c-mobile-menu__inner {
     padding:
       tools-spacing.$fluid-stack-lg
@@ -268,3 +269,7 @@ $mobile-menu-shadow:
     transition: none;
   }
 }
+
+
+
+

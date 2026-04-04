@@ -7,12 +7,12 @@ description: A full archive of projects, research, writing, and creative work.
 
 {% comment %}
   Projects Page
-  Purpose: Render the full projects archive with a reusable page heading,
-  optional tag navigation, and a responsive grid of post cards.
+  Purpose: Render the full projects archive with the canonical shared page
+  heading, optional tag navigation, and a responsive grid of post cards.
 
   Structure:
   - Projects page wrapper
-    - Page heading (section-heading include)
+    - Shared page heading (section-heading include)
     - Optional tag navigation
     - Projects archive grid
 
@@ -46,6 +46,7 @@ description: A full archive of projects, research, writing, and creative work.
     the homepage previews recent work, while this page exposes the full archive
     plus topic-based navigation.
   - Tag links assume tag archive pages are available at /tag/<slug>/
+  - The top-of-page heading is standardized through section-heading.html
 {% endcomment %}
 
 {% assign all_posts = site.posts %}
@@ -64,7 +65,6 @@ description: A full archive of projects, research, writing, and creative work.
         description="A full archive of research, writing, and creative work. Browse everything below, or jump by topic using the tags."
       %}
     </div>
-
 
     {% if sorted_tags and sorted_tags.size > 0 %}
       <!-- Tag navigation -->

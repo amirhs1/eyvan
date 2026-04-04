@@ -63,23 +63,21 @@
 {% if sorted_scored_posts.size > 0 %}
   <!-- related-posts.html -->
   <section class="c-related-posts" aria-labelledby="related-posts-title">
-    <div class="o-container">
-      <header class="c-related-posts__header">
-        <h2 class="c-related-posts__title" id="related-posts-title">You may also like</h2>
-      </header>
+    <header class="c-related-posts__header">
+      <h2 class="c-related-posts__title" id="related-posts-title">You may also like</h2>
+    </header>
 
-      <div class="o-grid">
-        {% for entry in sorted_scored_posts limit: max_related %}
-          {% assign post_url = entry | split: '|' | last %}
-          {% assign related_post = site.posts | where: 'url', post_url | first %}
+    <div class="o-grid">
+      {% for entry in sorted_scored_posts limit: max_related %}
+        {% assign post_url = entry | split: '|' | last %}
+        {% assign related_post = site.posts | where: 'url', post_url | first %}
 
-          {% if related_post %}
-            <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
-              {% include post-card.html post=related_post %}
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
+        {% if related_post %}
+          <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
+            {% include post-card.html post=related_post %}
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
   </section>
   <!-- End of related-posts.html -->

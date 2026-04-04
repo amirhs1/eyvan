@@ -12,8 +12,7 @@ layout: default
   - Page wrapper
     - Optional featured image
     - Page header
-      - Title
-      - Optional subtitle
+      - Shared section heading
       - Optional metadata
       - Optional tags
     - Optional divider
@@ -26,6 +25,7 @@ layout: default
   - Object owns outer containment through o-container
   - Component owns page-specific structure and presentation through c-page*
   - Object owns long-form typography through o-prose
+  - Delegates shared heading UI to `section-heading.html`
   - Delegates shared metadata rendering to `entry-meta.html`
   - Delegates content rendering to the page body via `{{ content }}`
 
@@ -33,6 +33,7 @@ layout: default
   - Uses semantic article and header structure
   - Page image uses author-provided alt text when available,
     otherwise falls back to the page title
+  - Heading level remains page-correct with h1
   - Metadata accessibility is delegated to entry-meta.html
 
   Data dependencies:
@@ -55,7 +56,13 @@ layout: default
   - Global top/bottom shell spacing is owned by .l-site-main in default.html
   - Shared content metadata is rendered through entry-meta.html
     with avatar and reading time disabled for pages
+  - The canonical heading UI is rendered through section-heading.html
 {% endcomment %}
+
+{% assign has_meta = false %}
+{% if page.author or page.authors or page.date %}
+  {% assign has_meta = true %}
+{% endif %}
 
 <!-- Page layout container -->
 <div class="o-container">
@@ -74,16 +81,18 @@ layout: default
 
     <!-- Page header -->
     <header class="c-page__header">
-      <!-- Page title -->
-      <h1 class="c-page__title">{{ page.title | escape }}</h1>
-
-      <!-- Page subtitle -->
-      {% if page.subtitle %}
-        <p class="c-page__subtitle">{{ page.subtitle | escape }}</p>
-      {% endif %}
+      <div class="c-page__heading">
+        {% include section-heading.html
+          id="page-title"
+          heading_level="h1"
+          modifier="lg"
+          title=page.title
+          description=page.subtitle
+        %}
+      </div>
 
       <!-- Page metadata -->
-      {% if page.author or page.authors or page.date %}
+      {% if has_meta %}
         <div class="c-page__meta">
           {% include entry-meta.html entry_meta=page show_avatar=false show_read_time=false %}
         </div>
@@ -107,7 +116,7 @@ layout: default
     </header>
 
     <!-- Optional header divider -->
-    {% if page.subtitle or page.author or page.authors or page.date or page.tags or page.image %}
+    {% if page.subtitle or has_meta or page.tags or page.image %}
       <hr class="c-page__divider">
     {% endif %}
 

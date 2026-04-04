@@ -7,17 +7,18 @@ layout: default
   research notes, and documentation posts.
 
   Structure:
-  - Optional cover image
-  - Article wrapper
-    - Post header
-      - Optional tag list
-      - Post title
-      - Optional subtitle
-      - Header row
-        - Post metadata
-        - Optional share actions
-    - Post body content
-  - Post navigation
+  - Post page container
+    - Optional cover image
+    - Article wrapper
+      - Post header
+        - Optional tag list
+        - Post title
+        - Optional subtitle
+        - Header row
+          - Post metadata
+          - Optional share actions
+      - Post body content
+    - Post navigation
   - Related posts section
 
   Architecture:
@@ -30,6 +31,8 @@ layout: default
     - related-posts.html
   - The post metadata markup is centralized in entry-meta.html
   - The header row in this layout is responsible only for composition and layout
+  - Page-level containment is owned here in the layout
+  - related-posts.html remains a reusable section include, while page-level containment is owned by this layout
 
   Accessibility:
   - Uses semantic article and header elements
@@ -57,10 +60,11 @@ layout: default
     page.share: false
 {% endcomment %}
 
-{% if page.image %}
-  <!-- Cover image -->
-  <div class="o-container">
-    <div class="o-grid">
+<div class="o-container animate">
+  <div class="o-grid">
+
+    {% if page.image %}
+      <!-- Cover image -->
       <div class="o-grid__item o-grid__item--span-12">
         <div class="c-post-cover">
           <!-- Cover image media -->
@@ -74,13 +78,9 @@ layout: default
           </div>
         </div>
       </div>
-    </div>
-  </div>
-{% endif %}
+    {% endif %}
 
-<!-- Post layout container -->
-<div class="o-container animate">
-  <div class="o-grid">
+    <!-- Post article -->
     <article class="o-grid__item o-grid__item--span-12 c-post">
       <!-- Post header -->
       <header class="c-post__header">
@@ -116,13 +116,13 @@ layout: default
           </div>
 
           <!-- Post header actions -->
-          <div class="c-post__header-actions">
-            {% if page.share != false %}
+          {% if page.share != false %}
+            <div class="c-post__header-actions">
               <div class="c-post__share">
                 {% include post-share.html %}
               </div>
-            {% endif %}
-          </div>
+            </div>
+          {% endif %}
         </div>
       </header>
 
@@ -131,17 +131,15 @@ layout: default
         {{ content }}
       </div>
     </article>
-  </div>
-</div>
 
-<!-- Post navigation -->
-<div class="o-container">
-  <div class="o-grid">
+    <!-- Post navigation -->
     <div class="o-grid__item o-grid__item--span-12">
       {% include post-navigation.html %}
     </div>
+
   </div>
+
+  <!-- Related posts -->
+  {% include related-posts.html %}
 </div>
 
-<!-- Related posts -->
-{% include related-posts.html %}

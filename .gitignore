@@ -32,3 +32,4 @@ Thumbs.db
 # -----------------------------
 structure.txt
 _sass/*.sh
+create_structure.sh

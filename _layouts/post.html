@@ -29,7 +29,6 @@ layout: default
     - post-share.html
     - post-navigation.html
     - related-posts.html
-    - featured-image.html
   - The post metadata markup is centralized in entry-meta.html
   - The header row in this layout is responsible only for composition and layout
   - Page-level containment is owned here in the layout
@@ -67,16 +66,15 @@ layout: default
     {% if page.image %}
       <!-- Cover image -->
       <div class="o-grid__item o-grid__item--span-12">
-        <div class="c-post-cover o-featured-image o-featured-image--post">
+        <div class="c-post-cover">
           <!-- Cover image media -->
-          <div class="c-post-cover__media o-featured-image__media">
-            {% include featured-image.html
-              src=page.image
-              alt=page.image_alt
-              fallback_alt=page.title
-              class="c-post-cover__image o-featured-image__img"
+          <div class="c-post-cover__media">
+            <img
+              class="c-post-cover__image"
               loading="lazy"
-            %}
+              src="{{ page.image | relative_url }}"
+              alt="{{ page.image_alt | default: page.title | escape }}"
+            >
           </div>
         </div>
       </div>
@@ -144,3 +142,4 @@ layout: default
   <!-- Related posts -->
   {% include related-posts.html %}
 </div>
+

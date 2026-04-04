@@ -29,8 +29,6 @@
 // - Readable body measure belongs to .o-prose
 // - Shared author/date/read-time styling is delegated to _entry-meta.scss
 // - Share control visuals remain owned by _post-share.scss
-// - Shared featured image shell and image-fit behavior belong to
-//   4-objects/_featured-image.scss
 // - This file owns only post-shell layout and contextual component placement
 // -----------------------------------------------------------------------------
 
@@ -68,6 +66,20 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 .c-post-cover {
   margin-block-end: $post-cover-gap;
+}
+
+.c-post-cover__media {
+  overflow: hidden;
+  background-color: var(--color-ui-surface-raised);
+  border-radius: settings-config.$global-border-radius;
+}
+
+.c-post-cover__image {
+  display: block;
+  inline-size: 100%;
+  max-block-size: min(42rem, 70vh);
+  object-fit: cover;
+  object-position: center;
 }
 
 /* -----------------------------------------------------------------------------

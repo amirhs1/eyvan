@@ -12,6 +12,8 @@
 // - No component styling or layout logic
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
 
 /* -----------------------------------------------------------------------------
@@ -21,6 +23,42 @@
 
 .u-visually-hidden {
   @include tools-mixins.visually-hidden;
+}
+
+/* -----------------------------------------------------------------------------
+   Skip Link
+   Visible on focus so keyboard users can bypass repeated header content.
+   ----------------------------------------------------------------------------- */
+
+.u-skip-link {
+  @include tools-mixins.visually-hidden;
+
+  &:focus,
+  &:focus-visible {
+    position: fixed !important;
+    inset-block-start: settings-spacing.$space-3 !important;
+    inset-inline-start: settings-spacing.$space-3 !important;
+    inline-size: auto !important;
+    block-size: auto !important;
+    clip: auto !important;
+    clip-path: none !important;
+    overflow: visible !important;
+    white-space: normal !important;
+
+    z-index: 1000;
+    padding-block: settings-spacing.$space-2;
+    padding-inline: settings-spacing.$space-3;
+
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-ui-border);
+    border-radius: 0.5rem;
+    font-size: settings-typography.$font-size-sm;
+    font-weight: settings-typography.$font-weight-medium;
+    text-decoration: none;
+
+    @include tools-mixins.focus-ring;
+  }
 }
 
 /* -----------------------------------------------------------------------------

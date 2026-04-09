@@ -37,8 +37,8 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: tools-fluid.fluid-space(
-    settings-spacing.$space-4,
-    settings-spacing.$space-6
+    settings-spacing.$space-2,
+    settings-spacing.$space-4
   );
 }
 

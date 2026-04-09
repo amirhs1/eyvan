@@ -33,8 +33,8 @@
 .l-projects {
   display: grid;
   gap: fluid.fluid-space(
-    settings-spacing.$space-4,
-    settings-spacing.$space-6
+    settings-spacing.$space-2,
+    settings-spacing.$space-4
   );
 }
 
@@ -47,7 +47,7 @@
   flex-wrap: wrap;
   gap: fluid.fluid-space(
     settings-spacing.$space-2,
-    settings-spacing.$space-3
+    settings-spacing.$space-4
   );
   align-items: center;
 }

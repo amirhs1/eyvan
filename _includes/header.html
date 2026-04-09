@@ -50,25 +50,28 @@
   <div class="o-container">
     <!-- Header layout object -->
     <div class="o-site-header">
-      <!-- Header brand column -->
+      <!-- Header brand -->
       <div class="o-site-header__brand">
         {% include brand.html logo_fetchpriority="high" %}
       </div>
 
-      <!-- Header desktop navigation column -->
+      <!-- Header desktop navigation -->
       <div class="o-site-header__nav">
         <!-- Primary desktop navigation include -->
         {%
           include navigation.html
           modifier="c-nav--desktop"
           aria_label="Primary navigation"
-        %}
+        %}   
+      </div>
 
+      <!-- Header desktop theme toggle -->
+      <div class="o-site-header__theme">
         <!-- Desktop theme toggle -->
         {% include theme-toggle.html hide_label=true %}
       </div>
 
-      <!-- Header desktop actions column -->
+      <!-- Header desktop actions -->
       <div class="o-site-header__actions">
         <!-- Desktop social and CV actions -->
         <nav class="c-social-links" aria-label="Social links">
@@ -76,7 +79,7 @@
         </nav>
       </div>
 
-      <!-- Header mobile controls column -->
+      <!-- Header mobile controls -->
       <div class="o-site-header__mobile-controls">
         <!-- Mobile menu toggle button -->
         <button

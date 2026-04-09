@@ -1,11 +1,13 @@
+
 // -----------------------------------------------------------------------------
 // Site Header Object
 // ITCSS layer: 4-objects
 //
 // Description:
 // Provides the structural layout for the global site header.
-// Arranges the brand, desktop navigation, desktop actions, and mobile controls
-// without applying cosmetic component styling.
+// Arranges the brand, desktop navigation, desktop theme toggle,
+// desktop social actions, and mobile controls without applying
+// cosmetic component styling.
 //
 // Scope & Rules:
 // - Layout only
@@ -15,7 +17,7 @@
 //
 // Notes:
 // - Mobile-first
-// - Desktop nav/actions are hidden on small screens
+// - Desktop nav/theme/actions are hidden on small screens
 // - Mobile controls are hidden from the layout breakpoint upward
 // -----------------------------------------------------------------------------
 
@@ -31,11 +33,12 @@
   display: flex;
   align-items: center;
 
-  column-gap: tools-spacing.$fluid-inline-md;
-  row-gap: tools-spacing.$space-stack-xs;
-
   inline-size: 100%;
   min-block-size: 4.5rem;
+  min-inline-size: 0;
+
+  column-gap: tools-spacing.$fluid-inline-md;
+  row-gap: tools-spacing.$space-stack-xs;
 
   padding-block: tools-spacing.$fluid-stack-md;
 }
@@ -45,13 +48,26 @@
 /* -------------------------------------------------------------------------- */
 
 .o-site-header__brand {
-  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 0 1 auto;
   min-inline-size: 0;
 }
 
 .o-site-header__nav {
   display: none;
   align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.o-site-header__theme {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
   min-inline-size: 0;
 }
 
@@ -59,6 +75,7 @@
   display: none;
   align-items: center;
   justify-content: flex-end;
+  flex: 0 0 auto;
   min-inline-size: 0;
 }
 
@@ -66,6 +83,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex: 0 0 auto;
 
   margin-inline-start: auto;
   min-inline-size: 0;
@@ -83,14 +101,14 @@
 
   .o-site-header__nav {
     display: flex;
-    flex: 1 1 auto;
-    justify-content: center;
-    gap: tools-spacing.$fluid-inline-sm;
+  }
+
+  .o-site-header__theme {
+    display: flex;
   }
 
   .o-site-header__actions {
     display: flex;
-    flex: 0 0 auto;
   }
 
   .o-site-header__mobile-controls {

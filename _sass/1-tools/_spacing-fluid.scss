@@ -50,7 +50,7 @@ $space-stack-sm: settings-spacing.$space-3; // 12px
    ----------------------------------------------------------------------------- */
 // Used for typographic rhythm, content flow, and component spacing.
 
-$fluid-stack-md: fluid-space(settings-spacing.$space-4, settings-spacing.$space-5, 3vw); // 16px → 24px
+$fluid-stack-md: fluid-space(settings-spacing.$space-3, settings-spacing.$space-5, 3vw); // 12px → 24px
 $fluid-stack-lg: fluid-space(settings-spacing.$space-5, settings-spacing.$space-7, 5vw); // 24px → 48px
 $fluid-stack-xl: fluid-space(settings-spacing.$space-7, settings-spacing.$space-9, 8vw); // 48px → 96px
 
@@ -70,6 +70,6 @@ $fluid-section-lg: fluid-space(settings-spacing.$space-8, settings-spacing.$spac
    ----------------------------------------------------------------------------- */
 // Used for inline gaps, grid gutters, and horizontal padding.
 
-$fluid-inline-sm: fluid-space(settings-spacing.$space-3, settings-spacing.$space-4, 2vw); // 12px → 16px
+$fluid-inline-sm: fluid-space(settings-spacing.$space-2, settings-spacing.$space-4, 2vw); // 8px → 16px
 $fluid-inline-md: fluid-space(settings-spacing.$space-4, settings-spacing.$space-6, 4vw); // 16px → 32px
 $fluid-inline-lg: fluid-space(settings-spacing.$space-6, settings-spacing.$space-8, 6vw); // 32px → 64px

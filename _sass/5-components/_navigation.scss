@@ -91,8 +91,6 @@
 
 /* -----------------------------------------------------------------------------
    Active / current state
-   Inspired by the subtle active marker pattern in the reference template,
-   but adapted to your quieter editorial system.
    ----------------------------------------------------------------------------- */
 
 .c-nav__link.is-active,
@@ -121,11 +119,15 @@
 .c-nav--desktop {
   display: none;
   inline-size: auto;
+  min-inline-size: 0;
+  max-inline-size: 100%;
 }
 
 .c-nav--desktop .c-nav__list {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
+  white-space: nowrap;
+  min-inline-size: 0;
 }
 
 /* -----------------------------------------------------------------------------

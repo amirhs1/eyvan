@@ -72,27 +72,6 @@ Your layout layer is the biggest structural gap right now.
 
 ### 6.2 Create `5-components/_c-projects.scss`
 
-Keep all projects-page-specific visual components together.
-**Goal**  
-
-**Suggested scope**
-
-- `.c-projects-header`
-- `.c-projects-header__title`
-- `.c-projects-header__subtitle`
-- `.c-projects-filter`
-- `.c-projects-filter__inner`
-- `.c-projects-filter__chip`
-- `.c-projects-archive`
-
-**What this file should own**
-
-- projects page header look
-- filter chip visuals
-- projects archive visual section styling
-
----
-
 ### 6.3 Create `5-components/_c-home.scss`
 
 ### 6.4 Optional: create `5-components/_c-tag-page.scss`

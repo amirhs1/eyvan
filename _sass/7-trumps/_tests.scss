@@ -1,0 +1,117 @@
+// -----------------------------------------------------------------------------
+// Test Helpers
+// ITCSS layer: 7-trumps
+//
+// Purpose:
+// Shared helper styling for visual test pages in /tests.
+// These styles replace repeated inline <style> blocks that currently use
+// hard-coded light-theme colors.
+//
+// Notes:
+// - Development/testing only
+// - Uses runtime theme custom properties defined in 3-base/_base.scss
+// - Keeps test surfaces readable in both light and dark mode
+// -----------------------------------------------------------------------------
+
+.c-test-frame,
+[class$="-test-frame"] {
+  padding: 1.5rem;
+  margin-block: 1.5rem;
+  border: 1px dashed var(--color-ui-border);
+  background: var(--color-ui-surface-raised);
+}
+
+.c-test-box,
+[class$="-test-box"] {
+  padding: 1rem;
+  border: 1px solid var(--color-ui-border);
+  background: var(--color-ui-surface);
+  color: var(--color-ui-text);
+}
+
+.c-test-note,
+[class$="-test-note"] {
+  margin: 0;
+  color: var(--color-ui-text-muted);
+  font-size: 0.95rem;
+}
+
+.c-test-fill,
+[class$="-test-fill"] {
+  padding: 0.75rem;
+  border: 1px dashed var(--color-ui-border);
+  background: var(--color-ui-bg);
+}
+
+.c-test-block,
+[class$="-test-block"] {
+  min-inline-size: 0;
+  padding: 1rem;
+  border: 1px dashed var(--color-ui-border);
+  background: var(--color-ui-surface-raised);
+  color: var(--color-ui-text);
+}
+
+.c-test-block--strong,
+[class*="-test-block--strong"] {
+  border-width: 2px;
+}
+
+.c-test-label,
+[class$="-test-label"] {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-ui-text);
+}
+
+.c-test-meta,
+[class$="-test-meta"] {
+  margin: 0;
+  color: var(--color-ui-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Common helper shells used by some pages */
+.c-brand-test-header-shell,
+.c-button-test-surface,
+.c-button-test-section-card,
+.c-mobile-menu-test-hidden-preview,
+.c-mobile-menu-test-close-demo,
+.c-container-test-full-width-section,
+.c-container-test-viewport-edge,
+.c-hero-test-frame,
+.c-site-header-test-frame,
+.c-site-footer-test-frame,
+.c-prose-test-pre {
+  border-color: var(--color-ui-border);
+}
+
+/* Specific helper surfaces */
+.c-container-test-full-width-section,
+.c-hero-test-frame,
+.c-site-header-test-frame,
+.c-site-footer-test-frame,
+.c-button-test-frame,
+.c-brand-test-frame,
+.c-entry-meta-test-frame,
+.c-prose-test-frame {
+  background: var(--color-ui-surface-raised);
+}
+
+.c-prose-test-pre {
+  padding: 1rem;
+  border: 1px solid var(--color-ui-border);
+  background: var(--color-ui-bg);
+  color: var(--color-ui-text);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Optional: stronger contrast for spacer/filler helpers */
+.c-brand-test-spacer,
+.c-container-test-viewport-edge,
+.c-mobile-menu-test-spacer {
+  border: 1px dashed var(--color-ui-border);
+  background: var(--color-ui-bg);
+  color: var(--color-ui-text-muted);
+}

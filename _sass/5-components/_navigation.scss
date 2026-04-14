@@ -29,6 +29,8 @@
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 
+$navigation-link-active-indicator-size: 0.1875rem;
+
 /* -----------------------------------------------------------------------------
    Navigation root
    ----------------------------------------------------------------------------- */
@@ -102,12 +104,11 @@
 .c-nav__link[aria-current="page"]::after {
   content: "";
   position: absolute;
-  inset-inline-start: 50%;
+  inset-inline-start: settings-spacing.$space-1;
+  inset-inline-end: settings-spacing.$space-1;
   inset-block-end: 0.15rem;
-  transform: translateX(-50%);
 
-  inline-size: 0.375rem;
-  block-size: 0.375rem;
+  block-size: $navigation-link-active-indicator-size;
   border-radius: 999px;
   background-color: currentColor;
 }
@@ -149,16 +150,34 @@
 }
 
 .c-nav--mobile .c-nav__link {
+  position: relative;
   justify-content: flex-start;
+  align-items: center;
   inline-size: 100%;
   min-block-size: 3rem;
   padding-block: settings-spacing.$space-3;
-  padding-inline: 0;
-
+  padding-inline: settings-spacing.$space-4 0;
+  
   font-size: settings-typography.$font-size-lg;
   font-weight: settings-typography.$font-weight-bold;
   white-space: normal;
-  border-bottom: 1px solid var(--color-ui-border);
+  
+  border-bottom: 0;
+}
+
+.c-nav--mobile .c-nav__link.is-active::before,
+.c-nav--mobile .c-nav__link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: settings-spacing.$space-1;
+
+  block-size: 0.9em;
+  inset-block-start: 50%;
+  transform: translateY(-45%);
+
+  inline-size: $navigation-link-active-indicator-size;
+  border-radius: 999px;
+  background-color: var(--color-accent-primary);
 }
 
 .c-nav--mobile .c-nav__link.is-active::after,

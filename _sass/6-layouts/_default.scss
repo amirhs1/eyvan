@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Site Main Layout
+// Default Layout
 // ITCSS layer: 6-layouts
 //
 // Description:
@@ -18,24 +18,24 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
-.l-site-main {
+.l-default {
   padding-block: tools-spacing.$fluid-section-sm;
 }
 
 @media (min-width: settings-breakpoints.$bp-layout) {
-  .l-site-main {
+  .l-default {
     padding-block: tools-spacing.$fluid-section-md;
   }
 }
 
 @media (max-width: settings-breakpoints.$bp-md) {
-  .l-site-main {
+  .l-default {
     padding-block: settings-spacing.$space-4;
   }
 }
 
 @media (max-width: settings-breakpoints.$bp-sm) {
-  .l-site-main {
+  .l-default {
     padding-block: settings-spacing.$space-4;
   }
 }

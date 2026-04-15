@@ -31,8 +31,6 @@
 @use "../1-tools/spacing-fluid" as tool-spacing-fluid;
 
 .o-prose {
-  max-inline-size: settings-typography.$text-measure-base;
-  margin-inline: auto;
   line-height: settings-typography.$line-height-loose;
 
   // Reset element margins so the object owns vertical rhythm
@@ -111,4 +109,14 @@
   pre {
     overflow-x: auto;
   }
+}
+
+.o-prose--measure-base {
+  max-inline-size: settings-typography.$text-measure-base;
+  margin-inline: auto;
+}
+
+.o-prose--measure-wide {
+  max-inline-size: settings-typography.$text-measure-wide;
+  margin-inline: auto;
 }

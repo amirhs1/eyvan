@@ -6,658 +6,435 @@ robots: noindex
 ---
 {% comment %}
   Base Elements Test Page
-  Purpose: Visually verify that the 3-base Sass layer compiles
-  and applies sensible defaults to unclassed HTML elements.
+  Purpose: Visually verify the 3-base Sass layer using shared test helpers from
+  7-trumps/_tests.scss instead of page-local inline styles.
 
-  Structure:
-  - Document and body baseline
+  What this page checks:
+  - Document and body defaults
   - Theme token surfaces and runtime theme switching
-  - Headings and paragraph rhythm
+  - Heading scale and paragraph rhythm
   - Links and focus-visible states
   - Lists
   - Media
-  - Blockquote and preformatted text
+  - Blockquote and code-like inline elements
+  - Preformatted text overflow behavior
   - Tables
-  - Horizontal rule and spacing rhythm
+  - Horizontal rule and stacked block rhythm
 
   Notes:
-  - This page tests only native element styling from the 3-base layer:
-    - :root
-    - html
-    - body
-    - ::selection
-    - a
-    - hr
-    - ul, ol, dl, dt, dd
-    - img
-    - table, th, td
-    - h1-h6
-    - p
-    - blockquote
-    - pre, code, kbd, samp
-    - default block spacing
-  - This page also helps inspect runtime theme custom properties used by
-    the document root and body.
-  - Helper styles below are temporary and exist only to make test sections
-    easier to inspect.
-  - The actual content under test is intentionally mostly unclassed.
-  - Resize the browser window and use keyboard tab navigation where relevant.
-  - This page is intended for development testing only.
+  - This page intentionally keeps most tested content unclassed.
+  - Test wrappers use shared trump helpers such as:
+    - c-test-frame
+    - c-test-box
+    - c-test-note
+    - c-test-block
+    - c-test-label
+    - c-test-meta
+  - Resize the viewport and use keyboard tab navigation where relevant.
+  - Development only.
 {% endcomment %}
 
-<style>
-  .base-test-frame {
-    padding: 1rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-surface, #fafafa);
-  }
 
-  .base-test-frame--narrow {
-    max-width: 42rem;
-  }
+<p>
+  This page verifies the default styling of native HTML elements defined in the
+  <strong>3-base</strong> Sass layer.
+</p>
 
-  .base-test-stack > * + * {
-    margin-top: 1rem;
-  }
+<p class="c-test-note">
+  Development note: the framing and helper shells below now come from the shared
+  <code>7-trumps/_tests.scss</code> utilities rather than page-local inline styles.
+  The native HTML elements remain the primary thing under test.
+</p>
 
-  .base-test-grid {
-    display: grid;
-    gap: 1rem;
-  }
+<hr>
 
-  @media (min-width: 48rem) {
-    .base-test-grid--two {
-      grid-template-columns: 1fr 1fr;
-    }
+<section aria-labelledby="base-document-body">
+  <h2 id="base-document-body">Document and body baseline</h2>
 
-    .base-test-grid--three {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    The page should inherit the site’s default body font family, body font size,
+    regular weight, readable line-height, body foreground color, and body background
+    color. Horizontal overflow should not appear from ordinary page content.
+  </p>
 
-  .base-test-note {
-    max-width: 46rem;
-  }
-
-  .base-test-focus-link {
-    display: inline-block;
-    padding: 0.5rem 0.75rem;
-    border: 1px dashed var(--color-ui-border, #999);
-    background: var(--color-ui-surface-raised, #f3f3f3);
-  }
-
-  .base-test-selection {
-    padding: 0.75rem 1rem;
-    border: 1px dashed var(--color-ui-border, #999);
-    background: var(--color-ui-surface-raised, #f3f3f3);
-  }
-
-  .base-test-media-box {
-    max-width: 20rem;
-  }
-
-  .base-test-table-wrap {
-    overflow-x: auto;
-  }
-
-  .base-test-code-block {
-    max-width: 100%;
-  }
-
-  .base-test-token-card {
-    padding: 1rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-surface-raised, #fff);
-  }
-
-  .base-test-token-chip-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
-
-  .base-test-token-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-surface, #f5f5f5);
-  }
-
-  .base-test-swatch {
-    width: 1rem;
-    height: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 999px;
-    flex: 0 0 auto;
-  }
-
-  .base-test-theme-panel {
-    padding: 1rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-bg, #fff);
-    color: var(--color-ui-text, inherit);
-  }
-
-  .base-test-surface {
-    padding: 1rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-surface, #f7f7f7);
-  }
-
-  .base-test-surface-raised {
-    padding: 1rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-surface-raised, #fff);
-    box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, var(--color-ui-shadow-color, #000) 18%, transparent);
-  }
-
-  .base-test-accent-link {
-    color: var(--color-link-color);
-  }
-
-  .base-test-muted {
-    color: var(--color-ui-text-muted);
-  }
-
-  .base-test-status-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .base-test-status {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--color-ui-border, #ddd);
-    background: var(--color-ui-surface, #f7f7f7);
-  }
-
-  .base-test-status--error {
-    border-inline-start: 0.35rem solid var(--color-state-error);
-  }
-
-  .base-test-status--success {
-    border-inline-start: 0.35rem solid var(--color-state-success);
-  }
-
-  .base-test-status--warning {
-    border-inline-start: 0.35rem solid var(--color-state-warning);
-  }
-
-  .base-test-status--info {
-    border-inline-start: 0.35rem solid var(--color-state-info);
-  }
-
-  .base-test-theme-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .base-test-small {
-    font-size: 0.9375rem;
-  }
-</style>
-
-<section class="l-section">
-  <div class="o-container">
+  <div class="c-test-frame">
     <p>
-      This page verifies the default styling of native HTML elements defined in the
-      <strong>3-base</strong> Sass layer.
+      This paragraph checks the default body typography and readable measure.
+      It should look like ordinary site copy without needing component classes.
     </p>
 
     <p>
-      <em>
-        Development note: helper styles on this page exist only to make spacing,
-        boundaries, and theme token behavior easier to inspect. The native HTML
-        elements remain the primary thing under test.
-      </em>
+      This second paragraph helps inspect default body rhythm and color.
+      It should feel visually consistent with the rest of the site content.
+    </p>
+
+    <p class="c-test-fill">
+      Select part of this sentence with your mouse to verify the global
+      <code>::selection</code> styling.
     </p>
   </div>
+</section>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Document and Body Baseline -->
-  <!-- ============================================================= -->
+<section aria-labelledby="base-theme-tokens">
+  <h2 id="base-theme-tokens">Theme tokens and runtime theme switching</h2>
 
-  <div class="o-container">
-    <h2>Document and body baseline</h2>
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    The document-level custom properties should drive surfaces, text, links,
+    muted text, status accents, and selection colors. When the site theme changes,
+    these samples should update without per-page overrides.
+  </p>
 
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      The page should inherit the site’s default body font family, body font size,
-      regular weight, readable line-height, body foreground color, and body background
-      color. Horizontal overflow should not appear from ordinary page content.
-    </p>
+  <div class="c-test-frame">
+    <div class="c-test-box">
+      <p class="c-test-label">Theme control</p>
+      <p class="c-test-meta">
+        Toggle the site theme and inspect the sample surfaces, links, and status blocks below.
+      </p>
+      {% include theme-toggle.html hide_label=false %}
+    </div>
 
-    <div class="base-test-frame">
-      <div class="base-test-stack">
-        <p>
-          This paragraph checks the default body typography and readable measure.
-          It should look like ordinary site copy without needing component classes.
-        </p>
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6">
+        <div class="c-test-box">
+          <h3>UI surface</h3>
+          <p>This panel uses the normal UI surface background.</p>
+          <p>
+            <a href="#theme-link-test">This is a themed link</a>
+          </p>
+          <p>
+            <small>This sentence is useful for checking muted copy if your base layer applies it through inherited tokens.</small>
+          </p>
+        </div>
+      </div>
 
-        <p>
-          This second paragraph helps inspect default body rhythm and color.
-          It should feel visually consistent with the rest of the site content.
-        </p>
-
-        <p class="base-test-selection">
-          Select part of this sentence with your mouse to verify the global
-          <code>::selection</code> styling.
-        </p>
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6">
+        <div class="c-test-block c-test-block--strong">
+          <h3>Raised surface</h3>
+          <p>
+            This panel exists to compare contrast and boundary treatment against the standard surface.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Theme Tokens and Runtime Switching -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Theme tokens and runtime theme switching</h2>
-
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      The document-level custom properties should drive the surfaces, text, link,
-      muted text, status accents, and selection colors. When the site theme changes,
-      these samples should update without needing component-specific overrides.
-    </p>
-
-    <div class="base-test-frame">
-      <div class="base-test-stack">
-        <div class="base-test-theme-actions">
-          {% include theme-toggle.html hide_label=false %}
-          <span class="base-test-small">
-            Toggle the site theme and inspect the panels, chips, links, and status markers below.
-          </span>
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
+        <div class="c-test-box">
+          <p class="c-test-label">Background tokens</p>
+          <p class="c-test-meta"><code>--color-ui-bg</code> and <code>--color-body-bg</code></p>
         </div>
+      </div>
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
+        <div class="c-test-box">
+          <p class="c-test-label">Interactive tokens</p>
+          <p class="c-test-meta"><code>--color-link-color</code>, <code>--color-accent-primary</code>, <code>--color-accent-secondary</code></p>
+        </div>
+      </div>
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-desktop-4">
+        <div class="c-test-box">
+          <p class="c-test-label">Status tokens</p>
+          <p class="c-test-meta"><code>--color-state-error</code>, <code>--color-state-success</code>, <code>--color-state-warning</code>, <code>--color-state-info</code></p>
+        </div>
+      </div>
+    </div>
 
-        <div class="base-test-theme-panel">
-          <div class="base-test-grid base-test-grid--two">
-            <div class="base-test-surface">
-              <h3>UI surface</h3>
-              <p>
-                This panel is mapped to <code>--color-ui-surface</code>.
-              </p>
-              <p class="base-test-muted">
-                This muted sentence helps inspect <code>--color-ui-text-muted</code>.
-              </p>
-              <p>
-                <a class="base-test-accent-link" href="#theme-link-test">This is a themed link</a>
-              </p>
-            </div>
-
-            <div class="base-test-surface-raised">
-              <h3>Raised surface</h3>
-              <p>
-                This panel is mapped to <code>--color-ui-surface-raised</code> and should remain
-                visually distinct from the standard surface.
-              </p>
-            </div>
-          </div>
-
-          <div class="base-test-token-chip-row">
-            <span class="base-test-token-chip">
-              <span class="base-test-swatch" style="background: var(--color-ui-bg);"></span>
-              UI bg
-            </span>
-
-            <span class="base-test-token-chip">
-              <span class="base-test-swatch" style="background: var(--color-body-bg);"></span>
-              Body bg
-            </span>
-
-            <span class="base-test-token-chip">
-              <span class="base-test-swatch" style="background: var(--color-link-color);"></span>
-              Link
-            </span>
-
-            <span class="base-test-token-chip">
-              <span class="base-test-swatch" style="background: var(--color-accent-primary);"></span>
-              Accent primary
-            </span>
-
-            <span class="base-test-token-chip">
-              <span class="base-test-swatch" style="background: var(--color-accent-secondary);"></span>
-              Accent secondary
-            </span>
-          </div>
-
-          <div class="base-test-status-row" style="margin-top: 1rem;">
-            <div class="base-test-status base-test-status--error">Error token</div>
-            <div class="base-test-status base-test-status--success">Success token</div>
-            <div class="base-test-status base-test-status--warning">Warning token</div>
-            <div class="base-test-status base-test-status--info">Info token</div>
-          </div>
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-3">
+        <div class="c-test-block c-test-block--strong">
+          <p class="c-test-label">Error token</p>
+          <p class="c-test-meta">Inspect against the current theme.</p>
+        </div>
+      </div>
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-3">
+        <div class="c-test-block c-test-block--strong">
+          <p class="c-test-label">Success token</p>
+          <p class="c-test-meta">Inspect against the current theme.</p>
+        </div>
+      </div>
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-3">
+        <div class="c-test-block c-test-block--strong">
+          <p class="c-test-label">Warning token</p>
+          <p class="c-test-meta">Inspect against the current theme.</p>
+        </div>
+      </div>
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-3">
+        <div class="c-test-block c-test-block--strong">
+          <p class="c-test-label">Info token</p>
+          <p class="c-test-meta">Inspect against the current theme.</p>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Headings and Paragraph Rhythm -->
-  <!-- ============================================================= -->
+<section aria-labelledby="base-headings-rhythm">
+  <h2 id="base-headings-rhythm">Headings and paragraph rhythm</h2>
 
-  <div class="o-container">
-    <h2>Headings and paragraph rhythm</h2>
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    Headings should visibly step down in size from <code>h1</code> to <code>h6</code>
+    and maintain consistent spacing. Paragraphs should follow the default body rhythm.
+  </p>
 
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      Headings should visibly step down in size from <code>h1</code> to <code>h6</code>
-      and maintain consistent spacing. Paragraphs should follow the default body rhythm.
+  <div class="c-test-frame">
+    <h1>Heading level one</h1>
+    <p>Paragraph text beneath <code>h1</code>. This checks default spacing and text rhythm.</p>
+
+    <h2>Heading level two</h2>
+    <p>Paragraph text beneath <code>h2</code>. This should feel slightly more compact in hierarchy.</p>
+
+    <h3>Heading level three</h3>
+    <p>Paragraph text beneath <code>h3</code>.</p>
+
+    <h4>Heading level four</h4>
+    <p>Paragraph text beneath <code>h4</code>.</p>
+
+    <h5>Heading level five</h5>
+    <p>Paragraph text beneath <code>h5</code>.</p>
+
+    <h6>Heading level six</h6>
+    <p>Paragraph text beneath <code>h6</code>.</p>
+  </div>
+</section>
+
+<hr>
+
+<section aria-labelledby="base-links-focus">
+  <h2 id="base-links-focus">Links and focus-visible states</h2>
+
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    Plain links should use the global link token, change on hover if defined,
+    and show a visible focus treatment when reached with keyboard navigation.
+    Use the <kbd>Tab</kbd> key to inspect focus behavior.
+  </p>
+
+  <div class="c-test-frame">
+    <p>
+      Inline text link example:
+      <a href="#inline-link-test">Read more about this example</a>.
     </p>
 
-    <div class="base-test-frame base-test-frame--narrow">
-      <h1>Heading level one</h1>
-      <p>
-        Paragraph text beneath <code>h1</code>. This checks default spacing and text rhythm.
-      </p>
+    <p>
+      Another inline link with slightly longer text:
+      <a href="#longer-inline-link-test">Visit the detailed documentation for this section</a>.
+    </p>
 
-      <h2>Heading level two</h2>
+    <div class="c-test-box">
       <p>
-        Paragraph text beneath <code>h2</code>. This should feel slightly more compact in hierarchy.
-      </p>
-
-      <h3>Heading level three</h3>
-      <p>
-        Paragraph text beneath <code>h3</code>.
-      </p>
-
-      <h4>Heading level four</h4>
-      <p>
-        Paragraph text beneath <code>h4</code>.
-      </p>
-
-      <h5>Heading level five</h5>
-      <p>
-        Paragraph text beneath <code>h5</code>.
-      </p>
-
-      <h6>Heading level six</h6>
-      <p>
-        Paragraph text beneath <code>h6</code>.
+        Keyboard focus test:
+        <a href="#focus-visible-test">Tab to this link</a>
       </p>
     </div>
   </div>
+</section>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Links and Focus States -->
-  <!-- ============================================================= -->
+<section aria-labelledby="base-lists">
+  <h2 id="base-lists">Lists</h2>
 
-  <div class="o-container">
-    <h2>Links and focus-visible states</h2>
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    Unordered, ordered, and description lists should retain native semantics and
+    receive sensible spacing. Description details should be visually nested below terms.
+  </p>
 
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      Plain links should use the global link token, change on hover if defined,
-      and show a visible focus treatment when reached with keyboard navigation.
-      Use the <kbd>Tab</kbd> key to inspect focus behavior.
-    </p>
-
-    <div class="base-test-frame">
-      <div class="base-test-stack">
-        <p>
-          Inline text link example:
-          <a href="#inline-link-test">Read more about this example</a>.
-        </p>
-
-        <p>
-          Another inline link with slightly longer text:
-          <a href="#longer-inline-link-test">Visit the detailed documentation for this section</a>.
-        </p>
-
-        <p>
-          Keyboard focus test:
-          <a class="base-test-focus-link" href="#focus-visible-test">Tab to this link</a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Lists -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Lists</h2>
-
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      Unordered, ordered, and description lists should retain native semantics and
-      receive sensible spacing. Description details should be visually nested below terms.
-    </p>
-
-    <div class="base-test-frame">
-      <div class="base-test-grid base-test-grid--two">
-        <div>
-          <h3>Unordered list</h3>
-          <ul>
-            <li>First unordered item</li>
-            <li>Second unordered item</li>
-            <li>Third unordered item</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Ordered list</h3>
-          <ol>
-            <li>First ordered item</li>
-            <li>Second ordered item</li>
-            <li>Third ordered item</li>
-          </ol>
-        </div>
+  <div class="c-test-frame">
+    <div class="o-grid">
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6">
+        <h3>Unordered list</h3>
+        <ul>
+          <li>First unordered item</li>
+          <li>Second unordered item</li>
+          <li>Third unordered item</li>
+        </ul>
       </div>
 
-      <h3>Description list</h3>
-      <dl>
-        <dt>HTML</dt>
-        <dd>The structural layer of web content.</dd>
-
-        <dt>CSS</dt>
-        <dd>The presentation layer used to style content.</dd>
-
-        <dt>Jekyll</dt>
-        <dd>A static site generator commonly used with GitHub Pages.</dd>
-      </dl>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Media -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Media</h2>
-
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      Images should scale responsively, preserve aspect ratio, and not overflow
-      their container.
-    </p>
-
-    <div class="base-test-frame">
-      <div class="base-test-media-box">
-        <img
-          src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
-          alt="Placeholder landscape used to test responsive image behavior"
-        >
+      <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6">
+        <h3>Ordered list</h3>
+        <ol>
+          <li>First ordered item</li>
+          <li>Second ordered item</li>
+          <li>Third ordered item</li>
+        </ol>
       </div>
-
-      <p>
-        The image above should shrink with its container and should not exceed the width
-        of the framed test area.
-      </p>
     </div>
+
+    <h3>Description list</h3>
+    <dl>
+      <dt>HTML</dt>
+      <dd>The structural layer of web content.</dd>
+
+      <dt>CSS</dt>
+      <dd>The presentation layer used to style content.</dd>
+
+      <dt>Jekyll</dt>
+      <dd>A static site generator commonly used with GitHub Pages.</dd>
+    </dl>
   </div>
+</section>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Blockquote and Inline Code -->
-  <!-- ============================================================= -->
+<section aria-labelledby="base-media">
+  <h2 id="base-media">Media</h2>
 
-  <div class="o-container">
-    <h2>Blockquote and inline code</h2>
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    Images should scale responsively, preserve aspect ratio, and not overflow
+    their container.
+  </p>
 
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      The blockquote should show its base visual treatment. Inline code-like
-      elements should use the mono font family and remain readable inline.
-    </p>
-
-    <div class="base-test-frame base-test-frame--narrow">
-      <blockquote>
-        Good defaults make the rest of the system easier to build.
-      </blockquote>
-
-      <p>
-        Inline code example: <code>bundle exec jekyll serve</code>
-      </p>
-
-      <p>
-        Keyboard input example: press <kbd>Tab</kbd> to move focus.
-      </p>
-
-      <p>
-        Sample output example: <samp>Server running at http://127.0.0.1:4000/</samp>
-      </p>
+  <div class="c-test-frame">
+    <div class="c-test-box">
+      <img
+        src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+        alt="Placeholder landscape used to test responsive image behavior"
+      >
     </div>
-  </div>
 
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Preformatted Text -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Preformatted text</h2>
-
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      <code>pre</code> and code content should use the mono font. Long lines should
-      become horizontally scrollable rather than breaking page layout.
+    <p>
+      The image above should shrink with its container and should not exceed the width
+      of the framed test area.
     </p>
+  </div>
+</section>
 
-    <div class="base-test-frame">
-      <pre class="base-test-code-block"><code>---
+<hr>
+
+<section aria-labelledby="base-blockquote-code">
+  <h2 id="base-blockquote-code">Blockquote and inline code</h2>
+
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    The blockquote should show its base visual treatment. Inline code-like
+    elements should use the mono font family and remain readable inline.
+  </p>
+
+  <div class="c-test-frame">
+    <blockquote>
+      Good defaults make the rest of the system easier to build.
+    </blockquote>
+
+    <p>Inline code example: <code>bundle exec jekyll serve</code></p>
+    <p>Keyboard input example: press <kbd>Tab</kbd> to move focus.</p>
+    <p>Sample output example: <samp>Server running at http://127.0.0.1:4000/</samp></p>
+  </div>
+</section>
+
+<hr>
+
+<section aria-labelledby="base-preformatted">
+  <h2 id="base-preformatted">Preformatted text</h2>
+
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    <code>pre</code> and code content should use the mono font. Long lines should
+    become horizontally scrollable rather than breaking page layout.
+  </p>
+
+  <div class="c-test-frame">
+    <pre><code>---
 layout: page
 title: Base Elements Test
 permalink: /tests/3-base/base-elements/
 robots: noindex
 ---</code></pre>
 
-      <pre class="base-test-code-block"><code>ThisIsAnIntentionallyLongUnbrokenLineToCheckWhetherHorizontalOverflowIsHandledInsideThePreElementRatherThanBreakingTheWholePageLayout</code></pre>
-    </div>
+    <pre><code>ThisIsAnIntentionallyLongUnbrokenLineToCheckWhetherHorizontalOverflowIsHandledInsideThePreElementRatherThanBreakingTheWholePageLayout</code></pre>
   </div>
+</section>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Tables -->
-  <!-- ============================================================= -->
+<section aria-labelledby="base-tables">
+  <h2 id="base-tables">Tables</h2>
 
-  <div class="o-container">
-    <h2>Tables</h2>
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    Tables should span available width, keep header and cell content readable,
+    and remain horizontally scrollable on narrow screens when necessary.
+  </p>
 
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      Tables should span available width, keep header and cell content readable,
-      and remain horizontally scrollable on narrow screens when necessary.
-    </p>
-
-    <div class="base-test-frame">
-      <div class="base-test-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Project</th>
-              <th>Status</th>
-              <th>Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Portfolio redesign</td>
-              <td>In progress</td>
-              <td>2026</td>
-            </tr>
-            <tr>
-              <td>Notebook archive</td>
-              <td>Planned</td>
-              <td>2026</td>
-            </tr>
-            <tr>
-              <td>Case study refresh</td>
-              <td>Complete</td>
-              <td>2025</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Horizontal Rule and Vertical Rhythm -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Horizontal rule and vertical rhythm</h2>
-
-    <p class="base-test-note">
-      <strong>Expected behavior:</strong>
-      The horizontal rule should appear as a distinct separator with stable spacing
-      above and below it. Stacked block elements should maintain consistent rhythm.
-    </p>
-
-    <div class="base-test-frame base-test-frame--narrow">
-      <p>Paragraph before the rule.</p>
-
-      <hr>
-
-      <p>Paragraph after the rule.</p>
-
-      <figure>
-        <img
-          src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
-          alt="Placeholder image used to inspect spacing around figure elements"
-        >
-      </figure>
-
+  <div class="c-test-frame">
+    <div class="c-test-fill">
       <table>
-        <tr>
-          <th>Element</th>
-          <th>Check</th>
-        </tr>
-        <tr>
-          <td>Paragraph</td>
-          <td>Bottom spacing present</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Status</th>
+            <th>Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Portfolio redesign</td>
+            <td>In progress</td>
+            <td>2026</td>
+          </tr>
+          <tr>
+            <td>Notebook archive</td>
+            <td>Planned</td>
+            <td>2026</td>
+          </tr>
+          <tr>
+            <td>Case study refresh</td>
+            <td>Complete</td>
+            <td>2025</td>
+          </tr>
+        </tbody>
       </table>
-
-      <blockquote>
-        This final section is mainly for visually checking stacked block spacing.
-      </blockquote>
-
-      <pre><code>Spacing rhythm check</code></pre>
     </div>
+  </div>
+</section>
+
+<hr>
+
+<section aria-labelledby="base-hr-rhythm">
+  <h2 id="base-hr-rhythm">Horizontal rule and vertical rhythm</h2>
+
+  <p class="c-test-note">
+    <strong>Expected behavior:</strong>
+    The horizontal rule should appear as a distinct separator with stable spacing
+    above and below it. Stacked block elements should maintain consistent rhythm.
+  </p>
+
+  <div class="c-test-frame">
+    <p>Paragraph before the rule.</p>
+
+    <hr>
+
+    <p>Paragraph after the rule.</p>
+
+    <figure>
+      <img
+        src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+        alt="Placeholder image used to inspect spacing around figure elements"
+      >
+    </figure>
+
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Check</th>
+      </tr>
+      <tr>
+        <td>Paragraph</td>
+        <td>Bottom spacing present</td>
+      </tr>
+    </table>
+
+    <blockquote>
+      This final section is mainly for visually checking stacked block spacing.
+    </blockquote>
+
+    <pre><code>Spacing rhythm check</code></pre>
   </div>
 </section>

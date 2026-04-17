@@ -10,17 +10,8 @@ robots: noindex
   Purpose: Visually verify that the 5-components brand component compiles
   and behaves correctly across the site.
 
-  Structure:
-  - Base brand structure
-  - Long-text truncation behavior
-  - Compact modifier behavior
-  - Responsive collapse behavior
-  - Header shrunk-state behavior
-  - No-role variant
-  - Logo-only stress case
-  - Stable text color behavior
-
   Notes:
+  - Uses shared test helper styles from 7-trumps/_tests.scss
   - This page tests only the component responsibilities of:
     - .c-brand
     - .c-brand--compact
@@ -29,452 +20,206 @@ robots: noindex
     - .c-brand__name
     - .c-brand__role
   - The surrounding header object layout is intentionally not tested here.
-  - Compact/collapsed presentation may be triggered by:
-    - smaller viewports
-    - .c-brand--compact
-    - .c-site-header.is-shrunk on an ancestor
-  - Helper styles below are temporary and exist only for testing.
-  - Resize the browser window to verify responsive collapse behavior.
-  - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-brand-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
+<p>
+  This page verifies the functionality of the brand classes defined in the
+  <strong>5-components</strong> Sass layer.
+</p>
 
-  .c-brand-test-stack {
-    display: grid;
-    gap: 1rem;
-  }
+<hr>
 
-  .c-brand-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .c-brand-test-box {
-    inline-size: min(100%, 56rem);
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
-  .c-brand-test-box--narrow {
-    inline-size: min(100%, 20rem);
-  }
-
-  .c-brand-test-box--tiny {
-    inline-size: min(100%, 8rem);
-  }
-
-  .c-brand-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-brand-test-header-shell {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
-  .c-brand-test-meta {
-    margin: 0;
-    color: #666;
-    font-size: 0.9rem;
-  }
-
-  .c-brand-test-spacer {
-    flex: 1 1 auto;
-    min-inline-size: 3rem;
-    border: 1px dashed #ddd;
-    background: repeating-linear-gradient(
-      45deg,
-      #f7f7f7,
-      #f7f7f7 8px,
-      #fcfcfc 8px,
-      #fcfcfc 16px
-    );
-  }
-
-  .c-brand-test-inline-bar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .c-brand-test-brand--full {
-    display: flex;
-    inline-size: 100%;
-    max-inline-size: 100%;
-  }
-
-  .c-brand-test-hover-pad {
-    display: inline-block;
-    padding: 0.5rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
-  }
-</style>
-
-<section class="l-section">
-  <p>
-    This page verifies the functionality of the brand classes defined in
-    the <strong>5-components</strong> Sass layer.
-  </p>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Base Brand Structure -->
-  <!-- ============================================================= -->
-
-  <h2>Base brand structure</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The brand should render as a single clickable inline-flex unit with a logo
-    on the left and a two-line text stack on the right. The text stack should
-    show the name and role, and the entire block should behave like one
-    homepage link.
-  </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box">
-      <a
-        class="c-brand"
-        href="#"
-        aria-label="Go to homepage"
+<h2>Base brand structure</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The brand should render as a single clickable inline-flex unit with a logo on
+  the left and a two-line text stack on the right.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <a class="c-brand" href="#" aria-label="Go to homepage">
+      <img
+        class="c-brand__logo"
+        src="{{ '/assets/images/logo.svg' | relative_url }}"
+        alt="Site logo"
       >
-        <img
-          class="c-brand__logo"
-          src="{{ '/images/logo.svg' | relative_url }}"
-          alt="Site logo"
-        >
+      <span class="c-brand__text">
+        <span class="c-brand__name">John Doe</span>
+        <span class="c-brand__role">Applied Scientist</span>
+      </span>
+    </a>
+  </div>
+</div>
 
+<hr>
+
+<h2>Long-text truncation behavior</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The name and role should remain on one line and truncate cleanly with an
+  ellipsis when horizontal space gets tight.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size: 20rem;">
+    <a class="c-brand" href="#" aria-label="Go to homepage" style="display:flex;inline-size:100%;max-inline-size:100%;">
+      <img
+        class="c-brand__logo"
+        src="{{ '/assets/images/logo.svg' | relative_url }}"
+        alt="Site logo"
+      >
+      <span class="c-brand__text">
+        <span class="c-brand__name">John Doe With a Very Long Professional Display Name</span>
+        <span class="c-brand__role">Applied Scientist in Computational Social Science and Digital Humanities</span>
+      </span>
+    </a>
+  </div>
+</div>
+
+<hr>
+
+<h2>Compact modifier behavior</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  Applying <code>.c-brand--compact</code> should force the compact treatment.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <a class="c-brand c-brand--compact" href="#" aria-label="Go to homepage">
+      <img
+        class="c-brand__logo"
+        src="{{ '/assets/images/logo.svg' | relative_url }}"
+        alt="Site logo"
+      >
+      <span class="c-brand__text">
+        <span class="c-brand__name">John Doe</span>
+        <span class="c-brand__role">Applied Scientist</span>
+      </span>
+    </a>
+  </div>
+</div>
+
+<hr>
+
+<h2>Responsive collapse behavior</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  At the component breakpoint, the default brand should collapse from logo +
+  text to logo only.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size: 20rem;">
+    <a class="c-brand" href="#" aria-label="Go to homepage">
+      <img
+        class="c-brand__logo"
+        src="{{ '/assets/images/logo.svg' | relative_url }}"
+        alt="Site logo"
+      >
+      <span class="c-brand__text">
+        <span class="c-brand__name">John Doe</span>
+        <span class="c-brand__role">Applied Scientist</span>
+      </span>
+    </a>
+  </div>
+  <p class="c-test-note">
+    Resize the browser window to confirm the default responsive collapse.
+  </p>
+</div>
+
+<hr>
+
+<h2>Header shrunk-state behavior</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  When an ancestor has <code>.c-site-header.is-shrunk</code>, the brand should
+  collapse to the compact treatment even at wider widths.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-block">
+    <p class="c-test-label">Normal header context</p>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a class="c-brand" href="#" aria-label="Go to homepage">
+        <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
         <span class="c-brand__text">
           <span class="c-brand__name">John Doe</span>
           <span class="c-brand__role">Applied Scientist</span>
         </span>
       </a>
+      <div class="c-brand-test-spacer" aria-hidden="true" style="flex:1 1 auto;min-inline-size:3rem;min-block-size:2.5rem;"></div>
     </div>
+    <p class="c-test-meta">This version should show the full text stack.</p>
   </div>
 
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Long-text Truncation Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Long-text truncation behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    When the brand text becomes too long, both
-    <code>.c-brand__name</code> and <code>.c-brand__role</code> should remain
-    on a single line and truncate cleanly with ellipsis rather than wrapping.
-    This test uses a temporary helper class so the brand fills the narrow test
-    box and the truncation can be verified reliably.
-  </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box c-brand-test-box--narrow">
-      <a
-        class="c-brand c-brand-test-brand--full"
-        href="#"
-        aria-label="Go to homepage"
-      >
-        <img
-          class="c-brand__logo"
-          src="{{ '/images/logo.svg' | relative_url }}"
-          alt="Site logo"
-        >
-
-        <span class="c-brand__text">
-          <span class="c-brand__name">
-            John Doe With a Very Long Professional Display Name
-          </span>
-          <span class="c-brand__role">
-            Applied Scientist in Computational Social Science and Digital Humanities
-          </span>
-        </span>
-      </a>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Compact Modifier Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Compact modifier behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Applying <code>.c-brand--compact</code> should force the compact treatment
-    regardless of viewport width. The logo should shrink and the text stack
-    should collapse away.
-  </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box">
-      <a
-        class="c-brand c-brand--compact"
-        href="#"
-        aria-label="Go to homepage"
-      >
-        <img
-          class="c-brand__logo"
-          src="{{ '/images/logo.svg' | relative_url }}"
-          alt="Site logo"
-        >
-
+  <div class="c-site-header is-shrunk c-test-block">
+    <p class="c-test-label">Shrunk header context</p>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a class="c-brand" href="#" aria-label="Go to homepage">
+        <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
         <span class="c-brand__text">
           <span class="c-brand__name">John Doe</span>
           <span class="c-brand__role">Applied Scientist</span>
         </span>
       </a>
+      <div class="c-brand-test-spacer" aria-hidden="true" style="flex:1 1 auto;min-inline-size:3rem;min-block-size:2.5rem;"></div>
     </div>
+    <p class="c-test-meta">This version should collapse because the ancestor is shrunk.</p>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Responsive Collapse Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Responsive collapse behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Below the component’s responsive collapse breakpoint, the default
-    <code>.c-brand</code> should shift from <strong>logo + text</strong> to
-    <strong>logo only</strong>. The text stack should visually disappear and
-    the logo should use the collapsed size.
-  </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box c-brand-test-box--narrow">
-      <a
-        class="c-brand"
-        href="#"
-        aria-label="Go to homepage"
-      >
-        <img
-          class="c-brand__logo"
-          src="{{ '/images/logo.svg' | relative_url }}"
-          alt="Site logo"
-        >
-
-        <span class="c-brand__text">
-          <span class="c-brand__name">John Doe</span>
-          <span class="c-brand__role">Applied Scientist</span>
-        </span>
-      </a>
-    </div>
-
-    <p class="c-brand-test-note">
-      Resize the browser window to confirm that the default brand collapses at
-      the responsive breakpoint without needing the compact modifier.
-    </p>
+<h2>No-role variant</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  If the role line is absent, the component should still remain aligned and
+  usable as a single homepage link.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <a class="c-brand" href="#" aria-label="Go to homepage">
+      <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+      <span class="c-brand__text">
+        <span class="c-brand__name">John Doe</span>
+      </span>
+    </a>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Header Shrunk-state Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Header shrunk-state behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    When an ancestor has <code>.c-site-header.is-shrunk</code>, the brand
-    should also collapse to its compact logo-first treatment even if the
-    viewport is otherwise wide enough for the full text stack.
-  </p>
-
-  <div class="c-brand-test-frame c-brand-test-stack">
-    <div class="c-brand-test-header-shell">
-      <p class="c-brand-test-label">Normal header context</p>
-
-      <div class="c-brand-test-inline-bar">
-        <a
-          class="c-brand"
-          href="#"
-          aria-label="Go to homepage"
-        >
-          <img
-            class="c-brand__logo"
-            src="{{ '/images/logo.svg' | relative_url }}"
-            alt="Site logo"
-          >
-
-          <span class="c-brand__text">
-            <span class="c-brand__name">John Doe</span>
-            <span class="c-brand__role">Applied Scientist</span>
-          </span>
-        </a>
-
-        <div class="c-brand-test-spacer" aria-hidden="true"></div>
-      </div>
-
-      <p class="c-brand-test-meta">
-        This version should display the full text stack at wider widths.
-      </p>
-    </div>
-
-    <div class="c-site-header is-shrunk c-brand-test-header-shell">
-      <p class="c-brand-test-label">Shrunk header context</p>
-
-      <div class="c-brand-test-inline-bar">
-        <a
-          class="c-brand"
-          href="#"
-          aria-label="Go to homepage"
-        >
-          <img
-            class="c-brand__logo"
-            src="{{ '/images/logo.svg' | relative_url }}"
-            alt="Site logo"
-          >
-
-          <span class="c-brand__text">
-            <span class="c-brand__name">John Doe</span>
-            <span class="c-brand__role">Applied Scientist</span>
-          </span>
-        </a>
-
-        <div class="c-brand-test-spacer" aria-hidden="true"></div>
-      </div>
-
-      <p class="c-brand-test-meta">
-        This version should collapse to the compact state because the ancestor
-        has <code>.c-site-header.is-shrunk</code>.
-      </p>
-    </div>
+<h2>Logo-only stress case</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The component should remain valid and clickable even in a logo-only markup
+  scenario.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size: 8rem;">
+    <a class="c-brand" href="#" aria-label="Go to homepage">
+      <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+    </a>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- No-role Variant -->
-  <!-- ============================================================= -->
-
-  <h2>No-role variant</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    If the secondary role line is absent, the component should still remain
-    visually aligned and usable as a single homepage link.
-  </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box">
-      <a
-        class="c-brand"
-        href="#"
-        aria-label="Go to homepage"
-      >
-        <img
-          class="c-brand__logo"
-          src="{{ '/images/logo.svg' | relative_url }}"
-          alt="Site logo"
-        >
-
-        <span class="c-brand__text">
-          <span class="c-brand__name">John Doe</span>
-        </span>
-      </a>
-    </div>
+<h2>Stable text color behavior</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  Hover and focus should not cause the brand text to switch to a different link
+  color.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <a class="c-brand" href="#" aria-label="Go to homepage">
+      <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+      <span class="c-brand__text">
+        <span class="c-brand__name">John Doe</span>
+        <span class="c-brand__role">Applied Scientist</span>
+      </span>
+    </a>
   </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Logo-only Stress Case -->
-  <!-- ============================================================= -->
-
-  <h2>Logo-only stress case</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The component should remain valid and clickable even in a logo-only markup
-    scenario. This helps verify that the logo behaves as a stable visual unit
-    independent of the text stack.
+  <p class="c-test-note">
+    Hover this brand and tab to it with the keyboard. The focus ring should
+    appear on the whole link while the text colors stay stable.
   </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box c-brand-test-box--tiny">
-      <a
-        class="c-brand"
-        href="#"
-        aria-label="Go to homepage"
-      >
-        <img
-          class="c-brand__logo"
-          src="{{ '/images/logo.svg' | relative_url }}"
-          alt="Site logo"
-        >
-      </a>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Stable Text Color Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Stable text color behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Hover and focus should not cause the brand name or role text to shift to a
-    different link color. The interaction cue should come from the pointer
-    cursor and focus ring rather than a text-only color change.
-  </p>
-
-  <div class="c-brand-test-frame">
-    <div class="c-brand-test-box">
-      <div class="c-brand-test-hover-pad">
-        <a
-          class="c-brand"
-          href="#"
-          aria-label="Go to homepage"
-        >
-          <img
-            class="c-brand__logo"
-            src="{{ '/images/logo.svg' | relative_url }}"
-            alt="Site logo"
-          >
-
-          <span class="c-brand__text">
-            <span class="c-brand__name">John Doe</span>
-            <span class="c-brand__role">Applied Scientist</span>
-          </span>
-        </a>
-      </div>
-    </div>
-
-    <p class="c-brand-test-note">
-      Hover this brand and tab to it with the keyboard. The focus ring should
-      appear on the whole brand link, while the text colors should remain
-      stable.
-    </p>
-  </div>
-
-  <p>
-    <em>
-      Tip: This component is used as the reusable brand include in the site
-      header and footer, so this test should verify both its standalone
-      behavior and its compact header-related states.
-    </em>
-  </p>
-</section>
+</div>

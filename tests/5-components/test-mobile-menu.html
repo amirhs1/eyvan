@@ -130,777 +130,778 @@ robots: noindex
     }
 </style>
 
-
-<p>
-  This page verifies the functionality of the mobile-menu classes defined in
-  the <strong>5-components</strong> Sass layer. The overlay examples below
-  are expected to render only below the layout breakpoint. At desktop and
-  wider viewports, the test frames may appear empty because the component is
-  intentionally disabled there.
-</p>
-
-<hr>
-
-<!-- ============================================================= -->
-<!-- Hidden State -->
-<!-- ============================================================= -->
-
-<h2>Hidden state</h2>
-
-<p>
-  <strong>Expected behavior:</strong>
-  A mobile menu instance using the <code>hidden</code> attribute should not
-  render at all. You should only see the helper preview box below, not the
-  overlay panel itself.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay">
-    <div class="c-mobile-menu-test-hidden-preview">
-      This helper box should remain visible. The hidden mobile menu should not appear.
-    </div>
-
-    <div class="c-mobile-menu" hidden data-mobile-menu>
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button
-                class="c-mobile-menu__close c-icon-link"
-                type="button"
-                aria-label="Close menu"
-              >
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
-                <span class="u-visually-hidden">GitHub</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- ============================================================= -->
-<!-- Visible Overlay Shell -->
-<!-- ============================================================= -->
-
-<h2>Visible overlay shell</h2>
-
-<p>
-  <strong>Expected behavior:</strong>
-  Below the layout breakpoint, the visible menu should cover the test box like
-  an overlay, use a blurred/tinted backdrop, and place the menu panel inside
-  the site container with inset padding around the edges. At desktop and
-  wider viewports, an empty test frame is the correct result because the
-  component is intentionally disabled there.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
-    <div class="c-mobile-menu">
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-                data-theme-toggle
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button
-                class="c-mobile-menu__close c-icon-link"
-                type="button"
-                aria-label="Close menu"
-                data-nav-close
-              >
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
-              <li class="c-nav__item"><a class="c-nav__link is-active" href="#">Projects</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#" aria-current="page">Writing</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">About</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
-                <span class="u-visually-hidden">GitHub</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
-              </a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
-                <span class="u-visually-hidden">LinkedIn</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
-              </a>
-              <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF">
-                <span class="u-visually-hidden">CV PDF</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p class="c-mobile-menu-test-note">
-    The overlay should feel like a full-screen mobile panel, even though it is constrained to this test frame.
+<section class="l-section">
+  <p>
+    This page verifies the functionality of the mobile-menu classes defined in
+    the <strong>5-components</strong> Sass layer. The overlay examples below
+    are expected to render only below the layout breakpoint. At desktop and
+    wider viewports, the test frames may appear empty because the component is
+    intentionally disabled there.
   </p>
-</div>
 
-<hr>
+  <hr>
 
-<!-- ============================================================= -->
-<!-- Inner Panel Layout -->
-<!-- ============================================================= -->
+  <!-- ============================================================= -->
+  <!-- Hidden State -->
+  <!-- ============================================================= -->
 
-<h2>Inner panel layout</h2>
+  <h2>Hidden state</h2>
 
-<p>
-  <strong>Expected behavior:</strong>
-  Below the layout breakpoint, the inner panel should behave as a vertical
-  flex column: top bar first, navigation region growing through the middle,
-  and the footer action area pushed toward the bottom with a separating border.
-  At desktop and wider viewports, an empty test frame is the correct result
-  because the component is intentionally disabled there.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay">
-    <div class="c-mobile-menu">
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Writing</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Research</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Contact</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
-                <span class="u-visually-hidden">GitHub</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
-              </a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
-                <span class="u-visually-hidden">LinkedIn</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
-              </a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="Scholar">
-                <span class="u-visually-hidden">Scholar</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">S</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- ============================================================= -->
-<!-- Top Bar Layout -->
-<!-- ============================================================= -->
-
-<h2>Top bar layout</h2>
-
-<p>
-  <strong>Expected behavior:</strong>
-  Below the layout breakpoint, the top bar should split into two control
-  groups: <code>.c-mobile-menu__top-left</code> on the left and
-  <code>.c-mobile-menu__top-right</code> on the right. The theme toggle and
-  close control should align on one row, use matching circular footprints, and
-  sit above a divider. At desktop and wider viewports, an empty test frame is
-  the correct result because the component is intentionally disabled there.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
-    <div class="c-mobile-menu">
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">About</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
-                <span class="u-visually-hidden">GitHub</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
-              </a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
-                <span class="u-visually-hidden">LinkedIn</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- ============================================================= -->
-<!-- Footer Action Area -->
-<!-- ============================================================= -->
-
-<h2>Footer action area</h2>
-
-<p>
-  <strong>Expected behavior:</strong>
-  The footer area should appear after the navigation with top spacing, a top
-  border, centered alignment, and compact vertical rhythm. The social links
-  inside it keep their own shared component styling; this test verifies only
-  the mobile-menu footer placement and grouping.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
-    <div class="c-mobile-menu">
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
-                <span class="u-visually-hidden">GitHub</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
-              </a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
-                <span class="u-visually-hidden">LinkedIn</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
-              </a>
-              <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF">
-                <span class="u-visually-hidden">CV PDF</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- ============================================================= -->
-<!-- Footer Wrapping Behavior -->
-<!-- ============================================================= -->
-
-<h2>Footer wrapping behavior</h2>
-
-<p>
-  <strong>Expected behavior:</strong>
-  The footer action area should keep its centered grouping, while the social
-  links inside it wrap cleanly onto multiple rows when there are many items.
-  At desktop and wider viewports, an empty test frame is the correct result
-  because the component is intentionally disabled there.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
-    <div class="c-mobile-menu">
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span></a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span></a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"><span class="u-visually-hidden">Instagram</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">I</span></a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"><span class="u-visually-hidden">YouTube</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">Y</span></a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="Twitter"><span class="u-visually-hidden">Twitter</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">X</span></a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="Scholar"><span class="u-visually-hidden">Scholar</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">S</span></a>
-              <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF"><span class="u-visually-hidden">CV PDF</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span></a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- ============================================================= -->
-<!-- Tall-content Scrolling -->
-<!-- ============================================================= -->
-
-<h2>Tall-content scrolling behavior</h2>
-
-<p>
-  <strong>Expected behavior:</strong>
-  When the content becomes tall, the overlay should scroll vertically rather
-  than clipping its contents. The inner panel should remain intact and usable
-  as a single scrolling experience inside the test frame.
-</p>
-
-<div class="c-mobile-menu-test-frame">
-  <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--tall">
-    <div class="c-mobile-menu">
-      <div class="o-container">
-        <div class="c-mobile-menu__inner">
-          <div class="c-mobile-menu__top">
-            <div class="c-mobile-menu__top-left">
-              <button
-                class="c-theme-toggle c-theme-toggle--mobile"
-                type="button"
-                aria-label="Switch to dark theme"
-                aria-pressed="false"
-              >
-                <span class="c-theme-toggle__icons" aria-hidden="true">
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
-                  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
-                </span>
-                <span class="u-visually-hidden">Switch to dark theme</span>
-              </button>
-            </div>
-
-            <div class="c-mobile-menu__top-right">
-              <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-                <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-                  <svg
-                    class="c-mobile-menu-test-svg-icon"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 6L18 18M18 6L6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <span class="u-visually-hidden">Close menu</span>
-              </button>
-            </div>
-          </div>
-
-          <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
-            <ul class="c-nav__list u-list-reset">
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Public Writing</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Research Notes</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Reading List</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Speaking</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Teaching</a></li>
-              <li class="c-nav__item"><a class="c-nav__link" href="#">Contact</a></li>
-            </ul>
-          </nav>
-
-          <div class="c-mobile-menu-test-spacer">
-            Helper filler block for scroll testing.
-          </div>
-
-          <div class="c-mobile-menu__footer">
-            <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
-                <span class="u-visually-hidden">GitHub</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
-              </a>
-              <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
-                <span class="u-visually-hidden">LinkedIn</span>
-                <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p class="c-mobile-menu-test-note">
-    Scroll inside the test frame and confirm the overlay remains usable.
+  <p>
+    <strong>Expected behavior:</strong>
+    A mobile menu instance using the <code>hidden</code> attribute should not
+    render at all. You should only see the helper preview box below, not the
+    overlay panel itself.
   </p>
-</div>
 
-<hr>
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay">
+      <div class="c-mobile-menu-test-hidden-preview">
+        This helper box should remain visible. The hidden mobile menu should not appear.
+      </div>
 
-<!-- ============================================================= -->
-<!-- Close Button States -->
-<!-- ============================================================= -->
+      <div class="c-mobile-menu" hidden data-mobile-menu>
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
 
-<h2>Close button states</h2>
+              <div class="c-mobile-menu__top-right">
+                <button
+                  class="c-mobile-menu__close c-icon-link"
+                  type="button"
+                  aria-label="Close menu"
+                >
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
 
-<p>
-  <strong>Expected behavior:</strong>
-  The close button should share the same circular control footprint as the
-  mobile theme toggle, remain visually centered, and keep the icon sized
-  consistently inside the button. In this section, helper styles simulate
-  hover, focus, and active states so the differences are visible without user
-  interaction.
-</p>
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
+              </ul>
+            </nav>
 
-<div class="c-mobile-menu-test-frame c-mobile-menu-test-stack">
-  <div class="c-mobile-menu-test-close-state-row">
-    <div class="c-mobile-menu-test-close-demo">
-      <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-        <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-          <svg
-            class="c-mobile-menu-test-svg-icon"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 6L18 18M18 6L6 18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-        </span>
-        <span class="u-visually-hidden">Close menu</span>
-      </button>
-
-      <p class="c-mobile-menu-test-note">Default state</p>
-    </div>
-
-    <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--hover">
-      <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-        <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-          <svg
-            class="c-mobile-menu-test-svg-icon"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 6L18 18M18 6L6 18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-        </span>
-        <span class="u-visually-hidden">Close menu</span>
-      </button>
-
-      <p class="c-mobile-menu-test-note">Simulated hover state</p>
-    </div>
-
-    <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--focus">
-      <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-        <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-          <svg
-            class="c-mobile-menu-test-svg-icon"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 6L18 18M18 6L6 18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-        </span>
-        <span class="u-visually-hidden">Close menu</span>
-      </button>
-
-      <p class="c-mobile-menu-test-note">Simulated focus state</p>
-    </div>
-
-    <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--active">
-      <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
-        <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
-          <svg
-            class="c-mobile-menu-test-svg-icon"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 6L18 18M18 6L6 18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-        </span>
-        <span class="u-visually-hidden">Close menu</span>
-      </button>
-
-      <p class="c-mobile-menu-test-note">Simulated active state</p>
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<p>
-  <em>
-    Tip: This component is meant for mobile and tablet contexts only.
-    At the layout breakpoint and above, the mobile menu is expected to be fully
-    hidden, so empty test frames are the correct result.
-  </em>
-</p>
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Visible Overlay Shell -->
+  <!-- ============================================================= -->
+
+  <h2>Visible overlay shell</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Below the layout breakpoint, the visible menu should cover the test box like
+    an overlay, use a blurred/tinted backdrop, and place the menu panel inside
+    the site container with inset padding around the edges. At desktop and
+    wider viewports, an empty test frame is the correct result because the
+    component is intentionally disabled there.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                  data-theme-toggle
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button
+                  class="c-mobile-menu__close c-icon-link"
+                  type="button"
+                  aria-label="Close menu"
+                  data-nav-close
+                >
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
+                <li class="c-nav__item"><a class="c-nav__link is-active" href="#">Projects</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#" aria-current="page">Writing</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">About</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+                  <span class="u-visually-hidden">LinkedIn</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
+                </a>
+                <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF">
+                  <span class="u-visually-hidden">CV PDF</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="c-mobile-menu-test-note">
+      The overlay should feel like a full-screen mobile panel, even though it is constrained to this test frame.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Inner Panel Layout -->
+  <!-- ============================================================= -->
+
+  <h2>Inner panel layout</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Below the layout breakpoint, the inner panel should behave as a vertical
+    flex column: top bar first, navigation region growing through the middle,
+    and the footer action area pushed toward the bottom with a separating border.
+    At desktop and wider viewports, an empty test frame is the correct result
+    because the component is intentionally disabled there.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Writing</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Research</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Contact</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+                  <span class="u-visually-hidden">LinkedIn</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="Scholar">
+                  <span class="u-visually-hidden">Scholar</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">S</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Top Bar Layout -->
+  <!-- ============================================================= -->
+
+  <h2>Top bar layout</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    Below the layout breakpoint, the top bar should split into two control
+    groups: <code>.c-mobile-menu__top-left</code> on the left and
+    <code>.c-mobile-menu__top-right</code> on the right. The theme toggle and
+    close control should align on one row, use matching circular footprints, and
+    sit above a divider. At desktop and wider viewports, an empty test frame is
+    the correct result because the component is intentionally disabled there.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">About</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+                  <span class="u-visually-hidden">LinkedIn</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Footer Action Area -->
+  <!-- ============================================================= -->
+
+  <h2>Footer action area</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The footer area should appear after the navigation with top spacing, a top
+    border, centered alignment, and compact vertical rhythm. The social links
+    inside it keep their own shared component styling; this test verifies only
+    the mobile-menu footer placement and grouping.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+                  <span class="u-visually-hidden">LinkedIn</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
+                </a>
+                <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF">
+                  <span class="u-visually-hidden">CV PDF</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Footer Wrapping Behavior -->
+  <!-- ============================================================= -->
+
+  <h2>Footer wrapping behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The footer action area should keep its centered grouping, while the social
+    links inside it wrap cleanly onto multiple rows when there are many items.
+    At desktop and wider viewports, an empty test frame is the correct result
+    because the component is intentionally disabled there.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--short">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Overview</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span></a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span></a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"><span class="u-visually-hidden">Instagram</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">I</span></a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"><span class="u-visually-hidden">YouTube</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">Y</span></a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="Twitter"><span class="u-visually-hidden">Twitter</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">X</span></a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="Scholar"><span class="u-visually-hidden">Scholar</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">S</span></a>
+                <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="CV PDF"><span class="u-visually-hidden">CV PDF</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">CV</span></a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Tall-content Scrolling -->
+  <!-- ============================================================= -->
+
+  <h2>Tall-content scrolling behavior</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    When the content becomes tall, the overlay should scroll vertically rather
+    than clipping its contents. The inner panel should remain intact and usable
+    as a single scrolling experience inside the test frame.
+  </p>
+
+  <div class="c-mobile-menu-test-frame">
+    <div class="c-mobile-menu-test-box c-mobile-menu-test-box--overlay c-mobile-menu-test-box--tall">
+      <div class="c-mobile-menu">
+        <div class="o-container">
+          <div class="c-mobile-menu__inner">
+            <div class="c-mobile-menu__top">
+              <div class="c-mobile-menu__top-left">
+                <button
+                  class="c-theme-toggle c-theme-toggle--mobile"
+                  type="button"
+                  aria-label="Switch to dark theme"
+                  aria-pressed="false"
+                >
+                  <span class="c-theme-toggle__icons" aria-hidden="true">
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀</span>
+                    <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">☾</span>
+                  </span>
+                  <span class="u-visually-hidden">Switch to dark theme</span>
+                </button>
+              </div>
+
+              <div class="c-mobile-menu__top-right">
+                <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+                  <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+                    <svg
+                      class="c-mobile-menu-test-svg-icon"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 6L18 18M18 6L6 18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="u-visually-hidden">Close menu</span>
+                </button>
+              </div>
+            </div>
+
+            <nav class="c-nav c-nav--mobile" aria-label="Mobile navigation">
+              <ul class="c-nav__list u-list-reset">
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Home</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Projects</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Public Writing</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Research Notes</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Reading List</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Speaking</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Teaching</a></li>
+                <li class="c-nav__item"><a class="c-nav__link" href="#">Contact</a></li>
+              </ul>
+            </nav>
+
+            <div class="c-mobile-menu-test-spacer">
+              Helper filler block for scroll testing.
+            </div>
+
+            <div class="c-mobile-menu__footer">
+              <nav class="c-social-links c-social-links--mobile" aria-label="Social links">
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub">
+                  <span class="u-visually-hidden">GitHub</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">G</span>
+                </a>
+                <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn">
+                  <span class="u-visually-hidden">LinkedIn</span>
+                  <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">in</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="c-mobile-menu-test-note">
+      Scroll inside the test frame and confirm the overlay remains usable.
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- ============================================================= -->
+  <!-- Close Button States -->
+  <!-- ============================================================= -->
+
+  <h2>Close button states</h2>
+
+  <p>
+    <strong>Expected behavior:</strong>
+    The close button should share the same circular control footprint as the
+    mobile theme toggle, remain visually centered, and keep the icon sized
+    consistently inside the button. In this section, helper styles simulate
+    hover, focus, and active states so the differences are visible without user
+    interaction.
+  </p>
+
+  <div class="c-mobile-menu-test-frame c-mobile-menu-test-stack">
+    <div class="c-mobile-menu-test-close-state-row">
+      <div class="c-mobile-menu-test-close-demo">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+            <svg
+              class="c-mobile-menu-test-svg-icon"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="u-visually-hidden">Close menu</span>
+        </button>
+
+        <p class="c-mobile-menu-test-note">Default state</p>
+      </div>
+
+      <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--hover">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+            <svg
+              class="c-mobile-menu-test-svg-icon"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="u-visually-hidden">Close menu</span>
+        </button>
+
+        <p class="c-mobile-menu-test-note">Simulated hover state</p>
+      </div>
+
+      <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--focus">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+            <svg
+              class="c-mobile-menu-test-svg-icon"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="u-visually-hidden">Close menu</span>
+        </button>
+
+        <p class="c-mobile-menu-test-note">Simulated focus state</p>
+      </div>
+
+      <div class="c-mobile-menu-test-close-demo c-mobile-menu-test-close-demo--active">
+        <button class="c-mobile-menu__close c-icon-link" type="button" aria-label="Close menu">
+          <span class="c-mobile-menu__close-icon c-icon-link__icon" aria-hidden="true">
+            <svg
+              class="c-mobile-menu-test-svg-icon"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="u-visually-hidden">Close menu</span>
+        </button>
+
+        <p class="c-mobile-menu-test-note">Simulated active state</p>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    <em>
+      Tip: This component is meant for mobile and tablet contexts only.
+      At the layout breakpoint and above, the mobile menu is expected to be fully
+      hidden, so empty test frames are the correct result.
+    </em>
+  </p>
+</section>

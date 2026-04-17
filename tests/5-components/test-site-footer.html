@@ -8,80 +8,29 @@ robots: noindex
 {% comment %}
   Component Site Footer Test Page
   Purpose: Visually verify that the 5-components site-footer component
-  compiles and behaves correctly across the site.
+  matches the current Sass contract.
 
-  Structure:
-  - Base footer shell
-  - Footer brand wrapper
-  - Footer meta wrapper
-  - Copyright text
-  - Tagline text
-  - Long-text wrapping behavior
-  - Footer shell spacing and separation
+  What this page tests:
+  - .c-site-footer
+  - .c-site-footer__brand
+  - .c-site-footer__meta
+  - .c-site-footer__copyright
+  - .c-site-footer__tagline
+
+  What this page does NOT test:
+  - o-site-footer structural layout
+  - brand component internals
+  - social-links component internals
 
   Notes:
-  - This page tests only the component responsibilities of:
-    - .c-site-footer
-    - .c-site-footer__brand
-    - .c-site-footer__meta
-    - .c-site-footer__copyright
-    - .c-site-footer__tagline
-  - Structural column layout belongs to the 4-objects footer object:
-    - .o-site-footer
-    - .o-site-footer__brand
-    - .o-site-footer__meta
-    - .o-site-footer__actions
-  - Brand internals belong to the separate brand component.
-  - Social link internals belong to the separate social-links component.
-  - Helper styles below are temporary and exist only for testing.
-  - Resize the browser window to verify spacing and text-wrapping behavior.
-  - This page is intended for development testing only.
+  - Shared development helper styling comes from 7-trumps/_tests.scss.
+  - Only small fixture-specific helpers are defined inline below.
 {% endcomment %}
 
 <style>
-  .c-site-footer-test-frame {
-    margin-block: 1.5rem;
-    padding: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
-
   .c-site-footer-test-stack {
     display: grid;
     gap: 1rem;
-  }
-
-  .c-site-footer-test-row {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .c-site-footer-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .c-site-footer-test-box {
-    inline-size: min(100%, 72rem);
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
-  .c-site-footer-test-box--narrow {
-    inline-size: min(100%, 26rem);
-  }
-
-  .c-site-footer-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-site-footer-test-fill {
-    padding: 0.75rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
   }
 
   .c-site-footer-test-actions {
@@ -94,9 +43,9 @@ robots: noindex
   .c-site-footer-test-social {
     inline-size: 2.5rem;
     block-size: 2.5rem;
-    border: 1px dashed #bbb;
+    border: 1px dashed var(--color-ui-border);
     border-radius: 999px;
-    background: #f3f3f3;
+    background: var(--color-ui-bg);
   }
 
   .c-site-footer-test-brand-chip {
@@ -104,9 +53,9 @@ robots: noindex
     align-items: center;
     gap: 0.5rem;
     padding: 0.625rem 0.875rem;
-    border: 1px dashed #bbb;
+    border: 1px dashed var(--color-ui-border);
     border-radius: 999px;
-    background: #f8f8f8;
+    background: var(--color-ui-surface-raised);
     color: inherit;
     text-decoration: none;
     font-weight: 600;
@@ -116,7 +65,7 @@ robots: noindex
     inline-size: 1.5rem;
     block-size: 1.5rem;
     border-radius: 999px;
-    background: #ddd;
+    background: var(--color-ui-border);
     flex: 0 0 auto;
   }
 
@@ -125,332 +74,267 @@ robots: noindex
     justify-items: center;
     gap: 0.375rem;
   }
+
+  .c-site-footer-test-box--narrow {
+    inline-size: min(100%, 26rem);
+  }
+
+  .c-site-footer-test-box--wide {
+    inline-size: min(100%, 72rem);
+  }
 </style>
 
-<section class="l-section">
-  <p>
-    This page verifies the functionality of the site footer classes defined in
-    the <strong>5-components</strong> Sass layer.
-  </p>
+<p>
+  This page verifies the <code>.c-site-footer</code> component styling defined in the
+  <strong>5-components</strong> layer.
+</p>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Base Footer Shell -->
-  <!-- ============================================================= -->
+<h2>Base footer shell</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The footer shell should provide its own top border, background surface, block padding,
+  and lower-emphasis default text color.
+</p>
 
-  <h2>Base footer shell</h2>
+<div class="c-site-footer-test-frame">
+  <footer class="c-site-footer">
+    <div class="o-container">
+      <div class="o-site-footer">
+        <div class="o-site-footer__brand c-site-footer__brand">
+          <a class="c-site-footer-test-brand-chip" href="#">
+            <span class="c-site-footer-test-brand-mark" aria-hidden="true"></span>
+            <span>John Doe</span>
+          </a>
+        </div>
 
-  <p>
-    <strong>Expected behavior:</strong>
-    The footer shell should render with its own
-    <strong>top border</strong>, <strong>background surface</strong>,
-    <strong>vertical padding</strong>, and <strong>de-emphasized default text color</strong>.
-    Structural column layout comes from the object layer, while the visual shell
-    comes from <code>.c-site-footer</code>.
-  </p>
+        <div class="o-site-footer__meta c-site-footer__meta">
+          <p class="c-site-footer__copyright">© 2026 John Doe. All rights reserved.</p>
+          <p class="c-site-footer__tagline">Research, writing, and technical portfolio.</p>
+        </div>
 
-  <div class="c-site-footer-test-frame">
+        <div class="o-site-footer__actions">
+          <nav class="c-site-footer-test-actions" aria-label="Test social links">
+            <a class="c-site-footer-test-social" href="#" aria-label="GitHub"></a>
+            <a class="c-site-footer-test-social" href="#" aria-label="LinkedIn"></a>
+            <a class="c-site-footer-test-social" href="#" aria-label="CV"></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<hr>
+
+<h2>Brand wrapper</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  <code>.c-site-footer__brand</code> should act only as a footer-context wrapper and inherit footer color,
+  without restyling the internal brand component.
+</p>
+
+<div class="c-site-footer-test-frame">
+  <div class="c-test-box c-site-footer-test-box--wide">
     <footer class="c-site-footer">
       <div class="o-container">
         <div class="o-site-footer">
           <div class="o-site-footer__brand c-site-footer__brand">
             <a class="c-site-footer-test-brand-chip" href="#">
               <span class="c-site-footer-test-brand-mark" aria-hidden="true"></span>
-              <span>John Doe</span>
+              <span>Footer Brand Wrapper</span>
             </a>
           </div>
 
           <div class="o-site-footer__meta c-site-footer__meta">
-            <p class="c-site-footer__copyright">
-              © 2026 John Doe. All rights reserved.
-            </p>
-            <p class="c-site-footer__tagline">
-              Research, writing, and technical portfolio.
-            </p>
+            <p class="c-site-footer__copyright">Wrapper context preview</p>
           </div>
 
           <div class="o-site-footer__actions">
-            <nav class="c-site-footer-test-actions" aria-label="Test social links">
-              <a class="c-site-footer-test-social" href="#" aria-label="GitHub"></a>
-              <a class="c-site-footer-test-social" href="#" aria-label="LinkedIn"></a>
-              <a class="c-site-footer-test-social" href="#" aria-label="CV"></a>
-            </nav>
+            <div class="c-test-fill">Actions column placeholder</div>
           </div>
         </div>
       </div>
     </footer>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Footer Brand Wrapper -->
-  <!-- ============================================================= -->
+<h2>Meta wrapper</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  <code>.c-site-footer__meta</code> should center its text content.
+</p>
 
-  <h2>Footer brand wrapper</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The footer brand area should inherit the footer text color and sit
-    comfortably inside the footer shell without trying to restyle the internal
-    brand component itself. This test checks the wrapper role of
-    <code>.c-site-footer__brand</code>, not the internals of
-    <code>.c-brand</code>.
-  </p>
-
-  <div class="c-site-footer-test-frame">
-    <div class="c-site-footer-test-box">
-      <footer class="c-site-footer">
-        <div class="o-container">
-          <div class="o-site-footer">
-            <div class="o-site-footer__brand c-site-footer__brand">
-              <a class="c-site-footer-test-brand-chip" href="#">
-                <span class="c-site-footer-test-brand-mark" aria-hidden="true"></span>
-                <span>Footer Brand Wrapper</span>
-              </a>
-            </div>
-
-            <div class="o-site-footer__meta c-site-footer__meta">
-              <p class="c-site-footer__copyright">Wrapper context preview</p>
-            </div>
-
-            <div class="o-site-footer__actions">
-              <div class="c-site-footer-test-fill">Actions column placeholder</div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Footer Meta Wrapper -->
-  <!-- ============================================================= -->
-
-  <h2>Footer meta wrapper</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The meta wrapper should center its text content. Both copyright and tagline
-    should align centrally because <code>.c-site-footer__meta</code> owns
-    <code>text-align: center</code>.
-  </p>
-
-  <div class="c-site-footer-test-frame">
-    <div class="c-site-footer-test-box c-site-footer-test-box--narrow">
-      <footer class="c-site-footer">
-        <div class="o-container">
-          <div class="o-site-footer">
-            <div class="o-site-footer__brand c-site-footer__brand">
-              <div class="c-site-footer-test-fill">Brand area</div>
-            </div>
-
-            <div class="o-site-footer__meta c-site-footer__meta">
-              <div class="c-site-footer-test-meta-shell">
-                <p class="c-site-footer__copyright">
-                  © 2026 Centered copyright line
-                </p>
-                <p class="c-site-footer__tagline">
-                  Centered supporting tagline text.
-                </p>
-              </div>
-            </div>
-
-            <div class="o-site-footer__actions">
-              <div class="c-site-footer-test-fill">Actions area</div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Copyright Text -->
-  <!-- ============================================================= -->
-
-  <h2>Copyright text</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The copyright line should read as the
-    <strong>primary footer text</strong>. It should have no default paragraph
-    margins, use the footer’s display-family typography settings, and appear
-    more prominent than the tagline.
-  </p>
-
-  <div class="c-site-footer-test-frame">
-    <div class="c-site-footer-test-box c-site-footer-test-box--narrow">
-      <footer class="c-site-footer">
-        <div class="o-container">
-          <div class="o-site-footer">
-            <div class="o-site-footer__brand c-site-footer__brand">
-              <div class="c-site-footer-test-fill">Brand area</div>
-            </div>
-
-            <div class="o-site-footer__meta c-site-footer__meta">
-              <p class="c-site-footer__copyright">
-                © 2026 John Doe. All rights reserved.
-              </p>
-            </div>
-
-            <div class="o-site-footer__actions">
-              <div class="c-site-footer-test-fill">Actions area</div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Tagline Text -->
-  <!-- ============================================================= -->
-
-  <h2>Tagline text</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The tagline should appear
-    <strong>smaller</strong> and <strong>lower contrast</strong> than the
-    copyright line. It should still remain readable and balanced, with a
-    limited readable line length.
-  </p>
-
-  <div class="c-site-footer-test-frame">
-    <div class="c-site-footer-test-box c-site-footer-test-box--narrow">
-      <footer class="c-site-footer">
-        <div class="o-container">
-          <div class="o-site-footer">
-            <div class="o-site-footer__brand c-site-footer__brand">
-              <div class="c-site-footer-test-fill">Brand area</div>
-            </div>
-
-            <div class="o-site-footer__meta c-site-footer__meta">
-              <p class="c-site-footer__copyright">
-                © 2026 John Doe. All rights reserved.
-              </p>
-              <p class="c-site-footer__tagline">
-                A minimal portfolio for research, writing, data work, and technical documentation.
-              </p>
-            </div>
-
-            <div class="o-site-footer__actions">
-              <div class="c-site-footer-test-fill">Actions area</div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Long-text Wrapping Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Long-text wrapping behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The copyright line should wrap cleanly and stay visually balanced.
-    The tagline should also wrap gracefully and remain constrained to a readable
-    width because <code>.c-site-footer__tagline</code> uses a maximum inline size.
-  </p>
-
-  <div class="c-site-footer-test-frame">
-    <div class="c-site-footer-test-box c-site-footer-test-box--narrow">
-      <footer class="c-site-footer">
-        <div class="o-container">
-          <div class="o-site-footer">
-            <div class="o-site-footer__brand c-site-footer__brand">
-              <div class="c-site-footer-test-fill">Brand area</div>
-            </div>
-
-            <div class="o-site-footer__meta c-site-footer__meta">
-              <p class="c-site-footer__copyright">
-                © 2026 John Doe and the Portfolio Research Studio for Writing, Experiments, and Public Technical Notes.
-              </p>
-              <p class="c-site-footer__tagline">
-                This is an intentionally long footer tagline used to verify that the footer’s secondary text wraps cleanly, stays centered, and does not become visually harsh or difficult to scan in narrower widths.
-              </p>
-            </div>
-
-            <div class="o-site-footer__actions">
-              <div class="c-site-footer-test-fill">Actions area</div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Footer Shell Spacing and Separation -->
-  <!-- ============================================================= -->
-
-  <h2>Footer shell spacing and separation</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The footer should feel clearly separated from the content above it because
-    <code>.c-site-footer</code> adds a top margin, border, and internal vertical
-    padding. On wider viewports, its block padding should become slightly larger.
-  </p>
-
-  <div class="c-site-footer-test-frame c-site-footer-test-stack">
-    <div class="c-site-footer-test-fill">
-      Simulated page content above the footer. The footer below should not feel
-      cramped against this block.
-    </div>
-
+<div class="c-site-footer-test-frame">
+  <div class="c-test-box c-site-footer-test-box--narrow">
     <footer class="c-site-footer">
       <div class="o-container">
         <div class="o-site-footer">
           <div class="o-site-footer__brand c-site-footer__brand">
-            <a class="c-site-footer-test-brand-chip" href="#">
-              <span class="c-site-footer-test-brand-mark" aria-hidden="true"></span>
-              <span>Portfolio Brand</span>
-            </a>
+            <div class="c-test-fill">Brand area</div>
           </div>
 
           <div class="o-site-footer__meta c-site-footer__meta">
-            <p class="c-site-footer__copyright">
-              © 2026 John Doe. All rights reserved.
-            </p>
-            <p class="c-site-footer__tagline">
-              A calm, compact footer shell with clear section separation.
-            </p>
+            <div class="c-site-footer-test-meta-shell">
+              <p class="c-site-footer__copyright">© 2026 Centered copyright line</p>
+              <p class="c-site-footer__tagline">Centered supporting tagline text.</p>
+            </div>
           </div>
 
           <div class="o-site-footer__actions">
-            <nav class="c-site-footer-test-actions" aria-label="Test footer actions">
-              <a class="c-site-footer-test-social" href="#" aria-label="GitHub"></a>
-              <a class="c-site-footer-test-social" href="#" aria-label="LinkedIn"></a>
-              <a class="c-site-footer-test-social" href="#" aria-label="CV"></a>
-            </nav>
+            <div class="c-test-fill">Actions area</div>
           </div>
         </div>
       </div>
     </footer>
   </div>
+</div>
 
-  <p>
-    <em>
-      Tip: compare the prominence of
-      <code>.c-site-footer__copyright</code> and
-      <code>.c-site-footer__tagline</code>, and resize the browser to inspect
-      footer padding and text wrapping.
-    </em>
-  </p>
-</section>
+<hr>
+
+<h2>Copyright text</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The copyright line should appear as the primary footer text, with no default paragraph margin.
+</p>
+
+<div class="c-site-footer-test-frame">
+  <div class="c-test-box c-site-footer-test-box--narrow">
+    <footer class="c-site-footer">
+      <div class="o-container">
+        <div class="o-site-footer">
+          <div class="o-site-footer__brand c-site-footer__brand">
+            <div class="c-test-fill">Brand area</div>
+          </div>
+
+          <div class="o-site-footer__meta c-site-footer__meta">
+            <p class="c-site-footer__copyright">© 2026 John Doe. All rights reserved.</p>
+          </div>
+
+          <div class="o-site-footer__actions">
+            <div class="c-test-fill">Actions area</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<hr>
+
+<h2>Tagline text</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The tagline should appear smaller, more muted, and constrained to a readable line length.
+</p>
+
+<div class="c-site-footer-test-frame">
+  <div class="c-test-box c-site-footer-test-box--narrow">
+    <footer class="c-site-footer">
+      <div class="o-container">
+        <div class="o-site-footer">
+          <div class="o-site-footer__brand c-site-footer__brand">
+            <div class="c-test-fill">Brand area</div>
+          </div>
+
+          <div class="o-site-footer__meta c-site-footer__meta">
+            <p class="c-site-footer__copyright">© 2026 John Doe. All rights reserved.</p>
+            <p class="c-site-footer__tagline">
+              A minimal portfolio for research, writing, data work, and technical documentation.
+            </p>
+          </div>
+
+          <div class="o-site-footer__actions">
+            <div class="c-test-fill">Actions area</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<hr>
+
+<h2>Long-text wrapping behavior</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The copyright line should balance well, and the tagline should wrap cleanly without becoming too wide.
+</p>
+
+<div class="c-site-footer-test-frame">
+  <div class="c-test-box c-site-footer-test-box--narrow">
+    <footer class="c-site-footer">
+      <div class="o-container">
+        <div class="o-site-footer">
+          <div class="o-site-footer__brand c-site-footer__brand">
+            <div class="c-test-fill">Brand area</div>
+          </div>
+
+          <div class="o-site-footer__meta c-site-footer__meta">
+            <p class="c-site-footer__copyright">
+              © 2026 John Doe and the Portfolio Research Studio for Writing, Experiments, and Public Technical Notes.
+            </p>
+            <p class="c-site-footer__tagline">
+              This is an intentionally long footer tagline used to verify that the footer’s secondary text wraps
+              cleanly, stays centered, and does not become visually harsh or difficult to scan in narrower widths.
+            </p>
+          </div>
+
+          <div class="o-site-footer__actions">
+            <div class="c-test-fill">Actions area</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<hr>
+
+<h2>Footer shell spacing and separation</h2>
+<p>
+  <strong>Expected behavior:</strong>
+  The footer should feel clearly separated from the content above it through margin, top border, and internal padding.
+</p>
+
+<div class="c-site-footer-test-frame c-site-footer-test-stack">
+  <div class="c-test-fill">
+    Simulated page content above the footer. The footer below should not feel cramped against this block.
+  </div>
+
+  <footer class="c-site-footer">
+    <div class="o-container">
+      <div class="o-site-footer">
+        <div class="o-site-footer__brand c-site-footer__brand">
+          <a class="c-site-footer-test-brand-chip" href="#">
+            <span class="c-site-footer-test-brand-mark" aria-hidden="true"></span>
+            <span>Portfolio Brand</span>
+          </a>
+        </div>
+
+        <div class="o-site-footer__meta c-site-footer__meta">
+          <p class="c-site-footer__copyright">© 2026 John Doe. All rights reserved.</p>
+          <p class="c-site-footer__tagline">A calm, compact footer shell with clear section separation.</p>
+        </div>
+
+        <div class="o-site-footer__actions">
+          <nav class="c-site-footer-test-actions" aria-label="Test footer actions">
+            <a class="c-site-footer-test-social" href="#" aria-label="GitHub"></a>
+            <a class="c-site-footer-test-social" href="#" aria-label="LinkedIn"></a>
+            <a class="c-site-footer-test-social" href="#" aria-label="CV"></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<p>
+  <em>
+    Tip: compare the prominence of <code>.c-site-footer__copyright</code> and
+    <code>.c-site-footer__tagline</code>, then resize the browser to inspect padding changes.
+  </em>
+</p>

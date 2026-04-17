@@ -4,24 +4,36 @@ title: Component Social Links Test
 permalink: /tests/5-components/test-social-links/
 robots: noindex
 ---
-
 {% comment %}
   Component Social Links Test Page
-  Purpose: Visually verify that the 5-components social-links component
-  matches the current Sass contract.
+  Purpose: Visually verify that the 5-components social-links system compiles
+  and behaves correctly across the site.
 
-  What this page tests:
-  - .c-social-links
-  - .c-social-links__item
-  - .c-social-links__icon
-  - .c-social-links--footer
-  - .c-social-links--mobile
-  - .c-social-links__item--cv
-  - .c-social-links__icon--text
+  Structure:
+  - Base social-links group
+  - Base item sizing behavior
+  - Footer modifier
+  - Mobile modifier
+  - CV item variant
+  - Text-fallback icon variant
+  - Wrapping behavior
+  - Mixed-state stress test
 
   Notes:
-  - Shared development helper styling comes from 7-trumps/_tests.scss.
-  - Only fixture-specific sizing helpers are defined inline below.
+  - This page tests only the component responsibilities of:
+    - .c-social-links
+    - .c-social-links__item
+    - .c-social-links__icon
+    - .c-social-links--footer
+    - .c-social-links--mobile
+    - .c-social-links__item--cv
+    - .c-social-links__icon--text
+  - The clickable control primitive .c-icon-link and .c-icon-link__icon is a
+    dependency used by this component, not the primary subject of this test.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive behavior of the mobile
+    modifier.
+  - This page is intended for development testing only.
 {% endcomment %}
 
 <style>
@@ -49,10 +61,7 @@ robots: noindex
   }
 </style>
 
-<p>
-  This page verifies the <code>.c-social-links</code> component defined in the
-  <strong>5-components</strong> layer.
-</p>
+<p>This page verifies the <code>.c-social-links</code> component defined in the <strong>5-components</strong> layer.</p>
 
 <hr>
 
@@ -65,10 +74,30 @@ robots: noindex
 <div class="c-social-links-test-frame">
   <div class="c-test-box">
     <nav class="c-social-links" aria-label="Test social links base">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"><span class="u-visually-hidden">Instagram</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/instagram.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"><span class="u-visually-hidden">YouTube</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/youtube.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"
+        ><span class="u-visually-hidden">LinkedIn</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/linkedin.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"
+        ><span class="u-visually-hidden">Instagram</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/instagram.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"
+        ><span class="u-visually-hidden">YouTube</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/youtube.svg -%}
+        </span></a
+      >
     </nav>
   </div>
 </div>
@@ -84,10 +113,31 @@ robots: noindex
 <div class="c-social-links-test-frame">
   <div class="c-test-box">
     <nav class="c-social-links" aria-label="Test social links item sizing">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Google Scholar"><span class="u-visually-hidden">Google Scholar</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/google_scholar.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab"><span class="u-visually-hidden">Open CV PDF in a new tab</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"
+        ><span class="u-visually-hidden">LinkedIn</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/linkedin.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Google Scholar"
+        ><span class="u-visually-hidden">Google Scholar</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/google_scholar.svg -%}
+        </span></a
+      >
+      <a
+        class="c-icon-link c-social-links__item c-social-links__item--cv"
+        href="#"
+        aria-label="Open CV PDF in a new tab"
+        ><span class="u-visually-hidden">Open CV PDF in a new tab</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a
+      >
     </nav>
   </div>
 </div>
@@ -97,16 +147,38 @@ robots: noindex
 <h2>Footer modifier</h2>
 <p>
   <strong>Expected behavior:</strong>
-  <code>.c-social-links--footer</code> should center the group contents and reduce the control size to the footer dimensions.
+  <code>.c-social-links--footer</code> should center the group contents and reduce the control size to the footer
+  dimensions.
 </p>
 
 <div class="c-social-links-test-frame">
   <div class="c-test-box c-social-links-test-box--footer">
     <nav class="c-social-links c-social-links--footer" aria-label="Test footer social links">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Google Scholar"><span class="u-visually-hidden">Google Scholar</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/google_scholar.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab"><span class="u-visually-hidden">Open CV PDF in a new tab</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"
+        ><span class="u-visually-hidden">LinkedIn</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/linkedin.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Google Scholar"
+        ><span class="u-visually-hidden">Google Scholar</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/google_scholar.svg -%}
+        </span></a
+      >
+      <a
+        class="c-icon-link c-social-links__item c-social-links__item--cv"
+        href="#"
+        aria-label="Open CV PDF in a new tab"
+        ><span class="u-visually-hidden">Open CV PDF in a new tab</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a
+      >
     </nav>
   </div>
 </div>
@@ -116,20 +188,44 @@ robots: noindex
 <h2>Mobile modifier</h2>
 <p>
   <strong>Expected behavior:</strong>
-  <code>.c-social-links--mobile</code> should keep start alignment, use a larger gap, and render larger controls before the text breakpoint.
+  <code>.c-social-links--mobile</code> should keep start alignment, use a larger gap, and render larger controls before
+  the text breakpoint.
 </p>
 
 <div class="c-social-links-test-frame c-social-links-test-stack">
   <div class="c-test-box c-social-links-test-box--mobile">
     <nav class="c-social-links c-social-links--mobile" aria-label="Test mobile social links">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"><span class="u-visually-hidden">Instagram</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/instagram.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab"><span class="u-visually-hidden">Open CV PDF in a new tab</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"
+        ><span class="u-visually-hidden">LinkedIn</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/linkedin.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"
+        ><span class="u-visually-hidden">Instagram</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/instagram.svg -%}
+        </span></a
+      >
+      <a
+        class="c-icon-link c-social-links__item c-social-links__item--cv"
+        href="#"
+        aria-label="Open CV PDF in a new tab"
+        ><span class="u-visually-hidden">Open CV PDF in a new tab</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a
+      >
     </nav>
   </div>
 
-  <p class="c-test-note">Resize the browser window to verify the mobile modifier spacing and size change across the text breakpoint.</p>
+  <p class="c-test-note">
+    Resize the browser window to verify the mobile modifier spacing and size change across the text breakpoint.
+  </p>
 </div>
 
 <hr>
@@ -143,8 +239,19 @@ robots: noindex
 <div class="c-social-links-test-frame">
   <div class="c-test-box">
     <nav class="c-social-links" aria-label="Test CV item variant">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab"><span class="u-visually-hidden">Open CV PDF in a new tab</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a
+        class="c-icon-link c-social-links__item c-social-links__item--cv"
+        href="#"
+        aria-label="Open CV PDF in a new tab"
+        ><span class="u-visually-hidden">Open CV PDF in a new tab</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a
+      >
     </nav>
   </div>
 </div>
@@ -160,8 +267,14 @@ robots: noindex
 <div class="c-social-links-test-frame">
   <div class="c-test-box">
     <nav class="c-social-links" aria-label="Test text fallback social links">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="ORCID"><span class="u-visually-hidden">ORCID</span><span class="c-icon-link__icon c-social-links__icon c-social-links__icon--text" aria-hidden="true">O</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Medium"><span class="u-visually-hidden">Medium</span><span class="c-icon-link__icon c-social-links__icon c-social-links__icon--text" aria-hidden="true">M</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="ORCID"
+        ><span class="u-visually-hidden">ORCID</span
+        ><span class="c-icon-link__icon c-social-links__icon c-social-links__icon--text" aria-hidden="true">O</span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Medium"
+        ><span class="u-visually-hidden">Medium</span
+        ><span class="c-icon-link__icon c-social-links__icon c-social-links__icon--text" aria-hidden="true">M</span></a
+      >
     </nav>
   </div>
 </div>
@@ -177,12 +290,41 @@ robots: noindex
 <div class="c-social-links-test-frame">
   <div class="c-test-box c-social-links-test-box--narrow">
     <nav class="c-social-links" aria-label="Test wrapping social links">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"><span class="u-visually-hidden">Instagram</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/instagram.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"><span class="u-visually-hidden">YouTube</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/youtube.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="X (Twitter)"><span class="u-visually-hidden">X (Twitter)</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/x.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab"><span class="u-visually-hidden">Open CV PDF in a new tab</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"
+        ><span class="u-visually-hidden">LinkedIn</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/linkedin.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Instagram"
+        ><span class="u-visually-hidden">Instagram</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/instagram.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="YouTube"
+        ><span class="u-visually-hidden">YouTube</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/youtube.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="X (Twitter)"
+        ><span class="u-visually-hidden">X (Twitter)</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/x.svg %}</span></a
+      >
+      <a
+        class="c-icon-link c-social-links__item c-social-links__item--cv"
+        href="#"
+        aria-label="Open CV PDF in a new tab"
+        ><span class="u-visually-hidden">Open CV PDF in a new tab</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a
+      >
     </nav>
   </div>
 </div>
@@ -198,10 +340,29 @@ robots: noindex
 <div class="c-social-links-test-frame">
   <div class="c-test-box c-social-links-test-box--footer c-social-links-test-dark">
     <nav class="c-social-links c-social-links--footer" aria-label="Test dark surface social links">
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"><span class="u-visually-hidden">GitHub</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/github.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"><span class="u-visually-hidden">LinkedIn</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span></a>
-      <a class="c-icon-link c-social-links__item" href="#" aria-label="Medium"><span class="u-visually-hidden">Medium</span><span class="c-icon-link__icon c-social-links__icon c-social-links__icon--text" aria-hidden="true">M</span></a>
-      <a class="c-icon-link c-social-links__item c-social-links__item--cv" href="#" aria-label="Open CV PDF in a new tab"><span class="u-visually-hidden">Open CV PDF in a new tab</span><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a>
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="GitHub"
+        ><span class="u-visually-hidden">GitHub</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/github.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="LinkedIn"
+        ><span class="u-visually-hidden">LinkedIn</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+          {%- include icons/linkedin.svg -%}
+        </span></a
+      >
+      <a class="c-icon-link c-social-links__item" href="#" aria-label="Medium"
+        ><span class="u-visually-hidden">Medium</span
+        ><span class="c-icon-link__icon c-social-links__icon c-social-links__icon--text" aria-hidden="true">M</span></a
+      >
+      <a
+        class="c-icon-link c-social-links__item c-social-links__item--cv"
+        href="#"
+        aria-label="Open CV PDF in a new tab"
+        ><span class="u-visually-hidden">Open CV PDF in a new tab</span
+        ><span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">{% include icons/cv.svg %}</span></a
+      >
     </nav>
   </div>
 </div>

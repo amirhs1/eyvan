@@ -4,14 +4,24 @@ title: Component Post Test
 permalink: /tests/5-components/test-post/
 robots: noindex
 ---
-
 {% comment %}
   Component Post Test Page
   Purpose: Visually verify that the 5-components post shell compiles
   and behaves correctly across the site.
 
+  Structure:
+  - Cover media block
+  - Cover + article spacing integration
+  - Post shell width and spacing
+  - Title and subtitle
+  - Tag group
+  - Header row with metadata and share actions
+  - Title-to-header-row spacing without subtitle
+  - Post body content
+  - Long-title balancing behavior
+  - Responsive stacking behavior for header row
+
   Notes:
-  - Uses shared test helpers from 7-trumps/_tests.scss.
   - This page tests only the component responsibilities of:
     - .c-post
     - .c-post__header
@@ -27,8 +37,13 @@ robots: noindex
     - .c-post-cover
     - .c-post-cover__media
     - .c-post-cover__image
-  - Shared metadata internals belong to entry-meta.
-  - Shared share-control visuals belong to post-share and icon-link.
+  - Shared metadata internals belong to the separate entry-meta component.
+  - Shared share-control visuals belong to the separate post-share component.
+  - Tag cosmetics are not owned by this file; this test checks only contextual
+    grouping and capitalization behavior.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive header-row stacking.
+  - This page is intended for development testing only.
 {% endcomment %}
 
 <section>
@@ -42,9 +57,8 @@ robots: noindex
   <h2>Cover media block</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The cover wrapper should create spacing below the media. The media box
-    should clip overflow, apply the raised-surface background, and round the
-    corners. The image should fill the available width and crop cleanly.
+    The cover wrapper should create spacing below the media. The media box should clip overflow, apply the
+    raised-surface background, and round the corners. The image should fill the available width and crop cleanly.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -85,21 +99,18 @@ robots: noindex
   <h2>Title and subtitle</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The title should use the display scale with balanced wrapping. The subtitle
-    should sit below it with a softer muted color and narrower readable measure.
+    The title should use the display scale with balanced wrapping. The subtitle should sit below it with a softer muted
+    color and narrower readable measure.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
-        <h1 class="c-post__title">
-          Designing a Cleaner Jekyll Portfolio with Reusable Components
-        </h1>
+        <h1 class="c-post__title">Designing a Cleaner Jekyll Portfolio with Reusable Components</h1>
 
         <p class="c-post__subtitle">
-          A practical exploration of long-form content shells, supporting
-          metadata, and reusable share actions without mixing layout concerns
-          across layers.
+          A practical exploration of long-form content shells, supporting metadata, and reusable share actions without
+          mixing layout concerns across layers.
         </p>
       </header>
     </article>
@@ -110,8 +121,8 @@ robots: noindex
   <h2>Tag group</h2>
   <p>
     <strong>Expected behavior:</strong>
-    Tags should render as a wrapping inline group with consistent spacing, and
-    the contextual post tag rule should capitalize lowercase source text.
+    Tags should render as a wrapping inline group with consistent spacing, and the contextual post tag rule should
+    capitalize lowercase source text.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -132,8 +143,8 @@ robots: noindex
   <h2>Header row with metadata and share actions</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The header row should place metadata on the left, share actions on the
-    right, and render a bottom border below the row.
+    The header row should place metadata on the left, share actions on the right, and render a bottom border below the
+    row.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -141,9 +152,7 @@ robots: noindex
       <header class="c-post__header">
         <h1 class="c-post__title">A Post Header with Shared Metadata and Share Controls</h1>
 
-        <p class="c-post__subtitle">
-          This example verifies the composition rules owned by the post shell.
-        </p>
+        <p class="c-post__subtitle">This example verifies the composition rules owned by the post shell.</p>
 
         <div class="c-post__header-row">
           <div class="c-post__header-meta">
@@ -182,13 +191,19 @@ robots: noindex
 
                 <div class="c-post-share__list">
                   <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on X">
-                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/x.svg %}</span>
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                      {%- include icons/x.svg -%}
+                    </span>
                   </a>
                   <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on LinkedIn">
-                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span>
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                      {%- include icons/linkedin.svg -%}
+                    </span>
                   </a>
                   <a class="c-post-share__link c-icon-link" href="#" aria-label="Share by email">
-                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/mail.svg %}</span>
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                      {%- include icons/mail.svg -%}
+                    </span>
                   </a>
                 </div>
               </div>
@@ -204,9 +219,8 @@ robots: noindex
   <h2>Title-to-header-row spacing without subtitle</h2>
   <p>
     <strong>Expected behavior:</strong>
-    When the subtitle is absent, the header row should sit slightly closer to
-    the title because <code>.c-post__title + .c-post__header-row</code> applies
-    tighter spacing.
+    When the subtitle is absent, the header row should sit slightly closer to the title because
+    <code>.c-post__title + .c-post__header-row</code> applies tighter spacing.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -244,10 +258,14 @@ robots: noindex
               <div class="c-post-share">
                 <div class="c-post-share__list">
                   <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on X">
-                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/x.svg %}</span>
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                      {%- include icons/x.svg -%}
+                    </span>
                   </a>
                   <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on LinkedIn">
-                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span>
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                      {%- include icons/linkedin.svg -%}
+                    </span>
                   </a>
                 </div>
               </div>
@@ -263,8 +281,8 @@ robots: noindex
   <h2>Post body content</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The content area should remain structurally separate from the header and
-    support typical long-form content when paired with <code>.o-prose</code>.
+    The content area should remain structurally separate from the header and support typical long-form content when
+    paired with <code>.o-prose</code>.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -300,20 +318,19 @@ robots: noindex
 
       <div class="c-post__content o-prose o-prose--measure-wide">
         <p>
-          This is a paragraph of long-form content with an <a href="#">inline
-          link</a> and some <code>inline code</code>.
+          This is a paragraph of long-form content with an <a href="#">inline link</a> and some
+          <code>inline code</code>.
         </p>
 
         <h2>Section heading</h2>
 
         <p>
-          The content wrapper should support standard article structure while
-          allowing the prose object to handle detailed text rhythm.
+          The content wrapper should support standard article structure while allowing the prose object to handle
+          detailed text rhythm.
         </p>
 
         <blockquote>
-          A blockquote helps verify that long-form content remains visually
-          balanced inside the post shell.
+          A blockquote helps verify that long-form content remains visually balanced inside the post shell.
         </blockquote>
       </div>
     </article>
@@ -324,8 +341,7 @@ robots: noindex
   <h2>Long-title balancing behavior</h2>
   <p>
     <strong>Expected behavior:</strong>
-    A long heading should wrap in a more balanced way rather than leaving an
-    awkward final line.
+    A long heading should wrap in a more balanced way rather than leaving an awkward final line.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -335,9 +351,7 @@ robots: noindex
           <h1 class="c-post__title">
             Building a Maintainable and Readable Long-Form Article Component for a Small Jekyll Portfolio Website
           </h1>
-          <p class="c-post__subtitle">
-            Resize the browser to observe title wrapping and subtitle readability.
-          </p>
+          <p class="c-post__subtitle">Resize the browser to observe title wrapping and subtitle readability.</p>
         </header>
       </article>
     </div>
@@ -348,8 +362,8 @@ robots: noindex
   <h2>Responsive header-row stacking</h2>
   <p>
     <strong>Expected behavior:</strong>
-    At smaller widths, the header row should stack, metadata should take the
-    full row, and share actions should align left.
+    At smaller widths, the header row should stack, metadata should take the full row, and share actions should align
+    left.
   </p>
 
   <div class="c-test-frame c-post-test-frame">
@@ -390,13 +404,19 @@ robots: noindex
                   </div>
                   <div class="c-post-share__list">
                     <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on X">
-                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/x.svg %}</span>
+                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                        {%- include icons/x.svg -%}
+                      </span>
                     </a>
                     <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on LinkedIn">
-                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span>
+                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                        {%- include icons/linkedin.svg -%}
+                      </span>
                     </a>
                     <a class="c-post-share__link c-icon-link" href="#" aria-label="Share by email">
-                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/mail.svg %}</span>
+                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+                        {%- include icons/mail.svg -%}
+                      </span>
                     </a>
                   </div>
                 </div>

@@ -1,27 +1,39 @@
 ---
 layout: page
 title: Component Theme Toggle Test
-permalink: /tests/5-components/test-theme-toggle/
+permalink: /tests/5-components/theme-toggle/
 robots: noindex
 ---
-
 {% comment %}
   Component Theme Toggle Test Page
   Purpose: Visually verify that the 5-components theme-toggle component
-  matches the current Sass contract.
+  compiles and behaves correctly across desktop and mobile contexts.
 
-  What this page tests:
-  - .c-theme-toggle
-  - .c-theme-toggle__icons
-  - .c-theme-toggle__icon
-  - .c-theme-toggle__icon--sun
-  - .c-theme-toggle__icon--moon
-  - .c-theme-toggle__label
-  - .c-theme-toggle--mobile
+  Structure:
+  - Base component rendering
+  - Compact desktop/icon-only variant
+  - Mobile labeled variant
+  - Light theme icon state
+  - Dark theme icon state
+  - Disabled states
+  - Width and alignment behavior
+  - Long label stress test
 
   Notes:
-  - Shared development helper styling comes from 7-trumps/_tests.scss.
-  - This page intentionally avoids production JS and simulates theme states locally.
+  - This page tests only the component responsibilities of:
+    - .c-theme-toggle
+    - .c-theme-toggle__icons
+    - .c-theme-toggle__icon
+    - .c-theme-toggle__icon--sun
+    - .c-theme-toggle__icon--moon
+    - .c-theme-toggle__label
+    - .c-theme-toggle--mobile
+  - Helper styles below are temporary and exist only for testing.
+  - This page intentionally avoids relying on production JavaScript behavior.
+  - Theme-specific icon visibility is tested by scoping examples inside
+    wrappers that simulate html[data-theme] states locally.
+  - Resize the browser window to verify responsive behavior.
+  - This page is intended for development testing only.
 {% endcomment %}
 
 <style>
@@ -126,10 +138,7 @@ robots: noindex
   }
 </style>
 
-<p>
-  This page verifies the <code>.c-theme-toggle</code> component defined in the
-  <strong>5-components</strong> layer.
-</p>
+<p>This page verifies the <code>.c-theme-toggle</code> component defined in the <strong>5-components</strong> layer.</p>
 
 <hr>
 
@@ -144,8 +153,22 @@ robots: noindex
     <div class="c-theme-toggle-test-inline-shell">
       <button class="c-theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
       </button>
@@ -171,8 +194,22 @@ robots: noindex
     <div class="c-theme-toggle-test-inline-shell">
       <button class="c-theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
       </button>
@@ -190,10 +227,29 @@ robots: noindex
 
 <div class="c-theme-toggle-test-frame" data-theme="light">
   <div class="c-theme-toggle-test-mobile-shell">
-    <button class="c-theme-toggle c-theme-toggle--mobile" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+    <button
+      class="c-theme-toggle c-theme-toggle--mobile"
+      type="button"
+      aria-label="Switch to dark theme"
+      aria-pressed="false"
+    >
       <span class="c-theme-toggle__icons" aria-hidden="true">
-        <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-        <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+        <svg
+          class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+          viewBox="0 0 512 512"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+        </svg>
+        <svg
+          class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+          viewBox="0 0 512 512"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+        </svg>
       </span>
       <span class="u-visually-hidden">Switch to dark theme</span>
       <span class="c-theme-toggle__label">Switch to dark theme</span>
@@ -214,8 +270,22 @@ robots: noindex
     <div class="c-theme-toggle-test-inline-shell">
       <button class="c-theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
       </button>
@@ -236,8 +306,22 @@ robots: noindex
     <div class="c-theme-toggle-test-inline-shell">
       <button class="c-theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="true">
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to light theme</span>
       </button>
@@ -250,7 +334,8 @@ robots: noindex
 <h2>Disabled states</h2>
 <p>
   <strong>Expected behavior:</strong>
-  Disabled versions should appear lower-emphasis, should not suggest interactivity, and should not use the active press transform.
+  Disabled versions should appear lower-emphasis, should not suggest interactivity, and should not use the active press
+  transform.
 </p>
 
 <div class="c-theme-toggle-test-frame" data-theme="light">
@@ -258,18 +343,52 @@ robots: noindex
     <div class="c-theme-toggle-test-inline-shell">
       <button class="c-theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" disabled>
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
       </button>
     </div>
 
     <div class="c-theme-toggle-test-fill-shell">
-      <button class="c-theme-toggle c-theme-toggle--mobile" type="button" aria-label="Switch to dark theme" aria-pressed="false" aria-disabled="true">
+      <button
+        class="c-theme-toggle c-theme-toggle--mobile"
+        type="button"
+        aria-label="Switch to dark theme"
+        aria-pressed="false"
+        aria-disabled="true"
+      >
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
         <span class="c-theme-toggle__label">Switch to dark theme</span>
@@ -291,18 +410,51 @@ robots: noindex
     <div class="c-theme-toggle-test-inline-shell">
       <button class="c-theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
       </button>
     </div>
 
     <div class="c-theme-toggle-test-fill-shell">
-      <button class="c-theme-toggle c-theme-toggle--mobile" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+      <button
+        class="c-theme-toggle c-theme-toggle--mobile"
+        type="button"
+        aria-label="Switch to dark theme"
+        aria-pressed="false"
+      >
         <span class="c-theme-toggle__icons" aria-hidden="true">
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-          <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+          </svg>
+          <svg
+            class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+          </svg>
         </span>
         <span class="u-visually-hidden">Switch to dark theme</span>
         <span class="c-theme-toggle__label">Switch to dark theme</span>
@@ -321,15 +473,41 @@ robots: noindex
 
 <div class="c-theme-toggle-test-frame" data-theme="light">
   <div class="c-theme-toggle-test-fill-shell">
-    <button class="c-theme-toggle c-theme-toggle--mobile" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+    <button
+      class="c-theme-toggle c-theme-toggle--mobile"
+      type="button"
+      aria-label="Switch to dark theme"
+      aria-pressed="false"
+    >
       <span class="c-theme-toggle__icons" aria-hidden="true">
-        <svg class="c-theme-toggle__icon c-theme-toggle__icon--sun" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/></svg>
-        <svg class="c-theme-toggle__icon c-theme-toggle__icon--moon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/></svg>
+        <svg
+          class="c-theme-toggle__icon c-theme-toggle__icon--sun"
+          viewBox="0 0 512 512"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M234 26h44v92h-44zM234 394h44v92h-44zM338.025 142.857l65.054-65.054 31.113 31.113-65.054 65.054zM77.815 403.074l65.054-65.054 31.113 31.113-65.054 65.054zM394 234h92v44h-92zM26 234h92v44H26zM338.029 369.14l31.112-31.113 65.054 65.054-31.112 31.112zM77.802 108.92l31.113-31.113 65.054 65.054-31.113 31.112zM256 358a102 102 0 11102-102 102.12 102.12 0 01-102 102z"/>
+        </svg>
+        <svg
+          class="c-theme-toggle__icon c-theme-toggle__icon--moon"
+          viewBox="0 0 512 512"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M152.62 126.77c0-33 4.85-66.35 17.23-94.77C87.54 67.83 32 151.89 32 247.38 32 375.85 136.15 480 264.62 480c95.49 0 179.55-55.54 215.38-137.85-28.42 12.38-61.8 17.23-94.77 17.23-128.47 0-232.61-104.14-232.61-232.61z"/>
+        </svg>
       </span>
       <span class="u-visually-hidden">Switch to dark theme</span>
-      <span class="c-theme-toggle__label c-theme-toggle-test-long-label">Switch to dark theme with a longer visible label used only for component stress testing</span>
+      <span class="c-theme-toggle__label c-theme-toggle-test-long-label"
+        >Switch to dark theme with a longer visible label used only for component stress testing</span
+      >
     </button>
   </div>
 
-  <p><em>Resize the viewport and confirm that the mobile variant remains inside its container while the desktop variant stays compact.</em></p>
+  <p>
+    <em
+      >Resize the viewport and confirm that the mobile variant remains inside its container while the desktop variant
+      stays compact.</em
+    >
+  </p>
 </div>

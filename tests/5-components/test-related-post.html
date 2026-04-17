@@ -4,27 +4,38 @@ title: Component Related Posts Test
 permalink: /tests/5-components/test-related-posts/
 robots: noindex
 ---
-
 {% comment %}
   Component Related Posts Test Page
-  Purpose: Visually verify that the 5-components related-posts section compiles
-  and behaves correctly across the site.
+  Purpose: Visually verify that the 5-components related-posts section
+  compiles and behaves correctly across the site.
+
+  Structure:
+  - Base related-posts section shell
+  - Header and title spacing
+  - Local grid rhythm
+  - Narrow-width responsive behavior
+  - Multiple-instance isolation
+  - Render guard behavior note
 
   Notes:
-  - Uses shared test helpers from 7-trumps/_tests.scss.
   - This page tests only the component responsibilities of:
     - .c-related-posts
     - .c-related-posts__header
     - .c-related-posts__title
-    - .c-related-posts .o-grid
-  - Grid columns belong to o-grid.
-  - Card visuals belong to post-card.
+    - .c-related-posts .o-grid (local row-gap override)
+  - Grid column behavior belongs to the shared o-grid object.
+  - Card visuals belong to the separate post-card component.
+  - Conditional rendering in the real include is handled by Liquid and is
+    documented here, but cannot be fully demonstrated in static test markup.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive spacing changes.
+  - This page is intended for development testing only.
 {% endcomment %}
 
 <section>
   <p>
-    This page verifies the functionality of the related-posts classes defined
-    in the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the related-posts classes defined in the <strong>5-components</strong> Sass
+    layer.
   </p>
 
   <hr>
@@ -32,8 +43,7 @@ robots: noindex
   <h2>Base related-posts section shell</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The section should create its own top spacing and internal top padding
-    before the header.
+    The section should create its own top spacing and internal top padding before the header.
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
@@ -43,13 +53,11 @@ robots: noindex
       <section class="c-related-posts" aria-labelledby="test-related-posts-title-base">
         <div class="o-container">
           <header class="c-related-posts__header">
-            <h2 class="c-related-posts__title" id="test-related-posts-title-base">
-              You may also like
-            </h2>
+            <h2 class="c-related-posts__title" id="test-related-posts-title-base">You may also like</h2>
           </header>
 
           <div class="o-grid">
-            {% for post in site.posts limit:3 %}
+            {% for post in site.posts limit: 3 %}
               <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
                 {% include post-card.html post=post %}
               </div>
@@ -65,8 +73,8 @@ robots: noindex
   <h2>Header and title spacing</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The header should create bottom spacing before the grid starts, and the
-    title itself should not add accidental default heading margins.
+    The header should create bottom spacing before the grid starts, and the title itself should not add accidental
+    default heading margins.
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
@@ -74,13 +82,11 @@ robots: noindex
       <section class="c-related-posts" aria-labelledby="test-related-posts-title-header">
         <div class="o-container">
           <header class="c-related-posts__header">
-            <h2 class="c-related-posts__title" id="test-related-posts-title-header">
-              Related writing and projects
-            </h2>
+            <h2 class="c-related-posts__title" id="test-related-posts-title-header">Related writing and projects</h2>
           </header>
 
           <div class="o-grid">
-            {% for post in site.posts limit:2 %}
+            {% for post in site.posts limit: 2 %}
               <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
                 {% include post-card.html post=post %}
               </div>
@@ -105,13 +111,11 @@ robots: noindex
       <section class="c-related-posts" aria-labelledby="test-related-posts-title-grid">
         <div class="o-container">
           <header class="c-related-posts__header">
-            <h2 class="c-related-posts__title" id="test-related-posts-title-grid">
-              More to explore
-            </h2>
+            <h2 class="c-related-posts__title" id="test-related-posts-title-grid">More to explore</h2>
           </header>
 
           <div class="o-grid">
-            {% for post in site.posts limit:6 %}
+            {% for post in site.posts limit: 6 %}
               <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
                 {% include post-card.html post=post %}
               </div>
@@ -131,8 +135,7 @@ robots: noindex
   <h2>Narrow-width responsive check</h2>
   <p>
     <strong>Expected behavior:</strong>
-    At narrower widths, the section should reduce its top margin, top padding,
-    header spacing, and local grid row gap.
+    At narrower widths, the section should reduce its top margin, top padding, header spacing, and local grid row gap.
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
@@ -140,13 +143,11 @@ robots: noindex
       <section class="c-related-posts" aria-labelledby="test-related-posts-title-narrow">
         <div class="o-container">
           <header class="c-related-posts__header">
-            <h2 class="c-related-posts__title" id="test-related-posts-title-narrow">
-              You may also like
-            </h2>
+            <h2 class="c-related-posts__title" id="test-related-posts-title-narrow">You may also like</h2>
           </header>
 
           <div class="o-grid">
-            {% for post in site.posts limit:4 %}
+            {% for post in site.posts limit: 4 %}
               <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
                 {% include post-card.html post=post %}
               </div>
@@ -166,8 +167,8 @@ robots: noindex
   <h2>Multiple-section isolation check</h2>
   <p>
     <strong>Expected behavior:</strong>
-    Rendering two related-posts sections on the same page should confirm that
-    the component remains self-contained and repeatable.
+    Rendering two related-posts sections on the same page should confirm that the component remains self-contained and
+    repeatable.
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
@@ -179,7 +180,7 @@ robots: noindex
           </header>
 
           <div class="o-grid">
-            {% for post in site.posts limit:3 %}
+            {% for post in site.posts limit: 3 %}
               <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
                 {% include post-card.html post=post %}
               </div>
@@ -195,7 +196,7 @@ robots: noindex
           </header>
 
           <div class="o-grid">
-            {% for post in site.posts offset:1 limit:3 %}
+            {% for post in site.posts offset: 1 limit: 3 %}
               <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
                 {% include post-card.html post=post %}
               </div>
@@ -211,14 +212,14 @@ robots: noindex
   <h2>Render guard behavior</h2>
   <p>
     <strong>Expected behavior:</strong>
-    In the real include, when no related posts are found, the entire section
-    should not render at all.
+    In the real include, when no related posts are found, the entire section should not render at all.
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
     <div class="c-test-box c-related-posts-test-box">
       <p class="c-test-note c-related-posts-test-note">
-        This behavior is controlled by Liquid in the include, so it is documented here rather than demonstrated with static markup.
+        This behavior is controlled by Liquid in the include, so it is documented here rather than demonstrated with
+        static markup.
       </p>
     </div>
   </div>

@@ -35,319 +35,100 @@ robots: noindex
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-entry-meta-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
+<p>
+  This page verifies the functionality of the entry metadata classes defined in
+  the <strong>5-components</strong> Sass layer.
+</p>
 
-  .c-entry-meta-test-stack {
-    display: grid;
-    gap: 1rem;
-  }
+<hr>
 
-  .c-entry-meta-test-row {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .c-entry-meta-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .c-entry-meta-test-box {
-    inline-size: min(100%, 52rem);
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
-  .c-entry-meta-test-box--narrow {
-    inline-size: min(100%, 18rem);
-  }
-
-  .c-entry-meta-test-box--very-narrow {
-    inline-size: min(100%, 14rem);
-  }
-
-  .c-entry-meta-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-entry-meta-test-fill {
-    padding: 0.75rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
-  }
-</style>
-
-<section class="l-section">
-  <p>
-    This page verifies the functionality of the entry metadata classes defined in the
-    <strong>5-components</strong> Sass layer.
-  </p>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Base Entry Meta Structure -->
-  <!-- ============================================================= -->
-
-  <h2>Base entry-meta structure</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The component should render as a horizontal flex row with a circular avatar on the left and a stacked content area
-    on the right. The content block should contain the author name followed by a muted details row.
-  </p>
-
-  <div class="c-entry-meta-test-frame">
-    <div class="c-entry-meta-test-box">
-      <div class="c-entry-meta">
-        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
-        </a>
-
-        <div class="c-entry-meta__content">
-          <p class="c-entry-meta__author-name">Iwan van der Drift</p>
-
-          <div class="c-entry-meta__details">
-            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
-            <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-              <span>7 min read</span>
-            </span>
-          </div>
+<h2>Base entry-meta structure</h2>
+<p><strong>Expected behavior:</strong> The component should render as a horizontal row with a circular avatar and a stacked content area.</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size:52rem;">
+    <div class="c-entry-meta">
+      <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+      </a>
+      <div class="c-entry-meta__content">
+        <p class="c-entry-meta__author-name">Iwan van der Drift</p>
+        <div class="c-entry-meta__details">
+          <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+          <span class="c-entry-meta__read-time">
+            <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
+            <span>7 min read</span>
+          </span>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Avatar Rendering and Cropping -->
-  <!-- ============================================================= -->
-
-  <h2>Avatar rendering and cropping</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The avatar wrapper should render as a fixed-size circle with hidden overflow. The image inside should fill the shape
-    and crop cleanly because
-    <code>.c-entry-meta__avatar</code> uses <code>object-fit: cover</code>.
-  </p>
-
-  <div class="c-entry-meta-test-frame">
-    <div class="c-entry-meta-test-box">
-      <div class="c-entry-meta">
-        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
-        </a>
-
-        <div class="c-entry-meta__content">
-          <p class="c-entry-meta__author-name">Avatar crop test</p>
-
-          <div class="c-entry-meta__details">
-            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
-            <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-              <span>4 min read</span>
-            </span>
-          </div>
+<h2>Author-name truncation behavior</h2>
+<p><strong>Expected behavior:</strong> The author name should stay on a single line and truncate with ellipsis when space becomes tight.</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size:18rem;">
+    <div class="c-entry-meta">
+      <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+      </a>
+      <div class="c-entry-meta__content">
+        <p class="c-entry-meta__author-name">Dr. Iwan van der Drift with an Intentionally Very Long Author Name for Overflow Testing</p>
+        <div class="c-entry-meta__details">
+          <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+          <span class="c-entry-meta__read-time">
+            <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
+            <span>9 min read</span>
+          </span>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Author-name Truncation Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Author-name truncation behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The author name should stay on a single line and truncate with an ellipsis when horizontal space becomes too small.
-    This behavior depends on the combination of <code>min-inline-size: 0</code>,
-    <code>overflow: hidden</code>, <code>text-overflow: ellipsis</code>, and
-    <code>white-space: nowrap</code>.
-  </p>
-
-  <div class="c-entry-meta-test-frame">
-    <div class="c-entry-meta-test-box c-entry-meta-test-box--narrow">
-      <div class="c-entry-meta">
-        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
-        </a>
-
-        <div class="c-entry-meta__content">
-          <p class="c-entry-meta__author-name">
-            Dr. Iwan van der Drift with an Intentionally Very Long Author Name for Overflow Testing
-          </p>
-
-          <div class="c-entry-meta__details">
-            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
-            <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-              <span>9 min read</span>
-            </span>
-          </div>
+<h2>Details row layout</h2>
+<p><strong>Expected behavior:</strong> The details row should render as a muted inline flex row with consistent spacing between the date and read-time group.</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size:52rem;">
+    <div class="c-entry-meta">
+      <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+      </a>
+      <div class="c-entry-meta__content">
+        <p class="c-entry-meta__author-name">Details row test</p>
+        <div class="c-entry-meta__details">
+          <time class="c-entry-meta__date" datetime="2025-11-18">November 18, 2025</time>
+          <span class="c-entry-meta__read-time">
+            <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
+            <span>12 min read</span>
+          </span>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Details Row Layout -->
-  <!-- ============================================================= -->
-
-  <h2>Details row layout</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The details row should render as a muted inline flex row with consistent spacing between the date and read-time
-    group. The read-time group should align its icon and text on the same line.
-  </p>
-
-  <div class="c-entry-meta-test-frame">
-    <div class="c-entry-meta-test-box">
+<h2>Read-time icon alignment</h2>
+<p><strong>Expected behavior:</strong> The timer icon should remain visually centered next to the read-time text.</p>
+<div class="c-test-frame">
+  <div style="display:grid;gap:1rem;">
+    <div class="c-test-box" style="max-inline-size:52rem;">
       <div class="c-entry-meta">
         <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
+          <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
         </a>
-
-        <div class="c-entry-meta__content">
-          <p class="c-entry-meta__author-name">Details row test</p>
-
-          <div class="c-entry-meta__details">
-            <time class="c-entry-meta__date" datetime="2025-11-18">November 18, 2025</time>
-
-            <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-              <span>12 min read</span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Details Row Single-line Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Details row single-line behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    In the current component, the details row should try to remain on a single line as one compact metadata strip.
-    The date and read-time items should also remain internally unbroken because both use
-    <code>white-space: nowrap</code>.
-  </p>
-
-  <div class="c-entry-meta-test-frame">
-    <div class="c-entry-meta-test-box c-entry-meta-test-box--very-narrow">
-      <div class="c-entry-meta">
-        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
-        </a>
-
-        <div class="c-entry-meta__content">
-          <p class="c-entry-meta__author-name">Compact details test</p>
-
-          <div class="c-entry-meta__details">
-            <time class="c-entry-meta__date" datetime="2024-08-11">August 11, 2024</time>
-
-            <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-              <span>18 min read</span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Read-time Icon Alignment -->
-  <!-- ============================================================= -->
-
-  <h2>Read-time icon alignment</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The timer icon should render at a fixed small size and remain visually centered next to the read-time text. The icon
-    should not stretch the line height or collapse when the text changes.
-  </p>
-
-  <div class="c-entry-meta-test-frame c-entry-meta-test-stack">
-    <div class="c-entry-meta-test-box">
-      <div class="c-entry-meta">
-        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
-        </a>
-
         <div class="c-entry-meta__content">
           <p class="c-entry-meta__author-name">Short read-time label</p>
-
           <div class="c-entry-meta__details">
             <time class="c-entry-meta__date" datetime="2025-02-09">February 9, 2025</time>
-
             <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
+              <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
               <span>3 min read</span>
             </span>
           </div>
@@ -355,26 +136,17 @@ robots: noindex
       </div>
     </div>
 
-    <div class="c-entry-meta-test-box">
+    <div class="c-test-box" style="max-inline-size:52rem;">
       <div class="c-entry-meta">
         <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
+          <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
         </a>
-
         <div class="c-entry-meta__content">
           <p class="c-entry-meta__author-name">Long read-time label</p>
-
           <div class="c-entry-meta__details">
             <time class="c-entry-meta__date" datetime="2025-02-09">February 9, 2025</time>
-
             <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
+              <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
               <span>24 min read</span>
             </span>
           </div>
@@ -382,53 +154,29 @@ robots: noindex
       </div>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Narrow-width Responsive Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Narrow-width responsive behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Below <code>48rem</code>, the root component should align to the top rather than vertically centering, and the
-    content block should gain a slight top padding. Resize the browser window and inspect how the avatar and text align
-    relative to each other.
-  </p>
-
-  <div class="c-entry-meta-test-frame">
-    <div class="c-entry-meta-test-box c-entry-meta-test-box--narrow">
-      <div class="c-entry-meta">
-        <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img
-            class="c-entry-meta__avatar"
-            src="{{ '/images/avatar.jpg' | relative_url }}"
-            alt="Author avatar"
-          >
-        </a>
-
-        <div class="c-entry-meta__content">
-          <p class="c-entry-meta__author-name">Responsive alignment behavior in a narrow container</p>
-
-          <div class="c-entry-meta__details">
-            <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
-            <span class="c-entry-meta__read-time">
-              <span class="c-entry-meta__icon" aria-hidden="true">
-                {% include icons/timer.svg %}
-              </span>
-              <span>11 min read</span>
-            </span>
-          </div>
+<h2>Narrow-width responsive behavior</h2>
+<p><strong>Expected behavior:</strong> Below <code>48rem</code>, the root component should align to the top rather than vertically centering.</p>
+<div class="c-test-frame">
+  <div class="c-test-box" style="max-inline-size:18rem;">
+    <div class="c-entry-meta">
+      <a class="c-entry-meta__author" href="#" aria-label="View author profile">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+      </a>
+      <div class="c-entry-meta__content">
+        <p class="c-entry-meta__author-name">Responsive alignment behavior in a narrow container</p>
+        <div class="c-entry-meta__details">
+          <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
+          <span class="c-entry-meta__read-time">
+            <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
+            <span>11 min read</span>
+          </span>
         </div>
       </div>
     </div>
-
-    <p class="c-entry-meta-test-note">
-      Resize the browser width to verify the
-      <code>@media (max-width: 48rem)</code> alignment change.
-    </p>
   </div>
-</section>
+  <p class="c-test-note">Resize the browser width to verify the alignment change.</p>
+</div>

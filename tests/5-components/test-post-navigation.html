@@ -49,51 +49,31 @@ robots: noindex
 {% endcomment %}
 
 <style>
-  .c-post-nav-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
-
-  .c-post-nav-test-box {
-    inline-size: min(100%, 72rem);
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
   .c-post-nav-test-box--narrow {
-    inline-size: min(100%, 34rem);
-  }
+      inline-size: min(100%, 34rem);
+    }
 
   .c-post-nav-test-box--tight {
-    inline-size: min(100%, 26rem);
-  }
-
-  .c-post-nav-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
+      inline-size: min(100%, 26rem);
+    }
 
   .c-post-nav-test-empty {
-    padding: 1rem;
-    border: 1px dashed #ccc;
-    color: #666;
-    background: #fcfcfc;
-    font-style: italic;
-  }
+      padding: 1rem;
+      border: 1px dashed var(--color-ui-border);
+      color: var(--color-ui-text-muted);
+      background: var(--color-ui-bg);
+      font-style: italic;
+    }
 
   .c-post-nav-test-kbd {
-    display: inline-block;
-    padding: 0.15rem 0.4rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    background: #fff;
-    font-family: monospace;
-    font-size: 0.9em;
-  }
+      display: inline-block;
+      padding: 0.15rem 0.4rem;
+      border: 1px solid var(--color-ui-border);
+      border-radius: 0.25rem;
+      background: var(--color-ui-surface);
+      font-family: monospace;
+      font-size: 0.9em;
+    }
 </style>
 
 <section class="l-section">
@@ -125,7 +105,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/11.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/11.jpg' | relative_url }}"
               alt="Preview image for previous post"
             >
           </div>
@@ -155,7 +135,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/15.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/15.jpg' | relative_url }}"
               alt="Preview image for next post"
             >
           </div>
@@ -186,7 +166,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/16.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/16.jpg' | relative_url }}"
               alt="Preview image for previous-only post navigation card"
             >
           </div>
@@ -237,7 +217,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/19.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/19.jpg' | relative_url }}"
               alt="Preview image for next-only post navigation card"
             >
           </div>
@@ -337,7 +317,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/20.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/20.jpg' | relative_url }}"
               alt="Preview image for mixed-state previous post"
             >
           </div>
@@ -391,7 +371,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/23.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/23.jpg' | relative_url }}"
               alt="Preview image for long-title previous post"
             >
           </div>
@@ -425,7 +405,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/25.png' | relative_url }}"
+              src="{{ '/assets/images/posts/25.png' | relative_url }}"
               alt="Preview image for long-title next post"
             >
           </div>
@@ -456,7 +436,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/8.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/8.jpg' | relative_url }}"
               alt="Preview image for narrow-width previous card"
             >
           </div>
@@ -486,7 +466,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/11.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/11.jpg' | relative_url }}"
               alt="Preview image for narrow-width next card"
             >
           </div>
@@ -521,7 +501,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/15.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/15.jpg' | relative_url }}"
               alt="Preview image for tight-width navigation test"
             >
           </div>
@@ -562,7 +542,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/19.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/19.jpg' | relative_url }}"
               alt="Preview image for interaction test previous card"
             >
           </div>
@@ -592,7 +572,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/images/posts/20.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/20.jpg' | relative_url }}"
               alt="Preview image for interaction test next card"
             >
           </div>

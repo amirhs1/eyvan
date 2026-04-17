@@ -10,19 +10,8 @@ robots: noindex
   Purpose: Visually verify that the 5-components post shell compiles
   and behaves correctly across the site.
 
-  Structure:
-  - Cover media block
-  - Cover + article spacing integration
-  - Post shell width and spacing
-  - Title and subtitle
-  - Tag group
-  - Header row with metadata and share actions
-  - Title-to-header-row spacing without subtitle
-  - Post body content
-  - Long-title balancing behavior
-  - Responsive stacking behavior for header row
-
   Notes:
+  - Uses shared test helpers from 7-trumps/_tests.scss.
   - This page tests only the component responsibilities of:
     - .c-post
     - .c-post__header
@@ -38,106 +27,32 @@ robots: noindex
     - .c-post-cover
     - .c-post-cover__media
     - .c-post-cover__image
-  - Shared metadata internals belong to the separate entry-meta component.
-  - Shared share-control visuals belong to the separate post-share component.
-  - Tag cosmetics are not owned by this file; this test checks only contextual
-    grouping and capitalization behavior.
-  - Helper styles below are temporary and exist only for testing.
-  - Resize the browser window to verify responsive header-row stacking.
-  - This page is intended for development testing only.
+  - Shared metadata internals belong to entry-meta.
+  - Shared share-control visuals belong to post-share and icon-link.
 {% endcomment %}
 
-<style>
-  .c-post-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
-
-  .c-post-test-stack {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-post-test-box {
-    inline-size: min(100%, 72rem);
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
-  .c-post-test-box--narrow {
-    inline-size: min(100%, 38rem);
-  }
-
-  .c-post-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-post-test-fill {
-    padding: 1rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
-  }
-
-  .c-post-test-share-label {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #333;
-    font-weight: 600;
-  }
-
-  .c-post-test-share-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: 2.25rem;
-    block-size: 2.25rem;
-    border: 1px solid #ccc;
-    border-radius: 999px;
-    background: #f4f4f4;
-    font-size: 0.85rem;
-    font-weight: 700;
-  }
-
-  .c-post-test-container-shell {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-</style>
-
-<section class="l-section">
+<section>
   <p>
-    This page verifies the functionality of the post classes defined in
-    the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the post classes defined in the
+    <strong>5-components</strong> Sass layer.
   </p>
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Cover Media Block -->
-  <!-- ============================================================= -->
-
   <h2>Cover media block</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    The cover wrapper should create top and bottom spacing around the media.
-    The media box should clip overflow, apply the raised-surface background,
-    and round the corners. The image should fill the available width and crop
-    with <code>object-fit: cover</code> when needed.
+    The cover wrapper should create spacing below the media. The media box
+    should clip overflow, apply the raised-surface background, and round the
+    corners. The image should fill the available width and crop cleanly.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <div class="c-post-cover">
       <div class="c-post-cover__media">
         <img
           class="c-post-cover__image"
-          src="{{ '/images/posts/25.png' | relative_url }}"
+          src="{{ '/assets/images/posts/25.png' | relative_url }}"
           alt="Test post cover image"
         >
       </div>
@@ -146,73 +61,19 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Cover + Article Spacing Integration -->
-  <!-- ============================================================= -->
-
-  <h2>Cover and article spacing integration</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    When a cover container is immediately followed by an article container,
-    the post should remove its own top padding so the vertical spacing does not
-    feel doubled. This section mirrors the real adjacent
-    <code>.o-container + .o-container .c-post</code> relationship.
-  </p>
-
-  <div class="c-post-test-frame">
-    <div class="o-container">
-      <div class="c-post-test-container-shell">
-        <div class="c-post-cover">
-          <div class="c-post-cover__media">
-            <img
-              class="c-post-cover__image"
-              src="{{ '/images/posts/25.png' | relative_url }}"
-              alt="Integrated cover image test"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="o-container">
-      <div class="c-post-test-container-shell">
-        <article class="c-post">
-          <header class="c-post__header">
-            <h1 class="c-post__title">Cover Followed by Post Article</h1>
-
-            <p class="c-post__subtitle">
-              This example verifies the visual transition from the cover block
-              into the article shell without duplicated top spacing.
-            </p>
-          </header>
-        </article>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Post Shell Width and Spacing -->
-  <!-- ============================================================= -->
-
   <h2>Post shell width and spacing</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    The post shell should apply top spacing when used on its own, while the
-    header content remains centered and limited to a readable line length
-    rather than stretching full-width across the page.
+    The post header should be centered and limited to a readable line length.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
-        <div class="c-post-test-fill">
-          <p class="c-post-test-note">
-            This inner box should appear constrained by the
-            <code>.c-post__header</code> max-width and centered alignment.
+        <div class="c-test-fill c-post-test-fill">
+          <p class="c-test-note c-post-test-note">
+            This helper block should sit inside the centered
+            <code>.c-post__header</code> measure.
           </p>
         </div>
       </header>
@@ -221,20 +82,14 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Title and Subtitle -->
-  <!-- ============================================================= -->
-
   <h2>Title and subtitle</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    The title should use the display typography scale with balanced wrapping.
-    The subtitle should appear below it with a softer muted color and a readable
-    measure.
+    The title should use the display scale with balanced wrapping. The subtitle
+    should sit below it with a softer muted color and narrower readable measure.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
         <h1 class="c-post__title">
@@ -242,9 +97,9 @@ robots: noindex
         </h1>
 
         <p class="c-post__subtitle">
-          A practical exploration of how to structure long-form content shells,
-          supporting metadata, and reusable share actions without mixing layout
-          concerns across layers.
+          A practical exploration of long-form content shells, supporting
+          metadata, and reusable share actions without mixing layout concerns
+          across layers.
         </p>
       </header>
     </article>
@@ -252,29 +107,21 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Tag Group -->
-  <!-- ============================================================= -->
-
   <h2>Tag group</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    Tags should render as a wrapping inline group with consistent spacing.
-    Individual tag text should be capitalized by the component context even when
-    the source markup is lowercase. Visual tag cosmetics belong to the shared
-    tag or button styles rather than this file.
+    Tags should render as a wrapping inline group with consistent spacing, and
+    the contextual post tag rule should capitalize lowercase source text.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
         <div class="c-post__tags">
-          <a class="c-post__tag" href="#">jekyll</a>
-          <a class="c-post__tag" href="#">scss</a>
-          <a class="c-post__tag" href="#">portfolio</a>
-          <a class="c-post__tag" href="#">design systems</a>
-          <a class="c-post__tag" href="#">accessibility</a>
+          <a class="c-button c-button--tag c-post__tag" href="#">jekyll</a>
+          <a class="c-button c-button--tag c-post__tag" href="#">scss</a>
+          <a class="c-button c-button--tag c-post__tag" href="#">portfolio</a>
+          <a class="c-button c-button--tag c-post__tag" href="#">design systems</a>
         </div>
       </header>
     </article>
@@ -282,27 +129,20 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Header Row with Metadata and Share Actions -->
-  <!-- ============================================================= -->
-
   <h2>Header row with metadata and share actions</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    The header row should place metadata on the left and share actions on the
-    right, keep both aligned vertically, allow wrapping when needed, and render
-    a bottom border below the row.
+    The header row should place metadata on the left, share actions on the
+    right, and render a bottom border below the row.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
         <h1 class="c-post__title">A Post Header with Shared Metadata and Share Controls</h1>
 
         <p class="c-post__subtitle">
-          This example verifies the contextual placement rules owned by the post
-          shell rather than the internal styles of the shared subcomponents.
+          This example verifies the composition rules owned by the post shell.
         </p>
 
         <div class="c-post__header-row">
@@ -311,7 +151,7 @@ robots: noindex
               <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                 <img
                   class="c-entry-meta__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
+                  src="{{ '/assets/images/avatar.jpg' | relative_url }}"
                   alt="Author avatar"
                 >
               </a>
@@ -337,14 +177,19 @@ robots: noindex
             <div class="c-post__share">
               <div class="c-post-share">
                 <div class="c-post-share__head">
-                  <p class="c-post-share__title c-post-test-share-label">Share this post</p>
+                  <p class="c-post-share__title">Share this post</p>
                 </div>
 
                 <div class="c-post-share__list">
-                  <span class="c-post-share__link c-post-test-share-icon">X</span>
-                  <span class="c-post-share__link c-post-test-share-icon">in</span>
-                  <span class="c-post-share__link c-post-test-share-icon">@</span>
-                  <span class="c-post-share__link c-post-test-share-icon">⤴</span>
+                  <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on X">
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/x.svg %}</span>
+                  </a>
+                  <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on LinkedIn">
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span>
+                  </a>
+                  <a class="c-post-share__link c-icon-link" href="#" aria-label="Share by email">
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/mail.svg %}</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -356,12 +201,7 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Title-to-Header-row Spacing Without Subtitle -->
-  <!-- ============================================================= -->
-
   <h2>Title-to-header-row spacing without subtitle</h2>
-
   <p>
     <strong>Expected behavior:</strong>
     When the subtitle is absent, the header row should sit slightly closer to
@@ -369,7 +209,7 @@ robots: noindex
     tighter spacing.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
         <h1 class="c-post__title">Post Title Without a Subtitle</h1>
@@ -380,7 +220,7 @@ robots: noindex
               <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                 <img
                   class="c-entry-meta__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
+                  src="{{ '/assets/images/avatar.jpg' | relative_url }}"
                   alt="Author avatar"
                 >
               </a>
@@ -390,11 +230,8 @@ robots: noindex
 
                 <div class="c-entry-meta__details">
                   <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
                   <span class="c-entry-meta__read-time">
-                    <span class="c-entry-meta__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
+                    <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
                     <span>5 min read</span>
                   </span>
                 </div>
@@ -406,9 +243,12 @@ robots: noindex
             <div class="c-post__share">
               <div class="c-post-share">
                 <div class="c-post-share__list">
-                  <span class="c-post-share__link c-post-test-share-icon">X</span>
-                  <span class="c-post-share__link c-post-test-share-icon">in</span>
-                  <span class="c-post-share__link c-post-test-share-icon">@</span>
+                  <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on X">
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/x.svg %}</span>
+                  </a>
+                  <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on LinkedIn">
+                    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -420,27 +260,18 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Post Body Content -->
-  <!-- ============================================================= -->
-
   <h2>Post body content</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    The content area should remain structurally separated from the header and
-    support typical long-form content. Readability styling for article rhythm
-    belongs primarily to the prose object layered inside the content area.
+    The content area should remain structurally separate from the header and
+    support typical long-form content when paired with <code>.o-prose</code>.
   </p>
 
-  <div class="c-post-test-frame">
+  <div class="c-test-frame c-post-test-frame">
     <article class="c-post">
       <header class="c-post__header">
         <h1 class="c-post__title">Post Body Content Example</h1>
-
-        <p class="c-post__subtitle">
-          This section verifies the article body wrapper used in the real post layout.
-        </p>
+        <p class="c-post__subtitle">This section verifies the article body wrapper used in the real post layout.</p>
 
         <div class="c-post__header-row">
           <div class="c-post__header-meta">
@@ -448,21 +279,16 @@ robots: noindex
               <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                 <img
                   class="c-entry-meta__avatar"
-                  src="{{ '/images/avatar.jpg' | relative_url }}"
+                  src="{{ '/assets/images/avatar.jpg' | relative_url }}"
                   alt="Author avatar"
                 >
               </a>
-
               <div class="c-entry-meta__content">
                 <p class="c-entry-meta__author-name">Author Name</p>
-
                 <div class="c-entry-meta__details">
                   <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
                   <span class="c-entry-meta__read-time">
-                    <span class="c-entry-meta__icon" aria-hidden="true">
-                      {% include icons/timer.svg %}
-                    </span>
+                    <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
                     <span>7 min read</span>
                   </span>
                 </div>
@@ -472,11 +298,10 @@ robots: noindex
         </div>
       </header>
 
-      <div class="c-post__content o-prose">
+      <div class="c-post__content o-prose o-prose--measure-wide">
         <p>
-          This is a paragraph of long-form content with an
-          <a href="#">inline link</a> and some <code>inline code</code>.
-          The body should sit below the header and remain easy to read.
+          This is a paragraph of long-form content with an <a href="#">inline
+          link</a> and some <code>inline code</code>.
         </p>
 
         <h2>Section heading</h2>
@@ -490,41 +315,28 @@ robots: noindex
           A blockquote helps verify that long-form content remains visually
           balanced inside the post shell.
         </blockquote>
-
-        <ul>
-          <li>First list item in the article body</li>
-          <li>Second list item for spacing verification</li>
-          <li>Third list item with slightly longer text for wrapping</li>
-        </ul>
       </div>
     </article>
   </div>
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Long-title Balancing Behavior -->
-  <!-- ============================================================= -->
-
   <h2>Long-title balancing behavior</h2>
-
   <p>
     <strong>Expected behavior:</strong>
     A long heading should wrap in a more balanced way rather than leaving an
-    awkward final line with only one or two short words.
+    awkward final line.
   </p>
 
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--narrow">
+  <div class="c-test-frame c-post-test-frame">
+    <div class="c-test-box c-post-test-box" style="max-inline-size: 38rem;">
       <article class="c-post">
         <header class="c-post__header">
           <h1 class="c-post__title">
             Building a Maintainable and Readable Long-Form Article Component for a Small Jekyll Portfolio Website
           </h1>
-
           <p class="c-post__subtitle">
-            Narrow this example further by resizing the browser to observe title
-            wrapping and subtitle readability.
+            Resize the browser to observe title wrapping and subtitle readability.
           </p>
         </header>
       </article>
@@ -533,28 +345,19 @@ robots: noindex
 
   <hr>
 
-  <!-- ============================================================= -->
-  <!-- Responsive Header-row Stacking -->
-  <!-- ============================================================= -->
-
   <h2>Responsive header-row stacking</h2>
-
   <p>
     <strong>Expected behavior:</strong>
-    At smaller widths, the header row should shift from a side-by-side layout
-    to a stacked layout. Metadata should take the top row, share actions should
-    move below it, and share content should align to the left.
+    At smaller widths, the header row should stack, metadata should take the
+    full row, and share actions should align left.
   </p>
 
-  <div class="c-post-test-frame">
-    <div class="c-post-test-box c-post-test-box--narrow">
+  <div class="c-test-frame c-post-test-frame">
+    <div class="c-test-box c-post-test-box" style="max-inline-size: 38rem;">
       <article class="c-post">
         <header class="c-post__header">
           <h1 class="c-post__title">Responsive Header Row Example</h1>
-
-          <p class="c-post__subtitle">
-            Resize this narrow example to confirm the mobile stacking behavior.
-          </p>
+          <p class="c-post__subtitle">Resize this narrow example to confirm the mobile stacking behavior.</p>
 
           <div class="c-post__header-row">
             <div class="c-post__header-meta">
@@ -562,21 +365,16 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.jpg' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
-
                 <div class="c-entry-meta__content">
                   <p class="c-entry-meta__author-name">Author Name</p>
-
                   <div class="c-entry-meta__details">
                     <time class="c-entry-meta__date" datetime="2026-03-30">March 30, 2026</time>
-
                     <span class="c-entry-meta__read-time">
-                      <span class="c-entry-meta__icon" aria-hidden="true">
-                        {% include icons/timer.svg %}
-                      </span>
+                      <span class="c-entry-meta__icon" aria-hidden="true">{% include icons/timer.svg %}</span>
                       <span>11 min read</span>
                     </span>
                   </div>
@@ -588,14 +386,18 @@ robots: noindex
               <div class="c-post__share">
                 <div class="c-post-share">
                   <div class="c-post-share__head">
-                    <p class="c-post-share__title c-post-test-share-label">Share</p>
+                    <p class="c-post-share__title">Share</p>
                   </div>
-
                   <div class="c-post-share__list">
-                    <span class="c-post-share__link c-post-test-share-icon">X</span>
-                    <span class="c-post-share__link c-post-test-share-icon">in</span>
-                    <span class="c-post-share__link c-post-test-share-icon">@</span>
-                    <span class="c-post-share__link c-post-test-share-icon">⤴</span>
+                    <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on X">
+                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/x.svg %}</span>
+                    </a>
+                    <a class="c-post-share__link c-icon-link" href="#" aria-label="Share on LinkedIn">
+                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/linkedin.svg %}</span>
+                    </a>
+                    <a class="c-post-share__link c-icon-link" href="#" aria-label="Share by email">
+                      <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">{% include icons/mail.svg %}</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -605,9 +407,8 @@ robots: noindex
       </article>
     </div>
 
-    <p class="c-post-test-note">
-      Resize the browser width to verify that the metadata and share zones stack
-      correctly below the small-screen breakpoint.
+    <p class="c-test-note c-post-test-note">
+      Resize the browser width to verify that the metadata and share zones stack correctly.
     </p>
   </div>
 </section>

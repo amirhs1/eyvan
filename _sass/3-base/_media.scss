@@ -24,14 +24,7 @@ img {
   height: auto;
   max-inline-size: 100%;
   block-size: auto;
+  border-radius: settings-config.$global-border-radius;
   // vertical-align: middle;
 }
 
-// Content images (sharp corners globally)
-.c-hero__image,
-.c-post-card__image,
-.c-article__image,
-.c-post-cover__image,
-.c-post-nav__media img {
-  border-radius: settings-config.$global-border-radius;
-}

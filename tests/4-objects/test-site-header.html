@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Object Site Header Test
 permalink: /tests/4-objects/site-header/
 robots: noindex
@@ -13,6 +13,7 @@ robots: noindex
   - Base object layout
   - Mobile-first behavior
   - Layout breakpoint behavior
+  - Nav expansion and centering
   - Long content stress test
 
   Notes:
@@ -20,77 +21,31 @@ robots: noindex
     - .o-site-header
     - .o-site-header__brand
     - .o-site-header__nav
+    - .o-site-header__theme
     - .o-site-header__actions
     - .o-site-header__mobile-controls
-  - Helper styles below are temporary and exist only for testing.
-  - This page intentionally avoids realistic header component styling so the
-    object layer can be inspected in isolation.
+  - Helper styling is provided by 7-trumps/_tests.scss
+  - This page intentionally uses the default layout so the header object can be
+    viewed without the page component wrapper.
   - Resize the browser window to verify breakpoint behavior.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-site-header-test-frame {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fafafa;
-  }
+<div class="o-container">
+  <section aria-labelledby="test-site-header-title">
+    <h1 id="test-site-header-title">Object Site Header Test</h1>
 
-  .c-site-header-test-block {
-    min-width: 0;
-    padding: 0.75rem 1rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
-  }
-
-  .c-site-header-test-block--center {
-    text-align: center;
-  }
-
-  .c-site-header-test-block--end {
-    text-align: right;
-  }
-
-  .c-site-header-test-block--strong {
-    border-width: 2px;
-  }
-
-  .c-site-header-test-label {
-    font-weight: 600;
-  }
-
-  .c-site-header-test-text {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  .c-site-header-test-stack > * + * {
-    margin-top: 0.5rem;
-  }
-</style>
-
-<section class="l-section">
-  <div class="o-container">
     <p>
       This page verifies the functionality of the <code>.o-site-header</code> object and its structural child zones
       defined in the <strong>4-objects</strong> Sass layer.
     </p>
 
-    <p>
-      <em>
-        Development note: the helper styles on this page exist only to make the layout boundaries easy to inspect.
-      </em>
+    <p class="c-test-note">
+      Development note: helper styles on this page exist only to make layout boundaries easier to inspect.
     </p>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Base Object Layout -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Base object layout</h2>
 
     <p>
@@ -108,39 +63,39 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center">
+          <div class="c-site-header-test-block">
             <span class="c-site-header-test-label">Nav</span>
           </div>
         </div>
 
+        <div class="o-site-header__theme">
+          <div class="c-site-header-test-block">
+            <span class="c-site-header-test-label">Theme</span>
+          </div>
+        </div>
+
         <div class="o-site-header__actions">
-          <div class="c-site-header-test-block c-site-header-test-block--end">
+          <div class="c-site-header-test-block">
             <span class="c-site-header-test-label">Actions</span>
           </div>
         </div>
 
         <div class="o-site-header__mobile-controls">
-          <div class="c-site-header-test-block c-site-header-test-block--strong c-site-header-test-block--end">
+          <div class="c-site-header-test-block c-site-header-test-block--strong">
             <span class="c-site-header-test-label">Mobile controls</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Mobile-First Visibility -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Mobile-first visibility</h2>
 
     <p>
       <strong>Expected behavior:</strong>
-      On smaller screens, only the brand zone and mobile controls zone should be visible. The nav and actions zones
-      should be hidden.
+      On smaller screens, only the brand zone and mobile controls zone should be visible. The nav, theme, and actions
+      zones should be hidden.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -150,33 +105,31 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center">Nav hidden on small screens</div>
+          <div class="c-site-header-test-block">Nav hidden on small screens</div>
+        </div>
+
+        <div class="o-site-header__theme">
+          <div class="c-site-header-test-block">Theme hidden on small screens</div>
         </div>
 
         <div class="o-site-header__actions">
-          <div class="c-site-header-test-block c-site-header-test-block--end">Actions hidden on small screens</div>
+          <div class="c-site-header-test-block">Actions hidden on small screens</div>
         </div>
 
         <div class="o-site-header__mobile-controls">
-          <div class="c-site-header-test-block c-site-header-test-block--end">Mobile controls visible</div>
+          <div class="c-site-header-test-block">Mobile controls visible</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Layout Breakpoint Visibility -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Layout breakpoint visibility</h2>
 
     <p>
       <strong>Expected behavior:</strong>
-      At the layout breakpoint and above, the nav zone and actions zone should become visible, while the mobile controls
-      zone should become hidden. The nav zone should expand and sit between the brand and actions zones.
+      At the layout breakpoint and above, the nav, theme, and actions zones should become visible, while the mobile
+      controls zone should become hidden. The nav zone should expand and sit between the brand and the desktop controls.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -186,33 +139,31 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center c-site-header-test-block--strong">
+          <div class="c-site-header-test-block c-site-header-test-block--strong">
             Nav visible at layout breakpoint
           </div>
         </div>
 
+        <div class="o-site-header__theme">
+          <div class="c-site-header-test-block c-site-header-test-block--strong">
+            Theme visible at layout breakpoint
+          </div>
+        </div>
+
         <div class="o-site-header__actions">
-          <div class="c-site-header-test-block c-site-header-test-block--end c-site-header-test-block--strong">
+          <div class="c-site-header-test-block c-site-header-test-block--strong">
             Actions visible at layout breakpoint
           </div>
         </div>
 
         <div class="o-site-header__mobile-controls">
-          <div class="c-site-header-test-block c-site-header-test-block--end">
-            Mobile controls hidden at layout breakpoint
-          </div>
+          <div class="c-site-header-test-block">Mobile controls hidden at layout breakpoint</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Nav Expansion and Centering -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Nav expansion and centering</h2>
 
     <p>
@@ -228,37 +179,35 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center c-site-header-test-block--strong">
+          <div class="c-site-header-test-block c-site-header-test-block--strong">
             Centered flexible nav zone
           </div>
         </div>
 
+        <div class="o-site-header__theme">
+          <div class="c-site-header-test-block">Theme</div>
+        </div>
+
         <div class="o-site-header__actions">
-          <div class="c-site-header-test-block c-site-header-test-block--end">Actions</div>
+          <div class="c-site-header-test-block">Actions</div>
         </div>
 
         <div class="o-site-header__mobile-controls">
-          <div class="c-site-header-test-block c-site-header-test-block--end">Mobile</div>
+          <div class="c-site-header-test-block">Mobile</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Long Content Stress Test -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Long content stress test</h2>
 
     <p>
       <strong>Expected behavior:</strong>
       This test should stress the zone that is actually flexible in the header object. At the layout breakpoint and
       above, the nav zone should absorb long content and wrap without causing obvious horizontal overflow, because it is
-      the middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The brand and
-      actions zones remain short here because they are content-sized structural edges, not equal flexible regions.
+      the middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The brand,
+      theme, and actions zones remain content-sized edge regions.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -270,7 +219,7 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center c-site-header-test-block--strong">
+          <div class="c-site-header-test-block c-site-header-test-block--strong">
             <div class="c-site-header-test-text">
               Navigation area with intentionally long placeholder content to verify that the flexible middle header zone
               can absorb length, shrink reasonably, and wrap inside the available space without forcing obvious
@@ -279,42 +228,40 @@ robots: noindex
           </div>
         </div>
 
+        <div class="o-site-header__theme">
+          <div class="c-site-header-test-block">
+            <div class="c-site-header-test-text">Theme</div>
+          </div>
+        </div>
+
         <div class="o-site-header__actions">
-          <div class="c-site-header-test-block c-site-header-test-block--end">
+          <div class="c-site-header-test-block">
             <div class="c-site-header-test-text">Actions</div>
           </div>
         </div>
 
         <div class="o-site-header__mobile-controls">
-          <div class="c-site-header-test-block c-site-header-test-block--end">
+          <div class="c-site-header-test-block">
             <div class="c-site-header-test-text">Mobile controls</div>
           </div>
         </div>
       </div>
     </div>
 
-    <p>
-      <em>
-        Resize the viewport and confirm that the long nav content stays inside the container at the layout breakpoint and
-        above. On smaller screens, the nav and actions zones should still remain hidden while brand and mobile controls
-        remain visible.
-      </em>
+    <p class="c-test-note">
+      Resize the viewport and confirm that the long nav content stays inside the container at the layout breakpoint and
+      above. On smaller screens, the nav, theme, and actions zones should remain hidden while brand and mobile controls
+      remain visible.
     </p>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Combined Responsive Check -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Combined responsive check</h2>
 
     <p>
       <strong>Expected behavior:</strong>
       This final example combines all structural zones in one place. On small screens, you should see brand plus mobile
-      controls. At the layout breakpoint and above, you should see brand, centered nav, and actions, while mobile
+      controls. At the layout breakpoint and above, you should see brand, nav, theme, and actions, while mobile
       controls disappear.
     </p>
 
@@ -325,17 +272,21 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block c-site-header-test-block--center">Final nav zone</div>
+          <div class="c-site-header-test-block">Final nav zone</div>
+        </div>
+
+        <div class="o-site-header__theme">
+          <div class="c-site-header-test-block">Final theme zone</div>
         </div>
 
         <div class="o-site-header__actions">
-          <div class="c-site-header-test-block c-site-header-test-block--end">Final actions zone</div>
+          <div class="c-site-header-test-block">Final actions zone</div>
         </div>
 
         <div class="o-site-header__mobile-controls">
-          <div class="c-site-header-test-block c-site-header-test-block--end">Final mobile controls zone</div>
+          <div class="c-site-header-test-block">Final mobile controls zone</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>

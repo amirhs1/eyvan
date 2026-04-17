@@ -46,515 +46,128 @@ robots: noindex
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-button-test-frame {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fafafa;
-  }
+<p>
+  This page verifies the functionality of the <code>.c-button</code> component
+  and its modifiers defined in the <strong>5-components</strong> Sass layer.
+</p>
 
-  .c-button-test-stack > * + * {
-    margin-top: 1rem;
-  }
+<hr>
 
-  .c-button-test-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .c-button-test-row--column {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .c-button-test-label {
-    font-weight: 600;
-  }
-
-  .c-button-test-note {
-    max-width: 42rem;
-  }
-
-  .c-button-test-icon {
-    display: inline-block;
-    width: 0.875rem;
-    height: 0.875rem;
-    line-height: 1;
-    font-style: normal;
-    text-align: center;
-  }
-
-  .c-button-test-fill {
-    width: 100%;
-  }
-
-  .c-button-test-surface {
-    padding: 1rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
-  }
-
-  .c-button-test-long-wrap {
-    max-width: 18rem;
-  }
-
-  .c-button-test-section-shell {
-    max-width: 42rem;
-  }
-
-  .c-button-test-section-heading {
-    margin: 0 0 1rem;
-  }
-
-  .c-button-test-section-card {
-    width: 100%;
-    min-height: 5rem;
-    padding: 1rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
-  }
-</style>
-
-<section class="l-section">
-  <div class="o-container">
-    <p>
-      This page verifies the functionality of the <code>.c-button</code> component and its modifiers defined in the
-      <strong>5-components</strong> Sass layer.
-    </p>
-
-    <p>
-      <em>
-        Development note: the helper styles on this page exist only to make button boundaries, spacing, full-width
-        behavior, and wrapping behavior easier to inspect.
-      </em>
-    </p>
+<h2>Base button</h2>
+<p><strong>Expected behavior:</strong> The base button should render as an inline-flex control with centered content and stable alignment.</p>
+<div class="c-test-frame">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+    <a class="c-button c-button--primary" href="#base-link">Base button as link</a>
+    <button class="c-button c-button--secondary" type="button">Base button as button</button>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Base Button -->
-  <!-- ============================================================= -->
+<h2>Filled action variants</h2>
+<p><strong>Expected behavior:</strong> Primary, secondary, and section CTA variants should share the same filled treatment.</p>
+<div class="c-test-frame">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+    <a class="c-button c-button--primary" href="#primary">Primary action</a>
+    <a class="c-button c-button--secondary" href="#secondary">Secondary action</a>
+    <a class="c-button c-button--section-cta" href="#section-cta-inline">Section CTA action</a>
+  </div>
+</div>
 
-  <div class="o-container">
-    <h2>Base button</h2>
+<hr>
 
-    <p>
-      <strong>Expected behavior:</strong>
-      The base button should render as an inline-flex control with centered content, visible padding, rounded corners,
-      no text underline, and stable alignment whether it is rendered as a link or a button element.
-    </p>
+<h2>Section CTA variant</h2>
+<p><strong>Expected behavior:</strong> The section CTA modifier should fill the available inline width.</p>
+<div class="c-test-frame">
+  <div style="max-inline-size:42rem;display:grid;gap:1rem;">
+    <div class="c-test-block">Placeholder block representing a section-level content area.</div>
+    <a class="c-button c-button--section-cta" href="#section-cta-full">View All Projects</a>
+  </div>
+</div>
 
-    <div class="c-button-test-frame">
-      <div class="c-button-test-row">
-        <a class="c-button c-button--primary" href="#base-link">Base button as link</a>
+<hr>
 
-        <button class="c-button c-button--secondary" type="button">Base button as button</button>
-      </div>
+<h2>Tag variants</h2>
+<p><strong>Expected behavior:</strong> Tag buttons should render as compact button-like links, with the small tag visibly more compact.</p>
+<div class="c-test-frame">
+  <div style="display:grid;gap:1rem;">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+      <span class="c-test-label">Default tag:</span>
+      <a class="c-button c-button--tag" href="#tag-research">Research</a>
+      <a class="c-button c-button--tag" href="#tag-writing">Writing Notes</a>
+      <a class="c-button c-button--tag" href="#tag-creative-work">Creative Work</a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+      <span class="c-test-label">Small tag:</span>
+      <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-research">Research</a>
+      <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-writing">Writing Notes</a>
+      <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-creative-work">Creative Work</a>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Filled Action Variants -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Filled action variants</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      The primary, secondary, and section CTA filled variants should share the same base filled visual treatment. On
-      hover and focus-visible, each should switch to the hover token defined by the active theme.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-row">
-        <a class="c-button c-button--primary" href="#primary">Primary action</a>
-
-        <a class="c-button c-button--secondary" href="#secondary">Secondary action</a>
-
-        <a class="c-button c-button--section-cta c-button-test-fill" href="#section-cta-inline">
-          Section CTA action
-        </a>
-      </div>
+<h2>Size modifiers</h2>
+<p><strong>Expected behavior:</strong> Small and large modifiers should change height, padding, and font size while preserving alignment.</p>
+<div class="c-test-frame">
+  <div style="display:grid;gap:1rem;">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+      <span class="c-test-label">Primary sizes:</span>
+      <a class="c-button c-button--primary c-button--small" href="#small-primary">Small primary</a>
+      <a class="c-button c-button--primary c-button--large" href="#large-primary">Large primary</a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+      <span class="c-test-label">Secondary sizes:</span>
+      <a class="c-button c-button--secondary c-button--small" href="#small-secondary">Small secondary</a>
+      <a class="c-button c-button--secondary c-button--large" href="#large-secondary">Large secondary</a>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Section CTA Variant -->
-  <!-- ============================================================= -->
+<h2>Icon composition</h2>
+<p><strong>Expected behavior:</strong> Buttons using <code>.c-button--with-icon</code> should keep icon and label aligned on one line.</p>
+<div class="c-test-frame">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+    <a class="c-button c-button--secondary c-button--small c-button--with-icon" href="#icon-secondary">
+      <span class="c-button__icon-circle" aria-hidden="true"><span class="c-button__icon">↓</span></span>
+      <span class="c-button__label">Secondary with icon</span>
+    </a>
+    <a class="c-button c-button--primary c-button--large c-button--with-icon" href="#icon-primary">
+      <span class="c-button__icon-circle" aria-hidden="true"><span class="c-button__icon">→</span></span>
+      <span class="c-button__label">Large primary with icon</span>
+    </a>
+  </div>
+</div>
 
-  <div class="o-container">
-    <h2>Section CTA variant</h2>
+<hr>
 
-    <p>
-      <strong>Expected behavior:</strong>
-      The section CTA modifier should expand to the full inline width of its parent container. This test simulates a
-      section action area below a heading or below a content block. The button should fill the available width rather
-      than shrink to its label width.
-    </p>
+<h2>Disabled state</h2>
+<p><strong>Expected behavior:</strong> Disabled controls should appear visually muted and should not behave like interactive controls.</p>
+<div class="c-test-frame">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+    <button class="c-button c-button--primary" type="button" disabled>Native disabled button</button>
+    <a class="c-button c-button--secondary" href="#aria-disabled" aria-disabled="true">ARIA-disabled link</a>
+  </div>
+</div>
 
-    <div class="c-button-test-frame">
-      <div class="c-button-test-section-shell">
-        <h3 class="c-button-test-section-heading">Latest Projects</h3>
+<hr>
 
-        <div class="c-button-test-stack">
-          <div class="c-button-test-section-card">
-            Placeholder block representing the width of a section-level content area.
-          </div>
-
-          <a
-            class="c-button c-button--section-cta"
-            href="#section-cta-full"
-          >
-            View All Projects
-          </a>
-        </div>
-      </div>
+<h2>Small-screen behavior</h2>
+<p class="c-test-note">
+  <strong>Expected behavior:</strong> Standard buttons should prefer content width above the small-screen breakpoint, while <code>.c-button--section-cta</code> should remain full-width.
+</p>
+<div class="c-test-frame">
+  <div class="c-test-fill" style="max-inline-size:18rem;">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.75rem;">
+      <a class="c-button c-button--primary" href="#narrow-primary">Narrow primary test</a>
+      <a class="c-button c-button--secondary c-button--with-icon" href="#narrow-secondary">
+        <span class="c-button__icon-circle" aria-hidden="true"><span class="c-button__icon">↓</span></span>
+        <span class="c-button__label">Narrow secondary test</span>
+      </a>
+      <a class="c-button c-button--section-cta" href="#narrow-section-cta">Narrow section CTA test</a>
     </div>
   </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Tag Variants -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Tag variants</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      Tag buttons should render as compact button-like links with smaller height, tighter padding, and capitalized text.
-      The small tag variant should be visibly more compact than the default tag variant.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-stack">
-        <div class="c-button-test-row">
-          <span class="c-button-test-label">Default tag:</span>
-
-          <a class="c-button c-button--tag" href="#tag-research">Research</a>
-
-          <a class="c-button c-button--tag" href="#tag-writing">Writing Notes</a>
-
-          <a class="c-button c-button--tag" href="#tag-creative-work">Creative Work</a>
-        </div>
-
-        <div class="c-button-test-row">
-          <span class="c-button-test-label">Small tag:</span>
-
-          <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-research">Research</a>
-
-          <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-writing">Writing Notes</a>
-
-          <a class="c-button c-button--tag c-button--tag-small" href="#tag-small-creative-work">Creative Work</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Size Modifiers -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Size modifiers</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      The small and large modifiers should change the button height, padding, and font size while preserving alignment,
-      border radius, and the shared filled action styling.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-stack">
-        <div class="c-button-test-row">
-          <span class="c-button-test-label">Primary sizes:</span>
-
-          <a class="c-button c-button--primary c-button--small" href="#small-primary">Small primary</a>
-
-          <a class="c-button c-button--primary c-button--large" href="#large-primary">Large primary</a>
-        </div>
-
-        <div class="c-button-test-row">
-          <span class="c-button-test-label">Secondary sizes:</span>
-
-          <a class="c-button c-button--secondary c-button--small" href="#small-secondary">Small secondary</a>
-
-          <a class="c-button c-button--secondary c-button--large" href="#large-secondary">Large secondary</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Icon Composition -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Icon composition</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      Buttons using <code>.c-button--with-icon</code> should align the icon circle and label on one line with
-      consistent spacing. The icon circle should remain circular and should not stretch. The secondary icon-circle
-      hover behavior should also be visible on hover and focus-visible.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-row">
-        <a
-          class="c-button c-button--secondary c-button--small c-button--with-icon"
-          href="#icon-secondary"
-        >
-          <span class="c-button__icon-circle" aria-hidden="true">
-            <span class="c-button__icon c-button-test-icon">↓</span>
-          </span>
-
-          <span class="c-button__label">Secondary with icon</span>
-        </a>
-
-        <a
-          class="c-button c-button--primary c-button--large c-button--with-icon"
-          href="#icon-primary"
-        >
-          <span class="c-button__icon-circle" aria-hidden="true">
-            <span class="c-button__icon c-button-test-icon">→</span>
-          </span>
-
-          <span class="c-button__label">Large primary with icon</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Icon + Long Label -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Icon button with longer label</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      The icon circle should stay fixed in size, and the label should remain aligned with it. This checks that
-      <code>.c-button__label</code> and the icon elements compose cleanly together.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-row">
-        <a
-          class="c-button c-button--secondary c-button--with-icon"
-          href="#long-label"
-        >
-          <span class="c-button__icon-circle" aria-hidden="true">
-            <span class="c-button__icon c-button-test-icon">↓</span>
-          </span>
-
-          <span class="c-button__label">Read the project overview</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Disabled State -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Disabled state</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      Disabled buttons should appear visually muted and should not behave like interactive controls. This verifies both
-      the native <code>:disabled</code> state and the <code>[aria-disabled="true"]</code> pattern.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-row">
-        <button class="c-button c-button--primary" type="button" disabled>Native disabled button</button>
-
-        <a
-          class="c-button c-button--secondary"
-          href="#aria-disabled"
-          aria-disabled="true"
-        >
-          ARIA-disabled link
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Small-Screen Behavior -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Small-screen behavior</h2>
-
-    <p class="c-button-test-note">
-      <strong>Expected behavior:</strong>
-      On very narrow screens, normal buttons may be forced by the helper wrapper to fill the available width, while the
-      section CTA should remain intentionally full-width by its own modifier. Once the viewport reaches the component’s
-      min-width breakpoint, standard buttons should prefer content width more explicitly, but the section CTA should
-      continue to fill its parent container.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-surface c-button-test-long-wrap">
-        <div class="c-button-test-row c-button-test-row--column">
-          <a class="c-button c-button--primary c-button-test-fill" href="#narrow-primary">Narrow primary test</a>
-
-          <a
-            class="c-button c-button--secondary c-button--with-icon c-button-test-fill"
-            href="#narrow-secondary"
-          >
-            <span class="c-button__icon-circle" aria-hidden="true">
-              <span class="c-button__icon c-button-test-icon">↓</span>
-            </span>
-
-            <span class="c-button__label">Narrow secondary test</span>
-          </a>
-
-          <a
-            class="c-button c-button--section-cta"
-            href="#narrow-section-cta"
-          >
-            Narrow section CTA test
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- White-space Stress Test -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>White-space stress test</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      Because the button uses <code>white-space: nowrap</code>, a very long label should stay on one line. This test is
-      useful for spotting overflow risk and deciding whether your real content stays within sensible button lengths.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-row">
-        <a class="c-button c-button--primary" href="#nowrap-test">
-          Intentionally Long Button Label To Stress Test No-Wrap Behavior
-        </a>
-      </div>
-    </div>
-
-    <p>
-      <em>
-        This is not necessarily a bug if the label becomes too long; it mainly shows the practical content limit for
-        this component.
-      </em>
-    </p>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Theme Hover Verification -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Theme hover verification</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      In both light and dark themes, the filled button variants and tag buttons should show a visible hover-state color
-      change. Toggle the theme and hover each control below to verify that the hover token changes correctly in both
-      modes.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-stack">
-        <div class="c-button-test-row">
-          <a class="c-button c-button--primary" href="#theme-primary">Primary hover test</a>
-
-          <a class="c-button c-button--secondary" href="#theme-secondary">Secondary hover test</a>
-
-          <a class="c-button c-button--tag" href="#theme-tag">Tag hover test</a>
-        </div>
-
-        <div class="c-button-test-row">
-          <a class="c-button c-button--section-cta c-button-test-fill" href="#theme-section-cta">
-            Section CTA hover test
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Combined Responsive Check -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
-    <h2>Combined responsive check</h2>
-
-    <p>
-      <strong>Expected behavior:</strong>
-      This final example combines the main button patterns in one place: filled action variants, section CTA, tag
-      variants, size modifiers, and icon composition. The grouped controls should wrap cleanly as horizontal space
-      decreases, while the section CTA below should remain full-width.
-    </p>
-
-    <div class="c-button-test-frame">
-      <div class="c-button-test-stack">
-        <div class="c-button-test-row">
-          <a class="c-button c-button--primary c-button--small" href="#final-1">Small primary</a>
-
-          <a class="c-button c-button--primary c-button--large" href="#final-2">Large primary</a>
-
-          <a class="c-button c-button--secondary c-button--small" href="#final-3">Small secondary</a>
-
-          <a class="c-button c-button--tag" href="#final-4">Research</a>
-
-          <a class="c-button c-button--tag c-button--tag-small" href="#final-5">Notes</a>
-
-          <a
-            class="c-button c-button--secondary c-button--small c-button--with-icon"
-            href="#final-6"
-          >
-            <span class="c-button__icon-circle" aria-hidden="true">
-              <span class="c-button__icon c-button-test-icon">↓</span>
-            </span>
-
-            <span class="c-button__label">Icon button</span>
-          </a>
-        </div>
-
-        <a class="c-button c-button--section-cta" href="#final-7">
-          Full-width section CTA
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+</div>

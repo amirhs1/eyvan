@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Object Site Footer Test
 permalink: /tests/4-objects/site-footer/
 robots: noindex
@@ -13,6 +13,7 @@ robots: noindex
   - Base object layout
   - Mobile-first stacking behavior
   - Layout breakpoint behavior
+  - Equal region distribution
   - Meta column internal stacking
   - Long content stress test
 
@@ -22,75 +23,28 @@ robots: noindex
     - .o-site-footer__brand
     - .o-site-footer__meta
     - .o-site-footer__actions
-  - Helper styles below are temporary and exist only for testing.
-  - This page intentionally avoids realistic footer component styling so the
-    object layer can be inspected in isolation.
+  - Helper styling is provided by 7-trumps/_tests.scss
+  - This page intentionally uses the default layout so the footer object can be
+    viewed without the page component wrapper.
   - Resize the browser window to verify breakpoint behavior.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-site-footer-test-frame {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fafafa;
-  }
+<div class="o-container">
+  <section aria-labelledby="test-site-footer-title">
+    <h1 id="test-site-footer-title">Object Site Footer Test</h1>
 
-  .c-site-footer-test-block {
-    min-width: 0;
-    padding: 0.75rem 1rem;
-    border: 1px dashed #999;
-    background: #f3f3f3;
-  }
-
-  .c-site-footer-test-block--center {
-    text-align: center;
-  }
-
-  .c-site-footer-test-block--end {
-    text-align: right;
-  }
-
-  .c-site-footer-test-block--strong {
-    border-width: 2px;
-  }
-
-  .c-site-footer-test-label {
-    font-weight: 600;
-  }
-
-  .c-site-footer-test-text {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  .c-site-footer-test-stack > * + * {
-    margin-top: 0.5rem;
-  }
-</style>
-
-<section class="l-section">
-  <div class="o-container">
     <p>
       This page verifies the functionality of the <code>.o-site-footer</code> object and its structural child zones
       defined in the <strong>4-objects</strong> Sass layer.
     </p>
 
-    <p>
-      <em>
-        Development note: the helper styles on this page exist only to make the layout boundaries easy to inspect.
-      </em>
+    <p class="c-test-note">
+      Development note: helper styles on this page exist only to make layout boundaries easier to inspect.
     </p>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Base Object Layout -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Base object layout</h2>
 
     <p>
@@ -108,27 +62,21 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">
+          <div class="c-site-footer-test-block">
             <span class="c-site-footer-test-label">Meta</span>
           </div>
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end c-site-footer-test-block--strong">
+          <div class="c-site-footer-test-block c-site-footer-test-block--strong">
             <span class="c-site-footer-test-label">Actions</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Mobile-First Stacking -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Mobile-first stacking</h2>
 
     <p>
@@ -145,23 +93,17 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">Meta centered on small screens</div>
+          <div class="c-site-footer-test-block">Meta centered on small screens</div>
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end">Actions centered on small screens</div>
+          <div class="c-site-footer-test-block">Actions centered on small screens</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Layout Breakpoint Shift -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Layout breakpoint shift</h2>
 
     <p>
@@ -179,27 +121,21 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center c-site-footer-test-block--strong">
+          <div class="c-site-footer-test-block c-site-footer-test-block--strong">
             Meta stays centered at layout breakpoint
           </div>
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end c-site-footer-test-block--strong">
+          <div class="c-site-footer-test-block c-site-footer-test-block--strong">
             Actions aligned to end at layout breakpoint
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Equal Region Distribution -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Equal region distribution</h2>
 
     <p>
@@ -215,23 +151,17 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">Center meta region</div>
+          <div class="c-site-footer-test-block">Center meta region</div>
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end">End actions region</div>
+          <div class="c-site-footer-test-block">End actions region</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Meta Internal Stacking -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Meta internal stacking</h2>
 
     <p>
@@ -247,24 +177,18 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">Tagline line</div>
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">Copyright line</div>
+          <div class="c-site-footer-test-block">Tagline line</div>
+          <div class="c-site-footer-test-block">Copyright line</div>
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end">Actions</div>
+          <div class="c-site-footer-test-block">Actions</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Long Content Stress Test -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Long content stress test</h2>
 
     <p>
@@ -285,13 +209,13 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">
+          <div class="c-site-footer-test-block">
             <div class="c-site-footer-test-text">
               Footer tagline with intentionally long placeholder content to verify centered stacked wrapping behavior
             </div>
           </div>
 
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">
+          <div class="c-site-footer-test-block">
             <div class="c-site-footer-test-text">
               Copyright line with intentionally long placeholder content to test shrink behavior in the meta zone
             </div>
@@ -299,7 +223,7 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end c-site-footer-test-block--strong">
+          <div class="c-site-footer-test-block c-site-footer-test-block--strong">
             <div class="c-site-footer-test-text">
               Social actions area with intentionally long placeholder content for wrapping verification
             </div>
@@ -308,21 +232,13 @@ robots: noindex
       </div>
     </div>
 
-    <p>
-      <em>
-        Resize the viewport and confirm that the test blocks stay inside the container without obvious horizontal
-        overflow.
-      </em>
+    <p class="c-test-note">
+      Resize the viewport and confirm that the test blocks stay inside the container without obvious horizontal
+      overflow.
     </p>
-  </div>
 
-  <hr>
+    <hr>
 
-  <!-- ============================================================= -->
-  <!-- Combined Responsive Check -->
-  <!-- ============================================================= -->
-
-  <div class="o-container">
     <h2>Combined responsive check</h2>
 
     <p>
@@ -339,14 +255,14 @@ robots: noindex
         </div>
 
         <div class="o-site-footer__meta">
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">Final meta line one</div>
-          <div class="c-site-footer-test-block c-site-footer-test-block--center">Final meta line two</div>
+          <div class="c-site-footer-test-block">Final meta line one</div>
+          <div class="c-site-footer-test-block">Final meta line two</div>
         </div>
 
         <div class="o-site-footer__actions">
-          <div class="c-site-footer-test-block c-site-footer-test-block--end">Final actions zone</div>
+          <div class="c-site-footer-test-block">Final actions zone</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>

@@ -43,76 +43,46 @@ robots: noindex
 {% endcomment %}
 
 <style>
-  .c-page-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
-
-  .c-page-test-stack {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .c-page-test-box {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
   .c-page-test-box--narrow {
-    inline-size: min(100%, 30rem);
-  }
+      inline-size: min(100%, 30rem);
+    }
 
   .c-page-test-box--very-narrow {
-    inline-size: min(100%, 22rem);
-  }
-
-  .c-page-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-page-test-fill {
-    padding: 0.75rem;
-    border: 1px dashed #ccc;
-    background: #fcfcfc;
-  }
+      inline-size: min(100%, 22rem);
+    }
 
   .c-page-test-placeholder-image {
-    display: grid;
-    place-items: center;
-    min-block-size: 14rem;
-    color: #555;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    background: linear-gradient(135deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
-      linear-gradient(225deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
-      linear-gradient(315deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem,
-      linear-gradient(45deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem, #f7f7f7;
-  }
+      display: grid;
+      place-items: center;
+      min-block-size: 14rem;
+      color: var(--color-ui-text-muted);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
+        linear-gradient(225deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
+        linear-gradient(315deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem,
+        linear-gradient(45deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem, #f7f7f7;
+    }
 
   .c-page-test-meta-demo {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    color: #444;
-    font-size: 0.95rem;
-  }
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      color: var(--color-ui-text);
+      font-size: 0.95rem;
+    }
 
   .c-page-test-meta-demo time {
-    white-space: nowrap;
-  }
+      white-space: nowrap;
+    }
 
   .c-page-test-body-demo > *:first-child {
-    margin-top: 0;
-  }
+      margin-top: 0;
+    }
 
   .c-page-test-body-demo > *:last-child {
-    margin-bottom: 0;
-  }
+      margin-bottom: 0;
+    }
 </style>
 
 <section class="l-section">

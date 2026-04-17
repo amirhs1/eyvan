@@ -34,7 +34,6 @@ robots: noindex
   - Development only.
 {% endcomment %}
 
-
 <p>
   This page verifies the default styling of native HTML elements defined in the
   <strong>3-base</strong> Sass layer.
@@ -42,8 +41,8 @@ robots: noindex
 
 <p class="c-test-note">
   Development note: the framing and helper shells below now come from the shared
-  <code>7-trumps/_tests.scss</code> utilities rather than page-local inline styles.
-  The native HTML elements remain the primary thing under test.
+  <code>7-trumps/_tests.scss</code> utilities rather than page-local inline styles. The native HTML elements remain the
+  primary thing under test.
 </p>
 
 <hr>
@@ -53,20 +52,19 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    The page should inherit the site’s default body font family, body font size,
-    regular weight, readable line-height, body foreground color, and body background
-    color. Horizontal overflow should not appear from ordinary page content.
+    The page should inherit the site’s default body font family, body font size, regular weight, readable line-height,
+    body foreground color, and body background color. Horizontal overflow should not appear from ordinary page content.
   </p>
 
   <div class="c-test-frame">
     <p>
-      This paragraph checks the default body typography and readable measure.
-      It should look like ordinary site copy without needing component classes.
+      This paragraph checks the default body typography and readable measure. It should look like ordinary site copy
+      without needing component classes.
     </p>
 
     <p>
-      This second paragraph helps inspect default body rhythm and color.
-      It should feel visually consistent with the rest of the site content.
+      This second paragraph helps inspect default body rhythm and color. It should feel visually consistent with the
+      rest of the site content.
     </p>
 
     <p class="c-test-fill">
@@ -83,17 +81,14 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    The document-level custom properties should drive surfaces, text, links,
-    muted text, status accents, and selection colors. When the site theme changes,
-    these samples should update without per-page overrides.
+    The document-level custom properties should drive surfaces, text, links, muted text, status accents, and selection
+    colors. When the site theme changes, these samples should update without per-page overrides.
   </p>
 
   <div class="c-test-frame">
     <div class="c-test-box">
       <p class="c-test-label">Theme control</p>
-      <p class="c-test-meta">
-        Toggle the site theme and inspect the sample surfaces, links, and status blocks below.
-      </p>
+      <p class="c-test-meta">Toggle the site theme and inspect the sample surfaces, links, and status blocks below.</p>
       {% include theme-toggle.html hide_label=false %}
     </div>
 
@@ -106,7 +101,9 @@ robots: noindex
             <a href="#theme-link-test">This is a themed link</a>
           </p>
           <p>
-            <small>This sentence is useful for checking muted copy if your base layer applies it through inherited tokens.</small>
+            <small
+              >This sentence is useful for checking muted copy if your base layer applies it through inherited tokens.</small
+            >
           </p>
         </div>
       </div>
@@ -114,9 +111,7 @@ robots: noindex
       <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6">
         <div class="c-test-block c-test-block--strong">
           <h3>Raised surface</h3>
-          <p>
-            This panel exists to compare contrast and boundary treatment against the standard surface.
-          </p>
+          <p>This panel exists to compare contrast and boundary treatment against the standard surface.</p>
         </div>
       </div>
     </div>
@@ -131,13 +126,18 @@ robots: noindex
       <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-4">
         <div class="c-test-box">
           <p class="c-test-label">Interactive tokens</p>
-          <p class="c-test-meta"><code>--color-link-color</code>, <code>--color-accent-primary</code>, <code>--color-accent-secondary</code></p>
+          <p class="c-test-meta">
+            <code>--color-link-color</code>, <code>--color-accent-primary</code>, <code>--color-accent-secondary</code>
+          </p>
         </div>
       </div>
       <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-desktop-4">
         <div class="c-test-box">
           <p class="c-test-label">Status tokens</p>
-          <p class="c-test-meta"><code>--color-state-error</code>, <code>--color-state-success</code>, <code>--color-state-warning</code>, <code>--color-state-info</code></p>
+          <p class="c-test-meta">
+            <code>--color-state-error</code>, <code>--color-state-success</code>, <code>--color-state-warning</code>,
+            <code>--color-state-info</code>
+          </p>
         </div>
       </div>
     </div>
@@ -210,9 +210,8 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    Plain links should use the global link token, change on hover if defined,
-    and show a visible focus treatment when reached with keyboard navigation.
-    Use the <kbd>Tab</kbd> key to inspect focus behavior.
+    Plain links should use the global link token, change on hover if defined, and show a visible focus treatment when
+    reached with keyboard navigation. Use the <kbd>Tab</kbd> key to inspect focus behavior.
   </p>
 
   <div class="c-test-frame">
@@ -242,8 +241,8 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    Unordered, ordered, and description lists should retain native semantics and
-    receive sensible spacing. Description details should be visually nested below terms.
+    Unordered, ordered, and description lists should retain native semantics and receive sensible spacing. Description
+    details should be visually nested below terms.
   </p>
 
   <div class="c-test-frame">
@@ -288,8 +287,7 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    Images should scale responsively, preserve aspect ratio, and not overflow
-    their container.
+    Images should scale responsively, preserve aspect ratio, and not overflow their container.
   </p>
 
   <div class="c-test-frame">
@@ -300,10 +298,7 @@ robots: noindex
       >
     </div>
 
-    <p>
-      The image above should shrink with its container and should not exceed the width
-      of the framed test area.
-    </p>
+    <p>The image above should shrink with its container and should not exceed the width of the framed test area.</p>
   </div>
 </section>
 
@@ -314,14 +309,12 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    The blockquote should show its base visual treatment. Inline code-like
-    elements should use the mono font family and remain readable inline.
+    The blockquote should show its base visual treatment. Inline code-like elements should use the mono font family and
+    remain readable inline.
   </p>
 
   <div class="c-test-frame">
-    <blockquote>
-      Good defaults make the rest of the system easier to build.
-    </blockquote>
+    <blockquote>Good defaults make the rest of the system easier to build.</blockquote>
 
     <p>Inline code example: <code>bundle exec jekyll serve</code></p>
     <p>Keyboard input example: press <kbd>Tab</kbd> to move focus.</p>
@@ -336,8 +329,8 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    <code>pre</code> and code content should use the mono font. Long lines should
-    become horizontally scrollable rather than breaking page layout.
+    <code>pre</code> and code content should use the mono font. Long lines should become horizontally scrollable rather
+    than breaking page layout.
   </p>
 
   <div class="c-test-frame">
@@ -359,8 +352,8 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    Tables should span available width, keep header and cell content readable,
-    and remain horizontally scrollable on narrow screens when necessary.
+    Tables should span available width, keep header and cell content readable, and remain horizontally scrollable on
+    narrow screens when necessary.
   </p>
 
   <div class="c-test-frame">
@@ -402,8 +395,8 @@ robots: noindex
 
   <p class="c-test-note">
     <strong>Expected behavior:</strong>
-    The horizontal rule should appear as a distinct separator with stable spacing
-    above and below it. Stacked block elements should maintain consistent rhythm.
+    The horizontal rule should appear as a distinct separator with stable spacing above and below it. Stacked block
+    elements should maintain consistent rhythm.
   </p>
 
   <div class="c-test-frame">
@@ -415,7 +408,7 @@ robots: noindex
 
     <figure>
       <img
-        src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+        src="{{ '/assets/images/hero-placeholder.jpg' | relative_url }}"
         alt="Placeholder image used to inspect spacing around figure elements"
       >
     </figure>
@@ -431,9 +424,7 @@ robots: noindex
       </tr>
     </table>
 
-    <blockquote>
-      This final section is mainly for visually checking stacked block spacing.
-    </blockquote>
+    <blockquote>This final section is mainly for visually checking stacked block spacing.</blockquote>
 
     <pre><code>Spacing rhythm check</code></pre>
   </div>

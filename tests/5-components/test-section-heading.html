@@ -4,24 +4,55 @@ title: Component Section Heading Test
 permalink: /tests/5-components/test-section-heading/
 robots: noindex
 ---
-
 {% comment %}
   Component Section Heading Test Page
-  Purpose: Visually verify that the section-heading component compiles and
-  behaves correctly across the site.
+  Purpose: Visually verify that the section-heading component compiles
+  and behaves correctly across the site.
+
+  Structure:
+  - Full component structure
+  - Real include usage
+  - Root spacing behavior
+  - Head row with content only
+  - Head row with content and actions
+  - Content stack structure
+  - Eyebrow element
+  - Title element
+  - Description element
+  - Description API: text vs HTML
+  - Actions element
+  - Action variants and sizes
+  - Heading levels
+  - Small modifier
+  - Medium modifier
+  - Large modifier
+  - Modifier comparison
+  - Important content combinations
+  - Responsive stacking behavior
 
   Notes:
-  - Uses shared test helpers from 7-trumps/_tests.scss.
-  - The DOM shape matches the current include and SCSS:
-    .c-section-heading > .c-section-heading__content >
-    (.c-section-heading__eyebrow?) + .c-section-heading__head + (.c-section-heading__description?)
+  - This page tests only the component responsibilities of:
+  - .c-section-heading
+  - .c-section-heading__head
+  - .c-section-heading__content
+  - .c-section-heading__eyebrow
+  - .c-section-heading__title
+  - .c-section-heading__description
+  - .c-section-heading__actions
+  - .c-section-heading--sm
+  - .c-section-heading--md
+  - .c-section-heading--lg
+  - This page also tests the Liquid include API of:
+  - _includes/section-heading.html
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify responsive stacking behavior.
+  - This page is intended for development testing only.
 {% endcomment %}
 
 <section>
   <p>
-    This page verifies the functionality of the section-heading classes defined
-    in the <strong>5-components</strong> Sass layer and the Liquid API of the
-    reusable include.
+    This page verifies the functionality of the section-heading classes defined in the
+    <strong>5-components</strong> Sass layer and the Liquid API of the reusable include.
   </p>
 
   <hr>
@@ -29,8 +60,8 @@ robots: noindex
   <h2>Full component structure</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The content stack should wrap eyebrow, head row, and description, while the
-    head row distributes title and actions horizontally on wider screens.
+    The content stack should wrap eyebrow, head row, and description, while the head row distributes title and actions
+    horizontally on wider screens.
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
@@ -50,10 +81,7 @@ robots: noindex
           </div>
 
           <div class="c-section-heading__description">
-            <p>
-              .c-section-heading__description sits after the head row inside
-              .c-section-heading__content.
-            </p>
+            <p>.c-section-heading__description sits after the head row inside .c-section-heading__content.</p>
           </div>
         </div>
       </div>
@@ -74,7 +102,8 @@ robots: noindex
 
   <div class="c-test-frame c-section-heading-test-frame">
     <div class="c-test-box c-section-heading-test-box">
-      {% include section-heading.html
+      {%
+        include section-heading.html
         id="test-include-title"
         heading_level="h2"
         modifier="md"
@@ -92,8 +121,7 @@ robots: noindex
   <h2>Head row with content only</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The head row should still work when it contains only the title and no
-    actions block.
+    The head row should still work when it contains only the title and no actions block.
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
@@ -119,21 +147,23 @@ robots: noindex
   <h2>Description API: text vs HTML</h2>
   <p>
     <strong>Expected behavior:</strong>
-    <code>description</code> should become a paragraph, while
-    <code>description_html</code> should render raw HTML inside the wrapper.
+    <code>description</code> should become a paragraph, while <code>description_html</code> should render raw HTML
+    inside the wrapper.
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
     <div style="display: grid; gap: 1rem;">
       <div class="c-test-box c-section-heading-test-box">
-        {% include section-heading.html
+        {%
+          include section-heading.html
           title="Plain description"
           description="This should be wrapped in a paragraph by the include."
         %}
       </div>
 
       <div class="c-test-box c-section-heading-test-box">
-        {% include section-heading.html
+        {%
+          include section-heading.html
           title="HTML description"
           description_html="<p><strong>Bold HTML</strong> inside description.</p><p>Second paragraph rendered from description_html.</p>"
         %}
@@ -146,8 +176,8 @@ robots: noindex
   <h2>Heading levels</h2>
   <p>
     <strong>Expected behavior:</strong>
-    The semantic heading level should change through the include API while the
-    component styling stays visually consistent.
+    The semantic heading level should change through the include API while the component styling stays visually
+    consistent.
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
@@ -214,8 +244,7 @@ robots: noindex
   <h2>Responsive stacking behavior</h2>
   <p>
     <strong>Expected behavior:</strong>
-    Below the breakpoint, the head row should stack vertically and the actions
-    should left-align.
+    Below the breakpoint, the head row should stack vertically and the actions should left-align.
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">

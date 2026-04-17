@@ -4,7 +4,6 @@ title: Component Post Navigation Test
 permalink: /tests/5-components/test-post-navigation/
 robots: noindex
 ---
-
 {% comment %}
   Component Post Navigation Test Page
   Purpose: Visually verify that the 5-components post navigation component
@@ -50,36 +49,36 @@ robots: noindex
 
 <style>
   .c-post-nav-test-box--narrow {
-      inline-size: min(100%, 34rem);
-    }
+    inline-size: min(100%, 34rem);
+  }
 
   .c-post-nav-test-box--tight {
-      inline-size: min(100%, 26rem);
-    }
+    inline-size: min(100%, 26rem);
+  }
 
   .c-post-nav-test-empty {
-      padding: 1rem;
-      border: 1px dashed var(--color-ui-border);
-      color: var(--color-ui-text-muted);
-      background: var(--color-ui-bg);
-      font-style: italic;
-    }
+    padding: 1rem;
+    border: 1px dashed var(--color-ui-border);
+    color: var(--color-ui-text-muted);
+    background: var(--color-ui-bg);
+    font-style: italic;
+  }
 
   .c-post-nav-test-kbd {
-      display: inline-block;
-      padding: 0.15rem 0.4rem;
-      border: 1px solid var(--color-ui-border);
-      border-radius: 0.25rem;
-      background: var(--color-ui-surface);
-      font-family: monospace;
-      font-size: 0.9em;
-    }
+    display: inline-block;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--color-ui-border);
+    border-radius: 0.25rem;
+    background: var(--color-ui-surface);
+    font-family: monospace;
+    font-size: 0.9em;
+  }
 </style>
 
 <section class="l-section">
   <p>
-    This page verifies the functionality of the post navigation classes
-    defined in the <strong>5-components</strong> Sass layer.
+    This page verifies the functionality of the post navigation classes defined in the
+    <strong>5-components</strong> Sass layer.
   </p>
 
   <hr>
@@ -92,10 +91,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The root component should render two cards side by side when space allows.
-    The previous card should place media first and content second. The next
-    card should place content first and media second. Labels, titles, spacing,
-    and alignment should feel consistent across both cards.
+    The root component should render two cards side by side when space allows. The previous card should place media
+    first and content second. The next card should place content first and media second. Labels, titles, spacing, and
+    alignment should feel consistent across both cards.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -111,25 +109,17 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              Building a Research Workflow with Small, Reusable Tools
-            </h2>
+            <h2 class="c-post-nav__title">Building a Research Workflow with Small, Reusable Tools</h2>
           </div>
         </a>
 
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
-            <h2 class="c-post-nav__title">
-              Designing a Clean Portfolio Homepage in Jekyll
-            </h2>
+            <h2 class="c-post-nav__title">Designing a Clean Portfolio Homepage in Jekyll</h2>
           </div>
 
           <div class="c-post-nav__media">
@@ -154,9 +144,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When only the previous link exists, the component should still look stable
-    and intentional. The single card should preserve the previous-card media
-    and content order and should not depend on the second card being present.
+    When only the previous link exists, the component should still look stable and intentional. The single card should
+    preserve the previous-card media and content order and should not depend on the second card being present.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -172,13 +161,9 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              Annotating Data for Reproducible Computational Research
-            </h2>
+            <h2 class="c-post-nav__title">Annotating Data for Reproducible Computational Research</h2>
           </div>
         </a>
       </nav>
@@ -195,9 +180,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    When only the next link exists, the card should keep its right-aligned
-    content treatment and internal content-first, media-second structure. It
-    should remain visually coherent on its own.
+    When only the next link exists, the card should keep its right-aligned content treatment and internal content-first,
+    media-second structure. It should remain visually coherent on its own.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -205,13 +189,9 @@ robots: noindex
       <nav class="c-post-nav" aria-label="Post navigation">
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
-            <h2 class="c-post-nav__title">
-              Publishing Notebook-Based Writing on a Static Site
-            </h2>
+            <h2 class="c-post-nav__title">Publishing Notebook-Based Writing on a Static Site</h2>
           </div>
 
           <div class="c-post-nav__media">
@@ -236,16 +216,14 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    In the real include, nothing should render when neither previous nor next
-    exists. This test shows an intentionally empty frame so you can confirm
-    that the correct behavior for that state is the absence of the component.
+    In the real include, nothing should render when neither previous nor next exists. This test shows an intentionally
+    empty frame so you can confirm that the correct behavior for that state is the absence of the component.
   </p>
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
       <div class="c-post-nav-test-empty">
-        Intentionally empty: no .c-post-nav markup should be rendered when no
-        previous or next post exists.
+        Intentionally empty: no .c-post-nav markup should be rendered when no previous or next post exists.
       </div>
     </div>
   </div>
@@ -260,9 +238,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    If the media block is omitted, spacing and alignment should still feel
-    deliberate. The content block should expand naturally without leaving
-    awkward gaps for missing media.
+    If the media block is omitted, spacing and alignment should still feel deliberate. The content block should expand
+    naturally without leaving awkward gaps for missing media.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -270,25 +247,17 @@ robots: noindex
       <nav class="c-post-nav" aria-label="Post navigation">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              A Text-only Previous Navigation Card
-            </h2>
+            <h2 class="c-post-nav__title">A Text-only Previous Navigation Card</h2>
           </div>
         </a>
 
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
-            <h2 class="c-post-nav__title">
-              A Text-only Next Navigation Card
-            </h2>
+            <h2 class="c-post-nav__title">A Text-only Next Navigation Card</h2>
           </div>
         </a>
       </nav>
@@ -305,9 +274,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    The component should support asymmetric content states where one card has
-    media and the other does not. Internal alignment and spacing should remain
-    visually balanced.
+    The component should support asymmetric content states where one card has media and the other does not. Internal
+    alignment and spacing should remain visually balanced.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -323,25 +291,17 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              Previous card with media
-            </h2>
+            <h2 class="c-post-nav__title">Previous card with media</h2>
           </div>
         </a>
 
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
-            <h2 class="c-post-nav__title">
-              Next card without media should still align correctly
-            </h2>
+            <h2 class="c-post-nav__title">Next card without media should still align correctly</h2>
           </div>
         </a>
       </nav>
@@ -358,10 +318,9 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    Long titles should wrap naturally, preserve hierarchy, and avoid
-    overflowing or collapsing the card layout. Because the content area uses
-    <code>min-inline-size: 0</code>, text should shrink and wrap instead of
-    forcing overflow.
+    Long titles should wrap naturally, preserve hierarchy, and avoid overflowing or collapsing the card layout. Because
+    the content area uses
+    <code>min-inline-size: 0</code>, text should shrink and wrap instead of forcing overflow.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -377,28 +336,22 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
             <h2 class="c-post-nav__title">
-              Designing a maintainable research portfolio with clear content
-              hierarchy, responsive navigation cards, resilient image handling,
-              and readable multi-line title wrapping across constrained widths
+              Designing a maintainable research portfolio with clear content hierarchy, responsive navigation cards,
+              resilient image handling, and readable multi-line title wrapping across constrained widths
             </h2>
           </div>
         </a>
 
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
             <h2 class="c-post-nav__title">
-              Refactoring repeated include patterns into smaller, more focused
-              Jekyll components without sacrificing readability, card balance,
-              or the integrity of the previous and next navigation layout
+              Refactoring repeated include patterns into smaller, more focused Jekyll components without sacrificing
+              readability, card balance, or the integrity of the previous and next navigation layout
             </h2>
           </div>
 
@@ -424,9 +377,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    At narrower widths, the root grid should shift from two columns to one
-    column, so the two cards stack vertically. The cards should remain
-    readable and should not overflow horizontally.
+    At narrower widths, the root grid should shift from two columns to one column, so the two cards stack vertically.
+    The cards should remain readable and should not overflow horizontally.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -442,25 +394,17 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              Previous card in a constrained container
-            </h2>
+            <h2 class="c-post-nav__title">Previous card in a constrained container</h2>
           </div>
         </a>
 
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
-            <h2 class="c-post-nav__title">
-              Next card should stack below without overflow
-            </h2>
+            <h2 class="c-post-nav__title">Next card should stack below without overflow</h2>
           </div>
 
           <div class="c-post-nav__media">
@@ -475,8 +419,7 @@ robots: noindex
     </div>
 
     <p class="c-post-nav-test-note">
-      Reduce the viewport width further to confirm that the cards stack
-      cleanly and remain readable.
+      Reduce the viewport width further to confirm that the cards stack cleanly and remain readable.
     </p>
   </div>
 
@@ -490,8 +433,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    A single card in a very tight container should still preserve media size,
-    spacing, and title wrapping without causing horizontal overflow.
+    A single card in a very tight container should still preserve media size, spacing, and title wrapping without
+    causing horizontal overflow.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -507,13 +450,9 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              Testing a very narrow single navigation card
-            </h2>
+            <h2 class="c-post-nav__title">Testing a very narrow single navigation card</h2>
           </div>
         </a>
       </nav>
@@ -530,9 +469,8 @@ robots: noindex
 
   <p>
     <strong>Expected behavior:</strong>
-    On hover, the card should lift slightly, deepen its shadow, and keep its
-    title color unchanged. On keyboard focus, the link should show a clear
-    visible focus treatment.
+    On hover, the card should lift slightly, deepen its shadow, and keep its title color unchanged. On keyboard focus,
+    the link should show a clear visible focus treatment.
   </p>
 
   <div class="c-post-nav-test-frame">
@@ -548,25 +486,17 @@ robots: noindex
           </div>
 
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--prev">
-              Previous post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
-            <h2 class="c-post-nav__title">
-              Hover and keyboard-focus interaction test
-            </h2>
+            <h2 class="c-post-nav__title">Hover and keyboard-focus interaction test</h2>
           </div>
         </a>
 
         <a class="c-post-nav__item c-post-nav__item--next" href="#focus-test-next">
           <div class="c-post-nav__content">
-            <span class="c-post-nav__label c-post-nav__label--next">
-              Next post
-            </span>
+            <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
-            <h2 class="c-post-nav__title">
-              Confirm title color remains stable across interactive states
-            </h2>
+            <h2 class="c-post-nav__title">Confirm title color remains stable across interactive states</h2>
           </div>
 
           <div class="c-post-nav__media">
@@ -581,16 +511,15 @@ robots: noindex
     </div>
 
     <p class="c-post-nav-test-note">
-      Use <span class="c-post-nav-test-kbd">Tab</span> to move focus onto each
-      card and confirm that focus is clearly visible.
+      Use <span class="c-post-nav-test-kbd">Tab</span> to move focus onto each card and confirm that focus is clearly
+      visible.
     </p>
   </div>
 
   <p>
     <em>
-      Tip: Resize the browser window and test both mouse hover and keyboard
-      focus to verify the two-column to one-column shift, media placement,
-      title wrapping, and interactive state behavior.
+      Tip: Resize the browser window and test both mouse hover and keyboard focus to verify the two-column to one-column
+      shift, media placement, title wrapping, and interactive state behavior.
     </em>
   </p>
 </section>

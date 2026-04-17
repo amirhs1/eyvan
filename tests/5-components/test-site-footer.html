@@ -4,27 +4,37 @@ title: Component Site Footer Test
 permalink: /tests/5-components/test-site-footer/
 robots: noindex
 ---
-
 {% comment %}
   Component Site Footer Test Page
   Purpose: Visually verify that the 5-components site-footer component
-  matches the current Sass contract.
+  compiles and behaves correctly across the site.
 
-  What this page tests:
-  - .c-site-footer
-  - .c-site-footer__brand
-  - .c-site-footer__meta
-  - .c-site-footer__copyright
-  - .c-site-footer__tagline
-
-  What this page does NOT test:
-  - o-site-footer structural layout
-  - brand component internals
-  - social-links component internals
+  Structure:
+  - Base footer shell
+  - Footer brand wrapper
+  - Footer meta wrapper
+  - Copyright text
+  - Tagline text
+  - Long-text wrapping behavior
+  - Footer shell spacing and separation
 
   Notes:
-  - Shared development helper styling comes from 7-trumps/_tests.scss.
-  - Only small fixture-specific helpers are defined inline below.
+  - This page tests only the component responsibilities of:
+    - .c-site-footer
+    - .c-site-footer__brand
+    - .c-site-footer__meta
+    - .c-site-footer__copyright
+    - .c-site-footer__tagline
+  - Structural column layout belongs to the 4-objects footer object:
+    - .o-site-footer
+    - .o-site-footer__brand
+    - .o-site-footer__meta
+    - .o-site-footer__actions
+  - Brand internals belong to the separate brand component.
+  - Social link internals belong to the separate social-links component.
+  - Helper styles below are temporary and exist only for testing.
+  - Resize the browser window to verify spacing and text-wrapping behavior.
+  - This page is intended for development testing only.
 {% endcomment %}
 
 <style>
@@ -94,8 +104,8 @@ robots: noindex
 <h2>Base footer shell</h2>
 <p>
   <strong>Expected behavior:</strong>
-  The footer shell should provide its own top border, background surface, block padding,
-  and lower-emphasis default text color.
+  The footer shell should provide its own top border, background surface, block padding, and lower-emphasis default text
+  color.
 </p>
 
 <div class="c-site-footer-test-frame">
@@ -131,8 +141,8 @@ robots: noindex
 <h2>Brand wrapper</h2>
 <p>
   <strong>Expected behavior:</strong>
-  <code>.c-site-footer__brand</code> should act only as a footer-context wrapper and inherit footer color,
-  without restyling the internal brand component.
+  <code>.c-site-footer__brand</code> should act only as a footer-context wrapper and inherit footer color, without
+  restyling the internal brand component.
 </p>
 
 <div class="c-site-footer-test-frame">
@@ -334,7 +344,7 @@ robots: noindex
 
 <p>
   <em>
-    Tip: compare the prominence of <code>.c-site-footer__copyright</code> and
-    <code>.c-site-footer__tagline</code>, then resize the browser to inspect padding changes.
+    Tip: compare the prominence of <code>.c-site-footer__copyright</code> and <code>.c-site-footer__tagline</code>, then
+    resize the browser to inspect padding changes.
   </em>
 </p>

@@ -10,7 +10,12 @@ robots: noindex
   Purpose: Visually verify that 7-trumps utilities compile and behave
   correctly across the site.
 
-  Structure:
+  Updated to match the current 7-trumps layer:
+  - Uses shared test helper classes from 7-trumps/_tests.scss
+  - Removes assumptions that do not match the actual utility behavior
+  - Tests only what the utilities/state hooks explicitly define
+
+  Covered:
   - Accessibility utilities
   - Visibility utilities
   - State hooks
@@ -19,189 +24,301 @@ robots: noindex
   - Native HTML hidden attribute
 
   Notes:
-  - Each section explains the expected behavior before the test element.
-  - Use browser DevTools to inspect applied styles if something appears incorrect.
-  - Motion styling is separated from the animate utility so the test more clearly
-    verifies transition behavior.
+  - .animate is a transition/reduced-motion hook, not a full reveal system.
+  - Visual styling for .is-active and .is-open belongs to owning components.
+  - Use print preview and DevTools where noted.
 {% endcomment %}
 
-<style>
-  .c-motion-test {
-    padding: 2rem;
-    border: 1px dashed #999;
-    background: #f9f9f9;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-</style>
 
-<section class="l-section">
-  <p>
-    This page verifies the functionality of the utility and state classes
-    defined in the <strong>7-trumps</strong> Sass layer.
+<p>
+  This page verifies the utility and state classes defined in the
+  <strong>7-trumps</strong> Sass layer.
+</p>
+
+<hr>
+
+<!-- ============================================================= -->
+<!-- Accessibility Utilities -->
+<!-- ============================================================= -->
+
+<h2>Accessibility utilities</h2>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    This list should have <strong>no bullets, margin, or padding</strong>
+    because <code>.u-list-reset</code> removes default list styling.
   </p>
 
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Accessibility Utilities -->
-  <!-- ============================================================= -->
-
-  <h2>Accessibility utilities</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The list below should have <strong>no bullets, margins, or padding</strong>
-    because the <code>.u-list-reset</code> utility removes default list styling.
-  </p>
-
-  <ul class="u-list-reset">
+  <ul class="u-list-reset c-test-fill">
     <li>List item one</li>
     <li>List item two</li>
     <li>List item three</li>
   </ul>
+</div>
 
-  <p>
-    <strong>Expected behavior:</strong>
-    The button below should visually show only a star symbol.
-    A screen reader should announce <strong>“Save this item”</strong>
-    because that text is visually hidden with <code>.u-visually-hidden</code>.
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The button should visually show only a star. A screen reader should still
+    announce <strong>“Save this item”</strong> because that text is hidden with
+    <code>.u-visually-hidden</code>.
   </p>
 
-  <button type="button">
-    <span aria-hidden="true">★</span>
-    <span class="u-visually-hidden">Save this item</span>
-  </button>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Visibility Utilities -->
-  <!-- ============================================================= -->
-
-  <h2>Visibility utilities</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The following paragraph uses <code>.u-hidden</code> and should
-    <strong>not appear at all</strong> in the page layout.
-  </p>
-
-  <p class="u-hidden">You should never see this text.</p>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The next paragraph uses <code>.u-invisible</code>.
-    It should take up space in the layout but the text itself should
-    <strong>not be visible</strong>.
-  </p>
-
-  <p class="u-invisible">
-    This paragraph is invisible but still occupies layout space.
-  </p>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- State Hooks -->
-  <!-- ============================================================= -->
-
-  <h2>State hooks</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The <code>.is-active</code> class typically acts as a state hook.
-    By itself it usually has <strong>no visual styling</strong>.
-    Components such as navigation links apply styling when the class is present.
-  </p>
-
-  <p class="is-active">
-    This paragraph has the <code>.is-active</code> class applied.
-    It may not visually change unless a component stylesheet targets it.
-  </p>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Motion Utilities -->
-  <!-- ============================================================= -->
-
-  <h2>Motion utilities</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The box below starts hidden and shifted downward.
-    After the page loads, it should <strong>smoothly fade in and slide up</strong>.
-    If reduced motion is enabled at the OS or browser level, the movement may be
-    reduced or removed.
-  </p>
-
-  <div class="animate c-motion-test js-motion-test">
-    <strong>Motion Test:</strong> This block should animate into view.
+  <div class="c-test-box">
+    <button type="button">
+      <span aria-hidden="true">★</span>
+      <span class="u-visually-hidden">Save this item</span>
+    </button>
   </div>
+</div>
 
-  <script>
-    window.addEventListener('load', function () {
-      const el = document.querySelector('.js-motion-test');
-
-      if (el) {
-        window.requestAnimationFrame(() => {
-          window.requestAnimationFrame(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-          });
-        });
-      }
-    });
-  </script>
-
-  <p>
-    <em>
-      Tip: To test reduced motion, use your browser DevTools to emulate
-      <code>prefers-reduced-motion: reduce</code>.
-    </em>
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The skip link is visually hidden by default. It should become visible when
+    focused with the keyboard.
   </p>
 
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Print Utilities -->
-  <!-- ============================================================= -->
-
-  <h2>Print utilities</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The following paragraph uses <code>.u-print-hidden</code>.
-    It should appear normally on screen but disappear in print preview.
-  </p>
-
-  <p class="u-print-hidden">This text should disappear in print view.</p>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The next paragraph uses <code>.u-print-only</code>.
-    It should <strong>not appear on screen</strong> but should appear in print preview.
-  </p>
-
-  <p class="u-print-only">This text should appear only in print mode.</p>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Hidden Attribute -->
-  <!-- ============================================================= -->
-
-  <h2>Native hidden attribute</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The element below uses the native HTML <code>hidden</code> attribute.
-    It should never be visible. The trumps layer reinforces this with
-    <code>[hidden] { display: none !important; }</code>.
-  </p>
-
-  <div hidden>
-    If you can see this text, the hidden rule is not working.
+  <div class="c-test-box">
+    <a class="u-skip-link" href="#trumps-skip-target">Skip to target</a>
+    <p class="c-test-meta">
+      Press <kbd>Tab</kbd> to focus the skip link.
+    </p>
+    <div id="trumps-skip-target" class="c-test-fill">
+      Skip-link target
+    </div>
   </div>
-</section>
+</div>
+
+<hr>
+
+<!-- ============================================================= -->
+<!-- Visibility Utilities -->
+<!-- ============================================================= -->
+
+<h2>Visibility utilities</h2>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The hidden paragraph should not appear in layout because
+    <code>.u-hidden</code> sets <code>display: none</code>.
+  </p>
+
+  <div class="c-test-box">
+    <p class="u-hidden">You should never see this text.</p>
+    <p class="c-test-meta">Visible confirmation text after the hidden element.</p>
+  </div>
+</div>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The invisible paragraph should keep its layout space, but its content
+    should not be visible.
+  </p>
+
+  <div class="c-test-box">
+    <p class="u-invisible">This paragraph is invisible but still occupies layout space.</p>
+    <p class="c-test-meta">This text should appear below the invisible block.</p>
+  </div>
+</div>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    These utilities force display mode: <code>.u-block</code>,
+    <code>.u-inline</code>, and <code>.u-inline-block</code>.
+  </p>
+
+  <div class="c-test-box">
+    <span class="u-block c-test-fill">u-block</span>
+    <div>
+      <div class="u-inline c-test-fill">u-inline</div>
+      <div class="u-inline c-test-fill">u-inline</div>
+    </div>
+    <div>
+      <div class="u-inline-block c-test-fill">u-inline-block</div>
+      <div class="u-inline-block c-test-fill">u-inline-block</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ============================================================= -->
+<!-- State Hooks -->
+<!-- ============================================================= -->
+
+<h2>State hooks</h2>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    <code>.is-active</code> and <code>.is-open</code> are semantic hooks only.
+    They may not change appearance unless a component stylesheet targets them.
+  </p>
+
+  <div class="c-test-box">
+    <p class="is-active">This paragraph uses <code>.is-active</code>.</p>
+    <p class="is-open">This paragraph uses <code>.is-open</code>.</p>
+  </div>
+</div>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The hidden-state paragraph should not appear because
+    <code>.is-hidden</code> applies <code>display: none</code>.
+  </p>
+
+  <div class="c-test-box">
+    <p class="is-hidden">You should never see this hidden-state text.</p>
+    <p class="c-test-meta">Visible confirmation text after the hidden-state element.</p>
+  </div>
+</div>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    Toggling <code>body.is-mobile-menu-open</code> should lock page scrolling.
+    Use the button below, then try scrolling the page.
+  </p>
+
+  <div class="c-test-box">
+    <button type="button" data-body-scroll-lock-toggle>
+      Toggle body.is-mobile-menu-open
+    </button>
+    <p class="c-test-meta" data-body-scroll-lock-status>
+      Current state: unlocked
+    </p>
+    <div class="c-test-fill" aria-hidden="true">
+      Scroll-lock helper area
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ============================================================= -->
+<!-- Motion Utilities -->
+<!-- ============================================================= -->
+
+<h2>Motion utilities</h2>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    <code>.animate</code> provides transition behavior and reduced-motion
+    safeguards. It does <strong>not</strong> create a hidden initial state by
+    itself. Clicking the button should animate the box between two inline
+    states unless reduced motion is enabled.
+  </p>
+
+  <div class="c-test-box">
+    <p class="c-test-meta">
+      Tip: In DevTools, emulate <code>prefers-reduced-motion: reduce</code>
+      and repeat the toggle.
+    </p>
+
+    <button type="button" data-motion-toggle>
+      Toggle motion demo
+    </button>
+
+    <div
+      class="c-test-block c-test-block--strong animate"
+      data-motion-demo
+      style="margin-top: 1rem; opacity: 0.35; transform: translateY(1rem);"
+    >
+      Motion demo block
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ============================================================= -->
+<!-- Print Utilities -->
+<!-- ============================================================= -->
+
+<h2>Print utilities</h2>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The next paragraph should appear on screen but disappear in print preview
+    because it uses <code>.u-print-hidden</code>.
+  </p>
+
+  <div class="c-test-box">
+    <p class="u-print-hidden">This text should disappear in print view.</p>
+  </div>
+</div>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The next paragraph should not appear on screen, but it should appear in
+    print preview because it uses <code>.u-print-only</code>.
+  </p>
+
+  <div class="c-test-box">
+    <p class="u-print-only">This text should appear only in print mode.</p>
+    <p class="c-test-meta">Use browser print preview to verify this behavior.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- ============================================================= -->
+<!-- Hidden Attribute -->
+<!-- ============================================================= -->
+
+<h2>Native hidden attribute</h2>
+
+<div class="c-test-frame">
+  <p class="c-test-note">
+    <strong>Expected:</strong>
+    The hidden element below should never be visible because the trumps layer
+    reinforces the native HTML <code>hidden</code> attribute with
+    <code>display: none !important</code>.
+  </p>
+
+  <div class="c-test-box">
+    <div hidden>
+      If you can see this text, the hidden attribute rule is not working.
+    </div>
+    <p class="c-test-meta">Visible confirmation text after the hidden element.</p>
+  </div>
+</div>
+
+
+<script>
+  window.addEventListener('load', function () {
+    const motionButton = document.querySelector('[data-motion-toggle]');
+    const motionDemo = document.querySelector('[data-motion-demo]');
+    const bodyToggle = document.querySelector('[data-body-scroll-lock-toggle]');
+    const bodyStatus = document.querySelector('[data-body-scroll-lock-status]');
+
+    if (motionButton && motionDemo) {
+      let isMoved = false;
+
+      motionButton.addEventListener('click', function () {
+        isMoved = !isMoved;
+        motionDemo.style.opacity = isMoved ? '1' : '0.35';
+        motionDemo.style.transform = isMoved ? 'translateY(0)' : 'translateY(1rem)';
+      });
+    }
+
+    if (bodyToggle && bodyStatus) {
+      bodyToggle.addEventListener('click', function () {
+        document.body.classList.toggle('is-mobile-menu-open');
+
+        bodyStatus.textContent = document.body.classList.contains('is-mobile-menu-open')
+          ? 'Current state: locked'
+          : 'Current state: unlocked';
+      });
+    }
+  });
+</script>

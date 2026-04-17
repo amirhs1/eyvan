@@ -46,58 +46,32 @@ robots: noindex
 {% endcomment %}
 
 <style>
-  .c-post-card-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
-
-  .c-post-card-test-stack {
-    display: grid;
-    gap: 1rem;
-  }
-
   .c-post-card-test-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  }
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    }
 
   .c-post-card-test-grid--two-up {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .c-post-card-test-box {
-    inline-size: min(100%, 26rem);
-  }
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
   .c-post-card-test-box--narrow {
-    inline-size: min(100%, 18rem);
-  }
-
-  .c-post-card-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-post-card-test-fill {
-    block-size: 100%;
-  }
+      inline-size: min(100%, 18rem);
+    }
 
   .c-post-card-test-placeholder-image {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-    min-block-size: 12rem;
-    object-fit: cover;
-    background: linear-gradient(135deg, #dfe7ff 0%, #c8f1ec 100%);
-  }
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+      min-block-size: 12rem;
+      object-fit: cover;
+      background: linear-gradient(135deg, #dfe7ff 0%, #c8f1ec 100%);
+    }
 
   .c-post-card-test-long-text {
-    max-inline-size: 60ch;
-  }
+      max-inline-size: 60ch;
+    }
 
   @media (max-width: 48rem) {
     .c-post-card-test-grid--two-up {

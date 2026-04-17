@@ -27,225 +27,85 @@ robots: noindex
   - This page is intended for development testing only
 {% endcomment %}
 
-<style>
-  .c-icon-link-test-frame {
-    padding: 1.5rem;
-    margin-block: 1.5rem;
-    border: 1px dashed #999;
-    background: #fafafa;
-  }
+<p>
+  This page verifies the functionality of the <strong>icon-link</strong>
+  component defined in the <strong>5-components</strong> Sass layer.
+</p>
 
-  .c-icon-link-test-stack {
-    display: grid;
-    gap: 1rem;
-  }
+<hr>
 
-  .c-icon-link-test-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .c-icon-link-test-label {
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .c-icon-link-test-note {
-    margin: 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-
-  .c-icon-link-test-box {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background: #fff;
-  }
-
-  .c-icon-link-test-demo-hover .c-icon-link {
-    background-color: var(--color-ui-surface-raised);
-    border-color: var(--color-accent-primary);
-    color: var(--color-accent-primary);
-  }
-
-  .c-icon-link-test-demo-active .c-icon-link {
-    transform: translateY(1px);
-  }
-
-  .c-icon-link-test-svg {
-    inline-size: 100%;
-    block-size: 100%;
-    display: block;
-  }
-</style>
-
-<section class="l-section">
-  <p>
-    This page verifies the functionality of the <strong>icon-link</strong> component defined in the
-    <strong>5-components</strong> Sass layer.
-  </p>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Base Anchor Usage -->
-  <!-- ============================================================= -->
-
-  <h2>Base anchor usage</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Icon links should render as inline-flex controls with centered icons, consistent sizing, and proper hover/focus
-    feedback.
-  </p>
-
-  <div class="c-icon-link-test-frame">
-    <div class="c-icon-link-test-box">
-      <div class="c-icon-link-test-row">
-        <a class="c-icon-link" href="#" aria-label="GitHub">
-          <span class="u-visually-hidden">GitHub</span>
-          <span class="c-icon-link__icon" aria-hidden="true">G</span>
-        </a>
-
-        <a class="c-icon-link" href="#" aria-label="LinkedIn">
-          <span class="u-visually-hidden">LinkedIn</span>
-          <span class="c-icon-link__icon" aria-hidden="true">in</span>
-        </a>
-      </div>
+<h2>Base anchor usage</h2>
+<p><strong>Expected behavior:</strong> Icon links should render as centered inline-flex controls with consistent sizing and clear hover/focus feedback.</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+      <a class="c-icon-link" href="#" aria-label="GitHub">
+        <span class="u-visually-hidden">GitHub</span>
+        <span class="c-icon-link__icon" aria-hidden="true">G</span>
+      </a>
+      <a class="c-icon-link" href="#" aria-label="LinkedIn">
+        <span class="u-visually-hidden">LinkedIn</span>
+        <span class="c-icon-link__icon" aria-hidden="true">in</span>
+      </a>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Button Variant -->
-  <!-- ============================================================= -->
-
-  <h2>Button variant</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    The component should work identically when used as a button element.
-  </p>
-
-  <div class="c-icon-link-test-frame">
-    <div class="c-icon-link-test-box">
-      <div class="c-icon-link-test-row">
-        <button class="c-icon-link" type="button" aria-label="Print">
-          <span class="u-visually-hidden">Print</span>
-          <span class="c-icon-link__icon" aria-hidden="true">P</span>
-        </button>
-
-        <button class="c-icon-link" type="button" aria-label="Share">
-          <span class="u-visually-hidden">Share</span>
-          <span class="c-icon-link__icon" aria-hidden="true">S</span>
-        </button>
-      </div>
+<h2>Button variant</h2>
+<p><strong>Expected behavior:</strong> The component should work identically when used as a button element.</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+      <button class="c-icon-link" type="button" aria-label="Print">
+        <span class="u-visually-hidden">Print</span>
+        <span class="c-icon-link__icon" aria-hidden="true">P</span>
+      </button>
+      <button class="c-icon-link" type="button" aria-label="Share">
+        <span class="u-visually-hidden">Share</span>
+        <span class="c-icon-link__icon" aria-hidden="true">S</span>
+      </button>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Icon Variants -->
-  <!-- ============================================================= -->
-
-  <h2>Icon variants</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Icons should support inline SVG and text fallback while maintaining consistent sizing and alignment.
-  </p>
-
-  <div class="c-icon-link-test-frame">
-    <div class="c-icon-link-test-box">
-      <div class="c-icon-link-test-row">
-        <!-- SVG icon -->
-        <a class="c-icon-link" href="#" aria-label="SVG icon">
-          <span class="u-visually-hidden">SVG icon</span>
-          <span class="c-icon-link__icon" aria-hidden="true">
-            <svg class="c-icon-link-test-svg" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="8" fill="currentColor" />
-            </svg>
-          </span>
-        </a>
-
-        <!-- Text fallback -->
-        <a class="c-icon-link" href="#" aria-label="Text icon">
-          <span class="u-visually-hidden">Text icon</span>
-          <span class="c-icon-link__icon" aria-hidden="true">CV</span>
-        </a>
-      </div>
+<h2>Icon variants</h2>
+<p><strong>Expected behavior:</strong> Icons should support inline SVG and text fallback while maintaining consistent sizing and alignment.</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+      <a class="c-icon-link" href="#" aria-label="SVG icon">
+        <span class="u-visually-hidden">SVG icon</span>
+        <span class="c-icon-link__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" style="display:block;inline-size:100%;block-size:100%;">
+            <circle cx="12" cy="12" r="8" fill="currentColor" />
+          </svg>
+        </span>
+      </a>
+      <a class="c-icon-link" href="#" aria-label="Text icon">
+        <span class="u-visually-hidden">Text icon</span>
+        <span class="c-icon-link__icon" aria-hidden="true">CV</span>
+      </a>
     </div>
   </div>
+</div>
 
-  <hr>
+<hr>
 
-  <!-- ============================================================= -->
-  <!-- Interaction States -->
-  <!-- ============================================================= -->
-
-  <h2>Interaction states</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Hover should elevate and accent the control. Active should shift slightly. Focus-visible should show a clear focus
-    ring (test with keyboard).
-  </p>
-
-  <div class="c-icon-link-test-frame c-icon-link-test-stack">
-    <div class="c-icon-link-test-row">
-      <div class="c-icon-link-test-box">
-        <a class="c-icon-link" href="#" aria-label="Default">
-          <span class="u-visually-hidden">Default</span>
-          <span class="c-icon-link__icon" aria-hidden="true">D</span>
+<h2>Wrapping behavior</h2>
+<p><strong>Expected behavior:</strong> Multiple icon links should wrap cleanly and maintain spacing consistency.</p>
+<div class="c-test-frame">
+  <div class="c-test-box">
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+      {% for i in (1..10) %}
+        <a class="c-icon-link" href="#" aria-label="Item {{ i }}">
+          <span class="u-visually-hidden">Item {{ i }}</span>
+          <span class="c-icon-link__icon" aria-hidden="true">{{ i }}</span>
         </a>
-        <p class="c-icon-link-test-note">Default</p>
-      </div>
-
-      <div class="c-icon-link-test-box c-icon-link-test-demo-hover">
-        <a class="c-icon-link" href="#" aria-label="Hover">
-          <span class="u-visually-hidden">Hover</span>
-          <span class="c-icon-link__icon" aria-hidden="true">H</span>
-        </a>
-        <p class="c-icon-link-test-note">Simulated hover</p>
-      </div>
-
-      <div class="c-icon-link-test-box c-icon-link-test-demo-active">
-        <a class="c-icon-link" href="#" aria-label="Active">
-          <span class="u-visually-hidden">Active</span>
-          <span class="c-icon-link__icon" aria-hidden="true">A</span>
-        </a>
-        <p class="c-icon-link-test-note">Simulated active</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
-
-  <hr>
-
-  <!-- ============================================================= -->
-  <!-- Wrapping Behavior -->
-  <!-- ============================================================= -->
-
-  <h2>Wrapping behavior</h2>
-
-  <p>
-    <strong>Expected behavior:</strong>
-    Multiple icon links should wrap cleanly and maintain spacing consistency.
-  </p>
-
-  <div class="c-icon-link-test-frame">
-    <div class="c-icon-link-test-box">
-      <div class="c-icon-link-test-row">
-        {% for i in (1..10) %}
-          <a class="c-icon-link" href="#" aria-label="Item {{ i }}">
-            <span class="u-visually-hidden">Item {{ i }}</span>
-            <span class="c-icon-link__icon" aria-hidden="true">{{ i }}</span>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
+</div>

@@ -2,6 +2,7 @@
 layout: post
 title: Code Showcase Across Languages
 tags: [code, syntax]
+toc: true
 ---
 
 ### Python Example

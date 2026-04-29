@@ -29,6 +29,9 @@ permalink: /project/:title/
 # ------------------------------------------------------------
 markdown: kramdown
 
+kramdown:
+  auto_ids: true
+
 # ------------------------------------------------------------
 # Plugins
 # Keep this list small and practical for a portfolio site.

@@ -5,6 +5,7 @@ subtitle: Quotes, highlights, and reusable content patterns
 tags: [showcase, content, ux, docs]
 image: "assets/images/posts/23.jpg"
 description: A demo of content patterns like callouts and structured sections.
+toc: true
 ---
 
 This post explores reusable content patterns.

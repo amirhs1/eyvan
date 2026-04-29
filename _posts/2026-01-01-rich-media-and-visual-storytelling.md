@@ -5,6 +5,7 @@ subtitle: Images, video, and layout flow working together
 tags: [showcase, media, images, video]
 image: "assets/images/posts/20.jpg"
 description: A demo of images, embeds, and visual storytelling patterns.
+toc: true
 ---
 
 This post demonstrates how visual content flows through the template.

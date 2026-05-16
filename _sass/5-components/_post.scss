@@ -14,14 +14,28 @@
 //   - .c-post__tag
 //   - .c-post__header-row
 //     - .c-post__header-meta
-//       - shared .c-entry-meta component
 //     - .c-post__header-actions
-//       - shared .c-post-share component
 //   - .c-post__share
 //   - .c-post__content
+//     - .c-post-layout
+//       - .c-post-layout__col--left
+//       - .c-post-layout__col--main
+//         - .c-post-layout__prose
+//           - .o-prose
+//       - .c-post-layout__col--right
+//         - .c-post-layout__aside
+//           - .c-toc
 // - .c-post-cover
 //   - .c-post-cover__media
 //   - .c-post-cover__image
+//
+// TOC layout note:
+// - Desktop uses a 3-column grid:
+//   | flexible left column | 75ch prose | flexible right TOC column |
+// - The grid row stretches vertically so the sticky TOC can be bounded by
+//   the post body/prose height.
+// - Mobile collapses to a single column. TOC visibility/overlay behavior
+//   is handled by _toc.scss and toc.js.
 //
 // Scope & Rules:
 // - Component styling only
@@ -40,7 +54,7 @@
 
 /* -----------------------------------------------------------------------------
    Local component tokens
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 $post-header-inline-size: settings-typography.$text-measure-wide;
 $post-subtitle-inline-size: settings-typography.$text-measure-base;
@@ -62,7 +76,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Cover
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post-cover {
   margin-block-end: $post-cover-gap;
@@ -84,7 +98,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Post shell
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post {
   min-inline-size: 0;
@@ -94,12 +108,14 @@ $post-content-top-border-width: settings-config.$global-border-width;
   display: flex;
   flex-direction: column;
   gap: $post-header-gap;
+
   max-inline-size: $post-header-inline-size;
   margin-inline: auto;
   margin-block-end: $post-header-margin-block-end;
 }
 
 .c-post__content {
+  position: relative;
   min-inline-size: 0;
 }
 
@@ -110,7 +126,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Tags
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post__tags {
   display: flex;
@@ -125,7 +141,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Title + subtitle
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post__title {
   margin: 0;
@@ -155,16 +171,17 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Header row
-   Contextual layout for metadata and share actions
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post__header-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+
   min-inline-size: 0;
   gap: $post-header-row-gap;
+
   padding-block-end: $post-header-row-padding-block-end;
   border-block-end: $post-content-top-border-width solid var(--color-ui-border);
 }
@@ -178,6 +195,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   flex: 0 0 auto;
   min-inline-size: 0;
   margin-inline-start: auto;
@@ -185,8 +203,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Shared entry-meta integration
-   Contextual sizing only; internal layout belongs to _entry-meta.scss
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post__header-meta .c-entry-meta__author {
   inline-size: $post-header-meta-avatar-size;
@@ -195,8 +212,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 /* -----------------------------------------------------------------------------
    Share integration
-   Contextual layout only; visuals belong to _post-share.scss
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 
 .c-post__share {
   min-inline-size: 0;
@@ -210,10 +226,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
   margin: 0;
 }
 
-.c-post__share .c-post-share__head {
-  margin: 0;
-}
-
+.c-post__share .c-post-share__head,
 .c-post__share .c-post-share__title {
   margin: 0;
 }
@@ -226,8 +239,59 @@ $post-content-top-border-width: settings-config.$global-border-width;
 }
 
 /* -----------------------------------------------------------------------------
+   Content Layout: 3-column symmetric grid
+----------------------------------------------------------------------------- */
+
+.c-post-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, settings-typography.$text-measure-wide)
+    minmax(0, 1fr);
+
+  column-gap: settings-spacing.$space-6;
+
+  /*
+    Important:
+    Use stretch here so the right TOC column has the same block-size as
+    the prose column. This gives position: sticky a vertical parent range.
+  */
+  align-items: stretch;
+}
+
+.c-post-layout__col {
+  min-inline-size: 0;
+}
+
+.c-post-layout__col--left,
+.c-post-layout__col--main {
+  align-self: stretch;
+}
+
+.c-post-layout__col--right {
+  align-self: stretch;
+  inline-size: 100%;
+}
+
+.c-post-layout__prose {
+  display: flex;
+  justify-content: center;
+}
+
+/* -----------------------------------------------------------------------------
    Responsive adjustments
-   ----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
+
+@media (max-width: settings-breakpoints.$bp-layout) {
+  .c-post-layout {
+    display: block;
+  }
+
+  .c-post-layout__col--right {
+    display: none;
+  }
+}
 
 @media (max-width: settings-breakpoints.$bp-sm) {
   .c-post__header-row {

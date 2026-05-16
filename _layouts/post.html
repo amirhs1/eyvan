@@ -8,36 +8,64 @@ layout: default
 
   Structure:
   - Post page container
-    - Optional cover image
+    - Optional cover image (full-width)
     - Article wrapper
-      - Post header
+      - Post header (full-width)
         - Optional tag list
         - Post title
         - Optional subtitle
-        - Header row
-          - Post metadata
-          - Optional share actions
+        - Header row (metadata + share)
       - Post body content
-    - Post navigation
-  - Related posts section
+        - 3-column content layout (desktop)
+          - Left column (empty, layout symmetry)
+          - Main column (prose content)
+          - Right column (Table of Contents)
+        - Single-column layout (mobile/tablet)
+          - Prose content
+          - TOC hidden by default
+    - Mobile TOC toggle button (floating control)
+    - Post navigation (full-width)
+  - Related posts section (full-width)
+
+  Layout:
+  - Header and media span full container width
+  - Content area uses a symmetric 3-column system:
+    | left column | prose | right column (TOC) |
+  - Prose width is constrained via o-prose (ch-based measure)
+  - Left and right columns remain equal to preserve visual centering
+
+  Table of Contents (TOC):
+  - Desktop:
+    - Rendered in the right column
+    - Sticky within the post content boundary
+    - Does not overlap header, navigation, or related posts
+  - Mobile:
+    - Hidden by default
+    - Accessible via floating toggle button
+    - Controlled via JavaScript (data-toc-toggle)
+  - Generated via `_includes/toc.html` (Liquid-based, no plugins)
 
   Architecture:
   - Layout layer of the site
   - Uses ITCSS + BEM naming
+  - Content layout handled by `c-post-layout`
+  - Columns defined as:
+    - c-post-layout__col
+    - c-post-layout__col--left
+    - c-post-layout__col--main
+    - c-post-layout__col--right
   - Delegates reusable UI fragments to:
     - entry-meta.html
     - post-share.html
     - post-navigation.html
     - related-posts.html
-  - The post metadata markup is centralized in entry-meta.html
-  - The header row in this layout is responsible only for composition and layout
-  - Page-level containment is owned here in the layout
-  - related-posts.html remains a reusable section include, while page-level containment is owned by this layout
+    - toc.html
 
   Accessibility:
   - Uses semantic article and header elements
-  - Cover image alt text falls back to the post title
-  - Metadata and share control accessibility are delegated to their includes
+  - TOC uses <nav> with aria-labelledby
+  - Mobile TOC toggle uses aria-expanded and aria-controls
+  - Decorative layout columns are hidden from assistive tech (aria-hidden)
 
   Data dependencies:
   - page.title
@@ -46,6 +74,7 @@ layout: default
   - page.image_alt
   - page.tags
   - page.share
+  - page.toc
   - content
   - entry-meta.html dependencies
   - post-share.html dependencies
@@ -55,14 +84,15 @@ layout: default
   Notes:
   - This layout owns the overall page structure for individual posts
   - Reusable post metadata is rendered through entry-meta.html
-  - Global top/bottom shell spacing is owned by .l-site-main in default.html
-  - Share actions are optional and can be disabled with:
+  - Global spacing is owned by .l-site-main in default.html
+  - Share actions can be disabled with:
     page.share: false
+  - TOC can be enabled per post with:
+    page.toc: true
 {% endcomment %}
 
 <div class="o-container animate">
   <div class="o-grid">
-
     {% if page.image %}
       <!-- Cover image -->
       <div class="o-grid__item o-grid__item--span-12">
@@ -127,8 +157,53 @@ layout: default
       </header>
 
       <!-- Post body content -->
-      <div class="c-post__content o-prose o-prose--measure-wide">
-        {{ content }}
+      <div class="c-post__content">
+        <!-- Post content layout: 3-column (left gutter | prose | right gutter) -->
+        <div class="c-post-layout">
+          <!-- Left column -->
+          <div
+            class="c-post-layout__col c-post-layout__col--left"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Prose column -->
+          <div class="c-post-layout__col c-post-layout__col--main">
+            <div class="c-post-layout__prose">
+              <div class="o-prose o-prose--measure-wide">
+                {{ content }}
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC column -->
+          <div class="c-post-layout__col c-post-layout__col--right">
+            {% if page.toc %}
+              <aside class="c-post-layout__aside">
+                <nav
+                  class="c-toc"
+                  id="post-toc"
+                  aria-labelledby="toc-title"
+                  role="navigation"
+                >
+                  <header class="c-toc__header">
+                    <span id="toc-title" class="c-toc__header-text"> On this page </span>
+                  </header>
+                  {%
+                    include toc.html
+                    html=content
+                    sanitize=true
+                    h_min=2
+                    h_max=3
+                    class="c-toc__menu"
+                    item_class="c-toc__item"
+                    anchor_class="c-toc__link"
+                    skip_no_ids=true
+                  %}
+                </nav>
+              </aside>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </article>
 
@@ -142,4 +217,3 @@ layout: default
   <!-- Related posts -->
   {% include related-posts.html %}
 </div>
-

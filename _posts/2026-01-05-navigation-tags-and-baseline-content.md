@@ -5,6 +5,7 @@ subtitle: Testing tags, minimal layout, and system behavior
 tags: [showcase, testing, baseline, ux]
 image: "assets/images/posts/11.jpg"
 description: A demo focused on tags, navigation, and baseline styling.
+toc: true
 ---
 
 This post ensures the system behaves correctly.
@@ -12,7 +13,8 @@ This post ensures the system behaves correctly.
 ## Tags
 
 Tags should:
-- wrap properly  
+
+- wrap properly
 - be clickable  
 - be consistent  
 
@@ -31,6 +33,7 @@ This is a baseline example with minimal structure.
 ## Final Check
 
 This post acts as a control:
-- no complex media  
+
+- no complex media
 - no heavy formatting  
-- just clean typography  
+- just clean typography

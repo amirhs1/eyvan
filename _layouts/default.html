@@ -22,8 +22,11 @@
   </main>
 
   {% include footer.html %}
-
-  {% include dev-debug.html %}
+  
+  {% if site.dev_only %} 
+  {% include dev-debug.html %} 
+  {% endif %}
+  
   {% include math.html %}
   {% include scripts.html %}
 </body>

@@ -1,0 +1,200 @@
+{% comment %}
+TOC Include
+Purpose: Generate a Table of Contents (TOC) from rendered page content
+by parsing heading elements (h1–h6) and building a nested list of anchors.
+
+Structure:
+
+- Root list (ul or ol)
+
+  - Nested list items representing heading hierarchy
+  - Anchor links pointing to heading IDs
+
+Architecture:
+
+- Reusable include stored in _includes
+- Pure Liquid implementation (no plugins required)
+- Works on GitHub Pages
+- Designed to be wrapped by a TOC container component (c-toc)
+- Accepts rendered HTML content (not Markdown)
+
+Attribution & License:
+
+- Based on allejo/jekyll-toc (https://github.com/allejo/jekyll-toc)
+- Copyright (c) 2017 Vladimir "allejo" Jimenez
+- MIT License
+
+Note:
+This implementation is a modified and adapted version to fit this project's
+design system and architecture. The original license terms apply:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files to deal in the Software
+without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+Data dependencies:
+
+- include.html (required): rendered HTML content (usually {{ content }})
+
+Optional parameters:
+
+- include.sanitize (bool)
+- include.class (string)
+- include.id (string)
+- include.h_min (int)
+- include.h_max (int)
+- include.ordered (bool)
+- include.item_class (string)
+- include.submenu_class (string)
+- include.anchor_class (string)
+- include.skip_no_ids (bool)
+- include.flat_toc (bool)
+
+Notes:
+
+- Headings must have IDs to generate links
+- Headings with class "no_toc" are excluded
+- This include ONLY generates the list, not the container UI
+{% endcomment %}
+
+{% capture jekyll_toc %}{% endcapture %}
+
+{% assign orderedList = include.ordered | default: false %}
+{% assign flatToc = include.flat_toc | default: false %}
+{% assign baseURL = include.base_url | default: include.baseurl | default: '' %}
+{% assign skipNoIDs = include.skip_no_ids | default: false %}
+{% assign minHeader = include.h_min | default: 1 %}
+{% assign maxHeader = include.h_max | default: 6 %}
+
+{% assign tocClass = include.class | default: '' %}
+
+{% assign nodes = include.html | strip | split: '<h' %}
+
+{% assign firstHeader = true %}
+{% assign currLevel = 0 %}
+{% assign lastLevel = 0 %}
+
+{% capture listModifier %}{% if orderedList %}ol{% else %}ul{% endif %}{% endcapture %}
+
+{% for node in nodes %}
+  {% if node == "" %}
+    {% continue %}
+  {% endif %}
+
+  {% assign currLevel = node | replace: '"', '' | slice: 0, 1 | times: 1 %}
+
+  {% if currLevel < minHeader or currLevel > maxHeader %}
+    {% continue %}
+  {% endif %}
+
+  {% assign _workspace = node | split: '</h' %}
+
+  {% assign htmlID = nil %}
+  {% assign _idWorkspace = _workspace[0] | split: 'id="' %}
+  {% if _idWorkspace.size > 1 %}
+    {% assign _idWorkspace = _idWorkspace[1] | split: '"' %}
+    {% assign htmlID = _idWorkspace[0] %}
+  {% endif %}
+
+  {% assign htmlClass = '' %}
+  {% assign _classWorkspace = _workspace[0] | split: 'class="' %}
+  {% if _classWorkspace.size > 1 %}
+    {% assign _classWorkspace = _classWorkspace[1] | split: '"' %}
+    {% assign htmlClass = _classWorkspace[0] %}
+  {% endif %}
+
+  {% if htmlClass contains "no_toc" %}
+    {% continue %}
+  {% endif %}
+
+  {% if firstHeader %}
+    {% assign minHeader = currLevel %}
+  {% endif %}
+
+  {% capture _hAttrToStrip %}{{ _workspace[0] | split: '>' | first }}>{% endcapture %}
+  {% assign header = _workspace[0] | replace: _hAttrToStrip, '' %}
+
+  {% if include.item_class and include.item_class != blank %}
+    {% capture listItemClass %} class="{{ include.item_class | replace: '%level%', currLevel }}"{% endcapture %}
+  {% else %}
+    {% assign listItemClass = '' %}
+  {% endif %}
+
+  {% if include.submenu_class and include.submenu_class != blank %}
+    {% assign subMenuLevel = currLevel | minus: 1 %}
+    {% capture subMenuClass %} class="{{ include.submenu_class | replace: '%level%', subMenuLevel }}"{% endcapture %}
+  {% else %}
+    {% assign subMenuClass = '' %}
+  {% endif %}
+
+  {% capture anchorBody %}
+{% if include.sanitize %}
+{{ header | strip_html }}
+{% else %}
+{{ header }}
+{% endif %}
+  {% endcapture %}
+
+  {% if htmlID %}
+    {% capture anchorAttributes %} href="{% if baseURL %}{{ baseURL }}{% endif %}#{{ htmlID }}"{% endcapture %}
+    {% if include.anchor_class %}
+      {% capture anchorAttributes %}{{ anchorAttributes }} class="{{ include.anchor_class }}"{% endcapture %}
+    {% endif %}
+    {% capture listItem %}<a{{ anchorAttributes }}>{{ anchorBody }}</a>{% endcapture %}
+  {% elsif skipNoIDs %}
+    {% continue %}
+  {% else %}
+    {% capture listItem %}{{ anchorBody }}{% endcapture %}
+  {% endif %}
+
+  {% if currLevel > lastLevel and flatToc == false %}
+    {% capture jekyll_toc %}{{ jekyll_toc }}<{{ listModifier }}{{ subMenuClass }}>{% endcapture %}
+  {% elsif currLevel < lastLevel and flatToc == false %}
+    {% assign repeatCount = lastLevel | minus: currLevel %}
+    {% for i in (1..repeatCount) %}
+      {% capture jekyll_toc %}{{ jekyll_toc }}</li></{{ listModifier }}>{% endcapture %}
+    {% endfor %}
+    {% capture jekyll_toc %}{{ jekyll_toc }}</li>{% endcapture %}
+  {% else %}
+    {% capture jekyll_toc %}{{ jekyll_toc }}</li>{% endcapture %}
+  {% endif %}
+
+  {% capture jekyll_toc %}{{ jekyll_toc }}<li{{ listItemClass }}>{{ listItem }}{% endcapture %}
+
+  {% assign lastLevel = currLevel %}
+  {% assign firstHeader = false %}
+{% endfor %}
+
+{% if flatToc %}
+  {% assign repeatCount = 1 %}
+{% else %}
+  {% assign repeatCount = lastLevel | minus: minHeader | plus: 1 %}
+{% endif %}
+
+{% for i in (1..repeatCount) %}
+  {% capture jekyll_toc %}{{ jekyll_toc }}</li></{{ listModifier }}>{% endcapture %}
+{% endfor %}
+
+{% if jekyll_toc != '' %}
+  {% assign rootAttributes = '' %}
+
+  {% if tocClass != '' %}
+    {% capture rootAttributes %} class="{{ tocClass }}"{% endcapture %}
+  {% endif %}
+
+  {% if include.id and include.id != blank %}
+    {% capture rootAttributes %}{{ rootAttributes }} id="{{ include.id }}"{% endcapture %}
+  {% endif %}
+
+  {% if rootAttributes %}
+    {% assign nodes = jekyll_toc | split: '>' %}
+    {% capture jekyll_toc %}
+<{{ listModifier }}{{ rootAttributes }}>{{ nodes | shift | join: '>' }}
+    {% endcapture %}
+  {% endif %}
+{% endif %}
+
+{{ jekyll_toc }}

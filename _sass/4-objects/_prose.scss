@@ -30,6 +30,9 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tool-spacing-fluid;
 
+
+$toc-sticky-top-margin: calc(8rem + settings-spacing.$space-4);
+
 .o-prose {
   line-height: settings-typography.$line-height-loose;
 
@@ -119,4 +122,12 @@
 .o-prose--measure-wide {
   max-inline-size: settings-typography.$text-measure-wide;
   margin-inline: auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Anchor offset for sticky/fixed site header
+----------------------------------------------------------------------------- */
+
+.o-prose :is(h2, h3, h4, h5, h6) {
+  scroll-margin-top: $toc-sticky-top-margin;
 }

@@ -31,8 +31,8 @@ $toc-sticky-top: calc(8rem + settings-spacing.$space-4);
 $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 $toc-max-width: 20rem;
 $mobile-toc-backdrop: color-mix(in srgb, var(--color-ui-bg) 78%, transparent);
-$mobile-toc-shadow:
-  0 1.25rem 2.5rem color-mix(in srgb, var(--color-ui-shadow-color) 18%, transparent);
+$mobile-toc-shadow: 0 1.25rem 2.5rem
+  color-mix(in srgb, var(--color-ui-shadow-color) 18%, transparent);
 
 /* -----------------------------------------------------------------------------
    TOC column integration
@@ -48,7 +48,6 @@ $mobile-toc-shadow:
     max-inline-size: none;
   }
 }
-
 
 /* -----------------------------------------------------------------------------
    Sticky aside container
@@ -78,7 +77,8 @@ $mobile-toc-shadow:
 .c-toc__header {
   margin-block-end: tools-spacing.$space-stack-sm;
   padding-block-end: tools-spacing.$space-stack-sm;
-  border-block-end: settings-config.$global-border-width solid var(--color-ui-border);
+  border-block-end: settings-config.$global-border-width solid
+    var(--color-ui-border);
 }
 
 .c-toc__header-text {
@@ -139,7 +139,8 @@ $mobile-toc-shadow:
   .c-toc-toolbar {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: settings-spacing.$space-3;
 
     position: sticky;
     top: calc(var(--site-header-block-size, 0px) + settings-spacing.$space-2);
@@ -149,15 +150,29 @@ $mobile-toc-shadow:
     padding: settings-spacing.$space-3;
 
     background-color: var(--color-ui-surface);
-    border-block:
-      settings-config.$global-border-width
-      solid
+    border-block: settings-config.$global-border-width solid
       var(--color-ui-border);
     box-shadow: $mobile-toc-shadow;
   }
 
   .c-toc-toolbar__button {
     flex: 0 0 auto;
+  }
+
+  .c-toc-toolbar__share {
+    flex: 0 0 auto;
+
+    .c-post-share {
+      margin: 0;
+    }
+
+    .c-post-share__head {
+      display: none;
+    }
+
+    .c-post-share__list {
+      flex-wrap: nowrap;
+    }
   }
 }
 
@@ -183,8 +198,9 @@ $mobile-toc-shadow:
     block-size: 100dvh;
     max-block-size: 100dvh;
 
-    padding:
-      calc(var(--site-header-block-size, 0px) + tools-spacing.$fluid-inline-md)
+    padding: calc(
+        var(--site-header-block-size, 0px) + tools-spacing.$fluid-inline-md
+      )
       max(tools-spacing.$fluid-inline-md, env(safe-area-inset-right))
       max(tools-spacing.$fluid-inline-md, env(safe-area-inset-bottom))
       max(tools-spacing.$fluid-inline-md, env(safe-area-inset-left));
@@ -212,7 +228,7 @@ $mobile-toc-shadow:
     border: settings-config.$global-border-width solid var(--color-ui-border);
     border-radius: settings-config.$global-border-radius;
     box-shadow: $mobile-toc-shadow;
-  }  
+  }
 
   .c-mobile-toc__top {
     display: flex;
@@ -223,7 +239,8 @@ $mobile-toc-shadow:
     margin-block-end: tools-spacing.$space-stack-sm;
     padding-block-end: tools-spacing.$space-stack-sm;
 
-    border-block-end: settings-config.$global-border-width solid var(--color-ui-border);
+    border-block-end: settings-config.$global-border-width solid
+      var(--color-ui-border);
   }
 
   .c-mobile-toc__header {
@@ -286,4 +303,3 @@ $mobile-toc-shadow:
     transform: translateY(0);
   }
 }
-

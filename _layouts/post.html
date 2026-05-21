@@ -168,6 +168,13 @@ layout: default
           >
             <span class="c-button__label">Contents</span>
           </button>
+
+          {% if page.share != false %}
+            <!-- Toolbar share actions -->
+            <div class="c-toc-toolbar__share">
+              {% include post-share.html %}
+            </div>
+          {% endif %}
         </div>
 
         <!-- Mobile/tablet TOC panel -->

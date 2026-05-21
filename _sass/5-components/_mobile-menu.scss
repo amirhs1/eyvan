@@ -44,7 +44,6 @@
    ----------------------------------------------------------------------------- */
 
 $mobile-menu-z-index: settings-config.$z-overlay;
-$mobile-menu-border-width: settings-config.$global-border-width;
 $mobile-menu-backdrop: color-mix(in srgb, var(--color-ui-bg) 78%, transparent);
 $mobile-menu-shadow:
   0 1.25rem 2.5rem color-mix(in srgb, var(--color-ui-shadow-color) 18%, transparent);
@@ -89,14 +88,13 @@ $mobile-menu-shadow:
   flex: 1 1 auto;
   min-block-size: 100%;
 
-  //min-block-size: calc(100dvh - (2 * tools-spacing.$fluid-stack-md));
   padding:
-    tools-spacing.$fluid-stack-md
-    tools-spacing.$fluid-inline-md;
-
-  border: $mobile-menu-border-width solid var(--color-ui-border);
-  border-radius: max(settings-config.$global-radius, 1rem);
+  tools-spacing.$fluid-stack-md
+  tools-spacing.$fluid-inline-md;
+    
   background-color: var(--color-ui-surface);
+  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border-radius: settings-config.$global-border-radius;
   box-shadow: $mobile-menu-shadow;
 }
 

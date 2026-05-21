@@ -43,9 +43,21 @@
 
 /* -----------------------------------------------------------------------------
    Mobile Menu Open State
-   Locks background scrolling while the mobile menu is open.
+   Locks background scrolling while the mobile menu overlay is open.
+   The menu panel itself remains scrollable through its internal nav area.
    ----------------------------------------------------------------------------- */
 
 body.is-mobile-menu-open {
+  overflow: hidden;
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile TOC Open State
+   Locks background scrolling while the mobile/tablet TOC overlay is open.
+   The Contents overlay itself remains scrollable when its TOC exceeds the viewport.
+   This mirrors the mobile menu state hook while keeping TOC behavior independent.
+   ----------------------------------------------------------------------------- */
+
+body.is-mobile-toc-open {
   overflow: hidden;
 }

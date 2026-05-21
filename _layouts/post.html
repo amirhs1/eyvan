@@ -156,6 +156,65 @@ layout: default
         </div>
       </header>
 
+      {% if page.toc %}
+        <!-- Mobile/tablet TOC toolbar -->
+        <div class="c-toc-toolbar" data-toc-toolbar>
+          <button
+            class="c-button c-button--secondary c-button--small c-toc-toolbar__button"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-toc"
+            data-toc-open
+          >
+            <span class="c-button__label">Contents</span>
+          </button>
+        </div>
+
+        <!-- Mobile/tablet TOC panel -->
+        <div class="c-mobile-toc" id="mobile-toc" hidden data-mobile-toc>
+          <div class="c-mobile-toc__inner">
+            <div class="c-mobile-toc__top">
+              <div class="c-mobile-toc__top-left">
+                <h2 class="c-mobile-toc__title" id="mobile-toc-title">
+                  Contents
+                </h2>
+              </div>
+
+              <div class="c-mobile-toc__top-right">
+                <button
+                  class="c-mobile-toc__close c-icon-link"
+                  type="button"
+                  aria-label="Close contents"
+                  data-toc-close
+                >
+                  <span class="c-mobile-toc__close-icon c-icon-link__icon" aria-hidden="true">
+                    {% include icons/close-circle.svg %}
+                  </span>
+                  <span class="u-visually-hidden">Close contents</span>
+                </button>
+              </div>
+            </div>
+
+            <nav
+              class="c-mobile-toc__nav"
+              aria-labelledby="mobile-toc-title"
+            >
+              {%
+                include toc.html
+                html=content
+                sanitize=true
+                h_min=2
+                h_max=3
+                class="c-toc__menu c-mobile-toc__menu"
+                item_class="c-toc__item"
+                anchor_class="c-toc__link c-mobile-toc__link"
+                skip_no_ids=true
+              %}
+            </nav>
+          </div>
+        </div>
+      {% endif %}
+      
       <!-- Post body content -->
       <div class="c-post__content">
         <!-- Post content layout: 3-column (left gutter | prose | right gutter) -->

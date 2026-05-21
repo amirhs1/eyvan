@@ -44,7 +44,7 @@ $toc-mobile-overlay-width: min(20rem, 80vw);
   max-inline-size: $toc-max-width;
 
   @media (max-width: settings-breakpoints.$bp-layout) {
-    display: block;
+    display: none;
     max-inline-size: none;
   }
 }
@@ -124,6 +124,169 @@ $toc-mobile-overlay-width: min(20rem, 80vw);
   &.active {
     color: var(--color-primary);
     font-weight: settings-typography.$font-weight-bold;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile/tablet TOC toolbar
+----------------------------------------------------------------------------- */
+
+.c-toc-toolbar {
+  display: none;
+}
+
+@media (max-width: settings-breakpoints.$bp-layout) {
+  .c-toc-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    position: sticky;
+    top: calc(var(--site-header-block-size, 0px) + settings-spacing.$space-2);
+    z-index: calc(settings-config.$z-header - 1);
+
+    margin-block: settings-spacing.$space-5 settings-spacing.$space-6;
+    padding: settings-spacing.$space-3;
+
+    background-color: var(--color-ui-surface);
+    border-block:
+      settings-config.$global-border-width
+      solid
+      var(--color-ui-border);
+    box-shadow:
+      0 0.75rem 1.5rem
+      color-mix(in srgb, var(--color-ui-shadow-color) 16%, transparent);
+  }
+
+  .c-toc-toolbar__button {
+    flex: 0 0 auto;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile/tablet TOC full-screen panel
+----------------------------------------------------------------------------- */
+
+.c-mobile-toc {
+  display: none;
+}
+
+@media (max-width: settings-breakpoints.$bp-layout) {
+  .c-mobile-toc {
+    position: fixed;
+    inset: 0;
+    z-index: calc(settings-config.$z-header - 1);
+    isolation: isolate;
+
+    display: block;
+
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+
+    padding:
+      calc(var(--site-header-block-size, 0px) + settings-spacing.$space-4)
+      max(settings-spacing.$space-4, env(safe-area-inset-right))
+      max(settings-spacing.$space-4, env(safe-area-inset-bottom))
+      max(settings-spacing.$space-4, env(safe-area-inset-left));
+
+    background-color: color-mix(in srgb, var(--color-ui-bg) 78%, transparent);
+    -webkit-backdrop-filter: blur(0.75rem);
+    backdrop-filter: blur(0.75rem);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .c-mobile-toc[hidden] {
+    display: none !important;
+  }
+
+  .c-mobile-toc__inner {
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: none;
+    min-block-size: 0;
+
+    padding: settings-spacing.$space-5;
+
+    background-color: var(--color-ui-surface);
+    border:
+      settings-config.$global-border-width
+      solid
+      var(--color-ui-border);
+    border-radius: 0;
+    box-shadow:
+      0 1.25rem 2.5rem
+      color-mix(in srgb, var(--color-ui-shadow-color) 18%, transparent);
+  }
+
+  .c-mobile-toc__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: settings-spacing.$space-3;
+
+    margin-block-end: settings-spacing.$space-5;
+    padding-block-end: settings-spacing.$space-3;
+
+    border-block-end:
+      settings-config.$global-border-width
+      solid
+      var(--color-ui-border);
+  }
+
+  .c-mobile-toc__title {
+    margin: 0;
+
+    color: var(--color-heading);
+    font-family: settings-typography.$font-family-display;
+    font-size: settings-typography.$font-size-lg;
+    font-weight: settings-typography.$font-weight-bold;
+    line-height: settings-typography.$line-height-tight;
+  }
+
+  .c-mobile-toc__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+  }
+
+  .c-mobile-toc__close-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  .c-mobile-toc__close-icon svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+  }
+
+  .c-mobile-toc__nav {
+    /*
+      The full overlay scrolls, not a nested TOC box.
+    */
+    overflow: visible;
+  }
+
+  .c-mobile-toc__menu {
+    /*
+      Reuse desktop TOC list styling.
+      Keep only mobile-specific width reset here.
+    */
+    max-inline-size: none;
   }
 }
 

@@ -1,6 +1,6 @@
-# Iwan
+# Eywan
 
-**Iwan** is a minimalist Jekyll portfolio theme inspired by the *iwan* — an open, vaulted threshold space in Iranian architecture that mediates between inside and outside. The theme is designed around clarity, openness, and framing rather than decoration, making it suitable for personal portfolios, academic profiles, and research-oriented websites.
+**Eywan** is a minimalist Jekyll portfolio theme inspired by the *eywan* — an open, vaulted threshold space in Iranian architecture that mediates between inside and outside. The theme is designed around clarity, openness, and framing rather than decoration, making it suitable for personal portfolios, academic profiles, and research-oriented websites.
 
 ## Philosophy
 
@@ -26,7 +26,7 @@ This theme follows the same logic:
 1. Clone or download the repository:
 
     ```bash
-    git clone https://github.com/your-username/iwan-jekyll.git
+    git clone https://github.com/your-username/eywan-jekyll.git
     ```
 
 2. Install dependencies:

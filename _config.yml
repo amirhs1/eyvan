@@ -7,7 +7,7 @@
 title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
 url: "https://github.com/amirhs1/"
-baseurl: "/iwan-jekyll"
+baseurl: "/eywan-jekyll"
 default_og_image: "assets/images/og-default.png"
 
 # ------------------------------------------------------------

@@ -50,8 +50,8 @@
 
     {% for item in site.data.navigation.main %}
 
-      <!-- Skip development-only items in production builds -->
-      {% if item.dev_only and jekyll.environment == "production" %}
+      <!-- Skip development-only items unless dev mode is enabled -->
+      {% if item.dev_only and site.dev_only == false %}
         {% continue %}
       {% endif %}
 

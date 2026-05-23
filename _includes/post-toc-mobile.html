@@ -1,0 +1,94 @@
+{% comment %}
+  Post Mobile TOC Include
+  Purpose: Render the mobile/tablet TOC toolbar and full-screen TOC panel.
+
+  Structure:
+  - Sticky mobile/tablet toolbar
+    - Contents button
+    - Optional share actions
+  - Full-screen mobile/tablet TOC panel
+    - Panel header
+    - Close button
+    - Generated TOC list
+
+  Architecture:
+  - Reusable post-specific include
+  - Uses the shared toc.html generator for the list only
+  - Uses c-toc-toolbar for the sticky toolbar component
+  - Uses c-mobile-toc for the mobile panel component
+
+  Accessibility:
+  - The toolbar button controls #mobile-toc
+  - The panel nav is labelled by #mobile-toc-header
+  - The close button has an explicit accessible label
+
+  Data dependencies:
+  - page.toc
+  - page.share
+  - content
+  - toc.html
+  - post-share.html
+{% endcomment %}
+
+{% if page.toc %}
+  <!-- Mobile/tablet TOC toolbar -->
+  <div class="c-toc-toolbar" data-toc-toolbar>
+    <button
+      class="c-button c-button--secondary c-button--small c-toc-toolbar__button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-toc"
+      data-toc-open
+    >
+      <span class="c-button__label">Contents</span>
+    </button>
+
+    {% if page.share != false %}
+      <!-- Toolbar share actions -->
+      <div class="c-toc-toolbar__share">
+        {% include post-share.html %}
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Mobile/tablet TOC panel -->
+  <div class="c-mobile-toc" id="mobile-toc" hidden data-mobile-toc>
+    <div class="c-mobile-toc__inner">
+      <div class="c-mobile-toc__top">
+        <div class="c-mobile-toc__top-left">
+          <h2 class="c-mobile-toc__header" id="mobile-toc-header">On this page</h2>
+        </div>
+
+        <div class="c-mobile-toc__top-right">
+          <button
+            class="c-mobile-toc__close c-icon-link"
+            type="button"
+            aria-label="Close contents"
+            data-toc-close
+          >
+            <span class="c-mobile-toc__close-icon c-icon-link__icon" aria-hidden="true">
+              {% include icons/close-circle.svg %}
+            </span>
+            <span class="u-visually-hidden">Close contents</span>
+          </button>
+        </div>
+      </div>
+
+      <nav
+        class="c-mobile-toc__nav"
+        aria-labelledby="mobile-toc-header"
+      >
+        {% include toc.html
+          html=content
+          sanitize=true
+          h_min=2
+          h_max=3
+          class="c-toc__menu c-mobile-toc__menu"
+          item_class="c-toc__item"
+          anchor_class="c-toc__link c-mobile-toc__link"
+          skip_no_ids=true
+        %}
+      </nav>
+    </div>
+  </div>
+{% endif %}

@@ -15,15 +15,15 @@ layout: default
         - Post title
         - Optional subtitle
         - Header row (metadata + share)
+      - Mobile/tablet TOC toolbar and panel
       - Post body content
         - 3-column content layout (desktop)
           - Left column (empty, layout symmetry)
           - Main column (prose content)
-          - Right column (Table of Contents)
+          - Right column (desktop Table of Contents)
         - Single-column layout (mobile/tablet)
           - Prose content
-          - TOC hidden by default
-    - Mobile TOC toggle button (floating control)
+          - Desktop TOC hidden
     - Post navigation (full-width)
   - Related posts section (full-width)
 
@@ -31,41 +31,25 @@ layout: default
   - Header and media span full container width
   - Content area uses a symmetric 3-column system:
     | left column | prose | right column (TOC) |
-  - Prose width is constrained via o-prose (ch-based measure)
+  - Prose width is constrained via o-prose
   - Left and right columns remain equal to preserve visual centering
 
-  Table of Contents (TOC):
-  - Desktop:
-    - Rendered in the right column
-    - Sticky within the post content boundary
-    - Does not overlap header, navigation, or related posts
-  - Mobile:
-    - Hidden by default
-    - Accessible via floating toggle button
-    - Controlled via JavaScript (data-toc-toggle)
-  - Generated via `_includes/toc.html` (Liquid-based, no plugins)
+  Table of Contents:
+  - Shared list generation is delegated to toc.html
+  - Mobile/tablet wrapper is delegated to post-toc-mobile.html
+  - Desktop wrapper is delegated to post-toc-desktop.html
 
   Architecture:
   - Layout layer of the site
   - Uses ITCSS + BEM naming
-  - Content layout handled by `c-post-layout`
-  - Columns defined as:
-    - c-post-layout__col
-    - c-post-layout__col--left
-    - c-post-layout__col--main
-    - c-post-layout__col--right
-  - Delegates reusable UI fragments to:
-    - entry-meta.html
-    - post-share.html
-    - post-navigation.html
-    - related-posts.html
-    - toc.html
+  - Content layout handled by c-post-layout
+  - Reusable UI fragments are delegated to includes
 
   Accessibility:
   - Uses semantic article and header elements
-  - TOC uses <nav> with aria-labelledby
+  - TOC wrappers use nav landmarks with labels
   - Mobile TOC toggle uses aria-expanded and aria-controls
-  - Decorative layout columns are hidden from assistive tech (aria-hidden)
+  - Decorative layout columns are hidden from assistive tech
 
   Data dependencies:
   - page.title
@@ -76,19 +60,6 @@ layout: default
   - page.share
   - page.toc
   - content
-  - entry-meta.html dependencies
-  - post-share.html dependencies
-  - post-navigation.html dependencies
-  - related-posts.html dependencies
-
-  Notes:
-  - This layout owns the overall page structure for individual posts
-  - Reusable post metadata is rendered through entry-meta.html
-  - Global spacing is owned by .l-site-main in default.html
-  - Share actions can be disabled with:
-    page.share: false
-  - TOC can be enabled per post with:
-    page.toc: true
 {% endcomment %}
 
 <div class="o-container animate">
@@ -97,7 +68,6 @@ layout: default
       <!-- Cover image -->
       <div class="o-grid__item o-grid__item--span-12">
         <div class="c-post-cover">
-          <!-- Cover image media -->
           <div class="c-post-cover__media">
             <img
               class="c-post-cover__image"
@@ -115,7 +85,6 @@ layout: default
       <!-- Post header -->
       <header class="c-post__header">
         {% if page.tags and page.tags.size >= 1 %}
-          <!-- Post tags -->
           <div class="c-post__tags">
             {% for tag in page.tags %}
               {% assign slug = tag | slugify %}
@@ -130,22 +99,17 @@ layout: default
           </div>
         {% endif %}
 
-        <!-- Post title -->
         <h1 class="c-post__title">{{ page.title | escape }}</h1>
 
         {% if page.subtitle %}
-          <!-- Post subtitle -->
           <p class="c-post__subtitle">{{ page.subtitle | escape }}</p>
         {% endif %}
 
-        <!-- Post header row -->
         <div class="c-post__header-row">
-          <!-- Post metadata -->
           <div class="c-post__header-meta">
             {% include entry-meta.html entry_meta=page show_avatar=true %}
           </div>
 
-          <!-- Post header actions -->
           {% if page.share != false %}
             <div class="c-post__header-actions">
               <div class="c-post__share">
@@ -156,81 +120,16 @@ layout: default
         </div>
       </header>
 
-      {% if page.toc %}
-        <!-- Mobile/tablet TOC toolbar -->
-        <div class="c-toc-toolbar" data-toc-toolbar>
-          <button
-            class="c-button c-button--secondary c-button--small c-toc-toolbar__button"
-            type="button"
-            aria-expanded="false"
-            aria-controls="mobile-toc"
-            data-toc-open
-          >
-            <span class="c-button__label">Contents</span>
-          </button>
-
-          {% if page.share != false %}
-            <!-- Toolbar share actions -->
-            <div class="c-toc-toolbar__share">
-              {% include post-share.html %}
-            </div>
-          {% endif %}
-        </div>
-
-        <!-- Mobile/tablet TOC panel -->
-        <div class="c-mobile-toc" id="mobile-toc" hidden data-mobile-toc>
-          <div class="c-mobile-toc__inner">
-            <div class="c-mobile-toc__top">
-              <div class="c-mobile-toc__top-left">
-                <h2 class="c-mobile-toc__header" id="mobile-toc-header">On this page</h2>
-              </div>
-
-              <div class="c-mobile-toc__top-right">
-                <button
-                  class="c-mobile-toc__close c-icon-link"
-                  type="button"
-                  aria-label="Close contents"
-                  data-toc-close
-                >
-                  <span class="c-mobile-toc__close-icon c-icon-link__icon" aria-hidden="true">
-                    {% include icons/close-circle.svg %}
-                  </span>
-                  <span class="u-visually-hidden">Close contents</span>
-                </button>
-              </div>
-            </div>
-
-            <nav
-              class="c-mobile-toc__nav"
-              aria-labelledby="mobile-toc-header"
-            >
-              {%
-                include toc.html
-                html=content
-                sanitize=true
-                h_min=2
-                h_max=3
-                class="c-toc__menu c-mobile-toc__menu"
-                item_class="c-toc__item"
-                anchor_class="c-toc__link c-mobile-toc__link"
-                skip_no_ids=true
-              %}
-            </nav>
-          </div>
-        </div>
-      {% endif %}
+      {% include post-toc-mobile.html %}
 
       <!-- Post body content -->
       <div class="c-post__content">
-        <!-- Post content layout: 3-column (left gutter | prose | right gutter) -->
         <div class="c-post-layout">
-          <!-- Left column -->
           <div
             class="c-post-layout__col c-post-layout__col--left"
             aria-hidden="true"
           ></div>
 
-          <!-- Prose column -->
           <div class="c-post-layout__col c-post-layout__col--main">
             <div class="c-post-layout__prose">
               <div class="o-prose o-prose--measure-wide">
@@ -239,33 +138,8 @@ layout: default
             </div>
           </div>
 
-          <!-- TOC column -->
           <div class="c-post-layout__col c-post-layout__col--right">
-            {% if page.toc %}
-              <aside class="c-post-layout__aside">
-                <nav
-                  class="c-toc"
-                  id="post-toc"
-                  aria-labelledby="toc-title"
-                  role="navigation"
-                >
-                  <header class="c-toc__header">
-                    <span id="toc-title" class="c-toc__header-text"> On this page </span>
-                  </header>
-                  {%
-                    include toc.html
-                    html=content
-                    sanitize=true
-                    h_min=2
-                    h_max=3
-                    class="c-toc__menu"
-                    item_class="c-toc__item"
-                    anchor_class="c-toc__link"
-                    skip_no_ids=true
-                  %}
-                </nav>
-              </aside>
-            {% endif %}
+            {% include post-toc-desktop.html %}
           </div>
         </div>
       </div>

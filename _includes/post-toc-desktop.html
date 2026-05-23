@@ -1,0 +1,50 @@
+{% comment %}
+  Post Desktop TOC Include
+  Purpose: Render the desktop sticky Table of Contents wrapper.
+
+  Structure:
+  - Sticky aside wrapper
+  - TOC nav landmark
+  - Header
+  - Generated TOC list
+
+  Architecture:
+  - Reusable post-specific include
+  - Uses the shared toc.html generator for the list only
+  - Desktop placement remains owned by _post.scss through c-post-layout
+  - TOC visual styling remains owned by _toc.scss
+
+  Accessibility:
+  - Uses a nav landmark labelled by #toc-title
+
+  Data dependencies:
+  - page.toc
+  - content
+  - toc.html
+{% endcomment %}
+
+{% if page.toc %}
+  <aside class="c-post-layout__aside">
+    <nav
+      class="c-toc"
+      id="post-toc"
+      aria-labelledby="toc-title"
+      role="navigation"
+    >
+      <header class="c-toc__header">
+        <span id="toc-title" class="c-toc__header-text">On this page</span>
+      </header>
+
+      {% include toc.html
+        html=content
+        sanitize=true
+        h_min=2
+        h_max=3
+        class="c-toc__menu"
+        item_class="c-toc__item"
+        anchor_class="c-toc__link"
+        skip_no_ids=true
+      %}
+    </nav>
+  </aside>
+{% endif %}

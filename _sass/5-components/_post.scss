@@ -73,6 +73,7 @@ $post-header-meta-avatar-size: 3rem;
 $post-header-meta-avatar-size-mobile: 2.75rem;
 
 $post-content-top-border-width: settings-config.$global-border-width;
+$post-layout-toc-max-width: 20rem;
 
 /* -----------------------------------------------------------------------------
    Cover
@@ -271,7 +272,10 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
 .c-post-layout__col--right {
   align-self: stretch;
+  justify-self: stretch;
+
   inline-size: 100%;
+  max-inline-size: $post-layout-toc-max-width;
 }
 
 .c-post-layout__prose {
@@ -290,6 +294,7 @@ $post-content-top-border-width: settings-config.$global-border-width;
 
   .c-post-layout__col--right {
     display: none;
+    max-inline-size: none;
   }
 }
 

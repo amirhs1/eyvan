@@ -122,10 +122,7 @@
    ----------------------------------------------------------------------------- */
 
 .c-hero__media {
-  min-block-size: settings-config.$hero-min-height;
-  overflow: hidden;
   border-radius: settings-config.$global-border-radius;
-  background-color: var(--color-surface-alt);
   box-shadow:
     0 settings-config.$shadow-offset-y settings-config.$shadow-blur
     rgba(var(--color-shadow-rgb, 0 0 0), 0.08);
@@ -134,11 +131,11 @@
 .c-hero__image {
   display: block;
   inline-size: 100%;
-  block-size: 100%;
-  min-block-size: settings-config.$hero-min-height;
-  object-fit: cover;
+  block-size: auto;
+  max-block-size: min(32rem, 60vh);
+  object-fit: contain;
   object-position: center;
-  background-color: var(--color-surface-alt);
+  border-radius: settings-config.$global-border-radius;
 }
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {

@@ -18,13 +18,15 @@
 
 @use "../0-settings/config" as settings-config;
 
-img {
+img,
+video {
   display: block;
-  max-width: 100%;
-  height: auto;
   max-inline-size: 100%;
   block-size: auto;
-  border-radius: settings-config.$global-border-radius;
-  // vertical-align: middle;
 }
 
+iframe,
+embed,
+object {
+  max-inline-size: 100%;
+}

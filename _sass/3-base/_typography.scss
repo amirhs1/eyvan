@@ -42,9 +42,7 @@ h5 { font-size: settings-typography.$font-size-md; }
 h6 { font-size: settings-typography.$font-size-sm; }
 
 blockquote {
-  padding-left: settings-spacing.$space-4;
-  border-left: 3px solid var(--color-link);
-  color: var(--color-text);
+  margin: 0;
 }
 
 pre,

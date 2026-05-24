@@ -15,7 +15,7 @@ default_og_image: "assets/images/og-default.png"
 # Reusable site-wide assets and URLs referenced in templates.
 # ------------------------------------------------------------
 logo: "assets/images/logo.webp"
-cv_url: "files/resume.pdf"
+cv_url: "assets/files/resume.pdf"
 
 # ------------------------------------------------------------
 # URL structure

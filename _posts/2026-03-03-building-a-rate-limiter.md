@@ -4,7 +4,7 @@ subtitle: "Design, implementation, and benchmarks in Python and Go"
 tags: [coding, python, go, systems, algorithms]
 toc: true
 math: true
-image: "assets/images/posts/token-bucket-diagram.png"
+image: "assets/images/posts/token-bucket-diagram.webp"
 image_alt: "Token Bucket System Design Diagram"
 description: "A hands-on walkthrough of implementing a production-grade rate limiter with code in two languages."
 ---

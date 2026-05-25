@@ -1,10 +1,10 @@
-# Eywan
+# Eyvan
 
-**Eywan** is a minimalist Jekyll portfolio theme inspired by the *eywan* — an open, vaulted threshold space in Iranian architecture that mediates between inside and outside. The theme is designed around clarity, openness, and framing rather than decoration, making it suitable for personal portfolios, academic profiles, and research-oriented websites.
+**Eyvan** is a minimalist Jekyll portfolio theme inspired by the *eyvan* or *[ayvan](https://www.iranicaonline.org/articles/ayvan-palace/)* — an open, vaulted threshold space in Iranian architecture that mediates between inside and outside. The theme is designed around clarity, openness, and framing rather than decoration, making it suitable for personal portfolios, academic profiles, and research-oriented websites.
 
 ## Philosophy
 
-In traditional architecture, an *iwan* is neither fully interior nor exterior. It is a space of encounter and transition — open, structured, and intentional.
+In traditional architecture, an *eyvan* is neither fully interior nor exterior. It is a space of encounter and transition — open, structured, and intentional.
 
 This theme follows the same logic:
 
@@ -26,7 +26,7 @@ This theme follows the same logic:
 1. Clone or download the repository:
 
     ```bash
-    git clone https://github.com/your-username/eywan-jekyll.git
+    git clone https://github.com/your-username/eyvan-jekyll.git
     ```
 
 2. Install dependencies:

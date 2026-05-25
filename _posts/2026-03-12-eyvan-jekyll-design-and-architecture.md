@@ -1,5 +1,5 @@
 ---
-title: "Design Philosophy and Architecture of iwan-jekyll"
+title: "Design Philosophy and Architecture of eyvan-jekyll"
 subtitle: "How the template is structured, why it was built this way, and what powers it"
 tags: [meta, design, jekyll, css, architecture]
 toc: true
@@ -11,11 +11,11 @@ image_alt: "Layered wireframe of a minimalist Jekyll portfolio template"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
 ---
 
-> **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
-A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **iwan-jekyll**: a minimalist Jekyll template for portfolios, research notes, technical writing, and project archives.
+A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **eyvan-jekyll**: a minimalist Jekyll template for portfolios, research notes, technical writing, and project archives.
 
-The name comes from the architectural idea of an *iwan*: an open, vaulted threshold that sits between inside and outside. That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.
+The name comes from the architectural idea of an _eyvan_: an open, vaulted threshold that sits between inside and outside. That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.
 
 This post explains how the template is organized, why the architecture is intentionally simple, and how the design system supports content-heavy posts without depending on a JavaScript framework.
 
@@ -55,19 +55,19 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 
 {% include table-caption.html
    id="tbl-stack"
-   caption="Core technologies used by iwan-jekyll."
+   caption="Core technologies used by eyvan-jekyll."
 %}
 
-| Tool | Role | Why it belongs |
-|---|---|---|
-| Jekyll | Static site generator | Converts Markdown, layouts, includes, Sass, and data files into a deployable static site. |
-| Liquid | Template language | Handles reusable includes, conditional rendering, loops, and page metadata. |
-| kramdown with GFM | Markdown engine | Supports GitHub-flavored Markdown patterns, automatic heading IDs, tables, footnotes, and math output. |
-| MathJax | Math renderer | Enables LaTeX-style inline and display math on pages that opt in with `math: true`. |
-| `jekyll/tagging` | Tag archive generation | Creates browsable topic pages for posts and projects. |
-| `jekyll-sitemap` | SEO support | Generates a sitemap for search engines. |
-| SCSS | Styling language | Provides variables, mixins, partial organization, and compiled CSS. |
-| GitHub Actions | Build pipeline | Builds the site with plugins that GitHub Pages does not process by default. |
+| Tool              | Role                   | Why it belongs                                                                                         |
+| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| Jekyll            | Static site generator  | Converts Markdown, layouts, includes, Sass, and data files into a deployable static site.              |
+| Liquid            | Template language      | Handles reusable includes, conditional rendering, loops, and page metadata.                            |
+| kramdown with GFM | Markdown engine        | Supports GitHub-flavored Markdown patterns, automatic heading IDs, tables, footnotes, and math output. |
+| MathJax           | Math renderer          | Enables LaTeX-style inline and display math on pages that opt in with `math: true`.                    |
+| `jekyll/tagging`  | Tag archive generation | Creates browsable topic pages for posts and projects.                                                  |
+| `jekyll-sitemap`  | SEO support            | Generates a sitemap for search engines.                                                                |
+| SCSS              | Styling language       | Provides variables, mixins, partial organization, and compiled CSS.                                    |
+| GitHub Actions    | Build pipeline         | Builds the site with plugins that GitHub Pages does not process by default.                            |
 
 The most important architectural choice is that the stack is **Jekyll-first**. Features are built with layouts, includes, front matter, and SCSS before reaching for custom JavaScript. JavaScript is used only where it improves behavior: theme initialization, mobile navigation, table of contents interaction, cross-references, or conditional third-party loading.
 
@@ -112,16 +112,16 @@ In this template, the merged SCSS layer files are:
    caption="ITCSS layers and their responsibilities."
 %}
 
-| Layer | File | Role |
-|---|---|---|
-| Settings | `_sass/0-settings.scss` | Design tokens: colors, spacing, typography, breakpoints, radii, shadows, and configuration values. |
-| Tools | `_sass/1-tools.scss` | Mixins, functions, and helpers used by later layers. |
-| Generic | `_sass/2-generic.scss` | Resets, box sizing, global normalization, and low-specificity baseline rules. |
-| Base | `_sass/3-base.scss` | Default element styling for HTML, body, headings, links, media, and form basics. |
-| Objects | `_sass/4-objects.scss` | Reusable layout patterns such as containers, grids, hero structure, site header layout, site footer layout, and prose measure. |
-| Components | `_sass/5-components.scss` | Specific UI components such as buttons, nav, cards, hero, post layout, TOC, media figures, and theme toggle. |
-| Layouts | `_sass/6-layouts.scss` | Page-level composition for the homepage, projects page, tag pages, and default shell spacing. |
-| Trumps | `_sass/7-trumps.scss` | Utilities, state helpers, and high-priority overrides. |
+| Layer      | File                      | Role                                                                                                                           |
+| ---------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Settings   | `_sass/0-settings.scss`   | Design tokens: colors, spacing, typography, breakpoints, radii, shadows, and configuration values.                             |
+| Tools      | `_sass/1-tools.scss`      | Mixins, functions, and helpers used by later layers.                                                                           |
+| Generic    | `_sass/2-generic.scss`    | Resets, box sizing, global normalization, and low-specificity baseline rules.                                                  |
+| Base       | `_sass/3-base.scss`       | Default element styling for HTML, body, headings, links, media, and form basics.                                               |
+| Objects    | `_sass/4-objects.scss`    | Reusable layout patterns such as containers, grids, hero structure, site header layout, site footer layout, and prose measure. |
+| Components | `_sass/5-components.scss` | Specific UI components such as buttons, nav, cards, hero, post layout, TOC, media figures, and theme toggle.                   |
+| Layouts    | `_sass/6-layouts.scss`    | Page-level composition for the homepage, projects page, tag pages, and default shell spacing.                                  |
+| Trumps     | `_sass/7-trumps.scss`     | Utilities, state helpers, and high-priority overrides.                                                                         |
 
 This structure separates **what something is** from **where it sits**. For example, `.c-button` controls button appearance, while `.l-projects__tags-list` controls the spacing of tag links on the projects page. That distinction prevents component styles from becoming tangled with page-specific layout rules.
 
@@ -130,20 +130,31 @@ This structure separates **what something is** from **where it sits**. For examp
 The class naming follows a practical BEM pattern with prefixes:
 
 ```scss
-.c-post-card { }
-.c-post-card__title { }
-.c-post-card__meta { }
-.c-post-card--featured { }
+.c-post-card {
+}
+.c-post-card__title {
+}
+.c-post-card__meta {
+}
+.c-post-card--featured {
+}
 
-.o-grid { }
-.o-grid__item { }
-.o-grid__item--span-6 { }
+.o-grid {
+}
+.o-grid__item {
+}
+.o-grid__item--span-6 {
+}
 
-.l-projects { }
-.l-projects__archive { }
+.l-projects {
+}
+.l-projects__archive {
+}
 
-.u-visually-hidden { }
-.is-active { }
+.u-visually-hidden {
+}
+.is-active {
+}
 ```
 
 The prefix communicates the layer at a glance:
@@ -165,6 +176,7 @@ The `.o-container` object controls horizontal page width. It gives pages a consi
 A typical page starts like this:
 
 {% raw %}
+
 ```html
 <div class="o-container">
   <div class="l-projects">
@@ -172,6 +184,7 @@ A typical page starts like this:
   </div>
 </div>
 ```
+
 {% endraw %}
 
 The container is intentionally boring. That is a strength. It creates a stable page boundary without mixing in card styles, text styles, or page-specific spacing.
@@ -181,15 +194,19 @@ The container is intentionally boring. That is a strength. It creates a stable p
 The `.o-grid` object provides a 12-column responsive grid. Items span all 12 columns by default, then use modifiers such as `o-grid__item--span-tablet-6` or `o-grid__item--span-desktop-6` for wider screens.
 
 {% raw %}
+
 ```html
 <div class="o-grid">
   {% for post in site.posts limit:6 %}
-    <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
-      {% include post-card.html post=post %}
-    </div>
+  <div
+    class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6"
+  >
+    {% include post-card.html post=post %}
+  </div>
   {% endfor %}
 </div>
 ```
+
 {% endraw %}
 
 The result is a reusable grid system that works for project cards, homepage sections, and broad layout composition.
@@ -219,15 +236,17 @@ left gutter | prose column | table of contents
 The left gutter is intentionally empty. It balances the right-side table of contents so the prose remains visually centered. On smaller screens, the layout collapses into a single column and the table of contents becomes a mobile/tablet toolbar and panel.
 
 {% raw %}
+
 ```html
 <div class="c-post-layout">
-  <div class="c-post-layout__col c-post-layout__col--left" aria-hidden="true"></div>
+  <div
+    class="c-post-layout__col c-post-layout__col--left"
+    aria-hidden="true"
+  ></div>
 
   <div class="c-post-layout__col c-post-layout__col--main">
     <div class="c-post-layout__prose">
-      <div class="o-prose o-prose--measure-wide">
-        {{ content }}
-      </div>
+      <div class="o-prose o-prose--measure-wide">{{ content }}</div>
     </div>
   </div>
 
@@ -236,6 +255,7 @@ The left gutter is intentionally empty. It balances the right-side table of cont
   </div>
 </div>
 ```
+
 {% endraw %}
 
 This is one of the template’s most important design decisions. It supports long articles without making the page feel crowded. The reader gets a focused article column, while the TOC remains available for orientation.
@@ -408,14 +428,16 @@ That keeps the final CSS smaller while preserving readable source SCSS in the re
 Post cover images use `loading="lazy"`, which allows the browser to delay loading images until they are needed. Media includes for figures and embeds also default toward lazy behavior where appropriate.
 
 {% raw %}
+
 ```html
 <img
   class="c-post-cover__image"
   loading="lazy"
   src="{{ page.image | relative_url }}"
   alt="{{ page.image_alt | default: page.title | escape }}"
->
+/>
 ```
+
 {% endraw %}
 
 The exception is the homepage hero image, which can use eager loading and high fetch priority because it appears above the fold.
@@ -425,25 +447,33 @@ The exception is the homepage hero image, which can use eager loading and high f
 MathJax is loaded asynchronously and only when the page opts in:
 
 {% raw %}
+
 ```html
 {% if page.math %}
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true
-      }
-    };
-  </script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"],
+      ],
+      processEscapes: true,
+    },
+  };
+</script>
 
-  <script
-    id="MathJax-script"
-    async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-  </script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
 {% endif %}
 ```
+
 {% endraw %}
 
 This is the right tradeoff for a mixed portfolio. Some posts need equations; many do not.
@@ -454,13 +484,14 @@ The head include centralizes SEO, canonical links, feed discovery, Open Graph me
 
 ## Extension points
 
-A good template should be easy to extend without rewriting its architecture. In iwan-jekyll, the safest extension points are layouts, includes, data files, and SCSS components.
+A good template should be easy to extend without rewriting its architecture. In eyvan-jekyll, the safest extension points are layouts, includes, data files, and SCSS components.
 
 ### Add a new layout
 
 Create a new file in `_layouts`, then compose existing objects and components.
 
 {% raw %}
+
 ```html
 ---
 layout: default
@@ -468,19 +499,14 @@ layout: default
 
 <div class="o-container">
   <div class="l-notes">
-    {% include section-heading.html
-      id="notes-title"
-      heading_level="h1"
-      title=page.title
-      description=page.description
-    %}
+    {% include section-heading.html id="notes-title" heading_level="h1"
+    title=page.title description=page.description %}
 
-    <div class="o-prose o-prose--measure-wide">
-      {{ content }}
-    </div>
+    <div class="o-prose o-prose--measure-wide">{{ content }}</div>
   </div>
 </div>
 ```
+
 {% endraw %}
 
 Then add layout-specific spacing in the layouts layer:
@@ -500,17 +526,17 @@ Then add layout-specific spacing in the layouts layer:
 For a new component, start with a focused include and one component block. Do not put page layout into the component unless the component truly owns that layout.
 
 {% raw %}
+
 ```html
 <div class="c-callout c-callout--{{ include.type | default: 'note' }}">
   {% if include.title %}
-    <p class="c-callout__title">{{ include.title }}</p>
+  <p class="c-callout__title">{{ include.title }}</p>
   {% endif %}
 
-  <div class="c-callout__body">
-    {{ include.content | markdownify }}
-  </div>
+  <div class="c-callout__body">{{ include.content | markdownify }}</div>
 </div>
 ```
+
 {% endraw %}
 
 ```scss
@@ -556,6 +582,6 @@ Jekyll owns content generation. Liquid owns composition. Front matter owns page-
 
 Most importantly, the template does not try to become an application. It remains a static portfolio system. That restraint is what makes it maintainable.
 
-For a personal portfolio, the hardest problem is rarely technical complexity. The harder problem is consistency over time: adding new posts, updating projects, changing navigation, improving design, and keeping the site coherent as it grows. iwan-jekyll solves that by providing a simple architecture with clear extension points.
+For a personal portfolio, the hardest problem is rarely technical complexity. The harder problem is consistency over time: adding new posts, updating projects, changing navigation, improving design, and keeping the site coherent as it grows. eyvan-jekyll solves that by providing a simple architecture with clear extension points.
 
 The result is a site that feels calm, readable, and professional: content framed, not boxed; structure visible, but unobtrusive.

@@ -8,7 +8,7 @@ title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
 #url: "https://amirhs1.github.io"
 url: "http://localhost:4000"
-baseurl: "/eywan-jekyll"
+baseurl: "/eyvan-jekyll"
 default_og_image: "assets/images/og-default.png"
 
 # ------------------------------------------------------------

@@ -1,0 +1,73 @@
+{%- comment -%}
+  Prose Figure Include
+
+  Purpose:
+  Render 1..N images sharing one optional auto-numbered caption.
+
+  Usage — single image:
+    {% include figure.html
+       src="/assets/images/posts/example.webp"
+       alt="Description of image"
+       caption="Caption text."
+       id="fig-example"
+    %}
+
+  Usage — multiple images:
+    {% include figure.html
+       id="fig-example"
+       caption="Shared caption."
+       cols="3"
+       images="
+         /assets/images/posts/a.webp | First image alt text
+         /assets/images/posts/b.webp | Second image alt text
+         /assets/images/posts/c.webp | Third image alt text
+       "
+    %}
+
+  Options:
+    cols="2" / "3" / "4"  -> controls wide-screen grid columns
+    numbered="false"      -> keeps caption styling but removes FIGURE n.
+    loading="eager"       -> optional override; default is lazy
+{%- endcomment -%}
+
+{%- if include.images -%}
+  {%- assign raw_rows = include.images | strip | newline_to_br | split: "<br />" -%}
+{%- else -%}
+  {%- capture single_row -%}{{ include.src }} | {{ include.alt }}{%- endcapture -%}
+  {%- assign raw_rows = single_row | split: "~no-split~" -%}
+{%- endif -%}
+
+{%- assign cols = include.cols | default: raw_rows.size -%}
+
+<figure
+  class="c-prose-figure c-prose-figure--image c-prose-figure--cols-{{ cols }}"
+  {% if include.id %}id="{{ include.id }}"{% endif %}
+  {% if include.numbered != "false" %}data-ref-type="figure"{% endif %}
+>
+  <div class="c-prose-figure__grid">
+    {%- for row in raw_rows -%}
+      {%- assign row_text = row | strip -%}
+
+      {%- if row_text != "" -%}
+        {%- assign parts = row_text | split: "|" -%}
+        {%- assign image_src = parts[0] | strip -%}
+        {%- assign image_alt = parts[1] | strip | default: include.caption -%}
+
+        <img
+          class="c-prose-figure__asset"
+          src="{{ image_src | relative_url }}"
+          alt="{{ image_alt | strip_html | escape }}"
+          loading="{{ include.loading | default: 'lazy' }}"
+        >
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {% if include.caption %}
+    <figcaption
+      class="c-prose-caption c-prose-figure__caption{% if include.numbered != 'false' %} c-prose-caption--figure{% endif %}"
+    >
+      {{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}
+    </figcaption>
+  {% endif %}
+</figure>

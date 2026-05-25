@@ -6,7 +6,8 @@
 # ------------------------------------------------------------
 title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
-url: "https://github.com/amirhs1/"
+#url: "https://amirhs1.github.io"
+url: "http://localhost:4000"
 baseurl: "/eywan-jekyll"
 default_og_image: "assets/images/og-default.png"
 
@@ -21,7 +22,7 @@ cv_url: "assets/files/resume.pdf"
 # URL structure
 # Defines how project pages appear in the final site URLs.
 # ------------------------------------------------------------
-permalink: /project/:title/
+permalink: /projects/:title/
 
 # ------------------------------------------------------------
 # Build and markdown settings

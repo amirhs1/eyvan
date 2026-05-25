@@ -1,0 +1,79 @@
+{%- comment -%}
+  Prose Audio Include
+
+  Purpose:
+  Render an audio player with an optional auto-numbered caption.
+  Audio shares the FIGURE counter.
+
+  Usage — single file:
+    {% include audio.html
+       src="/assets/audio/example.mp3"
+       captions="/assets/audio/example.en.vtt"
+       caption="Caption text."
+       id="fig-example-audio"
+    %}
+
+  Multiple audio formats:
+    {% include audio.html
+       caption="Caption text."
+       id="fig-example-audio"
+       src="
+         /assets/audio/example.ogg | audio/ogg
+         /assets/audio/example.mp3 | audio/mpeg
+       "
+    %}
+
+  Options:
+    captions_lang="en"
+    captions_label="English"
+    numbered="false"
+{%- endcomment -%}
+
+<figure
+  class="c-prose-figure c-prose-figure--audio"
+  {% if include.id %}id="{{ include.id }}"{% endif %}
+  {% if include.numbered != "false" %}data-ref-type="figure"{% endif %}
+>
+  <audio
+    class="c-prose-figure__audio"
+    controls
+    preload="{{ include.preload | default: 'metadata' }}"
+  >
+    {%- assign src_lines = include.src | strip | newline_to_br | split: "<br />" -%}
+
+    {%- for line in src_lines -%}
+      {%- assign line_text = line | strip -%}
+
+      {%- if line_text != "" -%}
+        {%- assign parts = line_text | split: "|" -%}
+        {%- assign file = parts[0] | strip -%}
+        {%- assign type = parts[1] | strip -%}
+
+        <source
+          src="{{ file | relative_url }}"
+          {% if type %}type="{{ type }}"{% endif %}
+        >
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if include.captions -%}
+      <track
+        kind="captions"
+        src="{{ include.captions | relative_url }}"
+        srclang="{{ include.captions_lang | default: 'en' }}"
+        label="{{ include.captions_label | default: 'English' }}"
+        default
+      >
+    {%- endif -%}
+
+    Your browser does not support the audio element.
+  </audio>
+
+  {% if include.caption %}
+    <figcaption
+      class="c-prose-caption c-prose-figure__caption{% if include.numbered != 'false' %} c-prose-caption--figure{% endif %}"
+    >
+      {{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}
+    </figcaption>
+  {% endif %}
+</figure>

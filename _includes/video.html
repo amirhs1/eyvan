@@ -1,0 +1,112 @@
+{%- comment -%}
+  Prose Video Include
+
+  Purpose:
+  Render a self-hosted video or third-party video embed with an optional
+  auto-numbered caption. Videos share the FIGURE counter.
+
+  Mode A — self-hosted video:
+    {% include video.html
+       src="/assets/video/demo.mp4"
+       poster="/assets/video/demo-poster.webp"
+       captions="/assets/video/demo.en.vtt"
+       ratio="16-9"
+       caption="Caption text."
+       id="fig-demo-video"
+    %}
+
+  Multiple self-hosted formats:
+    {% include video.html
+       ratio="16-9"
+       caption="Caption text."
+       id="fig-demo-video"
+       src="
+         /assets/video/demo.webm | video/webm
+         /assets/video/demo.mp4  | video/mp4
+       "
+    %}
+
+  Mode B — third-party embed:
+    {% include video.html
+       embed="https://www.youtube.com/embed/VIDEO_ID"
+       provider="youtube"
+       ratio="16-9"
+       caption="Caption text."
+       id="fig-demo-video"
+    %}
+
+  Options:
+    provider="youtube" / "vimeo"
+    ratio="16-9" / "cinema" / "4-3" / "1-1"
+    numbered="false"
+{%- endcomment -%}
+
+{%- assign ratio = include.ratio | default: "16-9" -%}
+
+<figure
+  class="c-prose-figure c-prose-figure--video c-prose-figure--ratio-{{ ratio }}"
+  {% if include.id %}id="{{ include.id }}"{% endif %}
+  {% if include.numbered != "false" %}data-ref-type="figure"{% endif %}
+>
+  <div class="c-prose-figure__frame">
+    {%- if include.embed -%}
+      <iframe
+        class="c-prose-figure__embed"
+        src="{{ include.embed }}"
+        title="{{ include.title | default: include.caption | default: 'Embedded video' | strip_html | escape }}"
+        loading="{{ include.loading | default: 'lazy' }}"
+        referrerpolicy="{{ include.referrerpolicy | default: 'strict-origin-when-cross-origin' }}"
+        {% if include.provider == "vimeo" %}
+          allow="autoplay; fullscreen; picture-in-picture"
+        {% else %}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        {% endif %}
+        allowfullscreen
+      ></iframe>
+    {%- else -%}
+      <video
+        class="c-prose-figure__video"
+        controls
+        preload="{{ include.preload | default: 'metadata' }}"
+        {% if include.poster %}poster="{{ include.poster | relative_url }}"{% endif %}
+      >
+        {%- assign src_lines = include.src | strip | newline_to_br | split: "<br />" -%}
+
+        {%- for line in src_lines -%}
+          {%- assign line_text = line | strip -%}
+
+          {%- if line_text != "" -%}
+            {%- assign parts = line_text | split: "|" -%}
+            {%- assign file = parts[0] | strip -%}
+            {%- assign type = parts[1] | strip -%}
+
+            <source
+              src="{{ file | relative_url }}"
+              {% if type %}type="{{ type }}"{% endif %}
+            >
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if include.captions -%}
+          <track
+            kind="subtitles"
+            src="{{ include.captions | relative_url }}"
+            srclang="{{ include.captions_lang | default: 'en' }}"
+            label="{{ include.captions_label | default: 'English' }}"
+            default
+          >
+        {%- endif -%}
+
+        Your browser does not support the video element.
+      </video>
+    {%- endif -%}
+  </div>
+
+  {% if include.caption %}
+    <figcaption
+      class="c-prose-caption c-prose-figure__caption{% if include.numbered != 'false' %} c-prose-caption--figure{% endif %}"
+    >
+      {{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}
+    </figcaption>
+  {% endif %}
+</figure>

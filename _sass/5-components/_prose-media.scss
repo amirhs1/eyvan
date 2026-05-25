@@ -1,0 +1,288 @@
+// -----------------------------------------------------------------------------
+// Prose Media Component
+// ITCSS layer: 5-components
+//
+// Purpose:
+// Provides reusable long-form content media patterns for prose environments,
+// including images, image grids, videos, audio, captions, table captions,
+// prose tables, and cross-references.
+//
+// Scope:
+// - Figures rendered by _includes/figure.html
+// - Videos rendered by _includes/video.html
+// - Audio rendered by _includes/audio.html
+// - Table captions rendered by _includes/table-caption.html
+// - Cross-references rendered by _includes/ref.html
+// - Content inside .o-prose in posts, pages, and project pages
+//
+// Architecture:
+// - Uses BEM-style component classes with the c-prose-* namespace
+// - Designed for prose content, not post-only content
+// - Figure/table numbering is handled through CSS counters
+// - Cross-reference text is resolved by assets/js/crossref.js
+// - Counter reset belongs in the prose object layer:
+//   .o-prose { counter-reset: prose-figure-counter prose-table-counter; }
+//
+// Responsibilities:
+// - Preserve original media aspect ratios where appropriate
+// - Provide responsive 1..N image grids
+// - Provide fixed-ratio wrappers for iframe/video embeds
+// - Style prose captions consistently across media and tables
+// - Render uppercase numbered labels such as FIGURE 1. and TABLE 1.
+// - Style Markdown-generated prose tables when marked with .c-prose-table
+// - Style prose cross-reference links
+//
+// Non-responsibilities:
+// - Global media defaults; those belong in 3-base/_media.scss
+// - Prose rhythm and measure; those belong in 4-objects/_prose.scss
+// - Post cover images; those belong in the post component
+// - Homepage hero media; those belong in the hero component
+// - Card thumbnails; those belong in card components
+//
+// Usage:
+// Single figure:
+//   {% include figure.html
+//      src="/assets/images/posts/example.webp"
+//      alt="Description of image"
+//      caption="Caption text."
+//      id="fig-example"
+//   %}
+//
+// Multi-image figure:
+//   {% include figure.html
+//      id="fig-example"
+//      caption="Shared caption."
+//      cols="3"
+//      images="
+//        /assets/images/posts/a.webp | First image alt text
+//        /assets/images/posts/b.webp | Second image alt text
+//        /assets/images/posts/c.webp | Third image alt text
+//      "
+//   %}
+//
+// Video:
+//   {% include video.html
+//      embed="https://www.youtube.com/embed/VIDEO_ID"
+//      provider="youtube"
+//      ratio="16-9"
+//      caption="Caption text."
+//      id="fig-video"
+//   %}
+//
+// Audio:
+//   {% include audio.html
+//      src="/assets/audio/example.mp3"
+//      caption="Caption text."
+//      id="fig-audio"
+//   %}
+//
+// Table caption:
+//   {% include table-caption.html caption="Benchmark results." id="tbl-results" %}
+//
+//   | Method | Score |
+//   |--------|------:|
+//   | A      | 0.91  |
+//   {: .c-prose-table }
+//
+// Cross-reference:
+//   {% include ref.html id="fig-example" cref="true" %}
+//
+// Notes:
+// - Use numbered="false" to keep caption styling but remove automatic numbering.
+// - Use crossrefs: true in front matter when a page uses ref.html.
+// - Videos and audio share the FIGURE counter because they are treated as
+//   numbered prose media.
+// - Markdown tables cannot reliably contain semantic <caption> elements, so
+//   table-caption.html renders a caption block directly before the table.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Prose figure/media
+----------------------------------------------------------------------------- */
+
+.c-prose-figure {
+  display: grid;
+  gap: settings-spacing.$space-3;
+  margin-block: settings-spacing.$space-8;
+  margin-inline: 0;
+}
+
+.c-prose-figure__grid {
+  display: grid;
+  align-items: end;
+  gap: settings-spacing.$space-4;
+}
+
+.c-prose-figure__asset {
+  display: block;
+  align-self: end;
+  inline-size: 100%;
+  block-size: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: settings-config.$global-border-radius;
+}
+
+.c-prose-figure--cols-1 .c-prose-figure__grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
+  .c-prose-figure--cols-2 .c-prose-figure__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .c-prose-figure--cols-3 .c-prose-figure__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .c-prose-figure--cols-4 .c-prose-figure__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Prose video
+----------------------------------------------------------------------------- */
+
+.c-prose-figure__frame {
+  position: relative;
+  overflow: hidden;
+  inline-size: 100%;
+  background-color: var(--color-ui-surface-raised);
+  border-radius: settings-config.$global-border-radius;
+}
+
+.c-prose-figure__frame::before {
+  display: block;
+  content: "";
+}
+
+.c-prose-figure--ratio-16-9 .c-prose-figure__frame::before {
+  padding-block-start: 56.25%;
+}
+
+.c-prose-figure--ratio-4-3 .c-prose-figure__frame::before {
+  padding-block-start: 75%;
+}
+
+.c-prose-figure--ratio-1-1 .c-prose-figure__frame::before {
+  padding-block-start: 100%;
+}
+
+.c-prose-figure--ratio-cinema .c-prose-figure__frame::before {
+  padding-block-start: 42.25%;
+}
+
+.c-prose-figure__embed,
+.c-prose-figure__video {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  border: 0;
+}
+
+.c-prose-figure__video {
+  object-fit: contain;
+}
+
+/* -----------------------------------------------------------------------------
+   Prose audio
+----------------------------------------------------------------------------- */
+
+.c-prose-figure__audio {
+  display: block;
+  inline-size: 100%;
+}
+
+/* -----------------------------------------------------------------------------
+   Prose captions
+----------------------------------------------------------------------------- */
+
+.c-prose-caption {
+  display: block;
+  color: var(--color-text-muted);
+  font-family: settings-typography.$font-family-mono;
+  font-size: settings-typography.$font-size-sm;
+  line-height: settings-typography.$line-height-normal;
+}
+
+.c-prose-caption--figure::before,
+.c-prose-caption--table::before {
+  color: var(--color-text);
+  font-weight: settings-typography.$font-weight-bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.c-prose-caption--figure::before {
+  counter-increment: prose-figure-counter;
+  content: "FIGURE " counter(prose-figure-counter) ". ";
+}
+
+.c-prose-caption--table::before {
+  counter-increment: prose-table-counter;
+  content: "TABLE " counter(prose-table-counter) ". ";
+}
+
+.c-prose-caption--table-block {
+  margin-block-start: settings-spacing.$space-8;
+  margin-block-end: settings-spacing.$space-3;
+}
+
+/* -----------------------------------------------------------------------------
+   Prose tables
+----------------------------------------------------------------------------- */
+
+.c-prose-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: settings-typography.$font-size-sm;
+}
+
+.c-prose-table th,
+.c-prose-table td {
+  padding-block: settings-spacing.$space-2;
+  padding-inline: settings-spacing.$space-3;
+  border-block-end: 1px solid var(--color-border);
+}
+
+.c-prose-table thead th {
+  color: var(--color-text);
+  font-family: settings-typography.$font-family-mono;
+  font-weight: settings-typography.$font-weight-bold;
+  letter-spacing: 0.04em;
+  text-align: start;
+  text-transform: uppercase;
+}
+
+.c-prose-table tbody tr:nth-child(even) {
+  background-color: var(--color-ui-surface-raised);
+}
+
+.c-prose-table tfoot td {
+  font-weight: settings-typography.$font-weight-bold;
+  border-block-start: 2px solid var(--color-border);
+}
+
+/* -----------------------------------------------------------------------------
+   Prose cross-references
+----------------------------------------------------------------------------- */
+
+.c-prose-xref {
+  color: var(--color-link);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.15em;
+}
+
+.c-prose-xref:hover {
+  text-decoration-style: solid;
+}

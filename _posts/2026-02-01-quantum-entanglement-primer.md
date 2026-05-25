@@ -9,7 +9,7 @@ image_alt: "Entanglement vs Classical Correlation Demonstration"
 description: "A rigorous introduction to quantum entanglement with LaTeX math, citations, and footnotes."
 ---
 
-> **Note:** This post was generated with Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
 
 Quantum entanglement represents the most profound departure of quantum mechanics from the classical worldview, transforming our understanding of physical reality, locality, and information. First conceptualized by Einstein, Podolsky, and Rosen (EPR) in 1935 as a purported proof of the incompleteness of quantum theory, entanglement describes a non-separable state of composite subsystems wherein the physical properties of one constituent cannot be defined independently of the other, regardless of spatial separation. Decades of theoretical refinement, initiated by John Stewart Bell, and subsequent experimental validation have elevated entanglement from a philosophical paradox to the foundational resource powering modern quantum information sciences, including quantum computation, cryptography, and metrology. This primer provides a mathematically rigorous introduction to the formalisms of bipartite entanglement, the derivation of Bell inequalities, and the current landscape of experimental verification.
 
@@ -31,8 +31,12 @@ where $\ket{0}$ and $\ket{1}$ represent the orthogonal basis states of a two-lev
 
 To understand how entanglement diverges from classical behavior under measurement, it is highly instructive to analyze the physical apparatus used to verify these states using photon polarization. 
 
-![Entanglement vs Classical Correlation Demonstration]({{ page.image | relative_url }})
-**Figure 1** *Side-by-side simulation demonstrating the operational differences between a maximally entangled pure state (left) and a dephased, mixed classically correlated state (right). Cover image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Quantum_entanglement_vs_classical_correlation_video.gif) by creator JozumBjada (Nov 27, 2020), available under Creative Commons CC BY-SA 4.0.*
+{% include figure.html
+   src=page.image
+   alt=page.image_alt
+   id="fig-entanglement-classical-correlation"
+   caption="Side-by-side simulation demonstrating the operational differences between a maximally entangled pure state (left) and a dephased, mixed classically correlated state (right). Cover image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Quantum_entanglement_vs_classical_correlation_video.gif) by creator JozumBjada (Nov 27, 2020), available under Creative Commons CC BY-SA 4.0."
+%}
 
 This visualization highlights the precise behavior of photon polarization measurements:
 
@@ -111,7 +115,12 @@ To understand exactly how quantum mechanics circumvents classical constraints, w
 
 Over the past half-century, experimental physicists have constructed increasingly sophisticated apparatuses to validate this mathematical violation under strict empirical conditions. The primary challenge has been eliminating experimental loopholes[^3] that could potentially allow classical hidden variables to mimic quantum correlations. The three classic loopholes are the *locality loophole* (communication between detectors), the *detection loophole* (sub-optimal detector efficiency), and the *freedom-of-choice loophole* (non-random settings generation).
 
-The table below outlines the landmark experiments that systematically dismantled these loopholes:
+The landmark experiments that systematically dismantled these loopholes are summarized below.
+
+{% include table-caption.html
+   id="tbl-bell-test-milestones"
+   caption="Selected experimental milestones in Bell-test verification and loophole closure."
+%}
 
 | Experiment / Laboratory | Physical System | Measured $S$ Value | Statistical Confidence | Main Loophole Addressed |
 | :--- | :--- | :--- | :--- | :--- |
@@ -119,8 +128,9 @@ The table below outlines the landmark experiments that systematically dismantled
 | **Aspect et al. (1982)** | Entangled Photons | $2.697 \pm 0.015$ | $46\sigma$ | Locality (fast dynamic switching) |
 | **Rowe et al. (2001)** | Trapped $^{9}\text{Be}^+$ Ions | N/A (CH variant) | Highly Significant | Detection (high-efficiency readout) |
 | **Hensen et al. (Delft, 2015)** | Nitrogen-Vacancy Centers | $2.420 \pm 0.200$ | $p = 0.039$ | **Loophole-Free** (Simultaneous) |
-| **Giustina et al. (Vienna, 2015)**| Polarization Photons | $2.00024 \pm 0.00001$ | $11.5\sigma$ | **Loophole-Free** (Superconducting det.) |
+| **Giustina et al. (Vienna, 2015)** | Polarization Photons | $2.00024 \pm 0.00001$ | $11.5\sigma$ | **Loophole-Free** (Superconducting det.) |
 | **Shalm et al. (NIST, 2015)** | Spontaneous Parametric Down-Conversion | $2.00757 \pm 0.00019$ | $7\sigma$ | **Loophole-Free** (High spatial separation) |
+{: .c-prose-table }
 
 ## Reproducibility and Numerical Verification
 

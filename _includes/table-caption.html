@@ -1,0 +1,31 @@
+{%- comment -%}
+  Prose Table Caption Include
+
+  Purpose:
+  Render a numbered caption above a Markdown table.
+
+  Usage:
+    {% include table-caption.html
+       caption="Benchmark results."
+       id="tbl-results"
+    %}
+
+    | Method | Score |
+    |--------|------:|
+    | A      | 0.91  |
+    | B      | 0.88  |
+    {: .c-prose-table }
+
+  Optional:
+    numbered="false"
+{%- endcomment -%}
+
+{% if include.caption %}
+  <div
+    class="c-prose-caption c-prose-caption--table-block{% if include.numbered != 'false' %} c-prose-caption--table{% endif %}"
+    {% if include.id %}id="{{ include.id }}"{% endif %}
+    {% if include.numbered != "false" %}data-ref-type="table"{% endif %}
+  >
+    {{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}
+  </div>
+{% endif %}

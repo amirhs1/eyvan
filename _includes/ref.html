@@ -1,0 +1,21 @@
+{%- comment -%}
+  Prose Cross-reference Include
+
+  Usage:
+    {% include ref.html id="fig-example" %}
+      -> bare number, like LaTeX \ref
+
+    {% include ref.html id="fig-example" cref="true" %}
+      -> Figure n / Table n, like LaTeX \cref
+
+  Important:
+  This include intentionally renders as one physical line so it can be used
+  inline inside Markdown paragraphs and table cells without kramdown treating
+  the closing `>` as a blockquote marker.
+{%- endcomment -%}
+
+{%- assign ref_class = 'c-prose-xref' -%}
+{%- if include.cref == 'true' -%}
+  {%- assign ref_class = ref_class | append: ' c-prose-xref--cref' -%}
+{%- endif -%}
+<a class="{{ ref_class }}" href="#{{ include.id }}">{{ include.id }}</a>

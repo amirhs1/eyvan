@@ -3,20 +3,15 @@
 // ITCSS layer: 3-base
 //
 // Description:
-// Provides neutral baseline styles for embedded media elements,
-// ensuring responsive behavior and predictable alignment.
+// Provides neutral baseline styles for embedded media elements.
 //
-// Scope & Rules:
-// - Type selectors only for neutral media defaults
-// - No captions, borders, or decorative styling
-// - No layout assumptions
-//
-// Notes:
-// - Layout patterns belong in 4-objects
-// - Presentation styles belong in 5-components
+// Rules:
+// - Type selectors only
+// - No captions
+// - No borders
+// - No border-radius
+// - No decorative styling
 // -----------------------------------------------------------------------------
-
-@use "../0-settings/config" as settings-config;
 
 img,
 video {

@@ -176,3 +176,11 @@ $toc-sticky-top-margin: calc(8rem + settings-spacing.$space-4);
     font-style: normal;
   }
 }
+
+/* -----------------------------------------------------------------------------
+   Counter reset for figures and tables
+----------------------------------------------------------------------------- */
+
+.o-prose {
+  counter-reset: prose-figure-counter prose-table-counter;
+}

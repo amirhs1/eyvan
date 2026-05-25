@@ -59,7 +59,7 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 %}
 
 | Tool              | Role                   | Why it belongs                                                                                         |
-| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| :---------------- | :--------------------- | :----------------------------------------------------------------------------------------------------- |
 | Jekyll            | Static site generator  | Converts Markdown, layouts, includes, Sass, and data files into a deployable static site.              |
 | Liquid            | Template language      | Handles reusable includes, conditional rendering, loops, and page metadata.                            |
 | kramdown with GFM | Markdown engine        | Supports GitHub-flavored Markdown patterns, automatic heading IDs, tables, footnotes, and math output. |
@@ -68,6 +68,7 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 | `jekyll-sitemap`  | SEO support            | Generates a sitemap for search engines.                                                                |
 | SCSS              | Styling language       | Provides variables, mixins, partial organization, and compiled CSS.                                    |
 | GitHub Actions    | Build pipeline         | Builds the site with plugins that GitHub Pages does not process by default.                            |
+{: .c-prose-table }
 
 The most important architectural choice is that the stack is **Jekyll-first**. Features are built with layouts, includes, front matter, and SCSS before reaching for custom JavaScript. JavaScript is used only where it improves behavior: theme initialization, mobile navigation, table of contents interaction, cross-references, or conditional third-party loading.
 
@@ -113,7 +114,7 @@ In this template, the merged SCSS layer files are:
 %}
 
 | Layer      | File                      | Role                                                                                                                           |
-| ---------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| :--------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
 | Settings   | `_sass/0-settings.scss`   | Design tokens: colors, spacing, typography, breakpoints, radii, shadows, and configuration values.                             |
 | Tools      | `_sass/1-tools.scss`      | Mixins, functions, and helpers used by later layers.                                                                           |
 | Generic    | `_sass/2-generic.scss`    | Resets, box sizing, global normalization, and low-specificity baseline rules.                                                  |
@@ -122,6 +123,7 @@ In this template, the merged SCSS layer files are:
 | Components | `_sass/5-components.scss` | Specific UI components such as buttons, nav, cards, hero, post layout, TOC, media figures, and theme toggle.                   |
 | Layouts    | `_sass/6-layouts.scss`    | Page-level composition for the homepage, projects page, tag pages, and default shell spacing.                                  |
 | Trumps     | `_sass/7-trumps.scss`     | Utilities, state helpers, and high-priority overrides.                                                                         |
+{: .c-prose-table }
 
 This structure separates **what something is** from **where it sits**. For example, `.c-button` controls button appearance, while `.l-projects__tags-list` controls the spacing of tag links on the projects page. That distinction prevents component styles from becoming tangled with page-specific layout rules.
 
@@ -264,102 +266,31 @@ This is one of the template’s most important design decisions. It supports lon
 
 The template is built from small components that can be reused across layouts. The table below lists the major `c-*` components and their purpose.
 
-<table class="c-prose-table">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Purpose</th>
-      <th>Typical location</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>c-brand</code></td>
-      <td>Logo, name, and role link used as the site identity.</td>
-      <td>Header, footer, mobile menu</td>
-    </tr>
-    <tr>
-      <td><code>c-site-header</code></td>
-      <td>Global header shell for brand, navigation, theme toggle, and actions.</td>
-      <td>Default layout</td>
-    </tr>
-    <tr>
-      <td><code>c-nav</code></td>
-      <td>Primary navigation list with desktop and mobile modifiers.</td>
-      <td>Header, mobile menu</td>
-    </tr>
-    <tr>
-      <td><code>c-mobile-menu</code></td>
-      <td>Responsive expanded navigation for smaller screens.</td>
-      <td>Header include</td>
-    </tr>
-    <tr>
-      <td><code>c-theme-toggle</code></td>
-      <td>Light/dark theme control.</td>
-      <td>Header, mobile menu</td>
-    </tr>
-    <tr>
-      <td><code>c-button</code></td>
-      <td>Shared button and tag-link styling.</td>
-      <td>Hero, tags, CTAs, archive links</td>
-    </tr>
-    <tr>
-      <td><code>c-hero</code></td>
-      <td>Homepage introduction with text, CTA links, and image.</td>
-      <td>Homepage</td>
-    </tr>
-    <tr>
-      <td><code>c-section-heading</code></td>
-      <td>Reusable heading block for major page sections.</td>
-      <td>Homepage, projects, tag pages</td>
-    </tr>
-    <tr>
-      <td><code>c-post-card</code></td>
-      <td>Card preview for posts and projects.</td>
-      <td>Homepage, projects archive, related posts</td>
-    </tr>
-    <tr>
-      <td><code>c-post</code></td>
-      <td>Main article shell for long-form posts.</td>
-      <td>Post layout</td>
-    </tr>
-    <tr>
-      <td><code>c-post-cover</code></td>
-      <td>Optional cover image area above the article header.</td>
-      <td>Post layout</td>
-    </tr>
-    <tr>
-      <td><code>c-post-layout</code></td>
-      <td>Three-column article composition with left gutter, prose, and TOC.</td>
-      <td>Post layout</td>
-    </tr>
-    <tr>
-      <td><code>c-toc</code></td>
-      <td>Desktop table of contents navigation.</td>
-      <td>Post layout</td>
-    </tr>
-    <tr>
-      <td><code>c-mobile-toc</code></td>
-      <td>Mobile/tablet table of contents panel.</td>
-      <td>Post layout</td>
-    </tr>
-    <tr>
-      <td><code>c-prose-figure</code></td>
-      <td>Responsive images, galleries, audio, and video with captions.</td>
-      <td>Markdown posts via includes</td>
-    </tr>
-    <tr>
-      <td><code>c-prose-table</code></td>
-      <td>Styled Markdown or HTML tables inside long-form content.</td>
-      <td>Markdown posts</td>
-    </tr>
-    <tr>
-      <td><code>c-site-footer</code></td>
-      <td>Minimal footer with brand, metadata, and social links.</td>
-      <td>Default layout</td>
-    </tr>
-  </tbody>
-</table>
+{% include table-caption.html
+   id="tbl-components"
+   caption="Major reusable components in eyvan-jekyll and where they appear."
+%}
+
+| Component | Purpose | Typical location |
+| :-------- | :------ | :--------------- |
+| `c-brand` | Logo, name, and role link used as the site identity. | Header, footer, mobile menu |
+| `c-site-header` | Global header shell for brand, navigation, theme toggle, and actions. | Default layout |
+| `c-nav` | Primary navigation list with desktop and mobile modifiers. | Header, mobile menu |
+| `c-mobile-menu` | Responsive expanded navigation for smaller screens. | Header include |
+| `c-theme-toggle` | Light/dark theme control. | Header, mobile menu |
+| `c-button` | Shared button and tag-link styling. | Hero, tags, CTAs, archive links |
+| `c-hero` | Homepage introduction with text, CTA links, and image. | Homepage |
+| `c-section-heading` | Reusable heading block for major page sections. | Homepage, projects, tag pages |
+| `c-post-card` | Card preview for posts and projects. | Homepage, projects archive, related posts |
+| `c-post` | Main article shell for long-form posts. | Post layout |
+| `c-post-cover` | Optional cover image area above the article header. | Post layout |
+| `c-post-layout` | Three-column article composition with left gutter, prose, and TOC. | Post layout |
+| `c-toc` | Desktop table of contents navigation. | Post layout |
+| `c-mobile-toc` | Mobile/tablet table of contents panel. | Post layout |
+| `c-prose-figure` | Responsive images, galleries, audio, and video with captions. | Markdown posts via includes |
+| `c-prose-table` | Styled Markdown or HTML tables inside long-form content. | Markdown posts |
+| `c-site-footer` | Minimal footer with brand, metadata, and social links. | Default layout |
+{: .c-prose-table }
 
 This inventory is useful because it creates a shared vocabulary. Instead of thinking “the thing that appears below the hero,” you can think “section heading plus grid plus post cards.” That makes changes easier to scope.
 
@@ -588,4 +519,4 @@ The result is a site that feels calm, readable, and professional: content framed
 
 ## Endnotes
 
-[^1] Cover image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg) by Matthias Blume (Nov. 18, 2005), licensed under Creative Commons CC BY-SA 3.0.
+[^1]: Cover image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg) by Matthias Blume (Nov. 18, 2005), licensed under Creative Commons CC BY-SA 3.0.

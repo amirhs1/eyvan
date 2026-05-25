@@ -29,7 +29,7 @@ where $\ket{0}$ and $\ket{1}$ represent the orthogonal basis states of a two-lev
 
 ## Visualizing Entanglement vs. Classical Correlation
 
-To understand how entanglement diverges from classical behavior under measurement, it is highly instructive to analyze the physical apparatus used to verify these states using photon polarization. 
+To understand how entanglement diverges from classical behavior under measurement, it is highly instructive to analyze the physical apparatus used to verify these states using photon polarization.
 
 {% include figure.html
    src=page.image
@@ -42,7 +42,7 @@ This visualization highlights the precise behavior of photon polarization measur
 
 * **The Setup:** In both scenes, a central source produces photon pairs. One photon propagates to the left detection station (Alice), and its partner travels to the right station (Bob). Each station features a polarizing beam splitter and a pair of detection screens configured to measure the polarization of incoming photons along various linearly polarized bases.
 * **Phase I (H/V Basis Match):** When measured strictly in the horizontal/vertical (H/V) basis, both the entangled singlet state $\ket{\psi} = \frac{1}{\sqrt{2}}(\ket{H, V} - \ket{V, H})$ and the classically correlated mixed state $\rho = \frac{1}{2}(\ket{H, V}\bra{H, V} + \ket{V, H}\bra{V, H})$ yield identical statistical distributions, modulo standard quantum fluctuations.
-* **Phase II (Basis Mismatch):** When the detectors are shifted away from the initial H/V axes into different relative alignments, the core distinction between quantum superposition and classical mixtures becomes manifest. 
+* **Phase II (Basis Mismatch):** When the detectors are shifted away from the initial H/V axes into different relative alignments, the core distinction between quantum superposition and classical mixtures becomes manifest.
 * **Phase III (Rotational Invariance):** As the detection stations are rotated smoothly across the entire linear polarization spectrum, the detection probabilities for the classically correlated state fluctuate noticeably with the rotation angle. Conversely, the joint probabilities for the entangled singlet state remain absolutely constant, demonstrating the rotational invariance unique to quantum entanglement.
 
 ## The Density Matrix Formalism
@@ -82,31 +82,31 @@ To understand exactly how quantum mechanics circumvents classical constraints, w
 1. **Define the Quantum State and Measurements:** Let Alice and Bob share the maximally entangled Bell state $\ket{\psi} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$. Alice can choose between two measurement directions in the $x$-$z$ plane, defined by unit vectors $\vec{a}$ and $\vec{a}'$. Bob chooses between directions $\vec{b}$ and $\vec{b}'$. The quantum observables are represented by the Pauli spin operators: $A = \vec{a} \cdot \vec{\sigma}$ and $B = \vec{b} \cdot \vec{\sigma}$.
 
 2. **Formulate the Quantum Correlation Function:** The quantum expectation value for the joint measurement along arbitrary unit vectors $\vec{a}$ and $\vec{b}$ is given by the inner product:
-   
+
    $$E(\vec{a}, \vec{b}) = \bra{\psi} (\vec{a} \cdot \vec{\sigma}_A) \otimes (\vec{b} \cdot \vec{\sigma}_B) \ket{\psi}$$
-   
+
    Evaluating this expectation value explicitly for the state $\ket{\psi}$ yields:
-   
+
    $$E(\vec{a}, \vec{b}) = \vec{a} \cdot \vec{b} = \cos(\theta_{\vec{a}, \vec{b}})$$
-   
+
    where $\theta_{\vec{a}, \vec{b}}$ is the spatial angle between the two measurement vectors.
 
 3. **Select Optimal Geometric Orientations:** To maximize the violation, we strategically orient the four measurement vectors within the same plane. Let the angles of the detectors be configured as follows:
-   - Alice's first setting: $\theta_A = 0^\circ$ (along the $z$-axis)
-   - Alice's second setting: $\theta_{A'} = 90^\circ$ (along the $x$-axis)
-   - Bob's first setting: $\theta_B = 45^\circ$
-   - Bob's second setting: $\theta_{B'} = -45^\circ$
+   * Alice's first setting: $\theta_A = 0^\circ$ (along the $z$-axis)
+   * Alice's second setting: $\theta_{A'} = 90^\circ$ (along the $x$-axis)
+   * Bob's first setting: $\theta_B = 45^\circ$
+   * Bob's second setting: $\theta_{B'} = -45^\circ$
 
 4. **Compute Individual Expectation Values:** Using the correlation function $E(\vec{a}, \vec{b}) = \cos(\Delta\theta)$, calculate the four required terms:
-   - $E(A, B) = \cos(45^\circ - 0^\circ) = \cos(45^\circ) = \frac{\sqrt{2}}{2}$
-   - $E(A, B') = \cos(-45^\circ - 0^\circ) = \cos(-45^\circ) = \frac{\sqrt{2}}{2}$
-   - $E(A', B) = \cos(45^\circ - 90^\circ) = \cos(-45^\circ) = \frac{\sqrt{2}}{2}$
-   - $E(A', B') = \cos(-45^\circ - 90^\circ) = \cos(-135^\circ) = -\frac{\sqrt{2}}{2}$
+   * $E(A, B) = \cos(45^\circ - 0^\circ) = \cos(45^\circ) = \frac{\sqrt{2}}{2}$
+   * $E(A, B') = \cos(-45^\circ - 0^\circ) = \cos(-45^\circ) = \frac{\sqrt{2}}{2}$
+   * $E(A', B) = \cos(45^\circ - 90^\circ) = \cos(-45^\circ) = \frac{\sqrt{2}}{2}$
+   * $E(A', B') = \cos(-45^\circ - 90^\circ) = \cos(-135^\circ) = -\frac{\sqrt{2}}{2}$
 
 5. **Evaluate the CHSH Parameter ($S$):** Substitute these calculated quantum expectation values back into the left-hand side of the CHSH inequality:
-   
+
    $$S = E(A, B) + E(A, B') + E(A', B) - E(A', B')$$
-   
+
    $$S = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2} - \left(-\frac{\sqrt{2}}{2}\right) = 4 \times \frac{\sqrt{2}}{2} = 2\sqrt{2}$$
 
 6. **Analyze the Violation:** Because $2\sqrt{2} \approx 2.8284$, the result strictly contradicts the classical local realistic upper bound of $S \le 2$. This definitive mathematical discrepancy proves that no local hidden variable theory can ever reproduce the statistical predictions of quantum mechanics[^2].
@@ -140,8 +140,6 @@ $$\sigma_x = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad \sigma_z = \beg
 
 One can programmatically construct the dense Kronecker products representing the multi-qubit operators $(\vec{a}\cdot\vec{\sigma}) \otimes (\vec{b}\cdot\vec{\sigma})$ to automate the calculation of the CHSH parameter $S$ across an arbitrary continuum of experimental angular configurations. This computational tracking confirms that the mathematical structure of quantum mechanics inherently treats states with structural exceptions that challenge the classical understanding of spacetime geometry.
 
-***
-
 ## References
 
 * Aspect, A., Dalibard, J., & Roger, G. (1982). Experimental test of Bell's inequalities using time-varying analyzers. *Physical Review Letters*, 49(25), 1804–1807.
@@ -150,8 +148,6 @@ One can programmatically construct the dense Kronecker products representing the
 * Einstein, A., Podolsky, B., & Rosen, N. (1935). Can quantum-mechanical description of physical reality be considered complete?. *Physical Review*, 47(10), 777–780.
 * Giustina, M., et al. (2015). Significant-loophole-free test of Bell’s theorem with entangled photons. *Physical Review Letters*, 115(25), 250401.
 * Hensen, B., et al. (2015). Loophole-free Bell inequality violation using electron spins separated by 1.3 kilometres. *Nature*, 526(7575), 682–686.
-
-***
 
 ## Endnotes
 

@@ -20,13 +20,12 @@ This post examines an aggregated dataset spanning exactly 30 years (1996 through
 ### Data Harmonization and Processing
 
 Raw climate data frequently suffers from spatial gaps, instrument updates, and observation time biases. To account for these systemic discrepancies, the following preprocessing steps were applied to the raw NOAA data stream:
+
 1. **Time-of-Observation Adjustments:** Daily temperature readings were standardized to midnight-to-midnight operational windows to eliminate artificial warming or cooling artifacts introduced by afternoon or morning station resets.
 2. **Homogenization:** Neighboring station cross-correlations were utilized to identify and correct step-changes caused by historical station relocations or changes in instrument sheltering hardware.
 3. **Missing Value Imputation:** Missing values constituting less than 0.5% of the total dataset were resolved using local spatial kriging, ensuring continuous daily observations across all sample years.
 
 The aggregated dataset contains daily records grouped into three distinct decadal epochs: Epoch I (1996–2005), Epoch II (2006–2015), and Epoch III (2016–2025). By segmenting the 30-year span into clear ten-year blocks, we can observe shifts in structural baselines rather than fleeting annual anomalies.
-
----
 
 ## Statistical Formulas
 
@@ -43,8 +42,6 @@ To measure the overall volatility and spread of temperatures within each epoch, 
 $$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2}$$
 
 A rising standard deviation over successive epochs indicates an expanding climate variance, signaling that weather patterns are becoming less predictable and more prone to extreme deviations from the calculated historical baseline.
-
----
 
 ## Decadal Summary Statistics
 
@@ -64,11 +61,9 @@ Applying these formulas to our dataset yields a distinct trajectory. The table b
 
 ### Analysis of Decadal Summaries
 
-The tabular data reveals a clear, continuous upward shift in both central tendency metrics and structural volatility. The arithmetic mean ($\bar{x}$) rose by $0.47$°C between Epoch I and Epoch II, followed by an additional increase of $0.46$°C moving into Epoch III. This yields a net warming of $+0.93$°C over the course of the 30-year observation frame. 
+The tabular data reveals a clear, continuous upward shift in both central tendency metrics and structural volatility. The arithmetic mean ($\bar{x}$) rose by $0.47$°C between Epoch I and Epoch II, followed by an additional increase of $0.46$°C moving into Epoch III. This yields a net warming of $+0.93$°C over the course of the 30-year observation frame.
 
 Concurrently, the sample standard deviation ($s$) expanded from $0.62$°C to $0.94$°C. This nearly 50% expansion in variance tells us that the climate system is growing increasingly volatile. The most striking real-world consequence of this expanding variance is found in the final column: the average annual number of Extreme Heat Days ($>35$°C) nearly doubled from $12.4$ days per year in the first decade to $24.5$ days per year in the most recent decade.
-
----
 
 ## Comprehensive Annual Climate Record
 
@@ -115,11 +110,9 @@ To observe how these multi-decadal shifts manifest on an annual basis, we must e
 
 ### Interpretation of Year-over-Year Dynamics
 
-Reviewing the micro-level records in {% include ref.html id="tbl-annual-climate-record" cref="true" %} highlights how climate change disrupts long-term baselines. Early records like 1996 and 2000 display negative temperature anomalies, indicating years that were cooler than the 20th-century average. However, after 2010, negative temperature anomalies disappear completely. 
+Reviewing the micro-level records in {% include ref.html id="tbl-annual-climate-record" cref="true" %} highlights how climate change disrupts long-term baselines. Early records like 1996 and 2000 display negative temperature anomalies, indicating years that were cooler than the 20th-century average. However, after 2010, negative temperature anomalies disappear completely.
 
-The year 2012 marks an abrupt shift, where the temperature anomaly crossed the $+1.0$°C threshold ($+1.02$°C) for the first time, coinciding with a severe precipitation deficit ($698$ mm). This layout exposes a concerning correlation: late-epoch warming worsens hydrological extremes. The final five years of the study exhibit structural shifts, culminating in 2025's record temperature anomaly of $+1.85$°C. 
-
----
+The year 2012 marks an abrupt shift, where the temperature anomaly crossed the $+1.0$°C threshold ($+1.02$°C) for the first time, coinciding with a severe precipitation deficit ($698$ mm). This layout exposes a concerning correlation: late-epoch warming worsens hydrological extremes. The final five years of the study exhibit structural shifts, culminating in 2025's record temperature anomaly of $+1.85$°C.
 
 ## Visualizing Temperature Trends
 
@@ -198,7 +191,7 @@ To translate the tabular historical record into an interpretable continuous visu
     const theme = getChartTheme();
     const ctx = document.getElementById('temperatureLineChart').getContext('2d');
     const years = [1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
-    
+
     new Chart(ctx, {
       type: 'line',
       plugins: [chartCanvasBackground],
@@ -258,11 +251,9 @@ To translate the tabular historical record into an interpretable continuous visu
 
 ### Analysis of the Line Chart Trajectory
 
-The line chart highlights an important climate phenomenon: minimum temperatures are rising faster than maximum temperatures. While the maximum temperature curve (red line) shows clear upward steps, the minimum temperature curve (blue line) displays an even steeper upward slope, rising from $8.8$°C in 1996 to $12.5$°C by 2025. 
+The line chart highlights an important climate phenomenon: minimum temperatures are rising faster than maximum temperatures. While the maximum temperature curve (red line) shows clear upward steps, the minimum temperature curve (blue line) displays an even steeper upward slope, rising from $8.8$°C in 1996 to $12.5$°C by 2025.
 
 This asymmetry stems from greenhouse-gas-induced radiative forcing. Increased atmospheric carbon dioxide and water vapor block outgoing longwave radiation, keeping nighttime temperatures elevated. This prevents the nocturnal cooling cycles that ecosystems rely on to recover from daytime heat stress.
-
----
 
 ## Hydrological Instability: Precipitation Volatility
 
@@ -295,7 +286,7 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
     const epochTwo = theme.accentPrimary;
     const epochThree = theme.warning;
     const ctx = document.getElementById('precipitationBarChart').getContext('2d');
-    
+
     new Chart(ctx, {
       type: 'bar',
       plugins: [chartCanvasBackground],
@@ -369,11 +360,9 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
 
 The distribution of precipitation across the three epochs highlights a significant shift in the climate system: the loss of standard, predictable weather patterns. In Epoch I (green bars), precipitation remained relatively stable, fluctuating within a narrow band between $780$ mm and $910$ mm. This represents a predictable hydrological regime.
 
-In Epoch II (blue bars), this predictability breaks down. We see a historic drop to $698$ mm in 2012, flanked by wet spikes like 2011's $955$ mm. This variability intensifies further in Epoch III (purple bars). Epoch III contains both the wettest year on record ($1015$ mm in 2022) and the driest year on record ($650$ mm in 2023). 
+In Epoch II (blue bars), this predictability breaks down. We see a historic drop to $698$ mm in 2012, flanked by wet spikes like 2011's $955$ mm. This variability intensifies further in Epoch III (purple bars). Epoch III contains both the wettest year on record ($1015$ mm in 2022) and the driest year on record ($650$ mm in 2023).
 
 This rapid swing from severe flooding potential to extreme drought within a 12-month window confirms a core climate prediction: a warmer atmosphere holds more moisture (roughly 7% per 1°C of warming, following the Clausius-Clapeyron equation). This fuels both heavier downpours and accelerated surface evaporation, drying out soil when it isn't raining.
-
----
 
 ## Limitations & Caveats
 
@@ -382,8 +371,6 @@ While the trends in this post are clear, interpretation must consider several me
 * **Spatial Aggregation Constraints:** This data is aggregated across regional mid-latitude stations. It does not reflect macro-scale changes in equatorial regions or the accelerated warming seen in polar zones due to Arctic amplification.
 * **Urban Heat Island (UHI) Artifacts:** Although regional homogenization corrections were applied, several monitoring stations are located near expanding suburban corridors. Localized pavement expansion and land-use changes may introduce minor warming biases unrelated to broader atmospheric changes.
 * **Precipitation Capture Efficiency:** Standard automated rain gauges often under-report moisture totals during high-wind winter storms or sudden, intense downpours. This introduces a slight dry bias to extreme weather events.
-
----
 
 ## References
 

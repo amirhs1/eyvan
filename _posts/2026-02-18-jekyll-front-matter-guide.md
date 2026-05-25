@@ -6,7 +6,7 @@ toc: true
 description: "A complete reference guide for all supported front matter fields in this Jekyll template."
 ---
 
-> **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
 
 Front matter is the small YAML block at the top of a Jekyll page or post. It sits between two lines of three dashes and tells Jekyll how to process the file before it becomes HTML. In this template, front matter controls the page layout, post header, metadata, table of contents, social previews, MathJax loading, cover images, tags, and sharing behavior.
@@ -295,7 +295,7 @@ Full:
 ```yaml
 ---
 layout: post
-title: "Design Philosophy and Architecture of Eywan"
+title: "Design Philosophy and Architecture of Eyvan"
 subtitle: "How the template is structured and why it was built this way"
 tags: [meta, design, jekyll, css, architecture]
 date: 2026-03-12 09:00:00 -0500

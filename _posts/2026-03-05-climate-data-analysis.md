@@ -9,11 +9,11 @@ image_alt: "Global Temperature Rise Visualized in Polar Perspective"
 description: "A data-rich post exploring temperature and precipitation trends using tables and embedded charts."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
 ## Introduction & Methodology
 
-The study of climate change necessitates rigorous analytical frameworks, moving past anecdotal observations toward empirical, long-term data tracking. As global temperatures continue to fluctuate under the influence of both anthropogenic drivers and natural cyclic oscillations, visualizing multi-decadal trends becomes paramount for both researchers and policymakers. 
+The study of climate change necessitates rigorous analytical frameworks, moving past anecdotal observations toward empirical, long-term data tracking. As global temperatures continue to fluctuate under the influence of both anthropogenic drivers and natural cyclic oscillations, visualizing multi-decadal trends becomes paramount for both researchers and policymakers[^1].
 
 This post examines an aggregated dataset spanning exactly 30 years (1996 through 2025). The data utilized for this analysis is compiled from the National Oceanic and Atmospheric Administration (NOAA) Global Historical Climatology Network (GHCN) and regional cooperative observer networks. To ensure localized fidelity alongside broad historical trends, the dataset focuses on mid-latitude anomalies across North America, standardizing daily surface temperature maxima, minima, and cumulative precipitation metrics.
 
@@ -390,3 +390,7 @@ While the trends in this post are clear, interpretation must consider several me
 1. National Oceanic and Atmospheric Administration (NOAA). (2025). *Global Historical Climatology Network Daily (GHCN-Daily) Version 4.0 Standard Archives*. U.S. Department of Commerce.
 2. Intergovernmental Panel on Climate Change (IPCC). (2021). *Climate Change 2021: The Physical Science Basis*. Contribution of Working Group I to the Sixth Assessment Report. Cambridge University Press.
 3. Trenberth, K. E. (2011). *Changes in precipitation with climate change*. Climate Research, 47(1), 123-138.
+
+## Endnotes
+
+[^1]: Cover image generated with Easy-Peasy.AI’s AI Image Generator, “Global Temperature Rise Visualized in Polar Perspective” (created Jan. 14, 2024), free to use with backlink attribution to [Easy-Peasy.AI](https://easy-peasy.ai/ai-image-generator/images/global-rise-temperature-visualization-polar-regions-emphasis).

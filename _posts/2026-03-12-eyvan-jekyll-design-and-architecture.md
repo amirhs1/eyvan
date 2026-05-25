@@ -6,8 +6,8 @@ toc: true
 math: true
 share: true
 read_time: true
-image: "assets/images/posts/template-design.jpg"
-image_alt: "Layered wireframe of a minimalist Jekyll portfolio template"
+image: "assets/images/posts/Khane-Amerian-eyvan.webp"
+image_alt: "Muqarnas-adorned eyvan courtyard facade at the historic Ameri House in Kashan, Iran"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
 ---
 
@@ -15,7 +15,7 @@ description: "A behind-the-scenes look at the design decisions, CSS architecture
 
 A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **eyvan-jekyll**: a minimalist Jekyll template for portfolios, research notes, technical writing, and project archives.
 
-The name comes from the architectural idea of an _eyvan_: an open, vaulted threshold that sits between inside and outside. That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.
+The name comes from the architectural idea of an _eyvan_: an open, vaulted threshold that sits between inside and outside. That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.[^1]
 
 This post explains how the template is organized, why the architecture is intentionally simple, and how the design system supports content-heavy posts without depending on a JavaScript framework.
 
@@ -585,3 +585,7 @@ Most importantly, the template does not try to become an application. It remains
 For a personal portfolio, the hardest problem is rarely technical complexity. The harder problem is consistency over time: adding new posts, updating projects, changing navigation, improving design, and keeping the site coherent as it grows. eyvan-jekyll solves that by providing a simple architecture with clear extension points.
 
 The result is a site that feels calm, readable, and professional: content framed, not boxed; structure visible, but unobtrusive.
+
+## Endnotes
+
+[^1] Cover image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg) by Matthias Blume (Nov. 18, 2005), licensed under Creative Commons CC BY-SA 3.0.

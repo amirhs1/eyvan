@@ -28,7 +28,7 @@ permalink: /projects/:title/
 # Build and markdown settings
 # Core Jekyll behavior for rendering pages and content.
 # ------------------------------------------------------------
-dev_only: true # set true to show the dev-debug window and include the /tests pages
+dev_only: false # set true to show the dev-debug window and include the /tests pages
 markdown: kramdown
 
 kramdown:

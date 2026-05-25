@@ -9,7 +9,7 @@ image_alt: "Token Bucket System Design Diagram"
 description: "A hands-on walkthrough of implementing a production-grade rate limiter with code in two languages."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
 Rate limiting is a foundational pillar of modern systems design. Whether you are running a public API, managing microservices, or protecting a database from cascading failures, controlling the influx of traffic is non-negotiable. Without it, your system is vulnerable to malicious Denial of Service (DoS) attacks, resource starvation from rogue scripts, and unexpected billing spikes from third-party infrastructure dependencies.
 
@@ -43,8 +43,7 @@ The Token-Bucket algorithm relies on an intuitive metaphor: a bucket of fixed ca
 {% include figure.html
    src=page.image
    alt=page.image_alt
-   caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics."
-   id="fig-token-bucket-architecture"
+   caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics. The diagram was generated with Google Gemini AI for illustrative purposes by the author using the contents of this post as the generation prompt."
 %}
 
 ### Naive vs. Lazy Refills

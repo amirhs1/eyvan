@@ -140,10 +140,15 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
 
   .c-toc-toolbar__button {
     flex: 0 0 auto;
+    min-block-size: 2.125rem;
+    padding-block: settings-spacing.$space-2;
+    padding-inline: settings-spacing.$space-3;
+    font-size: settings-typography.$font-size-sm;
   }
 
   .c-toc-toolbar__share {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    min-inline-size: 0;
 
     .c-post-share {
       margin: 0;
@@ -154,7 +159,8 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
     }
 
     .c-post-share__list {
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
   }
 }

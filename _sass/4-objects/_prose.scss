@@ -30,11 +30,12 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tool-spacing-fluid;
 
-
 $toc-sticky-top-margin: calc(8rem + settings-spacing.$space-4);
 
 .o-prose {
   line-height: settings-typography.$line-height-loose;
+  min-inline-size: 0; // allow shrinking when used as a flex/grid item
+  overflow-x: clip;   // catch-all: prevent prose box from overflowing its parent
 
   // Reset element margins so the object owns vertical rhythm
   > * {
@@ -111,16 +112,38 @@ $toc-sticky-top-margin: calc(8rem + settings-spacing.$space-4);
   // Preformatted content
   pre {
     overflow-x: auto;
+    max-inline-size: 100%;
+  }
+
+  // Responsive overflow containment for wide content
+  table {
+    display: block;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  img,
+  video {
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  iframe,
+  embed {
+    max-inline-size: 100%;
   }
 }
 
 .o-prose--measure-base {
   max-inline-size: settings-typography.$text-measure-base;
+  min-inline-size: 0; // allow flex item to shrink below content min-width
   margin-inline: auto;
 }
 
 .o-prose--measure-wide {
   max-inline-size: settings-typography.$text-measure-wide;
+  min-inline-size: 0; // allow flex item to shrink below content min-width
   margin-inline: auto;
 }
 

@@ -281,6 +281,8 @@ $post-layout-toc-max-width: 20rem;
 .c-post-layout__prose {
   display: flex;
   justify-content: center;
+  min-inline-size: 0;
+  overflow-x: clip;
 }
 
 /* -----------------------------------------------------------------------------

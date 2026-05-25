@@ -2,6 +2,8 @@
 title: "Front Matter Field Reference"
 subtitle: "Every supported key, what it does, and when to use it"
 tags: [documentation, jekyll, reference, technical-writing]
+image: "assets/images/posts/front-matter-cover.webp"
+image_alt: "A minimalist line-art illustration of an open vaulted Iranian architectural arch (eyvan) framing a dark-themed code browser window that displays Jekyll front matter configuration keys, utilizing the custom Persian SCSS color palette."
 toc: true
 description: "A complete reference guide for all supported front matter fields in this Jekyll template."
 ---

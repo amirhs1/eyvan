@@ -9,7 +9,7 @@ image_alt: "Entanglement vs Classical Correlation Demonstration"
 description: "A rigorous introduction to quantum entanglement with LaTeX math, citations, and footnotes."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
 Quantum entanglement represents the most profound departure of quantum mechanics from the classical worldview, transforming our understanding of physical reality, locality, and information. First conceptualized by Einstein, Podolsky, and Rosen (EPR) in 1935 as a purported proof of the incompleteness of quantum theory, entanglement describes a non-separable state of composite subsystems wherein the physical properties of one constituent cannot be defined independently of the other, regardless of spatial separation. Decades of theoretical refinement, initiated by John Stewart Bell, and subsequent experimental validation have elevated entanglement from a philosophical paradox to the foundational resource powering modern quantum information sciences, including quantum computation, cryptography, and metrology. This primer provides a mathematically rigorous introduction to the formalisms of bipartite entanglement, the derivation of Bell inequalities, and the current landscape of experimental verification.
 

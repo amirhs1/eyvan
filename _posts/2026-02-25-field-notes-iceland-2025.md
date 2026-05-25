@@ -2,17 +2,18 @@
 title: "Field Notes: Iceland 2025"
 subtitle: "Landscape, geology, and light at the edge of the Arctic Circle"
 tags: [travel, photography, video, visual]
+math: true
 toc: true
 image: "assets/images/posts/iceland-hero.webp"
 image_alt: "Aerial view of Icelandic lava fields at golden hour"
 description: "A visual journey through Iceland — images, video, and prose working together."
 ---
 
-> **Note:** This post was generated with Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
-The air at the edge of the Arctic Circle does not merely fill your lungs; it shocks the senses into a state of acute clarity. In the late autumn of 2025, I found myself standing on the basalt cliffs of Reykjanes, watching the North Atlantic smash itself to foam against rocks that are, geologically speaking, still in their infancy. Iceland is a landscape stripped of all ornamentation. Here, the planet’s molten spine breaks through the crust, creating a chaotic laboratory of steam, sulfur, and stone. To travel through this terrain with a camera and a notebook is to realize that the earth is not a static stage upon which life plays out, but a living, breathing entity undergoing perpetual transformation.
+The air at the edge of the Arctic Circle does not merely fill your lungs; it shocks the senses into a state of acute clarity. In the late autumn of 2025, I found myself standing on the basalt cliffs of Reykjanes, watching the North Atlantic smash itself to foam against rocks that are, geologically speaking, still in their infancy. Iceland is a landscape stripped of all ornamentation. Here, the planet’s molten spine breaks through the crust, creating a chaotic laboratory of steam, sulfur, and stone. To travel through this terrain with a camera and a notebook is to realize that the earth is not a static stage upon which life plays out, but a living, breathing entity undergoing perpetual transformation[^1].
 
-This post serves as both a creative field journal and a practical stress test for the Eywan Jekyll template's reusable media tools: numbered figures, responsive image grids, embedded video, table captions, and cross-references. When documenting a landscape defined by scale and contrast, standard web layouts often fail to capture the sheer kinetic energy of the environment. Over the course of three weeks, I sought to blend long-form descriptive prose with diverse visual formats—ranging from high-resolution static frames and multi-image structural grids to responsive, high-definition video captures. The goal was simple: to build an immersive digital archive where text, imagery, and moving pictures do not merely coexist, but actively enrich one another's narrative weight.
+This post serves as both a creative field journal and a practical stress test for the Eyvan Jekyll template's reusable media tools: numbered figures, responsive image grids, embedded video, table captions, and cross-references. When documenting a landscape defined by scale and contrast, standard web layouts often fail to capture the sheer kinetic energy of the environment. Over the course of three weeks, I sought to blend long-form descriptive prose with diverse visual formats—ranging from high-resolution static frames and multi-image structural grids to responsive, high-definition video captures. The goal was simple: to build an immersive digital archive where text, imagery, and moving pictures do not merely coexist, but actively enrich one another's narrative weight.
 
 ## The Textures of Liquid Rock
 
@@ -23,7 +24,7 @@ To understand the Icelandic interior, one must learn to read the language of lav
    src="assets/images/posts/iceland-basalt.webp"
    alt="Hexagonal columns of dark volcanic basalt catching golden evening light"
    loading="eager"
-   caption="The geometric perfection of columns at Reynisfjara. These basalt structures form via columnar jointing as thick lava flows cool slowly over months, contracting into distinct hexagonal geometric prisms."
+   caption="The geometric perfection of columns at Reynisfjara. These basalt structures form via columnar jointing as thick lava flows cool slowly over months, contracting into distinct hexagonal geometric prisms. Image from [Pexels](https://www.pexels.com/photo/rock-formations-on-the-beach-7614602/) by Batın Özen, used under the Pexels License."
 %}
 
 When you isolate these structures through a lens, the scale becomes ambiguous. A close-up of a basalt joint looks identical to an aerial view of an entire canyon system. It is a fractal landscape where the micro mirrors the macro. This spatial disorientation is compounded by the quality of the Arctic light. During the shoulder seasons, the sun never rises high into the sky; instead, it scrapes along the horizon for six continuous hours, casting elongated, dramatic shadows that reveal micro-topographies invisible under a standard midday sun. Every grain of silica, every microscopic fissure in the stone, stands out in high relief.
@@ -37,7 +38,7 @@ To capture this intense material contrast, the post uses a two-column responsive
 {% include figure.html
    id="fig-fire-ice"
    cols="2"
-   caption="Fire and ice in the same frame: geothermal venting at Námafjall, where minerals stain the clay (left), and compressed ancient ice calving into the dark waters of Jökulsárlón (right)."
+   caption="Fire and ice in the same frame: geothermal venting at Námafjall, where minerals stain the clay (left), and compressed ancient ice calving into the dark waters of Jökulsárlón (right). The left image from [Pexels](https://www.pexels.com/photo/brown-ground-near-body-of-water-464399/) by Francesco Ungaro (Jun. 29, 2017), used under the Pexels License, and the right image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jokulsarlon_lake,_Iceland.jpg) by Kenny Muir (May 7, 2006), licensed under Creative Commons CC BY 2.0."
    images="
      assets/images/posts/iceland-vent.webp    | A boiling geothermal mud pot venting thick sulfurous steam in Námafjall
      assets/images/posts/iceland-glacier.webp | Deep blue glacial ice calving into a grey glacial lagoon under an overcast sky
@@ -87,7 +88,7 @@ When compiling field notes, individual frames often gain meaning when placed in 
 {% include figure.html
    id="fig-triptych"
    cols="3"
-   caption="Three scales of the Icelandic experience: the micro-texture of black volcanic sand, the lone timber church at Búðir dwarfed by ancient volcanic masonry, and the macro-scale aurora lighting the sub-arctic sky."
+   caption="Three scales of the Icelandic experience: the micro-texture of black volcanic sand, the lone timber church at Búðir dwarfed by ancient volcanic masonry, and the macro-scale aurora lighting the sub-arctic sky. The left image adapted from [Imaggeo](https://imaggeo.egu.eu/view/12544/) by Simon Thivet (Feb. 18, 2014), licensed under Creative Commons CC BY 3.0., the middle image from [Pexels](https://www.pexels.com/photo/wooden-church-on-a-steppe-21700769/) by Bogdan Giurca (Oct. 28, 2023), used under the Pexels License, and the right image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Aurora_Borealis_activity_on_top_of_the_Kirkjufell_mountain_in_September_2018.jpg) by Vaidyanathan and Archana (Sep. 15, 2018), licensed under Creative Commons CC BY-SA 4.0."
    images="
      assets/images/posts/frozen-volcanic-ash.webp     | Close-up of frozen volcanic ash formations resembling black sand structures
      assets/images/posts/church-at-Buoirdwarfed.webp  | A single solitary wooden church standing against a vast mountain backdrop
@@ -117,3 +118,7 @@ A condensed log of the formats tested across the three-week expedition is given 
 ## Epilogue: The Transience of Stone
 
 As the final light fades from the Reykjanes peninsula, the horizon dissolves into a continuous gradient of deep indigo and soft violet. It is easy to look at Iceland and see a wilderness that is brutal, cold, and utterly indifferent to human presence. Yet, there is a profound quietness that settles over these fields once the wind dies down. The stones, cold to the touch, still hold the abstract memory of the earth's core. They remind us that our human structures, our personal timelines, and our technological frameworks are fleeting anomalies on a planet that measures its age in epochs and cycles of ash. Documenting this landscape is an exercise in humility; we do not capture the land, we merely record our brief passage across its surface.
+
+## Endnotes
+
+[^1]: Cover image from [Pexels](https://www.pexels.com/photo/scenic-landscape-with-dramatic-cloud-formation-37251300/) by Veronika Benz (Apr. 25, 2026), used under the Pexels License.

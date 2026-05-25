@@ -9,7 +9,7 @@ image_alt: "Aerial view of Icelandic lava fields at golden hour"
 description: "A visual journey through Iceland — images, video, and prose working together."
 ---
 
-> **Note:** This post was generated with Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
 The air at the edge of the Arctic Circle does not merely fill your lungs; it shocks the senses into a state of acute clarity. In the late autumn of 2025, I found myself standing on the basalt cliffs of Reykjanes, watching the North Atlantic smash itself to foam against rocks that are, geologically speaking, still in their infancy. Iceland is a landscape stripped of all ornamentation. Here, the planet’s molten spine breaks through the crust, creating a chaotic laboratory of steam, sulfur, and stone. To travel through this terrain with a camera and a notebook is to realize that the earth is not a static stage upon which life plays out, but a living, breathing entity undergoing perpetual transformation[^1].
 
@@ -59,7 +59,7 @@ The embed in {% include ref.html id="fig-coast-video" cref="true" %} uses the re
    ratio="16-9"
    title="YouTube video player"
    caption="The southern coast in motion — surf retreating across black volcanic sand at Reynisfjara."
-   id="fig-coast-video" 
+   id="fig-coast-video"
 %}
 
 Watching the motion of water on black sand reveals patterns that a camera shutter can never capture. The white surf retreats over the volcanic grains, creating fleeting, intricate networks of fluid dynamics that mimic the branch-like structures of regional river deltas seen from space. This convergence of scales—where the motion of a single wave echoes the geometry of a continental drainage basin—is central to the experience of the Arctic landscape. The video framework must be robust enough to handle these complex high-frequency textures without compressing them into digital artifacts.
@@ -107,7 +107,7 @@ A condensed log of the formats tested across the three-week expedition is given 
    id="tbl-formats" %}
 
 | Media tool | Example | Aspect ratio / layout | Narrative role |
-|:-----------|:--------|:----------------------|:---------------|
+| :----------- | :-------- | :---------------------- | :--------------- |
 | `figure.html` | {% include ref.html id="fig-basalt" %} | Single image | Isolated geological detail |
 | `figure.html` | {% include ref.html id="fig-fire-ice" %} | 2-column grid | Direct visual comparison |
 | `video.html` | {% include ref.html id="fig-coast-video" %} | 16:9 embed | Expansive coastal horizons |

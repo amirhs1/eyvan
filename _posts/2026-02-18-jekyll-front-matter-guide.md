@@ -10,7 +10,6 @@ description: "A complete reference guide for all supported front matter fields i
 
 > **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
-
 Front matter is the small YAML block at the top of a Jekyll page or post. It sits between two lines of three dashes and tells Jekyll how to process the file before it becomes HTML. In this template, front matter controls the page layout, post header, metadata, table of contents, social previews, MathJax loading, cover images, tags, and sharing behavior[^1].
 
 Think of front matter as configuration for one content file. `_config.yml` defines global site settings, layout defaults, plugin behavior, and build settings. Front matter defines the exceptions and content-specific values for an individual post or page. When Jekyll builds the site, it reads the YAML first, stores those values on the `page` object, and then makes them available to Liquid templates such as `_layouts/post.html`, `_includes/head.html`, `_includes/math.html`, and the post card or metadata includes.
@@ -74,7 +73,7 @@ Layout fields determine which template wraps the content and how the page is pos
 %}
 
 | Field | Type | Default | Used by | What it does |
-|:---|:---|:---|:---|:---|
+| :--- | :--- | :--- | :--- | :--- |
 | `layout` | string | `post` for posts, `default` globally | `_layouts/*.html` | Selects the layout that wraps the page content. |
 | `permalink` | string | Site permalink pattern | Jekyll routing | Overrides the generated URL for a specific page or post. |
 | `title` | string | none | Post, page, head, cards | Main page title and browser/social title. |
@@ -145,7 +144,6 @@ Display fields control what appears in the post header and archive cards. They d
 | `date` | date | Filename date for posts | Entry metadata, ordering | Controls publication date and post sorting. |
 {: .c-prose-table }
 
-
 Tags are especially important in this template because the Projects page groups content around posts, cards, and tag archives. Use a small, consistent set of tags. For example, prefer `technical-writing` everywhere instead of mixing `technical-writing`, `tech-writing`, and `docs`.
 
 ```yaml
@@ -207,7 +205,7 @@ Different content types need different front matter. A short page, a long docume
 %}
 
 | Content type | Recommended fields | Usually omit |
-|:---|:---|:---|
+| :--- | :--- | :--- |
 | Short static page | `layout`, `title`, `permalink`, `description` | `toc`, `math`, `image` |
 | Documentation post | `title`, `subtitle`, `tags`, `toc`, `description` | `image` unless visual |
 | Math-heavy post | `title`, `tags`, `math`, `toc`, `description` | `image` if not needed |

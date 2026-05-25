@@ -285,7 +285,6 @@ The implementation's footprint remains exceptionally tight due to the lazy-refil
 | **Memory Layout** | — | $\mathcal{O}(N)$ | Linear scaling profile where $N$ represents the count of unique tracking identifiers active in cache. |
 {: .c-prose-table }
 
-
 ## Edge Cases and Gotchas
 
 When scaling out a token-bucket implementation to handle large distribution systems, several distinct anomalies arise:

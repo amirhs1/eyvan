@@ -43,7 +43,7 @@ The Token-Bucket algorithm relies on an intuitive metaphor: a bucket of fixed ca
 {% include figure.html
    src=page.image
    alt=page.image_alt
-   caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics. The diagram was generated with Google Gemini AI for illustrative purposes by the author using the contents of this post as the generation prompt."
+   caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics. The diagram was generated with Google's Gemini for illustrative purposes by the author using the contents of this post as the generation prompt."
 %}
 
 ### Naive vs. Lazy Refills

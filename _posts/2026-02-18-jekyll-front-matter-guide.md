@@ -11,7 +11,7 @@ description: "A complete reference guide for all supported front matter fields i
 > **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
 
-Front matter is the small YAML block at the top of a Jekyll page or post. It sits between two lines of three dashes and tells Jekyll how to process the file before it becomes HTML. In this template, front matter controls the page layout, post header, metadata, table of contents, social previews, MathJax loading, cover images, tags, and sharing behavior.
+Front matter is the small YAML block at the top of a Jekyll page or post. It sits between two lines of three dashes and tells Jekyll how to process the file before it becomes HTML. In this template, front matter controls the page layout, post header, metadata, table of contents, social previews, MathJax loading, cover images, tags, and sharing behavior[^1].
 
 Think of front matter as configuration for one content file. `_config.yml` defines global site settings, layout defaults, plugin behavior, and build settings. Front matter defines the exceptions and content-specific values for an individual post or page. When Jekyll builds the site, it reads the YAML first, stores those values on the `page` object, and then makes them available to Liquid templates such as `_layouts/post.html`, `_includes/head.html`, `_includes/math.html`, and the post card or metadata includes.
 
@@ -418,3 +418,7 @@ Add `image` and `image_alt` only when the post needs a cover or social preview i
 This approach keeps the content clean, the build predictable, and the template easy to maintain. The front matter stays small, but each key has a real job: `title` identifies the post, `subtitle` frames it, `tags` connect it to the archive, `toc` improves navigation, and `description` supports search and previews.
 
 Front matter is not just metadata. In this Jekyll template, it is the control panel for each page. Used consistently, it lets you publish documentation, project write-ups, visual essays, and technical tutorials without changing the layout code every time.
+
+## Endnotes
+
+[^1]: The diagram was generated with Google's Gemini for illustrative purposes by the author using the contents of this post as the generation prompt.

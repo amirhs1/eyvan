@@ -30,11 +30,13 @@ permalink: /projects/:title/
 # ------------------------------------------------------------
 dev_only: false # set true to show the dev-debug window and include the /tests pages
 markdown: kramdown
+highlighter: rouge
 
 kramdown:
   auto_ids: true
-  input: GFM                 # GitHub Flavored Markdown
-  math_engine: mathjax       # Directs kramdown to format math tags properly
+  input: GFM
+  math_engine: mathjax
+  syntax_highlighter: rouge
 
 # ------------------------------------------------------------
 # Plugins

@@ -1,0 +1,268 @@
+// -----------------------------------------------------------------------------
+// Base — Syntax Highlighting
+// ITCSS layer: 3-base
+//
+// Purpose:
+// Style Rouge-generated syntax highlighting and native code elements using
+// Eyvan's theme-aware syntax tokens.
+//
+// Notes:
+// - Rouge generates token classes such as .k, .s, .nf, .nt, etc.
+// - This works across Rouge-supported languages, not literally every language.
+// - Language support depends on Rouge recognizing the fence label.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+
+code,
+kbd,
+samp {
+  font-family: settings-typography.$font-family-mono;
+  font-size: 0.9em;
+}
+
+:not(pre) > code {
+  padding: 0.15em 0.35em;
+  border: 1px solid var(--color-ui-border);
+  border-radius: 0.35rem;
+  background-color: var(--color-syntax-base01);
+  color: var(--color-syntax-base05);
+  white-space: normal;
+}
+
+pre {
+  overflow-x: auto;
+  margin-block: settings-spacing.$space-5;
+  padding: settings-spacing.$space-4;
+  border: 1px solid var(--color-ui-border);
+  border-radius: 0.75rem;
+  background-color: var(--color-syntax-base00);
+  color: var(--color-syntax-base05);
+  font-family: settings-typography.$font-family-mono;
+  font-size: 0.9em;
+  line-height: settings-typography.$line-height-loose;
+}
+
+pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  white-space: pre;
+}
+
+.highlight {
+  margin-block: settings-spacing.$space-5;
+  border: 1px solid var(--color-ui-border);
+  border-radius: 0.75rem;
+  background-color: var(--color-syntax-base00);
+  color: var(--color-syntax-base05);
+  overflow: hidden;
+}
+
+.highlight pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.highlight code {
+  background: transparent;
+}
+
+/* Rouge line-number tables, if enabled */
+.highlight table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.highlight td {
+  padding: 0;
+  border: 0;
+}
+
+.highlight .gutter,
+.highlight .lineno {
+  user-select: none;
+  color: var(--color-syntax-base03);
+}
+
+.highlight .gutter {
+  width: 1%;
+  padding-inline-end: settings-spacing.$space-4;
+  text-align: right;
+}
+
+/* Comments */
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs {
+  color: var(--color-syntax-base03);
+  font-style: italic;
+}
+
+/* Generic / diff states */
+.highlight .g,
+.highlight .gd {
+  color: var(--color-syntax-base08);
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .gh {
+  color: var(--color-syntax-base0d);
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+.highlight .gi {
+  color: var(--color-syntax-base0b);
+}
+
+.highlight .go {
+  color: var(--color-syntax-base03);
+}
+
+.highlight .gp {
+  color: var(--color-syntax-base03);
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+.highlight .gs {
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+.highlight .gu {
+  color: var(--color-syntax-base0c);
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+.highlight .gt {
+  color: var(--color-syntax-base08);
+}
+
+/* Keywords */
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .ow {
+  color: var(--color-syntax-base0e);
+  font-weight: settings-typography.$font-weight-bold;
+}
+
+/* Preprocessor / metadata */
+.highlight .cp,
+.highlight .cpf {
+  color: var(--color-syntax-base0a);
+}
+
+/* Names and identifiers */
+.highlight .n,
+.highlight .nn,
+.highlight .nx {
+  color: var(--color-syntax-base05);
+}
+
+.highlight .na {
+  color: var(--color-syntax-base0d);
+}
+
+.highlight .nb {
+  color: var(--color-syntax-base0d);
+}
+
+.highlight .nc {
+  color: var(--color-syntax-base0a);
+}
+
+.highlight .no {
+  color: var(--color-syntax-base09);
+}
+
+.highlight .nd {
+  color: var(--color-syntax-base0a);
+}
+
+.highlight .ni {
+  color: var(--color-syntax-base05);
+}
+
+.highlight .ne {
+  color: var(--color-syntax-base08);
+}
+
+.highlight .nf {
+  color: var(--color-syntax-base0d);
+}
+
+.highlight .nl {
+  color: var(--color-syntax-base05);
+}
+
+.highlight .nt {
+  color: var(--color-syntax-base0e);
+}
+
+/* Variables */
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi {
+  color: var(--color-syntax-base08);
+}
+
+/* Numbers */
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .il {
+  color: var(--color-syntax-base09);
+}
+
+/* Strings */
+.highlight .s,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss {
+  color: var(--color-syntax-base0b);
+}
+
+/* Operators / punctuation */
+.highlight .o {
+  color: var(--color-syntax-base0c);
+}
+
+.highlight .p {
+  color: var(--color-syntax-base05);
+}
+
+/* Errors */
+.highlight .err {
+  color: var(--color-syntax-base08);
+  background-color: var(--color-syntax-base01);
+}
+
+/* Whitespace */
+.highlight .w {
+  color: var(--color-syntax-base05);
+}

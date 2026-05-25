@@ -9,7 +9,7 @@ image_alt: "Global Temperature Rise Visualized in Polar Perspective"
 description: "A data-rich post exploring temperature and precipitation trends using tables and embedded charts."
 ---
 
-> **Note:** This post was generated with Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eywan Jekyll template.
 
 ## Introduction & Methodology
 
@@ -50,11 +50,17 @@ A rising standard deviation over successive epochs indicates an expanding climat
 
 Applying these formulas to our dataset yields a distinct trajectory. The table below presents the aggregate summary metrics for surface temperatures across the three designated decades.
 
+{% include table-caption.html
+   id="tbl-decadal-summary"
+   caption="Decadal summary statistics for surface temperatures and extreme heat days."
+%}
+
 | Epoch | Time Period | Mean Temp ($\bar{x}$, °C) | Median Temp (°C) | Std Dev ($s$, °C) | Extreme Heat Days ($>35$°C) |
 | :--- | :--- | :---: | :---: | :---: | :---: |
-| **Epoch I** | 1996 – 2005 | 14.21 | 14.15 | 0.62 | 12.4 |
-| **Epoch II** | 2006 – 2015 | 14.68 | 14.52 | 0.78 | 18.1 |
-| **Epoch III** | 2016 – 2025 | 15.14 | 15.11 | 0.94 | 24.5 |
+| **Epoch I** | 1996–2005 | 14.21 | 14.15 | 0.62 | 12.4 |
+| **Epoch II** | 2006–2015 | 14.68 | 14.52 | 0.78 | 18.1 |
+| **Epoch III** | 2016–2025 | 15.14 | 15.11 | 0.94 | 24.5 |
+{: .c-prose-table }
 
 ### Analysis of Decadal Summaries
 
@@ -68,55 +74,48 @@ Concurrently, the sample standard deviation ($s$) expanded from $0.62$°C to $0.
 
 To observe how these multi-decadal shifts manifest on an annual basis, we must examine the un-aggregated annual results. The following complete multi-column table presents yearly temperature and precipitation anomalies relative to the century-long baseline (1901–2000 standard reference period).
 
-<table>
-  <caption>Table 1: Annual Temperature Anomalies, Precipitation Totals, and Climate Variations (1996–2025)</caption>
-  <thead>
-    <tr>
-      <th style="text-align: left;">Year</th>
-      <th style="text-align: center;">Mean Max (°C)</th>
-      <th style="text-align: center;">Mean Min (°C)</th>
-      <th style="text-align: center;">Temp Anomaly (°C)</th>
-      <th style="text-align: center;">Annual Precip (mm)</th>
-      <th style="text-align: center;">Precip Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1996</td><td style="text-align: center;">19.4</td><td style="text-align: center;">8.8</td><td style="text-align: center;">-0.12</td><td style="text-align: center;">845</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>1997</td><td style="text-align: center;">19.6</td><td style="text-align: center;">9.1</td><td style="text-align: center;">+0.05</td><td style="text-align: center;">892</td><td style="text-align: center;">Above Average</td></tr>
-    <tr><td>1998</td><td style="text-align: center;">20.1</td><td style="text-align: center;">9.7</td><td style="text-align: center;">+0.41</td><td style="text-align: center;">780</td><td style="text-align: center;">Below Average</td></tr>
-    <tr><td>1999</td><td style="text-align: center;">19.5</td><td style="text-align: center;">8.9</td><td style="text-align: center;">-0.03</td><td style="text-align: center;">830</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2000</td><td style="text-align: center;">19.3</td><td style="text-align: center;">8.7</td><td style="text-align: center;">-0.15</td><td style="text-align: center;">865</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2001</td><td style="text-align: center;">19.8</td><td style="text-align: center;">9.2</td><td style="text-align: center;">+0.18</td><td style="text-align: center;">812</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2002</td><td style="text-align: center;">19.9</td><td style="text-align: center;">9.4</td><td style="text-align: center;">+0.22</td><td style="text-align: center;">795</td><td style="text-align: center;">Below Average</td></tr>
-    <tr><td>2003</td><td style="text-align: center;">20.2</td><td style="text-align: center;">9.6</td><td style="text-align: center;">+0.39</td><td style="text-align: center;">850</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2004</td><td style="text-align: center;">19.5</td><td style="text-align: center;">8.9</td><td style="text-align: center;">-0.01</td><td style="text-align: center;">910</td><td style="text-align: center;">Above Average</td></tr>
-    <tr><td>2005</td><td style="text-align: center;">20.4</td><td style="text-align: center;">9.9</td><td style="text-align: center;">+0.51</td><td style="text-align: center;">824</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2006</td><td style="text-align: center;">20.5</td><td style="text-align: center;">10.1</td><td style="text-align: center;">+0.58</td><td style="text-align: center;">801</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2007</td><td style="text-align: center;">20.3</td><td style="text-align: center;">9.8</td><td style="text-align: center;">+0.44</td><td style="text-align: center;">742</td><td style="text-align: center;">Deficit</td></tr>
-    <tr><td>2008</td><td style="text-align: center;">20.0</td><td style="text-align: center;">9.5</td><td style="text-align: center;">+0.21</td><td style="text-align: center;">885</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2009</td><td style="text-align: center;">20.2</td><td style="text-align: center;">9.6</td><td style="text-align: center;">+0.32</td><td style="text-align: center;">920</td><td style="text-align: center;">Above Average</td></tr>
-    <tr><td>2010</td><td style="text-align: center;">20.8</td><td style="text-align: center;">10.4</td><td style="text-align: center;">+0.74</td><td style="text-align: center;">860</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2011</td><td style="text-align: center;">20.6</td><td style="text-align: center;">10.2</td><td style="text-align: center;">+0.61</td><td style="text-align: center;">955</td><td style="text-align: center;">Surge</td></tr>
-    <tr><td>2012</td><td style="text-align: center;">21.2</td><td style="text-align: center;">10.9</td><td style="text-align: center;">+1.02</td><td style="text-align: center;">698</td><td style="text-align: center;">Severe Deficit</td></tr>
-    <tr><td>2013</td><td style="text-align: center;">20.4</td><td style="text-align: center;">9.9</td><td style="text-align: center;">+0.49</td><td style="text-align: center;">872</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2014</td><td style="text-align: center;">20.7</td><td style="text-align: center;">10.3</td><td style="text-align: center;">+0.68</td><td style="text-align: center;">841</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2015</td><td style="text-align: center;">21.1</td><td style="text-align: center;">10.8</td><td style="text-align: center;">+0.95</td><td style="text-align: center;">815</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2016</td><td style="text-align: center;">21.4</td><td style="text-align: center;">11.1</td><td style="text-align: center;">+1.15</td><td style="text-align: center;">790</td><td style="text-align: center;">Below Average</td></tr>
-    <tr><td>2017</td><td style="text-align: center;">21.3</td><td style="text-align: center;">11.0</td><td style="text-align: center;">+1.08</td><td style="text-align: center;">934</td><td style="text-align: center;">Above Average</td></tr>
-    <tr><td>2018</td><td style="text-align: center;">21.6</td><td style="text-align: center;">11.4</td><td style="text-align: center;">+1.28</td><td style="text-align: center;">982</td><td style="text-align: center;">Surge</td></tr>
-    <tr><td>2019</td><td style="text-align: center;">21.5</td><td style="text-align: center;">11.2</td><td style="text-align: center;">+1.19</td><td style="text-align: center;">804</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2020</td><td style="text-align: center;">21.9</td><td style="text-align: center;">11.8</td><td style="text-align: center;">+1.44</td><td style="text-align: center;">710</td><td style="text-align: center;">Deficit</td></tr>
-    <tr><td>2021</td><td style="text-align: center;">21.7</td><td style="text-align: center;">11.5</td><td style="text-align: center;">+1.32</td><td style="text-align: center;">866</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2022</td><td style="text-align: center;">22.1</td><td style="text-align: center;">12.0</td><td style="text-align: center;">+1.56</td><td style="text-align: center;">1015</td><td style="text-align: center;">Extreme Surge</td></tr>
-    <tr><td>2023</td><td style="text-align: center;">22.4</td><td style="text-align: center;">12.3</td><td style="text-align: center;">+1.78</td><td style="text-align: center;">650</td><td style="text-align: center;">Extreme Deficit</td></tr>
-    <tr><td>2024</td><td style="text-align: center;">22.2</td><td style="text-align: center;">12.1</td><td style="text-align: center;">+1.62</td><td style="text-align: center;">890</td><td style="text-align: center;">Normal</td></tr>
-    <tr><td>2025</td><td style="text-align: center;">22.6</td><td style="text-align: center;">12.5</td><td style="text-align: center;">+1.85</td><td style="text-align: center;">765</td><td style="text-align: center;">Below Average</td></tr>
-  </tbody>
-</table>
+{% include table-caption.html
+   id="tbl-annual-climate-record"
+   caption="Annual temperature anomalies, precipitation totals, and climate variations from 1996 to 2025."
+%}
+
+| Year | Mean Max (°C) | Mean Min (°C) | Temp Anomaly (°C) | Annual Precip (mm) | Precip Status |
+| :--- | ---: | ---: | ---: | ---: | :--- |
+| 1996 | 19.4 | 8.8 | -0.12 | 845 | Normal |
+| 1997 | 19.6 | 9.1 | +0.05 | 892 | Above Average |
+| 1998 | 20.1 | 9.7 | +0.41 | 780 | Below Average |
+| 1999 | 19.5 | 8.9 | -0.03 | 830 | Normal |
+| 2000 | 19.3 | 8.7 | -0.15 | 865 | Normal |
+| 2001 | 19.8 | 9.2 | +0.18 | 812 | Normal |
+| 2002 | 19.9 | 9.4 | +0.22 | 795 | Below Average |
+| 2003 | 20.2 | 9.6 | +0.39 | 850 | Normal |
+| 2004 | 19.5 | 8.9 | -0.01 | 910 | Above Average |
+| 2005 | 20.4 | 9.9 | +0.51 | 824 | Normal |
+| 2006 | 20.5 | 10.1 | +0.58 | 801 | Normal |
+| 2007 | 20.3 | 9.8 | +0.44 | 742 | Deficit |
+| 2008 | 20.0 | 9.5 | +0.21 | 885 | Normal |
+| 2009 | 20.2 | 9.6 | +0.32 | 920 | Above Average |
+| 2010 | 20.8 | 10.4 | +0.74 | 860 | Normal |
+| 2011 | 20.6 | 10.2 | +0.61 | 955 | Surge |
+| 2012 | 21.2 | 10.9 | +1.02 | 698 | Severe Deficit |
+| 2013 | 20.4 | 9.9 | +0.49 | 872 | Normal |
+| 2014 | 20.7 | 10.3 | +0.68 | 841 | Normal |
+| 2015 | 21.1 | 10.8 | +0.95 | 815 | Normal |
+| 2016 | 21.4 | 11.1 | +1.15 | 790 | Below Average |
+| 2017 | 21.3 | 11.0 | +1.08 | 934 | Above Average |
+| 2018 | 21.6 | 11.4 | +1.28 | 982 | Surge |
+| 2019 | 21.5 | 11.2 | +1.19 | 804 | Normal |
+| 2020 | 21.9 | 11.8 | +1.44 | 710 | Deficit |
+| 2021 | 21.7 | 11.5 | +1.32 | 866 | Normal |
+| 2022 | 22.1 | 12.0 | +1.56 | 1015 | Extreme Surge |
+| 2023 | 22.4 | 12.3 | +1.78 | 650 | Extreme Deficit |
+| 2024 | 22.2 | 12.1 | +1.62 | 890 | Normal |
+| 2025 | 22.6 | 12.5 | +1.85 | 765 | Below Average |
+{: .c-prose-table }
 
 ### Interpretation of Year-over-Year Dynamics
 
-Reviewing the micro-level records in Table 1 highlights how climate change disrupts long-term baselines. Early records like 1996 and 2000 display negative temperature anomalies, indicating years that were cooler than the 20th-century average. However, after 2010, negative temperature anomalies disappear completely. 
+Reviewing the micro-level records in {% include ref.html id="tbl-annual-climate-record" cref="true" %} highlights how climate change disrupts long-term baselines. Early records like 1996 and 2000 display negative temperature anomalies, indicating years that were cooler than the 20th-century average. However, after 2010, negative temperature anomalies disappear completely. 
 
 The year 2012 marks an abrupt shift, where the temperature anomaly crossed the $+1.0$°C threshold ($+1.02$°C) for the first time, coinciding with a severe precipitation deficit ($698$ mm). This layout exposes a concerning correlation: late-epoch warming worsens hydrological extremes. The final five years of the study exhibit structural shifts, culminating in 2025's record temperature anomaly of $+1.85$°C. 
 
@@ -129,25 +128,88 @@ To translate the tabular historical record into an interpretable continuous visu
 <!-- Load Chart.js via reliable CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div style="position: relative; margin: 30px auto; max-width: 800px; width: 100%;">
-  <canvas id="temperatureLineChart"></canvas>
-</div>
+<script>
+  function getChartTheme() {
+    const styles = getComputedStyle(document.documentElement);
+    const getColor = (name, fallback) =>
+      styles.getPropertyValue(name).trim() || fallback;
+
+    return {
+      background: '#ffffff',
+      text: getColor('--color-ui-text', '#1f2937'),
+      muted: getColor('--color-ui-text-muted', '#6b7280'),
+      border: getColor('--color-ui-border', '#e5e7eb'),
+      accentPrimary: getColor('--color-accent-primary', '#32127A'),
+      accentSecondary: getColor('--color-accent-secondary', '#3FE0D0'),
+      warning: getColor('--color-state-warning', '#f59e0b')
+    };
+  }
+
+  function transparentize(color, alpha) {
+    if (color.startsWith('#')) {
+      const hex = color.replace('#', '');
+      const bigint = parseInt(hex.length === 3
+        ? hex.split('').map((char) => char + char).join('')
+        : hex, 16);
+      const red = (bigint >> 16) & 255;
+      const green = (bigint >> 8) & 255;
+      const blue = bigint & 255;
+
+      return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    }
+
+    return color;
+  }
+
+  const chartCanvasBackground = {
+    id: 'chartCanvasBackground',
+    beforeDraw(chart, args, options) {
+      const { ctx, canvas } = chart;
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = options.color || '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+    }
+  };
+</script>
+
+<figure
+  class="c-prose-figure c-prose-figure--chart"
+  id="fig-temperature-line-chart"
+  data-ref-type="figure"
+>
+  <div class="c-prose-figure__frame">
+    <canvas
+      class="c-prose-figure__canvas"
+      id="temperatureLineChart"
+      aria-label="Line chart comparing mean maximum and mean minimum temperatures from 1996 to 2025"
+      role="img"
+    ></canvas>
+  </div>
+  <figcaption class="c-prose-caption c-prose-figure__caption c-prose-caption--figure">
+    Mean maximum and minimum surface temperature trajectories from 1996 to 2025.
+  </figcaption>
+</figure>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    const theme = getChartTheme();
     const ctx = document.getElementById('temperatureLineChart').getContext('2d');
     const years = [1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
     
     new Chart(ctx, {
       type: 'line',
+      plugins: [chartCanvasBackground],
       data: {
         labels: years,
         datasets: [
           {
             label: 'Mean Maximum Temp (°C)',
             data: [19.4, 19.6, 20.1, 19.5, 19.3, 19.8, 19.9, 20.2, 19.5, 20.4, 20.5, 20.3, 20.0, 20.2, 20.8, 20.6, 21.2, 20.4, 20.7, 21.1, 21.4, 21.3, 21.6, 21.5, 21.9, 21.7, 22.1, 22.4, 22.2, 22.6],
-            borderColor: 'rgba(219, 68, 85, 1)',
-            backgroundColor: 'rgba(219, 68, 85, 0.1)',
+            borderColor: theme.accentPrimary,
+            backgroundColor: transparentize(theme.accentPrimary, 0.12),
             borderWidth: 2.5,
             pointRadius: 3.5,
             tension: 0.2,
@@ -156,8 +218,8 @@ To translate the tabular historical record into an interpretable continuous visu
           {
             label: 'Mean Minimum Temp (°C)',
             data: [8.8, 9.1, 9.7, 8.9, 8.7, 9.2, 9.4, 9.6, 8.9, 9.9, 10.1, 9.8, 9.5, 9.6, 10.4, 10.2, 10.9, 9.9, 10.3, 10.8, 11.1, 11.0, 11.4, 11.2, 11.8, 11.5, 12.0, 12.3, 12.1, 12.5],
-            borderColor: 'rgba(66, 133, 244, 1)',
-            backgroundColor: 'rgba(66, 133, 244, 0.1)',
+            borderColor: theme.accentSecondary,
+            backgroundColor: transparentize(theme.accentSecondary, 0.12),
             borderWidth: 2.5,
             pointRadius: 3.5,
             tension: 0.2,
@@ -168,19 +230,23 @@ To translate the tabular historical record into an interpretable continuous visu
       options: {
         responsive: true,
         plugins: {
-          title: {
-            display: true,
-            text: 'Decadal Multi-Class Surface Temperature Trajectories (1996–2025)',
-            font: { size: 16, weight: 'bold' }
-          },
-          legend: { position: 'top' }
+          chartCanvasBackground: { color: theme.background },
+          title: { display: false },
+          legend: {
+            position: 'top',
+            labels: { color: theme.text }
+          }
         },
         scales: {
           x: {
-            title: { display: true, text: 'Observation Year' }
+            ticks: { color: theme.muted },
+            grid: { color: theme.border },
+            title: { display: true, text: 'Observation Year', color: theme.text }
           },
           y: {
-            title: { display: true, text: 'Temperature Baseline (°C)' },
+            ticks: { color: theme.muted },
+            grid: { color: theme.border },
+            title: { display: true, text: 'Temperature Baseline (°C)', color: theme.text },
             suggestedMin: 7,
             suggestedMax: 24
           }
@@ -204,16 +270,35 @@ While temperature metrics follow a steady, upward trajectory, precipitation beha
 
 The bar chart below aggregates the absolute annual precipitation values, organized into the three decadal blocks to illustrate this growing volatility.
 
-<div style="position: relative; margin: 30px auto; max-width: 800px; width: 100%;">
-  <canvas id="precipitationBarChart"></canvas>
-</div>
+<figure
+  class="c-prose-figure c-prose-figure--chart"
+  id="fig-precipitation-bar-chart"
+  data-ref-type="figure"
+>
+  <div class="c-prose-figure__frame">
+    <canvas
+      class="c-prose-figure__canvas"
+      id="precipitationBarChart"
+      aria-label="Bar chart showing annual precipitation from 1996 to 2025 grouped by decadal epoch"
+      role="img"
+    ></canvas>
+  </div>
+  <figcaption class="c-prose-caption c-prose-figure__caption c-prose-caption--figure">
+    Annual precipitation variability grouped by decadal epoch from 1996 to 2025.
+  </figcaption>
+</figure>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    const theme = getChartTheme();
+    const epochOne = theme.accentSecondary;
+    const epochTwo = theme.accentPrimary;
+    const epochThree = theme.warning;
     const ctx = document.getElementById('precipitationBarChart').getContext('2d');
     
     new Chart(ctx, {
       type: 'bar',
+      plugins: [chartCanvasBackground],
       data: {
         labels: [
           '96', '97', '98', '99', '00', '01', '02', '03', '04', '05',
@@ -229,15 +314,15 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
           ],
           backgroundColor: function(context) {
             const index = context.dataIndex;
-            if (index < 10) return 'rgba(75, 192, 192, 0.7)'; // Epoch I
-            if (index < 20) return 'rgba(54, 162, 235, 0.7)'; // Epoch II
-            return 'rgba(153, 102, 255, 0.7)';        // Epoch III
+            if (index < 10) return transparentize(epochOne, 0.7); // Epoch I
+            if (index < 20) return transparentize(epochTwo, 0.7); // Epoch II
+            return transparentize(epochThree, 0.7); // Epoch III
           },
           borderColor: function(context) {
             const index = context.dataIndex;
-            if (index < 10) return 'rgba(75, 192, 192, 1)';
-            if (index < 20) return 'rgba(54, 162, 235, 1)';
-            return 'rgba(153, 102, 255, 1)';
+            if (index < 10) return epochOne;
+            if (index < 20) return epochTwo;
+            return epochThree;
           },
           borderWidth: 1.5
         }]
@@ -245,19 +330,17 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
       options: {
         responsive: true,
         plugins: {
-          title: {
-            display: true,
-            text: 'Annual Hydrological Variability & Decadal Shifts (1996–2025)',
-            font: { size: 16, weight: 'bold' }
-          },
+          chartCanvasBackground: { color: theme.background },
+          title: { display: false },
           legend: {
             display: true,
             labels: {
+              color: theme.text,
               generateLabels: function(chart) {
                 return [
-                  { text: 'Epoch I (1996-2005)', fillStyle: 'rgba(75, 192, 192, 0.7)' },
-                  { text: 'Epoch II (2006-2015)', fillStyle: 'rgba(54, 162, 235, 0.7)' },
-                  { text: 'Epoch III (2016-2025)', fillStyle: 'rgba(153, 102, 255, 0.7)' }
+                  { text: 'Epoch I (1996–2005)', fillStyle: transparentize(epochOne, 0.7), strokeStyle: epochOne },
+                  { text: 'Epoch II (2006–2015)', fillStyle: transparentize(epochTwo, 0.7), strokeStyle: epochTwo },
+                  { text: 'Epoch III (2016–2025)', fillStyle: transparentize(epochThree, 0.7), strokeStyle: epochThree }
                 ];
               }
             }
@@ -265,10 +348,14 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
         },
         scales: {
           x: {
-            title: { display: true, text: 'Observation Year (Abbreviated)' }
+            ticks: { color: theme.muted },
+            grid: { color: theme.border },
+            title: { display: true, text: 'Observation Year (Abbreviated)', color: theme.text }
           },
           y: {
-            title: { display: true, text: 'Cumulative Rain/Snowmelt (mm)' },
+            ticks: { color: theme.muted },
+            grid: { color: theme.border },
+            title: { display: true, text: 'Cumulative Rain/Snowmelt (mm)', color: theme.text },
             suggestedMin: 500,
             suggestedMax: 1100
           }

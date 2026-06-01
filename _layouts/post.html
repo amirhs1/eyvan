@@ -8,9 +8,9 @@ layout: default
 
   Structure:
   - Post page container
-    - Optional cover image (full-width)
+    - Optional cover image (same readable width as header/content)
     - Article wrapper
-      - Post header (full-width)
+      - Post header (same readable width as cover/content)
         - Optional tag list
         - Post title
         - Optional subtitle
@@ -28,7 +28,7 @@ layout: default
   - Related posts section (full-width)
 
   Layout:
-  - Header and media span full container width
+  - Cover image, header, and prose share the same readable width
   - Content area uses a symmetric 3-column system:
     | left column | prose | right column (TOC) |
   - Prose width is constrained via o-prose
@@ -56,6 +56,7 @@ layout: default
   - page.subtitle
   - page.image
   - page.image_alt
+  - page.image_position
   - page.tags
   - page.share
   - page.toc
@@ -68,7 +69,10 @@ layout: default
       <!-- Cover image -->
       <div class="o-grid__item o-grid__item--span-12">
         <div class="c-post-cover">
-          <div class="c-post-cover__media">
+          <div
+            class="c-post-cover__media"
+            {% if page.image_position %}style="--post-cover-object-position: {{ page.image_position | escape }};"{% endif %}
+          >
             <img
               class="c-post-cover__image"
               loading="lazy"

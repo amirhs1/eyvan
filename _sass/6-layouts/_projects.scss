@@ -4,25 +4,25 @@
 //
 // Description:
 // Controls page-level composition for the projects archive page.
-// Owns responsive vertical spacing between:
-// - Page heading
-// - Tag navigation
-// - Archive grid
+// Owns responsive vertical spacing and page-specific placement of the
+// back-to-top component.
 //
 // Structure:
 // - .l-projects
 //   - .l-projects__heading
-//   - .l-projects__tags
-//     - .l-projects__tags-list
+//   - .l-projects__content
 //   - .l-projects__archive
+//   - .l-projects__back-to-top-wrap
 //
 // Rules:
 // - Layout only
-// - No component cosmetics
-// - No button styling
 // - No card styling
+// - No CTA button styling
+// - The back-to-top visual component is styled in:
+//   5-components/_back-to-top.scss
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../1-tools/spacing-fluid" as fluid;
 
@@ -33,29 +33,50 @@
 .l-projects {
   display: grid;
   gap: fluid.fluid-space(
-    settings-spacing.$space-2,
-    settings-spacing.$space-4
+    settings-spacing.$space-4,
+    settings-spacing.$space-7
+  );
+
+  scroll-margin-block-start: calc(
+    var(--site-header-block-size, 0px) + settings-spacing.$space-5
   );
 }
 
 // -----------------------------------------------------------------------------
-// Tag navigation wrapper
+// Projects archive
 // -----------------------------------------------------------------------------
 
-.l-projects__tags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: fluid.fluid-space(
-    settings-spacing.$space-2,
-    settings-spacing.$space-4
-  );
-  align-items: center;
-}
-
-// -----------------------------------------------------------------------------
-// Archive section
-// -----------------------------------------------------------------------------
-
+.l-projects__content,
 .l-projects__archive {
   min-inline-size: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Back-to-top placement
+// -----------------------------------------------------------------------------
+
+.l-projects__back-to-top-wrap {
+  position: fixed;
+  inset-block-end: max(settings-spacing.$space-4, env(safe-area-inset-bottom));
+  inset-inline-start: 50%;
+  z-index: calc(settings-config.$z-header - 1);
+
+  display: flex;
+  justify-content: center;
+
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+
+  transform: translateX(-50%);
+
+  transition:
+    opacity settings-config.$transition-base,
+    visibility settings-config.$transition-base;
+}
+
+.l-projects__back-to-top-wrap.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }

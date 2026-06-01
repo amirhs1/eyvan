@@ -7,14 +7,14 @@ description: A full archive of projects, research, writing, and creative work.
 
 {% comment %}
   Projects Page
-  Purpose: Render the full projects archive with the canonical shared page
-  heading, optional tag navigation, and a responsive grid of post cards.
+  Purpose: Render the full projects archive with a shared page heading,
+  responsive project-card grid, and a fixed icon-only back-to-top link.
 
   Structure:
   - Projects page wrapper
-    - Shared page heading (section-heading include)
-    - Optional tag navigation
+    - Shared page heading
     - Projects archive grid
+    - Back-to-top icon link
 
   Architecture:
   - Page-level template rendered through the default layout
@@ -25,35 +25,29 @@ description: A full archive of projects, research, writing, and creative work.
   - Reuses shared UI fragments:
     - section-heading.html
     - post-card.html
+    - back-to-top.html
   - Reuses shared layout objects:
     - o-container
     - o-grid
-  - Reuses shared button styles for tag links:
-    - c-button
-    - c-button--tag
 
   Accessibility:
-  - Uses semantic section and nav elements
-  - The archive section is labeled by its heading
-  - Tag links remain standard links for keyboard and screen-reader access
+  - Uses a semantic section for the archive
+  - The archive section is labelled by the shared page heading
+  - The back-to-top link has an aria-label and remains keyboard accessible
 
   Data dependencies:
   - site.posts
-  - site.tags
 
   Notes:
   - This page is intentionally broader than the homepage:
-    the homepage previews recent work, while this page exposes the full archive
-    plus topic-based navigation.
-  - Tag links assume tag archive pages are available at /tag/<slug>/
-  - The top-of-page heading is standardized through section-heading.html
+    the homepage previews recent work, while this page exposes the full archive.
+  - The top-of-page heading is standardized through section-heading.html.
 {% endcomment %}
 
 {% assign all_posts = site.posts %}
-{% assign sorted_tags = site.tags | sort %}
 
 <div class="o-container">
-  <div class="l-projects">
+  <div class="l-projects" id="top">
 
     <!-- Projects page heading -->
     <div class="l-projects__heading">
@@ -62,56 +56,30 @@ description: A full archive of projects, research, writing, and creative work.
         heading_level="h1"
         modifier="lg"
         title="Projects"
-        description="A full archive of research, writing, and creative work. Browse everything below, or jump by topic using the tags."
+        description="Selected research, writing, and creative work."
       %}
     </div>
 
-    {% if sorted_tags and sorted_tags.size > 0 %}
-      <!-- Tag navigation -->
-      <nav
-        class="l-projects__tags"
-        aria-label="Browse projects by tag"
+    <!-- Projects archive -->
+    <div class="l-projects__content">
+      <section
+        class="l-projects__archive"
+        aria-labelledby="projects-title"
       >
-        <div class="l-projects__tags-list">
-          <a
-            class="c-button c-button--tag"
-            href="{{ '/projects/' | relative_url }}"
-            aria-current="page"
-          >
-            All ({{ all_posts | size }})
-          </a>
-
-          {% for tag in sorted_tags %}
-            {% assign tag_name = tag[0] %}
-            {% assign tag_posts = tag[1] %}
-            {% assign tag_count = tag_posts | size %}
-            {% assign tag_slug = tag_name | slugify %}
-
-            <a
-              class="c-button c-button--tag"
-              href="{{ '/tag/' | append: tag_slug | append: '/' | relative_url }}"
-              aria-label="View {{ tag_count }} project{% if tag_count != 1 %}s{% endif %} tagged {{ tag_name }}"
-            >
-              {{ tag_name }} ({{ tag_count }})
-            </a>
+        <div class="o-grid">
+          {% for post in all_posts %}
+            <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
+              {% include post-card.html post=post %}
+            </div>
           {% endfor %}
         </div>
-      </nav>
-    {% endif %}
+      </section>
+    </div>
 
-    <!-- Projects archive -->
-    <section
-      class="l-projects__archive"
-      aria-labelledby="projects-title"
-    >
-      <div class="o-grid">
-        {% for post in all_posts %}
-          <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
-            {% include post-card.html post=post %}
-          </div>
-        {% endfor %}
-      </div>
-    </section>
+    <!-- Back-to-top icon link -->
+    <div class="l-projects__back-to-top-wrap" data-back-to-top-wrap>
+      {% include back-to-top.html href="#top" %}
+    </div>
 
   </div>
 </div>

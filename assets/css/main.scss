@@ -97,6 +97,8 @@
 @use "5-components/toc" as component-toc;
 @use "5-components/prose-media" as component-prose-media;
 
+@use "5-components/back-to-top";
+
 // -----------------------------------------------------------------------------
 // 6. LAYOUTS
 // Page-level composition

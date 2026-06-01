@@ -1,0 +1,29 @@
+{% comment %}
+  Back-to-top Include
+  Purpose: Render an icon-only link that returns users to a page anchor.
+
+  Parameters:
+  - include.href: target anchor, defaults to #top
+  - include.label: accessible label, defaults to Back to top
+
+  Accessibility:
+  - Uses aria-label because the visible control is icon-only
+  - Icon wrapper is hidden from assistive technology
+
+  Notes:
+  - The icon path is fixed intentionally.
+  - Dynamic Liquid include paths can be unreliable in Jekyll.
+{% endcomment %}
+
+{% assign back_to_top_href = include.href | default: '#top' %}
+{% assign back_to_top_label = include.label | default: 'Back to top' %}
+
+<a
+  class="c-back-to-top"
+  href="{{ back_to_top_href }}"
+  aria-label="{{ back_to_top_label }}"
+>
+  <span class="c-back-to-top__icon" aria-hidden="true">
+    {% include icons/chevron-up-circle.svg %}
+  </span>
+</a>

@@ -1,0 +1,83 @@
+// -----------------------------------------------------------------------------
+// Component — Back to Top
+// ITCSS layer: 5-components
+//
+// Description:
+// Icon-only utility link that returns users to the top of the current page.
+//
+// Structure:
+// - .c-back-to-top
+//   - .c-back-to-top__icon
+//
+// Rules:
+// - Component owns visual styling only.
+// - Layout/page files decide placement.
+// - This is intentionally quiet and does not use CTA button styling.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as settings-config;
+@use "../1-tools/mixins" as tools-mixins;
+
+.c-back-to-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+
+  color: var(--color-text-muted);
+  text-decoration: none;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    color settings-config.$transition-base,
+    opacity settings-config.$transition-base,
+    transform settings-config.$transition-base;
+
+  &:visited {
+    color: var(--color-text-muted);
+  }
+
+  &:hover {
+    color: var(--color-link-hover);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.c-back-to-top__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+
+  color: inherit;
+  line-height: 1;
+
+  svg,
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}

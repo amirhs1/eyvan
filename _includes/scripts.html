@@ -24,6 +24,7 @@
   - assets/js/theme-toggle.js
   - assets/js/mobile-menu.js
   - assets/js/mobile-toc.js
+  - assets/js/back-to-top.js
 
   Notes:
   - Avoid adding large libraries unless necessary
@@ -47,6 +48,10 @@
 ></script>
 <script
   src="{{ '/assets/js/mobile-toc.js' | relative_url }}"
+  defer
+></script>
+<script
+  src="{{ '/assets/js/back-to-top.js' | relative_url }}"
   defer
 ></script>
 {% if page.crossrefs %}

@@ -80,21 +80,23 @@ $post-layout-toc-max-width: 20rem;
 ----------------------------------------------------------------------------- */
 
 .c-post-cover {
+  max-inline-size: $post-header-inline-size;
+  margin-inline: auto;
   margin-block-end: $post-cover-gap;
 }
 
 .c-post-cover__media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
   border-radius: settings-config.$global-border-radius;
 }
 
 .c-post-cover__image {
   display: block;
   inline-size: 100%;
-  block-size: auto;
-  max-block-size: min(42rem, 60vh);
-  object-fit: contain;
-  object-position: center;
-  border-radius: settings-config.$global-border-radius;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: var(--post-cover-object-position, center center);
 }
 
 /* -----------------------------------------------------------------------------

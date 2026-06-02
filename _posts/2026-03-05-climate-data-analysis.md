@@ -13,7 +13,7 @@ description: "A data-rich demo post exploring synthetic temperature and precipit
 
 ## Introduction & Methodology
 
-The study of climate change benefits from clear analytical frameworks, especially when long-term trends need to be communicated through tables, figures, and statistical summaries. This demo post uses climate-style data to show how the Eyvan Jekyll template handles mathematical notation, styled Markdown tables, numbered captions, cross-references, and embedded JavaScript charts.[^1]
+The study of climate change benefits from clear analytical frameworks, especially when long-term trends need to be communicated through tables, figures, and statistical summaries. This demo post uses climate-style data to show how the Eyvan template handles mathematical notation, styled Markdown tables, numbered captions, cross-references, and embedded JavaScript charts.[^1]
 
 The dataset below spans exactly 30 years, from 1996 through 2025. It is a synthetic, NOAA-inspired demonstration dataset rather than a directly downloaded observational record. The values are structured to resemble a regional mid-latitude climate summary, with yearly maximum temperature, minimum temperature, temperature anomaly, precipitation total, and precipitation-status fields.
 

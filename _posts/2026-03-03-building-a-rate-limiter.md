@@ -9,7 +9,7 @@ image_alt: "Token Bucket System Design Diagram"
 description: "A hands-on walkthrough of implementing a token-bucket rate limiter with code in Python and Go."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic, mathematical, code, figure, and table capabilities of the Eyvan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic, mathematical, code, figure, and table capabilities of the Eyvan template.
 
 Rate limiting is a foundational part of modern systems design. Whether you are running a public API, managing internal services, or protecting a database from cascading failures, controlling the flow of requests is essential. Without rate limiting, a system can become vulnerable to malicious denial-of-service attempts, accidental overload from client scripts, resource starvation, and unexpected infrastructure costs.
 

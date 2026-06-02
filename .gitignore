@@ -35,3 +35,4 @@ _sass/*.sh
 create_structure.sh
 assets/fonts/*.zip
 node_modules/*
+test-results/*

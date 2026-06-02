@@ -35,6 +35,17 @@ $clr-p-azure: #74BBFB;
 $clr-p-rose: #FE28A2;
 
 /* -----------------------------------------------------------------------------
+   High-Luminance Chromatic Variants
+   Lightened members of the Persian hue families that remain legible as
+   foreground text on dark surfaces (e.g. syntax tokens). Same hues as the
+   heritage colors above, raised in luminance to meet contrast on dark
+   backgrounds where the deep originals fall below ~2:1.
+   ----------------------------------------------------------------------------- */
+
+$clr-p-lapis-light: #5C88DA;  // legible blue on dark (functions)
+$clr-p-violet-light: #B79CED; // legible violet on dark (keywords)
+
+/* -----------------------------------------------------------------------------
    Neutral Foundations (Theme-Agnostic)
    Grayscale and neutral values used across both light and dark themes
    for text, borders, surfaces, and hierarchy.
@@ -46,7 +57,7 @@ $clr-black: #0A0A0A;
 
 $clr-gray-100: #E0E0E0;
 $clr-gray-200: #D1D1D1;
-$clr-gray-400: #707890;
+$clr-gray-400: #5C6473; // darkened so muted text clears 4.5:1 on light surfaces
 $clr-gray-500: #888891;
 $clr-gray-600: #546E7A;
 $clr-gray-700: #263238;
@@ -62,7 +73,7 @@ $clr-gray-900: #101010;
    ----------------------------------------------------------------------------- */
 
 $clr-dark-bg: #0D0D12;
-$clr-dark-surface: #020202; // Midnight violet
+$clr-dark-surface: #16161E; // Sits just above $clr-dark-bg for correct dark-mode elevation
 $clr-dark-elevated: #23232E;
 $clr-dark-highlight: #2D2D3A;
 $clr-syntax-dark-bg: #1A1A24;

@@ -48,7 +48,7 @@
   --color-accent-secondary: #{settings-colors.$light-accent-secondary};
 
   /* Interactive elements */
-  --color-link-color: #{settings-colors.$light-link-color};
+  --color-link: #{settings-colors.$light-link-color};
   --color-link-hover: #{settings-colors.$light-link-hover};
 
   --color-button-bg: #{settings-colors.$light-button-bg};
@@ -110,7 +110,7 @@ html[data-theme="dark"] {
   --color-accent-primary: #{settings-colors.$dark-accent-primary};
   --color-accent-secondary: #{settings-colors.$dark-accent-secondary};
 
-  --color-link-color: #{settings-colors.$dark-link-color};
+  --color-link: #{settings-colors.$dark-link-color};
   --color-link-hover: #{settings-colors.$dark-link-hover};
 
   --color-button-bg: #{settings-colors.$dark-button-bg};

@@ -5,7 +5,7 @@ tags: [meta, design, jekyll, css, architecture]
 toc: true
 math: true
 share: true
-read_time: true
+crossrefs: true
 image: "/assets/images/posts/Khane-Amerian-eyvan.webp"
 image_alt: "Muqarnas-adorned eyvan courtyard facade at the historic Ameri House in Kashan, Iran"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
@@ -13,7 +13,7 @@ description: "A behind-the-scenes look at the design decisions, CSS architecture
 
 > **Note:** This post was generated with OpenAI's ChatGPT and Anthropic's Claude for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
 
-A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **Eyvan**: a clean, content-first Jekyll template for portfolios, research notes, technical writing, and project archives.
+A good portfolio template should feel almost invisible to the reader. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **Eyvan**: a visually restrained, content-first Jekyll template for portfolios, research notes, technical writing, and project archives.
 
 The name comes from the architectural idea of an _eyvan_[^1]: an open, vaulted threshold that sits between inside and outside ({% include ref.html id="fig-eyvan-ameri-house" cref="true" %}).
 
@@ -38,9 +38,9 @@ That is why the visual language is restrained. The layout uses generous spacing,
 
 The goal is not to make every page look identical. The goal is to make every page feel like it belongs to the same system.
 
-### Minimal does not mean empty
+### Minimal visual design does not mean an empty feature set
 
-Minimal design is sometimes confused with removing everything. In this template, minimal means removing what does not help the reader. The site still includes a real header, social links, a theme toggle, project cards, post metadata, table of contents support, responsive media, captions, tags, and related posts. The difference is that each piece has a clear job.
+Minimal design is sometimes confused with removing everything. In Eyvan, minimal refers to the visual language: the interface avoids unnecessary decoration and keeps attention on the content. The template itself is intentionally capable. It includes a real header, social links, a theme toggle, project cards, post metadata, table of contents support, responsive media, captions, tags, sharing controls, cross-references, and related posts. Each piece has a specific job.
 
 The design avoids over-styling Markdown output. A table should look like a table. A figure should look like a figure. A code block should be easy to scan. The template adds enough visual treatment to make these elements professional, but not so much that the styling competes with the content.
 
@@ -108,7 +108,7 @@ sass:
   sass_dir: _sass
   style: compressed
 
-words_per_minute: 120
+words_per_minute: 238
 read_time: true
 ```
 
@@ -116,23 +116,23 @@ read_time: true
 
 The stylesheet architecture follows **ITCSS**: Inverted Triangle CSS. The idea is to organize styles from the most abstract and widely shared rules to the most specific utilities and overrides. This makes the cascade easier to reason about because low-level decisions appear early and component-specific decisions appear later.
 
-In this template, the merged SCSS layer files are:
+In this template, the Sass source is organized as ITCSS layer directories. The compiled stylesheet is assembled from `assets/css/main.scss`, which imports partials from these directories in layer order:
 
 {% include table-caption.html
    id="tbl-itcss"
    caption="ITCSS layers and their responsibilities."
 %}
 
-| Layer      | File                      | Role                                                                                                                           |
-| :--------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
-| Settings   | `_sass/0-settings.scss`   | Design tokens: colors, spacing, typography, breakpoints, radii, shadows, and configuration values.                             |
-| Tools      | `_sass/1-tools.scss`      | Mixins, functions, and helpers used by later layers.                                                                           |
-| Generic    | `_sass/2-generic.scss`    | Resets, box sizing, global normalization, and low-specificity baseline rules.                                                  |
-| Base       | `_sass/3-base.scss`       | Default element styling for HTML, body, headings, links, media, and form basics.                                               |
-| Objects    | `_sass/4-objects.scss`    | Reusable layout patterns such as containers, grids, hero structure, site header layout, site footer layout, and prose measure. |
-| Components | `_sass/5-components.scss` | Specific UI components such as buttons, nav, cards, hero, post layout, TOC, media figures, and theme toggle.                   |
-| Layouts    | `_sass/6-layouts.scss`    | Page-level composition for the homepage, projects page, tag pages, and default shell spacing.                                  |
-| Trumps     | `_sass/7-trumps.scss`     | Utilities, state helpers, and high-priority overrides.                                                                         |
+| Layer      | Directory/import group | Role                                                                                                                           |
+| :--------- | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| Settings   | `_sass/0-settings/`    | Design tokens: colors, spacing, typography, breakpoints, and configuration values.                                             |
+| Tools      | `_sass/1-tools/`       | Mixins and helpers used by later layers.                                                                                       |
+| Generic    | `_sass/2-generic/`     | Resets, box sizing, global normalization, and low-specificity baseline rules.                                                  |
+| Base       | `_sass/3-base/`        | Default element styling for HTML, body, headings, links, media, tables, lists, and syntax highlighting.                       |
+| Objects    | `_sass/4-objects/`     | Reusable layout patterns such as containers, grids, hero structure, site header layout, site footer layout, and prose measure. |
+| Components | `_sass/5-components/`  | Specific UI components such as buttons, nav, cards, hero, post layout, TOC, media figures, and theme toggle.                   |
+| Layouts    | `_sass/6-layouts/`     | Page-level composition for the homepage, projects page, tag pages, and default shell spacing.                                  |
+| Trumps     | `_sass/7-trumps/`      | Utilities, state helpers, print rules, and high-priority overrides.                                                           |
 
 {: .c-prose-table }
 
@@ -298,7 +298,7 @@ The template is built from small components that can be reused across layouts. T
 | `c-post-layout`     | Three-column article composition with left gutter, prose, and TOC.    | Post layout                               |
 | `c-toc`             | Desktop table of contents navigation.                                 | Post layout                               |
 | `c-mobile-toc`      | Mobile/tablet table of contents panel.                                | Post layout                               |
-| `c-prose-figure`    | Responsive images, galleries, audio, and video with captions.         | Markdown posts via includes               |
+| `c-prose-figure`    | Responsive single images, multi-image figure grids, audio, and video with captions. | Markdown posts via includes               |
 | `c-prose-table`     | Styled Markdown or HTML tables inside long-form content.              | Markdown posts                            |
 | `c-site-footer`     | Minimal footer with brand, metadata, and social links.                | Default layout                            |
 
@@ -322,7 +322,7 @@ The useful part is conditional loading: a non-math essay does not need MathJax, 
 
 ### Enable the table of contents
 
-Use `toc: true` for long posts with many headings.
+Use `toc: true` for long posts with many headings. The post TOC wrappers currently scan `##` and `###` headings.
 
 ```yaml
 toc: true
@@ -340,15 +340,26 @@ share: false
 
 This is a good example of a feature flag that supports tone. Not every page needs the same interface.
 
-### Control read time
+### Control read time globally
 
-Read time is controlled globally, but individual templates can still respect a page-level decision if you choose to support that pattern.
+Read time is controlled globally through `_config.yml`. The current metadata include does not read a per-post `read_time` front matter value.
 
 ```yaml
 read_time: true
+words_per_minute: 238
 ```
 
-The global configuration uses a words-per-minute value, which keeps the estimate predictable across the site.
+The global configuration uses a words-per-minute value, which keeps the estimate predictable across the site. To support per-post read-time overrides, the metadata include would need to be changed.
+
+### Enable cross-references
+
+Use `crossrefs: true` when a post uses `{% raw %}{% include ref.html %}{% endraw %}` to point to numbered figures, tables, videos, or audio blocks.
+
+```yaml
+crossrefs: true
+```
+
+The `ref.html` include creates the link, and `assets/js/crossref.js` resolves the displayed text to values such as “Figure 1” or “Table 2.”
 
 ## Build and performance
 

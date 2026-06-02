@@ -1,23 +1,32 @@
 ---
-title: "Design Philosophy and Architecture of eyvan-jekyll"
+title: "Design Philosophy and Architecture of Eyvan"
 subtitle: "How the template is structured, why it was built this way, and what powers it"
 tags: [meta, design, jekyll, css, architecture]
 toc: true
 math: true
 share: true
 read_time: true
-image: "assets/images/posts/Khane-Amerian-eyvan.webp"
+image: "/assets/images/posts/Khane-Amerian-eyvan.webp"
 image_alt: "Muqarnas-adorned eyvan courtyard facade at the historic Ameri House in Kashan, Iran"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
 ---
 
-> **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
+> **Note:** This post was generated with OpenAI's ChatGPT and Anthropic's Claude for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
 
-A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **eyvan-jekyll**: a minimalist Jekyll template for portfolios, research notes, technical writing, and project archives.[^1]
+A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **Eyvan**: a clean, content-first Jekyll template for portfolios, research notes, technical writing, and project archives.
 
-The name comes from the architectural idea of an _eyvan_: an open, vaulted threshold that sits between inside and outside. That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.[^1]
+The name comes from the architectural idea of an _eyvan_[^1]: an open, vaulted threshold that sits between inside and outside ({% include ref.html id="fig-eyvan-ameri-house" cref="true" %}).
 
-This post explains how the template is organized, why the architecture is intentionally simple, and how the design system supports content-heavy posts without depending on a JavaScript framework.
+{% include figure.html
+   id="fig-eyvan-ameri-house"
+   src="/assets/images/posts/Khane-Amerian-eyvan.webp"
+   alt="The five-bay panjdari of the main eyvan at the Āmeri House in Kashan, Iran, its vaulted ceiling filled with tiered muqarnas."
+   caption="The *panjdari* of the main eyvan — the open, vaulted balcony — of the Āmeri House in Kashan, Iran. Photograph by Matthias Blume, 18 November 2005, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg), licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)."
+%}
+
+That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.
+
+This post explains how the template is organized, why the architecture is deliberately structured, and how the design system supports content-heavy posts without depending on a JavaScript framework.
 
 ## Design philosophy
 
@@ -25,7 +34,7 @@ This post explains how the template is organized, why the architecture is intent
 
 The template is designed around one simple rule: the content should always win. Headings, body text, figures, tables, code blocks, and project cards are the main interface. Decorative effects are allowed only when they improve orientation, hierarchy, or clarity.
 
-That is why the visual language is restrained. The layout uses generous spacing, readable line lengths, clear section rhythm, and a small set of reusable components. Instead of using heavy animations or complex page transitions, the design relies on structure: containers, grids, cards, captions, and navigation landmarks.
+That is why the visual language is restrained. The layout uses generous spacing, readable line lengths, clear section rhythm, and a focused but comprehensive set of reusable components. Instead of using heavy animations or complex page transitions, the design relies on structure: containers, grids, cards, captions, and navigation landmarks.
 
 The goal is not to make every page look identical. The goal is to make every page feel like it belongs to the same system.
 
@@ -55,7 +64,7 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 
 {% include table-caption.html
    id="tbl-stack"
-   caption="Core technologies used by eyvan-jekyll."
+   caption="Core technologies used by Eyvan."
 %}
 
 | Tool              | Role                   | Why it belongs                                                                                         |
@@ -70,7 +79,7 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 | GitHub Actions    | Build pipeline         | Builds the site with plugins that GitHub Pages does not process by default.                            |
 {: .c-prose-table }
 
-The most important architectural choice is that the stack is **Jekyll-first**. Features are built with layouts, includes, front matter, and SCSS before reaching for custom JavaScript. JavaScript is used only where it improves behavior: theme initialization, mobile navigation, table of contents interaction, cross-references, or conditional third-party loading.
+The most important architectural choice is that the stack is **Jekyll-first**. Features are built with layouts, includes, front matter, and SCSS before reaching for custom JavaScript. JavaScript is used only where it improves behavior: theme initialization, mobile navigation, table of contents interaction, social sharing, back-to-top scrolling, cross-references, and conditional third-party loading.
 
 The front matter and config are the control panel. For example, posts use the `post` layout by default, sharing is enabled by default, and read time is controlled globally:
 
@@ -98,7 +107,7 @@ sass:
   sass_dir: _sass
   style: compressed
 
-words_per_minute: 200
+words_per_minute: 120
 read_time: true
 ```
 
@@ -260,7 +269,7 @@ The left gutter is intentionally empty. It balances the right-side table of cont
 
 {% endraw %}
 
-This is one of the template’s most important design decisions. It supports long articles without making the page feel crowded. The reader gets a focused article column, while the TOC remains available for orientation.
+This is one of the template's most important design decisions. It supports long articles without making the page feel crowded. The reader gets a focused article column, while the TOC remains available for orientation.
 
 ## Component inventory
 
@@ -268,7 +277,7 @@ The template is built from small components that can be reused across layouts. T
 
 {% include table-caption.html
    id="tbl-components"
-   caption="Major reusable components in eyvan-jekyll and where they appear."
+   caption="Major reusable components in Eyvan and where they appear."
 %}
 
 | Component | Purpose | Typical location |
@@ -292,7 +301,7 @@ The template is built from small components that can be reused across layouts. T
 | `c-site-footer` | Minimal footer with brand, metadata, and social links. | Default layout |
 {: .c-prose-table }
 
-This inventory is useful because it creates a shared vocabulary. Instead of thinking “the thing that appears below the hero,” you can think “section heading plus grid plus post cards.” That makes changes easier to scope.
+This inventory is useful because it creates a shared vocabulary. Instead of thinking "the thing that appears below the hero," you can think "section heading plus grid plus post cards." That makes changes easier to scope.
 
 ## Feature flags
 
@@ -415,7 +424,7 @@ The head include centralizes SEO, canonical links, feed discovery, Open Graph me
 
 ## Extension points
 
-A good template should be easy to extend without rewriting its architecture. In eyvan-jekyll, the safest extension points are layouts, includes, data files, and SCSS components.
+A good template should be easy to extend without rewriting its architecture. In Eyvan, the safest extension points are layouts, includes, data files, and SCSS components.
 
 ### Add a new layout
 
@@ -513,10 +522,10 @@ Jekyll owns content generation. Liquid owns composition. Front matter owns page-
 
 Most importantly, the template does not try to become an application. It remains a static portfolio system. That restraint is what makes it maintainable.
 
-For a personal portfolio, the hardest problem is rarely technical complexity. The harder problem is consistency over time: adding new posts, updating projects, changing navigation, improving design, and keeping the site coherent as it grows. eyvan-jekyll solves that by providing a simple architecture with clear extension points.
+For a personal portfolio, the hardest problem is rarely technical complexity. The harder problem is consistency over time: adding new posts, updating projects, changing navigation, improving design, and keeping the site coherent as it grows. Eyvan solves that by providing a deliberately structured architecture with clear extension points.
 
 The result is a site that feels calm, readable, and professional: content framed, not boxed; structure visible, but unobtrusive.
 
 ## Endnotes
 
-[^1]: Cover image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg) by Matthias Blume (Nov. 18, 2005), licensed under Creative Commons CC BY-SA 3.0.
+[^1]: For more on the architectural term, see the ["Ayvān" entry in *Encyclopædia Iranica*](https://www.iranicaonline.org/articles/ayvan-palace/).

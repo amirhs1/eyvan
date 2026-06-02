@@ -82,7 +82,7 @@ sass:
 # Global feature flags
 # Simple toggles used by templates and layouts.
 # ------------------------------------------------------------
-words_per_minute: 120
+words_per_minute: 238
 read_time: true
 
 # ------------------------------------------------------------

@@ -1,0 +1,92 @@
+// -----------------------------------------------------------------------------
+// Tag Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles reusable taxonomy/topic links used in post cards and post headers.
+//
+// Structure:
+// - .c-tag
+//
+// Scope & Rules:
+// - Owns tag cosmetics and interaction states
+// - Does NOT own page-level placement or contextual spacing
+// - Intended for metadata/topic links, not primary actions
+//
+// Notes:
+// - Visual styling intentionally stays close to the former c-button--tag style
+//   to preserve the existing minimalist design.
+// - c-button remains reserved for real actions and CTAs.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-type;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$tag-border-width: settings-config.$global-border-width;
+$tag-padding-block: settings-spacing.$space-2;
+$tag-padding-inline: settings-spacing.$space-3;
+$tag-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
+
+/* -----------------------------------------------------------------------------
+   Base tag
+   ----------------------------------------------------------------------------- */
+
+.c-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-block-size: 2.125rem;
+  padding-block: $tag-padding-block;
+  padding-inline: $tag-padding-inline;
+
+  border: $tag-border-width solid transparent;
+  border-radius: settings-config.$global-button-radius;
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+
+  font-family: settings-type.$font-family-display;
+  font-size: settings-type.$font-size-sm;
+  font-weight: settings-type.$font-weight-bold;
+  line-height: 1;
+  letter-spacing: settings-type.$letter-spacing-loose-sm;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  box-shadow: $tag-shadow;
+
+  transition:
+    background-color settings-config.$transition-base,
+    border-color settings-config.$transition-base,
+    color settings-config.$transition-base,
+    box-shadow settings-config.$transition-base,
+    transform settings-config.$transition-base;
+
+  &:visited {
+    color: var(--color-button-text);
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: transparent;
+    background-color: var(--color-button-bg-hover);
+    color: var(--color-button-text);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+
+  &:active {
+    transform: translateY(1px) scale(0.98);
+  }
+}

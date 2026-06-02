@@ -25,6 +25,7 @@
 // - Component styling only
 // - Grid placement belongs to layout/object layers
 // - Shared author/date/read-time styling is delegated to _entry-meta.scss
+// - Shared tag styling is delegated to _tag.scss
 // - This file owns the card shell, spacing, media, and metadata wrapper only
 // -----------------------------------------------------------------------------
 
@@ -140,7 +141,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
 }
 
 .c-post-card__tag {
-  text-transform: capitalize;
+  flex: 0 0 auto;
 }
 
 /* -----------------------------------------------------------------------------

@@ -1,31 +1,33 @@
 ---
 title: "Visualizing 30 Years of Climate Trends"
-subtitle: "Tables, charts, and statistical summaries from NOAA data"
+subtitle: "Tables, charts, and statistical summaries from a synthetic climate dataset"
 tags: [data, climate, visualization, analysis]
 math: true
 toc: true
 image: "assets/images/posts/global_temperature_rise.webp"
 image_alt: "Global Temperature Rise Visualized in Polar Perspective"
-description: "A data-rich post exploring temperature and precipitation trends using tables and embedded charts."
+description: "A data-rich demo post exploring synthetic temperature and precipitation trends using tables, math, cross-references, and embedded charts."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
+> **Note:** This post and its associated synthetic, NOAA-inspired climate dataset were generated with Google’s Gemini and OpenAI’s ChatGPT to demonstrate Eyvan’s typography, mathematical notation, table captions, cross-references, and embedded charts. The values are plausible but should not be treated as a reproducible NOAA analysis unless they are replaced with a documented data pipeline and source files.
 
 ## Introduction & Methodology
 
-The study of climate change necessitates rigorous analytical frameworks, moving past anecdotal observations toward empirical, long-term data tracking. As global temperatures continue to fluctuate under the influence of both anthropogenic drivers and natural cyclic oscillations, visualizing multi-decadal trends becomes paramount for both researchers and policymakers[^1].
+The study of climate change benefits from clear analytical frameworks, especially when long-term trends need to be communicated through tables, figures, and statistical summaries. This demo post uses climate-style data to show how the Eyvan Jekyll template handles mathematical notation, styled Markdown tables, numbered captions, cross-references, and embedded JavaScript charts.[^1]
 
-This post examines an aggregated dataset spanning exactly 30 years (1996 through 2025). The data utilized for this analysis is compiled from the National Oceanic and Atmospheric Administration (NOAA) Global Historical Climatology Network (GHCN) and regional cooperative observer networks. To ensure localized fidelity alongside broad historical trends, the dataset focuses on mid-latitude anomalies across North America, standardizing daily surface temperature maxima, minima, and cumulative precipitation metrics.
+The dataset below spans exactly 30 years, from 1996 through 2025. It is a synthetic, NOAA-inspired demonstration dataset rather than a directly downloaded observational record. The values are structured to resemble a regional mid-latitude climate summary, with yearly maximum temperature, minimum temperature, temperature anomaly, precipitation total, and precipitation-status fields.
 
 ### Data Harmonization and Processing
 
-Raw climate data frequently suffers from spatial gaps, instrument updates, and observation time biases. To account for these systemic discrepancies, the following preprocessing steps were applied to the raw NOAA data stream:
+Real climate datasets often require careful preprocessing before analysis. Station moves, changing instruments, missing values, observation-time differences, and urbanization effects can all influence raw measurements. A production-quality analysis should document the data source, processing scripts, quality-control decisions, and uncertainty assumptions.
 
-1. **Time-of-Observation Adjustments:** Daily temperature readings were standardized to midnight-to-midnight operational windows to eliminate artificial warming or cooling artifacts introduced by afternoon or morning station resets.
-2. **Homogenization:** Neighboring station cross-correlations were utilized to identify and correct step-changes caused by historical station relocations or changes in instrument sheltering hardware.
-3. **Missing Value Imputation:** Missing values constituting less than 0.5% of the total dataset were resolved using local spatial kriging, ensuring continuous daily observations across all sample years.
+For this template demonstration, the preprocessing steps are presented as representative examples rather than as operations actually performed on raw NOAA files:
 
-The aggregated dataset contains daily records grouped into three distinct decadal epochs: Epoch I (1996–2005), Epoch II (2006–2015), and Epoch III (2016–2025). By segmenting the 30-year span into clear ten-year blocks, we can observe shifts in structural baselines rather than fleeting annual anomalies.
+1. **Time-of-observation adjustment:** A real workflow may standardize daily readings to reduce artifacts introduced by morning or afternoon station resets.
+2. **Homogenization:** A real workflow may compare neighboring stations to identify artificial step changes caused by station relocation or equipment changes.
+3. **Missing-value handling:** A real workflow may flag, remove, or estimate missing observations depending on the amount of missingness and the research question.
+
+The synthetic dataset is grouped into three distinct decadal epochs: Epoch I (1996–2005), Epoch II (2006–2015), and Epoch III (2016–2025). Segmenting the 30-year span into ten-year blocks helps demonstrate how tables and charts can communicate changes in central tendency and variability.
 
 ## Statistical Formulas
 
@@ -41,18 +43,18 @@ To measure the overall volatility and spread of temperatures within each epoch, 
 
 $$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2}$$
 
-A rising standard deviation over successive epochs indicates an expanding climate variance, signaling that weather patterns are becoming less predictable and more prone to extreme deviations from the calculated historical baseline.
+A rising standard deviation over successive epochs would indicate increasing variability within the measured series. In this synthetic example, it is used to demonstrate how a post can discuss dispersion alongside changes in the mean.
 
 ## Decadal Summary Statistics
 
-Applying these formulas to our dataset yields a distinct trajectory. The table below presents the aggregate summary metrics for surface temperatures across the three designated decades.
+Applying these formulas to the synthetic dataset yields a distinct trajectory. The table below presents aggregate summary metrics for surface temperatures across the three designated decades. Here, mean temperature corresponds to $\bar{x}$, standard deviation corresponds to $s$, and heat days count average annual days above $35$°C.
 
 {% include table-caption.html
    id="tbl-decadal-summary"
-   caption="Decadal summary statistics for surface temperatures and extreme heat days."
+   caption="Synthetic decadal summary statistics for surface temperatures and extreme heat days."
 %}
 
-| Epoch | Time Period | Mean Temp ($\bar{x}$, °C) | Median Temp (°C) | Std Dev ($s$, °C) | Extreme Heat Days ($>35$°C) |
+| Epoch | Time Period | Mean Temp (°C) | Median Temp (°C) | Std Dev (°C) | Heat Days >35°C |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **Epoch I** | 1996–2005 | 14.21 | 14.15 | 0.62 | 12.4 |
 | **Epoch II** | 2006–2015 | 14.68 | 14.52 | 0.78 | 18.1 |
@@ -61,17 +63,17 @@ Applying these formulas to our dataset yields a distinct trajectory. The table b
 
 ### Analysis of Decadal Summaries
 
-The tabular data reveals a clear, continuous upward shift in both central tendency metrics and structural volatility. The arithmetic mean ($\bar{x}$) rose by $0.47$°C between Epoch I and Epoch II, followed by an additional increase of $0.46$°C moving into Epoch III. This yields a net warming of $+0.93$°C over the course of the 30-year observation frame.
+The table reveals a clear upward shift in the synthetic central tendency metrics. The arithmetic mean ($\bar{x}$) rises by $0.47$°C between Epoch I and Epoch II, followed by an additional increase of $0.46$°C moving into Epoch III. This yields a net increase of $+0.93$°C over the 30-year demo period.
 
-Concurrently, the sample standard deviation ($s$) expanded from $0.62$°C to $0.94$°C. This nearly 50% expansion in variance tells us that the climate system is growing increasingly volatile. The most striking real-world consequence of this expanding variance is found in the final column: the average annual number of Extreme Heat Days ($>35$°C) nearly doubled from $12.4$ days per year in the first decade to $24.5$ days per year in the most recent decade.
+Concurrently, the sample standard deviation ($s$) expands from $0.62$°C to $0.94$°C. In a real observational study, that change would require uncertainty analysis before being interpreted as a robust increase in climate variability. In this demo dataset, it illustrates how Eyvan can present both central tendency and dispersion. The final column also demonstrates how derived metrics can be summarized: average annual heat days above $35$°C increase from $12.4$ days per year in Epoch I to $24.5$ days per year in Epoch III.
 
 ## Comprehensive Annual Climate Record
 
-To observe how these multi-decadal shifts manifest on an annual basis, we must examine the un-aggregated annual results. The following complete multi-column table presents yearly temperature and precipitation anomalies relative to the century-long baseline (1901–2000 standard reference period).
+To observe how these multi-decadal shifts appear on an annual basis, we can inspect the unaggregated demo series. The following multi-column table presents yearly temperature and precipitation values, including a synthetic temperature anomaly field modeled as if it were relative to a long-term baseline.
 
 {% include table-caption.html
    id="tbl-annual-climate-record"
-   caption="Annual temperature anomalies, precipitation totals, and climate variations from 1996 to 2025."
+   caption="Synthetic annual temperature anomalies, precipitation totals, and climate variations from 1996 to 2025."
 %}
 
 | Year | Mean Max (°C) | Mean Min (°C) | Temp Anomaly (°C) | Annual Precip (mm) | Precip Status |
@@ -110,13 +112,13 @@ To observe how these multi-decadal shifts manifest on an annual basis, we must e
 
 ### Interpretation of Year-over-Year Dynamics
 
-Reviewing the micro-level records in {% include ref.html id="tbl-annual-climate-record" cref="true" %} highlights how climate change disrupts long-term baselines. Early records like 1996 and 2000 display negative temperature anomalies, indicating years that were cooler than the 20th-century average. However, after 2010, negative temperature anomalies disappear completely.
+Reviewing the annual records in {% include ref.html id="tbl-annual-climate-record" cref="true" %} shows how a long table can support detailed interpretation. Early demo years such as 1996 and 2000 contain negative temperature anomalies, while the synthetic series contains only positive anomalies after 2010.
 
-The year 2012 marks an abrupt shift, where the temperature anomaly crossed the $+1.0$°C threshold ($+1.02$°C) for the first time, coinciding with a severe precipitation deficit ($698$ mm). This layout exposes a concerning correlation: late-epoch warming worsens hydrological extremes. The final five years of the study exhibit structural shifts, culminating in 2025's record temperature anomaly of $+1.85$°C.
+The year 2012 is the first year in this demo table where the temperature anomaly crosses the $+1.0$°C threshold ($+1.02$°C), coinciding with a low precipitation total ($698$ mm). This does not prove a causal relationship, but it illustrates how a post can connect tabular evidence to a cautious interpretation. The final five years show the highest values in the synthetic anomaly series, ending with $+1.85$°C in 2025.
 
 ## Visualizing Temperature Trends
 
-To translate the tabular historical record into an interpretable continuous visual sequence, the interactive line chart below charts the progression of both Mean Maximum and Mean Minimum surface temperatures over the 30-year timeframe.
+To translate the tabular record into an interpretable visual sequence, the interactive line chart below charts the progression of both mean maximum and mean minimum temperatures over the 30-year demo period.
 
 <!-- Load Chart.js via reliable CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -128,7 +130,7 @@ To translate the tabular historical record into an interpretable continuous visu
       styles.getPropertyValue(name).trim() || fallback;
 
     return {
-      background: '#ffffff',
+      background: getColor('--color-ui-bg','#ffffff'),
       text: getColor('--color-ui-text', '#1f2937'),
       muted: getColor('--color-ui-text-muted', '#6b7280'),
       border: getColor('--color-ui-border', '#e5e7eb'),
@@ -182,7 +184,7 @@ To translate the tabular historical record into an interpretable continuous visu
     ></canvas>
   </div>
   <figcaption class="c-prose-caption c-prose-figure__caption c-prose-caption--figure">
-    Mean maximum and minimum surface temperature trajectories from 1996 to 2025.
+    Synthetic mean maximum and minimum surface temperature trajectories from 1996 to 2025.
   </figcaption>
 </figure>
 
@@ -251,15 +253,15 @@ To translate the tabular historical record into an interpretable continuous visu
 
 ### Analysis of the Line Chart Trajectory
 
-The line chart highlights an important climate phenomenon: minimum temperatures are rising faster than maximum temperatures. While the maximum temperature curve (red line) shows clear upward steps, the minimum temperature curve (blue line) displays an even steeper upward slope, rising from $8.8$°C in 1996 to $12.5$°C by 2025.
+In this synthetic dataset, minimum temperatures rise faster than maximum temperatures. The mean maximum temperature increases from $19.4$°C in 1996 to $22.6$°C in 2025, while the mean minimum temperature increases from $8.8$°C to $12.5$°C over the same period.
 
-This asymmetry stems from greenhouse-gas-induced radiative forcing. Increased atmospheric carbon dioxide and water vapor block outgoing longwave radiation, keeping nighttime temperatures elevated. This prevents the nocturnal cooling cycles that ecosystems rely on to recover from daytime heat stress.
+This pattern is scientifically plausible: observed warming often affects nighttime minimum temperatures strongly because greenhouse gases reduce outgoing longwave cooling. However, the chart should be read as a demonstration of the template’s charting and caption system, not as evidence from a documented observational pipeline.
 
 ## Hydrological Instability: Precipitation Volatility
 
-While temperature metrics follow a steady, upward trajectory, precipitation behaves quite differently. Rather than showing a clean linear increase or decrease, the hydrological cycle reveals expanding volatility, shifting between moisture over-saturation and intense droughts.
+While the synthetic temperature metrics follow a steady upward trajectory, precipitation behaves differently. Rather than showing a clean linear increase or decrease, the demo series alternates between wetter and drier years.
 
-The bar chart below aggregates the absolute annual precipitation values, organized into the three decadal blocks to illustrate this growing volatility.
+The bar chart below shows annual precipitation values, organized into three decadal blocks to illustrate variability across the demo period.
 
 <figure
   class="c-prose-figure c-prose-figure--chart"
@@ -275,7 +277,7 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
     ></canvas>
   </div>
   <figcaption class="c-prose-caption c-prose-figure__caption c-prose-caption--figure">
-    Annual precipitation variability grouped by decadal epoch from 1996 to 2025.
+    Synthetic annual precipitation variability grouped by decadal epoch from 1996 to 2025.
   </figcaption>
 </figure>
 
@@ -358,25 +360,30 @@ The bar chart below aggregates the absolute annual precipitation values, organiz
 
 ### Interpretation of Hydrological Trends
 
-The distribution of precipitation across the three epochs highlights a significant shift in the climate system: the loss of standard, predictable weather patterns. In Epoch I (green bars), precipitation remained relatively stable, fluctuating within a narrow band between $780$ mm and $910$ mm. This represents a predictable hydrological regime.
+The distribution of precipitation across the three epochs demonstrates how Eyvan handles a second chart type and a longer explanatory section. In Epoch I, precipitation remains within a relatively narrow range between $780$ mm and $910$ mm.
 
-In Epoch II (blue bars), this predictability breaks down. We see a historic drop to $698$ mm in 2012, flanked by wet spikes like 2011's $955$ mm. This variability intensifies further in Epoch III (purple bars). Epoch III contains both the wettest year on record ($1015$ mm in 2022) and the driest year on record ($650$ mm in 2023).
+In Epoch II, the synthetic series becomes more variable, with a low value of $698$ mm in 2012 and a high value of $955$ mm in 2011. Epoch III contains the highest and lowest precipitation values in the demo table: $1015$ mm in 2022 and $650$ mm in 2023.
 
-This rapid swing from severe flooding potential to extreme drought within a 12-month window confirms a core climate prediction: a warmer atmosphere holds more moisture (roughly 7% per 1°C of warming, following the Clausius-Clapeyron equation). This fuels both heavier downpours and accelerated surface evaporation, drying out soil when it isn't raining.
+This pattern is consistent with a common climate-science explanation: a warmer atmosphere can hold more water vapor, approximately 7% more per 1°C of warming under Clausius-Clapeyron scaling. That physical relationship can contribute to heavier precipitation events in some contexts while also intensifying drying between storms. In this post, however, the precipitation sequence is illustrative rather than a formal statistical test.
 
 ## Limitations & Caveats
 
-While the trends in this post are clear, interpretation must consider several methodological limitations:
+Because this is a synthetic demo post, the main limitation is that the values are not reproducible observational results. A real analysis should include downloadable data, source URLs or DOIs, processing scripts, versioned dependencies, and documented quality-control decisions.
 
-* **Spatial Aggregation Constraints:** This data is aggregated across regional mid-latitude stations. It does not reflect macro-scale changes in equatorial regions or the accelerated warming seen in polar zones due to Arctic amplification.
-* **Urban Heat Island (UHI) Artifacts:** Although regional homogenization corrections were applied, several monitoring stations are located near expanding suburban corridors. Localized pavement expansion and land-use changes may introduce minor warming biases unrelated to broader atmospheric changes.
-* **Precipitation Capture Efficiency:** Standard automated rain gauges often under-report moisture totals during high-wind winter storms or sudden, intense downpours. This introduces a slight dry bias to extreme weather events.
+Additional limitations that would matter in a real climate-data workflow include:
+
+* **Spatial aggregation constraints:** Regional averages can hide local variation and should define the included stations or grid cells.
+* **Urban heat island artifacts:** Stations near expanding built environments may require careful treatment.
+* **Precipitation capture efficiency:** Gauges can under-report precipitation during high winds or intense events.
+* **Uncertainty and significance:** Trends should be tested statistically rather than inferred visually from a short table.
 
 ## References
 
-1. National Oceanic and Atmospheric Administration (NOAA). (2025). *Global Historical Climatology Network Daily (GHCN-Daily) Version 4.0 Standard Archives*. U.S. Department of Commerce.
-2. Intergovernmental Panel on Climate Change (IPCC). (2021). *Climate Change 2021: The Physical Science Basis*. Contribution of Working Group I to the Sixth Assessment Report. Cambridge University Press.
-3. Trenberth, K. E. (2011). *Changes in precipitation with climate change*. Climate Research, 47(1), 123-138.
+1. National Oceanic and Atmospheric Administration, *Global Historical Climatology Network Daily (GHCN-Daily), Version 4.0*, National Centers for Environmental Information, U.S. Department of Commerce (2025).
+
+2. Intergovernmental Panel on Climate Change, *Climate Change 2021: The Physical Science Basis*, Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change, Cambridge University Press, Cambridge, England (2021).
+
+3. K. E. Trenberth, “Changes in precipitation with climate change,” *Climate Research* **47**, 123–138 (2011).
 
 ## Endnotes
 

@@ -264,6 +264,11 @@
   text-transform: uppercase;
 }
 
+.c-prose-table thead th mjx-container {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
 // When there is no thead, put a top border on the first tbody row
 .c-prose-table tbody:first-child tr:first-child > * {
   border-top: 2px solid var(--color-ui-border);

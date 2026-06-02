@@ -42,6 +42,7 @@
 // - Page/grid/container layout belongs to layout and object layers
 // - Readable body measure belongs to .o-prose
 // - Shared author/date/read-time styling is delegated to _entry-meta.scss
+// - Shared tag styling is delegated to _tag.scss
 // - Share control visuals remain owned by _post-share.scss
 // - This file owns only post-shell layout and contextual component placement
 // -----------------------------------------------------------------------------
@@ -139,7 +140,7 @@ $post-layout-toc-max-width: 20rem;
 }
 
 .c-post__tag {
-  text-transform: capitalize;
+  flex: 0 0 auto;
 }
 
 /* -----------------------------------------------------------------------------

@@ -25,10 +25,13 @@
     - include.post: post object
   - Delegates reusable metadata rendering to:
     - entry-meta.html
+  - Uses:
+    - c-tag for post taxonomy links
 
   Accessibility:
   - Uses a semantic article element
   - Linked image alt text falls back to the post title
+  - Tag links remain standard links
   - Metadata accessibility is delegated to entry-meta.html
 
   Data dependencies:
@@ -83,7 +86,7 @@
           {% for tag in post.tags %}
             {% assign slug = tag | slugify %}
             <a
-              class="c-button c-button--tag c-button--tag-small c-post-card__tag"
+              class="c-tag c-post-card__tag"
               href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
               aria-label="View posts tagged {{ tag }}"
             >

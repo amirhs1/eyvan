@@ -44,6 +44,7 @@ layout: default
   - Uses ITCSS + BEM naming
   - Content layout handled by c-post-layout
   - Reusable UI fragments are delegated to includes
+  - Tag links use the shared c-tag component
 
   Accessibility:
   - Uses semantic article and header elements
@@ -93,7 +94,7 @@ layout: default
             {% for tag in page.tags %}
               {% assign slug = tag | slugify %}
               <a
-                class="c-button c-button--tag c-post__tag"
+                class="c-tag c-post__tag"
                 href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
                 aria-label="View posts tagged {{ tag }}"
               >

@@ -9,7 +9,7 @@ image_alt: "Animated comparison of entangled photon polarization measurements an
 description: "A rigorous introduction to quantum entanglement with LaTeX math, citations, and footnotes."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
+> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
 
 Quantum entanglement represents one of the most important departures of quantum mechanics from the classical worldview. It changes how we think about physical reality, locality, measurement, and information. First brought into sharp focus by Einstein, Podolsky, and Rosen (EPR) in 1935 as part of an argument about the incompleteness of quantum theory, entanglement describes a non-separable state of a composite system: the whole system has a well-defined quantum state, but its parts cannot always be assigned independent pure states.
 

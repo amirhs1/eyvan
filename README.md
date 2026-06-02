@@ -6,7 +6,7 @@ View the live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 
 ## Philosophy
 
-In traditional architecture, an *eyvan* is neither fully interior nor exterior. It is a space of encounter and transition — open, structured, and intentional.
+In traditional Iranian architecture, an *eyvan* is neither fully interior nor exterior. It is a space of encounter and transition — open, structured, and intentional.
 
 This theme follows the same logic:
 
@@ -16,12 +16,19 @@ This theme follows the same logic:
 
 ## Features
 
-- Clean, minimalist layout  
-- Responsive design  
-- Jekyll and GitHub Pages compatible  
-- GitHub Actions deployment ready (recommended for custom plugins)
-- Easy to customize typography and colors  
-- Suitable for portfolios, blogs, and academic sites  
+- Clean, minimalist layout with a responsive 12-column grid
+- Light/dark theme toggle
+- Three-column post layout with desktop and mobile table of contents
+- Optional cover images with Open Graph and Twitter card social previews
+- MathJax support for LaTeX-style inline and display math (opt-in per post)
+- Syntax-highlighted code blocks via Rouge
+- Tag archive pages powered by `jekyll/tagging`
+- Post sharing controls, estimated reading time, and related posts
+- ITCSS/BEM CSS architecture organized across eight Sass layers
+- Data-driven navigation and reusable Liquid includes for figures, videos, audio, tables, and cross-references
+- SEO sitemap via `jekyll-sitemap`
+- GitHub Actions deployment ready (required for custom plugins)
+- Suitable for portfolios, blogs, documentation, and academic sites
 
 ## Getting Started
 
@@ -46,18 +53,21 @@ This theme follows the same logic:
 4. Open your browser at:
 
     ```text
-    http://localhost:4000
+    http://localhost:4000/eyvan/
     ```
 
 ## Customization
 
-- Most site settings can be modified in `_config.yml`.
-- Layout and structure can be adjusted in `_layouts` and `_includes`.  
-- Styles are located in the `assets` or `_sass` directory, depending on the setup.
+- Site identity, URL, logo, and global feature flags are set in `_config.yml`.
+- Post defaults (layout, sharing, read time) are controlled via the `defaults` key in `_config.yml`.
+- Navigation links are managed through the navigation data file rather than hard-coded in the header.
+- Layouts live in `_layouts/` (`default`, `homepage`, `page`, `post`, `tag-page`); includes live in `_includes/`.
+- Styles follow an **ITCSS** layer structure in `_sass/`: settings → tools → generic → base → objects → components → layouts → trumps. Class names use a **BEM** convention with `c-` (component), `o-` (object), `l-` (layout), `u-` (utility), and `is-` (state) prefixes.
+- Per-post behavior is controlled through front matter fields: `toc`, `math`, `share`, `image`, `image_alt`, `subtitle`, `tags`, `read_time`, and more. See the demo post *Front Matter Field Reference* for a complete guide.
 
 ## Deployment
 
-This theme uses the `jekyll-tagging` plugin, which is **not supported** by the default GitHub Pages build engine.
+This theme uses the `jekyll/tagging` plugin, which is **not supported** by the default GitHub Pages build engine.
 
 For that reason, the recommended production setup is:
 

@@ -13,7 +13,7 @@ description: "A behind-the-scenes look at the design decisions, CSS architecture
 
 > **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan Jekyll template.
 
-A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **eyvan-jekyll**: a minimalist Jekyll template for portfolios, research notes, technical writing, and project archives[^1].
+A good portfolio template should feel almost invisible. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **eyvan-jekyll**: a minimalist Jekyll template for portfolios, research notes, technical writing, and project archives.[^1]
 
 The name comes from the architectural idea of an _eyvan_: an open, vaulted threshold that sits between inside and outside. That metaphor fits the template well. A portfolio is also a threshold. It is not only a private archive, and it is not only a public résumé. It is a framed space where writing, projects, identity, and navigation meet.[^1]
 

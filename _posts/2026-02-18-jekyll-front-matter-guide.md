@@ -94,9 +94,9 @@ subtitle: "Design, implementation, and benchmarks in Python and Go"
 
 > **Warning:** Do not use `layout: default` for long-form posts. The default layout only provides the site shell. The `post` layout adds the post header, tags, metadata row, optional cover image, TOC placement, post navigation, and related posts.
 
-## SEO and social preview fields
+## Search Engine Optimization (SEO) and social preview fields
 
-SEO fields help the page appear correctly in search engines, feeds, and social previews. The template centralizes this behavior in the head include, so most pages only need a good `title`, `description`, and optional `image`.
+Search Engine Optimization (SEO) fields help the page appear correctly in search engines, feeds, and social previews. The template centralizes this behavior in the head include, so most pages only need a good `title`, `description`, and optional `image`.
 
 {% include table-caption.html
    caption="SEO and social preview front matter fields."
@@ -107,8 +107,8 @@ SEO fields help the page appear correctly in search engines, feeds, and social p
 | :--- | :--- | :--- | :--- | :--- |
 | `title` | string | Site title fallback | `<title>`, Open Graph, Twitter | Defines the page title. |
 | `description` | string | `site.description` | Meta description, Open Graph, Twitter | Short summary for search and previews. |
-| `image` | string | `site.default_og_image` or placeholder | Post cover, Open Graph, Twitter | Preview image and optional post cover. |
-| `image_alt` | string | `page.title` | Post/page image alt text | Accessible text for the cover or page image. |
+| `image` | string | `site.default_og_image` or placeholder for social previews; none for the post cover | Post cover, Open Graph, Twitter | Provides the preferred social preview image and renders a post cover when set. |
+| `image_alt` | string | `page.title` | Post/page image alt text | Provides accessible text for the cover image. |
 {: .c-prose-table }
 
 A strong `description` should be specific, concise, and readable outside the page context. Aim for one sentence. Avoid keyword lists. Good descriptions explain what the reader will learn.
@@ -117,14 +117,23 @@ A strong `description` should be specific, concise, and readable outside the pag
 description: "A complete reference guide for all supported front matter fields in this Jekyll template."
 ```
 
-The `image` field has two roles. In the post layout, it renders a full-width cover image above the article header. In the head include, it becomes the social preview image. That makes it powerful, but it also means you should use it intentionally. If you want a header-only documentation post, omit `image`.
+The `image` field has two roles. In the post layout, it renders a full-width cover image above the article header. In the head include, it becomes the social preview image. That makes it powerful, but it also means you should use it intentionally. If you want a header-only documentation post, omit `image` and let the head include fall back to `site.default_og_image` for social previews.
 
 ```yaml
 image: "assets/images/posts/template-design.jpg"
 image_alt: "A clean website layout showing cards, typography, and navigation"
 ```
 
-> **Note:** This post intentionally has no `image` field. That tests the header-only post layout and keeps the reference guide focused on text, tables, and code blocks.
+The `image_alt` field should describe the meaningful content of the image, not repeat the file name or stuff keywords into the page. Good alt text is useful for screen-reader users, slow connections, broken image states, and anyone who needs the image content expressed in words. For decorative images, the template currently falls back to the page title, so it is better to write a short meaningful description whenever `image` is set.
+
+A good `image_alt` usually answers: what is shown, what matters about it, and why it is relevant to the page. Keep it concise. Do not start with phrases like “image of” or “picture of” unless the medium itself matters.
+
+```yaml
+image: "assets/images/posts/front-matter-cover.webp"
+image_alt: "An Eyvan-style arch framing a code editor with Jekyll front matter keys"
+```
+
+> **Tip:** If the cover image contains important text, include the text or its meaning in `image_alt`. If the image is only decorative, consider whether the post needs a cover image at all.
 
 ## Display fields
 
@@ -149,6 +158,29 @@ Tags are especially important in this template because the Projects page groups 
 ```yaml
 tags: [documentation, jekyll, reference, technical-writing]
 ```
+
+Use `author` when a post has one explicit byline that differs from the site-wide default author. This is useful for guest posts, edited notes, or a portfolio template demo where you want to show how attribution works.
+
+```yaml
+author: "John Michael Doe"
+```
+
+Use `avatar` when the metadata row should show an author image. The post layout passes `show_avatar=true` to the entry metadata include, so an avatar can appear where the metadata include supports it. Store avatar images in a predictable location, such as `assets/images/authors/`, and keep them small and square.
+
+```yaml
+author: "John Michael Doe"
+avatar: "assets/images/authors/amir.webp"
+```
+
+Use `authors` when a post has multiple credited contributors. Keep names short and consistent, because they may appear in compact metadata areas such as post headers or cards depending on the include implementation.
+
+```yaml
+authors:
+  - "John Michael Doe"
+  - "Jane Mary Smith"
+```
+
+For ordinary personal portfolio posts, you can usually omit `author`, `authors`, and `avatar` and let the template use the site-wide author data. Add them only when the post needs custom attribution.
 
 The post date usually comes from the filename. A file named `2026-02-18-jekyll-front-matter-guide.md` automatically has the date February 18, 2026. You can still set `date` manually if you need a specific time, but the filename is cleaner for most posts.
 
@@ -192,6 +224,20 @@ Use `share: false` when sharing controls would be distracting or unnecessary. Fo
 ```yaml
 share: false
 ```
+
+Use `read_time` when you want to control whether the metadata include displays an estimated reading time. This is usually helpful for essays, tutorials, and long documentation posts because it gives readers a quick expectation before they start. It may be unnecessary for short announcements, visual galleries, project index pages, or posts where the body is mostly embedded media.
+
+```yaml
+read_time: true
+```
+
+To suppress reading-time metadata on a specific post, set it to `false`.
+
+```yaml
+read_time: false
+```
+
+> **Tip:** Reading time is an estimate, not a promise. It is most useful when the post is primarily prose. For media-heavy posts, use the introduction to set expectations instead.
 
 > **Warning:** Do not enable `math: true` globally unless almost every page uses math. Conditional loading is better for performance and keeps simple posts simple.
 
@@ -259,12 +305,15 @@ Follow this process when adding a new post to the template.
 
    Confirm that the title, subtitle, tags, metadata, TOC, and body spacing all look correct.
 
-8. Commit the post.
+8. Commit and push the post.
 
    ```bash
    git add _posts/2026-02-18-jekyll-front-matter-guide.md
    git commit -m "Add front matter reference guide"
+   git push origin main
    ```
+
+   If your default branch is not `main`, replace `main` with your actual branch name.
 
 ## Minimal vs full front matter
 
@@ -314,7 +363,11 @@ The minimal version relies on defaults. The full version is more explicit. Both 
 
 Use inline code when referring to field names such as `title`, `subtitle`, `tags`, `toc`, and `description`. Use fenced YAML blocks when showing complete front matter examples. This keeps the writing scannable and makes the post useful as a reference.
 
-For tables, use the table caption include before the Markdown table:
+Eyvan also includes reusable Liquid snippets for rich Markdown content. Prefer these includes over hand-written HTML because they keep captions, numbering, cross-references, layout classes, and accessibility behavior centralized.
+
+### Tables with captions
+
+Use `table-caption.html` immediately before a Markdown table when the table needs a visible caption and an anchorable `id`.
 
 {% raw %}
 ```liquid
@@ -327,10 +380,17 @@ For tables, use the table caption include before the Markdown table:
 | :--- | :--- |
 | `title` | Main title |
 | `description` | SEO summary |
+{: .c-prose-table }
 ```
 {% endraw %}
 
-For figures, use the figure include instead of hand-writing image markup:
+The `caption` value is the human-readable table title. The `id` value is the stable anchor used for links and cross-references.
+
+> **Important:** Put `{: .c-prose-table }` directly after the final table row with no empty line between them. In kramdown, that attribute line attaches the `c-prose-table` class to the table. If you leave a blank line, the table may render without the template’s table styling.
+
+### Image figures
+
+Use `figure.html` for images that belong to the article body. This is better than plain Markdown image syntax when you need a caption, figure numbering, a cross-reference target, or consistent responsive media styling.
 
 {% raw %}
 ```liquid
@@ -343,7 +403,107 @@ For figures, use the figure include instead of hand-writing image markup:
 ```
 {% endraw %}
 
-For cross-references, use the reference include:
+Common options include `src`, `alt`, `caption`, and `id`. Use `alt` for accessibility and `caption` for visible explanatory text. Use a stable `id` such as `fig-rate-limiter-diagram` if you want to link to the figure later.
+
+If the include supports figure numbering, you can usually disable numbering for decorative or supporting images with `numbered="false"`.
+
+{% raw %}
+```liquid
+{% include figure.html
+   src="/assets/images/posts/decorative-divider.webp"
+   alt="Decorative geometric divider"
+   numbered="false"
+%}
+```
+{% endraw %}
+
+> **Important:** Images, videos, and audios are numbered as figures by default. Use `numbered="false"` when you want a captioned image or video that does not increment the shared figure counter.
+
+### Video figures
+
+Use `video.html` for self-hosted videos or third-party embeds. Videos share the same figure counter, so they can be referenced like other figures when they have an `id` and numbered caption.
+
+Self-hosted video:
+
+{% raw %}
+```liquid
+{% include video.html
+   src="/assets/video/demo.mp4"
+   poster="/assets/video/demo-poster.webp"
+   captions="/assets/video/demo.en.vtt"
+   ratio="16-9"
+   caption="A short demonstration of the project interaction."
+   id="fig-demo-video"
+%}
+```
+{% endraw %}
+
+Multiple self-hosted formats:
+
+{% raw %}
+```liquid
+{% include video.html
+   ratio="16-9"
+   caption="The same video provided in WebM and MP4 formats."
+   id="fig-demo-video-formats"
+   src="
+     /assets/video/demo.webm | video/webm
+     /assets/video/demo.mp4  | video/mp4
+   "
+%}
+```
+{% endraw %}
+
+Third-party embed:
+
+{% raw %}
+```liquid
+{% include video.html
+   embed="https://www.youtube.com/embed/VIDEO_ID"
+   provider="youtube"
+   ratio="16-9"
+   caption="An embedded walkthrough video."
+   id="fig-walkthrough-video"
+%}
+```
+{% endraw %}
+
+Useful options include `src`, `embed`, `provider`, `poster`, `captions`, `captions_lang`, `captions_label`, `ratio`, `caption`, `id`, `title`, `loading`, `preload`, and `numbered="false"`. Use `ratio="16-9"` for most videos, `ratio="4-3"` for older recordings, `ratio="1-1"` for square media, and `ratio="cinema"` for wide cinematic embeds.
+
+### Audio figures
+
+Use `audio.html` for podcast clips, sound examples, interviews, narration, or any post where audio is part of the content. The exact options should match your local include, but the recommended pattern is similar to video: provide a source, a caption, and an `id` when the audio should be referenceable.
+
+{% raw %}
+```liquid
+{% include audio.html
+   src="/assets/audio/example.mp3"
+   caption="A short audio example used in the analysis."
+   id="fig-audio-example"
+%}
+```
+{% endraw %}
+
+If the include supports multiple formats, prefer providing both MP3 and Ogg/WebM audio for broader browser support.
+
+{% raw %}
+```liquid
+{% include audio.html
+   caption="The same audio clip provided in multiple formats."
+   id="fig-audio-formats"
+   src="
+     /assets/audio/example.ogg | audio/ogg
+     /assets/audio/example.mp3 | audio/mpeg
+   "
+%}
+```
+{% endraw %}
+
+Use captions for context, not transcripts. If the audio contains spoken content, link to or include a transcript in the post body for accessibility.
+
+### Cross-references
+
+Use `ref.html` when you want to link to a numbered table, figure, video, or audio item from the body text. The `id` must match the target include or caption id.
 
 {% raw %}
 ```liquid
@@ -351,7 +511,33 @@ See {% include ref.html id="tbl-feature-fields" cref="true" %} for the feature t
 ```
 {% endraw %}
 
-These includes keep captions, numbering, layout classes, and accessibility behavior centralized.
+With `cref="true"`, the reference is displayed with a label such as “Table” or “Figure” when the cross-reference script resolves it. Without `cref`, it behaves more like a bare number reference.
+
+{% raw %}
+```liquid
+Figure {% include ref.html id="fig-example" %} shows the reusable media pattern.
+```
+{% endraw %}
+
+### Math rendering
+
+For math-heavy posts, use normal Markdown plus LaTeX delimiters, and enable MathJax in front matter with `math: true`.
+
+```yaml
+math: true
+```
+
+Inline math can use `$...$`, while display math can use `$$...$$`.
+
+```markdown
+The token refill rate is $r$ tokens per second.
+
+$$
+B(t) = \min(C, B_0 + rt)
+$$
+```
+
+Only enable `math: true` on pages that need math so simple posts do not load MathJax unnecessarily.
 
 > **Tip:** If you are writing a post that explains Liquid includes, wrap example include tags in `{% raw %}` and `{% endraw %}` so Jekyll displays the example instead of executing it.
 

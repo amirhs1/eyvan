@@ -1,0 +1,55 @@
+name: Run Automated Tests
+
+on:
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop", "main"]
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build Jekyll Site
+        run: bundle exec jekyll build
+
+      - name: Start Local Jekyll Server
+        run: bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
+
+      - name: Wait for Jekyll Server
+        run: npx wait-on http://127.0.0.1:4000/eyvan/
+
+      - name: Run Accessibility and Integration Tests
+        run: npm run test:a11y
+
+      - name: Upload Test Reports if Failed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+          

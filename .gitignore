@@ -14,12 +14,31 @@ vendor/bundle/
 Gemfile.lock
 
 # -----------------------------
+# Node / Dependencies
+# -----------------------------
+node_modules/
+
+# -----------------------------
+# Playwright / Testing artifacts
+# -----------------------------
+playwright-report/
+blob-report/
+playwright/.local-browsers/
+test-results/
+
+# -----------------------------
+# Logs
+# -----------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -----------------------------
 # OS files
 # -----------------------------
 **/.DS_Store
 **/.DS_Store?
 Thumbs.db
-
 
 # -----------------------------
 # Editor / IDE
@@ -29,12 +48,10 @@ Thumbs.db
 .claude/
 
 # -----------------------------
-# Project-specific
+# Project-specific files
 # -----------------------------
 structure.txt
-_sass/*.sh
 create_structure.sh
+_sass/*.sh
 assets/fonts/*.zip
-node_modules/*
-test-results/*
 AUDIT_REPORT.*

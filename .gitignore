@@ -26,6 +26,7 @@ Thumbs.db
 # -----------------------------
 .vscode/
 .idea/
+.claude/
 
 # -----------------------------
 # Project-specific
@@ -36,3 +37,4 @@ create_structure.sh
 assets/fonts/*.zip
 node_modules/*
 test-results/*
+AUDIT_REPORT.*

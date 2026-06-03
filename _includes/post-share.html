@@ -50,10 +50,10 @@
 <!-- post-share.html -->
 <div class="c-post-share" aria-label="Share this post">
   <div class="c-post-share__head">
-    <h4 class="c-post-share__title">Share this post</h4>
+    <p class="c-post-share__title">Share this post</p>
   </div>
 
-  <div class="c-post-share__list" role="list">
+  <div class="c-post-share__list">
     {% for item in share_items %}
       {% assign href = nil %}
       {% assign onclick = nil %}
@@ -85,7 +85,6 @@
           <a
             class="c-icon-link c-post-share__link"
             href="{{ href | strip }}"
-            role="listitem"
             {% if onclick %}onclick="{{ onclick | strip }}"{% endif %}
             {% if item.rel %}rel="{{ item.rel }}"{% endif %}
             title="{{ item.label }}"
@@ -99,7 +98,6 @@
           <button
             class="c-icon-link c-post-share__link{% if item.button_class %} {{ item.button_class }}{% endif %}"
             type="button"
-            role="listitem"
             title="{{ item.label }}"
             aria-label="{{ item.label }}"
             {% if item.data_title %}data-title="{{ page.title | escape }}"{% endif %}

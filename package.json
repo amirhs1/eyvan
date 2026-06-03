@@ -9,7 +9,10 @@
   "scripts": {
     "a11y": "pa11y-ci http://127.0.0.1:4000/eyvan/ http://127.0.0.1:4000/eyvan/projects/ http://127.0.0.1:4000/eyvan/projects/field-notes-iceland-2025/",
     "a11y:sitemap": "pa11y-ci --sitemap http://127.0.0.1:4000/eyvan/sitemap.xml",
-    "test:a11y": "playwright test"
+    "test:a11y": "playwright test",
+    "lhci": "lhci autorun",
+    "lhci:collect": "lhci collect",
+    "lhci:assert": "lhci assert"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,7 @@
   "homepage": "https://github.com/amirhs1/eyvan#readme",
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "pa11y-ci": "^4.1.1"
   }

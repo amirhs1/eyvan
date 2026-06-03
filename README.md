@@ -22,6 +22,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 - Syntax-highlighted code blocks via Rouge
 - Tag archive pages powered by `jekyll/tagging`
 - SEO sitemap via `jekyll-sitemap`
+- Atom/RSS feed at `/feed.xml` via `jekyll-feed`, auto-discovered from every page
 - ITCSS/BEM Sass architecture organized through layer directories and imported from `assets/css/main.scss`
 - GitHub Actions deployment ready for plugins not supported by the native GitHub Pages builder
 
@@ -136,7 +137,12 @@ Recommended setup:
 1. In GitHub, go to **Settings -> Pages**.
 2. Set **Source** to **GitHub Actions**.
 3. Keep or adapt `.github/workflows/jekyll-pages.yml`.
-4. Set `_config.yml` for your published URL.
+4. Set `url` and `baseurl` in `_config.yml` to your own site (see examples below).
+
+> **Important:** Eyvan ships with `url` and `baseurl` pointing at the demo site
+> (`https://amirhs1.github.io/eyvan`). Until you change them, your canonical tags,
+> Open Graph / Twitter previews, sitemap, and RSS feed will reference the demo
+> instead of your site. Update both **before your first deploy**.
 
 For a project site:
 

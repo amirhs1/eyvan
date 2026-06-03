@@ -46,6 +46,7 @@ gem "sass-embedded"
 #
 # NOTE:
 # - `jekyll-sitemap` is supported everywhere.
+# - `jekyll-feed` (Atom feed at /feed.xml) is supported everywhere.
 # - `jekyll-tagging` works locally and in GitHub Actions builds.
 #   It does NOT work with the native GitHub Pages builder.
 #
@@ -54,6 +55,7 @@ gem "sass-embedded"
 group :jekyll_plugins do
   gem "jekyll-tagging"
   gem "jekyll-sitemap"
+  gem "jekyll-feed"
 end
 
 # ------------------------------------------------------------

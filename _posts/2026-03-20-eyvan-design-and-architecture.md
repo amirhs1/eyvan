@@ -75,6 +75,7 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 | MathJax           | Math renderer          | Enables LaTeX-style inline and display math on pages that opt in with `math: true`.                    |
 | `jekyll/tagging`  | Tag archive generation | Creates browsable topic pages for posts and projects.                                                  |
 | `jekyll-sitemap`  | SEO support            | Generates a sitemap for search engines.                                                                |
+| `jekyll-feed`     | Syndication            | Generates an Atom/RSS feed at `/feed.xml` and a discovery link in every page head.                     |
 | SCSS              | Styling language       | Provides variables, mixins, partial organization, and compiled CSS.                                    |
 | GitHub Actions    | Build pipeline         | Builds the site with plugins that GitHub Pages does not process by default.                            |
 
@@ -96,6 +97,7 @@ kramdown:
 plugins:
   - jekyll-sitemap
   - jekyll/tagging
+  - jekyll-feed
 
 defaults:
   - scope:

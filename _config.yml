@@ -6,8 +6,12 @@
 # ------------------------------------------------------------
 title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
-#url: "https://amirhs1.github.io"
-url: "http://localhost:4000"
+# `url` + `baseurl` build the absolute links used in canonical tags, Open Graph /
+# Twitter previews, the sitemap, and the RSS feed. The values below point at the
+# Eyvan demo site.
+# IMPORTANT: change both to your own after creating a site from this template,
+# otherwise those links will keep pointing at the demo. See "Deployment" in README.md.
+url: "https://amirhs1.github.io"
 baseurl: "/eyvan"
 default_og_image: "assets/images/og-default.webp"
 
@@ -45,6 +49,7 @@ kramdown:
 plugins:
   - jekyll-sitemap
   - jekyll/tagging
+  - jekyll-feed
 
 # ------------------------------------------------------------
 # Default front matter values

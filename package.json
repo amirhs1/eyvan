@@ -9,7 +9,7 @@
   "scripts": {
     "a11y": "pa11y-ci http://127.0.0.1:4000/eyvan/ http://127.0.0.1:4000/eyvan/projects/ http://127.0.0.1:4000/eyvan/projects/field-notes-iceland-2025/",
     "a11y:sitemap": "pa11y-ci --sitemap http://127.0.0.1:4000/eyvan/sitemap.xml",
-    "test:a11y": "playwright test",
+    "test:a11y": "playwright test"
   },
   "repository": {
     "type": "git",

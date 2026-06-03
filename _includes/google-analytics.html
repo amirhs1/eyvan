@@ -43,12 +43,13 @@
   - If you later add consent management, this is the include to update
 {% endcomment %}
 
-{% if site.google_analytics %}
+{% assign google_analytics_id = site.google_analytics | default: '' | strip %}
+{% if google_analytics_id != '' %}
   <!-- google-analytics.html -->
   <!-- Google tag (GA4) loader -->
   <script
     async
-    src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}">
+    src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}">
   </script>
 
   <!-- Google Analytics bootstrap and configuration -->
@@ -60,7 +61,7 @@
     }
 
     gtag('js', new Date());
-    gtag('config', '{{ site.google_analytics }}');
+    gtag('config', '{{ google_analytics_id }}');
   </script>
   <!-- End of google-analytics.html -->
 {% endif %}

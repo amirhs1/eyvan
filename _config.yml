@@ -111,3 +111,11 @@ exclude:
   - vendor/ruby
   - README.md
   - notes
+  - package.json
+  - package-lock.json
+  - eyvan.gemspec
+  - tests
+  - test-results
+  - playwright-report
+  - playwright.config.js
+  - AUDIT_REPORT.md

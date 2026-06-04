@@ -47,6 +47,8 @@ Thumbs.db
 .idea/
 .claude/
 CLAUDE.md
+AGENTS.md
+.codex/
 
 # -----------------------------
 # Project-specific files

@@ -53,7 +53,7 @@
   Notes:
   - Favicons should exist in /assets/favicon/
   - If site.default_og_image is not set, this file falls back to:
-    /assets/images/hero-placeholder.jpg
+    /assets/images/hero-placeholder.webp
   - Analytics loads only when `site.google_analytics` is a non-empty value
     (a blank or whitespace-only value disables it)
 {% endcomment %}
@@ -74,7 +74,7 @@
     {% assign meta_title = site.title %}
   {% endif %}
   {% assign meta_description = page.description | default: site.description | strip_html | strip_newlines | truncate: 160 | xml_escape %}
-  {% assign meta_image = page.image | default: site.default_og_image | default: '/assets/images/hero-placeholder.jpg' %}
+  {% assign meta_image = page.image | default: site.default_og_image | default: '/assets/images/hero-placeholder.webp' %}
 
   <!-- Charset and browser compatibility -->
   <meta charset="utf-8">

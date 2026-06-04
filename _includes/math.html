@@ -6,7 +6,7 @@
   Structure:
   - Guard: render nothing unless the current page sets `math: true`
   - Config: define MathJax TeX parsing rules before the library loads
-  - Polyfill: load ES6 polyfills only for older browsers that need them
+
   - Loader: fetch MathJax asynchronously from the CDN
 
   Architecture:
@@ -23,7 +23,6 @@
 
   Performance:
   - MathJax is loaded only on opted-in pages
-  - The ES6 polyfill is loaded conditionally for older browsers only
   - The MathJax script is loaded asynchronously
 
   Usage:
@@ -35,7 +34,7 @@
   Dependencies:
   - page.math
   - MathJax v3 CDN bundle: `tex-mml-chtml.js`
-  - Optional ES6 polyfill from polyfill.io for older browsers
+
 
   Notes:
   - This include should normally be loaded from `_layouts/default.html`
@@ -55,13 +54,6 @@
         processEscapes: true
       }
     };
-  </script>
-
-  <!-- Conditional ES6 polyfill for older browsers -->
-  <script>
-    if (!window.Promise) {
-      document.write('<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"><\\/script>');
-    }
   </script>
 
   <!-- Async MathJax loader -->

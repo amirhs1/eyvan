@@ -170,9 +170,34 @@ For a custom domain, configure the domain in GitHub Pages settings and add a `CN
 
 ## Attribution
 
-If your version of Eyvan is derived from another template, keep the original template name, author, repository URL, and license notice here. Remove this section only when no upstream attribution is required.
+### Acknowledgments & Design Inspiration
+
+The template draw creative and technical inspiration from the following open-source projects:
+
+- [minimal-mistakes](https://github.com/mmistakes/minimal-mistakes)
+- [analytics-link.github.io](https://github.com/analytics-link/analytics-link.github.io)
+- [vonge-jekyll-bookshop-template](https://github.com/CloudCannon/vonge-jekyll-bookshop-template)
+
+### Development & Core Assets
+
+- **AI Assistants**: Code generation, modular templating refactoring, refactoring logic, debugging scripts, and demo posts were developed in collaboration with Large Language Models, including OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
+- **JavaScript Assets**: Various scripting behaviors utilized within this template are adapted from existing open-source projects. For detailed licensing, original authors, and implementation notes, please refer to the documentation headers directly within the respective `.js` files located in the script directories.
+
+### Iconography Licensing
+
+The template incorporates third-party open-source iconography assets. Icons have been optimized to support dynamic light and dark mode styling by leveraging `currentColor` fills where applicable.
+
+- **CV Icon**: Original design by the template author.
+- **Ionicons** (`chevron-down-circle`, `chevron-up-circle`, `close-circle`, `discord`, `github`, `instagram`, `linkedin`, `mail`, `menu`, `moon`, `old-twitter`, `pinterest`, `print`, `rss`, `send`, `share`, `sunny`, `timer`, `youtube`): Developed by [Ionic](https://ionic.io/ionicons) and released under the [MIT License](https://opensource.org/licenses/MIT).
+- **Font Awesome** (`medium`): Brand icon provided by [Font Awesome](https://fontawesome.com/) under the [Font Awesome Free License / CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Subject to trademark guidelines.
+- **Google Scholar Icon** (`google_scholar`): Sourced via [SVG Repo](https://www.svgrepo.com/svg/306145/googlescholar) under the SVG Repo Logo License vectors agreement.
+- **ORCID iD** (`orcid`): Monochromatic optimization of the official asset sourced via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ORCID_iD.svg), governed by ORCID, Inc. asset guidelines and dedicated to the public domain under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
+- **X Logo** (`x`): Rendered via `currentColor` strictly as a solid monochromatic asset to comply with the scaling and color constraints outlined in the official [X Brand Toolkit](https://about.x.com/en/who-we-are/brand-toolkit). All rights and trademarks reside with X Corp.
+
+### Legal Notice & Trademarks
+
+Certain brand logos (including but not limited to Google Scholar, Medium, ORCID, X, GitHub, LinkedIn, and YouTube) are protected as registered trademarks of their respective copyright holders. The inclusion of these assets within this theme does not imply endorsement of the template by the trademark holders, nor vice versa. Users of this template are responsible for ensuring their deployment complies with the respective brand guidelines.
 
 ## License
 
 This project is released under the MIT License. See [LICENSE](./LICENSE) for details.
- 

@@ -183,6 +183,14 @@ The template draw creative and technical inspiration from the following open-sou
 - **AI Assistants**: Code generation, modular templating refactoring, refactoring logic, debugging scripts, and demo posts were developed in collaboration with Large Language Models, including OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
 - **JavaScript Assets**: Various scripting behaviors utilized within this template are adapted from existing open-source projects. For detailed licensing, original authors, and implementation notes, please refer to the documentation headers directly within the respective `.js` files located in the script directories.
 
+### Typography Licensing
+
+The template self-hosts three variable WOFF2 font subsets (latin range only). All three families are released under the [SIL Open Font License 1.1 (OFL)](https://openfontlicense.org/), which permits free use, modification, and redistribution in derivative works provided the OFL terms are preserved.
+
+- **Literata** (editorial / body serif): Designed by TypeTogether. Source: [Google Fonts](https://fonts.google.com/specimen/Literata). Licensed under [OFL 1.1](https://openfontlicense.org/).
+- **Space Grotesk** (display / UI sans-serif): Designed by Florian Karsten. Source: [Google Fonts](https://fonts.google.com/specimen/Space+Grotesk). Licensed under [OFL 1.1](https://openfontlicense.org/).
+- **JetBrains Mono** (technical / code monospace): Designed by JetBrains. Source: [Google Fonts](https://fonts.google.com/specimen/JetBrains+Mono). Licensed under [OFL 1.1](https://openfontlicense.org/).
+
 ### Iconography Licensing
 
 The template incorporates third-party open-source iconography assets. Icons have been optimized to support dynamic light and dark mode styling by leveraging `currentColor` fills where applicable.

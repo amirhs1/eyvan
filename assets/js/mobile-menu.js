@@ -78,6 +78,13 @@ Related components:
       mobileMenu.classList.add('is-open');
       body.classList.add('is-mobile-menu-open');
       syncNavToggleState(true);
+
+      const firstFocusable = navClose || mobileMenu.querySelector(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (firstFocusable) {
+        firstFocusable.focus();
+      }
     }
 
     function closeMobileMenu() {
@@ -125,6 +132,32 @@ Related components:
       });
     }
 
+    function bindFocusTrap() {
+      const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+      mobileMenu.addEventListener('keydown', (event) => {
+        if (event.key !== 'Tab' || !isMobileMenuOpen()) {
+          return;
+        }
+
+        const focusable = Array.from(mobileMenu.querySelectorAll(FOCUSABLE));
+        if (!focusable.length) {
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+    }
+
     function bindMobileNavLinks() {
       mobileNavLinks.forEach((link) => {
         link.addEventListener('click', () => {
@@ -142,6 +175,7 @@ Related components:
       bindToggleButton();
       bindCloseButton();
       bindEscapeKey();
+      bindFocusTrap();
       bindMobileNavLinks();
     }
 

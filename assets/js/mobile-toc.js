@@ -151,6 +151,32 @@ Related components:
       });
     }
 
+    function bindFocusTrap() {
+      const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+      mobileToc.addEventListener('keydown', (event) => {
+        if (event.key !== 'Tab' || !isMobileTocOpen()) {
+          return;
+        }
+
+        const focusable = Array.from(mobileToc.querySelectorAll(FOCUSABLE));
+        if (!focusable.length) {
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+    }
+
     function bindTocLinks() {
       tocLinks.forEach((link) => {
         link.addEventListener('click', () => {
@@ -168,6 +194,7 @@ Related components:
       bindOpenButton();
       bindCloseButton();
       bindEscapeKey();
+      bindFocusTrap();
       bindTocLinks();
     }
 

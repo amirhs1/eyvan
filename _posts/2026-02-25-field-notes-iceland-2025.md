@@ -81,7 +81,7 @@ The audio sample in {% include ref.html id="fig-djupalonssandur-audio" cref="tru
 {% include audio.html
    id="fig-djupalonssandur-audio"
    src="
-     assets/audios/ocean-waves-on-pebbly-beach-iceland-loop.opus | audio/ogg; codecs=opus
+     assets/audios/posts/ocean-waves-on-pebbly-beach-iceland-loop.opus | audio/ogg; codecs=opus
    "
    caption="Ocean waves receding over black pebbles at Djúpalónssandur Beach, Iceland. Audio: [Closer Ocean Waves on Pebbly Beach - Iceland (loop)](https://freesound.org/s/830254/) by NickTayloe on Freesound, licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/). Format converted from the original FLAC to Opus for web playback."
 %}

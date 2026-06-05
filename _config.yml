@@ -92,7 +92,8 @@ read_time: true
 
 # ------------------------------------------------------------
 # Analytics
-# Leave blank until you have a real measurement ID.
+# Leave blank (or omit) to disable Google Analytics entirely.
+# Set to your Measurement ID (e.g. "G-XXXXXXXXXX") to enable.
 # ------------------------------------------------------------
 google_analytics: ""
 

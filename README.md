@@ -77,6 +77,8 @@ The current `_config.yml` uses `baseurl: "/eyvan"`. If you change `baseurl` to a
 - `_data/share.yml` controls post share actions.
 - `_data/footer.yml` controls footer text.
 
+For a complete, step-by-step walkthrough of personalizing all of these files — including asset replacement and your first post — see the demo post *Customizing Eyvan* included in `_posts/`.
+
 ## Writing Content
 
 Posts live in `_posts/` and use Jekyll's standard filename pattern:

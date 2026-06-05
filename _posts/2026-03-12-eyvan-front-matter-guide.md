@@ -359,7 +359,7 @@ toc: true
 math: false
 crossrefs: true
 share: true
-image: "assets/images/posts/Khane-Amerian-eyvan.webp"
+image: "assets/images/posts/khane-amerian-eyvan.webp"
 image_alt: "Muqarnas-adorned eyvan courtyard facade at the historic Ameri House in Kashan, Iran"
 image_position: "center center"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."

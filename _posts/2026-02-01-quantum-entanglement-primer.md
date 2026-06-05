@@ -4,7 +4,7 @@ subtitle: "From Bell inequalities to practical implications"
 tags: [physics, math, research, academic]
 math: true
 toc: true
-image: "assets/gifs/posts/quantum_entanglement_vs_classical_correlation_video.gif"
+image: "assets/images/posts/quantum_entanglement_vs_classical_correlation_video.webp"
 image_alt: "Animated comparison of entangled photon polarization measurements and classically correlated measurements"
 description: "A rigorous introduction to quantum entanglement with LaTeX math, citations, and footnotes."
 ---

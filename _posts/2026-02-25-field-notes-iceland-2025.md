@@ -133,8 +133,8 @@ When compiling field notes, individual frames often gain meaning when placed in 
    caption="Three scales of the Icelandic experience: the micro-texture of black volcanic sand, the lone timber church at Búðir dwarfed by ancient volcanic masonry, and the macro-scale aurora lighting the sub-arctic sky. The left image adapted from [Imaggeo](https://imaggeo.egu.eu/view/12544/) by Simon Thivet (Feb. 18, 2014), licensed under Creative Commons CC BY 3.0., the middle image from [Pexels](https://www.pexels.com/photo/wooden-church-on-a-steppe-21700769/) by Bogdan Giurca (Oct. 28, 2023), used under the Pexels License, and the right image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Aurora_Borealis_activity_on_top_of_the_Kirkjufell_mountain_in_September_2018.jpg) by Vaidyanathan and Archana (Sep. 15, 2018), licensed under Creative Commons CC BY-SA 4.0."
    images="
      assets/images/posts/frozen-volcanic-ash.webp     | Close-up of frozen volcanic ash formations resembling black sand structures
-     assets/images/posts/church-at-Buoirdwarfed.webp  | A single solitary wooden church standing against a vast mountain backdrop
-     assets/images/posts/Aurora-Borealis.webp         | The glowing green curtains of the Aurora Borealis arching over a dark sea
+     assets/images/posts/church-at-buoirdwarfed.webp  | A single solitary wooden church standing against a vast mountain backdrop
+     assets/images/posts/aurora-borealis.webp         | The glowing green curtains of the Aurora Borealis arching over a dark sea
    "
 %}
 

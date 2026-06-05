@@ -149,7 +149,7 @@ links:
   - title: "About"
     url: "/about/"
   - title: "CV"
-    url: "/assets/files/your-cv.pdf"
+    url: "assets/files/your-cv.pdf"
     external: true
 ```
 

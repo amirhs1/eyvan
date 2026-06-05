@@ -59,6 +59,14 @@ group :jekyll_plugins do
 end
 
 # ------------------------------------------------------------
+# Local and CI QA tools
+# ------------------------------------------------------------
+# Makes `bundle exec bundle-audit check` an intentional project command.
+group :development, :test do
+  gem "bundler-audit", "~> 0.9"
+end
+
+# ------------------------------------------------------------
 # Platform compatibility gems
 # ------------------------------------------------------------
 

@@ -404,7 +404,7 @@ Use `figure.html` for images that belong to the article body. This is better tha
 {% raw %}
 ```liquid
 {% include figure.html
-   src="/assets/images/posts/token-bucket-diagram.webp"
+   src="assets/images/posts/token-bucket-diagram.webp"
    alt="Token bucket rate limiter system diagram"
    caption="A reusable image figure with an optional numbered caption."
    id="fig-example"
@@ -419,7 +419,7 @@ If the include supports figure numbering, you can usually disable numbering for 
 {% raw %}
 ```liquid
 {% include figure.html
-   src="/assets/images/posts/front-matter-cover.webp"
+   src="assets/images/posts/front-matter-cover.webp"
    alt="Eyvan arch framing a code editor with front matter keys"
    numbered="false"
 %}
@@ -437,8 +437,8 @@ Self-hosted video:
 {% raw %}
 ```liquid
 {% include video.html
-   src="/assets/videos/posts/geysir-iceland-2023-erupting-geyser-strokkur.webm"
-   poster="/assets/images/posts/geysir-iceland-2023-erupting-geyser-strokkur.webp"
+   src="assets/videos/posts/geysir-iceland-2023-erupting-geyser-strokkur.webm"
+   poster="assets/images/posts/geysir-iceland-2023-erupting-geyser-strokkur.webp"
    ratio="16-9"
    caption="A short demonstration of the project interaction."
    id="fig-demo-video"
@@ -455,8 +455,8 @@ Multiple self-hosted formats:
    caption="The same video provided in WebM and MP4 formats."
    id="fig-demo-video-formats"
    src="
-     /assets/videos/posts/demo.webm | video/webm
-     /assets/videos/posts/demo.mp4  | video/mp4
+     assets/videos/posts/demo.webm | video/webm
+     assets/videos/posts/demo.mp4  | video/mp4
    "
 %}
 ```
@@ -487,7 +487,7 @@ Use `audio.html` for podcast clips, sound examples, interviews, narration, or an
 {% raw %}
 ```liquid
 {% include audio.html
-   src="/assets/audios/posts/ocean-waves-on-pebbly-beach-iceland-loop.opus"
+   src="assets/audios/posts/ocean-waves-on-pebbly-beach-iceland-loop.opus"
    caption="A short audio example used in the analysis."
    id="fig-audio-example"
 %}
@@ -502,8 +502,8 @@ If the include supports multiple formats, prefer providing both MP3 and Ogg/WebM
    caption="The same audio clip provided in multiple formats."
    id="fig-audio-formats"
    src="
-     /assets/audios/posts/example.ogg | audio/ogg
-     /assets/audios/posts/example.mp3 | audio/mpeg
+     assets/audios/posts/example.ogg | audio/ogg
+     assets/audios/posts/example.mp3 | audio/mpeg
    "
 %}
 ```

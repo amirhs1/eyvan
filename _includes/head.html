@@ -51,9 +51,9 @@
   - page.url
 
   Notes:
-  - Favicons should exist in /assets/favicon/
+  - Favicons should exist in assets/favicon/
   - If site.default_og_image is not set, this file falls back to:
-    /assets/images/hero-placeholder.webp
+    assets/images/hero-placeholder.webp
   - Analytics loads only when `site.google_analytics` is a non-empty value
     (a blank or whitespace-only value disables it)
 {% endcomment %}
@@ -74,7 +74,7 @@
     {% assign meta_title = site.title %}
   {% endif %}
   {% assign meta_description = page.description | default: site.description | strip_html | strip_newlines | truncate: 160 | xml_escape %}
-  {% assign meta_image = page.image | default: site.default_og_image | default: '/assets/images/hero-placeholder.webp' %}
+  {% assign meta_image = page.image | default: site.default_og_image | default: 'assets/images/hero-placeholder.webp' %}
 
   <!-- Charset and browser compatibility -->
   <meta charset="utf-8">
@@ -107,30 +107,30 @@
     rel="icon"
     type="image/png"
     sizes="16x16"
-    href="{{ '/assets/favicon/favicon-16x16.png' | relative_url }}"
+    href="{{ 'assets/favicon/favicon-16x16.png' | relative_url }}"
   >
 
   <link
     rel="icon"
     type="image/png"
     sizes="32x32"
-    href="{{ '/assets/favicon/favicon-32x32.png' | relative_url }}"
+    href="{{ 'assets/favicon/favicon-32x32.png' | relative_url }}"
   >
 
   <link
     rel="apple-touch-icon"
     sizes="180x180"
-    href="{{ '/assets/favicon/apple-touch-icon.png' | relative_url }}"
+    href="{{ 'assets/favicon/apple-touch-icon.png' | relative_url }}"
   >
 
   <link
     rel="manifest"
-    href="{{ '/assets/favicon/site.webmanifest' | relative_url }}"
+    href="{{ 'assets/favicon/site.webmanifest' | relative_url }}"
   >
 
   <link
     rel="shortcut icon"
-    href="{{ '/assets/favicon/favicon.ico' | relative_url }}"
+    href="{{ 'assets/favicon/favicon.ico' | relative_url }}"
   >
 
   <!-- Browser UI theme colors -->
@@ -200,7 +200,7 @@
   <meta name="twitter:image" content="{{ meta_image | absolute_url }}">
 
   <!-- Main compiled CSS bundle -->
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
 
   <!-- Google Analytics integration (optional) -->
   {% assign google_analytics_id = site.google_analytics | default: '' | strip %}

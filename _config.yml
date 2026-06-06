@@ -6,6 +6,13 @@
 # ------------------------------------------------------------
 title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
+# Feed-compatible author metadata. `jekyll-feed` reads `site.author`
+# from `_config.yml`; theme UI reads `_data/author.yml`. Keep both
+# places aligned when customizing the template identity.
+author:
+  name: "Your Name"
+  email: "hello@example.com"
+  uri: "https://example.com"
 # `url` + `baseurl` build the absolute links used in canonical tags, Open Graph /
 # Twitter previews, the sitemap, and the RSS feed. The values below point at the
 # Eyvan demo site.

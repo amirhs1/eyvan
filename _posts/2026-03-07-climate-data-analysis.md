@@ -120,56 +120,6 @@ The year 2012 is the first year in this demo table where the temperature anomaly
 
 To translate the tabular record into an interpretable visual sequence, the interactive line chart below charts the progression of both mean maximum and mean minimum temperatures over the 30-year demo period.
 
-<!-- Load Chart.js via reliable CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  function getChartTheme() {
-    const styles = getComputedStyle(document.documentElement);
-    const getColor = (name, fallback) =>
-      styles.getPropertyValue(name).trim() || fallback;
-
-    return {
-      background: getColor('--color-ui-bg','#ffffff'),
-      text: getColor('--color-ui-text', '#1f2937'),
-      muted: getColor('--color-ui-text-muted', '#6b7280'),
-      border: getColor('--color-ui-border', '#e5e7eb'),
-      accentPrimary: getColor('--color-accent-primary', '#32127A'),
-      accentSecondary: getColor('--color-accent-secondary', '#3FE0D0'),
-      warning: getColor('--color-state-warning', '#f59e0b')
-    };
-  }
-
-  function transparentize(color, alpha) {
-    if (color.startsWith('#')) {
-      const hex = color.replace('#', '');
-      const bigint = parseInt(hex.length === 3
-        ? hex.split('').map((char) => char + char).join('')
-        : hex, 16);
-      const red = (bigint >> 16) & 255;
-      const green = (bigint >> 8) & 255;
-      const blue = bigint & 255;
-
-      return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-    }
-
-    return color;
-  }
-
-  const chartCanvasBackground = {
-    id: 'chartCanvasBackground',
-    beforeDraw(chart, args, options) {
-      const { ctx, canvas } = chart;
-
-      ctx.save();
-      ctx.globalCompositeOperation = 'destination-over';
-      ctx.fillStyle = options.color || '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.restore();
-    }
-  };
-</script>
-
 <figure
   class="c-prose-figure c-prose-figure--chart"
   id="fig-temperature-line-chart"
@@ -187,69 +137,6 @@ To translate the tabular record into an interpretable visual sequence, the inter
     Synthetic mean maximum and minimum surface temperature trajectories from 1996 to 2025.
   </figcaption>
 </figure>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const theme = getChartTheme();
-    const ctx = document.getElementById('temperatureLineChart').getContext('2d');
-    const years = [1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
-
-    new Chart(ctx, {
-      type: 'line',
-      plugins: [chartCanvasBackground],
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: 'Mean Maximum Temp (°C)',
-            data: [19.4, 19.6, 20.1, 19.5, 19.3, 19.8, 19.9, 20.2, 19.5, 20.4, 20.5, 20.3, 20.0, 20.2, 20.8, 20.6, 21.2, 20.4, 20.7, 21.1, 21.4, 21.3, 21.6, 21.5, 21.9, 21.7, 22.1, 22.4, 22.2, 22.6],
-            borderColor: theme.accentPrimary,
-            backgroundColor: transparentize(theme.accentPrimary, 0.12),
-            borderWidth: 2.5,
-            pointRadius: 3.5,
-            tension: 0.2,
-            fill: false
-          },
-          {
-            label: 'Mean Minimum Temp (°C)',
-            data: [8.8, 9.1, 9.7, 8.9, 8.7, 9.2, 9.4, 9.6, 8.9, 9.9, 10.1, 9.8, 9.5, 9.6, 10.4, 10.2, 10.9, 9.9, 10.3, 10.8, 11.1, 11.0, 11.4, 11.2, 11.8, 11.5, 12.0, 12.3, 12.1, 12.5],
-            borderColor: theme.accentSecondary,
-            backgroundColor: transparentize(theme.accentSecondary, 0.12),
-            borderWidth: 2.5,
-            pointRadius: 3.5,
-            tension: 0.2,
-            fill: false
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          chartCanvasBackground: { color: theme.background },
-          title: { display: false },
-          legend: {
-            position: 'top',
-            labels: { color: theme.text }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: theme.muted },
-            grid: { color: theme.border },
-            title: { display: true, text: 'Observation Year', color: theme.text }
-          },
-          y: {
-            ticks: { color: theme.muted },
-            grid: { color: theme.border },
-            title: { display: true, text: 'Temperature Baseline (°C)', color: theme.text },
-            suggestedMin: 7,
-            suggestedMax: 24
-          }
-        }
-      }
-    });
-  });
-</script>
 
 ### Analysis of the Line Chart Trajectory
 
@@ -281,82 +168,7 @@ The bar chart below shows annual precipitation values, organized into three deca
   </figcaption>
 </figure>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const theme = getChartTheme();
-    const epochOne = theme.accentSecondary;
-    const epochTwo = theme.accentPrimary;
-    const epochThree = theme.warning;
-    const ctx = document.getElementById('precipitationBarChart').getContext('2d');
-
-    new Chart(ctx, {
-      type: 'bar',
-      plugins: [chartCanvasBackground],
-      data: {
-        labels: [
-          '96', '97', '98', '99', '00', '01', '02', '03', '04', '05',
-          '06', '07', '08', '09', '10', '11', '12', '13', '14', '15',
-          '16', '17', '18', '19', '20', '21', '22', '23', '24', '25'
-        ],
-        datasets: [{
-          label: 'Annual Precipitation (mm)',
-          data: [
-            845, 892, 780, 830, 865, 812, 795, 850, 910, 824,
-            801, 742, 885, 920, 860, 955, 698, 872, 841, 815,
-            790, 934, 982, 804, 710, 866, 1015, 650, 890, 765
-          ],
-          backgroundColor: function(context) {
-            const index = context.dataIndex;
-            if (index < 10) return transparentize(epochOne, 0.7); // Epoch I
-            if (index < 20) return transparentize(epochTwo, 0.7); // Epoch II
-            return transparentize(epochThree, 0.7); // Epoch III
-          },
-          borderColor: function(context) {
-            const index = context.dataIndex;
-            if (index < 10) return epochOne;
-            if (index < 20) return epochTwo;
-            return epochThree;
-          },
-          borderWidth: 1.5
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          chartCanvasBackground: { color: theme.background },
-          title: { display: false },
-          legend: {
-            display: true,
-            labels: {
-              color: theme.text,
-              generateLabels: function(chart) {
-                return [
-                  { text: 'Epoch I (1996–2005)', fillStyle: transparentize(epochOne, 0.7), strokeStyle: epochOne },
-                  { text: 'Epoch II (2006–2015)', fillStyle: transparentize(epochTwo, 0.7), strokeStyle: epochTwo },
-                  { text: 'Epoch III (2016–2025)', fillStyle: transparentize(epochThree, 0.7), strokeStyle: epochThree }
-                ];
-              }
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: theme.muted },
-            grid: { color: theme.border },
-            title: { display: true, text: 'Observation Year (Abbreviated)', color: theme.text }
-          },
-          y: {
-            ticks: { color: theme.muted },
-            grid: { color: theme.border },
-            title: { display: true, text: 'Cumulative Rain/Snowmelt (mm)', color: theme.text },
-            suggestedMin: 500,
-            suggestedMax: 1100
-          }
-        }
-      }
-    });
-  });
-</script>
+<script src="{{ 'assets/js/demo-climate-charts.js' | relative_url }}" defer></script>
 
 ### Interpretation of Hydrological Trends
 

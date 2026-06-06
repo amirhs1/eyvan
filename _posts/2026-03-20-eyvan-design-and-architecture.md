@@ -6,7 +6,7 @@ toc: true
 math: true
 share: true
 crossrefs: true
-image: "/assets/images/posts/khane-amerian-eyvan.webp"
+image: "assets/images/posts/khane-amerian-eyvan.webp"
 image_alt: "Muqarnas-adorned eyvan courtyard facade at the historic Ameri House in Kashan, Iran"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
 ---
@@ -19,7 +19,7 @@ The name comes from the architectural idea of an _eyvan_[^1]: an open, vaulted t
 
 {% include figure.html
    id="fig-eyvan-ameri-house"
-   src="/assets/images/posts/khane-amerian-eyvan.webp"
+   src="assets/images/posts/khane-amerian-eyvan.webp"
    alt="The five-bay panjdari of the main eyvan at the Āmeri House in Kashan, Iran, its vaulted ceiling filled with tiered muqarnas."
    caption="The *panjdari* of the main eyvan — the open, vaulted balcony — of the Āmeri House in Kashan, Iran. Photograph by Matthias Blume, 18 November 2005, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg), licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)."
 %}

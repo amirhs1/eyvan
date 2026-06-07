@@ -55,7 +55,7 @@ Applying these formulas to the synthetic dataset yields a distinct trajectory. T
 %}
 
 | Epoch | Time Period | Mean Temp (°C) | Median Temp (°C) | Std Dev (°C) | Heat Days >35°C |
-| :--- | :--- | :---: | :---: | :---: | :---: |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | **Epoch I** | 1996–2005 | 14.21 | 14.15 | 0.62 | 12.4 |
 | **Epoch II** | 2006–2015 | 14.68 | 14.52 | 0.78 | 18.1 |
 | **Epoch III** | 2016–2025 | 15.14 | 15.11 | 0.94 | 24.5 |
@@ -77,7 +77,7 @@ To observe how these multi-decadal shifts appear on an annual basis, we can insp
 %}
 
 | Year | Mean Max (°C) | Mean Min (°C) | Temp Anomaly (°C) | Annual Precip (mm) | Precip Status |
-| :--- | ---: | ---: | ---: | ---: | :--- |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | 1996 | 19.4 | 8.8 | -0.12 | 845 | Normal |
 | 1997 | 19.6 | 9.1 | +0.05 | 892 | Above Average |
 | 1998 | 20.1 | 9.7 | +0.41 | 780 | Below Average |

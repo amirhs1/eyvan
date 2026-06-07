@@ -2,19 +2,17 @@
 title: "Customizing Eyvan"
 subtitle: "A practical walkthrough for personalizing the template before your first deploy"
 tags: [meta, jekyll, setup, documentation]
-image: "assets/images/posts/front-matter-cover.webp"
+image: "assets/images/posts/customizing_eyvan.webp"
 image_alt: "Minimalist illustration of an Iranian arch framing a code editor with configuration keys"
 toc: true
 description: "Step-by-step guide to replacing the demo content and making Eyvan your own — from config and data files to assets and posts."
 ---
 
-> **Note:** This post was written as a practical setup guide shipped with the Eyvan template. Follow it after cloning the repository and running `bundle install` for the first time.
+> **Note:** This post wad generated with OpenAI's ChatGPT as a practical setup guide shipped with the Eyvan templateEyvan template. Follow it after cloning the repository and running `bundle install` for the first time.
 
-Eyvan ships with demo content — placeholder names, example posts, and sample images — so you can see the template running immediately. This guide walks you through replacing all of it with your own content, in the order that matters. None of this requires touching the templates or SCSS.
+Eyvan ships with demo content — placeholder names, example posts, and sample images — so you can see the template running immediately. This guide walks you through replacing all of it with your own content, in the order that matters. None of this requires touching the templates or SCSS.[^1]
 
 The rule of thumb: everything about *who you are* lives in `_data/`. Everything about *how Jekyll behaves* lives in `_config.yml`. Your *posts* live in `_posts/`. Your *images, fonts, and icons* live in `assets/`.
-
----
 
 ## Step 1 — The two required changes
 
@@ -40,8 +38,6 @@ baseurl: ""
 ```
 
 That is all you need to change for a first deploy. Everything else below is about personalizing the content.
-
----
 
 ## Step 2 — Site identity in `_config.yml`
 
@@ -76,8 +72,6 @@ words_per_minute: 238     # reading speed used for the estimate
 
 Set `read_time: false` to hide the reading-time display site-wide.
 
----
-
 ## Step 3 — Your profile in `_data/author.yml`
 
 This file drives your name, role, biography, avatar, and contact information wherever they appear — the homepage hero, post metadata, and the about page.
@@ -107,8 +101,6 @@ cv: "assets/files/your-cv.pdf"   # link that appears in the hero actions
 orcid: "0000-0000-0000-0000"      # appears if the ORCID social link is enabled
 ```
 
----
-
 ## Step 4 — Homepage hero in `_data/hero.yml`
 
 The hero section at the top of the homepage is driven entirely by this file. Open it and replace the placeholder text:
@@ -134,8 +126,6 @@ actions:
 
 The `eyebrow` is optional — delete it or leave it blank if you do not want the small label. The `actions` define the two call-to-action buttons in the hero.
 
----
-
 ## Step 5 — Navigation in `_data/navigation.yml`
 
 This file controls the links in the site header and mobile menu. The default ships with four entries:
@@ -154,8 +144,6 @@ links:
 ```
 
 Edit the `title` and `url` for each entry. Set `external: true` on any link that opens outside your site — it will render with `target="_blank"` and a screen-reader label. Remove any entry you do not need. The template renders the nav from this list, so no HTML editing is required.
-
----
 
 ## Step 6 — Social and share links
 
@@ -183,8 +171,6 @@ The `platform` value must match an available icon in `assets/icons/`. Supported 
 
 Controls which platforms appear in the share bar at the bottom of posts. The structure mirrors `social-links.yml`. Remove entries for platforms you do not want to offer. Most users keep two or three.
 
----
-
 ## Step 7 — Replacing visual assets
 
 All visual assets live under `assets/`. Replace them at the same paths and Eyvan's templates will automatically use your new files.
@@ -205,8 +191,6 @@ If you already have images in JPEG or PNG, you can convert them with `cwebp` (pa
 ```bash
 cwebp -q 80 -resize 300 0 your-avatar.jpg -o assets/images/avatar.webp
 ```
-
----
 
 ## Step 8 — Replacing demo posts
 
@@ -244,8 +228,6 @@ If a post has a lot of headings, enable the sidebar table of contents:
 toc: true
 ```
 
----
-
 ## Step 9 — Footer in `_data/footer.yml`
 
 The footer text — copyright notice, tagline, or links — is driven by this file. The default is a simple copyright line:
@@ -256,8 +238,6 @@ copyright: "© 2025 Your Name. All rights reserved."
 
 You can also add secondary links here, such as a privacy policy or a terms page. See the comments in the file for the supported fields.
 
----
-
 ## Step 10 — Colors and typography (advanced)
 
 If you want to adjust the visual design, all design tokens live in `_sass/0-settings/`. You do not need to touch any other SCSS file for color or type changes.
@@ -267,8 +247,6 @@ If you want to adjust the visual design, all design tokens live in `_sass/0-sett
 - **Spacing and layout**: `_sass/0-settings/_config.scss` exposes global spacing, border-radius, and shadow values.
 
 After any SCSS change, run `bundle exec jekyll serve` and check the live reload — changes apply immediately without a full restart.
-
----
 
 ## Quick checklist
 
@@ -286,3 +264,7 @@ Run through this before your first deploy:
 - [ ] `bundle exec jekyll build` runs without errors
 
 After deploy, verify that your canonical URL and Open Graph previews show your domain, not the demo site URL. Use [opengraph.xyz](https://www.opengraph.xyz/) or a similar tool to preview how your pages appear when shared on social platforms.
+
+## Endnotes
+
+[^1]: The post's cover image was generated with OpenAI's ChatGPT for illustrative purposes by the author using the contents of this post as the generation prompt.

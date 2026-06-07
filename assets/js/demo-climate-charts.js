@@ -1,4 +1,15 @@
+/*
+Demo climate charts
+Purpose:
+Render the demo climate line and bar charts with Chart.js, using Eyvan theme
+tokens from CSS custom properties.
+*/
+
 (() => {
+  "use strict";
+
+  const chartJsCdn = "https://cdn.jsdelivr.net/npm/chart.js";
+
   const years = [
     1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
     2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
@@ -23,8 +34,12 @@
     790, 934, 982, 804, 710, 866, 1015, 650, 890, 765
   ];
 
+  let temperatureChart = null;
+  let precipitationChart = null;
+
   function getTheme() {
     const styles = getComputedStyle(document.documentElement);
+
     const getColor = (name, fallback) =>
       styles.getPropertyValue(name).trim() || fallback;
 
@@ -40,190 +55,451 @@
   }
 
   function transparentize(color, alpha) {
-    if (!color.startsWith("#")) return color;
+    if (!color || !color.startsWith("#")) {
+      return color;
+    }
 
     const hex = color.replace("#", "");
-    const fullHex = hex.length === 3
-      ? hex.split("").map((char) => char + char).join("")
-      : hex;
-    const bigint = parseInt(fullHex, 16);
+    const fullHex =
+      hex.length === 3
+        ? hex.split("").map((char) => char + char).join("")
+        : hex;
 
-    return `rgba(${(bigint >> 16) & 255}, ${(bigint >> 8) & 255}, ${bigint & 255}, ${alpha})`;
+    const value = parseInt(fullHex, 16);
+    const red = (value >> 16) & 255;
+    const green = (value >> 8) & 255;
+    const blue = value & 255;
+
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
   }
 
-  function setupCanvas(canvas) {
-    const frame = canvas.parentElement;
-    const width = Math.max(frame.clientWidth, 320);
-    const height = Math.round(Math.min(Math.max(width * 0.56, 320), 480));
-    const ratio = window.devicePixelRatio || 1;
+  function loadChartJs() {
+    if (window.Chart) {
+      return Promise.resolve();
+    }
 
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    canvas.width = Math.round(width * ratio);
-    canvas.height = Math.round(height * ratio);
+    return new Promise((resolve, reject) => {
+      const existingScript = document.querySelector(
+        `script[src="${chartJsCdn}"]`
+      );
+
+      if (existingScript) {
+        existingScript.addEventListener("load", resolve, { once: true });
+        existingScript.addEventListener("error", reject, { once: true });
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = chartJsCdn;
+      script.defer = true;
+      script.onload = resolve;
+      script.onerror = reject;
+
+      document.head.appendChild(script);
+    });
+  }
+
+  const chartCanvasBackground = {
+    id: "chartCanvasBackground",
+
+    beforeDraw(chart, args, options) {
+      const { ctx, canvas } = chart;
+
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-over";
+      ctx.fillStyle = options.color || "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+    }
+  };
+
+  function getBaseOptions(theme) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      interaction: {
+        mode: "index",
+        intersect: false
+      },
+
+      layout: {
+        padding: {
+          top: 8,
+          right: 12,
+          bottom: 4,
+          left: 4
+        }
+      },
+
+      plugins: {
+        chartCanvasBackground: {
+          color: theme.background
+        },
+
+        title: {
+          display: false
+        },
+
+        legend: {
+          position: "bottom",
+          align: "center",
+          labels: {
+            color: theme.text,
+            boxWidth: 14,
+            boxHeight: 14,
+            padding: 18,
+            usePointStyle: true,
+            pointStyle: "circle"
+          }
+        },
+
+        tooltip: {
+          backgroundColor: theme.text,
+          titleColor: theme.background,
+          bodyColor: theme.background,
+          borderColor: theme.border,
+          borderWidth: 1,
+          padding: 12,
+          displayColors: true
+        }
+      }
+    };
+  }
+
+  function prepareChartFrame(canvas) {
+    const frame = canvas.parentElement;
+
+    if (!frame) {
+      return;
+    }
+
+    frame.style.position = frame.style.position || "relative";
+    frame.style.minHeight = frame.style.minHeight || "360px";
+  }
+
+  function destroyCharts() {
+    if (temperatureChart) {
+      temperatureChart.destroy();
+      temperatureChart = null;
+    }
+
+    if (precipitationChart) {
+      precipitationChart.destroy();
+      precipitationChart = null;
+    }
+  }
+
+  function drawTemperatureChart(theme) {
+    const canvas = document.getElementById("temperatureLineChart");
+
+    if (!canvas) {
+      return;
+    }
+
+    prepareChartFrame(canvas);
 
     const ctx = canvas.getContext("2d");
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const baseOptions = getBaseOptions(theme);
 
-    return { ctx, width, height };
-  }
+    temperatureChart = new window.Chart(ctx, {
+      type: "line",
+      plugins: [chartCanvasBackground],
 
-  function drawGrid(ctx, plot, theme, yTicks, xTickLabels, yLabel, xLabel) {
-    ctx.fillStyle = theme.background;
-    ctx.fillRect(0, 0, plot.canvasWidth, plot.canvasHeight);
+      data: {
+        labels: years,
 
-    ctx.strokeStyle = theme.border;
-    ctx.lineWidth = 1;
-    ctx.fillStyle = theme.muted;
-    ctx.font = "12px sans-serif";
+        datasets: [
+          {
+            label: "Mean Maximum Temp (°C)",
+            data: maxTemps,
+            borderColor: theme.accentPrimary,
+            backgroundColor: transparentize(theme.accentPrimary, 0.12),
+            borderWidth: 2.5,
+            pointRadius: 2.75,
+            pointHoverRadius: 5,
+            pointBorderWidth: 1.5,
+            tension: 0.32,
+            fill: false
+          },
+          {
+            label: "Mean Minimum Temp (°C)",
+            data: minTemps,
+            borderColor: theme.accentSecondary,
+            backgroundColor: transparentize(theme.accentSecondary, 0.12),
+            borderWidth: 2.5,
+            pointRadius: 2.75,
+            pointHoverRadius: 5,
+            pointBorderWidth: 1.5,
+            tension: 0.32,
+            fill: false
+          }
+        ]
+      },
 
-    yTicks.forEach((tick) => {
-      const y = plot.y(tick);
-      ctx.beginPath();
-      ctx.moveTo(plot.left, y);
-      ctx.lineTo(plot.right, y);
-      ctx.stroke();
-      ctx.fillText(String(tick), 10, y + 4);
+      options: {
+        ...baseOptions,
+
+        scales: {
+          x: {
+            ticks: {
+              color: theme.muted,
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 8
+            },
+            grid: {
+              color: transparentize(theme.border, 0.45),
+              drawBorder: false
+            },
+            title: {
+              display: true,
+              text: "Observation Year",
+              color: theme.text,
+              font: {
+                size: 14,
+                weight: "500"
+              },
+              padding: {
+                top: 12
+              }
+            }
+          },
+
+          y: {
+            suggestedMin: 7,
+            suggestedMax: 24,
+            ticks: {
+              color: theme.muted,
+              callback: (value) => `${value}°C`
+            },
+            grid: {
+              color: transparentize(theme.border, 0.55),
+              drawBorder: false
+            },
+            title: {
+              display: true,
+              text: "Temperature Baseline (°C)",
+              color: theme.text,
+              font: {
+                size: 14,
+                weight: "500"
+              },
+              padding: {
+                bottom: 12
+              }
+            }
+          }
+        }
+      }
     });
-
-    xTickLabels.forEach(({ index, label }) => {
-      const x = plot.x(index);
-      ctx.beginPath();
-      ctx.moveTo(x, plot.top);
-      ctx.lineTo(x, plot.bottom);
-      ctx.stroke();
-      ctx.fillText(label, x - 10, plot.bottom + 22);
-    });
-
-    ctx.fillStyle = theme.text;
-    ctx.font = "13px sans-serif";
-    ctx.fillText(xLabel, plot.left + (plot.right - plot.left) / 2 - 55, plot.canvasHeight - 14);
-
-    ctx.save();
-    ctx.translate(18, plot.top + (plot.bottom - plot.top) / 2 + 75);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText(yLabel, 0, 0);
-    ctx.restore();
   }
 
-  function makePlot(width, height, min, max, count) {
-    const plot = {
-      canvasWidth: width,
-      canvasHeight: height,
-      left: 58,
-      right: width - 24,
-      top: 48,
-      bottom: height - 58
-    };
-
-    plot.x = (index) => plot.left + (index / (count - 1)) * (plot.right - plot.left);
-    plot.y = (value) => plot.bottom - ((value - min) / (max - min)) * (plot.bottom - plot.top);
-
-    return plot;
-  }
-
-  function drawLegend(ctx, items, theme, x, y) {
-    ctx.font = "13px sans-serif";
-    items.forEach((item, index) => {
-      const offset = index * 190;
-
-      ctx.strokeStyle = item.color;
-      ctx.fillStyle = item.fill || item.color;
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(x + offset, y);
-      ctx.lineTo(x + offset + 26, y);
-      ctx.stroke();
-      ctx.fillRect(x + offset, y - 5, 10, 10);
-      ctx.fillStyle = theme.text;
-      ctx.fillText(item.label, x + offset + 34, y + 4);
-    });
-  }
-
-  function drawLineChart() {
-    const canvas = document.getElementById("temperatureLineChart");
-    if (!canvas) return;
-
-    const theme = getTheme();
-    const { ctx, width, height } = setupCanvas(canvas);
-    const plot = makePlot(width, height, 7, 24, years.length);
-
-    drawGrid(ctx, plot, theme, [8, 12, 16, 20, 24], [
-      { index: 0, label: "1996" },
-      { index: 9, label: "2005" },
-      { index: 19, label: "2015" },
-      { index: 29, label: "2025" }
-    ], "Temperature Baseline (C)", "Observation Year");
-
-    [
-      { values: maxTemps, color: theme.accentPrimary },
-      { values: minTemps, color: theme.accentSecondary }
-    ].forEach((series) => {
-      ctx.strokeStyle = series.color;
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      series.values.forEach((value, index) => {
-        const point = [plot.x(index), plot.y(value)];
-        if (index === 0) ctx.moveTo(...point);
-        else ctx.lineTo(...point);
-      });
-      ctx.stroke();
-
-      ctx.fillStyle = series.color;
-      series.values.forEach((value, index) => {
-        ctx.beginPath();
-        ctx.arc(plot.x(index), plot.y(value), 3, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    });
-
-    drawLegend(ctx, [
-      { label: "Mean Maximum Temp (C)", color: theme.accentPrimary },
-      { label: "Mean Minimum Temp (C)", color: theme.accentSecondary }
-    ], theme, plot.left, 24);
-  }
-
-  function drawBarChart() {
+  function drawPrecipitationChart(theme) {
     const canvas = document.getElementById("precipitationBarChart");
-    if (!canvas) return;
 
-    const theme = getTheme();
-    const { ctx, width, height } = setupCanvas(canvas);
-    const plot = makePlot(width, height, 500, 1100, precipitation.length);
-    const colors = [theme.accentSecondary, theme.accentPrimary, theme.warning];
-    const barWidth = Math.max((plot.right - plot.left) / precipitation.length - 4, 5);
+    if (!canvas) {
+      return;
+    }
 
-    drawGrid(ctx, plot, theme, [500, 700, 900, 1100], [
-      { index: 0, label: "96" },
-      { index: 9, label: "05" },
-      { index: 19, label: "15" },
-      { index: 29, label: "25" }
-    ], "Cumulative Rain/Snowmelt (mm)", "Observation Year");
+    prepareChartFrame(canvas);
 
-    precipitation.forEach((value, index) => {
-      const color = colors[Math.floor(index / 10)];
-      const x = plot.x(index) - barWidth / 2;
-      const y = plot.y(value);
+    const ctx = canvas.getContext("2d");
+    const baseOptions = getBaseOptions(theme);
 
-      ctx.fillStyle = transparentize(color, 0.7);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 1.5;
-      ctx.fillRect(x, y, barWidth, plot.bottom - y);
-      ctx.strokeRect(x, y, barWidth, plot.bottom - y);
+    const epochOne = theme.accentSecondary;
+    const epochTwo = theme.accentPrimary;
+    const epochThree = theme.warning;
+
+    precipitationChart = new window.Chart(ctx, {
+      type: "bar",
+      plugins: [chartCanvasBackground],
+
+      data: {
+        labels: years.map((year) => String(year).slice(2)),
+
+        datasets: [
+          {
+            label: "Annual Precipitation (mm)",
+            data: precipitation,
+
+            backgroundColor(context) {
+              const index = context.dataIndex;
+
+              if (index < 10) {
+                return transparentize(epochOne, 0.7);
+              }
+
+              if (index < 20) {
+                return transparentize(epochTwo, 0.7);
+              }
+
+              return transparentize(epochThree, 0.7);
+            },
+
+            borderColor(context) {
+              const index = context.dataIndex;
+
+              if (index < 10) {
+                return epochOne;
+              }
+
+              if (index < 20) {
+                return epochTwo;
+              }
+
+              return epochThree;
+            },
+
+            borderWidth: 1.25,
+            borderRadius: 4,
+            borderSkipped: false,
+            barPercentage: 0.82,
+            categoryPercentage: 0.92
+          }
+        ]
+      },
+
+      options: {
+        ...baseOptions,
+
+        plugins: {
+          ...baseOptions.plugins,
+
+          legend: {
+            position: "bottom",
+            align: "center",
+
+            labels: {
+              color: theme.text,
+              boxWidth: 14,
+              boxHeight: 14,
+              padding: 18,
+
+              generateLabels() {
+                return [
+                  {
+                    text: "Epoch I (1996–2005)",
+                    fillStyle: transparentize(epochOne, 0.7),
+                    strokeStyle: epochOne,
+                    lineWidth: 1.25
+                  },
+                  {
+                    text: "Epoch II (2006–2015)",
+                    fillStyle: transparentize(epochTwo, 0.7),
+                    strokeStyle: epochTwo,
+                    lineWidth: 1.25
+                  },
+                  {
+                    text: "Epoch III (2016–2025)",
+                    fillStyle: transparentize(epochThree, 0.7),
+                    strokeStyle: epochThree,
+                    lineWidth: 1.25
+                  }
+                ];
+              }
+            }
+          },
+
+          tooltip: {
+            ...baseOptions.plugins.tooltip,
+
+            callbacks: {
+              title(items) {
+                const item = items[0];
+                return `Year ${years[item.dataIndex]}`;
+              },
+
+              label(item) {
+                return `Annual precipitation: ${item.parsed.y} mm`;
+              }
+            }
+          }
+        },
+
+        scales: {
+          x: {
+            ticks: {
+              color: theme.muted,
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 10
+            },
+            grid: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: "Observation Year (Abbreviated)",
+              color: theme.text,
+              font: {
+                size: 14,
+                weight: "500"
+              },
+              padding: {
+                top: 12
+              }
+            }
+          },
+
+          y: {
+            suggestedMin: 500,
+            suggestedMax: 1100,
+            ticks: {
+              color: theme.muted,
+              callback: (value) => `${value} mm`
+            },
+            grid: {
+              color: transparentize(theme.border, 0.55),
+              drawBorder: false
+            },
+            title: {
+              display: true,
+              text: "Cumulative Rain/Snowmelt (mm)",
+              color: theme.text,
+              font: {
+                size: 14,
+                weight: "500"
+              },
+              padding: {
+                bottom: 12
+              }
+            }
+          }
+        }
+      }
     });
-
-    drawLegend(ctx, [
-      { label: "Epoch I (1996-2005)", color: theme.accentSecondary, fill: transparentize(theme.accentSecondary, 0.7) },
-      { label: "Epoch II (2006-2015)", color: theme.accentPrimary, fill: transparentize(theme.accentPrimary, 0.7) },
-      { label: "Epoch III (2016-2025)", color: theme.warning, fill: transparentize(theme.warning, 0.7) }
-    ], theme, plot.left, 24);
   }
 
   function drawCharts() {
-    drawLineChart();
-    drawBarChart();
+    if (!window.Chart) {
+      return;
+    }
+
+    const theme = getTheme();
+
+    destroyCharts();
+    drawTemperatureChart(theme);
+    drawPrecipitationChart(theme);
   }
 
-  document.addEventListener("DOMContentLoaded", drawCharts);
-  window.addEventListener("resize", drawCharts);
+  function observeThemeChanges() {
+    const observer = new MutationObserver(drawCharts);
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class", "data-theme", "data-persona"]
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadChartJs()
+      .then(() => {
+        drawCharts();
+        observeThemeChanges();
+      })
+      .catch(() => {
+        // Fail silently so the post remains readable if the CDN is unavailable.
+      });
+  });
 })();

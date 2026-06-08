@@ -20,6 +20,8 @@
   - Keeps the number of scripts minimal
 
   Dependencies:
+  - assets/js/code-block-a11y.js
+  - assets/js/task-list-a11y.js
   - assets/js/post-share.js
   - assets/js/theme-toggle.js
   - assets/js/mobile-menu.js
@@ -34,6 +36,14 @@
 {% endcomment %}
 
 <!-- scripts.html -->
+<script
+  src="{{ 'assets/js/code-block-a11y.js' | relative_url }}"
+  defer
+></script>
+<script
+  src="{{ 'assets/js/task-list-a11y.js' | relative_url }}"
+  defer
+></script>
 <script
   src="{{ 'assets/js/post-share.js' | relative_url }}"
   defer

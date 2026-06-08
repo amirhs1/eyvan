@@ -1,0 +1,20 @@
+version: 2
+
+updates:
+  # Ruby gems (Gemfile / Gemfile.lock) — Jekyll, plugins, dev/test tools
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # npm devDependencies — Playwright, axe-core, pa11y-ci (QA tooling only)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # GitHub Actions used by develop.yml and jekyll-pages.yml
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

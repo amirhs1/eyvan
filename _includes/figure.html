@@ -10,6 +10,8 @@
        alt="Description of image"
        caption="Caption text."
        id="fig-example"
+       width="1200"
+       height="670"
     %}
 
   Usage — multiple images:
@@ -18,9 +20,9 @@
        caption="Shared caption."
        cols="3"
        images="
-         assets/images/posts/a.webp | First image alt text
-         assets/images/posts/b.webp | Second image alt text
-         assets/images/posts/c.webp | Third image alt text
+         assets/images/posts/a.webp | First image alt text | 1200x800
+         assets/images/posts/b.webp | Second image alt text | 900x600
+         assets/images/posts/c.webp | Third image alt text | 700x700
        "
     %}
 
@@ -28,6 +30,19 @@
     cols="2" / "3" / "4"  -> controls wide-screen grid columns
     numbered="false"      -> keeps caption styling but removes FIGURE n.
     loading="eager"       -> optional override; default is lazy
+    width="W" height="H"  -> single-image only; intrinsic pixel dimensions
+    "path | alt | WxH"    -> multi-image rows; optional third segment carries
+                             that image's intrinsic pixel dimensions
+
+  Notes:
+  - width/height are optional. When known, supply the source asset's real
+    pixel dimensions (e.g. via `sips -g pixelWidth -g pixelHeight <file>` or
+    any image inspector) — never invented values. The browser then derives
+    the correct intrinsic aspect ratio and reserves space before the image
+    loads, preventing layout shift, while the existing
+    `inline-size: 100%; block-size: auto` rules in `_prose-media.scss` keep
+    the rendering fully responsive. This preserves each image's natural
+    ratio (no cropping), unlike the fixed-ratio card/cover patterns.
 {%- endcomment -%}
 
 {%- if include.images -%}
@@ -53,11 +68,25 @@
         {%- assign image_src = parts[0] | strip -%}
         {%- assign image_alt = parts[1] | strip | default: include.caption -%}
 
+        {%- comment -%} Per-row "WxH" (multi-image) falls back to the top-level width/height (single-image) {%- endcomment -%}
+        {%- assign image_width = include.width -%}
+        {%- assign image_height = include.height -%}
+        {%- assign row_dimensions = parts[2] | strip -%}
+        {%- if row_dimensions != "" -%}
+          {%- assign parsed_dimensions = row_dimensions | split: "x" -%}
+          {%- assign image_width = parsed_dimensions[0] | strip -%}
+          {%- assign image_height = parsed_dimensions[1] | strip -%}
+        {%- endif -%}
+
         <img
           class="c-prose-figure__asset"
           src="{{ image_src | relative_url }}"
           alt="{{ image_alt | strip_html | escape }}"
           loading="{{ include.loading | default: 'lazy' }}"
+          {%- if image_width != blank and image_height != blank %}
+          width="{{ image_width }}"
+          height="{{ image_height }}"
+          {%- endif %}
         >
       {%- endif -%}
     {%- endfor -%}

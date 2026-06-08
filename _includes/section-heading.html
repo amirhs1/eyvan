@@ -70,6 +70,13 @@
   {% assign action_url = include.action_url %}
   {% assign action_aria_label = include.action_aria_label | default: action_label %}
   {% assign action_new_tab = include.action_new_tab | default: false %}
+  {% assign action_accessible_label = action_aria_label %}
+  {% if action_new_tab %}
+    {% assign action_accessible_label_downcase = action_accessible_label | downcase %}
+    {% unless action_accessible_label_downcase contains 'opens in a new tab' or action_accessible_label_downcase contains 'opens in new tab' %}
+      {% assign action_accessible_label = action_accessible_label | append: ', opens in a new tab' %}
+    {% endunless %}
+  {% endif %}
   {% assign action_variant = include.action_variant | default: 'secondary' %}
   {% assign action_size = include.action_size | default: 'small' %}
 
@@ -103,7 +110,7 @@
             <a
               class="c-button c-button--{{ action_variant }} c-button--{{ action_size }}"
               href="{{ action_url | relative_url }}"
-              {% if action_aria_label %}aria-label="{{ action_aria_label }}"{% endif %}
+              {% if action_accessible_label %}aria-label="{{ action_accessible_label | escape }}"{% endif %}
               {% if action_new_tab %}
                 target="_blank"
                 rel="noopener noreferrer"

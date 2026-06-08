@@ -3,69 +3,87 @@
 # ------------------------------------------------------------
 # Primary navigation
 # Ordered list of links shown in the main site navigation.
+# Set external: true for links that should open in a new tab.
 # ------------------------------------------------------------
 main:
   - title: "Home"
     url: "/"
+    external: false
 
   - title: "About"
     url: "/about/"
+    external: false
 
   - title: "Projects"
     url: "/projects/"
+    external: false
 
   - title: "Tests"
     url: "/tests/"
+    external: false
     dev_only: true
     children:      
       - title: "Base Elements Test"
         url: "/tests/3-base/base/"
+        external: false
         dev_only: true
 
       - title: "Object Container Test"
         url: "/tests/4-objects/container/"
+        external: false
         dev_only: true
 
       - title: "Object Grid Test"
         url: "/tests/4-objects/grid/"
+        external: false
         dev_only: true
 
       - title: "Object Site Header Test"
         url: "/tests/4-objects/site-header/"
+        external: false
         dev_only: true
       
       - title: "Object Site Footer Test"
         url: "/tests/4-objects/site-footer/"
+        external: false
         dev_only: true
 
       - title: "Object Hero Test"
         url: "/tests/4-objects/hero/"
+        external: false
         dev_only: true
       
       - title: "Component Navigation Test"
         url: "/tests/5-components/navigation/"
+        external: false
         dev_only: true
 
       - title: "Component Button Test"
         url: "/tests/5-components/button/"
+        external: false
         dev_only: true
 
       - title: "Component Theme Toggle Test"
         url: "/tests/5-components/theme-toggle/"
+        external: false
         dev_only: true
       
       - title: "Component Mobile Menu Test"
         url: "/tests/5-components/mobile-menu/"
+        external: false
         dev_only: true
       
       - title: "Component Social Links Test"
         url: "/tests/5-components/social-links/"
+        external: false
         dev_only: true
       
       - title: "Component Icon Link Test"
         url: "/tests/5-components/icon-link/"
+        external: false
         dev_only: true
       
       - title: "Trumps Test"
         url: "/tests/7-trumps/"
+        external: false
         dev_only: true

@@ -23,25 +23,11 @@ brand colors, and so on) — keep those changes in your fork.
 
 ## Project conventions
 
-Eyvan follows a deliberate set of architectural choices documented in
-[`CLAUDE.md`](CLAUDE.md) and [`AGENTS.md`](AGENTS.md). Those files were written
-to brief AI coding assistants, but they double as the most complete map of this
-repository's conventions — human contributors will find them just as useful.
-In short:
-
-- **Build & deploy**: GitHub Actions, not the native GitHub Pages builder
-  (which doesn't support the `jekyll/tagging` plugin). `_config.yml` ships with
-  `baseurl: "/eyvan"` — keep links `baseurl`-safe with `relative_url` /
-  `absolute_url`, and never hardcode root-relative paths.
-- **Styling**: `_sass/` follows ITCSS (seven layers, `0-settings` through
-  `7-trumps`) with BEM naming (`o-`, `c-`, `l-`, `u-`, `is-` prefixes). No CSS
-  frameworks, utility-class systems, inline styles, or one-off class names.
-- **Templating**: standard Jekyll Liquid via `_includes` and `_layouts`. Reuse
-  existing includes (`figure.html`, `video.html`, `audio.html`,
-  `table-caption.html`, `ref.html`) rather than duplicating markup by hand.
-- **Accessibility**: a core requirement, not an afterthought — semantic HTML,
-  keyboard access, meaningful labels, correct ARIA, and visible focus states
-  must be preserved in every change.
+[`CLAUDE.md`](CLAUDE.md) and [`AGENTS.md`](AGENTS.md) are the most complete
+map of this repository's conventions — they cover the build pipeline, SCSS
+architecture (ITCSS + BEM), templating rules, and accessibility requirements.
+They were written to brief AI coding assistants, but human contributors will
+find them just as useful.
 
 ## Branching & pull requests
 

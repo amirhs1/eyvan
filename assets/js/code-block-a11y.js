@@ -15,13 +15,15 @@ Behavior:
     return;
   }
 
-  function updateCodeBlock(block) {
+  function updateCodeBlock(block, index) {
     const overflowsInline = block.scrollWidth > block.clientWidth;
 
     if (overflowsInline) {
       block.setAttribute('tabindex', '0');
       block.setAttribute('role', 'region');
-      block.setAttribute('aria-label', 'Code sample');
+      // Each region needs a distinct accessible name (axe: landmark-unique) —
+      // a shared label like "Code sample" collides once a page has more than one.
+      block.setAttribute('aria-label', 'Code sample ' + (index + 1));
       block.setAttribute('data-code-block-a11y', 'true');
       return;
     }

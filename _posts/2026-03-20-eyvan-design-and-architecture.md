@@ -21,6 +21,8 @@ The name comes from the architectural idea of an _eyvan_[^1]: an open, vaulted t
    id="fig-eyvan-ameri-house"
    src="assets/images/posts/khane-amerian-eyvan.webp"
    alt="The five-bay panjdari of the main eyvan at the Āmeri House in Kashan, Iran, its vaulted ceiling filled with tiered muqarnas."
+   width="1200"
+   height="900"
    caption="The *panjdari* of the main eyvan — the open, vaulted balcony — of the Āmeri House in Kashan, Iran. Photograph by Matthias Blume, 18 November 2005, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg), licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)."
 %}
 

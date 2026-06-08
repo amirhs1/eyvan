@@ -59,6 +59,8 @@ A helpful way to understand the difference between entanglement and classical co
    src=page.image
    alt=page.image_alt
    id="fig-entanglement-classical-correlation"
+   width="787"
+   height="382"
    caption="Side-by-side simulation demonstrating the operational difference between a maximally entangled singlet state and a dephased, classically correlated mixed state. The animated image is also used as the cover image for this post. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Quantum_entanglement_vs_classical_correlation_video.gif), creator JozumBjada, November 27, 2020, licensed under Creative Commons CC BY-SA 4.0."
 %}
 

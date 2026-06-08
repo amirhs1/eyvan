@@ -45,6 +45,8 @@ The key benefit of token bucket is that it allows **controlled bursts**. A clien
 {% include figure.html
    src=page.image
    alt=page.image_alt
+   width="1200"
+   height="670"
    caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics. The diagram was generated with Google's Gemini for illustrative purposes by the author using the contents of this post as the generation prompt."
 %}
 

@@ -33,4 +33,21 @@ test.describe('Eyvan interactive accessibility checks', () => {
 
     expect(results.violations).toEqual([]);
   });
+
+  test('code-heavy page has no detectable axe violations in light and dark themes', async ({ page }) => {
+    await page.goto(`${baseUrl}/projects/eyvan-front-matter-guide/`);
+
+    const lightResults = await new AxeBuilder({ page }).analyze();
+    expect(lightResults.violations).toEqual([]);
+
+    await page.locator('[data-theme-toggle]:visible').click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+    // Outlast the 0.2s $transition-base color transition so axe samples
+    // settled colors rather than mid-fade contrast as false-positive violations.
+    await page.waitForTimeout(300);
+
+    const darkResults = await new AxeBuilder({ page }).analyze();
+    expect(darkResults.violations).toEqual([]);
+  });
 });

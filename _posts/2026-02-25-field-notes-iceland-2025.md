@@ -19,6 +19,8 @@ This post serves as both a creative field journal and a practical stress test fo
    src="assets/images/posts/iceland-hero.webp"
    alt="Iceland: Stunning view of rugged Icelandic cliffs (basalt cliffs of Reykjanes) meeting the ocean under a cloudy sky"
    loading="eager"
+   width="900"
+   height="675"
    caption="
    A spectacular view of the rugged basalt cliffs of Reykjanes, Iceland, meeting the ocean under a cloudy sky. This image (and the cover image) from [Pexels](https://www.pexels.com/photo/rough-mountains-covered-with-green-moss-and-grass-near-seashore-5031526/) by Lyn Ong (Aug 4, 2020), used under the [Pexels License](https://www.pexels.com/license/)."
 %}
@@ -32,6 +34,8 @@ To understand the Icelandic interior, one must learn to read the language of lav
    src="assets/images/posts/iceland-basalt.webp"
    alt="Hexagonal columns of dark volcanic basalt catching golden evening light"
    loading="eager"
+   width="800"
+   height="1067"
    caption="The geometric perfection of columns at Reynisfjara. These basalt structures form via columnar jointing as thick lava flows cool slowly over months, contracting into distinct hexagonal geometric prisms. Image from [Pexels](https://www.pexels.com/photo/rock-formations-on-the-beach-7614602/) by Batın Özen, used under the Pexels License."
 %}
 
@@ -48,8 +52,8 @@ To capture this intense material contrast, the post uses a two-column responsive
    cols="2"
    caption="Fire and ice in the same frame: geothermal venting at Námafjall, where minerals stain the clay (left), and compressed ancient ice calving into the dark waters of Jökulsárlón (right). The left image from [Pexels](https://www.pexels.com/photo/brown-ground-near-body-of-water-464399/) by Francesco Ungaro (Jun 29, 2017), used under the Pexels License, and the right image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jokulsarlon_lake,_Iceland.jpg) by Kenny Muir (May 7, 2006), licensed under Creative Commons CC BY 2.0."
    images="
-     assets/images/posts/iceland-vent.webp    | A boiling geothermal mud pot venting thick sulfurous steam in Námafjall
-     assets/images/posts/iceland-glacier.webp | Deep blue glacial ice calving into a grey glacial lagoon under an overcast sky
+     assets/images/posts/iceland-vent.webp    | A boiling geothermal mud pot venting thick sulfurous steam in Námafjall | 900x601
+     assets/images/posts/iceland-glacier.webp | Deep blue glacial ice calving into a grey glacial lagoon under an overcast sky | 900x595
    "
 %}
 
@@ -132,9 +136,9 @@ When compiling field notes, individual frames often gain meaning when placed in 
    cols="3"
    caption="Three scales of the Icelandic experience: the micro-texture of black volcanic sand, the lone timber church at Búðir dwarfed by ancient volcanic masonry, and the macro-scale aurora lighting the sub-arctic sky. The left image adapted from [Imaggeo](https://imaggeo.egu.eu/view/12544/) by Simon Thivet (Feb. 18, 2014), licensed under Creative Commons CC BY 3.0., the middle image from [Pexels](https://www.pexels.com/photo/wooden-church-on-a-steppe-21700769/) by Bogdan Giurca (Oct. 28, 2023), used under the Pexels License, and the right image adapted from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Aurora_Borealis_activity_on_top_of_the_Kirkjufell_mountain_in_September_2018.jpg) by Vaidyanathan and Archana (Sep. 15, 2018), licensed under Creative Commons CC BY-SA 4.0."
    images="
-     assets/images/posts/frozen-volcanic-ash.webp     | Close-up of frozen volcanic ash formations resembling black sand structures
-     assets/images/posts/church-at-buoirdwarfed.webp  | A single solitary wooden church standing against a vast mountain backdrop
-     assets/images/posts/aurora-borealis.webp         | The glowing green curtains of the Aurora Borealis arching over a dark sea
+     assets/images/posts/frozen-volcanic-ash.webp     | Close-up of frozen volcanic ash formations resembling black sand structures | 700x394
+     assets/images/posts/church-at-buoirdwarfed.webp  | A single solitary wooden church standing against a vast mountain backdrop | 700x525
+     assets/images/posts/aurora-borealis.webp         | The glowing green curtains of the Aurora Borealis arching over a dark sea | 700x500
    "
 %}
 

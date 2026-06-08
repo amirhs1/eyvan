@@ -57,3 +57,4 @@ create_structure.sh
 _sass/*.sh
 assets/fonts/*.zip
 AUDIT_REPORT.*
+notes/*

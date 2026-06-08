@@ -23,11 +23,8 @@ brand colors, and so on) — keep those changes in your fork.
 
 ## Project conventions
 
-Eyvan follows a deliberate set of architectural choices documented in
-[`CLAUDE.md`](CLAUDE.md) and [`AGENTS.md`](AGENTS.md). Those files were written
-to brief AI coding assistants, but they double as the most complete map of this
-repository's conventions — human contributors will find them just as useful.
-In short:
+Eyvan follows a deliberate set of architectural conventions. Please keep
+contributions consistent with them:
 
 - **Build & deploy**: GitHub Actions, not the native GitHub Pages builder
   (which doesn't support the `jekyll/tagging` plugin). `_config.yml` ships with

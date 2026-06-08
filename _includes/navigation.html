@@ -55,15 +55,21 @@
         {% continue %}
       {% endif %}
 
-      <!-- Determine if link is external -->
-      {% assign is_external = false %}
-      {% if item.url contains '://' or item.url contains '.pdf' %}
-        {% assign is_external = true %}
+      <!-- Determine whether the URL should be rewritten for baseurl -->
+      {% assign is_external_url = false %}
+      {% if item.url contains '://' or item.url contains 'mailto:' or item.url contains 'tel:' %}
+        {% assign is_external_url = true %}
+      {% endif %}
+
+      <!-- Determine if link should open in a new tab -->
+      {% assign opens_new_tab = item.external | default: false %}
+      {% if is_external_url or item.url contains '.pdf' %}
+        {% assign opens_new_tab = true %}
       {% endif %}
 
       <!-- Compute final href -->
       {% assign item_href = item.url %}
-      {% unless is_external %}
+      {% unless is_external_url %}
         {% assign item_href = item.url | relative_url %}
       {% endunless %}
 
@@ -95,8 +101,10 @@
           {% if is_active %}
             aria-current="page"
           {% endif %}
-          {% if is_external %}
-            target="_blank" rel="noopener noreferrer"
+          {% if opens_new_tab %}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="{{ item.title | escape }}, opens in a new tab"
           {% endif %}
         >
           {{ item.title }}

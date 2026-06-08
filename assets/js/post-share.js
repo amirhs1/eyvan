@@ -6,6 +6,7 @@ Provide interactive behavior for the post share component.
 Features:
 - Native Web Share API for supported devices
 - Clipboard fallback when Web Share is unavailable
+- Polite status updates for clipboard fallback results
 - Print button support (browser print dialog)
 
 Dependencies:
@@ -20,6 +21,21 @@ Related component:
   // Section: Element references
   const shareButtons = document.querySelectorAll('.js-share-button');
   const printButtons = document.querySelectorAll('.js-print-button');
+
+  function updateShareStatus(button, message) {
+    const shareRoot = button.closest('.c-post-share');
+    const status = shareRoot ? shareRoot.querySelector('[data-share-status]') : null;
+
+    if (!status) {
+      return;
+    }
+
+    status.textContent = '';
+
+    window.setTimeout(function () {
+      status.textContent = message;
+    }, 10);
+  }
 
   // Section: Native share / clipboard fallback
   shareButtons.forEach((button) => {
@@ -42,23 +58,30 @@ Related component:
       } else if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
           await navigator.clipboard.writeText(url);
-          alert('Link copied to clipboard.');
+          updateShareStatus(e.currentTarget, 'Link copied to clipboard.');
         } catch (err) {
           console.error('Clipboard copy failed:', err);
+          updateShareStatus(e.currentTarget, 'Unable to copy link.');
         }
 
       // Subsection: Legacy fallback
       } else {
+        let tempInput = null;
+
         try {
-          const tempInput = document.createElement('input');
+          tempInput = document.createElement('input');
           tempInput.value = url;
           document.body.appendChild(tempInput);
           tempInput.select();
           document.execCommand('copy');
-          document.body.removeChild(tempInput);
-          alert('Link copied to clipboard.');
+          updateShareStatus(e.currentTarget, 'Link copied to clipboard.');
         } catch (err) {
           console.error('Fallback copy failed:', err);
+          updateShareStatus(e.currentTarget, 'Unable to copy link.');
+        } finally {
+          if (tempInput && tempInput.parentNode) {
+            tempInput.parentNode.removeChild(tempInput);
+          }
         }
       }
     });

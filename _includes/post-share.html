@@ -23,6 +23,7 @@
   - Buttons and links include aria-label
   - Decorative icons are hidden from assistive technology
   - External share links use noopener noreferrer when configured
+  - Clipboard fallback feedback is exposed through a polite live region
 
   Dependencies:
   - site.data.share
@@ -111,9 +112,14 @@
       {% endunless %}
     {% endfor %}
   </div>
+
+  <p
+    class="c-post-share__status u-visually-hidden"
+    aria-live="polite"
+    data-share-status
+  ></p>
 </div>
 <!-- End of post-share.html -->
-
 
 
 

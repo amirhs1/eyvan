@@ -16,6 +16,7 @@
 //   - .c-post-share__list
 //   - .c-post-share__link
 //   - .c-post-share__icon
+//   - .c-post-share__status
 //
 // Scope & Rules:
 // - Component styling only
@@ -83,6 +84,10 @@ $post-share-title-letter-spacing: 0.08em;
 
 .c-post-share__icon {
   color: inherit;
+}
+
+.c-post-share__status {
+  margin: 0;
 }
 
 /* -----------------------------------------------------------------------------

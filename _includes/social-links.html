@@ -70,16 +70,18 @@
         {% assign label = platform | capitalize %}
     {% endcase %}
 
+    {% assign link_label = label | append: ', opens in a new tab' %}
+
     <!-- Social action link -->
     <a
       class="c-icon-link c-social-links__item"
       href="{{ social[platform] }}"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="{{ label }}"
+      aria-label="{{ link_label | escape }}"
     >
       <!-- Screen-reader label for social action -->
-      <span class="u-visually-hidden">{{ label }}</span>
+      <span class="u-visually-hidden">{{ link_label }}</span>
 
       {% if icon %}
         <!-- Decorative social icon -->

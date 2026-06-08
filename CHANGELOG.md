@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Initial release of the Eyvan template: a minimalist, accessibility-first
+  Jekyll portfolio and writing template for GitHub Pages, with an ITCSS/BEM
+  Sass architecture, reusable long-form content includes (figures, video,
+  audio, tables, cross-references), light/dark theming, and a GitHub Actions
+  build-and-deploy pipeline gated by a Playwright + axe accessibility suite.
 - Dependabot configuration for Bundler, npm, and GitHub Actions, so dependency
   and security updates surface automatically as pull requests.
 - `.ruby-version`, with both CI workflows reading the Ruby version from it
@@ -35,12 +40,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   more than one, `code-block-a11y.js` gave each a literal `aria-label="Code
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
-
-## [1.0.0] - 2026-06-08
-
-Initial baseline release of the Eyvan template: a minimalist,
-accessibility-first Jekyll portfolio and writing template for GitHub Pages,
-with an ITCSS/BEM Sass architecture, reusable long-form content includes
-(figures, video, audio, tables, cross-references), light/dark theming, and a
-GitHub Actions build-and-deploy pipeline gated by a Playwright + axe
-accessibility suite.

@@ -15,6 +15,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 
 code,
 kbd,
@@ -43,6 +44,10 @@ pre {
   font-family: settings-typography.$font-family-mono;
   font-size: 0.9em;
   line-height: settings-typography.$line-height-loose;
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
 }
 
 pre code {

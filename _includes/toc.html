@@ -58,6 +58,9 @@ Notes:
 - Headings must have IDs to generate links
 - Headings with class "no_toc" are excluded
 - This include ONLY generates the list, not the container UI
+- To customize the surrounding container, markup, or styling, edit
+  post-toc-desktop.html / post-toc-mobile.html (the c-toc wrappers that
+  include this file) rather than this list-generation logic
 {% endcomment %}
 
 {% capture jekyll_toc %}{% endcapture %}

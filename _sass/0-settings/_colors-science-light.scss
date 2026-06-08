@@ -101,9 +101,9 @@ $base05: $ui-text;
 $base06: palette.$clr-gray-700;
 $base07: palette.$clr-gray-900;
 $base08: palette.$clr-p-red;
-$base09: palette.$clr-p-orange;
+$base09: palette.$clr-p-orange-dark; // numbers — saturated orange falls short of AA contrast on light
 $base0a: $accent-primary;
-$base0b: palette.$clr-p-green;
+$base0b: palette.$clr-p-green-dark;  // strings — saturated teal falls short of AA contrast on light
 $base0c: palette.$clr-p-azure;
 $base0d: palette.$clr-p-blue;
 $base0e: palette.$clr-p-indigo;

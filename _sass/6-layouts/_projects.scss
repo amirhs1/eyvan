@@ -75,7 +75,7 @@
     visibility settings-config.$transition-base;
 }
 
-.l-projects__back-to-top-wrap.is-hidden {
+.l-projects__back-to-top-wrap.is-back-to-top-hidden {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;

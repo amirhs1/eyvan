@@ -51,5 +51,7 @@ kbd,
 samp {
   font-family: settings-typography.$font-family-mono;
   font-size: 0.9em;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
   overflow-x: auto;
 }

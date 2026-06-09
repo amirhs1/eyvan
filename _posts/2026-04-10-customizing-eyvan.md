@@ -8,11 +8,11 @@ toc: true
 description: "Step-by-step guide to replacing the demo content and making Eyvan your own — from config and data files to assets and posts."
 ---
 
-> **Note:** This post wad generated with OpenAI's ChatGPT as a practical setup guide shipped with the Eyvan templateEyvan template. Follow it after cloning the repository and running `bundle install` for the first time.
+> **Note:** This post was generated with OpenAI's ChatGPT as a practical setup guide shipped with the Eyvan template. Follow it after cloning the repository and running `bundle install` for the first time.
 
 Eyvan ships with demo content — placeholder names, example posts, and sample images — so you can see the template running immediately. This guide walks you through replacing all of it with your own content, in the order that matters. None of this requires touching the templates or SCSS.[^1]
 
-The rule of thumb: everything about *who you are* lives in `_data/`. Everything about *how Jekyll behaves* lives in `_config.yml`. Your *posts* live in `_posts/`. Your *images, fonts, and icons* live in `assets/`.
+The rule of thumb: everything about *who you are* lives in `_data/`. Everything about *how Jekyll behaves* and *which site-wide assets are shared across templates* lives in `_config.yml`. Your *posts* live in `_posts/`. Your *images, fonts, and icons* live in `assets/`.
 
 ## Step 1 — The two required changes
 
@@ -46,10 +46,23 @@ Open `_config.yml` and update the fields under the *Site metadata* section:
 ```yaml
 title: "Your Name or Site Title"
 description: "One sentence that describes your site — used in search and social previews."
-author: "Your Name"
+author:
+  name: "Your Name"
+  email: "hello@example.com"
+  uri: "https://example.com"
 ```
 
-These three values appear in the browser tab title, the SEO `<meta>` description tag, and the default author fallback in post metadata.
+The `title` and `description` values appear in the browser tab title, SEO metadata, feeds, and social previews. The nested `author` block is kept in `_config.yml` because `jekyll-feed` reads `site.author` from there. The visible theme identity still comes from `_data/author.yml`, so keep the two places aligned when you customize the template.
+
+The same file also stores a few site-wide assets and links:
+
+```yaml
+default_og_image: "assets/images/og-default.webp"
+logo: "assets/images/logo.webp"
+cv_url: "assets/files/resume.pdf"
+```
+
+`default_og_image` is the fallback social preview image for pages that do not set their own `image`. `logo` is global brand chrome used by the shared brand include, so it belongs with site-level metadata rather than the homepage hero. `cv_url` is also global because the social-links include can render the CV action in the header, mobile menu, and footer. If you also want the homepage hero button to download the same file, set the matching CTA link in `_data/hero.yml`.
 
 ### Enabling analytics
 
@@ -82,7 +95,6 @@ role: "Your Title or Role"
 location: "City, Region, Country"
 
 avatar: "assets/images/avatar.webp"
-avatar_alt: "A photograph of Your Name"
 
 bio: >-
   A short paragraph about yourself. This appears in the homepage hero
@@ -94,82 +106,83 @@ email: "you@example.com"
 
 Replace `assets/images/avatar.webp` with your own portrait (see [Step 7](#step-7--replacing-visual-assets)). The `bio` field supports the YAML block scalar (`>-`) so you can write longer text without escaping quotes.
 
-The file also has optional fields for a CV download link and an ORCID identifier:
-
-```yaml
-cv: "assets/files/your-cv.pdf"   # link that appears in the hero actions
-orcid: "0000-0000-0000-0000"      # appears if the ORCID social link is enabled
-```
-
 ## Step 4 — Homepage hero in `_data/hero.yml`
 
 The hero section at the top of the homepage is driven entirely by this file. Open it and replace the placeholder text:
 
 ```yaml
 eyebrow: "Portfolio"               # small label above the headline (optional)
-title: "Hello — I'm Your Name"    # main headline
-description: >-
-  A one or two sentence introduction that appears below the headline.
-  This is the first thing visitors read.
+title_lead: "Hi there, I am"
+description_html: >-
+  <p><strong>Your Professional Title</strong> based in
+  <strong>City, Region, Country</strong>. Write 1–2 sentences here describing
+  your practice, research, or portfolio focus.</p>
 
 image: "assets/images/hero-placeholder.webp"
 image_alt: "A photograph or illustration representing you or your work"
 
-actions:
-  primary:
-    label: "View my work"
-    url: "/projects/"
-  secondary:
-    label: "About me"
-    url: "/about/"
+cta_button_primary_text: "Download my resume"
+cta_button_primary_link: "assets/files/resume.pdf"
+cta_button_secondary_text: "See my work"
+cta_button_secondary_link: "/projects/"
 ```
 
-The `eyebrow` is optional — delete it or leave it blank if you do not want the small label. The `actions` define the two call-to-action buttons in the hero.
+The `eyebrow` is optional — delete it or leave it blank if you do not want the small label. The author name in the headline still comes from `_data/author.yml`; `title_lead` only controls the words before the name. The CTA fields define the two buttons in the hero.
 
 ## Step 5 — Navigation in `_data/navigation.yml`
 
 This file controls the links in the site header and mobile menu. The default ships with four entries:
 
 ```yaml
-links:
+main:
+  - title: "Home"
+    url: "/"
+    external: false
+
   - title: "Projects"
     url: "/projects/"
-  - title: "Writing"
-    url: "/projects/"
+    external: false
+
   - title: "About"
     url: "/about/"
-  - title: "CV"
-    url: "assets/files/your-cv.pdf"
-    external: true
+    external: false
+
+  - title: "Tests"
+    url: "/tests/"
+    external: false
+    dev_only: true
 ```
 
-Edit the `title` and `url` for each entry. Set `external: true` on any link that opens outside your site — it will render with `target="_blank"` and a screen-reader label. Remove any entry you do not need. The template renders the nav from this list, so no HTML editing is required.
+Edit the `title` and `url` for each entry. Keep internal URLs baseurl-safe by writing them as site-relative paths such as `/projects/`; the navigation include applies `relative_url` for you.
+
+`external` is only needed when a navigation item should open in a new tab. The include also treats absolute URLs and PDF links as new-tab links automatically, but keeping `external: true` on intentional off-site links makes the data file easier to read.
+
+`dev_only` is used for links that should appear only when `dev_only: true` is set in `_config.yml`. The shipped test pages use it so the demo and production site do not expose development-only surfaces. Keep it on the Tests entry and its children; you can remove those entries entirely if you do not want local test navigation.
 
 ## Step 6 — Social and share links
 
 ### `_data/social-links.yml`
 
-Each entry in this file adds an icon link to the social bar in the site header and footer. The shipped demo includes GitHub, LinkedIn, and a few others. To remove a platform, comment out or delete its entry. To add one, follow the pattern:
+Each key in this file adds an icon link to the social bar in the site header, mobile menu, footer, and about page. The shipped demo includes every platform supported by the current include. To remove a platform, comment out or delete its key. To update a platform, replace the placeholder URL:
 
 ```yaml
-- platform: github
-  url: "https://github.com/your-username"
-  label: "GitHub profile"
-
-- platform: linkedin
-  url: "https://linkedin.com/in/your-profile"
-  label: "LinkedIn profile"
-
-- platform: email
-  url: "mailto:you@example.com"
-  label: "Email me"
+github: "https://github.com/your-username"
+linkedin: "https://www.linkedin.com/in/your-profile"
+x: "https://x.com/your-handle"
+youtube: "https://www.youtube.com/@your-channel"
+instagram: "https://www.instagram.com/your-handle"
+scholar: "https://scholar.google.com/citations?user=your-id"
+orcid: "https://orcid.org/0000-0000-0000-0000"
+medium: "https://medium.com/@your-handle"
 ```
 
-The `platform` value must match an available icon in `assets/icons/`. Supported platforms out of the box: `github`, `linkedin`, `x`, `instagram`, `youtube`, `pinterest`, `medium`, `discord`, `orcid`, `google_scholar`, `email`, `rss`.
+Supported social-link keys out of the box are `github`, `linkedin`, `instagram`, `youtube`, `x`, `scholar`, `orcid`, and `medium`. The CV action is separate and comes from `cv_url` in `_config.yml`.
 
 ### `_data/share.yml`
 
-Controls which platforms appear in the share bar at the bottom of posts. The structure mirrors `social-links.yml`. Remove entries for platforms you do not want to offer. Most users keep two or three.
+Controls which actions appear in the share bar on posts. The shipped demo renders X, LinkedIn, Pinterest, email, print, and native share actions. Pinterest is skipped automatically on posts without an `image`, because it needs an image URL to build a useful pin.
+
+Remove entries for platforms you do not want to offer. If you add a new share platform, add a matching branch in `_includes/post-share.html` so the include knows how to build that platform's share URL.
 
 ## Step 7 — Replacing visual assets
 
@@ -186,11 +199,36 @@ All visual assets live under `assets/`. Replace them at the same paths and Eyvan
 
 Use **WebP** for photos and illustrations to keep file sizes small. For the OG image, a 1200 × 630 px WebP at quality 80 is the recommended target — it is the size Facebook, X, and LinkedIn expect.
 
-If you already have images in JPEG or PNG, you can convert them with `cwebp` (part of the `webp` package):
+### Customizing the OG fallback image
+
+`assets/images/og-default.webp` is the fallback Open Graph image used when a page or post does not define its own `image`. Replace it with a 1200 × 630 px image that includes your name, site title, or a recognizable visual identity. Then confirm `_config.yml` still points to it:
+
+```yaml
+default_og_image: "assets/images/og-default.webp"
+```
+
+Individual posts can override the fallback with their own front matter:
+
+```yaml
+image: "assets/images/posts/your-post-cover.webp"
+image_alt: "Describe the image for screen readers"
+```
+
+If you already have images in JPEG or PNG, you can convert them with [`cwebp`](https://developers.google.com/speed/webp/docs/cwebp), which is part of the `webp` package:
 
 ```bash
 cwebp -q 80 -resize 300 0 your-avatar.jpg -o assets/images/avatar.webp
 ```
+
+If you prefer a browser-based tool, [Squoosh](https://squoosh.app/) is a practical option for previewing compression settings before downloading the converted image.
+
+Eyvan ships demo media in modern web formats because they usually reduce transfer size without changing the authoring workflow:
+
+- **WebP** works well for site images because it supports lossy and lossless compression, transparency, and broad browser support.
+- **Opus** works well for self-hosted audio because it gives strong quality at small file sizes and is a good general-purpose web audio codec.
+- **WebM** works well for self-hosted video because it is an open web container designed for efficient browser playback, commonly paired with VP9 or AV1 video and Opus audio.
+
+Keep original source files outside the published site if you need them for editing later. The optimized files in `assets/` should be the web-ready versions visitors download.
 
 ## Step 8 — Replacing demo posts
 
@@ -258,8 +296,10 @@ Run through this before your first deploy:
 - [ ] Hero headline and description updated in `_data/hero.yml`
 - [ ] Navigation links updated in `_data/navigation.yml`
 - [ ] Social links updated in `_data/social-links.yml`
+- [ ] Share actions reviewed in `_data/share.yml`
 - [ ] `assets/images/avatar.webp` replaced with your own portrait
 - [ ] `assets/images/hero-placeholder.webp` replaced or left as-is
+- [ ] `assets/images/og-default.webp` replaced with your own fallback social preview
 - [ ] Demo posts removed or replaced with your own content
 - [ ] `bundle exec jekyll build` runs without errors
 

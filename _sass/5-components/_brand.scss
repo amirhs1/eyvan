@@ -4,9 +4,9 @@
 //
 // Description:
 // Styles the reusable site brand shown in the global header.
-// The component displays a logo plus a two-line text stack (name + role) on
-// larger viewports, and collapses to a logo-only treatment in tighter header
-// contexts.
+// The component displays a logo plus a two-line text stack (name + role)
+// across viewports, and collapses to a logo-only treatment only in explicitly
+// compact contexts.
 //
 // Structure:
 // - .c-brand
@@ -23,7 +23,6 @@
 // - Layout placement belongs to the surrounding header object
 // - The whole brand remains a single homepage link
 // - Compact/collapsed presentation may be triggered by:
-//   - smaller viewports
 //   - .c-brand--compact
 //   - .c-site-header.is-shrunk on the parent header
 //
@@ -36,7 +35,6 @@
 //   pointer cursor and focus ring, not a text-only color shift
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
@@ -169,13 +167,6 @@
 /* Portable component-level modifier */
 .c-brand--compact {
   @include brand-collapsed;
-}
-
-/* Responsive collapse */
-@media (max-width: settings-breakpoints.$bp-md) {
-  .c-brand {
-    @include brand-collapsed;
-  }
 }
 
 /* Pragmatic header-driven collapse */

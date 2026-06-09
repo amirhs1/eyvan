@@ -1,5 +1,11 @@
 # Eyvan
 
+[![Run Automated Tests](https://github.com/amirhs1/eyvan/actions/workflows/develop.yml/badge.svg)](https://github.com/amirhs1/eyvan/actions/workflows/develop.yml)
+[![Deploy Jekyll site to Pages](https://github.com/amirhs1/eyvan/actions/workflows/jekyll-pages.yml/badge.svg)](https://github.com/amirhs1/eyvan/actions/workflows/jekyll-pages.yml)
+[![Accessibility: axe](https://img.shields.io/badge/accessibility-axe-brightgreen)](https://github.com/amirhs1/eyvan/actions/workflows/develop.yml)
+[![Jekyll](https://img.shields.io/badge/jekyll-~%3E%204.4-blue)](https://jekyllrb.com/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
 **Eyvan** — marked by the **A1** logo (pronounced /ey-van/) — is a visually minimalist, feature-rich Jekyll template inspired by the *eyvan* or *[ayvan](https://www.iranicaonline.org/articles/ayvan-palace/)*, an open threshold space in Iranian architecture.
 
 The template is designed for personal portfolios, academic profiles, research notes, project archives, and long-form technical writing. Its interface is restrained, but the template includes a complete publishing system: layouts, reusable Liquid includes, Sass architecture, JavaScript interactions, tag archives, social sharing, MathJax, media figures, and GitHub Actions deployment.

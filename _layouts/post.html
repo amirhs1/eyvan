@@ -14,11 +14,11 @@ layout: default
         - Optional tag list
         - Post title
         - Optional subtitle
-        - Header row (metadata + share)
+        - Header row (metadata; share is the no-TOC mobile fallback)
       - Mobile/tablet TOC toolbar and panel
       - Post body content
         - 3-column content layout (desktop)
-          - Left column (empty, layout symmetry)
+          - Left column (desktop sticky share rail)
           - Main column (prose content)
           - Right column (desktop Table of Contents)
         - Single-column layout (mobile/tablet)
@@ -30,7 +30,7 @@ layout: default
   Layout:
   - Cover image, header, and prose share the same readable width
   - Content area uses a symmetric 3-column system:
-    | left column | prose | right column (TOC) |
+    | left column (share rail) | prose | right column (TOC) |
   - Prose width is constrained via o-prose
   - Left and right columns remain equal to preserve visual centering
 
@@ -50,7 +50,7 @@ layout: default
   - Uses semantic article and header elements
   - TOC wrappers use nav landmarks with labels
   - Mobile TOC toggle uses aria-expanded and aria-controls
-  - Decorative layout columns are hidden from assistive tech
+  - Side layout columns hold the share rail and TOC; neither is aria-hidden
 
   Data dependencies:
   - page.title
@@ -115,7 +115,12 @@ layout: default
             {% include entry-meta.html entry_meta=page show_avatar=true %}
           </div>
 
-          {% if page.share != false %}
+          {% comment %}
+            No-TOC mobile fallback: when there is no mobile TOC toolbar to host
+            sharing, keep share in the header. The desktop sticky rail in the
+            left column covers wide viewports (see _post.scss).
+          {% endcomment %}
+          {% if page.share != false and page.toc != true %}
             <div class="c-post__header-actions">
               <div class="c-post__share">
                 {% include post-share.html %}
@@ -130,10 +135,14 @@ layout: default
       <!-- Post body content -->
       <div class="c-post__content">
         <div class="c-post-layout">
-          <div
-            class="c-post-layout__col c-post-layout__col--left"
-            aria-hidden="true"
-          ></div>
+          <div class="c-post-layout__col c-post-layout__col--left">
+            {% if page.share != false %}
+              <!-- Desktop sticky share rail (hidden on mobile/tablet) -->
+              <div class="c-post-share-rail">
+                {% include post-share.html %}
+              </div>
+            {% endif %}
+          </div>
 
           <div class="c-post-layout__col c-post-layout__col--main">
             <div class="c-post-layout__prose">

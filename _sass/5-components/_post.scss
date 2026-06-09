@@ -261,8 +261,31 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
   margin-inline-start: auto;
 }
 
+/* Box treatment mirrors .c-toc: same padding, border, and radius. The
+   background matches the code-block surface (see _syntax-highlighting.scss)
+   rather than .c-toc's --color-ui-surface, per design direction. */
 .c-post-share-rail .c-post-share {
   margin: 0;
+  padding: tools-spacing.$fluid-inline-sm;
+  background-color: var(--color-syntax-base00);
+  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border-radius: settings-config.$global-border-radius;
+}
+
+/* Heading treatment mirrors .c-toc__header / .c-toc__header-text so "Share"
+   and "On this page" read as a matched pair of sidebar headings. */
+.c-post-share-rail .c-post-share__head {
+  margin-block-end: tools-spacing.$space-stack-sm;
+  padding-block-end: tools-spacing.$space-stack-sm;
+  border-block-end: settings-config.$global-border-width solid
+    var(--color-ui-border);
+}
+
+.c-post-share-rail .c-post-share__title {
+  color: var(--color-heading);
+  font-size: settings-typography.$font-size-sm;
+  letter-spacing: settings-typography.$letter-spacing-tight;
+  text-align: start;
 }
 
 .c-post-share-rail .c-post-share__list {

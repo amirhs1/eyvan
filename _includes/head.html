@@ -46,6 +46,7 @@
   - site.url
   - site.default_og_image (optional)
   - page.title
+  - page.seo_title (optional — overrides page.title in <title> and OG/Twitter tags only)
   - page.description
   - page.image
   - page.url
@@ -60,7 +61,9 @@
 
 <!-- head.html -->
 <head>
-  {% if page.title %}
+  {% if page.seo_title %}
+    {% assign meta_title = page.seo_title %}
+  {% elsif page.title %}
     {% assign meta_title = page.title %}
   {% elsif page.layout == 'tag-page' and page.tag %}
     {% assign tag_words = page.tag | replace: '-', ' ' | replace: '_', ' ' | split: ' ' %}

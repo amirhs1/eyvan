@@ -6,17 +6,44 @@
 // Icon-only utility link that returns users to the top of the current page.
 //
 // Structure:
+// - .c-back-to-top-wrap
 // - .c-back-to-top
 //   - .c-back-to-top__icon
 //
 // Rules:
-// - Component owns visual styling only.
-// - Layout/page files decide placement.
+// - Component owns fixed placement and visual styling.
 // - This is intentionally quiet and does not use CTA button styling.
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
 @use "../1-tools/mixins" as tools-mixins;
+
+.c-back-to-top-wrap {
+  position: fixed;
+  inset-block-end: max(settings-spacing.$space-4, env(safe-area-inset-bottom));
+  inset-inline-start: 50%;
+  z-index: calc(settings-config.$z-header - 1);
+
+  display: flex;
+  justify-content: center;
+
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+
+  transform: translateX(-50%);
+
+  transition:
+    opacity settings-config.$transition-base,
+    visibility settings-config.$transition-base;
+}
+
+.c-back-to-top-wrap.is-back-to-top-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
 
 .c-back-to-top {
   display: inline-flex;

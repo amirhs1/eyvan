@@ -1,0 +1,137 @@
+{% comment %}
+  SEO Include
+  Purpose: Generate the page title, SEO meta description, canonical URL, and
+  Open Graph / Twitter/X social preview tags for every page.
+
+  Structure:
+  - Page title (<title>)
+  - SEO meta description
+  - Canonical URL
+  - Open Graph social preview (og:*)
+  - Twitter/X card (twitter:*)
+  - Article timestamps (posts only)
+
+  Architecture:
+  - Included once from head.html, replacing the former inline SEO block
+  - Separates the SEO title (long, keyword-rich) from the social title (short,
+    avoids platform truncation) — the same pattern used by Minimal Mistakes:
+      <title>          → seo_title   (page.seo_title → page.title → site.title)
+      og:title         → social_title (page.og_title  → page.title → site.title)
+  - og:image is resolved through three tiers so a purpose-built 1200×630 social
+    image can exist alongside a different-sized post card image:
+      page.og_image → page.image → site.default_og_image → fallback
+  - Tag archive pages receive a synthesized title in both <title> and social tags
+
+  Accessibility:
+  - og:image:alt and twitter:image:alt fall back to page.title then site.title
+    so every social card carries a meaningful alternative text
+
+  Data dependencies:
+  - page.seo_title       (optional — full <title> override, ≤60 chars for Google)
+  - page.og_title        (optional — short og:title / twitter:title override)
+  - page.title
+  - page.description
+  - page.og_image        (optional — 1200×630 social image, separate from card image)
+  - page.image
+  - page.image_alt       (optional — alt text for the social preview image)
+  - page.date            (presence sets og:type = article and emits timestamps)
+  - page.last_modified_at (optional — article:modified_time)
+  - page.url
+  - site.title
+  - site.description
+  - site.default_og_image
+
+  Notes:
+  - meta description is truncated at 160 chars (Google); og:/twitter: descriptions
+    at 125 chars (social platforms display ~125 chars on mobile)
+  - twitter:card is summary_large_image when any image resolves, summary otherwise
+  - article:published_time and article:modified_time are only emitted for pages
+    that carry page.date (i.e. posts in _posts/)
+{% endcomment %}
+
+{%- comment -%} Build the SEO title for <title> (long, keyword-rich) {%- endcomment -%}
+{%- if page.seo_title -%}
+  {%- assign seo_title = page.seo_title -%}
+{%- elsif page.layout == 'tag-page' and page.tag -%}
+  {%- assign tag_words = page.tag | replace: '-', ' ' | replace: '_', ' ' | split: ' ' -%}
+  {%- capture tag_display -%}
+    {%- for word in tag_words -%}
+      {{ word | capitalize }}{%- unless forloop.last %} {% endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture seo_title -%}Tag Archive — {{ tag_display | strip }}{%- endcapture -%}
+{%- elsif page.title -%}
+  {%- assign seo_title = page.title -%}
+{%- else -%}
+  {%- assign seo_title = site.title -%}
+{%- endif -%}
+
+{%- comment -%} Build the social title for og:title / twitter:title (short) {%- endcomment -%}
+{%- if page.og_title -%}
+  {%- assign social_title = page.og_title -%}
+{%- elsif page.layout == 'tag-page' and page.tag -%}
+  {%- assign social_title = seo_title -%}
+{%- elsif page.title -%}
+  {%- assign social_title = page.title -%}
+{%- else -%}
+  {%- assign social_title = site.title -%}
+{%- endif -%}
+
+{%- comment -%} Build descriptions at two truncation lengths {%- endcomment -%}
+{%- assign base_description   = page.description | default: site.description | strip_html | strip_newlines -%}
+{%- assign meta_description   = base_description | truncate: 160 | xml_escape -%}
+{%- assign social_description = base_description | truncate: 125 | xml_escape -%}
+
+{%- comment -%} Resolve OG image and its alt text {%- endcomment -%}
+{%- assign meta_image     = page.og_image | default: page.image | default: site.default_og_image | default: 'assets/images/hero-placeholder.webp' -%}
+{%- assign meta_image_alt = page.image_alt | default: page.title | default: site.title | escape -%}
+
+{%- comment -%} OG type: article for posts, website for everything else {%- endcomment -%}
+{%- if page.date -%}
+  {%- assign og_type = "article" -%}
+{%- else -%}
+  {%- assign og_type = "website" -%}
+{%- endif -%}
+
+{%- comment -%} Twitter card type: large image when any image resolves {%- endcomment -%}
+{%- if page.og_image or page.image or site.default_og_image -%}
+  {%- assign twitter_card_type = "summary_large_image" -%}
+{%- else -%}
+  {%- assign twitter_card_type = "summary" -%}
+{%- endif -%}
+
+<!-- seo.html -->
+
+<!-- Page title (≤60 chars keeps Google from truncating in SERPs) -->
+<title>{{ seo_title | strip_newlines | escape }}</title>
+
+<!-- SEO meta description (≤160 chars) -->
+<meta name="description" content="{{ meta_description }}">
+
+<!-- Canonical URL (prevents duplicate-content indexing) -->
+<link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+
+<!-- Open Graph social preview (Facebook, LinkedIn, Discord, Slack) -->
+<meta property="og:site_name" content="{{ site.title | escape }}">
+<meta property="og:title" content="{{ social_title | escape }}">
+<meta property="og:description" content="{{ social_description }}">
+<meta property="og:url" content="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:image" content="{{ meta_image | absolute_url }}">
+<meta property="og:image:alt" content="{{ meta_image_alt }}">
+
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="{{ twitter_card_type }}">
+<meta name="twitter:title" content="{{ social_title | escape }}">
+<meta name="twitter:description" content="{{ social_description }}">
+<meta name="twitter:image" content="{{ meta_image | absolute_url }}">
+<meta name="twitter:image:alt" content="{{ meta_image_alt }}">
+
+{% if og_type == "article" %}
+  <!-- Article timestamps (posts only) -->
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  {% if page.last_modified_at %}
+    <meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">
+  {% endif %}
+{% endif %}
+<!-- End of seo.html -->

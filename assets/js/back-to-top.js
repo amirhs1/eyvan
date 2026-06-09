@@ -12,6 +12,7 @@ Features:
 
 Dependencies:
 - [data-back-to-top-wrap]
+- [data-back-to-top]
 - .c-site-footer
 
 Related component:
@@ -26,8 +27,9 @@ Related component:
      ========================================================================== */
 
   const BACK_TO_TOP_WRAP_SELECTOR = '[data-back-to-top-wrap]';
+  const BACK_TO_TOP_LINK_SELECTOR = '[data-back-to-top]';
   const FOOTER_SELECTOR = '.c-site-footer';
-  const HIDDEN_CLASS = 'is-hidden';
+  const HIDDEN_CLASS = 'is-back-to-top-hidden';
   const VISIBLE_SCROLL_THRESHOLD = 240;
 
   /* ==========================================================================
@@ -46,6 +48,10 @@ Related component:
 
   function getFooter() {
     return document.querySelector(FOOTER_SELECTOR);
+  }
+
+  function getBackToTopLink(backToTopWrap) {
+    return backToTopWrap.querySelector(BACK_TO_TOP_LINK_SELECTOR);
   }
 
   /* ==========================================================================
@@ -108,6 +114,77 @@ Related component:
     );
   }
 
+  function getTargetFromHash(hash) {
+    if (!hash || hash === '#') {
+      return null;
+    }
+
+    return document.getElementById(hash.slice(1));
+  }
+
+  function scrollToPageTarget(target) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: scrollBehavior,
+        block: 'start'
+      });
+
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: scrollBehavior
+    });
+  }
+
+  function focusPageTarget(target) {
+    if (!target) {
+      return;
+    }
+
+    const hadTabIndex = target.hasAttribute('tabindex');
+
+    if (!hadTabIndex) {
+      target.setAttribute('tabindex', '-1');
+    }
+
+    target.focus({
+      preventScroll: true
+    });
+
+    if (!hadTabIndex) {
+      target.addEventListener(
+        'blur',
+        () => {
+          target.removeAttribute('tabindex');
+        },
+        {
+          once: true
+        }
+      );
+    }
+  }
+
+  function bindBackToTopClick(backToTopWrap) {
+    const backToTopLink = getBackToTopLink(backToTopWrap);
+
+    if (!backToTopLink) {
+      return;
+    }
+
+    backToTopLink.addEventListener('click', (event) => {
+      const target = getTargetFromHash(backToTopLink.hash);
+
+      event.preventDefault();
+      scrollToPageTarget(target);
+      focusPageTarget(target);
+    });
+  }
+
   /* ==========================================================================
      Initialization
      ========================================================================== */
@@ -122,6 +199,7 @@ Related component:
 
     observeFooter(backToTopWrap, footer);
     bindScrollListener(backToTopWrap);
+    bindBackToTopClick(backToTopWrap);
     updateBackToTopVisibility(backToTopWrap);
   }
 

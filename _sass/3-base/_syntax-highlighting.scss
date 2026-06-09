@@ -22,9 +22,12 @@ kbd,
 samp {
   font-family: settings-typography.$font-family-mono;
   font-size: 0.9em;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
 }
 
 :not(pre) > code {
+  margin-inline: 0.08em;
   padding: 0.15em 0.35em;
   border: 1px solid var(--color-ui-border);
   border-radius: settings-config.$global-border-radius;
@@ -43,6 +46,8 @@ pre {
   color: var(--color-syntax-base05);
   font-family: settings-typography.$font-family-mono;
   font-size: 0.9em;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
   line-height: settings-typography.$line-height-loose;
 
   &:focus-visible {

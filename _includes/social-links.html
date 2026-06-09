@@ -1,20 +1,33 @@
 {% comment %}
   Social Links Component
-  Purpose: Render reusable social platform links plus the CV action.
+  Purpose: Render reusable social platform links plus the CV action, in a
+  consistent priority order, with an optional overflow disclosure.
 
   Structure:
-  - Social icon links rendered from a platform mapping
-  - Optional CV icon link rendered after the social links
+  - Ordered list of available items (CV + social platforms)
+  - Optional overflow disclosure: a toggle button plus a hidden panel
+    holding any items beyond `collapse_after`
 
   Architecture:
   - Reusable leaf include used by header, footer, and mobile menu
   - Output is markup only; layout belongs to the parent container
+  - Per-item markup is delegated to social-link-item.html so visible and
+    overflow items render identically
   - Uses c-icon-link and c-social-links element classes
+  - JS hooks: js-* / data-* (overflow disclosure only)
 
   Accessibility:
-  - Each link has an explicit aria-label
-  - Each link includes visually hidden text for screen readers
-  - Decorative inline SVG icons are hidden from assistive technology
+  - Per-item accessibility is delegated to social-link-item.html
+  - The overflow toggle uses aria-expanded and aria-controls
+  - The overflow panel is hidden via the `hidden` attribute when collapsed
+
+  Params:
+  - collapse_after (optional, integer): when set and the number of available
+    items exceeds this value, only the first `collapse_after` items render
+    inline; the rest render inside a hidden overflow panel revealed by an
+    "ellipsis-horizontal-circle" toggle button. Omit (or 0) to always render
+    every available item inline (used by the footer and mobile menu, which
+    wrap and center instead of collapsing).
 
   Data dependencies:
   - site.data.social-links.github
@@ -26,105 +39,74 @@
   - site.data.social-links.orcid
   - site.data.social-links.medium
   - site.cv_url
+  - _includes/social-link-item.html
+  - _includes/icons/ellipsis-horizontal-circle.svg
 
   Notes:
-  - Icons are rendered inline from _includes/icons
-  - If you enable orcid or medium in data, add matching icon include files
-    or update the mapping below
+  - Priority order is fixed: cv, linkedin, github first (if available), then
+    the remaining platforms in their existing relative order
+  - To support a new platform, add it to `remaining_platforms` below and add
+    a matching case branch in social-link-item.html
 {% endcomment %}
 
 {% assign social = site.data.social-links %}
-{% assign platforms = 'github,linkedin,instagram,youtube,x,scholar,orcid,medium' | split: ',' %}
 
-<!-- social-links.html -->
-{% for platform in platforms %}
-  {% if social[platform] %}
-    {% assign icon = nil %}
+{% comment %} Priority order: cv, linkedin, github first; then the rest. {% endcomment %}
+{% assign remaining_platforms = 'instagram,youtube,x,scholar,orcid,medium' | split: ',' %}
+{% assign priority_order = 'cv,linkedin,github' | split: ',' | concat: remaining_platforms %}
 
-    {% case platform %}
-      {% when 'github' %}
-        {% assign label = 'GitHub' %}
-        {% assign icon = 'github.svg' %}
-      {% when 'linkedin' %}
-        {% assign label = 'LinkedIn' %}
-        {% assign icon = 'linkedin.svg' %}
-      {% when 'instagram' %}
-        {% assign label = 'Instagram' %}
-        {% assign icon = 'instagram.svg' %}
-      {% when 'youtube' %}
-        {% assign label = 'YouTube' %}
-        {% assign icon = 'youtube.svg' %}
-      {% when 'x' %}
-        {% assign label = 'X (Twitter)' %}
-        {% assign icon = 'x.svg' %}
-      {% when 'scholar' %}
-        {% assign label = 'Google Scholar' %}
-        {% assign icon = 'google_scholar.svg' %}
-      {% when 'orcid' %}
-        {% assign label = 'ORCID' %}
-        {% assign icon = 'orcid.svg' %}
-      {% when 'medium' %}
-        {% assign label = 'Medium' %}
-        {% assign icon = 'medium.svg' %}
-      {% else %}
-        {% assign label = platform | capitalize %}
-    {% endcase %}
+{% assign available_items = '' | split: ',' %}
+{% for item in priority_order %}
+  {% assign single_item = item | split: ',' %}
 
-    {% assign link_label = label | append: ', opens in a new tab' %}
-
-    <!-- Social action link -->
-    <a
-      class="c-icon-link c-social-links__item"
-      href="{{ social[platform] }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="{{ link_label | escape }}"
-    >
-      <!-- Screen-reader label for social action -->
-      <span class="u-visually-hidden">{{ link_label }}</span>
-
-      {% if icon %}
-        <!-- Decorative social icon -->
-        <span
-          class="c-icon-link__icon c-social-links__icon"
-          aria-hidden="true"
-        >
-          {% include icons/{{ icon }} %}
-        </span>
-      {% else %}
-        <!-- Text fallback when no matching inline icon include exists -->
-        <span
-          class="c-icon-link__icon c-social-links__icon c-social-links__icon--text"
-          aria-hidden="true"
-        >
-          {{ label | slice: 0, 1 }}
-        </span>
-      {% endif %}
-    </a>
+  {% if item == 'cv' %}
+    {% if site.cv_url %}
+      {% assign available_items = available_items | concat: single_item %}
+    {% endif %}
+  {% elsif social[item] %}
+    {% assign available_items = available_items | concat: single_item %}
   {% endif %}
 {% endfor %}
 
-<!-- Optional CV link -->
-{% if site.cv_url %}
-  <!-- CV action link -->
-  <a
-    class="c-icon-link c-social-links__item c-social-links__item--cv"
-    href="{{ site.cv_url | relative_url }}"
-    target="_blank"
-    rel="noopener noreferrer"
-    type="application/pdf"
-    aria-label="Open CV PDF in a new tab"
-  >
-    <!-- Screen-reader label for CV action -->
-    <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+{% assign collapse_after = include.collapse_after | default: 0 %}
 
-    <!-- Decorative CV icon -->
-    <span
-      class="c-icon-link__icon c-social-links__icon"
-      aria-hidden="true"
-    >
-      {% include icons/cv.svg %}
+{% if collapse_after > 0 and available_items.size > collapse_after %}
+  {% assign visible_items = available_items | slice: 0, collapse_after %}
+  {% assign overflow_items = available_items | slice: collapse_after, available_items.size %}
+{% else %}
+  {% assign visible_items = available_items %}
+  {% assign overflow_items = '' | split: ',' %}
+{% endif %}
+
+<!-- social-links.html -->
+{% for item in visible_items %}
+  {% include social-link-item.html item=item %}
+{% endfor %}
+
+{% if overflow_items.size > 0 %}
+  <!-- Overflow disclosure: reveals the remaining social/CV links -->
+  <button
+    class="c-icon-link c-social-links__item c-social-links__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="social-links-overflow"
+    aria-label="Show more social links"
+    data-social-overflow-toggle
+  >
+    <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
+      {% include icons/ellipsis-horizontal-circle.svg %}
     </span>
-  </a>
+  </button>
+
+  <div
+    id="social-links-overflow"
+    class="c-social-links__overflow"
+    data-social-overflow-panel
+    hidden
+  >
+    {% for item in overflow_items %}
+      {% include social-link-item.html item=item %}
+    {% endfor %}
+  </div>
 {% endif %}
 <!-- End of social-links.html -->

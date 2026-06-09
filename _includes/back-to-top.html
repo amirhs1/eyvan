@@ -18,13 +18,15 @@
 {% assign back_to_top_href = include.href | default: '#top' %}
 {% assign back_to_top_label = include.label | default: 'Back to top' %}
 
-<a
-  class="c-back-to-top"
-  href="{{ back_to_top_href }}"
-  aria-label="{{ back_to_top_label }}"
-  data-back-to-top
->
-  <span class="c-back-to-top__icon" aria-hidden="true">
-    {% include icons/chevron-up-circle.svg %}
-  </span>
-</a>
+<div class="c-back-to-top-wrap" data-back-to-top-wrap>
+  <a
+    class="c-back-to-top"
+    href="{{ back_to_top_href }}"
+    aria-label="{{ back_to_top_label }}"
+    data-back-to-top
+  >
+    <span class="c-back-to-top__icon" aria-hidden="true">
+      {% include icons/chevron-up-circle.svg %}
+    </span>
+  </a>
+</div>

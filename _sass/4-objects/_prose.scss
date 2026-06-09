@@ -103,6 +103,24 @@ $toc-sticky-top-margin: calc(8rem + settings-spacing.$space-4);
     margin-block-start: settings-spacing.$space-2;
   }
 
+  .task-list {
+    padding-inline-start: settings-spacing.$space-4;
+    list-style: none;
+  }
+
+  .task-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: settings-spacing.$space-2;
+    list-style: none;
+  }
+
+  .task-list-item-checkbox {
+    flex: 0 0 auto;
+    margin-block-start: 0.45em;
+    margin-inline: 0;
+  }
+
   // Links
   a {
     text-decoration: underline;

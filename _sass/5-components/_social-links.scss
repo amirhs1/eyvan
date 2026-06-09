@@ -21,14 +21,21 @@
 // - .c-social-links__item--cv
 // - .c-social-links__icon--text
 //
+// Overflow disclosure (header only):
+// - .c-social-links__toggle
+// - .c-social-links__overflow
+//
 // Scope & Rules:
 // - Component styling only
 // - Parent layout/alignment belongs to the surrounding object/component
 // - Icons inherit currentColor for theme compatibility
 // - Works for inline SVG icons and text fallbacks
+// - Overflow toggle/panel visibility is driven by
+//   assets/js/social-links-overflow.js via aria-expanded/[hidden]
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tools-spacing;
@@ -38,6 +45,8 @@
    ----------------------------------------------------------------------------- */
 
 .c-social-links {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -66,6 +75,34 @@
   font-weight: settings-typography.$font-weight-bold;
   line-height: 1;
   text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Overflow disclosure (header only)
+   The toggle is just another flex item; the panel is an absolutely
+   positioned popover anchored to the .c-social-links container.
+   ----------------------------------------------------------------------------- */
+
+.c-social-links__overflow {
+  position: absolute;
+  z-index: settings-config.$z-dropdown;
+  inset-block-start: calc(100% + settings-spacing.$space-2);
+  inset-inline-end: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: settings-spacing.$space-1;
+
+  padding: settings-spacing.$space-2;
+
+  background-color: var(--color-ui-surface);
+  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border-radius: settings-config.$global-border-radius;
+  box-shadow: settings-config.$card-shadow-hover;
+}
+
+.c-social-links__overflow[hidden] {
+  display: none;
 }
 
 /* -----------------------------------------------------------------------------

@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   run-tests:
+    if: "!(github.event_name == 'pull_request' && github.head_ref == 'main' && github.base_ref == 'develop')"
     runs-on: ubuntu-latest
 
     steps:

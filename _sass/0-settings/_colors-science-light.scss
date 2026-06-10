@@ -47,7 +47,7 @@ $accent-secondary: palette.$clr-p-teal-deeper; // hover emphasis — darker step
 
 $body-bg: $ui-bg;
 $body-color: $ui-text;
-$heading-color: palette.$clr-p-teal-deep;
+$heading-color: $ui-text; // titles stay neutral — the brand hue is reserved for interactive elements
 
 
 /* -----------------------------------------------------------------------------
@@ -61,6 +61,12 @@ $button-bg: $accent-primary;
 $button-bg-hover: $accent-secondary;
 $button-text: palette.$clr-white;
 $button-border: transparent;
+
+/* Tags (taxonomy chips) — keep the heritage indigo/blue identity,
+   decoupled from the teal brand applied to buttons and links */
+$tag-bg: palette.$clr-p-indigo;
+$tag-bg-hover: palette.$clr-p-blue;
+$tag-text: palette.$clr-white;
 
 
 /* -----------------------------------------------------------------------------

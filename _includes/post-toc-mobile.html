@@ -5,7 +5,8 @@
   Structure:
   - Sticky mobile/tablet toolbar
     - Contents button
-    - Optional share actions
+    - Optional share actions (collapsed: 1 platform action + Print + Native,
+      remaining platform actions behind an overflow toggle)
   - Full-screen mobile/tablet TOC panel
     - Panel header
     - Close button
@@ -21,6 +22,8 @@
   - The toolbar button controls #mobile-toc
   - The panel nav is labelled by #mobile-toc-header
   - The close button has an explicit accessible label
+  - Share overflow toggle uses aria-expanded and aria-controls (delegated to
+    post-share.html, see assets/js/post-share.js)
 
   Data dependencies:
   - page.toc
@@ -46,7 +49,7 @@
     {% if page.share != false %}
       <!-- Toolbar share actions -->
       <div class="c-toc-toolbar__share">
-        {% include post-share.html %}
+        {% include post-share.html collapse=true %}
       </div>
     {% endif %}
   </div>

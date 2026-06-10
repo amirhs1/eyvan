@@ -28,6 +28,8 @@
   Accessibility:
   - Navigation regions use aria-label
   - Menu toggle uses aria-expanded and aria-controls
+  - Social-links overflow toggle uses aria-expanded and aria-controls
+    (delegated to social-links.html)
   - Decorative inline SVG icons are hidden from assistive technology
   - Brand link accessibility is delegated to brand.html
 
@@ -38,7 +40,9 @@
   - theme-toggle.html dependencies
 
   Notes:
-  - Desktop actions are rendered through social-links.html
+  - Desktop actions are rendered through social-links.html, with
+    collapse_after=4 so a 5th-and-beyond item collapses behind an
+    "ellipsis-horizontal-circle" overflow toggle (assets/js/social-links-overflow.js)
   - Theme control is rendered through theme-toggle.html
   - Mobile overlay menu is rendered through mobile-menu.html
   - Brand logo uses fetchpriority="high" because it is above the fold
@@ -75,7 +79,7 @@
       <div class="o-site-header__actions">
         <!-- Desktop social and CV actions -->
         <nav class="c-social-links" aria-label="Header social links">
-          {% include social-links.html %}
+          {% include social-links.html collapse_after=4 %}
         </nav>
       </div>
 

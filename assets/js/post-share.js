@@ -8,10 +8,13 @@ Features:
 - Clipboard fallback when Web Share is unavailable
 - Polite status updates for clipboard fallback results
 - Print button support (browser print dialog)
+- Overflow disclosure for additional share actions, supporting close via the
+  toggle, Escape (with focus return), and outside click
 
 Dependencies:
 - .js-share-button
 - .js-print-button
+- [data-overflow-toggle] (panel resolved via its aria-controls/id pair)
 
 Related component:
 - _includes/post-share.html
@@ -91,6 +94,59 @@ Related component:
   printButtons.forEach((button) => {
     button.addEventListener('click', function () {
       window.print();
+    });
+  });
+
+  // Section: Overflow disclosure
+  const overflowToggles = document.querySelectorAll('[data-overflow-toggle]');
+
+  overflowToggles.forEach((toggle) => {
+    const panel = document.getElementById(toggle.getAttribute('aria-controls'));
+
+    if (!panel) {
+      return;
+    }
+
+    function syncOverflowState(isOpen) {
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      panel.hidden = !isOpen;
+    }
+
+    function isOverflowOpen() {
+      return toggle.getAttribute('aria-expanded') === 'true';
+    }
+
+    function closeOverflow({ returnFocus = false } = {}) {
+      syncOverflowState(false);
+
+      if (returnFocus) {
+        toggle.focus();
+      }
+    }
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      syncOverflowState(!isOverflowOpen());
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !isOverflowOpen()) {
+        return;
+      }
+
+      closeOverflow({ returnFocus: true });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!isOverflowOpen()) {
+        return;
+      }
+
+      if (panel.contains(e.target) || toggle.contains(e.target)) {
+        return;
+      }
+
+      closeOverflow();
     });
   });
 })();

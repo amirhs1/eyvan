@@ -139,6 +139,7 @@ $toc-sticky-top-margin: calc(8rem + settings-spacing.$space-4);
     max-inline-size: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    font-family: settings-typography.$font-family-mono;
   }
 
   img,

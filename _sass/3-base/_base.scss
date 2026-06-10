@@ -41,7 +41,7 @@
   /* Typography & content */
   --color-body-bg: #{settings-colors.$light-body-bg};
   --color-body-color: #{settings-colors.$light-body-color};
-  --color-heading-color: #{settings-colors.$light-heading-color};
+  --color-heading: #{settings-colors.$light-heading-color};
 
   /* Accent system */
   --color-accent-primary: #{settings-colors.$light-accent-primary};
@@ -105,7 +105,7 @@ html[data-theme="dark"] {
 
   --color-body-bg: #{settings-colors.$dark-body-bg};
   --color-body-color: #{settings-colors.$dark-body-color};
-  --color-heading-color: #{settings-colors.$dark-heading-color};
+  --color-heading: #{settings-colors.$dark-heading-color};
 
   --color-accent-primary: #{settings-colors.$dark-accent-primary};
   --color-accent-secondary: #{settings-colors.$dark-accent-secondary};

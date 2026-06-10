@@ -27,8 +27,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SECURITY.md` and `CONTRIBUTING.md`.
 - This changelog.
 
+### Changed
+
+- Light-mode brand color moved from indigo/blue to the Persian turquoise
+  family, so both themes now share one brand hue at two lightness steps: new
+  `$clr-p-teal-deep` (`#00796B`, 5.32:1 on white) drives light-mode links,
+  headings, buttons, focus rings, and text selection, with `$clr-p-teal-deeper`
+  (`#00564B`) as the hover step; dark mode keeps turquoise `#3FE0D0`. The
+  browser `theme-color` metas and the JS fallbacks in `theme-toggle.js` /
+  `demo-climate-charts.js` follow the same change. Indigo and blue remain in
+  the palette as syntax-highlighting accents.
+- The code-heavy accessibility test now also scans a post whose code samples
+  contain comment and gutter tokens, closing the coverage gap that let the
+  light-theme comment-contrast defect through CI.
+
 ### Fixed
 
+- Undefined `--color-heading` custom property: `_base.scss` emitted
+  `--color-heading-color` while every component consumes
+  `var(--color-heading)`, so the semantic heading color silently never
+  applied and headings fell back to body text color in both themes — the
+  same defect shape as the `--color-link` mismatch fixed earlier. Headings
+  now actually render the heading token (brand teal in light, white in
+  dark).
+- Insufficient color contrast on syntax-highlighted comments and line-number
+  gutters in the light theme (`base03`, 3.27:1 against the code background —
+  flagged in two audits but live until now because the CI-scanned page renders
+  no comment tokens). Light `base03` now uses the existing `$clr-gray-400`
+  (5.55:1); the dark theme is unchanged.
 - Insufficient color contrast on syntax-highlighted strings and numbers in the
   light theme, and on variables in the dark theme — found by the new
   code-heavy-page accessibility test (WCAG 2.1 AA, `color-contrast`). New

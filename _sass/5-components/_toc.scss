@@ -62,6 +62,7 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
   padding-block-end: tools-spacing.$space-stack-sm;
   border-block-end: settings-config.$global-border-width solid
     var(--color-ui-border);
+  text-align: center;
 }
 
 .c-toc__header-text {
@@ -123,7 +124,9 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: settings-spacing.$space-3;
+    row-gap: settings-spacing.$space-2;
 
     position: sticky;
     top: calc(var(--site-header-block-size, 0px) + settings-spacing.$space-2);
@@ -147,20 +150,31 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
   }
 
   .c-toc-toolbar__share {
-    flex: 0 1 auto;
-    min-inline-size: 0;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
 
     .c-post-share {
+      display: flex;
+      align-items: center;
+      gap: settings-spacing.$space-2;
       margin: 0;
     }
 
     .c-post-share__head {
-      display: none;
+      flex: 0 0 auto;
+      margin: 0;
     }
 
     .c-post-share__list {
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      flex-wrap: nowrap;
+      gap: settings-spacing.$space-1;
+    }
+
+    .c-icon-link {
+      inline-size: 2.25rem;
+      block-size: 2.25rem;
+      min-inline-size: 2.25rem;
+      min-block-size: 2.25rem;
     }
   }
 }

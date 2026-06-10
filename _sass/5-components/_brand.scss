@@ -4,13 +4,14 @@
 //
 // Description:
 // Styles the reusable site brand shown in the global header.
-// The component displays a logo plus a two-line text stack (name + role)
-// across viewports, and collapses to a logo-only treatment only in explicitly
-// compact contexts.
+// The component displays an inline SVG logo mark plus a two-line text stack
+// (name + role) across viewports, and collapses to a logo-only treatment only
+// in explicitly compact contexts.
 //
 // Structure:
 // - .c-brand
 //   - .c-brand__logo
+//     - .c-brand__logo-mark (inline SVG)
 //   - .c-brand__text
 //   - .c-brand__name
 //   - .c-brand__role
@@ -28,9 +29,8 @@
 //
 // Notes:
 // - The logo is treated as a fixed visual unit
+// - The SVG mark uses currentColor, so it follows the active theme color
 // - The text column is flexible and may collapse away when space is limited
-// - This avoids brittle hard-coded 1/3–2/3 layout math while preserving the
-//   intended visual proportion
 // - Brand text colors stay stable on hover/focus so the interaction cue is the
 //   pointer cursor and focus ring, not a text-only color shift
 // -----------------------------------------------------------------------------
@@ -68,7 +68,7 @@
   gap: settings-spacing.$space-inline-md;
   min-inline-size: 0;
   max-inline-size: 100%;
-  color: inherit;
+  color: var(--color-text);
   text-decoration: none;
   vertical-align: middle;
   transition: settings-config.$transition-transform;
@@ -79,7 +79,7 @@
   &:hover,
   &:focus-visible,
   &:active {
-    color: inherit;
+    color: var(--color-text);
     text-decoration: none;
   }
 
@@ -94,11 +94,19 @@
    ----------------------------------------------------------------------------- */
 
 .c-brand__logo {
-  flex: 0 0 auto;
   @include tools-mixins.size-square(settings-config.$brand-logo-size);
+
   display: block;
-  object-fit: contain;
+  flex: 0 0 auto;
+  color: inherit;
   transition: settings-config.$transition-transform;
+}
+
+.c-brand__logo-mark {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  fill: currentColor;
 }
 
 .c-brand__text {
@@ -143,7 +151,7 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Stable text colors inside link states
+   Stable colors inside link states
    ----------------------------------------------------------------------------- */
 
 .c-brand__name,

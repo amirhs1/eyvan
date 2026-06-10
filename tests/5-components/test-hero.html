@@ -13,7 +13,7 @@ robots: noindex
   - Base hero structure
   - Hero without eyebrow
   - Description rich-text flow
-  - Action wrapping behavior
+  - Equal-width action layout
   - Media shell and image treatment
   - Long-title stress test
   - Fallback content shape
@@ -142,24 +142,24 @@ robots: noindex
 
 <hr>
 
-<h2>Action wrapping behavior</h2>
+<h2>Equal-width action layout</h2>
 <p>
-  <strong>Expected behavior:</strong> The action group should align horizontally when space is available and wrap
-  cleanly in tighter widths.
+  <strong>Expected behavior:</strong> The two actions should have equal widths and collectively match the description
+  measure. On narrow screens, they should stack into one full-width column.
 </p>
 <div class="c-test-frame">
   <div class="c-test-box" style="max-inline-size:34rem;">
+    <div class="c-hero__description">
+      <p>The action group below should align to the same left and right edges as this description.</p>
+    </div>
     <div class="c-hero__actions">
       <a class="c-button c-button--primary c-button--small" href="#">Book a Consultation</a>
       <a class="c-button c-button--secondary c-button--small" href="#"
         ><span class="c-button__label">Browse Selected Research Projects</span></a
       >
-      <a class="c-button c-button--secondary c-button--small" href="#"
-        ><span class="c-button__label">Read Writing Samples</span></a
-      >
     </div>
   </div>
-  <p class="c-test-note">Reduce the viewport width to confirm that the buttons wrap instead of overflowing.</p>
+  <p class="c-test-note">Reduce the viewport width to confirm that the buttons stack instead of overflowing.</p>
 </div>
 
 <hr>

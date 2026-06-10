@@ -56,6 +56,10 @@
   --color-button-text: #{settings-colors.$light-button-text};
   --color-button-border: #{settings-colors.$light-button-border};
 
+  --color-tag-bg: #{settings-colors.$light-tag-bg};
+  --color-tag-bg-hover: #{settings-colors.$light-tag-bg-hover};
+  --color-tag-text: #{settings-colors.$light-tag-text};
+
   /* Status & feedback */
   --color-state-error: #{settings-colors.$light-state-error};
   --color-state-success: #{settings-colors.$light-state-success};
@@ -117,6 +121,10 @@ html[data-theme="dark"] {
   --color-button-bg-hover: #{settings-colors.$dark-button-bg-hover};
   --color-button-text: #{settings-colors.$dark-button-text};
   --color-button-border: #{settings-colors.$dark-button-border};
+
+  --color-tag-bg: #{settings-colors.$dark-tag-bg};
+  --color-tag-bg-hover: #{settings-colors.$dark-tag-bg-hover};
+  --color-tag-text: #{settings-colors.$dark-tag-text};
 
   --color-state-error: #{settings-colors.$dark-state-error};
   --color-state-success: #{settings-colors.$dark-state-success};

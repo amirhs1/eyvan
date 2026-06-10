@@ -62,6 +62,12 @@ $button-bg-hover: $accent-secondary;
 $button-text: palette.$clr-black;
 $button-border: transparent;
 
+/* Tags (taxonomy chips) — same as dark buttons today; own tokens so the
+   light theme can diverge */
+$tag-bg: $accent-primary;
+$tag-bg-hover: $accent-secondary;
+$tag-text: palette.$clr-black;
+
 
 /* -----------------------------------------------------------------------------
    Status & Feedback

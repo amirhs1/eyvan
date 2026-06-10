@@ -59,20 +59,19 @@
         {% include brand.html logo_fetchpriority="high" %}
       </div>
 
-      <!-- Header desktop navigation -->
+      <!-- Header desktop navigation cluster -->
       <div class="o-site-header__nav">
+        <!-- Desktop theme toggle -->
+        <div class="o-site-header__theme">
+          {% include theme-toggle.html hide_label=true %}
+        </div>
+
         <!-- Primary desktop navigation include -->
         {%
           include navigation.html
           modifier="c-nav--desktop"
           aria_label="Primary navigation"
-        %}   
-      </div>
-
-      <!-- Header desktop theme toggle -->
-      <div class="o-site-header__theme">
-        <!-- Desktop theme toggle -->
-        {% include theme-toggle.html hide_label=true %}
+        %}
       </div>
 
       <!-- Header desktop actions -->

@@ -38,11 +38,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box">
     <a class="c-brand" href="#" aria-label="Go to homepage">
-      <img
-        class="c-brand__logo"
-        src="{{ '/assets/images/logo.svg' | relative_url }}"
-        alt="Site logo"
-      >
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe</span>
         <span class="c-brand__role">Applied Scientist</span>
@@ -62,11 +60,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box" style="max-inline-size: 20rem;">
     <a class="c-brand" href="#" aria-label="Go to homepage" style="display:flex;inline-size:100%;max-inline-size:100%;">
-      <img
-        class="c-brand__logo"
-        src="{{ '/assets/images/logo.svg' | relative_url }}"
-        alt="Site logo"
-      >
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe With a Very Long Professional Display Name</span>
         <span class="c-brand__role">Applied Scientist in Computational Social Science and Digital Humanities</span>
@@ -85,11 +81,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box">
     <a class="c-brand c-brand--compact" href="#" aria-label="Go to homepage">
-      <img
-        class="c-brand__logo"
-        src="{{ '/assets/images/logo.svg' | relative_url }}"
-        alt="Site logo"
-      >
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe</span>
         <span class="c-brand__role">Applied Scientist</span>
@@ -109,11 +103,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box" style="max-inline-size: 20rem;">
     <a class="c-brand" href="#" aria-label="Go to homepage">
-      <img
-        class="c-brand__logo"
-        src="{{ '/assets/images/logo.svg' | relative_url }}"
-        alt="Site logo"
-      >
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe</span>
         <span class="c-brand__role">Applied Scientist</span>
@@ -138,7 +130,9 @@ robots: noindex
     <p class="c-test-label">Normal header context</p>
     <div style="display:flex;align-items:center;gap:1rem;">
       <a class="c-brand" href="#" aria-label="Go to homepage">
-        <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+        <span class="c-brand__logo" aria-hidden="true">
+          {% include icons/brand.svg %}
+        </span>
         <span class="c-brand__text">
           <span class="c-brand__name">John Doe</span>
           <span class="c-brand__role">Applied Scientist</span>
@@ -153,7 +147,9 @@ robots: noindex
     <p class="c-test-label">Shrunk header context</p>
     <div style="display:flex;align-items:center;gap:1rem;">
       <a class="c-brand" href="#" aria-label="Go to homepage">
-        <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+        <span class="c-brand__logo" aria-hidden="true">
+          {% include icons/brand.svg %}
+        </span>
         <span class="c-brand__text">
           <span class="c-brand__name">John Doe</span>
           <span class="c-brand__role">Applied Scientist</span>
@@ -176,7 +172,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box">
     <a class="c-brand" href="#" aria-label="Go to homepage">
-      <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe</span>
       </span>
@@ -195,7 +193,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box" style="max-inline-size: 8rem;">
     <a class="c-brand" href="#" aria-label="Go to homepage">
-      <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
     </a>
   </div>
 </div>
@@ -211,7 +211,9 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-box">
     <a class="c-brand" href="#" aria-label="Go to homepage">
-      <img class="c-brand__logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Site logo">
+      <span class="c-brand__logo" aria-hidden="true">
+        {% include icons/brand.svg %}
+      </span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe</span>
         <span class="c-brand__role">Applied Scientist</span>

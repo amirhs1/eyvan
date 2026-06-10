@@ -37,8 +37,8 @@ $ui-shadow-color: rgba(palette.$clr-black, 0.1);
    Accent System (Functional)
    ----------------------------------------------------------------------------- */
 
-$accent-primary: palette.$clr-p-indigo; // primary actions
-$accent-secondary: palette.$clr-p-blue; // links
+$accent-primary: palette.$clr-p-teal-deep; // primary actions — brand hue, shared with dark mode
+$accent-secondary: palette.$clr-p-teal-deeper; // hover emphasis — darker step of the brand hue
 
 
 /* -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ $accent-secondary: palette.$clr-p-blue; // links
 
 $body-bg: $ui-bg;
 $body-color: $ui-text;
-$heading-color: palette.$clr-p-indigo;
+$heading-color: $ui-text; // titles stay neutral — the brand hue is reserved for interactive elements
 
 
 /* -----------------------------------------------------------------------------
@@ -61,6 +61,12 @@ $button-bg: $accent-primary;
 $button-bg-hover: $accent-secondary;
 $button-text: palette.$clr-white;
 $button-border: transparent;
+
+/* Tags (taxonomy chips) — match the brand teal used by buttons and links,
+   mirroring the "tags = buttons" relationship dark mode already has */
+$tag-bg: $accent-primary;
+$tag-bg-hover: $accent-secondary;
+$tag-text: palette.$clr-white;
 
 
 /* -----------------------------------------------------------------------------
@@ -95,7 +101,7 @@ $selection-bg: $accent-primary;
 $base00: palette.$clr-off-white;
 $base01: palette.$clr-gray-100;
 $base02: palette.$clr-gray-200;
-$base03: palette.$clr-gray-500;
+$base03: palette.$clr-gray-400; // comments/gutter — gray-500 falls short of AA contrast on light
 $base04: palette.$clr-gray-600;
 $base05: $ui-text;
 $base06: palette.$clr-gray-700;

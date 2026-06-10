@@ -27,8 +27,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SECURITY.md` and `CONTRIBUTING.md`.
 - This changelog.
 
+### Changed
+
+- Light-mode brand color moved from indigo/blue to the Persian turquoise
+  family, so both themes now share one brand hue at two lightness steps: new
+  `$clr-p-teal-deep` (`#00796B`, 5.32:1 on white) drives light-mode links,
+  buttons, focus rings, and text selection, with `$clr-p-teal-deeper`
+  (`#00564B`) as the hover step; dark mode keeps turquoise `#3FE0D0`. The
+  browser `theme-color` metas and the JS fallbacks in `theme-toggle.js` /
+  `demo-climate-charts.js` follow the same change. Titles and headings stay
+  neutral (body text color), and indigo and blue remain in the palette as
+  syntax-highlighting accents.
+- Tag chips now have their own semantic tokens (`--color-tag-bg`,
+  `--color-tag-bg-hover`, `--color-tag-text`) instead of reusing the button
+  tokens, keeping their heritage indigo/blue identity in the light theme
+  while buttons carry the teal brand; dark-theme chips are unchanged
+  (turquoise, matching dark buttons).
+- Light-mode tag chips now point those tokens at the brand teal
+  (`$accent-primary` / `$accent-secondary`), matching `.c-button` instead of
+  the heritage indigo/blue, so tags and buttons share one hue again in both
+  themes (dark-theme chips were already teal/turquoise and are unchanged).
+- Heading weight: the previous pass's Medium (500) read too light across
+  the board, so the shared `h1`–`h6` rule, post titles, and
+  `.c-section-heading--lg` (About/Projects/tag-archive titles and the
+  homepage "Latest Projects" heading) are back to Bold (700) —
+  `.c-section-heading--lg` had been Black (900) before that pass and now
+  matches `.c-section-heading--md`. The homepage hero title keeps a lighter
+  touch via a new self-hosted Semi-Bold (600) cut of Barlow Condensed,
+  balancing the condensed face's legibility at very large sizes against the
+  bold display identity. Post titles also gained a touch more line-height
+  (1.08 → 1.1) to keep Bold from feeling cramped. Visual hierarchy is still
+  conveyed primarily by size.
+- The desktop theme toggle now sits immediately before Home in the centered
+  navigation cluster, using the same spacing rhythm as the navigation items.
+- The two homepage hero actions now share equal-width columns across the same
+  measure as the hero description and stack into a single column on narrow
+  screens.
+- The desktop table of contents now uses the same code-surface background as
+  the desktop share rail, while mobile TOC surfaces remain unchanged.
+- The code-heavy accessibility test now also scans a post whose code samples
+  contain comment and gutter tokens, closing the coverage gap that let the
+  light-theme comment-contrast defect through CI.
+
 ### Fixed
 
+- Undefined `--color-heading` custom property: `_base.scss` emitted
+  `--color-heading-color` while every component consumes
+  `var(--color-heading)`, so the semantic heading color silently never
+  applied and headings fell back to body text color in both themes — the
+  same defect shape as the `--color-link` mismatch fixed earlier. The token
+  chain now resolves; the light theme deliberately maps it to the body text
+  color (titles keep their established neutral look) and the dark theme to
+  white.
+- Insufficient color contrast on syntax-highlighted comments and line-number
+  gutters in the light theme (`base03`, 3.27:1 against the code background —
+  flagged in two audits but live until now because the CI-scanned page renders
+  no comment tokens). Light `base03` now uses the existing `$clr-gray-400`
+  (5.55:1); the dark theme is unchanged.
 - Insufficient color contrast on syntax-highlighted strings and numbers in the
   light theme, and on variables in the dark theme — found by the new
   code-heavy-page accessibility test (WCAG 2.1 AA, `color-contrast`). New

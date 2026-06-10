@@ -43,6 +43,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   tokens, keeping their heritage indigo/blue identity in the light theme
   while buttons carry the teal brand; dark-theme chips are unchanged
   (turquoise, matching dark buttons).
+- Light-mode tag chips now point those tokens at the brand teal
+  (`$accent-primary` / `$accent-secondary`), matching `.c-button` instead of
+  the heritage indigo/blue, so tags and buttons share one hue again in both
+  themes (dark-theme chips were already teal/turquoise and are unchanged).
+- Heading weight reduced from Bold/Black (700/900) to Medium (500): the
+  shared `h1`–`h6` rule, the homepage hero title, post titles, and
+  `.c-section-heading--lg` (About/Projects/tag-archive titles and the
+  homepage "Latest Projects" heading). Bold or Black weight in the condensed
+  Barlow Condensed display face compresses letter counters and apertures at
+  large sizes, reducing legibility for low-vision and dyslexic readers;
+  Medium (also self-hosted) keeps the condensed display identity while
+  opening up letterforms. Visual hierarchy is still conveyed by size.
 - The desktop theme toggle now sits immediately before Home in the centered
   navigation cluster, using the same spacing rhythm as the navigation items.
 - The two homepage hero actions now share equal-width columns across the same

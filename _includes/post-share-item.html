@@ -1,0 +1,78 @@
+{% comment %}
+  Post Share Item
+  Purpose: Render a single share action (link or button) from _data/share.yml.
+
+  Architecture:
+  - Leaf include used by post-share.html for both inline and overflow actions
+    so the markup stays identical in both places
+  - Uses c-icon-link and c-post-share element classes
+  - JS hooks: js-* (share/print buttons, handled by assets/js/post-share.js)
+
+  Accessibility:
+  - Each action has an explicit title and aria-label
+  - Decorative inline SVG icons are hidden from assistive technology
+  - External share links use rel as configured in _data/share.yml
+
+  Params:
+  - item: a single entry from site.data.share (id, type, label, icon, and
+    optional popup_name/popup_width/popup_height/rel/button_class/data_title/
+    data_url)
+
+  Dependencies:
+  - page.title
+  - page.url
+  - page.image (optional; only used by the pinterest share URL)
+  - _includes/icons/*.svg
+
+  Notes:
+  - If you add a new link-based platform, add a matching case branch below
+{% endcomment %}
+
+{% assign item = include.item %}
+{% assign href = nil %}
+{% assign onclick = nil %}
+
+{% case item.id %}
+  {% when 'x' %}
+    {% capture href %}https://x.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | absolute_url | uri_escape }}{% endcapture %}
+    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
+
+  {% when 'linkedin' %}
+    {% capture href %}https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | uri_escape }}{% endcapture %}
+    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
+
+  {% when 'pinterest' %}
+    {% capture href %}https://pinterest.com/pin/create/button/?url={{ page.url | absolute_url | uri_escape }}&media={{ page.image | absolute_url | uri_escape }}&description={{ page.title | uri_escape }}{% endcapture %}
+    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
+
+  {% when 'email' %}
+    {% capture href %}mailto:?subject={{ page.title | uri_escape }}&body={{ 'I thought you might enjoy this post:' | uri_escape }}%0A%0A{{ page.title | uri_escape }}%0A{{ page.url | absolute_url | uri_escape }}{% endcapture %}
+{% endcase %}
+
+{% if item.type == 'link' %}
+  <a
+    class="c-icon-link c-post-share__link"
+    href="{{ href | strip }}"
+    {% if onclick %}onclick="{{ onclick | strip }}"{% endif %}
+    {% if item.rel %}rel="{{ item.rel }}"{% endif %}
+    title="{{ item.label }}"
+    aria-label="{{ item.label }}"
+  >
+    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+      {% include icons/{{ item.icon }} %}
+    </span>
+  </a>
+{% elsif item.type == 'button' %}
+  <button
+    class="c-icon-link c-post-share__link{% if item.button_class %} {{ item.button_class }}{% endif %}"
+    type="button"
+    title="{{ item.label }}"
+    aria-label="{{ item.label }}"
+    {% if item.data_title %}data-title="{{ page.title | escape }}"{% endif %}
+    {% if item.data_url %}data-url="{{ page.url | absolute_url }}"{% endif %}
+  >
+    <span class="c-icon-link__icon c-post-share__icon" aria-hidden="true">
+      {% include icons/{{ item.icon }} %}
+    </span>
+  </button>
+{% endif %}

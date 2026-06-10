@@ -18,13 +18,20 @@
 //   - .c-post-share__icon
 //   - .c-post-share__status
 //
+// Modifiers:
+// - .c-post-share__toggle (overflow disclosure trigger)
+// - .c-post-share__overflow (overflow disclosure panel)
+//
 // Scope & Rules:
 // - Component styling only
 // - Owns share-group spacing, alignment, and typography
 // - Reuses the shared icon-link primitive for control visuals and motion
+// - Overflow toggle/panel visibility is driven by assets/js/post-share.js
+//   via aria-expanded/[hidden] (used by the mobile/tablet TOC toolbar)
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 
@@ -71,6 +78,8 @@ $post-share-title-letter-spacing: 0.08em;
    ----------------------------------------------------------------------------- */
 
 .c-post-share__list {
+  position: relative;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -88,6 +97,34 @@ $post-share-title-letter-spacing: 0.08em;
 
 .c-post-share__status {
   margin: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Overflow disclosure (mobile/tablet TOC toolbar)
+   The toggle is just another item in .c-post-share__list; the panel is an
+   absolutely positioned popover anchored to that list.
+   ----------------------------------------------------------------------------- */
+
+.c-post-share__overflow {
+  position: absolute;
+  z-index: settings-config.$z-dropdown;
+  inset-block-start: calc(100% + settings-spacing.$space-2);
+  inset-inline-end: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: settings-spacing.$space-1;
+
+  padding: settings-spacing.$space-2;
+
+  background-color: var(--color-ui-surface);
+  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border-radius: settings-config.$global-border-radius;
+  box-shadow: settings-config.$card-shadow-hover;
+}
+
+.c-post-share__overflow[hidden] {
+  display: none;
 }
 
 /* -----------------------------------------------------------------------------

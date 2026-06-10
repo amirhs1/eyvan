@@ -62,10 +62,10 @@ $button-bg-hover: $accent-secondary;
 $button-text: palette.$clr-white;
 $button-border: transparent;
 
-/* Tags (taxonomy chips) — keep the heritage indigo/blue identity,
-   decoupled from the teal brand applied to buttons and links */
-$tag-bg: palette.$clr-p-indigo;
-$tag-bg-hover: palette.$clr-p-blue;
+/* Tags (taxonomy chips) — match the brand teal used by buttons and links,
+   mirroring the "tags = buttons" relationship dark mode already has */
+$tag-bg: $accent-primary;
+$tag-bg-hover: $accent-secondary;
 $tag-text: palette.$clr-white;
 
 

@@ -72,6 +72,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   padding-inline: settings-spacing.$space-1;
 
   color: var(--color-ui-text);
+  font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-md;
   font-weight: settings-typography.$font-weight-medium;
   line-height: 1.2;

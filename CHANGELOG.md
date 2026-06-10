@@ -32,11 +32,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Light-mode brand color moved from indigo/blue to the Persian turquoise
   family, so both themes now share one brand hue at two lightness steps: new
   `$clr-p-teal-deep` (`#00796B`, 5.32:1 on white) drives light-mode links,
-  headings, buttons, focus rings, and text selection, with `$clr-p-teal-deeper`
+  buttons, focus rings, and text selection, with `$clr-p-teal-deeper`
   (`#00564B`) as the hover step; dark mode keeps turquoise `#3FE0D0`. The
   browser `theme-color` metas and the JS fallbacks in `theme-toggle.js` /
-  `demo-climate-charts.js` follow the same change. Indigo and blue remain in
-  the palette as syntax-highlighting accents.
+  `demo-climate-charts.js` follow the same change. Titles and headings stay
+  neutral (body text color), and indigo and blue remain in the palette as
+  syntax-highlighting accents.
+- Tag chips now have their own semantic tokens (`--color-tag-bg`,
+  `--color-tag-bg-hover`, `--color-tag-text`) instead of reusing the button
+  tokens, keeping their heritage indigo/blue identity in the light theme
+  while buttons carry the teal brand; dark-theme chips are unchanged
+  (turquoise, matching dark buttons).
+- The desktop theme toggle now sits immediately before Home in the centered
+  navigation cluster, using the same spacing rhythm as the navigation items.
+- The two homepage hero actions now share equal-width columns across the same
+  measure as the hero description and stack into a single column on narrow
+  screens.
+- The desktop table of contents now uses the same code-surface background as
+  the desktop share rail, while mobile TOC surfaces remain unchanged.
 - The code-heavy accessibility test now also scans a post whose code samples
   contain comment and gutter tokens, closing the coverage gap that let the
   light-theme comment-contrast defect through CI.
@@ -47,9 +60,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--color-heading-color` while every component consumes
   `var(--color-heading)`, so the semantic heading color silently never
   applied and headings fell back to body text color in both themes — the
-  same defect shape as the `--color-link` mismatch fixed earlier. Headings
-  now actually render the heading token (brand teal in light, white in
-  dark).
+  same defect shape as the `--color-link` mismatch fixed earlier. The token
+  chain now resolves; the light theme deliberately maps it to the body text
+  color (titles keep their established neutral look) and the dark theme to
+  white.
 - Insufficient color contrast on syntax-highlighted comments and line-number
   gutters in the light theme (`base03`, 3.27:1 against the code background —
   flagged in two audits but live until now because the CI-scanned page renders

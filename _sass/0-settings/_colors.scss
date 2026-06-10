@@ -47,6 +47,10 @@ $light-button-bg-hover: theme-light.$button-bg-hover;
 $light-button-text: theme-light.$button-text;
 $light-button-border: theme-light.$button-border;
 
+$light-tag-bg: theme-light.$tag-bg;
+$light-tag-bg-hover: theme-light.$tag-bg-hover;
+$light-tag-text: theme-light.$tag-text;
+
 $light-state-error: theme-light.$state-error;
 $light-state-success: theme-light.$state-success;
 $light-state-warning: theme-light.$state-warning;
@@ -101,6 +105,10 @@ $dark-button-bg: theme-dark.$button-bg;
 $dark-button-bg-hover: theme-dark.$button-bg-hover;
 $dark-button-text: theme-dark.$button-text;
 $dark-button-border: theme-dark.$button-border;
+
+$dark-tag-bg: theme-dark.$tag-bg;
+$dark-tag-bg-hover: theme-dark.$tag-bg-hover;
+$dark-tag-text: theme-dark.$tag-text;
 
 $dark-state-error: theme-dark.$state-error;
 $dark-state-success: theme-dark.$state-success;

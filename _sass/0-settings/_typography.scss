@@ -26,16 +26,16 @@
 // ITCSS layer: 0-settings
 // -----------------------------------------------------------------------------
 
-// 1. Display / UI (Sans-Serif)
-// Large headings, navigation, portfolio titles, hero sections
-$font-family-display: "Space Grotesk", "Inter", "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+// 1. Display / UI (Condensed Sans-Serif)
+// Headings, navigation, buttons, brand, metadata, TOC, hero sections
+$font-family-display: "Barlow Condensed", "Inter", "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 
 // 2. Editorial / Body (Serif)
-// PhD research text, artist statements, long-form writing
-$font-family-body: "Literata", "Source Serif 4", "EB Garamond", Georgia, "Times New Roman", Times, serif;
+// Paragraphs, long-form writing, prose — metric-compatible with Georgia
+$font-family-body: "Gelasio", Georgia, "Times New Roman", Times, serif;
 
 // 3. Technical / Data (Monospace)
-// Code blocks, ML parameters, metadata, dimensions
+// Code, captions, tables, tags, ML parameters, metadata, dimensions
 $font-family-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 /* -----------------------------------------------------------------------------

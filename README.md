@@ -193,10 +193,10 @@ The template draw creative and technical inspiration from the following open-sou
 
 ### Typography Licensing
 
-The template self-hosts three variable WOFF2 font subsets (latin range only). All three families are released under the [SIL Open Font License 1.1 (OFL)](https://openfontlicense.org/), which permits free use, modification, and redistribution in derivative works provided the OFL terms are preserved.
+The template self-hosts three font families as WOFF2 subsets (latin range only): Gelasio and JetBrains Mono as variable-weight files, and Barlow Condensed as static per-weight files. All three families are released under the [SIL Open Font License 1.1 (OFL)](https://openfontlicense.org/), which permits free use, modification, and redistribution in derivative works provided the OFL terms are preserved.
 
-- **Literata** (editorial / body serif): Designed by TypeTogether. Source: [Google Fonts](https://fonts.google.com/specimen/Literata). Licensed under [OFL 1.1](https://openfontlicense.org/).
-- **Space Grotesk** (display / UI sans-serif): Designed by Florian Karsten. Source: [Google Fonts](https://fonts.google.com/specimen/Space+Grotesk). Licensed under [OFL 1.1](https://openfontlicense.org/).
+- **Barlow Condensed** (display / UI condensed sans-serif): Designed by Jeremy Tribby. Source: [Google Fonts](https://fonts.google.com/specimen/Barlow+Condensed). Licensed under [OFL 1.1](https://openfontlicense.org/).
+- **Gelasio** (editorial / body serif, metric-compatible with Georgia): Designed by Eben Sorkin. Source: [Google Fonts](https://fonts.google.com/specimen/Gelasio). Licensed under [OFL 1.1](https://openfontlicense.org/).
 - **JetBrains Mono** (technical / code monospace): Designed by JetBrains. Source: [Google Fonts](https://fonts.google.com/specimen/JetBrains+Mono). Licensed under [OFL 1.1](https://openfontlicense.org/).
 
 ### Iconography Licensing

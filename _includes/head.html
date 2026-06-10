@@ -91,14 +91,14 @@
   <!-- This meta tag is the single source of truth for runtime browser chrome colors. -->
   <meta
     name="theme-color"
-    content="#32127A"
+    content="#00796B"
     data-theme-color-meta
-    data-theme-color-light="#32127A"
+    data-theme-color-light="#00796B"
     data-theme-color-dark="#3FE0D0"
   >
 
   <!-- System preference fallbacks for browsers that evaluate media-specific theme-color -->
-  <meta name="theme-color" content="#32127A" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#00796B" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#3FE0D0" media="(prefers-color-scheme: dark)">
 
   <!-- Browser color scheme hint -->
@@ -127,7 +127,7 @@
 
       if (themeColorMeta) {
         const lightColor =
-          themeColorMeta.getAttribute('data-theme-color-light') || '#32127A';
+          themeColorMeta.getAttribute('data-theme-color-light') || '#00796B';
         const darkColor =
           themeColorMeta.getAttribute('data-theme-color-dark') || '#3FE0D0';
 

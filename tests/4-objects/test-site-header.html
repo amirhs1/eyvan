@@ -37,7 +37,8 @@ robots: noindex
 
     <p>
       This page verifies the functionality of the <code>.o-site-header</code> object and its structural child zones
-      defined in the <strong>4-objects</strong> Sass layer.
+      defined in the <strong>4-objects</strong> Sass layer. The desktop theme zone is nested inside the flexible
+      navigation cluster so it can sit immediately before the primary navigation.
     </p>
 
     <p class="c-test-note">
@@ -63,14 +64,14 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">
+              <span class="c-site-header-test-label">Theme</span>
+            </div>
+          </div>
+
           <div class="c-site-header-test-block">
             <span class="c-site-header-test-label">Nav</span>
-          </div>
-        </div>
-
-        <div class="o-site-header__theme">
-          <div class="c-site-header-test-block">
-            <span class="c-site-header-test-label">Theme</span>
           </div>
         </div>
 
@@ -94,8 +95,8 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      On smaller screens, only the brand zone and mobile controls zone should be visible. The nav, theme, and actions
-      zones should be hidden.
+      On smaller screens, only the brand zone and mobile controls zone should be visible. The desktop navigation
+      cluster, including its theme control, and the actions zone should be hidden.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -105,11 +106,11 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block">Nav hidden on small screens</div>
-        </div>
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">Theme hidden with nav cluster</div>
+          </div>
 
-        <div class="o-site-header__theme">
-          <div class="c-site-header-test-block">Theme hidden on small screens</div>
+          <div class="c-site-header-test-block">Nav hidden on small screens</div>
         </div>
 
         <div class="o-site-header__actions">
@@ -128,8 +129,9 @@ robots: noindex
 
     <p>
       <strong>Expected behavior:</strong>
-      At the layout breakpoint and above, the nav, theme, and actions zones should become visible, while the mobile
-      controls zone should become hidden. The nav zone should expand and sit between the brand and the desktop controls.
+      At the layout breakpoint and above, the navigation cluster and actions zone should become visible, while the
+      mobile controls zone should become hidden. The theme control should appear first in the centered navigation
+      cluster, separated from the nav content by the same gap used between navigation items.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -139,14 +141,14 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block c-site-header-test-block--strong">
+              Theme visible at layout breakpoint
+            </div>
+          </div>
+
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             Nav visible at layout breakpoint
-          </div>
-        </div>
-
-        <div class="o-site-header__theme">
-          <div class="c-site-header-test-block c-site-header-test-block--strong">
-            Theme visible at layout breakpoint
           </div>
         </div>
 
@@ -169,7 +171,7 @@ robots: noindex
     <p>
       <strong>Expected behavior:</strong>
       At the layout breakpoint and above, the nav zone should take the flexible middle space because it uses
-      <code>flex: 1 1 auto</code>. Its content should appear centered in that middle area.
+      <code>flex: 1 1 auto</code>. Its theme and navigation content should appear together in the center.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -179,13 +181,13 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">Theme</div>
+          </div>
+
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             Centered flexible nav zone
           </div>
-        </div>
-
-        <div class="o-site-header__theme">
-          <div class="c-site-header-test-block">Theme</div>
         </div>
 
         <div class="o-site-header__actions">
@@ -205,9 +207,9 @@ robots: noindex
     <p>
       <strong>Expected behavior:</strong>
       This test should stress the zone that is actually flexible in the header object. At the layout breakpoint and
-      above, the nav zone should absorb long content and wrap without causing obvious horizontal overflow, because it is
-      the middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The brand,
-      theme, and actions zones remain content-sized edge regions.
+      above, the nav zone should absorb long content without causing obvious horizontal overflow, because it is the
+      middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The nested theme
+      control remains content-sized alongside the navigation content.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -219,18 +221,18 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">
+              <div class="c-site-header-test-text">Theme</div>
+            </div>
+          </div>
+
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             <div class="c-site-header-test-text">
               Navigation area with intentionally long placeholder content to verify that the flexible middle header zone
               can absorb length, shrink reasonably, and wrap inside the available space without forcing obvious
               horizontal overflow
             </div>
-          </div>
-        </div>
-
-        <div class="o-site-header__theme">
-          <div class="c-site-header-test-block">
-            <div class="c-site-header-test-text">Theme</div>
           </div>
         </div>
 
@@ -250,8 +252,8 @@ robots: noindex
 
     <p class="c-test-note">
       Resize the viewport and confirm that the long nav content stays inside the container at the layout breakpoint and
-      above. On smaller screens, the nav, theme, and actions zones should remain hidden while brand and mobile controls
-      remain visible.
+      above. On smaller screens, the navigation cluster and actions zone should remain hidden while brand and mobile
+      controls remain visible.
     </p>
 
     <hr>
@@ -261,8 +263,8 @@ robots: noindex
     <p>
       <strong>Expected behavior:</strong>
       This final example combines all structural zones in one place. On small screens, you should see brand plus mobile
-      controls. At the layout breakpoint and above, you should see brand, nav, theme, and actions, while mobile
-      controls disappear.
+      controls. At the layout breakpoint and above, you should see brand, the theme-plus-nav cluster, and actions, while
+      mobile controls disappear.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -272,11 +274,11 @@ robots: noindex
         </div>
 
         <div class="o-site-header__nav">
-          <div class="c-site-header-test-block">Final nav zone</div>
-        </div>
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">Final theme zone</div>
+          </div>
 
-        <div class="o-site-header__theme">
-          <div class="c-site-header-test-block">Final theme zone</div>
+          <div class="c-site-header-test-block">Final nav zone</div>
         </div>
 
         <div class="o-site-header__actions">

@@ -63,6 +63,11 @@ $button-bg-hover: $accent-secondary;
 $button-text: palette.$clr-white;
 $button-border: transparent;
 
+/* Tags (taxonomy chips) — follow this persona's button colors */
+$tag-bg: $button-bg;
+$tag-bg-hover: $button-bg-hover;
+$tag-text: $button-text;
+
 
 /* -----------------------------------------------------------------------------
    System Feedback

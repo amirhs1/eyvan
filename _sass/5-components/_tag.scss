@@ -48,8 +48,8 @@ $tag-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
 
   border: $tag-border-width solid transparent;
   border-radius: settings-config.$global-button-radius;
-  background-color: var(--color-button-bg);
-  color: var(--color-button-text);
+  background-color: var(--color-tag-bg);
+  color: var(--color-tag-text);
 
   font-family: settings-type.$font-family-mono;
   font-size: settings-type.$font-size-sm;
@@ -71,14 +71,14 @@ $tag-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
     transform settings-config.$transition-base;
 
   &:visited {
-    color: var(--color-button-text);
+    color: var(--color-tag-text);
   }
 
   &:hover,
   &:focus-visible {
     border-color: transparent;
-    background-color: var(--color-button-bg-hover);
-    color: var(--color-button-text);
+    background-color: var(--color-tag-bg-hover);
+    color: var(--color-tag-text);
     text-decoration: none;
   }
 

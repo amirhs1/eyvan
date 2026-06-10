@@ -41,7 +41,7 @@
   /* Typography & content */
   --color-body-bg: #{settings-colors.$light-body-bg};
   --color-body-color: #{settings-colors.$light-body-color};
-  --color-heading-color: #{settings-colors.$light-heading-color};
+  --color-heading: #{settings-colors.$light-heading-color};
 
   /* Accent system */
   --color-accent-primary: #{settings-colors.$light-accent-primary};
@@ -55,6 +55,10 @@
   --color-button-bg-hover: #{settings-colors.$light-button-bg-hover};
   --color-button-text: #{settings-colors.$light-button-text};
   --color-button-border: #{settings-colors.$light-button-border};
+
+  --color-tag-bg: #{settings-colors.$light-tag-bg};
+  --color-tag-bg-hover: #{settings-colors.$light-tag-bg-hover};
+  --color-tag-text: #{settings-colors.$light-tag-text};
 
   /* Status & feedback */
   --color-state-error: #{settings-colors.$light-state-error};
@@ -105,7 +109,7 @@ html[data-theme="dark"] {
 
   --color-body-bg: #{settings-colors.$dark-body-bg};
   --color-body-color: #{settings-colors.$dark-body-color};
-  --color-heading-color: #{settings-colors.$dark-heading-color};
+  --color-heading: #{settings-colors.$dark-heading-color};
 
   --color-accent-primary: #{settings-colors.$dark-accent-primary};
   --color-accent-secondary: #{settings-colors.$dark-accent-secondary};
@@ -117,6 +121,10 @@ html[data-theme="dark"] {
   --color-button-bg-hover: #{settings-colors.$dark-button-bg-hover};
   --color-button-text: #{settings-colors.$dark-button-text};
   --color-button-border: #{settings-colors.$dark-button-border};
+
+  --color-tag-bg: #{settings-colors.$dark-tag-bg};
+  --color-tag-bg-hover: #{settings-colors.$dark-tag-bg-hover};
+  --color-tag-text: #{settings-colors.$dark-tag-text};
 
   --color-state-error: #{settings-colors.$dark-state-error};
   --color-state-success: #{settings-colors.$dark-state-success};

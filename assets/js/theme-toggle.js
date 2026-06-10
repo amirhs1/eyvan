@@ -39,7 +39,7 @@ Related component:
   const themeColorMeta = document.querySelector('[data-theme-color-meta]');
 
   const THEME_COLOR_LIGHT =
-    themeColorMeta?.getAttribute('data-theme-color-light') || '#32127A';
+    themeColorMeta?.getAttribute('data-theme-color-light') || '#00796B';
   const THEME_COLOR_DARK =
     themeColorMeta?.getAttribute('data-theme-color-dark') || '#3FE0D0';
 

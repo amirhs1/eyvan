@@ -34,20 +34,30 @@ test.describe('Eyvan interactive accessibility checks', () => {
     expect(results.violations).toEqual([]);
   });
 
-  test('code-heavy page has no detectable axe violations in light and dark themes', async ({ page }) => {
-    await page.goto(`${baseUrl}/projects/eyvan-front-matter-guide/`);
+  // Together these two posts render every syntax-token family that has failed
+  // contrast before: strings/numbers (front-matter guide) and comment/gutter
+  // tokens (rate limiter), in both themes.
+  const codeHeavyPages = [
+    '/projects/eyvan-front-matter-guide/',
+    '/projects/building-a-rate-limiter/',
+  ];
 
-    const lightResults = await new AxeBuilder({ page }).analyze();
-    expect(lightResults.violations).toEqual([]);
+  for (const path of codeHeavyPages) {
+    test(`code-heavy page ${path} has no detectable axe violations in light and dark themes`, async ({ page }) => {
+      await page.goto(`${baseUrl}${path}`);
 
-    await page.locator('[data-theme-toggle]:visible').click();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+      const lightResults = await new AxeBuilder({ page }).analyze();
+      expect(lightResults.violations).toEqual([]);
 
-    // Outlast the 0.2s $transition-base color transition so axe samples
-    // settled colors rather than mid-fade contrast as false-positive violations.
-    await page.waitForTimeout(300);
+      await page.locator('[data-theme-toggle]:visible').click();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
-    const darkResults = await new AxeBuilder({ page }).analyze();
-    expect(darkResults.violations).toEqual([]);
-  });
+      // Outlast the 0.2s $transition-base color transition so axe samples
+      // settled colors rather than mid-fade contrast as false-positive violations.
+      await page.waitForTimeout(300);
+
+      const darkResults = await new AxeBuilder({ page }).analyze();
+      expect(darkResults.violations).toEqual([]);
+    });
+  }
 });

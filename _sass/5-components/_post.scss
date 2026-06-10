@@ -161,7 +161,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
     settings-typography.$font-size-h1-max
   );
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.08;
+  line-height: settings-typography.$line-height-very-tight;
   letter-spacing: settings-typography.$letter-spacing-tight;
   text-wrap: balance;
 }
@@ -261,9 +261,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
   margin-inline-start: auto;
 }
 
-/* Box treatment mirrors .c-toc: same padding, border, and radius. The
-   background matches the code-block surface (see _syntax-highlighting.scss)
-   rather than .c-toc's --color-ui-surface, per design direction. */
+/* Box treatment mirrors .c-toc: same surface, padding, border, and radius. */
 .c-post-share-rail .c-post-share {
   margin: 0;
   padding: tools-spacing.$fluid-inline-sm;

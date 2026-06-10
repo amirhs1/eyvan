@@ -5,8 +5,8 @@
 //
 // Description:
 // Provides the structural layout for the global site header.
-// Arranges the brand, desktop navigation, desktop theme toggle,
-// desktop social actions, and mobile controls without applying
+// Arranges the brand, desktop navigation cluster, desktop social actions,
+// and mobile controls without applying
 // cosmetic component styling.
 //
 // Scope & Rules:
@@ -17,7 +17,7 @@
 //
 // Notes:
 // - Mobile-first
-// - Desktop nav/theme/actions are hidden on small screens
+// - Desktop nav cluster/actions are hidden on small screens
 // - Mobile controls are hidden from the layout breakpoint upward
 // -----------------------------------------------------------------------------
 
@@ -61,6 +61,7 @@
   justify-content: center;
   flex: 1 1 auto;
   min-inline-size: 0;
+  column-gap: tools-spacing.$fluid-inline-md;
 }
 
 .o-site-header__theme {

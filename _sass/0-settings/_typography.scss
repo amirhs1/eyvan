@@ -45,6 +45,7 @@ $font-family-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", SFMono-
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
+$font-weight-semi-bold: 600;
 $font-weight-bold: 700;
 $font-weight-black: 900;
 
@@ -67,6 +68,7 @@ $font-size-xxxl: 3rem; // 48px
    Line Heights (Unitless)
    ----------------------------------------------------------------------------- */
 
+$line-height-very-tight: 1.1; // Headings, tight UI labels
 $line-height-tight: 1.2; // Headings, tight UI labels
 $line-height-normal: 1.5; // Standard body text
 $line-height-loose: 1.75; // Academic or long-form reading

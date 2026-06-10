@@ -47,14 +47,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`$accent-primary` / `$accent-secondary`), matching `.c-button` instead of
   the heritage indigo/blue, so tags and buttons share one hue again in both
   themes (dark-theme chips were already teal/turquoise and are unchanged).
-- Heading weight reduced from Bold/Black (700/900) to Medium (500): the
-  shared `h1`–`h6` rule, the homepage hero title, post titles, and
+- Heading weight: the previous pass's Medium (500) read too light across
+  the board, so the shared `h1`–`h6` rule, post titles, and
   `.c-section-heading--lg` (About/Projects/tag-archive titles and the
-  homepage "Latest Projects" heading). Bold or Black weight in the condensed
-  Barlow Condensed display face compresses letter counters and apertures at
-  large sizes, reducing legibility for low-vision and dyslexic readers;
-  Medium (also self-hosted) keeps the condensed display identity while
-  opening up letterforms. Visual hierarchy is still conveyed by size.
+  homepage "Latest Projects" heading) are back to Bold (700) —
+  `.c-section-heading--lg` had been Black (900) before that pass and now
+  matches `.c-section-heading--md`. The homepage hero title keeps a lighter
+  touch via a new self-hosted Semi-Bold (600) cut of Barlow Condensed,
+  balancing the condensed face's legibility at very large sizes against the
+  bold display identity. Post titles also gained a touch more line-height
+  (1.08 → 1.1) to keep Bold from feeling cramped. Visual hierarchy is still
+  conveyed primarily by size.
 - The desktop theme toggle now sits immediately before Home in the centered
   navigation cluster, using the same spacing rhythm as the navigation items.
 - The two homepage hero actions now share equal-width columns across the same

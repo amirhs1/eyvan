@@ -160,8 +160,8 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
     5vw,
     settings-typography.$font-size-h1-max
   );
-  font-weight: settings-typography.$font-weight-medium;
-  line-height: 1.08;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-very-tight;
   letter-spacing: settings-typography.$letter-spacing-tight;
   text-wrap: balance;
 }

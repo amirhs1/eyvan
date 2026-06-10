@@ -48,7 +48,7 @@ tokens from CSS custom properties.
       text: getColor("--color-ui-text", "#1f2937"),
       muted: getColor("--color-ui-text-muted", "#6b7280"),
       border: getColor("--color-ui-border", "#e5e7eb"),
-      accentPrimary: getColor("--color-accent-primary", "#32127A"),
+      accentPrimary: getColor("--color-accent-primary", "#00796B"),
       accentSecondary: getColor("--color-accent-secondary", "#3FE0D0"),
       warning: getColor("--color-state-warning", "#f59e0b")
     };

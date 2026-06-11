@@ -212,7 +212,13 @@ Individual posts can override the fallback with their own front matter:
 ```yaml
 image: "assets/images/posts/your-post-cover.webp"
 image_alt: "Describe the image for screen readers"
+image_width: 1200
+image_height: 630
 ```
+
+Use the cover's exact pixel dimensions for `image_width` and `image_height`.
+Providing both values lets the browser reserve the correct space before the
+image loads; omit both when you do not know them.
 
 If you already have images in JPEG or PNG, you can convert them with [`cwebp`](https://developers.google.com/speed/webp/docs/cwebp), which is part of the `webp` package:
 
@@ -258,6 +264,8 @@ For cover images, add:
 ```yaml
 image: "assets/images/posts/your-image.webp"
 image_alt: "Describe the image for screen readers"
+image_width: 1200
+image_height: 630
 ```
 
 If a post has a lot of headings, enable the sidebar table of contents:

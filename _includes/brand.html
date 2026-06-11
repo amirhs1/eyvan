@@ -12,8 +12,8 @@
   Notes:
   - Used by header.html and footer.html
   - Keeps brand markup centralized so visual/content changes happen in one place
-  - site.logo identifies an SVG include under _includes/
-  - The decorative inline SVG follows the brand link's current text color
+  - site.logo identifies the user-replaceable asset under assets/
+  - Sass renders the SVG as a decorative mask that follows the link color
 {% endcomment %}
 
 <!-- brand.html -->
@@ -28,9 +28,7 @@
     <span
       class="c-brand__logo"
       aria-hidden="true"
-    >
-      {% include {{ site.logo }} %}
-    </span>
+    ></span>
   {% endif %}
 
   <!-- Brand text -->

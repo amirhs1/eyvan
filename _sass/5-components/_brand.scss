@@ -4,14 +4,13 @@
 //
 // Description:
 // Styles the reusable site brand shown in the global header.
-// The component displays an inline SVG logo mark plus a two-line text stack
+// The component displays a theme-colored SVG logo mask plus a two-line text stack
 // (name + role) across viewports, and collapses to a logo-only treatment only
 // in explicitly compact contexts.
 //
 // Structure:
 // - .c-brand
 //   - .c-brand__logo
-//     - .c-brand__logo-mark (inline SVG)
 //   - .c-brand__text
 //   - .c-brand__name
 //   - .c-brand__role
@@ -29,7 +28,8 @@
 //
 // Notes:
 // - The logo is treated as a fixed visual unit
-// - The SVG mark uses currentColor, so it follows the active theme color
+// - The SVG mask uses the component's current color as its visible fill
+// - The mask URL is configured from site.logo in assets/css/main.scss
 // - The text column is flexible and may collapse away when space is limited
 // - Brand text colors stay stable on hover/focus so the interaction cue is the
 //   pointer cursor and focus ring, not a text-only color shift
@@ -39,6 +39,8 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
+
+$brand-logo-url: "../images/logo.svg" !default;
 
 /* -----------------------------------------------------------------------------
    Local state mixin
@@ -99,14 +101,16 @@
   display: block;
   flex: 0 0 auto;
   color: inherit;
+  background-color: currentColor;
+  mask-image: url("#{$brand-logo-url}");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("#{$brand-logo-url}");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
   transition: settings-config.$transition-transform;
-}
-
-.c-brand__logo-mark {
-  display: block;
-  inline-size: 100%;
-  block-size: 100%;
-  fill: currentColor;
 }
 
 .c-brand__text {

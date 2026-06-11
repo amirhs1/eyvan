@@ -58,7 +58,7 @@ The same file also stores a few site-wide assets and links:
 
 ```yaml
 default_og_image: "assets/images/og-default.webp"
-logo: "assets/images/logo.webp"
+logo: "assets/images/logo.svg"
 cv_url: "assets/files/resume.pdf"
 ```
 
@@ -192,12 +192,16 @@ All visual assets live under `assets/`. Replace them at the same paths and Eyvan
 |:------|:-----|:-----------------|:---------|
 | Avatar | `assets/images/avatar.webp` | 300 × 300 px | Hero, post meta |
 | Hero image | `assets/images/hero-placeholder.webp` | 800 × 800 px or similar | Homepage hero |
-| Logo | `assets/images/logo.webp` | 512 × 512 px | Header logo mark |
+| Logo | `assets/images/logo.svg` | Preserve or update the SVG `viewBox` | Header logo mark |
 | OG fallback | `assets/images/og-default.webp` | 1200 × 630 px | Social previews on posts without a cover |
 | Favicon | `assets/favicon/favicon.ico` + PNG variants | Per standard sizes | Browser tab, bookmarks |
 {: .c-prose-table}
 
 Use **WebP** for photos and illustrations to keep file sizes small. For the OG image, a 1200 × 630 px WebP at quality 80 is the recommended target — it is the size Facebook, X, and LinkedIn expect.
+
+The logo is an SVG rather than a raster image. When replacing it, keep a
+`viewBox` that tightly contains the new artwork so the header can scale the
+mark responsively without clipping or relying on fixed pixel dimensions.
 
 ### Customizing the OG fallback image
 

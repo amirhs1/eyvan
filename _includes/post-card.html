@@ -40,6 +40,8 @@
   - include.post.url
   - include.post.image
   - include.post.image_alt
+  - include.post.image_width
+  - include.post.image_height
   - include.post.tags
   - include.post.description
   - include.post.content
@@ -73,6 +75,10 @@
             loading="lazy"
             src="{{ post.image | relative_url }}"
             alt="{{ post.image_alt | default: post.title | escape }}"
+            {% if post.image_width and post.image_height %}
+            width="{{ post.image_width }}"
+            height="{{ post.image_height }}"
+            {% endif %}
           >
         </a>
       </div>

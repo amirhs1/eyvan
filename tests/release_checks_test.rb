@@ -8,6 +8,7 @@ require "tmpdir"
 class ReleaseChecksTest < Minitest::Test
   ROOT = Pathname(__dir__).join("..").expand_path
   BUILT_OUTPUT_SCRIPT = ROOT.join("scripts/check-built-output.rb")
+  PLACEHOLDER_SCRIPT = ROOT.join("scripts/check-template-placeholders.rb")
 
   def test_built_output_check_accepts_clean_site
     with_site_fixture do |site|
@@ -37,6 +38,41 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_placeholder_check_is_silent_for_canonical_repository
+    with_template_fixture do |root|
+      stdout, stderr, status = run_script(
+        PLACEHOLDER_SCRIPT,
+        "--root",
+        root,
+        "--repository",
+        "amirhs1/eyvan"
+      )
+
+      assert status.success?, stderr
+      assert_includes stdout, "0 warning(s)"
+      refute_includes stdout, "WARNING"
+    end
+  end
+
+  def test_placeholder_check_warns_without_failing_for_derived_repository
+    with_template_fixture do |root|
+      stdout, stderr, status = run_script(
+        PLACEHOLDER_SCRIPT,
+        "--root",
+        root,
+        "--repository",
+        "example/portfolio",
+        env: { "GITHUB_ACTIONS" => "true" }
+      )
+
+      assert status.success?, stderr
+      assert_includes stdout, "::warning file=_config.yml"
+      assert_includes stdout, "::warning file=_data/author.yml"
+      assert_includes stdout, "::warning file=_data/footer.yml"
+      assert_includes stdout, "10 warning(s)"
+    end
+  end
+
   private
 
   def run_script(script, *arguments, env: {})
@@ -51,4 +87,32 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def with_template_fixture
+    Dir.mktmpdir("eyvan-template") do |directory|
+      root = Pathname(directory)
+      FileUtils.mkdir_p(root.join("_data"))
+      File.write(
+        root.join("_config.yml"),
+        <<~YAML
+          title: "Your Name"
+          author:
+            name: "Your Name"
+            email: "hello@example.com"
+            uri: "https://example.com"
+          url: "https://amirhs1.github.io"
+          baseurl: "/eyvan"
+        YAML
+      )
+      File.write(
+        root.join("_data/author.yml"),
+        <<~YAML
+          name: "Your Name"
+          email: "hello@example.com"
+          website: "https://example.com"
+        YAML
+      )
+      File.write(root.join("_data/footer.yml"), "copyright: \"© 2026 Your Name\"\n")
+      yield root
+    end
+  end
 end

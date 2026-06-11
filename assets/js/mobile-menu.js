@@ -48,6 +48,7 @@ Related components:
     const mobileNavLinks = mobileMenu.querySelectorAll('.c-nav__link');
     const navToggleLabel = navToggle.querySelector('[data-nav-toggle-label]');
     const body = document.body;
+    const overlayIsolation = window.EyvanOverlayIsolation;
 
     /* ==========================================================================
        Toggle state helpers
@@ -74,6 +75,10 @@ Related components:
        ========================================================================== */
 
     function openMobileMenu() {
+      if (!overlayIsolation || !overlayIsolation.activate(mobileMenu)) {
+        return;
+      }
+
       mobileMenu.hidden = false;
       mobileMenu.classList.add('is-open');
       body.classList.add('is-mobile-menu-open');
@@ -92,6 +97,7 @@ Related components:
       mobileMenu.classList.remove('is-open');
       body.classList.remove('is-mobile-menu-open');
       syncNavToggleState(false);
+      overlayIsolation.deactivate(mobileMenu);
     }
 
     function toggleMobileMenu() {
@@ -166,6 +172,12 @@ Related components:
       });
     }
 
+    function bindPageExit() {
+      window.addEventListener('pagehide', () => {
+        overlayIsolation.deactivate(mobileMenu);
+      });
+    }
+
     /* ==========================================================================
        Initialization
        ========================================================================== */
@@ -177,6 +189,7 @@ Related components:
       bindEscapeKey();
       bindFocusTrap();
       bindMobileNavLinks();
+      bindPageExit();
     }
 
     setupMobileMenu();

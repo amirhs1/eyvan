@@ -74,6 +74,7 @@ Related components:
     const tocClose = mobileToc.querySelector('[data-toc-close]');
     const tocLinks = mobileToc.querySelectorAll('.c-mobile-toc__link');
     const body = document.body;
+    const overlayIsolation = window.EyvanOverlayIsolation;
 
     /* ==========================================================================
        Toggle state helpers
@@ -93,7 +94,11 @@ Related components:
 
     function openMobileToc() {
       setSiteHeaderBlockSize();
-      
+
+      if (!overlayIsolation || !overlayIsolation.activate(mobileToc)) {
+        return;
+      }
+
       mobileToc.hidden = false;
       mobileToc.classList.add('is-open');
       body.classList.add('is-mobile-toc-open');
@@ -109,6 +114,7 @@ Related components:
       mobileToc.classList.remove('is-open');
       body.classList.remove('is-mobile-toc-open');
       syncTocState(false);
+      overlayIsolation.deactivate(mobileToc);
 
       if (returnFocus) {
         tocOpen.focus();
@@ -185,6 +191,12 @@ Related components:
       });
     }
 
+    function bindPageExit() {
+      window.addEventListener('pagehide', () => {
+        overlayIsolation.deactivate(mobileToc);
+      });
+    }
+
     /* ==========================================================================
        Initialization
        ========================================================================== */
@@ -196,6 +208,7 @@ Related components:
       bindEscapeKey();
       bindFocusTrap();
       bindTocLinks();
+      bindPageExit();
     }
 
     setupMobileToc();

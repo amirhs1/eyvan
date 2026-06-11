@@ -20,6 +20,7 @@
   - Keeps the number of scripts minimal
 
   Dependencies:
+  - assets/js/overlay-isolation.js
   - assets/js/code-block-a11y.js
   - assets/js/task-list-a11y.js
   - assets/js/post-share.js
@@ -37,6 +38,10 @@
 {% endcomment %}
 
 <!-- scripts.html -->
+<script
+  src="{{ 'assets/js/overlay-isolation.js' | relative_url }}"
+  defer
+></script>
 <script
   src="{{ 'assets/js/code-block-a11y.js' | relative_url }}"
   defer

@@ -3,10 +3,6 @@
   Purpose: Render the reusable site brand link with optional logo,
   author/site name, and optional role.
 
-  Accepts:
-  - include.logo_fetchpriority: optional value for the logo fetchpriority
-    attribute, e.g. "high"
-
   Data dependencies:
   - site.logo
   - site.title
@@ -16,6 +12,8 @@
   Notes:
   - Used by header.html and footer.html
   - Keeps brand markup centralized so visual/content changes happen in one place
+  - site.logo identifies an SVG include under _includes/
+  - The decorative inline SVG follows the brand link's current text color
 {% endcomment %}
 
 <!-- brand.html -->
@@ -27,14 +25,12 @@
 >
   {% if site.logo %}
     <!-- Brand logo -->
-    <img
+    <span
       class="c-brand__logo"
-      src="{{ site.logo | relative_url }}"
-      alt="{{ site.title | escape }}"
-      {% if include.logo_fetchpriority %}
-        fetchpriority="{{ include.logo_fetchpriority }}"
-      {% endif %}
+      aria-hidden="true"
     >
+      {% include {{ site.logo }} %}
+    </span>
   {% endif %}
 
   <!-- Brand text -->

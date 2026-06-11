@@ -10,7 +10,11 @@
 // - Print styles should simplify, not redesign
 // - Hide decorative or interactive-only UI
 // - Preserve article headings, metadata, and body content
+// - Forced ink-on-paper colors come from the palette, not the runtime theme
+//   tokens, so output stays light regardless of the active light/dark theme.
 // -----------------------------------------------------------------------------
+
+@use "../0-settings/palette-persian" as palette;
 
 /* -----------------------------------------------------------------------------
    Print Utilities
@@ -52,8 +56,8 @@
 
   html,
   body {
-    background: #fff !important;
-    color: #000 !important;
+    background: palette.$clr-white !important;
+    color: palette.$clr-black !important;
   }
 
   * {

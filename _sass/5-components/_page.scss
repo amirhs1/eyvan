@@ -114,7 +114,7 @@ $page-image-max-block-size: min(34rem, 60vh);
 .c-page__subtitle {
   max-inline-size: $page-subtitle-inline-size;
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-lg;
   font-weight: settings-typography.$font-weight-regular;

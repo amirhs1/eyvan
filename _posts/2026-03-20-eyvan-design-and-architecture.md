@@ -503,9 +503,9 @@ For a new component, start with a focused include and one component block. Do no
 
 .c-callout {
   padding: var(--space-4);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-ui-border);
   border-radius: var(--radius-lg);
-  background: var(--color-surface-raised);
+  background: var(--color-ui-surface-raised);
 }
 
 .c-callout__title {

@@ -4,13 +4,28 @@
 //
 // Description:
 // Exposes the currently active light and dark theme token sets through a single
-// shared module. Switch the site theme family here by changing the imported
-// theme files below.
+// shared module. This is the one place that decides which persona is live and
+// re-exports its maps as flat $light-* / $dark-* variables for _base.scss.
 //
-// Usage:
-// - Other files should import this file instead of importing a concrete theme
-//   file directly.
-// - To switch from Science to Art, replace the two @use lines below.
+// Semantic contract (33 tokens: 13 UI + 4 state + 16 Base16 syntax):
+//   Surfaces:   ui-bg, ui-surface, ui-surface-raised
+//   Foreground: ui-text, ui-text-muted, heading, text-inverse
+//   Borders:    ui-border, ui-border-subtle, focus-ring-color
+//   Accent:     accent-primary, accent-secondary
+//   Effect:     ui-shadow-color
+//   State:      state-error, state-success, state-warning, state-info
+//   Syntax:     base00 … base0f
+// Every persona map (_colors-{science,art}-{light,dark}.scss) implements exactly
+// this contract. Component-intent aliases (link/button/tag/selection) are layered
+// on top in 3-base/_base.scss (Tier 3); they are not defined per persona.
+// Components reference only the --color-* custom properties _base.scss emits.
+//
+// Switching persona:
+// - Today this is a compile-time choice: swap the two active @use lines below
+//   (science ⇄ art). Both light and dark maps must come from the same persona.
+// - A config-driven switch (site.persona in _config.yml → main.scss `with()` →
+//   an @if selection here → a persona-aware theme-color in head.html) is designed
+//   but intentionally deferred to the phase-2 persona/palette pass.
 // -----------------------------------------------------------------------------
 
 @use "colors-science-light" as theme-light;
@@ -30,26 +45,14 @@ $light-ui-text: theme-light.$ui-text;
 $light-ui-text-muted: theme-light.$ui-text-muted;
 
 $light-ui-border: theme-light.$ui-border;
+$light-ui-border-subtle: theme-light.$ui-border-subtle;
 $light-ui-shadow-color: theme-light.$ui-shadow-color;
 
-$light-body-bg: theme-light.$body-bg;
-$light-body-color: theme-light.$body-color;
 $light-heading-color: theme-light.$heading-color;
+$light-text-inverse: theme-light.$text-inverse;
 
 $light-accent-primary: theme-light.$accent-primary;
 $light-accent-secondary: theme-light.$accent-secondary;
-
-$light-link-color: theme-light.$link-color;
-$light-link-hover: theme-light.$link-hover;
-
-$light-button-bg: theme-light.$button-bg;
-$light-button-bg-hover: theme-light.$button-bg-hover;
-$light-button-text: theme-light.$button-text;
-$light-button-border: theme-light.$button-border;
-
-$light-tag-bg: theme-light.$tag-bg;
-$light-tag-bg-hover: theme-light.$tag-bg-hover;
-$light-tag-text: theme-light.$tag-text;
 
 $light-state-error: theme-light.$state-error;
 $light-state-success: theme-light.$state-success;
@@ -57,8 +60,6 @@ $light-state-warning: theme-light.$state-warning;
 $light-state-info: theme-light.$state-info;
 
 $light-focus-ring-color: theme-light.$focus-ring-color;
-$light-selection-text: theme-light.$selection-text;
-$light-selection-bg: theme-light.$selection-bg;
 
 $light-base00: theme-light.$base00;
 $light-base01: theme-light.$base01;
@@ -89,26 +90,14 @@ $dark-ui-text: theme-dark.$ui-text;
 $dark-ui-text-muted: theme-dark.$ui-text-muted;
 
 $dark-ui-border: theme-dark.$ui-border;
+$dark-ui-border-subtle: theme-dark.$ui-border-subtle;
 $dark-ui-shadow-color: theme-dark.$ui-shadow-color;
 
-$dark-body-bg: theme-dark.$body-bg;
-$dark-body-color: theme-dark.$body-color;
 $dark-heading-color: theme-dark.$heading-color;
+$dark-text-inverse: theme-dark.$text-inverse;
 
 $dark-accent-primary: theme-dark.$accent-primary;
 $dark-accent-secondary: theme-dark.$accent-secondary;
-
-$dark-link-color: theme-dark.$link-color;
-$dark-link-hover: theme-dark.$link-hover;
-
-$dark-button-bg: theme-dark.$button-bg;
-$dark-button-bg-hover: theme-dark.$button-bg-hover;
-$dark-button-text: theme-dark.$button-text;
-$dark-button-border: theme-dark.$button-border;
-
-$dark-tag-bg: theme-dark.$tag-bg;
-$dark-tag-bg-hover: theme-dark.$tag-bg-hover;
-$dark-tag-text: theme-dark.$tag-text;
 
 $dark-state-error: theme-dark.$state-error;
 $dark-state-success: theme-dark.$state-success;
@@ -116,8 +105,6 @@ $dark-state-warning: theme-dark.$state-warning;
 $dark-state-info: theme-dark.$state-info;
 
 $dark-focus-ring-color: theme-dark.$focus-ring-color;
-$dark-selection-text: theme-dark.$selection-text;
-$dark-selection-bg: theme-dark.$selection-bg;
 
 $dark-base00: theme-dark.$base00;
 $dark-base01: theme-dark.$base01;

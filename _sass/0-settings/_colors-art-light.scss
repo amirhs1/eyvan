@@ -14,6 +14,8 @@
 // Notes:
 // - Light counterpart to art-dark
 // - Supports editorial and exhibition-oriented layouts
+// - Disabled persona: kept parallel to the shared contract (13 UI + 4 state +
+//   16 syntax); palette values still pending the phase-2 a11y pass.
 // -----------------------------------------------------------------------------
 
 @use "palette-persian" as palette;
@@ -24,53 +26,36 @@
    Lighter surfaces and softer borders than science persona.
    ----------------------------------------------------------------------------- */
 
-$ui-bg: palette.$clr-off-white;
-$ui-surface: palette.$clr-white;
-$ui-surface-raised: palette.$clr-gray-100;
+$ui-bg: palette.$clr-off-white;             // page/body canvas; header tint, icon-button & mobile-menu bg
+$ui-surface: palette.$clr-white;            // resting surface — cards, footer, TOC, post-share/social
+$ui-surface-raised: palette.$clr-gray-100;  // elevated surface — entry-meta, raised cards, mobile menu
 
-$ui-text: palette.$clr-gray-700; // softer than pure black
-$ui-text-muted: palette.$clr-gray-500;
-$ui-border: palette.$clr-gray-200;
-$ui-shadow-color: rgba(palette.$clr-gray-900, 0.08);
+$ui-text: palette.$clr-gray-700;            // primary body text & default foreground (softer than pure black)
+$ui-text-muted: palette.$clr-gray-500;      // secondary/muted text — metadata, captions, taglines, TOC
+
+$ui-border: palette.$clr-gray-200;          // default borders/dividers, control outlines (hr, icon-link)
+$ui-border-subtle: $ui-border;              // low-emphasis dividers — header/footer edges (distinct value: phase 2)
+$ui-shadow-color: rgba(palette.$clr-gray-900, 0.08); // elevation shadow color (theme-aware)
 
 /* -----------------------------------------------------------------------------
    Accent System (Atmospheric)
    ----------------------------------------------------------------------------- */
 
-$accent-primary: palette.$clr-p-indigo; // conceptual anchor
-$accent-secondary: palette.$clr-p-rose; // expressive counterpoint
+$accent-primary: palette.$clr-p-indigo; // brand accent — links, buttons, tags, selection, active states
+$accent-secondary: palette.$clr-p-rose; // accent hover/emphasis step (expressive counterpoint)
 
 
 /* -----------------------------------------------------------------------------
    Content
    ----------------------------------------------------------------------------- */
 
-$body-bg: $ui-bg;
-$body-color: $ui-text;
-$heading-color: palette.$clr-p-indigo;
-
-
-/* -----------------------------------------------------------------------------
-   Interaction
-   Gentle, not insistent.
-   ----------------------------------------------------------------------------- */
-
-$link-color: $accent-primary;
-$link-hover: $accent-secondary;
-
-$button-bg: $accent-primary;
-$button-bg-hover: $accent-secondary;
-$button-text: palette.$clr-white;
-$button-border: transparent;
-
-/* Tags (taxonomy chips) — follow this persona's button colors */
-$tag-bg: $button-bg;
-$tag-bg-hover: $button-bg-hover;
-$tag-text: $button-text;
+$heading-color: palette.$clr-p-indigo; // headings (h1–h6 + component titles)
+$text-inverse: palette.$clr-white;     // text on top of an accent fill (buttons, tags)
 
 
 /* -----------------------------------------------------------------------------
    System Feedback
+   Theme-readable hooks (e.g. demo chart JS); no CSS consumer yet.
    ----------------------------------------------------------------------------- */
 
 $state-error: palette.$clr-p-red;
@@ -83,15 +68,7 @@ $state-info: palette.$clr-p-blue;
    Interaction helpers
    ----------------------------------------------------------------------------- */
 
-$focus-ring-color: $accent-primary;
-
-
-/* -----------------------------------------------------------------------------
-   Text selection
-   ----------------------------------------------------------------------------- */
-
-$selection-text: $ui-surface;
-$selection-bg: $accent-primary;
+$focus-ring-color: $accent-primary; // keyboard focus ring (via the focus-ring mixin)
 
 
 /* -----------------------------------------------------------------------------

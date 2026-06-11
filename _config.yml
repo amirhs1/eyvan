@@ -110,8 +110,12 @@ google_analytics: ""
 # Prevents non-site assets and tooling files from being processed.
 # ------------------------------------------------------------
 exclude:
+  - CHANGELOG.md
+  - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
+  - LICENSE
+  - SECURITY.md
   - node_modules
   - vendor
   - vendor/bundle

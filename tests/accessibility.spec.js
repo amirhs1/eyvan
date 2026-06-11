@@ -3,6 +3,22 @@ const AxeBuilder = require('@axe-core/playwright').default;
 
 const baseUrl = 'http://127.0.0.1:4000/eyvan';
 
+const globalScriptNames = [
+  'back-to-top.js',
+  'mobile-menu.js',
+  'overlay-isolation.js',
+  'social-links-overflow.js',
+  'theme-toggle.js',
+];
+
+async function localScriptNames(page) {
+  return page.locator('script[src*="/assets/js/"]').evaluateAll((scripts) => (
+    scripts
+      .map((script) => new URL(script.src).pathname.split('/').pop())
+      .sort()
+  ));
+}
+
 test.describe('Eyvan interactive accessibility checks', () => {
   test('home page has no detectable axe violations', async ({ page }) => {
     await page.goto(`${baseUrl}/`);
@@ -81,4 +97,69 @@ test.describe('Eyvan interactive accessibility checks', () => {
       expect(darkResults.violations).toEqual([]);
     });
   }
+
+  test('page-specific scripts load only when their features are rendered', async ({ page }) => {
+    const cases = [
+      {
+        path: '/',
+        expected: globalScriptNames,
+      },
+      {
+        path: '/about/',
+        expected: globalScriptNames,
+      },
+      {
+        path: '/projects/building-a-rate-limiter/',
+        expected: [
+          ...globalScriptNames,
+          'code-block-a11y.js',
+          'mobile-toc.js',
+          'post-share.js',
+        ],
+      },
+      {
+        path: '/projects/customizing-eyvan/',
+        expected: [
+          ...globalScriptNames,
+          'code-block-a11y.js',
+          'mobile-toc.js',
+          'post-share.js',
+          'task-list-a11y.js',
+        ],
+      },
+    ];
+
+    for (const { path, expected } of cases) {
+      await page.goto(`${baseUrl}${path}`);
+      expect(await localScriptNames(page)).toEqual([...expected].sort());
+    }
+  });
+
+  test('conditionally loaded enhancements remain interactive', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${baseUrl}/projects/building-a-rate-limiter/`);
+
+    const codeBlock = page.locator('pre.highlight').first();
+    await expect(codeBlock).toHaveAttribute('data-code-block-a11y', 'true');
+    await expect(codeBlock).toHaveAttribute('role', 'region');
+
+    const shareToggle = page.locator('[data-overflow-toggle]:visible');
+    await expect(shareToggle).toHaveCount(1);
+    const sharePanelId = await shareToggle.getAttribute('aria-controls');
+    const sharePanel = page.locator(`#${sharePanelId}`);
+
+    await shareToggle.click();
+    await expect(sharePanel).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(sharePanel).toBeHidden();
+    await expect(shareToggle).toBeFocused();
+
+    await page.goto(`${baseUrl}/projects/customizing-eyvan/`);
+
+    const taskCheckbox = page.locator('.task-list-item-checkbox').first();
+    await expect(taskCheckbox).toHaveAttribute(
+      'aria-label',
+      'url and baseurl updated in _config.yml'
+    );
+  });
 });

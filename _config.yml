@@ -74,6 +74,11 @@ defaults:
       layout: post
       share: true
 
+  - scope:
+      path: "assets/files/resume.pdf"
+    values:
+      sitemap: false
+
 # ------------------------------------------------------------
 # Tag pages
 # Configuration for generated tag archive pages.

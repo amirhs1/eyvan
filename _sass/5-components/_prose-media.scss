@@ -208,7 +208,7 @@
 
 .c-prose-caption {
   display: block;
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-mono;
   font-size: settings-typography.$font-size-sm;
   line-height: settings-typography.$line-height-normal;
@@ -216,7 +216,7 @@
 
 .c-prose-caption--figure::before,
 .c-prose-caption--table::before {
-  color: var(--color-text);
+  color: var(--color-ui-text);
   font-weight: settings-typography.$font-weight-bold;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -256,7 +256,7 @@
 .c-prose-table thead th {
   border-top: 2px solid var(--color-ui-border);
   border-bottom: 2px solid var(--color-ui-border);
-  color: var(--color-text);
+  color: var(--color-ui-text);
   font-family: settings-typography.$font-family-mono;
   font-weight: settings-typography.$font-weight-bold;
   letter-spacing: 0.04em;

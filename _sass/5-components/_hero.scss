@@ -44,7 +44,7 @@
 .c-hero__eyebrow {
   margin-block: 0 settings-spacing.$space-stack-sm;
 
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
@@ -79,7 +79,7 @@
 .c-hero__description {
   inline-size: 100%;
   max-inline-size: settings-typography.$text-measure-base;
-  color: var(--color-text);
+  color: var(--color-ui-text);
 }
 
 .c-hero__description > *:first-child {
@@ -139,7 +139,7 @@
   border-radius: settings-config.$global-border-radius;
   box-shadow:
     0 settings-config.$shadow-offset-y settings-config.$shadow-blur
-    rgba(var(--color-shadow-rgb, 0 0 0), 0.08);
+    var(--color-ui-shadow-color);
 }
 
 .c-hero__image {

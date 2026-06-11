@@ -42,7 +42,7 @@
 
   background-color: var(--color-ui-surface);
   border-block-start: 1px solid var(--color-ui-border-subtle);
-  color: var(--color-text-secondary);
+  color: var(--color-ui-text-muted);
 }
 
 // -----------------------------------------------------------------------------
@@ -70,7 +70,7 @@
   font-weight: settings-typography.$font-weight-medium;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-text-primary);
+  color: var(--color-ui-text);
   text-wrap: balance;
 }
 
@@ -87,7 +87,7 @@
   font-weight: settings-typography.$font-weight-regular;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   text-wrap: pretty;
 }
 

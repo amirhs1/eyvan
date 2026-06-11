@@ -114,13 +114,6 @@ $z-overlay: 500;
 $z-modal: 1000;
 
 /* -----------------------------------------------------------------------------
-   Theme Configuration
-   ----------------------------------------------------------------------------- */
-
-$theme: science !default; // science | art
-$mode: light !default; // light | dark
-
-/* -----------------------------------------------------------------------------
    Elevation (Shadow Geometry)
    ----------------------------------------------------------------------------- */
 
@@ -144,8 +137,10 @@ $card-border-width: $global-border-width;
 $card-shadow-rest:
   0 0 0.125rem var(--color-ui-shadow-color);
 
+// Hover/lift shadow reuses the theme-aware shadow color so dark-mode elevation
+// stays visible (a fixed black triplet is invisible on a near-black canvas).
 $card-shadow-hover:
-  0 $shadow-offset-y $shadow-blur rgba(var(--color-shadow-rgb, 0 0 0), 0.12);
+  0 $shadow-offset-y $shadow-blur var(--color-ui-shadow-color);
 
 $card-lift-hover: -0.25rem;
 

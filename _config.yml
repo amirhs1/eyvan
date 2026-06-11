@@ -129,6 +129,7 @@ exclude:
   - vendor/ruby
   - README.md
   - notes
+  - scripts
   - package.json
   - package-lock.json
   - eyvan.gemspec

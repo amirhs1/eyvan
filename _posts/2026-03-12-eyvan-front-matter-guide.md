@@ -111,6 +111,8 @@ Search Engine Optimization (SEO) fields help the page appear correctly in search
 | `description` | string | `site.description` | Meta description, Open Graph, Twitter | Short summary for search and previews. |
 | `image` | string | `site.default_og_image` or placeholder for social previews; none for the post cover | Post cover, post cards, Open Graph, Twitter | Provides the preferred social preview image and renders a post cover when set. |
 | `image_alt` | string | `page.title` | Post/page image alt text | Provides accessible text for the cover image. |
+| `image_width` | integer | none | Post cover, post cards | Adds the image's intrinsic pixel width so browsers can reserve layout space. |
+| `image_height` | integer | none | Post cover, post cards | Adds the image's intrinsic pixel height so browsers can reserve layout space. |
 | `image_position` | string | CSS default | Post cover | Sets the cover image `object-position`, such as `center top` or `50% 35%`. |
 {: .c-prose-table }
 
@@ -125,8 +127,15 @@ The `image` field has several roles. In the post layout, it renders a full-width
 ```yaml
 image: "assets/images/posts/token-bucket-diagram.webp"
 image_alt: "Token bucket rate limiter system diagram"
+image_width: 1200
+image_height: 630
 image_position: "center center"
 ```
+
+When you know the cover's real pixel dimensions, add both `image_width` and
+`image_height`. The browser uses the resulting intrinsic aspect ratio to
+reserve space before the image downloads. Do not estimate these values, and
+omit both fields when the dimensions are unknown.
 
 The `image_alt` field should describe the meaningful content of the image, not repeat the file name or stuff keywords into the page. Good alt text is useful for screen-reader users, slow connections, broken image states, and anyone who needs the image content expressed in words. For decorative images, the template currently falls back to the page title, so it is better to write a short meaningful description whenever `image` is set.
 
@@ -617,7 +626,7 @@ description: "One concise sentence explaining what the reader will learn."
 ---
 ```
 
-Add `image` and `image_alt` only when the post needs a cover or social preview image. Add `image_position` when the cover needs custom cropping. Add `math: true` only when the post contains math. Add `crossrefs: true` only when the post uses `ref.html`. Add `share: false` only when you intentionally want to suppress the share controls.
+Add `image` and `image_alt` only when the post needs a cover or social preview image. Add the exact `image_width` and `image_height` together when known, and add `image_position` when the cover needs custom cropping. Add `math: true` only when the post contains math. Add `crossrefs: true` only when the post uses `ref.html`. Add `share: false` only when you intentionally want to suppress the share controls.
 
 This approach keeps the content clean, the build predictable, and the template easy to maintain. The front matter stays small, but each key has a real job: `title` identifies the post, `subtitle` frames it, `tags` connect it to the archive, `toc` improves navigation, and `description` supports search and previews.
 

@@ -40,13 +40,22 @@ jobs:
       - name: Build Jekyll Site
         run: bundle exec jekyll build
 
+      - name: Test Release Checks
+        run: npm run test:release
+
+      - name: Check Generated Site Policy
+        run: ruby scripts/check-built-output.rb
+
       - name: Start Local Jekyll Server
         run: bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 
       - name: Wait for Jekyll Server
         run: npx wait-on http://127.0.0.1:4000/eyvan/
 
-      - name: Run Accessibility and Integration Tests
+      - name: Test Site Integrity
+        run: npm run test:site
+
+      - name: Run Accessibility Tests
         run: npm run test:a11y
 
       - name: Upload Test Reports if Failed

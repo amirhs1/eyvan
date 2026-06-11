@@ -58,6 +58,8 @@ layout: default
   - page.subtitle
   - page.image
   - page.image_alt
+  - page.image_width
+  - page.image_height
   - page.image_position
   - page.tags
   - page.share
@@ -77,9 +79,14 @@ layout: default
           >
             <img
               class="c-post-cover__image"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               src="{{ page.image | relative_url }}"
               alt="{{ page.image_alt | default: page.title | escape }}"
+              {% if page.image_width and page.image_height %}
+              width="{{ page.image_width }}"
+              height="{{ page.image_height }}"
+              {% endif %}
             >
           </div>
         </div>

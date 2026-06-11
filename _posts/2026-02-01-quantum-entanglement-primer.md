@@ -4,8 +4,10 @@ subtitle: "From Bell inequalities to practical implications"
 tags: [physics, math, research, academic]
 math: true
 toc: true
-image: "assets/images/posts/quantum_entanglement_vs_classical_correlation_video.webp"
-image_alt: "Animated comparison of entangled photon polarization measurements and classically correlated measurements"
+image: "assets/images/posts/quantum-entanglement-cover.webp"
+image_alt: "Comparison of entangled photon polarization measurements and classically correlated measurements at the same rotation angle"
+image_width: 787
+image_height: 382
 description: "A rigorous introduction to quantum entanglement with LaTeX math, citations, and footnotes."
 ---
 
@@ -56,12 +58,12 @@ which is especially useful in spin and polarization discussions because its corr
 A helpful way to understand the difference between entanglement and classical correlation is to compare how each behaves under changes of measurement basis. Photon polarization experiments are especially useful for this purpose.
 
 {% include figure.html
-   src=page.image
-   alt=page.image_alt
+   src="assets/images/posts/quantum_entanglement_vs_classical_correlation_video.webp"
+   alt="Animated comparison of entangled photon polarization measurements and classically correlated measurements"
    id="fig-entanglement-classical-correlation"
    width="787"
    height="382"
-   caption="Side-by-side simulation demonstrating the operational difference between a maximally entangled singlet state and a dephased, classically correlated mixed state. The animated image is also used as the cover image for this post. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Quantum_entanglement_vs_classical_correlation_video.gif), creator JozumBjada, November 27, 2020, licensed under Creative Commons CC BY-SA 4.0."
+   caption="Side-by-side simulation demonstrating the operational difference between a maximally entangled singlet state and a dephased, classically correlated mixed state. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Quantum_entanglement_vs_classical_correlation_video.gif), creator JozumBjada, November 27, 2020, licensed under Creative Commons CC BY-SA 4.0."
 %}
 
 The visualization compares two situations:

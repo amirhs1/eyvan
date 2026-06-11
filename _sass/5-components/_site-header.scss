@@ -51,7 +51,7 @@ $site-header-shadow:
     var(--color-ui-bg) 88%,
     transparent
   );
-  border-block-end: $site-header-border-width solid var(--color-border-muted);
+  border-block-end: $site-header-border-width solid var(--color-ui-border-subtle);
   box-shadow: $site-header-shadow;
 
   -webkit-backdrop-filter: blur($site-header-blur);

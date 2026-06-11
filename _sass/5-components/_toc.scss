@@ -79,7 +79,7 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
   padding: 0;
   list-style: none;
 
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-sm;
   line-height: settings-typography.$line-height-tight;
@@ -97,16 +97,16 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
 
 .c-toc__link {
   display: block;
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   text-decoration: none;
   transition: color settings-config.$transition-base;
 
   &:hover {
-    color: var(--color-primary);
+    color: var(--color-accent-primary);
   }
 
   &.active {
-    color: var(--color-primary);
+    color: var(--color-accent-primary);
     font-weight: settings-typography.$font-weight-bold;
   }
 }

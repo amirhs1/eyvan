@@ -70,7 +70,7 @@ $brand-logo-url: "../images/logo.svg" !default;
   gap: settings-spacing.$space-inline-md;
   min-inline-size: 0;
   max-inline-size: 100%;
-  color: var(--color-text);
+  color: var(--color-ui-text);
   text-decoration: none;
   vertical-align: middle;
   transition: settings-config.$transition-transform;
@@ -81,7 +81,7 @@ $brand-logo-url: "../images/logo.svg" !default;
   &:hover,
   &:focus-visible,
   &:active {
-    color: var(--color-text);
+    color: var(--color-ui-text);
     text-decoration: none;
   }
 
@@ -131,7 +131,7 @@ $brand-logo-url: "../images/logo.svg" !default;
   display: block;
   margin: 0;
   overflow: hidden;
-  color: var(--color-text);
+  color: var(--color-ui-text);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-lg;
   font-weight: settings-typography.$font-weight-bold;
@@ -144,7 +144,7 @@ $brand-logo-url: "../images/logo.svg" !default;
   display: block;
   margin: 0;
   overflow: hidden;
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-medium;
@@ -162,14 +162,14 @@ $brand-logo-url: "../images/logo.svg" !default;
 .c-brand:hover .c-brand__name,
 .c-brand:focus-visible .c-brand__name,
 .c-brand:active .c-brand__name {
-  color: var(--color-text);
+  color: var(--color-ui-text);
 }
 
 .c-brand__role,
 .c-brand:hover .c-brand__role,
 .c-brand:focus-visible .c-brand__role,
 .c-brand:active .c-brand__role {
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
 }
 
 /* -----------------------------------------------------------------------------

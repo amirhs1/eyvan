@@ -55,8 +55,16 @@
   </div>
 
   <!-- Mobile/tablet TOC panel -->
-  <div class="c-mobile-toc" id="mobile-toc" hidden data-mobile-toc>
-    <nav class="c-mobile-toc__inner" aria-labelledby="mobile-toc-header">
+  <div
+    class="c-mobile-toc"
+    id="mobile-toc"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-toc-header"
+    hidden
+    data-mobile-toc
+  >
+    <nav class="c-mobile-toc__inner" aria-label="Table of contents">
       <div class="c-mobile-toc__top">
         <div class="c-mobile-toc__top-left">
           <h2 class="c-mobile-toc__header" id="mobile-toc-header">On this page</h2>

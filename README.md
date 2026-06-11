@@ -197,7 +197,9 @@ The template self-hosts three font families as WOFF2 subsets (latin range only):
 
 - **Barlow Condensed** (display / UI condensed sans-serif): Designed by Jeremy Tribby. Source: [Google Fonts](https://fonts.google.com/specimen/Barlow+Condensed). Licensed under [OFL 1.1](https://openfontlicense.org/).
 - **Gelasio** (editorial / body serif, metric-compatible with Georgia): Designed by Eben Sorkin. Source: [Google Fonts](https://fonts.google.com/specimen/Gelasio). Licensed under [OFL 1.1](https://openfontlicense.org/).
-- **JetBrains Mono** (technical / code monospace): Designed by JetBrains. Source: [Google Fonts](https://fonts.google.com/specimen/JetBrains+Mono). Licensed under [OFL 1.1](https://openfontlicense.org/).
+- **JetBrains Mono** (technical / code monospace): Designed by JetBrains, Philipp Nurullin, and Konstantin Bulenkov. Source: [Google Fonts](https://fonts.google.com/specimen/JetBrains+Mono). Licensed under [OFL 1.1](https://openfontlicense.org/).
+
+The exact upstream license texts and a file-by-file asset map are bundled in [`assets/fonts/licenses/`](assets/fonts/licenses/README.md).
 
 ### Iconography Licensing
 

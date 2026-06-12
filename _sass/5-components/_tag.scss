@@ -31,8 +31,6 @@
 $tag-border-width: settings-config.$global-border-width;
 $tag-padding-block: settings-spacing.$space-2;
 $tag-padding-inline: settings-spacing.$space-3;
-$tag-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
-
 /* -----------------------------------------------------------------------------
    Base tag
    ----------------------------------------------------------------------------- */
@@ -61,7 +59,7 @@ $tag-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
   text-transform: capitalize;
   white-space: nowrap;
 
-  box-shadow: $tag-shadow;
+  box-shadow: settings-config.$elevation-rest;
 
   transition:
     background-color settings-config.$transition-base,

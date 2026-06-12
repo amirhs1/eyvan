@@ -239,6 +239,24 @@ UI_AGAINST_BG = {
   "focus-ring-color" => 3.0 # non-text UI component boundary
 }.freeze
 
+SURFACE_TEXT_PAIRS = {
+  "ui-surface" => {
+    "ui-text" => 4.5,
+    "ui-text-muted" => 4.5,
+    "heading-color" => 4.5
+  },
+  "ui-surface-raised" => {
+    "ui-text" => 4.5,
+    "ui-text-muted" => 4.5,
+    "heading-color" => 4.5
+  },
+  "ui-surface-overlay" => {
+    "ui-text" => 4.5,
+    "ui-text-muted" => 4.5,
+    "heading-color" => 4.5
+  }
+}.freeze
+
 # Base16 syntax foreground => minimum ratio against base00 (the code canvas).
 # base04 is a non-essential foreground (>=3.0); every other slot is text (>=4.5).
 SYNTAX_AGAINST_BASE00 = {
@@ -276,6 +294,9 @@ SYNTAX_AGAINST_BASE00 = {
   end
 
   UI_AGAINST_BG.each { |fg, minimum| check.call(fg, "ui-bg", minimum, "ui-bg") }
+  SURFACE_TEXT_PAIRS.each do |bg, pairs|
+    pairs.each { |fg, minimum| check.call(fg, bg, minimum, bg) }
+  end
   # Button/tag text sits on the accent fill, not the page background.
   check.call("text-inverse", "accent-primary", 4.5, "accent-primary")
   SYNTAX_AGAINST_BASE00.each { |fg, minimum| check.call(fg, "base00", minimum, "base00") }

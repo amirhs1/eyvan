@@ -2,7 +2,7 @@
 // Light Mode — Color Tokens
 // ITCSS layer: 0-settings
 //
-// The complete light-theme contract (33 tokens: 13 UI + 4 state + 16 Base16
+// The complete light-theme contract (35 tokens: 15 UI + 4 state + 16 Base16
 // syntax). There is NO primitive layer: each token carries its hex directly,
 // and a token only references another when it genuinely *reuses* that role
 // (e.g. the code canvas IS the UI surface, code classes ARE the brand accent).
@@ -25,6 +25,8 @@
 $ui-bg: #FFFFFF;             // page/body canvas
 $ui-surface: #F4F6FA;        // resting surface — cards, footer, TOC, code canvas
 $ui-surface-raised: #E7EBF2; // elevated surface — entry-meta, raised cards, menu
+$ui-surface-overlay: #FBFCFE; // overlay surface — modal panels, fullscreen TOCs
+$ui-backdrop: rgba(#FFFFFF, 0.78); // translucent scrim behind overlay surfaces
 
 $ui-text: #15181F;           // primary body text & default foreground
 $ui-text-muted: #5B6472;     // secondary/muted text — metadata, captions (>=4.5:1)

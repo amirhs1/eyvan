@@ -57,3 +57,71 @@ test('sitemap pages and their internal links and assets resolve', async ({ page,
     expect(response.ok(), `Broken internal resource ${url} (${source})`).toBe(true);
   }
 });
+
+test('the curated MathJax runtime is local and complete for shipped content', async ({ page }) => {
+  const localOrigin = new URL(baseUrl).origin;
+  const externalRuntimeRequests = [];
+  const failedRuntimeRequests = [];
+  const requestedRuntimePaths = new Set();
+  const expectedRuntimePaths = new Set([
+    'input/tex/extensions/braket.js',
+    'mathjax-newcm/chtml/dynamic/calligraphic.js',
+    'mathjax-newcm/chtml/dynamic/double-struck.js',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-brk.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-c.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-ds.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-lo.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-n.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-s4.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-s6.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-s7.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-v.woff2',
+    'mathjax-newcm/chtml/woff2/mjx-ncm-zero.woff2',
+    'sre/mathmaps/base.json',
+    'sre/mathmaps/en.json',
+    'sre/mathmaps/nemeth.json',
+    'sre/speech-worker.js',
+    'tex-chtml.js',
+  ]);
+  const mathPages = [
+    'building-a-rate-limiter',
+    'climate-data-analysis',
+    'eyvan-design-and-architecture',
+    'field-notes-iceland-2025',
+    'quantum-entanglement-primer',
+  ];
+  const runtimePrefix = '/assets/vendor/mathjax/4.1.2/';
+
+  page.on('request', (request) => {
+    const url = new URL(request.url());
+
+    if (url.origin !== localOrigin && /mathjax/i.test(request.url())) {
+      externalRuntimeRequests.push(`${request.resourceType()}: ${request.url()}`);
+    }
+  });
+
+  page.on('response', (response) => {
+    const url = new URL(response.url());
+    const prefixIndex = url.pathname.indexOf(runtimePrefix);
+
+    if (prefixIndex === -1) {
+      return;
+    }
+
+    requestedRuntimePaths.add(url.pathname.slice(prefixIndex + runtimePrefix.length));
+
+    if (!response.ok()) {
+      failedRuntimeRequests.push(`${response.status()}: ${response.url()}`);
+    }
+  });
+
+  for (const slug of mathPages) {
+    await page.goto(`${baseUrl}/projects/${slug}/`, { waitUntil: 'networkidle' });
+    await page.evaluate(() => window.MathJax.startup.promise);
+    await expect(page.locator('mjx-merror')).toHaveCount(0);
+  }
+
+  expect([...requestedRuntimePaths].sort()).toEqual([...expectedRuntimePaths].sort());
+  expect(failedRuntimeRequests).toEqual([]);
+  expect(externalRuntimeRequests).toEqual([]);
+});

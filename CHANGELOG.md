@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- A reviewed MathJax 4.1.2 runtime subset for the opt-in `math: true`
+  feature, including Braket notation, local CommonHTML fonts, English
+  accessibility speech data, licenses, provenance, and browser coverage.
 - Initial release of the Eyvan template: a minimalist, accessibility-first
   Jekyll portfolio and writing template for GitHub Pages, with an ITCSS/BEM
   Sass architecture, reusable long-form content includes (figures, video,
@@ -29,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Math-enabled pages now load MathJax from baseurl-safe local assets instead
+  of a mutable major-version CDN URL.
 - Reworked the color system into a clean three-tier token hierarchy. **Tier 2**
   — the per-persona/mode semantic layer in `0-settings` — is now a consistent
   33-token contract (13 UI + 4 state + 16 Base16 syntax): it gains

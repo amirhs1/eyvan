@@ -7,7 +7,7 @@
   - Guard: render nothing unless the current page sets `math: true`
   - Config: define MathJax TeX parsing rules before the library loads
 
-  - Loader: fetch MathJax asynchronously from the CDN
+  - Loader: load the reviewed, self-hosted MathJax runtime
 
   Architecture:
   - This file is a focused include for math rendering concerns only
@@ -23,7 +23,7 @@
 
   Performance:
   - MathJax is loaded only on opted-in pages
-  - The MathJax script is loaded asynchronously
+  - The MathJax script is deferred until document parsing completes
 
   Usage:
   - Add `{% raw %}math: true{% endraw %}` to the front matter of any page or post
@@ -33,7 +33,8 @@
 
   Dependencies:
   - page.math
-  - MathJax v3 CDN bundle: `tex-mml-chtml.js`
+  - MathJax v4 local bundle: `tex-chtml.js`
+  - Local MathJax New Computer Modern CommonHTML font runtime
 
 
   Notes:
@@ -48,19 +49,27 @@
   <!-- MathJax configuration -->
   <script>
     window.MathJax = {
+      loader: {
+        load: ['[tex]/braket']
+      },
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true
+        processEscapes: true,
+        packages: {'[+]': ['braket']}
+      },
+      output: {
+        font: 'mathjax-newcm',
+        fontPath: '{{ "assets/vendor/mathjax/4.1.2/mathjax-newcm" | relative_url }}'
       }
     };
   </script>
 
-  <!-- Async MathJax loader -->
+  <!-- Deferred local MathJax loader -->
   <script
     id="MathJax-script"
-    async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    defer
+    src="{{ 'assets/vendor/mathjax/4.1.2/tex-chtml.js' | relative_url }}">
   </script>
   <!-- End of math.html -->
 {% endif %}

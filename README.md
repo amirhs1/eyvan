@@ -22,7 +22,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 - TOC support for `##` and `###` headings when `toc: true`
 - Optional cover images, post-card images, Open Graph, and Twitter/X preview images
 - Optional cover image positioning with `image_position`
-- MathJax support for LaTeX-style math when `math: true`
+- Self-hosted MathJax support for LaTeX-style math when `math: true`
 - Numbered tables and figure-like media, including images, videos, and audio, with optional cross-references when `crossrefs: true`
 - Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`
 - Syntax-highlighted code blocks via Rouge
@@ -124,6 +124,11 @@ Important behavior:
 
 See the demo post *Front Matter Field Reference* for detailed examples.
 
+MathJax is a reviewed, versioned site asset under
+[`assets/vendor/`](assets/vendor/README.md), not a Node build dependency. The
+curated local runtime covers Eyvan's shipped math examples and can be extended
+when a site needs additional TeX packages or font ranges.
+
 ## Reusable Includes
 
 Eyvan includes Liquid helpers for common long-form content patterns:
@@ -190,6 +195,7 @@ The template draw creative and technical inspiration from the following open-sou
 
 - **AI Assistants**: Code generation, modular templating refactoring, refactoring logic, debugging scripts, and demo posts were developed in collaboration with Large Language Models, including OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
 - **JavaScript Assets**: Various scripting behaviors utilized within this template are adapted from existing open-source projects. For detailed licensing, original authors, and implementation notes, please refer to the documentation headers directly within the respective `.js` files located in the script directories.
+- **Vendored Runtime Libraries**: The MathJax version, integrity metadata, curated runtime boundary, licenses, and update instructions are documented in [`assets/vendor/README.md`](assets/vendor/README.md).
 
 ### Typography Licensing
 

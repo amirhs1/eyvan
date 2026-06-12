@@ -88,18 +88,21 @@
   >
 
   <!-- Browser UI theme colors -->
-  <!-- This meta tag is the single source of truth for runtime browser chrome colors. -->
+  <!-- Values derive from _data/theme.yml — the same source assets/css/main.scss
+       injects into the Sass palette, so browser chrome tracks the brand accent. -->
+  {% assign theme_color_light = site.data.theme.accent_light %}
+  {% assign theme_color_dark = site.data.theme.accent_dark %}
   <meta
     name="theme-color"
-    content="#00796B"
+    content="{{ theme_color_light }}"
     data-theme-color-meta
-    data-theme-color-light="#00796B"
-    data-theme-color-dark="#3FE0D0"
+    data-theme-color-light="{{ theme_color_light }}"
+    data-theme-color-dark="{{ theme_color_dark }}"
   >
 
   <!-- System preference fallbacks for browsers that evaluate media-specific theme-color -->
-  <meta name="theme-color" content="#00796B" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#3FE0D0" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="{{ theme_color_light }}" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="{{ theme_color_dark }}" media="(prefers-color-scheme: dark)">
 
   <!-- Browser color scheme hint -->
   <meta name="color-scheme" content="light dark">
@@ -127,9 +130,9 @@
 
       if (themeColorMeta) {
         const lightColor =
-          themeColorMeta.getAttribute('data-theme-color-light') || '#00796B';
+          themeColorMeta.getAttribute('data-theme-color-light') || '{{ theme_color_light }}';
         const darkColor =
-          themeColorMeta.getAttribute('data-theme-color-dark') || '#3FE0D0';
+          themeColorMeta.getAttribute('data-theme-color-dark') || '{{ theme_color_dark }}';
 
         themeColorMeta.setAttribute(
           'content',

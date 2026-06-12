@@ -151,7 +151,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   overflow: hidden;
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-ui-surface-raised);
-  box-shadow: settings-config.$card-shadow-rest;
+  box-shadow: settings-config.$elevation-rest;
 }
 
 .c-post-nav__media img {

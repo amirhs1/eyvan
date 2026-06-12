@@ -8,6 +8,13 @@ share: true
 crossrefs: true
 image: "assets/images/posts/khane-amerian-eyvan.webp"
 image_alt: "Muqarnas-adorned eyvan courtyard facade at the historic Ameri House in Kashan, Iran"
+image_width: 1200
+image_height: 900
+image_srcset: |
+  assets/images/posts/khane-amerian-eyvan-640.webp | 640w
+  assets/images/posts/khane-amerian-eyvan-960.webp | 960w
+  assets/images/posts/khane-amerian-eyvan.webp | 1200w
+image_sizes: "(min-width: 72rem) 60rem, 100vw"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
 ---
 
@@ -23,6 +30,8 @@ The name comes from the architectural idea of an _eyvan_[^1]: an open, vaulted t
    alt="The five-bay panjdari of the main eyvan at the Āmeri House in Kashan, Iran, its vaulted ceiling filled with tiered muqarnas."
    width="1200"
    height="900"
+   responsive_srcset="assets/images/posts/khane-amerian-eyvan-640.webp | 640w, assets/images/posts/khane-amerian-eyvan-960.webp | 960w, assets/images/posts/khane-amerian-eyvan.webp | 1200w"
+   responsive_sizes="(min-width: 68rem) 48rem, (min-width: 48rem) 80vw, 100vw"
    caption="The *panjdari* of the main eyvan — the open, vaulted balcony — of the Āmeri House in Kashan, Iran. Photograph by Matthias Blume, 18 November 2005, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Khane_Amerian_iwan.jpg), licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)."
 %}
 
@@ -400,9 +409,10 @@ Post cover images use `loading="lazy"`, which allows the browser to delay loadin
 
 The exception is the homepage hero image, which can use eager loading and high fetch priority because it appears above the fold.
 
-### Async MathJax
+### Pinned MathJax CDN Integration
 
-MathJax is loaded asynchronously and only when the page opts in:
+MathJax is loaded from an exact, integrity-protected CDN release and only when
+the page opts in:
 
 {% raw %}
 
@@ -410,6 +420,9 @@ MathJax is loaded asynchronously and only when the page opts in:
 {% if page.math %}
 <script>
   window.MathJax = {
+    loader: {
+      load: ["[tex]/braket"],
+    },
     tex: {
       inlineMath: [
         ["$", "$"],
@@ -420,21 +433,28 @@ MathJax is loaded asynchronously and only when the page opts in:
         ["\\[", "\\]"],
       ],
       processEscapes: true,
+      packages: {"[+]": ["braket"]},
     },
   };
 </script>
 
 <script
   id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js"
+  integrity="sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
 ></script>
 {% endif %}
 ```
 
 {% endraw %}
 
-This is the right tradeoff for a mixed portfolio. Some posts need equations; many do not.
+This keeps the repository lightweight while avoiding mutable production code.
+The integrity hash protects the entry bundle; exact version pinning also keeps
+dynamically requested MathJax components on the reviewed release. Some posts
+need equations; many do not.
 
 ### Conditional integrations
 

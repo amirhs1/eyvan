@@ -22,6 +22,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 - TOC support for `##` and `###` headings when `toc: true`
 - Optional cover images, post-card images, Open Graph, and Twitter/X preview images
 - Optional cover image positioning with `image_position`
+- Optional responsive image variants for covers, page images, and prose figures via `srcset`/`sizes`
 - MathJax support for LaTeX-style math when `math: true`
 - Numbered tables and figure-like media, including images, videos, and audio, with optional cross-references when `crossrefs: true`
 - Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`
@@ -124,6 +125,17 @@ Important behavior:
 
 See the demo post *Front Matter Field Reference* for detailed examples.
 
+MathJax is an intentional opt-in CDN integration. Eyvan pins the complete
+version, protects the entry bundle with Subresource Integrity, and checks the
+generated loader in CI. The exact version is updated only after its rendered
+math and accessibility behavior are reviewed; the template never uses a
+rolling major-version or `latest` URL.
+
+The climate analysis post also demonstrates interactive Chart.js charts. That
+library and `assets/js/demo-climate-charts.js` belong only to the removable
+demo post, not to Eyvan's core runtime. Its CDN release is exact,
+integrity-protected, and checked independently from the MathJax feature.
+
 ## Reusable Includes
 
 Eyvan includes Liquid helpers for common long-form content patterns:
@@ -135,6 +147,12 @@ Eyvan includes Liquid helpers for common long-form content patterns:
 - `ref.html` for cross-references to numbered figures and tables
 
 Use `crossrefs: true` in front matter when a post uses `ref.html`. Individual figures, videos, audio blocks, and table captions are numbered by default; pass `numbered="false"` to an include only when that item should not be counted or referenced.
+
+When a cover or figure needs responsive variants, pre-generate a small set of
+alternate widths and declare them with newline-delimited `path | descriptor`
+rows. Eyvan then rewrites each path through `relative_url` before emitting the
+final `srcset`, so the output stays baseurl-safe without adding a bundler or
+image pipeline.
 
 ## Deployment
 
@@ -190,6 +208,7 @@ The template draw creative and technical inspiration from the following open-sou
 
 - **AI Assistants**: Code generation, modular templating refactoring, refactoring logic, debugging scripts, and demo posts were developed in collaboration with Large Language Models, including OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
 - **JavaScript Assets**: Various scripting behaviors utilized within this template are adapted from existing open-source projects. For detailed licensing, original authors, and implementation notes, please refer to the documentation headers directly within the respective `.js` files located in the script directories.
+- **Chart.js Demo**: The climate demo loads Chart.js 4.5.1 from jsDelivr under the [MIT License](https://github.com/chartjs/Chart.js/blob/v4.5.1/LICENSE.md). The integration is limited to that removable post.
 
 ### Typography Licensing
 

@@ -1,0 +1,88 @@
+// -----------------------------------------------------------------------------
+// Light Mode — Color Tokens
+// ITCSS layer: 0-settings
+//
+// The complete light-theme contract (35 tokens: 15 UI + 4 state + 16 Base16
+// syntax). There is NO primitive layer: each token carries its hex directly,
+// and a token only references another when it genuinely *reuses* that role
+// (e.g. the code canvas IS the UI surface, code classes ARE the brand accent).
+// 3-base/_base.scss compiles these into :root { --color-* } and layers the
+// Tier-3 component aliases (link/button/tag/selection) on top.
+//
+// Brand hue: Aubergine glaze (bademjan). $accent-primary is `!default` so
+// assets/css/main.scss injects it from _data/theme.yml (keeping the browser
+// theme-color in head.html in sync with the palette).
+//
+// Accessibility: every text/background pair meets WCAG 2.1 AA (>=4.5:1 text,
+// >=3:1 focus). Subtle dividers (ui-border) are intentionally low-contrast
+// non-text. Verify before changing values.
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Core UI roles
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: #FFFFFF;             // page/body canvas
+$ui-surface: #F4F6FA;        // resting surface — cards, footer, TOC, code canvas
+$ui-surface-raised: #E7EBF2; // elevated surface — entry-meta, raised cards, menu
+$ui-surface-overlay: #FBFCFE; // overlay surface — modal panels, fullscreen TOCs
+$ui-backdrop: rgba(#FFFFFF, 0.78); // translucent scrim behind overlay surfaces
+
+$ui-text: #15181F;           // primary body text & default foreground
+$ui-text-muted: #5B6472;     // secondary/muted text — metadata, captions (>=4.5:1)
+
+$ui-border: #CDD4DF;         // default borders/dividers (subtle, non-text)
+$ui-border-subtle: #E2E7EF;  // low-emphasis dividers — header/footer edges
+$ui-shadow-color: rgba(#15181F, 0.12); // elevation shadow (near-black ink @ 12%)
+
+/* -----------------------------------------------------------------------------
+   Accent system (brand) — $accent-primary injectable from _data/theme.yml
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: #4B3049 !default; // aubergine glaze — links, buttons, tags, focus
+$accent-secondary: #371F36;        // hover/emphasis (darker brand step)
+
+/* -----------------------------------------------------------------------------
+   Typography & content
+   ----------------------------------------------------------------------------- */
+
+$heading-color: $ui-text; // neutral — accent reserved for interaction
+$text-inverse: $ui-bg;    // text on an accent fill (buttons, tags)
+
+/* -----------------------------------------------------------------------------
+   Status & feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: #C0271F;   // cinnabar-derived
+$state-success: #2E7D46; // imperial green, darkened for AA
+$state-warning: #9A5A00; // orpiment, darkened for AA
+$state-info: #2B5BC0;    // independent info blue (brand is no longer blue)
+
+/* -----------------------------------------------------------------------------
+   Interaction helpers
+   ----------------------------------------------------------------------------- */
+
+$focus-ring-color: $accent-primary; // keyboard focus ring (focus-ring mixin)
+
+/* -----------------------------------------------------------------------------
+   Syntax highlighting (Base16 — Light). Code bg = base00.
+   Structural slots reuse UI/accent roles; chromatic slots are their own set,
+   each tuned to clear AA on base00 (#F4F6FA).
+   ----------------------------------------------------------------------------- */
+
+$base00: $ui-surface;        // background (code block)
+$base01: $ui-surface-raised; // lighter bg / gutter
+$base02: #D9DFEA;            // selection bg
+$base03: $ui-text-muted;     // comments (>=4.5:1 on base00)
+$base04: #4A525F;            // dark foreground
+$base05: $ui-text;           // default foreground
+$base06: #2A2F3A;            // light foreground
+$base07: #0C0E13;            // lightest bg
+$base08: $state-error;       // variables / tags (shares the state red)
+$base09: $state-warning;     // numbers / constants (shares the state amber)
+$base0a: $accent-primary;    // classes
+$base0b: $state-success;     // strings (shares the state green)
+$base0c: #1E6FB8;            // support / regex / operators (4.83:1 on base00)
+$base0d: $state-info;        // functions (shares the state blue)
+$base0e: #7A3FB0;            // keywords
+$base0f: #B0297A;            // deprecated

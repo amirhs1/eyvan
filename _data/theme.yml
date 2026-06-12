@@ -1,0 +1,21 @@
+# Brand accent — single source of truth.
+#
+# These two values are read by BOTH pipelines so they can never drift:
+#   - assets/css/main.scss injects them into the Sass mode modules
+#     (@use "0-settings/light-mode" with ($accent-primary: ...)), which is how
+#     the CSS --color-accent-* tokens get their value.
+#   - _includes/head.html renders them into <meta name="theme-color"> (and the
+#     data-theme-color-* attributes the theme JS reads) so the browser chrome
+#     colour tracks the palette automatically.
+#
+# Everything else (every other semantic + syntax token per mode) lives directly
+# in _sass/0-settings/_light-mode.scss and _dark-mode.scss. Only the primary
+# brand accent is centralised here, because it is the one value the Liquid
+# (head.html) and Sass pipelines must agree on.
+#
+# To re-brand the template, change these two values. Keep each equal to the
+# matching mode file's $accent-primary fallback (a checked-in guard enforces
+# this — see the colour-drift check in the release test job).
+
+accent_light: "#4B3049"   # aubergine glaze — light-mode brand
+accent_dark:  "#C9A0C4"   # lifted aubergine (orchid) — dark-mode brand

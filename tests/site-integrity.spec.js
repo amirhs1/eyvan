@@ -26,11 +26,39 @@ test('sitemap pages and their internal links and assets resolve', async ({ page,
     expect(response.ok(), `Sitemap page failed: ${pageUrl}`).toBe(true);
 
     const pageResources = await page.locator(
-      'a[href], img[src], script[src], link[href], source[src]'
-    ).evaluateAll((elements) => elements.map((element) => ({
-      attribute: element.hasAttribute('href') ? 'href' : 'src',
-      value: element.getAttribute(element.hasAttribute('href') ? 'href' : 'src'),
-    })));
+      'a[href], img[src], img[srcset], script[src], link[href], source[src], source[srcset]'
+    ).evaluateAll((elements) => elements.flatMap((element) => {
+      const resources = [];
+
+      if (element.hasAttribute('href')) {
+        resources.push({
+          attribute: 'href',
+          value: element.getAttribute('href'),
+        });
+      }
+
+      if (element.hasAttribute('src')) {
+        resources.push({
+          attribute: 'src',
+          value: element.getAttribute('src'),
+        });
+      }
+
+      if (element.hasAttribute('srcset')) {
+        const srcset = element.getAttribute('srcset') || '';
+        const candidates = srcset.split(',')
+          .map((candidate) => candidate.trim())
+          .filter(Boolean)
+          .map((candidate) => ({
+            attribute: 'srcset',
+            value: candidate.split(/\s+/)[0],
+          }));
+
+        resources.push(...candidates);
+      }
+
+      return resources;
+    }));
 
     for (const { attribute, value } of pageResources) {
       if (!value || value.startsWith('#')) {
@@ -56,4 +84,99 @@ test('sitemap pages and their internal links and assets resolve', async ({ page,
     const response = await request.get(url);
     expect(response.ok(), `Broken internal resource ${url} (${source})`).toBe(true);
   }
+});
+
+test('the pinned MathJax CDN runtime renders shipped math content', async ({ page }) => {
+  const mathJaxRequests = [];
+  const mathPages = [
+    'building-a-rate-limiter',
+    'climate-data-analysis',
+    'eyvan-design-and-architecture',
+    'field-notes-iceland-2025',
+    'quantum-entanglement-primer',
+  ];
+
+  page.on('response', (response) => {
+    const url = response.url();
+
+    if (url.includes('cdn.jsdelivr.net/npm/') && /mathjax/i.test(url)) {
+      mathJaxRequests.push({
+        status: response.status(),
+        url,
+      });
+    }
+  });
+
+  for (const slug of mathPages) {
+    await page.goto(`${baseUrl}/projects/${slug}/`);
+    await page.waitForFunction(() => Boolean(window.MathJax?.startup?.promise));
+    await page.evaluate(() => window.MathJax.startup.promise);
+    await expect(page.locator('mjx-merror')).toHaveCount(0);
+  }
+
+  const loader = page.locator('#MathJax-script');
+
+  await expect(loader).toHaveAttribute(
+    'src',
+    'https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js'
+  );
+  await expect(loader).toHaveAttribute(
+    'integrity',
+    'sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn'
+  );
+  await expect(loader).toHaveAttribute('crossorigin', 'anonymous');
+  await expect(loader).toHaveAttribute('referrerpolicy', 'no-referrer');
+  await expect(page.locator('mjx-container')).not.toHaveCount(0);
+
+  expect(mathJaxRequests.length).toBeGreaterThan(0);
+
+  for (const response of mathJaxRequests) {
+    expect(response.status, response.url).toBeLessThan(400);
+    expect(
+      response.url.includes('mathjax@4.1.2/')
+      || response.url.includes('mathjax-newcm-font@4.1.2/')
+    ).toBe(true);
+  }
+});
+
+test('the climate demo uses the pinned Chart.js CDN runtime', async ({ page }) => {
+  const chartJsResponses = [];
+
+  page.on('response', (response) => {
+    if (response.url().includes('cdn.jsdelivr.net/npm/chart.js')) {
+      chartJsResponses.push({
+        status: response.status(),
+        url: response.url(),
+      });
+    }
+  });
+
+  await page.goto(`${baseUrl}/projects/climate-data-analysis/`);
+  await page.waitForFunction(() =>
+    Boolean(
+      window.Chart?.getChart?.('temperatureLineChart')
+      && window.Chart?.getChart?.('precipitationBarChart')
+    )
+  );
+
+  const loader = page.locator('#ChartJS-demo-script');
+
+  await expect(loader).toHaveAttribute(
+    'src',
+    'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js'
+  );
+  await expect(loader).toHaveAttribute(
+    'integrity',
+    'sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ'
+  );
+  await expect(loader).toHaveAttribute('crossorigin', 'anonymous');
+  await expect(loader).toHaveAttribute('referrerpolicy', 'no-referrer');
+  await expect(page.locator('#temperatureLineChart')).toBeVisible();
+  await expect(page.locator('#precipitationBarChart')).toBeVisible();
+
+  expect(chartJsResponses).toHaveLength(1);
+  expect(chartJsResponses[0].status).toBeLessThan(400);
+  expect(chartJsResponses[0].url).toBe(
+    'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js'
+  );
 });

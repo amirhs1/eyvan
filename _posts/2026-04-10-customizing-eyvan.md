@@ -270,7 +270,26 @@ image: "assets/images/posts/your-image.webp"
 image_alt: "Describe the image for screen readers"
 image_width: 1200
 image_height: 630
+image_srcset: |
+  assets/images/posts/your-image-640.webp | 640w
+  assets/images/posts/your-image-960.webp | 960w
+  assets/images/posts/your-image.webp | 1200w
+image_sizes: "(min-width: 72rem) 60rem, 100vw"
 ```
+
+Responsive variants remain optional. When a post or page includes unusually
+large imagery, generate a small set of alternate widths ahead of time and list
+them in `image_srcset`. One practical no-bundler workflow is:
+
+```bash
+cwebp -q 80 -resize 640 0 your-image.png -o assets/images/posts/your-image-640.webp
+cwebp -q 80 -resize 960 0 your-image.png -o assets/images/posts/your-image-960.webp
+cwebp -q 82 your-image.png -o assets/images/posts/your-image.webp
+```
+
+Use exact source dimensions for `image_width` and `image_height`, and keep the
+largest variant as the plain `image` path so older browsers still receive a
+complete fallback.
 
 If a post has a lot of headings, enable the sidebar table of contents:
 

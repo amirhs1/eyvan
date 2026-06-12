@@ -13,11 +13,11 @@
 //
 // Color-token contract (the complete, authoritative vocabulary — any
 // var(--color-*) used elsewhere that is not defined here is undefined):
-//   - Tier 2 (semantic): 33 tokens, emitted twice — :root (light) and
-//     html[data-theme="dark"] (dark) = 13 UI + 4 state + 16 Base16 syntax.
+//   - Tier 2 (semantic): 35 tokens, emitted twice — :root (light) and
+//     html[data-theme="dark"] (dark) = 15 UI + 4 state + 16 Base16 syntax.
 //   - Tier 3 (component): 11 aliases of Tier 2, emitted once on :root
 //     (theme-agnostic — they inherit the light/dark switch through var()).
-//   => 33 + 33 + 11 = 77 custom-property definitions.
+//   => 35 + 35 + 11 = 81 custom-property definitions.
 // The html / body / ::selection rules at the foot of this file only *consume*
 // these tokens (via var()); they do not add to the count.
 //
@@ -27,116 +27,121 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/typography" as settings-typography;
-@use "../0-settings/colors" as settings-colors;
+@use "../0-settings/light-mode" as light;
+@use "../0-settings/dark-mode" as dark;
 
 /* =============================================================================
    COLOR TOKENS
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   Tier 2 — Semantic tokens · light · 33
+   Tier 2 — Semantic tokens · light · 35
    ----------------------------------------------------------------------------- */
 
 :root {
   /* Surfaces */
-  --color-ui-bg: #{settings-colors.$light-ui-bg};
-  --color-ui-surface: #{settings-colors.$light-ui-surface};
-  --color-ui-surface-raised: #{settings-colors.$light-ui-surface-raised};
+  --color-ui-bg: #{light.$ui-bg};
+  --color-ui-surface: #{light.$ui-surface};
+  --color-ui-surface-raised: #{light.$ui-surface-raised};
+  --color-ui-surface-overlay: #{light.$ui-surface-overlay};
+  --color-ui-backdrop: #{light.$ui-backdrop};
 
   /* Foreground */
-  --color-ui-text: #{settings-colors.$light-ui-text};
-  --color-ui-text-muted: #{settings-colors.$light-ui-text-muted};
-  --color-heading: #{settings-colors.$light-heading-color};
-  --color-text-inverse: #{settings-colors.$light-text-inverse};
+  --color-ui-text: #{light.$ui-text};
+  --color-ui-text-muted: #{light.$ui-text-muted};
+  --color-heading: #{light.$heading-color};
+  --color-text-inverse: #{light.$text-inverse};
 
   /* Borders & focus */
-  --color-ui-border: #{settings-colors.$light-ui-border};
-  --color-ui-border-subtle: #{settings-colors.$light-ui-border-subtle};
-  --color-focus-ring-color: #{settings-colors.$light-focus-ring-color};
+  --color-ui-border: #{light.$ui-border};
+  --color-ui-border-subtle: #{light.$ui-border-subtle};
+  --color-focus-ring-color: #{light.$focus-ring-color};
 
   /* Accent system */
-  --color-accent-primary: #{settings-colors.$light-accent-primary};
-  --color-accent-secondary: #{settings-colors.$light-accent-secondary};
+  --color-accent-primary: #{light.$accent-primary};
+  --color-accent-secondary: #{light.$accent-secondary};
 
   /* Status & feedback */
-  --color-state-error: #{settings-colors.$light-state-error};
-  --color-state-success: #{settings-colors.$light-state-success};
-  --color-state-warning: #{settings-colors.$light-state-warning};
-  --color-state-info: #{settings-colors.$light-state-info};
+  --color-state-error: #{light.$state-error};
+  --color-state-success: #{light.$state-success};
+  --color-state-warning: #{light.$state-warning};
+  --color-state-info: #{light.$state-info};
 
   /* Effect */
-  --color-ui-shadow-color: #{settings-colors.$light-ui-shadow-color};
+  --color-ui-shadow-color: #{light.$ui-shadow-color};
 
   /* Syntax highlighting */
-  --color-syntax-base00: #{settings-colors.$light-base00};
-  --color-syntax-base01: #{settings-colors.$light-base01};
-  --color-syntax-base02: #{settings-colors.$light-base02};
-  --color-syntax-base03: #{settings-colors.$light-base03};
-  --color-syntax-base04: #{settings-colors.$light-base04};
-  --color-syntax-base05: #{settings-colors.$light-base05};
-  --color-syntax-base06: #{settings-colors.$light-base06};
-  --color-syntax-base07: #{settings-colors.$light-base07};
-  --color-syntax-base08: #{settings-colors.$light-base08};
-  --color-syntax-base09: #{settings-colors.$light-base09};
-  --color-syntax-base0a: #{settings-colors.$light-base0a};
-  --color-syntax-base0b: #{settings-colors.$light-base0b};
-  --color-syntax-base0c: #{settings-colors.$light-base0c};
-  --color-syntax-base0d: #{settings-colors.$light-base0d};
-  --color-syntax-base0e: #{settings-colors.$light-base0e};
-  --color-syntax-base0f: #{settings-colors.$light-base0f};
+  --color-syntax-base00: #{light.$base00};
+  --color-syntax-base01: #{light.$base01};
+  --color-syntax-base02: #{light.$base02};
+  --color-syntax-base03: #{light.$base03};
+  --color-syntax-base04: #{light.$base04};
+  --color-syntax-base05: #{light.$base05};
+  --color-syntax-base06: #{light.$base06};
+  --color-syntax-base07: #{light.$base07};
+  --color-syntax-base08: #{light.$base08};
+  --color-syntax-base09: #{light.$base09};
+  --color-syntax-base0a: #{light.$base0a};
+  --color-syntax-base0b: #{light.$base0b};
+  --color-syntax-base0c: #{light.$base0c};
+  --color-syntax-base0d: #{light.$base0d};
+  --color-syntax-base0e: #{light.$base0e};
+  --color-syntax-base0f: #{light.$base0f};
 }
 
 /* -----------------------------------------------------------------------------
-   Tier 2 — Semantic tokens · dark · 33
+   Tier 2 — Semantic tokens · dark · 35
    ----------------------------------------------------------------------------- */
 
 html[data-theme="dark"] {
   /* Surfaces */
-  --color-ui-bg: #{settings-colors.$dark-ui-bg};
-  --color-ui-surface: #{settings-colors.$dark-ui-surface};
-  --color-ui-surface-raised: #{settings-colors.$dark-ui-surface-raised};
+  --color-ui-bg: #{dark.$ui-bg};
+  --color-ui-surface: #{dark.$ui-surface};
+  --color-ui-surface-raised: #{dark.$ui-surface-raised};
+  --color-ui-surface-overlay: #{dark.$ui-surface-overlay};
+  --color-ui-backdrop: #{dark.$ui-backdrop};
 
   /* Foreground */
-  --color-ui-text: #{settings-colors.$dark-ui-text};
-  --color-ui-text-muted: #{settings-colors.$dark-ui-text-muted};
-  --color-heading: #{settings-colors.$dark-heading-color};
-  --color-text-inverse: #{settings-colors.$dark-text-inverse};
+  --color-ui-text: #{dark.$ui-text};
+  --color-ui-text-muted: #{dark.$ui-text-muted};
+  --color-heading: #{dark.$heading-color};
+  --color-text-inverse: #{dark.$text-inverse};
 
   /* Borders & focus */
-  --color-ui-border: #{settings-colors.$dark-ui-border};
-  --color-ui-border-subtle: #{settings-colors.$dark-ui-border-subtle};
-  --color-focus-ring-color: #{settings-colors.$dark-focus-ring-color};
+  --color-ui-border: #{dark.$ui-border};
+  --color-ui-border-subtle: #{dark.$ui-border-subtle};
+  --color-focus-ring-color: #{dark.$focus-ring-color};
 
   /* Accent system */
-  --color-accent-primary: #{settings-colors.$dark-accent-primary};
-  --color-accent-secondary: #{settings-colors.$dark-accent-secondary};
+  --color-accent-primary: #{dark.$accent-primary};
+  --color-accent-secondary: #{dark.$accent-secondary};
 
   /* Status & feedback */
-  --color-state-error: #{settings-colors.$dark-state-error};
-  --color-state-success: #{settings-colors.$dark-state-success};
-  --color-state-warning: #{settings-colors.$dark-state-warning};
-  --color-state-info: #{settings-colors.$dark-state-info};
+  --color-state-error: #{dark.$state-error};
+  --color-state-success: #{dark.$state-success};
+  --color-state-warning: #{dark.$state-warning};
+  --color-state-info: #{dark.$state-info};
 
   /* Effect */
-  --color-ui-shadow-color: #{settings-colors.$dark-ui-shadow-color};
+  --color-ui-shadow-color: #{dark.$ui-shadow-color};
 
   /* Syntax highlighting */
-  --color-syntax-base00: #{settings-colors.$dark-base00};
-  --color-syntax-base01: #{settings-colors.$dark-base01};
-  --color-syntax-base02: #{settings-colors.$dark-base02};
-  --color-syntax-base03: #{settings-colors.$dark-base03};
-  --color-syntax-base04: #{settings-colors.$dark-base04};
-  --color-syntax-base05: #{settings-colors.$dark-base05};
-  --color-syntax-base06: #{settings-colors.$dark-base06};
-  --color-syntax-base07: #{settings-colors.$dark-base07};
-  --color-syntax-base08: #{settings-colors.$dark-base08};
-  --color-syntax-base09: #{settings-colors.$dark-base09};
-  --color-syntax-base0a: #{settings-colors.$dark-base0a};
-  --color-syntax-base0b: #{settings-colors.$dark-base0b};
-  --color-syntax-base0c: #{settings-colors.$dark-base0c};
-  --color-syntax-base0d: #{settings-colors.$dark-base0d};
-  --color-syntax-base0e: #{settings-colors.$dark-base0e};
-  --color-syntax-base0f: #{settings-colors.$dark-base0f};
+  --color-syntax-base00: #{dark.$base00};
+  --color-syntax-base01: #{dark.$base01};
+  --color-syntax-base02: #{dark.$base02};
+  --color-syntax-base03: #{dark.$base03};
+  --color-syntax-base04: #{dark.$base04};
+  --color-syntax-base05: #{dark.$base05};
+  --color-syntax-base06: #{dark.$base06};
+  --color-syntax-base07: #{dark.$base07};
+  --color-syntax-base08: #{dark.$base08};
+  --color-syntax-base09: #{dark.$base09};
+  --color-syntax-base0a: #{dark.$base0a};
+  --color-syntax-base0b: #{dark.$base0b};
+  --color-syntax-base0c: #{dark.$base0c};
+  --color-syntax-base0d: #{dark.$base0d};
+  --color-syntax-base0e: #{dark.$base0e};
+  --color-syntax-base0f: #{dark.$base0f};
 }
 
 /* -----------------------------------------------------------------------------

@@ -12,6 +12,12 @@
        id="fig-example"
        width="1200"
        height="670"
+       responsive_srcset="
+         assets/images/posts/example-480.webp | 480w
+         assets/images/posts/example-960.webp | 960w
+         assets/images/posts/example-1200.webp | 1200w
+       "
+       responsive_sizes="(min-width: 64rem) 52rem, 100vw"
     %}
 
   Usage — multiple images:
@@ -20,7 +26,7 @@
        caption="Shared caption."
        cols="3"
        images="
-         assets/images/posts/a.webp | First image alt text | 1200x800
+         assets/images/posts/a.webp | First image alt text | 1200x800 | assets/images/posts/a-640.webp | 640w
          assets/images/posts/b.webp | Second image alt text | 900x600
          assets/images/posts/c.webp | Third image alt text | 700x700
        "
@@ -31,8 +37,15 @@
     numbered="false"      -> keeps caption styling but removes FIGURE n.
     loading="eager"       -> optional override; default is lazy
     width="W" height="H"  -> single-image only; intrinsic pixel dimensions
-    "path | alt | WxH"    -> multi-image rows; optional third segment carries
-                             that image's intrinsic pixel dimensions
+    responsive_srcset="..." -> optional newline-delimited `path | descriptor`
+                               list for a single responsive image
+    responsive_sizes="..."  -> optional sizes attribute paired with
+                               `responsive_srcset`
+    "path | alt | WxH | srcset row | sizes"
+                          -> multi-image rows; optional third segment carries
+                             intrinsic dimensions, the fourth segment carries
+                             one responsive candidate row, and the fifth
+                             carries that image's sizes attribute
 
   Notes:
   - width/height are optional. When known, supply the source asset's real
@@ -71,11 +84,45 @@
         {%- comment -%} Per-row "WxH" (multi-image) falls back to the top-level width/height (single-image) {%- endcomment -%}
         {%- assign image_width = include.width -%}
         {%- assign image_height = include.height -%}
+        {%- assign image_srcset = include.responsive_srcset -%}
+        {%- assign image_sizes = include.responsive_sizes -%}
         {%- assign row_dimensions = parts[2] | strip -%}
+        {%- assign row_srcset = parts[3] | strip -%}
+        {%- assign row_sizes = parts[4] | strip -%}
         {%- if row_dimensions != "" -%}
           {%- assign parsed_dimensions = row_dimensions | split: "x" -%}
           {%- assign image_width = parsed_dimensions[0] | strip -%}
           {%- assign image_height = parsed_dimensions[1] | strip -%}
+        {%- endif -%}
+        {%- if row_srcset != "" -%}
+          {%- assign image_srcset = row_srcset -%}
+        {%- endif -%}
+        {%- if row_sizes != "" -%}
+          {%- assign image_sizes = row_sizes -%}
+        {%- endif -%}
+        {%- assign normalized_image_srcset = "" -%}
+        {%- if image_srcset != blank -%}
+          {%- assign responsive_groups = image_srcset | newline_to_br | split: "<br />" -%}
+          {%- for raw_group in responsive_groups -%}
+            {%- assign responsive_group = raw_group | strip -%}
+            {%- if responsive_group != "" -%}
+              {%- assign responsive_rows = responsive_group | split: "," -%}
+              {%- for responsive_row in responsive_rows -%}
+                {%- assign responsive_entry = responsive_row | strip -%}
+                {%- if responsive_entry != "" -%}
+                  {%- assign responsive_parts = responsive_entry | split: "|" -%}
+                  {%- assign responsive_src = responsive_parts[0] | strip -%}
+                  {%- assign responsive_descriptor = responsive_parts[1] | strip -%}
+                  {%- if responsive_src != "" -%}
+                    {%- capture normalized_image_srcset -%}
+                      {{- normalized_image_srcset -}}{%- if normalized_image_srcset != "" -%}, {% endif -%}{{ responsive_src | relative_url }}{% if responsive_descriptor != "" %} {{ responsive_descriptor | escape }}{% endif %}
+                    {%- endcapture -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- assign normalized_image_srcset = normalized_image_srcset | strip -%}
         {%- endif -%}
 
         <img
@@ -86,6 +133,12 @@
           {%- if image_width != blank and image_height != blank %}
           width="{{ image_width }}"
           height="{{ image_height }}"
+          {%- endif %}
+          {%- if normalized_image_srcset != "" %}
+          srcset="{{ normalized_image_srcset }}"
+          {%- if image_sizes != blank %}
+          sizes="{{ image_sizes | strip | escape }}"
+          {%- endif %}
           {%- endif %}
         >
       {%- endif -%}

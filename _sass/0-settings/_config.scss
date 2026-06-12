@@ -120,6 +120,11 @@ $z-modal: 1000;
 $shadow-offset-y: 9px;
 $shadow-blur: 18px;
 $shadow-spread: 0;
+$overlay-shadow-offset-y: 1.25rem;
+$overlay-shadow-blur: 2.5rem;
+$overlay-shadow-alpha: 18%;
+$overlay-backdrop-blur: 0.75rem;
+$header-backdrop-blur: 18px;
 
 /* -----------------------------------------------------------------------------
    Layout System
@@ -134,13 +139,20 @@ $grid-columns: 12 !default;
 
 $card-border-width: $global-border-width;
 
-$card-shadow-rest:
+$elevation-rest:
   0 0 0.125rem var(--color-ui-shadow-color);
 
 // Hover/lift shadow reuses the theme-aware shadow color so dark-mode elevation
 // stays visible (a fixed black triplet is invisible on a near-black canvas).
-$card-shadow-hover:
+$elevation-raised:
   0 $shadow-offset-y $shadow-blur var(--color-ui-shadow-color);
+
+$elevation-overlay:
+  0 $overlay-shadow-offset-y $overlay-shadow-blur
+  color-mix(in srgb, var(--color-ui-shadow-color) $overlay-shadow-alpha, transparent);
+
+$card-shadow-rest: $elevation-rest;
+$card-shadow-hover: $elevation-raised;
 
 $card-lift-hover: -0.25rem;
 

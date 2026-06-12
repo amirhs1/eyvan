@@ -17,6 +17,8 @@
 $ui-bg: #0F1117;             // near-black, faint blue
 $ui-surface: #171A22;        // resting surface
 $ui-surface-raised: #222632; // elevated surface
+$ui-surface-overlay: #2A2F3D; // overlay surface — modal panels, fullscreen TOCs
+$ui-backdrop: rgba(#0F1117, 0.78); // translucent scrim behind overlay surfaces
 
 $ui-text: #E4E8EF;           // primary body text & default foreground
 $ui-text-muted: #9AA3B2;     // secondary/muted text

@@ -13,11 +13,11 @@
 //
 // Color-token contract (the complete, authoritative vocabulary — any
 // var(--color-*) used elsewhere that is not defined here is undefined):
-//   - Tier 2 (semantic): 33 tokens, emitted twice — :root (light) and
-//     html[data-theme="dark"] (dark) = 13 UI + 4 state + 16 Base16 syntax.
+//   - Tier 2 (semantic): 35 tokens, emitted twice — :root (light) and
+//     html[data-theme="dark"] (dark) = 15 UI + 4 state + 16 Base16 syntax.
 //   - Tier 3 (component): 11 aliases of Tier 2, emitted once on :root
 //     (theme-agnostic — they inherit the light/dark switch through var()).
-//   => 33 + 33 + 11 = 77 custom-property definitions.
+//   => 35 + 35 + 11 = 81 custom-property definitions.
 // The html / body / ::selection rules at the foot of this file only *consume*
 // these tokens (via var()); they do not add to the count.
 //
@@ -35,7 +35,7 @@
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   Tier 2 — Semantic tokens · light · 33
+   Tier 2 — Semantic tokens · light · 35
    ----------------------------------------------------------------------------- */
 
 :root {
@@ -43,6 +43,8 @@
   --color-ui-bg: #{light.$ui-bg};
   --color-ui-surface: #{light.$ui-surface};
   --color-ui-surface-raised: #{light.$ui-surface-raised};
+  --color-ui-surface-overlay: #{light.$ui-surface-overlay};
+  --color-ui-backdrop: #{light.$ui-backdrop};
 
   /* Foreground */
   --color-ui-text: #{light.$ui-text};
@@ -88,7 +90,7 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Tier 2 — Semantic tokens · dark · 33
+   Tier 2 — Semantic tokens · dark · 35
    ----------------------------------------------------------------------------- */
 
 html[data-theme="dark"] {
@@ -96,6 +98,8 @@ html[data-theme="dark"] {
   --color-ui-bg: #{dark.$ui-bg};
   --color-ui-surface: #{dark.$ui-surface};
   --color-ui-surface-raised: #{dark.$ui-surface-raised};
+  --color-ui-surface-overlay: #{dark.$ui-surface-overlay};
+  --color-ui-backdrop: #{dark.$ui-backdrop};
 
   /* Foreground */
   --color-ui-text: #{dark.$ui-text};

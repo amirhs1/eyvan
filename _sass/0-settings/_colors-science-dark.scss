@@ -14,6 +14,8 @@
 // Notes:
 // - Intended for compile-time persona switching via config
 // - Accent usage is strictly functional
+// - Implements the shared semantic contract: 13 UI + 4 state + 16 syntax (33).
+//   Component-intent aliases (link/button/tag/selection) live in 3-base/_base.scss.
 // -----------------------------------------------------------------------------
 
 @use "palette-persian" as palette;
@@ -23,54 +25,37 @@
    Core UI Roles
    ----------------------------------------------------------------------------- */
 
-$ui-bg: palette.$clr-dark-bg;
-$ui-surface: palette.$clr-dark-surface;
-$ui-surface-raised: palette.$clr-dark-elevated;
+$ui-bg: palette.$clr-dark-bg;                  // page/body canvas; header tint, icon-button & mobile-menu bg
+$ui-surface: palette.$clr-dark-surface;        // resting surface — cards, footer, TOC, post-share/social
+$ui-surface-raised: palette.$clr-dark-elevated; // elevated surface — entry-meta, raised cards, mobile menu
 
-$ui-text: palette.$clr-gray-100;
-$ui-text-muted: palette.$clr-gray-500;
-$ui-border: palette.$clr-gray-800;
-$ui-shadow-color: rgba(palette.$clr-dark-bg, 0.6);
+$ui-text: palette.$clr-gray-100;               // primary body text & default foreground
+$ui-text-muted: palette.$clr-gray-500;         // secondary/muted text — metadata, captions, taglines, TOC
+
+$ui-border: palette.$clr-gray-800;             // default borders/dividers, control outlines (hr, icon-link)
+$ui-border-subtle: $ui-border;                 // low-emphasis dividers — header/footer edges (distinct value: phase 2)
+$ui-shadow-color: rgba(palette.$clr-dark-bg, 0.6); // elevation shadow color (theme-aware)
 
 /* -----------------------------------------------------------------------------
    Accent System (Functional)
    Accents are reserved strictly for interaction and emphasis.
    ----------------------------------------------------------------------------- */
 
-$accent-primary: palette.$clr-p-turquoise; // primary actions
-$accent-secondary: palette.$clr-p-azure; // links, secondary emphasis
+$accent-primary: palette.$clr-p-turquoise; // brand accent — links, buttons, tags, selection, active states
+$accent-secondary: palette.$clr-p-azure;   // accent hover/emphasis step
 
 
 /* -----------------------------------------------------------------------------
    Typography & Content
    ----------------------------------------------------------------------------- */
 
-$body-bg: $ui-bg;
-$body-color: $ui-text;
-$heading-color: palette.$clr-white;
-
-
-/* -----------------------------------------------------------------------------
-   Interactive Elements
-   ----------------------------------------------------------------------------- */
-
-$link-color: $accent-primary;
-$link-hover: $accent-secondary;
-
-$button-bg: $accent-primary;
-$button-bg-hover: $accent-secondary;
-$button-text: palette.$clr-black;
-$button-border: transparent;
-
-/* Tags (taxonomy chips) — same as dark buttons today; own tokens so the
-   light theme can diverge */
-$tag-bg: $accent-primary;
-$tag-bg-hover: $accent-secondary;
-$tag-text: palette.$clr-black;
+$heading-color: palette.$clr-white; // headings (h1–h6 + component titles)
+$text-inverse: palette.$clr-black;  // text on top of an accent fill (buttons, tags)
 
 
 /* -----------------------------------------------------------------------------
    Status & Feedback
+   Theme-readable hooks (e.g. demo chart JS); no CSS consumer yet.
    ----------------------------------------------------------------------------- */
 
 $state-error: palette.$clr-p-red;
@@ -83,15 +68,7 @@ $state-info: palette.$clr-p-blue;
    Interaction helpers
    ----------------------------------------------------------------------------- */
 
-$focus-ring-color: $accent-primary;
-
-
-/* -----------------------------------------------------------------------------
-   Text selection
-   ----------------------------------------------------------------------------- */
-
-$selection-text: $ui-surface;
-$selection-bg: $accent-primary;
+$focus-ring-color: $accent-primary; // keyboard focus ring (via the focus-ring mixin)
 
 
 /* -----------------------------------------------------------------------------

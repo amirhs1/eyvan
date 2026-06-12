@@ -169,7 +169,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
 .c-post__subtitle {
   max-inline-size: $post-subtitle-inline-size;
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-lg;
   font-weight: settings-typography.$font-weight-regular;

@@ -74,6 +74,11 @@ defaults:
       layout: post
       share: true
 
+  - scope:
+      path: "assets/files/resume.pdf"
+    values:
+      sitemap: false
+
 # ------------------------------------------------------------
 # Tag pages
 # Configuration for generated tag archive pages.
@@ -110,8 +115,13 @@ google_analytics: ""
 # Prevents non-site assets and tooling files from being processed.
 # ------------------------------------------------------------
 exclude:
+  - ACCESSIBILITY_TESTING.md
+  - CHANGELOG.md
+  - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
+  - LICENSE
+  - SECURITY.md
   - node_modules
   - vendor
   - vendor/bundle
@@ -119,7 +129,9 @@ exclude:
   - vendor/gems
   - vendor/ruby
   - README.md
+  - RELEASE_CHECKLIST.md
   - notes
+  - scripts
   - package.json
   - package-lock.json
   - eyvan.gemspec

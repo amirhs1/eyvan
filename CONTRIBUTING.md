@@ -68,6 +68,13 @@ merge. Run the suite locally whenever your change affects rendered output
 For content-only or configuration-only changes, a local `bundle exec jekyll
 build` is enough — let CI handle the accessibility pass.
 
+## Release and accessibility checklists
+
+Before tagging or publishing a release, complete
+[`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md). Changes that affect rendered
+content or interaction should also follow the keyboard, VoiceOver, and NVDA
+steps in [`ACCESSIBILITY_TESTING.md`](ACCESSIBILITY_TESTING.md).
+
 ## What happens next
 
 Maintainers review pull requests for architectural fit, accessibility, and

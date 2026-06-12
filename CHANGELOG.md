@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Reviewed, versioned Chart.js 4.5.1 and MathJax 4.1.2 browser runtimes,
+  licenses, integrity metadata, and update guidance under `assets/vendor/`;
+  release and browser tests now reject remote executable dependencies and
+  verify that chart, math, Braket, dynamic font, and accessibility resources
+  remain local under both project and root baseurls.
 - Initial release of the Eyvan template: a minimalist, accessibility-first
   Jekyll portfolio and writing template for GitHub Pages, with an ITCSS/BEM
   Sass architecture, reusable long-form content includes (figures, video,
@@ -29,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The climate demo now loads the local Chart.js distribution, and opt-in math
+  pages use self-hosted MathJax 4 with the local New Computer Modern
+  CommonHTML font runtime instead of mutable CDN scripts.
 - Reworked the color system into a clean three-tier token hierarchy. **Tier 2**
   — the per-persona/mode semantic layer in `0-settings` — is now a consistent
   33-token contract (13 UI + 4 state + 16 Base16 syntax): it gains

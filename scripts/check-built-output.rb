@@ -24,7 +24,7 @@ module Eyvan
     def errors
       return ["Built site directory does not exist: #{@site_dir}"] unless @site_dir.directory?
 
-      forbidden_files + source_maps + sitemap_policy_errors
+      forbidden_files + source_maps + sitemap_policy_errors + remote_runtime_dependencies
     end
 
     private
@@ -51,6 +51,49 @@ module Eyvan
       FORBIDDEN_SITEMAP_PATHS.filter_map do |path|
         "Sitemap contains excluded path: #{path}" if contents.include?(path)
       end
+    end
+
+    def remote_runtime_dependencies
+      errors = []
+
+      @site_dir.glob("**/*.html").sort.each do |path|
+        contents = path.read
+        relative = path.relative_path_from(@site_dir)
+
+        contents.scan(/<script\b[^>]*\bsrc=["'](https?:\/\/[^"']+)["']/i) do |match|
+          errors << "Remote script was published in #{relative}: #{match.first}"
+        end
+
+        contents.scan(
+          /<link\b(?=[^>]*\brel=["'][^"']*preload[^"']*["'])(?=[^>]*\bas=["']font["'])[^>]*\bhref=["'](https?:\/\/[^"']+)["']/i
+        ) do |match|
+          errors << "Remote font preload was published in #{relative}: #{match.first}"
+        end
+      end
+
+      @site_dir.glob("assets/js/**/*.js").sort.each do |path|
+        contents = path.read
+        relative = path.relative_path_from(@site_dir)
+
+        contents.scan(/(?:\.src|src)\s*=\s*["'](https?:\/\/[^"']+)["']/i) do |match|
+          errors << "Remote runtime loader was published in #{relative}: #{match.first}"
+        end
+
+        contents.scan(/import\s*\(\s*["'](https?:\/\/[^"']+)["']/i) do |match|
+          errors << "Remote module import was published in #{relative}: #{match.first}"
+        end
+      end
+
+      @site_dir.glob("assets/css/**/*.css").sort.each do |path|
+        contents = path.read
+        relative = path.relative_path_from(@site_dir)
+
+        contents.scan(/url\(\s*["']?(https?:\/\/[^)"']+\.(?:woff2?|ttf|otf))["']?\s*\)/i) do |match|
+          errors << "Remote font URL was published in #{relative}: #{match.first}"
+        end
+      end
+
+      errors
     end
   end
 end

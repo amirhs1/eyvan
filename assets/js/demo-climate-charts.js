@@ -8,8 +8,6 @@ tokens from CSS custom properties.
 (() => {
   "use strict";
 
-  const chartJsCdn = "https://cdn.jsdelivr.net/npm/chart.js";
-
   const years = [
     1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
     2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
@@ -71,32 +69,6 @@ tokens from CSS custom properties.
     const blue = value & 255;
 
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-  }
-
-  function loadChartJs() {
-    if (window.Chart) {
-      return Promise.resolve();
-    }
-
-    return new Promise((resolve, reject) => {
-      const existingScript = document.querySelector(
-        `script[src="${chartJsCdn}"]`
-      );
-
-      if (existingScript) {
-        existingScript.addEventListener("load", resolve, { once: true });
-        existingScript.addEventListener("error", reject, { once: true });
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = chartJsCdn;
-      script.defer = true;
-      script.onload = resolve;
-      script.onerror = reject;
-
-      document.head.appendChild(script);
-    });
   }
 
   const chartCanvasBackground = {
@@ -493,13 +465,14 @@ tokens from CSS custom properties.
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    loadChartJs()
-      .then(() => {
-        drawCharts();
-        observeThemeChanges();
-      })
-      .catch(() => {
-        // Fail silently so the post remains readable if the CDN is unavailable.
-      });
+    if (!window.Chart) {
+      console.error(
+        "Climate charts were not rendered because the local Chart.js runtime is unavailable."
+      );
+      return;
+    }
+
+    drawCharts();
+    observeThemeChanges();
   });
 })();

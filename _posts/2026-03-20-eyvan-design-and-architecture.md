@@ -400,9 +400,10 @@ Post cover images use `loading="lazy"`, which allows the browser to delay loadin
 
 The exception is the homepage hero image, which can use eager loading and high fetch priority because it appears above the fold.
 
-### Async MathJax
+### Self-hosted MathJax
 
-MathJax is loaded asynchronously and only when the page opts in:
+MathJax is loaded from a reviewed local distribution and only when the page
+opts in:
 
 {% raw %}
 
@@ -410,6 +411,9 @@ MathJax is loaded asynchronously and only when the page opts in:
 {% if page.math %}
 <script>
   window.MathJax = {
+    loader: {
+      load: ["[tex]/braket"],
+    },
     tex: {
       inlineMath: [
         ["$", "$"],
@@ -420,21 +424,27 @@ MathJax is loaded asynchronously and only when the page opts in:
         ["\\[", "\\]"],
       ],
       processEscapes: true,
+      packages: {"[+]": ["braket"]},
+    },
+    output: {
+      font: "mathjax-newcm",
+      fontPath: "{{ 'assets/vendor/mathjax/4.1.2/mathjax-newcm' | relative_url }}",
     },
   };
 </script>
 
 <script
   id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  defer
+  src="{{ 'assets/vendor/mathjax/4.1.2/tex-chtml.js' | relative_url }}"
 ></script>
 {% endif %}
 ```
 
 {% endraw %}
 
-This is the right tradeoff for a mixed portfolio. Some posts need equations; many do not.
+This keeps math rendering opt-in without executing mutable third-party code or
+fetching math fonts from a CDN. Some posts need equations; many do not.
 
 ### Conditional integrations
 

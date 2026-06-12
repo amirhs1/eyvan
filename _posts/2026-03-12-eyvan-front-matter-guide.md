@@ -226,7 +226,9 @@ Use `toc: true` for long posts with several `##` and `###` headings. The post la
 toc: true
 ```
 
-Use `math: true` only when the post contains LaTeX-style math. The MathJax include is guarded by `page.math`, so leaving it off avoids loading a third-party script unnecessarily.
+Use `math: true` only when the post contains LaTeX-style math. The MathJax
+include is guarded by `page.math`, so leaving it off avoids loading the local
+MathJax runtime unnecessarily.
 
 ```yaml
 math: true

@@ -168,6 +168,7 @@ The bar chart below shows annual precipitation values, organized into three deca
   </figcaption>
 </figure>
 
+<script src="{{ 'assets/vendor/chart.js/4.5.1/chart.umd.min.js' | relative_url }}" defer></script>
 <script src="{{ 'assets/js/demo-climate-charts.js' | relative_url }}" defer></script>
 
 ### Interpretation of Hydrological Trends

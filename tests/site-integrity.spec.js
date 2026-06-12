@@ -57,3 +57,34 @@ test('sitemap pages and their internal links and assets resolve', async ({ page,
     expect(response.ok(), `Broken internal resource ${url} (${source})`).toBe(true);
   }
 });
+
+test('chart and math runtimes are local and functional', async ({ page }) => {
+  const localOrigin = new URL(baseUrl).origin;
+  const externalRuntimeRequests = [];
+
+  page.on('request', (request) => {
+    const url = new URL(request.url());
+
+    if (url.origin !== localOrigin) {
+      externalRuntimeRequests.push(`${request.resourceType()}: ${request.url()}`);
+    }
+  });
+
+  await page.goto(`${baseUrl}/projects/climate-data-analysis/`);
+  await page.waitForFunction(() =>
+    Boolean(window.Chart?.getChart?.('temperatureLineChart'))
+  );
+  expect(await page.locator('script[src*="/assets/vendor/chart.js/"]').count()).toBe(1);
+
+  await page.goto(`${baseUrl}/projects/quantum-entanglement-primer/`);
+  await page.waitForFunction(() => Boolean(window.MathJax?.startup?.promise));
+  await page.evaluate(() => window.MathJax.startup.promise);
+  await expect.poll(() => page.locator('mjx-container').count()).toBeGreaterThan(0);
+  await expect(page.locator('mjx-merror')).toHaveCount(0);
+  expect(
+    await page.locator('script[src$="/assets/vendor/mathjax/4.1.2/tex-chtml.js"]').count()
+  ).toBe(1);
+
+  await page.waitForTimeout(500);
+  expect(externalRuntimeRequests).toEqual([]);
+});

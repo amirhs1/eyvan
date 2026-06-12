@@ -38,6 +38,32 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_built_output_check_rejects_remote_runtime_dependencies
+    with_site_fixture do |site|
+      FileUtils.mkdir_p(site.join("assets/js"))
+      FileUtils.mkdir_p(site.join("assets/css"))
+      File.write(
+        site.join("index.html"),
+        '<script src="https://cdn.example.test/runtime.js"></script>'
+      )
+      File.write(
+        site.join("assets/js/loader.js"),
+        'script.src = "https://cdn.example.test/dynamic.js";'
+      )
+      File.write(
+        site.join("assets/css/main.css"),
+        '@font-face { src: url("https://cdn.example.test/font.woff2"); }'
+      )
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site)
+
+      refute status.success?
+      assert_includes stderr, "Remote script was published"
+      assert_includes stderr, "Remote runtime loader was published"
+      assert_includes stderr, "Remote font URL was published"
+    end
+  end
+
   def test_placeholder_check_is_silent_for_canonical_repository
     with_template_fixture do |root|
       stdout, stderr, status = run_script(

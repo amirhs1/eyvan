@@ -38,6 +38,52 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_built_output_check_rejects_mutable_or_unprotected_mathjax
+    with_site_fixture do |site|
+      File.write(
+        site.join("math.html"),
+        <<~HTML
+          <script
+            id="MathJax-script"
+            async
+            src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js">
+          </script>
+        HTML
+      )
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site)
+
+      refute status.success?
+      assert_includes stderr, "MathJax loader policy failed in math.html"
+      assert_includes stderr, "mathjax@4/tex-chtml.js"
+      assert_includes stderr, "integrity=nil"
+      assert_includes stderr, "defer attribute is required"
+      assert_includes stderr, "async attribute is forbidden"
+    end
+  end
+
+  def test_built_output_check_accepts_the_approved_mathjax_loader
+    with_site_fixture do |site|
+      File.write(
+        site.join("math.html"),
+        <<~HTML
+          <script
+            id="MathJax-script"
+            defer
+            src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js"
+            integrity="sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer">
+          </script>
+        HTML
+      )
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site)
+
+      assert status.success?, stderr
+    end
+  end
+
   def test_placeholder_check_is_silent_for_canonical_repository
     with_template_fixture do |root|
       stdout, stderr, status = run_script(

@@ -11,6 +11,10 @@ description: "A data-rich demo post exploring synthetic temperature and precipit
 
 > **Note:** This post and its associated synthetic, NOAA-inspired climate dataset were generated with Google’s Gemini and OpenAI’s ChatGPT to demonstrate Eyvan’s typography, mathematical notation, table captions, cross-references, and embedded charts. The values are plausible but should not be treated as a reproducible NOAA analysis unless they are replaced with a documented data pipeline and source files.
 
+> **Template note:** The interactive charts and `demo-climate-charts.js` are
+> demonstration content, not a core Eyvan dependency. Template users who do
+> not keep this post can remove the demo script with it.
+
 ## Introduction & Methodology
 
 The study of climate change benefits from clear analytical frameworks, especially when long-term trends need to be communicated through tables, figures, and statistical summaries. This demo post uses climate-style data to show how the Eyvan template handles mathematical notation, styled Markdown tables, numbered captions, cross-references, and embedded JavaScript charts.[^1]
@@ -168,7 +172,18 @@ The bar chart below shows annual precipitation values, organized into three deca
   </figcaption>
 </figure>
 
-<script src="{{ 'assets/js/demo-climate-charts.js' | relative_url }}" defer></script>
+<script
+  id="ChartJS-demo-script"
+  defer
+  src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
+  integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer">
+</script>
+<script
+  src="{{ 'assets/js/demo-climate-charts.js' | relative_url }}"
+  defer>
+</script>
 
 ### Interpretation of Hydrological Trends
 

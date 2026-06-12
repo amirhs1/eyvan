@@ -110,3 +110,45 @@ test('the pinned MathJax CDN runtime renders shipped math content', async ({ pag
     ).toBe(true);
   }
 });
+
+test('the climate demo uses the pinned Chart.js CDN runtime', async ({ page }) => {
+  const chartJsResponses = [];
+
+  page.on('response', (response) => {
+    if (response.url().includes('cdn.jsdelivr.net/npm/chart.js')) {
+      chartJsResponses.push({
+        status: response.status(),
+        url: response.url(),
+      });
+    }
+  });
+
+  await page.goto(`${baseUrl}/projects/climate-data-analysis/`);
+  await page.waitForFunction(() =>
+    Boolean(
+      window.Chart?.getChart?.('temperatureLineChart')
+      && window.Chart?.getChart?.('precipitationBarChart')
+    )
+  );
+
+  const loader = page.locator('#ChartJS-demo-script');
+
+  await expect(loader).toHaveAttribute(
+    'src',
+    'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js'
+  );
+  await expect(loader).toHaveAttribute(
+    'integrity',
+    'sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ'
+  );
+  await expect(loader).toHaveAttribute('crossorigin', 'anonymous');
+  await expect(loader).toHaveAttribute('referrerpolicy', 'no-referrer');
+  await expect(page.locator('#temperatureLineChart')).toBeVisible();
+  await expect(page.locator('#precipitationBarChart')).toBeVisible();
+
+  expect(chartJsResponses).toHaveLength(1);
+  expect(chartJsResponses[0].status).toBeLessThan(400);
+  expect(chartJsResponses[0].url).toBe(
+    'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js'
+  );
+});

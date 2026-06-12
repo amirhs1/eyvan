@@ -130,6 +130,11 @@ generated loader in CI. The exact version is updated only after its rendered
 math and accessibility behavior are reviewed; the template never uses a
 rolling major-version or `latest` URL.
 
+The climate analysis post also demonstrates interactive Chart.js charts. That
+library and `assets/js/demo-climate-charts.js` belong only to the removable
+demo post, not to Eyvan's core runtime. Its CDN release is exact,
+integrity-protected, and checked independently from the MathJax feature.
+
 ## Reusable Includes
 
 Eyvan includes Liquid helpers for common long-form content patterns:
@@ -196,6 +201,7 @@ The template draw creative and technical inspiration from the following open-sou
 
 - **AI Assistants**: Code generation, modular templating refactoring, refactoring logic, debugging scripts, and demo posts were developed in collaboration with Large Language Models, including OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
 - **JavaScript Assets**: Various scripting behaviors utilized within this template are adapted from existing open-source projects. For detailed licensing, original authors, and implementation notes, please refer to the documentation headers directly within the respective `.js` files located in the script directories.
+- **Chart.js Demo**: The climate demo loads Chart.js 4.5.1 from jsDelivr under the [MIT License](https://github.com/chartjs/Chart.js/blob/v4.5.1/LICENSE.md). The integration is limited to that removable post.
 
 ### Typography Licensing
 

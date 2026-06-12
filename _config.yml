@@ -115,6 +115,7 @@ google_analytics: ""
 # Prevents non-site assets and tooling files from being processed.
 # ------------------------------------------------------------
 exclude:
+  - ACCESSIBILITY_TESTING.md
   - CHANGELOG.md
   - CONTRIBUTING.md
   - Gemfile
@@ -128,7 +129,9 @@ exclude:
   - vendor/gems
   - vendor/ruby
   - README.md
+  - RELEASE_CHECKLIST.md
   - notes
+  - scripts
   - package.json
   - package-lock.json
   - eyvan.gemspec

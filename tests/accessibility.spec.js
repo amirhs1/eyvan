@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const AxeBuilder = require('@axe-core/playwright').default;
 
-const baseUrl = 'http://127.0.0.1:4000/eyvan';
+const baseUrl = process.env.EYVAN_BASE_URL || 'http://127.0.0.1:4000/eyvan';
 
 const globalScriptNames = [
   'back-to-top.js',

@@ -49,6 +49,12 @@ jobs:
       - name: Check Template Identity
         run: ruby scripts/check-template-placeholders.rb
 
+      - name: Test Color Contract Guards
+        run: npm run test:colors
+
+      - name: Check Color Contract
+        run: ruby scripts/check-color-contract.rb
+
       - name: Start Local Jekyll Server
         run: bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 

@@ -150,3 +150,15 @@ $card-transition:
   color $transition-base,
   box-shadow $transition-base,
   transform $transition-base;
+
+
+/* -----------------------------------------------------------------------------
+   Print (theme-independent ink-on-paper)
+   Forced colors for @media print. Deliberately NOT theme tokens: print must
+   render black ink on a white page regardless of the active light/dark theme,
+   so they live here (global, theme-independent) rather than in the mode files,
+   where they would be duplicated and would imply a theme dependency.
+   ----------------------------------------------------------------------------- */
+
+$print-bg: #FFFFFF; // paper
+$print-fg: #000000; // ink

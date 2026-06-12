@@ -111,8 +111,10 @@ Search Engine Optimization (SEO) fields help the page appear correctly in search
 | `description` | string | `site.description` | Meta description, Open Graph, Twitter | Short summary for search and previews. |
 | `image` | string | `site.default_og_image` or placeholder for social previews; none for the post cover | Post cover, post cards, Open Graph, Twitter | Provides the preferred social preview image and renders a post cover when set. |
 | `image_alt` | string | `page.title` | Post/page image alt text | Provides accessible text for the cover image. |
-| `image_width` | integer | none | Post cover, post cards | Adds the image's intrinsic pixel width so browsers can reserve layout space. |
-| `image_height` | integer | none | Post cover, post cards | Adds the image's intrinsic pixel height so browsers can reserve layout space. |
+| `image_width` | integer | none | Post cover, page image, post cards, post navigation | Adds the image's intrinsic pixel width so browsers can reserve layout space. |
+| `image_height` | integer | none | Post cover, page image, post cards, post navigation | Adds the image's intrinsic pixel height so browsers can reserve layout space. |
+| `image_srcset` | string block | none | Post cover, page image, post cards, post navigation | Declares optional responsive image candidates as newline-delimited `path | width` rows. |
+| `image_sizes` | string | none | Post cover, page image, post cards, post navigation | Declares the optional `sizes` hint paired with `image_srcset`. |
 | `image_position` | string | CSS default | Post cover | Sets the cover image `object-position`, such as `center top` or `50% 35%`. |
 {: .c-prose-table }
 
@@ -129,6 +131,11 @@ image: "assets/images/posts/token-bucket-diagram.webp"
 image_alt: "Token bucket rate limiter system diagram"
 image_width: 1200
 image_height: 630
+image_srcset: |
+  assets/images/posts/token-bucket-diagram-640.webp | 640w
+  assets/images/posts/token-bucket-diagram-960.webp | 960w
+  assets/images/posts/token-bucket-diagram.webp | 1200w
+image_sizes: "(min-width: 72rem) 60rem, 100vw"
 image_position: "center center"
 ```
 
@@ -136,6 +143,12 @@ When you know the cover's real pixel dimensions, add both `image_width` and
 `image_height`. The browser uses the resulting intrinsic aspect ratio to
 reserve space before the image downloads. Do not estimate these values, and
 omit both fields when the dimensions are unknown.
+
+`image_srcset` is optional. When you pre-generate alternate widths, write one
+candidate per line using `path | descriptor`, and pair it with `image_sizes`
+when you want the browser to choose among width-based variants intelligently.
+Each path is passed through `relative_url`, so the final output stays
+baseurl-safe.
 
 The `image_alt` field should describe the meaningful content of the image, not repeat the file name or stuff keywords into the page. Good alt text is useful for screen-reader users, slow connections, broken image states, and anyone who needs the image content expressed in words. For decorative images, the template currently falls back to the page title, so it is better to write a short meaningful description whenever `image` is set.
 

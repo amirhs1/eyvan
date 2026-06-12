@@ -11,6 +11,13 @@ module Eyvan
       "referrerpolicy" => "no-referrer"
     }.freeze
 
+    CHARTJS_DEMO_SCRIPT = {
+      "src" => "https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+      "integrity" => "sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ",
+      "crossorigin" => "anonymous",
+      "referrerpolicy" => "no-referrer"
+    }.freeze
+
     FORBIDDEN_ROOT_FILES = %w[
       ACCESSIBILITY_TESTING.md
       CHANGELOG.md
@@ -31,7 +38,8 @@ module Eyvan
     def errors
       return ["Built site directory does not exist: #{@site_dir}"] unless @site_dir.directory?
 
-      forbidden_files + source_maps + sitemap_policy_errors + mathjax_policy_errors
+      forbidden_files + source_maps + sitemap_policy_errors +
+        mathjax_policy_errors + chartjs_demo_policy_errors
     end
 
     private
@@ -61,24 +69,39 @@ module Eyvan
     end
 
     def mathjax_policy_errors
+      script_policy_errors("MathJax-script", "MathJax", MATHJAX_SCRIPT, forbid_async: true)
+    end
+
+    def chartjs_demo_policy_errors
+      script_policy_errors(
+        "ChartJS-demo-script",
+        "Chart.js demo",
+        CHARTJS_DEMO_SCRIPT,
+        forbid_async: true
+      )
+    end
+
+    def script_policy_errors(id, label, policy, forbid_async: false)
       @site_dir.glob("**/*.html").sort.flat_map do |path|
         contents = path.read
         relative = path.relative_path_from(@site_dir)
 
         contents.scan(/<script\b[^>]*>/i).filter_map do |tag|
-          next unless attribute(tag, "id") == "MathJax-script"
+          next unless attribute(tag, "id") == id
 
-          violations = MATHJAX_SCRIPT.filter_map do |name, expected|
+          violations = policy.filter_map do |name, expected|
             actual = attribute(tag, name)
             "#{name}=#{actual.inspect}, expected #{expected.inspect}" unless actual == expected
           end
 
           violations << "defer attribute is required" unless tag.match?(/\sdefer(?:\s|=|>)/i)
-          violations << "async attribute is forbidden" if tag.match?(/\sasync(?:\s|=|>)/i)
+          if forbid_async && tag.match?(/\sasync(?:\s|=|>)/i)
+            violations << "async attribute is forbidden"
+          end
 
           next if violations.empty?
 
-          "MathJax loader policy failed in #{relative}: #{violations.join('; ')}"
+          "#{label} loader policy failed in #{relative}: #{violations.join('; ')}"
         end
       end
     end

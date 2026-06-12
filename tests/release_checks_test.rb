@@ -84,6 +84,52 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_built_output_check_rejects_mutable_or_unprotected_chartjs_demo
+    with_site_fixture do |site|
+      File.write(
+        site.join("climate.html"),
+        <<~HTML
+          <script
+            id="ChartJS-demo-script"
+            async
+            src="https://cdn.jsdelivr.net/npm/chart.js">
+          </script>
+        HTML
+      )
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site)
+
+      refute status.success?
+      assert_includes stderr, "Chart.js demo loader policy failed in climate.html"
+      assert_includes stderr, "cdn.jsdelivr.net/npm/chart.js"
+      assert_includes stderr, "integrity=nil"
+      assert_includes stderr, "defer attribute is required"
+      assert_includes stderr, "async attribute is forbidden"
+    end
+  end
+
+  def test_built_output_check_accepts_the_approved_chartjs_demo_loader
+    with_site_fixture do |site|
+      File.write(
+        site.join("climate.html"),
+        <<~HTML
+          <script
+            id="ChartJS-demo-script"
+            defer
+            src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
+            integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer">
+          </script>
+        HTML
+      )
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site)
+
+      assert status.success?, stderr
+    end
+  end
+
   def test_placeholder_check_is_silent_for_canonical_repository
     with_template_fixture do |root|
       stdout, stderr, status = run_script(

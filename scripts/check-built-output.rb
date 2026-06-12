@@ -4,6 +4,13 @@ require "pathname"
 
 module Eyvan
   class BuiltOutputCheck
+    MATHJAX_SCRIPT = {
+      "src" => "https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js",
+      "integrity" => "sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn",
+      "crossorigin" => "anonymous",
+      "referrerpolicy" => "no-referrer"
+    }.freeze
+
     FORBIDDEN_ROOT_FILES = %w[
       ACCESSIBILITY_TESTING.md
       CHANGELOG.md
@@ -24,7 +31,7 @@ module Eyvan
     def errors
       return ["Built site directory does not exist: #{@site_dir}"] unless @site_dir.directory?
 
-      forbidden_files + source_maps + sitemap_policy_errors
+      forbidden_files + source_maps + sitemap_policy_errors + mathjax_policy_errors
     end
 
     private
@@ -51,6 +58,33 @@ module Eyvan
       FORBIDDEN_SITEMAP_PATHS.filter_map do |path|
         "Sitemap contains excluded path: #{path}" if contents.include?(path)
       end
+    end
+
+    def mathjax_policy_errors
+      @site_dir.glob("**/*.html").sort.flat_map do |path|
+        contents = path.read
+        relative = path.relative_path_from(@site_dir)
+
+        contents.scan(/<script\b[^>]*>/i).filter_map do |tag|
+          next unless attribute(tag, "id") == "MathJax-script"
+
+          violations = MATHJAX_SCRIPT.filter_map do |name, expected|
+            actual = attribute(tag, name)
+            "#{name}=#{actual.inspect}, expected #{expected.inspect}" unless actual == expected
+          end
+
+          violations << "defer attribute is required" unless tag.match?(/\sdefer(?:\s|=|>)/i)
+          violations << "async attribute is forbidden" if tag.match?(/\sasync(?:\s|=|>)/i)
+
+          next if violations.empty?
+
+          "MathJax loader policy failed in #{relative}: #{violations.join('; ')}"
+        end
+      end
+    end
+
+    def attribute(tag, name)
+      tag[/\b#{Regexp.escape(name)}\s*=\s*["']([^"']*)["']/i, 1]
     end
   end
 end

@@ -7,7 +7,7 @@
   - Guard: render nothing unless the current page sets `math: true`
   - Config: define MathJax TeX parsing rules before the library loads
 
-  - Loader: fetch MathJax asynchronously from the CDN
+  - Loader: fetch an exact, integrity-protected MathJax release from jsDelivr
 
   Architecture:
   - This file is a focused include for math rendering concerns only
@@ -23,7 +23,7 @@
 
   Performance:
   - MathJax is loaded only on opted-in pages
-  - The MathJax script is loaded asynchronously
+  - The MathJax script is deferred so configuration executes first
 
   Usage:
   - Add `{% raw %}math: true{% endraw %}` to the front matter of any page or post
@@ -33,7 +33,7 @@
 
   Dependencies:
   - page.math
-  - MathJax v3 CDN bundle: `tex-mml-chtml.js`
+  - MathJax 4.1.2 CDN bundle: `tex-chtml.js`
 
 
   Notes:
@@ -48,19 +48,26 @@
   <!-- MathJax configuration -->
   <script>
     window.MathJax = {
+      loader: {
+        load: ['[tex]/braket']
+      },
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true
+        processEscapes: true,
+        packages: {'[+]': ['braket']}
       }
     };
   </script>
 
-  <!-- Async MathJax loader -->
+  <!-- Exact, integrity-protected MathJax loader -->
   <script
     id="MathJax-script"
-    async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    defer
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js"
+    integrity="sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
   </script>
   <!-- End of math.html -->
 {% endif %}

@@ -124,6 +124,12 @@ Important behavior:
 
 See the demo post *Front Matter Field Reference* for detailed examples.
 
+MathJax is an intentional opt-in CDN integration. Eyvan pins the complete
+version, protects the entry bundle with Subresource Integrity, and checks the
+generated loader in CI. The exact version is updated only after its rendered
+math and accessibility behavior are reviewed; the template never uses a
+rolling major-version or `latest` URL.
+
 ## Reusable Includes
 
 Eyvan includes Liquid helpers for common long-form content patterns:

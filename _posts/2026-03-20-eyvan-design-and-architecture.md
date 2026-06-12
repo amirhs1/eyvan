@@ -400,9 +400,10 @@ Post cover images use `loading="lazy"`, which allows the browser to delay loadin
 
 The exception is the homepage hero image, which can use eager loading and high fetch priority because it appears above the fold.
 
-### Async MathJax
+### Pinned MathJax CDN Integration
 
-MathJax is loaded asynchronously and only when the page opts in:
+MathJax is loaded from an exact, integrity-protected CDN release and only when
+the page opts in:
 
 {% raw %}
 
@@ -410,6 +411,9 @@ MathJax is loaded asynchronously and only when the page opts in:
 {% if page.math %}
 <script>
   window.MathJax = {
+    loader: {
+      load: ["[tex]/braket"],
+    },
     tex: {
       inlineMath: [
         ["$", "$"],
@@ -420,21 +424,28 @@ MathJax is loaded asynchronously and only when the page opts in:
         ["\\[", "\\]"],
       ],
       processEscapes: true,
+      packages: {"[+]": ["braket"]},
     },
   };
 </script>
 
 <script
   id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js"
+  integrity="sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
 ></script>
 {% endif %}
 ```
 
 {% endraw %}
 
-This is the right tradeoff for a mixed portfolio. Some posts need equations; many do not.
+This keeps the repository lightweight while avoiding mutable production code.
+The integrity hash protects the entry bundle; exact version pinning also keeps
+dynamically requested MathJax components on the reviewed release. Some posts
+need equations; many do not.
 
 ### Conditional integrations
 

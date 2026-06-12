@@ -28,10 +28,6 @@
 
 $toc-sticky-top: calc(8rem + settings-spacing.$space-4);
 $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
-$mobile-toc-backdrop: color-mix(in srgb, var(--color-ui-bg) 78%, transparent);
-$mobile-toc-shadow: 0 1.25rem 2.5rem
-  color-mix(in srgb, var(--color-ui-shadow-color) 18%, transparent);
-
 /* -----------------------------------------------------------------------------
    Sticky aside container
 ----------------------------------------------------------------------------- */
@@ -135,10 +131,10 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
     margin-block: settings-spacing.$space-5 settings-spacing.$space-6;
     padding: settings-spacing.$space-3;
 
-    background-color: var(--color-ui-surface);
+    background-color: var(--color-ui-surface-raised);
     border-block: settings-config.$global-border-width solid
       var(--color-ui-border);
-    box-shadow: $mobile-toc-shadow;
+    box-shadow: settings-config.$elevation-raised;
   }
 
   .c-toc-toolbar__button {
@@ -208,11 +204,13 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
       max(tools-spacing.$fluid-inline-md, env(safe-area-inset-bottom))
       max(tools-spacing.$fluid-inline-md, env(safe-area-inset-left));
 
-    background-color: $mobile-toc-backdrop;
+    background-color: var(--color-ui-backdrop);
 
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    -webkit-backdrop-filter: blur(settings-config.$overlay-backdrop-blur);
+    backdrop-filter: blur(settings-config.$overlay-backdrop-blur);
   }
 
   .c-mobile-toc[hidden] {
@@ -227,10 +225,10 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
 
     padding: tools-spacing.$space-stack-sm;
 
-    background-color: var(--color-ui-surface);
+    background-color: var(--color-ui-surface-overlay);
     border: settings-config.$global-border-width solid var(--color-ui-border);
     border-radius: settings-config.$global-border-radius;
-    box-shadow: $mobile-toc-shadow;
+    box-shadow: settings-config.$elevation-overlay;
   }
 
   .c-mobile-toc__top {
@@ -288,6 +286,20 @@ $mobile-toc-shadow: 0 1.25rem 2.5rem
 
   .c-mobile-toc__menu {
     max-inline-size: none;
+  }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .c-mobile-toc {
+    background-color: var(--color-ui-backdrop);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .c-mobile-toc {
+    background-color: var(--color-ui-backdrop);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 

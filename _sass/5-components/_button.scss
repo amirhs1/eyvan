@@ -46,8 +46,6 @@ $button-padding-inline-lg: settings-spacing.$space-7;
 $button-gap-default: settings-spacing.$space-2;
 $button-icon-circle-size: 1.25rem;
 $button-icon-size: 0.875rem;
-$button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
-
 /* -----------------------------------------------------------------------------
    Base button
    ----------------------------------------------------------------------------- */
@@ -78,7 +76,7 @@ $button-shadow: 0 0 0.125rem var(--color-ui-shadow-color);
   user-select: none;
   vertical-align: middle;
 
-  box-shadow: $button-shadow;
+  box-shadow: settings-config.$elevation-rest;
   transition:
     background-color settings-config.$transition-base,
     border-color settings-config.$transition-base,

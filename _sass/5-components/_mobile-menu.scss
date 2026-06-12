@@ -44,10 +44,6 @@
    ----------------------------------------------------------------------------- */
 
 $mobile-menu-z-index: settings-config.$z-overlay;
-$mobile-menu-backdrop: color-mix(in srgb, var(--color-ui-bg) 78%, transparent);
-$mobile-menu-shadow:
-  0 1.25rem 2.5rem color-mix(in srgb, var(--color-ui-shadow-color) 18%, transparent);
-
 /* -----------------------------------------------------------------------------
    Root overlay
    ----------------------------------------------------------------------------- */
@@ -64,9 +60,9 @@ $mobile-menu-shadow:
     max(tools-spacing.$fluid-inline-md, env(safe-area-inset-bottom))
     max(tools-spacing.$fluid-inline-md, env(safe-area-inset-left));
 
-  background-color: $mobile-menu-backdrop;
-  -webkit-backdrop-filter: blur(0.75rem);
-  backdrop-filter: blur(0.75rem);
+  background-color: var(--color-ui-backdrop);
+  -webkit-backdrop-filter: blur(settings-config.$overlay-backdrop-blur);
+  backdrop-filter: blur(settings-config.$overlay-backdrop-blur);
 
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -92,10 +88,24 @@ $mobile-menu-shadow:
   tools-spacing.$fluid-stack-md
   tools-spacing.$fluid-inline-md;
     
-  background-color: var(--color-ui-surface);
+  background-color: var(--color-ui-surface-overlay);
   border: settings-config.$global-border-width solid var(--color-ui-border);
   border-radius: settings-config.$global-border-radius;
-  box-shadow: $mobile-menu-shadow;
+  box-shadow: settings-config.$elevation-overlay;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .c-mobile-menu {
+    background-color: var(--color-ui-backdrop);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .c-mobile-menu {
+    background-color: var(--color-ui-backdrop);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 
 /* -----------------------------------------------------------------------------

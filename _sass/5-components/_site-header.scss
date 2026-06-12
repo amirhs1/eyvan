@@ -32,11 +32,6 @@
    ----------------------------------------------------------------------------- */
 
 $site-header-border-width: 1px;
-$site-header-blur: 18px;
-$site-header-shadow:
-  0 settings-config.$shadow-offset-y settings-config.$shadow-blur
-  settings-config.$shadow-spread var(--color-ui-shadow-color);
-
 /* -----------------------------------------------------------------------------
    Component root
    ----------------------------------------------------------------------------- */
@@ -46,16 +41,12 @@ $site-header-shadow:
   inset-block-start: 0;
   z-index: settings-config.$z-header;
 
-  background-color: color-mix(
-    in srgb,
-    var(--color-ui-bg) 88%,
-    transparent
-  );
+  background-color: var(--color-ui-surface-raised);
   border-block-end: $site-header-border-width solid var(--color-ui-border-subtle);
-  box-shadow: $site-header-shadow;
+  box-shadow: settings-config.$elevation-raised;
 
-  -webkit-backdrop-filter: blur($site-header-blur);
-  backdrop-filter: blur($site-header-blur);
+  -webkit-backdrop-filter: blur(settings-config.$header-backdrop-blur);
+  backdrop-filter: blur(settings-config.$header-backdrop-blur);
 
   @include tools-motion.transition-interaction;
 }
@@ -66,7 +57,15 @@ $site-header-shadow:
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .c-site-header {
-    background-color: var(--color-ui-bg);
+    background-color: var(--color-ui-surface-raised);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .c-site-header {
+    background-color: var(--color-ui-surface-raised);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 

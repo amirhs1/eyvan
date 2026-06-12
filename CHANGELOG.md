@@ -29,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The opt-in MathJax loader now uses the exact reviewed 4.1.2 CDN release,
+  SHA-384 Subresource Integrity, anonymous CORS, a no-referrer policy, and
+  ordered deferred loading; release checks reject mutable or unprotected
+  replacements.
 - Reworked the color system into a clean three-tier token hierarchy. **Tier 2**
   — the per-persona/mode semantic layer in `0-settings` — is now a consistent
   33-token contract (13 UI + 4 state + 16 Base16 syntax): it gains

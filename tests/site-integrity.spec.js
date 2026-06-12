@@ -57,3 +57,56 @@ test('sitemap pages and their internal links and assets resolve', async ({ page,
     expect(response.ok(), `Broken internal resource ${url} (${source})`).toBe(true);
   }
 });
+
+test('the pinned MathJax CDN runtime renders shipped math content', async ({ page }) => {
+  const mathJaxRequests = [];
+  const mathPages = [
+    'building-a-rate-limiter',
+    'climate-data-analysis',
+    'eyvan-design-and-architecture',
+    'field-notes-iceland-2025',
+    'quantum-entanglement-primer',
+  ];
+
+  page.on('response', (response) => {
+    const url = response.url();
+
+    if (url.includes('cdn.jsdelivr.net/npm/') && /mathjax/i.test(url)) {
+      mathJaxRequests.push({
+        status: response.status(),
+        url,
+      });
+    }
+  });
+
+  for (const slug of mathPages) {
+    await page.goto(`${baseUrl}/projects/${slug}/`);
+    await page.waitForFunction(() => Boolean(window.MathJax?.startup?.promise));
+    await page.evaluate(() => window.MathJax.startup.promise);
+    await expect(page.locator('mjx-merror')).toHaveCount(0);
+  }
+
+  const loader = page.locator('#MathJax-script');
+
+  await expect(loader).toHaveAttribute(
+    'src',
+    'https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml.js'
+  );
+  await expect(loader).toHaveAttribute(
+    'integrity',
+    'sha384-zAhQQhdaMeHsMProNntGGg6nOUVcfuF9F22C3d1qJ9NZAVzCplXk1X85D2O5iufn'
+  );
+  await expect(loader).toHaveAttribute('crossorigin', 'anonymous');
+  await expect(loader).toHaveAttribute('referrerpolicy', 'no-referrer');
+  await expect(page.locator('mjx-container')).not.toHaveCount(0);
+
+  expect(mathJaxRequests.length).toBeGreaterThan(0);
+
+  for (const response of mathJaxRequests) {
+    expect(response.status, response.url).toBeLessThan(400);
+    expect(
+      response.url.includes('mathjax@4.1.2/')
+      || response.url.includes('mathjax-newcm-font@4.1.2/')
+    ).toBe(true);
+  }
+});

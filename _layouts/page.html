@@ -46,6 +46,10 @@ layout: default
   - page.avatar
   - page.date
   - page.tags
+  - page.image_width
+  - page.image_height
+  - page.image_srcset
+  - page.image_sizes
   - content
   - entry-meta.html dependencies
 
@@ -75,6 +79,11 @@ layout: default
           class="c-page__image"
           src="{{ page.image | relative_url }}"
           alt="{{ page.image_alt | default: page.title | escape }}"
+          {% if page.image_width and page.image_height %}
+          width="{{ page.image_width }}"
+          height="{{ page.image_height }}"
+          {% endif %}
+          {% include responsive-srcset.html entries=page.image_srcset sizes=page.image_sizes %}
         >
       </div>
     {% endif %}

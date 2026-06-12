@@ -29,8 +29,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The opt-in MathJax loader now uses the exact reviewed 4.1.2 CDN release,
+  SHA-384 Subresource Integrity, anonymous CORS, a no-referrer policy, and
+  ordered deferred loading; release checks reject mutable or unprotected
+  replacements.
+- The removable climate demo now declares an exact Chart.js 4.5.1 CDN script
+  with SHA-384 Subresource Integrity and privacy attributes instead of
+  dynamically executing an unversioned package URL.
 - Reworked the color system into a clean three-tier token hierarchy. **Tier 2**
-  — the per-persona/mode semantic layer in `0-settings` — is now a consistent
+  — the per-mode semantic layer in `0-settings` — is now a consistent
   33-token contract (13 UI + 4 state + 16 Base16 syntax): it gains
   `--color-text-inverse` (text on accent fills) and `--color-ui-border-subtle`
   (the low-emphasis header/footer divider the codebase previously faked), and
@@ -41,24 +48,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Tier 2, defined once (they inherit the light/dark switch automatically) so
   each component role stays self-documenting and keeps a single point to
   diverge from the shared accent later.
-- Light-mode brand color moved from indigo/blue to the Persian turquoise
-  family, so both themes now share one brand hue at two lightness steps: new
-  `$clr-p-teal-deep` (`#00796B`, 5.32:1 on white) drives light-mode links,
-  buttons, focus rings, and text selection, with `$clr-p-teal-deeper`
-  (`#00564B`) as the hover step; dark mode keeps turquoise `#3FE0D0`. The
-  browser `theme-color` metas and the JS fallbacks in `theme-toggle.js` /
-  `demo-climate-charts.js` follow the same change. Titles and headings stay
-  neutral (body text color), and indigo and blue remain in the palette as
+- Brand accent recolored from the Persian turquoise family to aubergine:
+  light mode's `$accent-primary` is aubergine glaze `#4B3049` (driving links,
+  buttons, focus rings, and text selection) and dark mode's is orchid
+  `#C9A0C4`. `_data/theme.yml` is the single source of truth for both values,
+  consumed by the mode files' `$accent-primary` fallback, the JS fallbacks in
+  `theme-toggle.js` / `demo-climate-charts.js`, and the browser `theme-color`
+  meta in `head.html`. The retired teal/turquoise hexes (`#00796B`,
+  `#3FE0D0`) are guarded against reintroduction by
+  `scripts/check-color-contract.rb`. Titles and headings stay neutral (body
+  text color), and indigo and blue remain in the palette as
   syntax-highlighting accents.
 - Tag chips now have their own semantic tokens (`--color-tag-bg`,
   `--color-tag-bg-hover`, `--color-tag-text`) instead of reusing the button
   tokens, keeping their heritage indigo/blue identity in the light theme
-  while buttons carry the teal brand; dark-theme chips are unchanged
-  (turquoise, matching dark buttons).
-- Light-mode tag chips now point those tokens at the brand teal
+  while buttons carry the brand accent; dark-theme chips are unchanged
+  (matching the dark-mode accent, as with dark buttons).
+- Light-mode tag chips now point those tokens at the brand accent
   (`$accent-primary` / `$accent-secondary`), matching `.c-button` instead of
   the heritage indigo/blue, so tags and buttons share one hue again in both
-  themes (dark-theme chips were already teal/turquoise and are unchanged).
+  themes (dark-theme chips already matched the accent and are unchanged).
 - Heading weight: the previous pass's Medium (500) read too light across
   the board, so the shared `h1`–`h6` rule, post titles, and
   `.c-section-heading--lg` (About/Projects/tag-archive titles and the
@@ -125,3 +134,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   more than one, `code-block-a11y.js` gave each a literal `aria-label="Code
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
+
+### Added — 2026-06-12
+
+- `scripts/check-color-contract.rb` (`npm run test:colors`), a deterministic
+  static guard that runs in CI and checks: every consumed `var(--color-*)`
+  resolves to a Tier-2 definition in `_base.scss`; the brand accent in
+  `_data/theme.yml` stays in sync with both mode files' `$accent-primary`
+  fallback, the JS theme fallbacks, and `head.html`'s `theme-color` meta, and
+  the retired teal/turquoise hexes (`#00796B`, `#3FE0D0`) never reappear; and
+  every key text/UI/syntax token pair — including the Base16 operator color
+  `base0c` — meets WCAG 2.1 AA contrast in both themes.
+- Two new Tier-2 surface tokens, `--color-ui-surface-raised` and
+  `--color-ui-surface-overlay`, plus a formal `$elevation-rest` /
+  `$elevation-raised` / `$elevation-overlay` ladder in `_config.scss`,
+  completing the elevation token model (Tier 2 is now 35 tokens: 15 UI + 4
+  state + 16 Base16). `check-color-contract.rb` contrast-checks text against
+  both new surfaces in both themes.
+- `scripts/check-built-output.rb`, run in CI against the built `_site/`,
+  statically enforces the MathJax and Chart.js-demo CDN loader policy (pinned
+  version, SHA-384 Subresource Integrity, anonymous CORS, no-referrer,
+  deferred loading, `async` forbidden) and rejects published repository-only
+  files, source maps, and the excluded `/assets/files/resume.pdf` sitemap
+  entry.
+- Optional responsive image variants: `figure.html` accepts
+  `responsive_srcset` / `responsive_sizes` for single- and multi-image
+  figures, a new standalone `_includes/responsive-srcset.html` normalizes
+  `path | descriptor` rows into a baseurl-safe `srcset` / `sizes` pair, and
+  the *Customizing Eyvan* and *Front Matter Field Reference* posts document a
+  no-bundler `cwebp` workflow for generating the variants.
+
+### Changed — 2026-06-12
+
+- Card and hero "lift" shadows (`$card-shadow-rest` / `$card-shadow-hover`)
+  now alias the new `$elevation-rest` / `$elevation-raised` tokens instead of
+  standalone values, so rest, raised, and overlay surfaces share one
+  consistent depth model.
+- Corrected stale "Changed" entries above that still described the
+  pre-aubergine brand: replaced the retired teal/turquoise (`#00796B` /
+  `#3FE0D0`) color descriptions with the current aubergine / orchid accent,
+  and removed references to the removed persona layer.
+
+This closes out the 2026 color-system and accessibility audit program: R1
+(`base0c` contrast), R2 (CDN pin + protect), R3 (responsive images), R5
+(elevation tokens), and R8 (token-contract / theme-color drift guards) are
+confirmed resolved by the changes above; R4, R6, and R7 (primitive gray/hue
+ramps, the Art persona, and token-naming headroom) are superseded by the
+prior aubergine rewrite, which removed the primitive/persona layer entirely;
+R9 (deprecated Pa11y-related transitive dependencies — `glob@7`, `inflight`,
+`whatwg-encoding`, all from `pa11y-ci@4.1.1`) remains upstream-blocked with
+no safe update available.

@@ -60,6 +60,8 @@ layout: default
   - page.image_alt
   - page.image_width
   - page.image_height
+  - page.image_srcset
+  - page.image_sizes
   - page.image_position
   - page.tags
   - page.share
@@ -87,6 +89,7 @@ layout: default
               width="{{ page.image_width }}"
               height="{{ page.image_height }}"
               {% endif %}
+              {% include responsive-srcset.html entries=page.image_srcset sizes=page.image_sizes %}
             >
           </div>
         </div>

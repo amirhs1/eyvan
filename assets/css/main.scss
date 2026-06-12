@@ -8,13 +8,27 @@
 // ============================================================================
 
 // -----------------------------------------------------------------------------
+// BRAND ACCENT INJECTION
+// Liquid interpolates the hex from _data/theme.yml before Sass compiles, so the
+// CSS accent tokens and head.html's browser theme-color share one source and
+// cannot drift. Sass only honours `with (...)` on the *first* load of a module,
+// so these must precede any transitive @use of the mode modules (3-base/base).
+// -----------------------------------------------------------------------------
+
+@use "0-settings/light-mode" with (
+  $accent-primary: {{ site.data.theme.accent_light }}
+);
+@use "0-settings/dark-mode" with (
+  $accent-primary: {{ site.data.theme.accent_dark }}
+);
+
+// -----------------------------------------------------------------------------
 // 0. SETTINGS
 // Global tokens, configuration, and design decisions
 // -----------------------------------------------------------------------------
 
 @use "0-settings/config" as settings-config;
 @use "0-settings/breakpoints" as settings-breakpoints;
-@use "0-settings/colors" as settings-colors;
 @use "0-settings/spacing" as settings-spacing;
 @use "0-settings/typography" as settings-typography;
 

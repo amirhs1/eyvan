@@ -1,0 +1,77 @@
+// -----------------------------------------------------------------------------
+// Dark Mode — Color Tokens
+// ITCSS layer: 0-settings
+//
+// Mirrors _light-mode.scss structurally; same brand hue (aubergine) lifted in
+// luminance for legibility on dark surfaces. 33-token contract, no primitive
+// layer — each token carries its hex directly and only references another when
+// it genuinely reuses that role. $accent-primary is `!default` (injected by
+// assets/css/main.scss from _data/theme.yml). Every text/background pair meets
+// WCAG 2.1 AA. Verify before changing values.
+// -----------------------------------------------------------------------------
+
+/* -----------------------------------------------------------------------------
+   Core UI roles
+   ----------------------------------------------------------------------------- */
+
+$ui-bg: #0F1117;             // near-black, faint blue
+$ui-surface: #171A22;        // resting surface
+$ui-surface-raised: #222632; // elevated surface
+
+$ui-text: #E4E8EF;           // primary body text & default foreground
+$ui-text-muted: #9AA3B2;     // secondary/muted text
+
+$ui-border: #2C313D;         // default borders/dividers (subtle, non-text)
+$ui-border-subtle: #23272F;  // low-emphasis dividers
+$ui-shadow-color: rgba(#000000, 0.6); // elevation shadow
+
+/* -----------------------------------------------------------------------------
+   Accent system (brand) — $accent-primary injectable from _data/theme.yml
+   ----------------------------------------------------------------------------- */
+
+$accent-primary: #C9A0C4 !default; // lifted aubergine (orchid) — brand
+$accent-secondary: #DCBBD8;        // hover/emphasis (lighter step)
+
+/* -----------------------------------------------------------------------------
+   Typography & content
+   ----------------------------------------------------------------------------- */
+
+$heading-color: #FFFFFF; // brighter than body text for emphasis on dark
+$text-inverse: $ui-bg;   // dark text on a bright accent fill
+
+/* -----------------------------------------------------------------------------
+   Status & feedback
+   ----------------------------------------------------------------------------- */
+
+$state-error: #F08B82;   // lifted red
+$state-success: #6FD68C; // lifted green
+$state-warning: #E6B45C; // lifted amber
+$state-info: #8FB0F0;    // independent info blue (brand is no longer blue)
+
+/* -----------------------------------------------------------------------------
+   Interaction helpers
+   ----------------------------------------------------------------------------- */
+
+$focus-ring-color: $accent-primary; // keyboard focus ring (focus-ring mixin)
+
+/* -----------------------------------------------------------------------------
+   Syntax highlighting (Base16 — Dark). Code bg = base00.
+   Structural slots reuse UI/accent roles; chromatic slots are their own set.
+   ----------------------------------------------------------------------------- */
+
+$base00: #14171F;            // background (code block — just below ui-surface)
+$base01: $ui-surface-raised; // lighter bg / gutter
+$base02: $ui-border;         // selection bg
+$base03: #8A94A4;            // comments
+$base04: $ui-text-muted;     // dark foreground
+$base05: $ui-text;           // default foreground
+$base06: #F0F3F8;            // light foreground
+$base07: #FFFFFF;            // lightest bg
+$base08: $state-error;       // variables / tags (shares the state red)
+$base09: $state-warning;     // numbers / constants (shares the state amber)
+$base0a: $accent-primary;    // classes
+$base0b: $state-success;     // strings (shares the state green)
+$base0c: #6FB4E8;            // support / regex / operators
+$base0d: $state-info;        // functions (shares the state blue)
+$base0e: #C09BE8;            // keywords
+$base0f: #E68FC0;            // deprecated

@@ -29,6 +29,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Reworked the color system into a clean three-tier token hierarchy. **Tier 2**
+  — the per-persona/mode semantic layer in `0-settings` — is now a consistent
+  33-token contract (13 UI + 4 state + 16 Base16 syntax): it gains
+  `--color-text-inverse` (text on accent fills) and `--color-ui-border-subtle`
+  (the low-emphasis header/footer divider the codebase previously faked), and
+  drops the redundant `--color-body-bg` / `--color-body-color` aliases of
+  `--color-ui-bg` / `--color-ui-text`. **Tier 3** — component-intent aliases
+  (`--color-link*`, `--color-button-*`, `--color-tag-*`, `--color-selection-*`)
+  — now lives in `3-base/_base.scss` as theme-agnostic `var()` aliases of
+  Tier 2, defined once (they inherit the light/dark switch automatically) so
+  each component role stays self-documenting and keeps a single point to
+  diverge from the shared accent later.
 - Light-mode brand color moved from indigo/blue to the Persian turquoise
   family, so both themes now share one brand hue at two lightness steps: new
   `$clr-p-teal-deep` (`#00796B`, 5.32:1 on white) drives light-mode links,
@@ -71,6 +83,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- 41 component declarations referenced 10 CSS custom properties that
+  `_base.scss` never defined — among them `--color-text`, `--color-text-muted`,
+  `--color-border`, `--color-surface`, and `--color-primary`. Because an
+  undefined `var()` invalidates its whole declaration, this silently broke the
+  skip-link background, every `<hr>`, the icon-link and theme-toggle outlines,
+  the sticky-header and footer top borders, the table-of-contents active/hover
+  state, the footer text hierarchy, and the dark-mode heading color. Every
+  consumer now resolves to a defined token across the three-tier contract.
+- Card and hero hover shadows referenced an undefined `--color-shadow-rgb`,
+  always falling back to black and leaving the dark-mode "lift" invisible
+  against the near-black canvas; they now reuse the theme-aware
+  `--color-ui-shadow-color`.
+- Print styles hard-coded `#fff` / `#000`; they now reference the palette's
+  `$clr-white` / `$clr-black`, so the design system has no literal colors
+  outside `0-settings`.
+- Removed the dead `$theme` / `$mode` Sass flags from `_config.scss`; the
+  pipeline never read them (persona is chosen in `_colors.scss`, light/dark is
+  a runtime `data-theme` switch).
 - Undefined `--color-heading` custom property: `_base.scss` emitted
   `--color-heading-color` while every component consumes
   `var(--color-heading)`, so the semantic heading color silently never

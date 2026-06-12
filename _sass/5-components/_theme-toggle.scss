@@ -50,10 +50,10 @@ $theme-toggle-radius: 999px;
   padding-block: 0.625rem;
   padding-inline: 0.625rem;
 
-  border: settings-config.$global-border-width solid var(--color-border);
+  border: settings-config.$global-border-width solid var(--color-ui-border);
   border-radius: $theme-toggle-radius;
   background-color: transparent;
-  color: var(--color-text);
+  color: var(--color-ui-text);
 
   cursor: pointer;
   user-select: none;

@@ -89,7 +89,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
   min-inline-size: 0;
   margin: 0;
 
-  color: var(--color-text);
+  color: var(--color-ui-text);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-sm;
   font-weight: settings-typography.$font-weight-bold;
@@ -109,7 +109,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
   min-inline-size: 0;
   gap: $entry-meta-details-gap;
 
-  color: var(--color-text-muted);
+  color: var(--color-ui-text-muted);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-medium;

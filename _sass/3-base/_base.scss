@@ -4,13 +4,22 @@
 //
 // Description:
 // Establishes global document-level defaults applied to the document root and
-// <body> element. Defines baseline typography inheritance, rendering behavior,
-// and runtime theme custom properties.
+// <body> element, and emits the runtime color-token contract.
 //
 // Scope & Rules:
 // - Type selectors only (no classes, no IDs)
 // - Consumes design tokens from 0-settings
 // - No component, layout, or state-specific styling
+//
+// Color-token contract (the complete, authoritative vocabulary — any
+// var(--color-*) used elsewhere that is not defined here is undefined):
+//   - Tier 2 (semantic): 33 tokens, emitted twice — :root (light) and
+//     html[data-theme="dark"] (dark) = 13 UI + 4 state + 16 Base16 syntax.
+//   - Tier 3 (component): 11 aliases of Tier 2, emitted once on :root
+//     (theme-agnostic — they inherit the light/dark switch through var()).
+//   => 33 + 33 + 11 = 77 custom-property definitions.
+// The html / body / ::selection rules at the foot of this file only *consume*
+// these tokens (via var()); they do not add to the count.
 //
 // Notes:
 // - Assumes browser normalization/reset are handled in 2-generic
@@ -20,45 +29,34 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../0-settings/colors" as settings-colors;
 
+/* =============================================================================
+   COLOR TOKENS
+   ============================================================================= */
+
 /* -----------------------------------------------------------------------------
-   Global theme tokens (light)
+   Tier 2 — Semantic tokens · light · 33
    ----------------------------------------------------------------------------- */
 
 :root {
-  color-scheme: light dark;
-
-  /* Core UI roles */
+  /* Surfaces */
   --color-ui-bg: #{settings-colors.$light-ui-bg};
   --color-ui-surface: #{settings-colors.$light-ui-surface};
   --color-ui-surface-raised: #{settings-colors.$light-ui-surface-raised};
 
+  /* Foreground */
   --color-ui-text: #{settings-colors.$light-ui-text};
   --color-ui-text-muted: #{settings-colors.$light-ui-text-muted};
-
-  --color-ui-border: #{settings-colors.$light-ui-border};
-  --color-ui-shadow-color: #{settings-colors.$light-ui-shadow-color};
-
-  /* Typography & content */
-  --color-body-bg: #{settings-colors.$light-body-bg};
-  --color-body-color: #{settings-colors.$light-body-color};
   --color-heading: #{settings-colors.$light-heading-color};
+  --color-text-inverse: #{settings-colors.$light-text-inverse};
+
+  /* Borders & focus */
+  --color-ui-border: #{settings-colors.$light-ui-border};
+  --color-ui-border-subtle: #{settings-colors.$light-ui-border-subtle};
+  --color-focus-ring-color: #{settings-colors.$light-focus-ring-color};
 
   /* Accent system */
   --color-accent-primary: #{settings-colors.$light-accent-primary};
   --color-accent-secondary: #{settings-colors.$light-accent-secondary};
-
-  /* Interactive elements */
-  --color-link: #{settings-colors.$light-link-color};
-  --color-link-hover: #{settings-colors.$light-link-hover};
-
-  --color-button-bg: #{settings-colors.$light-button-bg};
-  --color-button-bg-hover: #{settings-colors.$light-button-bg-hover};
-  --color-button-text: #{settings-colors.$light-button-text};
-  --color-button-border: #{settings-colors.$light-button-border};
-
-  --color-tag-bg: #{settings-colors.$light-tag-bg};
-  --color-tag-bg-hover: #{settings-colors.$light-tag-bg-hover};
-  --color-tag-text: #{settings-colors.$light-tag-text};
 
   /* Status & feedback */
   --color-state-error: #{settings-colors.$light-state-error};
@@ -66,12 +64,8 @@
   --color-state-warning: #{settings-colors.$light-state-warning};
   --color-state-info: #{settings-colors.$light-state-info};
 
-  /* Interaction helpers */
-  --color-focus-ring-color: #{settings-colors.$light-focus-ring-color};
-
-  /* Text selection */
-  --color-selection-text: #{settings-colors.$light-selection-text};
-  --color-selection-bg: #{settings-colors.$light-selection-bg};
+  /* Effect */
+  --color-ui-shadow-color: #{settings-colors.$light-ui-shadow-color};
 
   /* Syntax highlighting */
   --color-syntax-base00: #{settings-colors.$light-base00};
@@ -93,49 +87,40 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Dark theme override
+   Tier 2 — Semantic tokens · dark · 33
    ----------------------------------------------------------------------------- */
 
 html[data-theme="dark"] {
+  /* Surfaces */
   --color-ui-bg: #{settings-colors.$dark-ui-bg};
   --color-ui-surface: #{settings-colors.$dark-ui-surface};
   --color-ui-surface-raised: #{settings-colors.$dark-ui-surface-raised};
 
+  /* Foreground */
   --color-ui-text: #{settings-colors.$dark-ui-text};
   --color-ui-text-muted: #{settings-colors.$dark-ui-text-muted};
-
-  --color-ui-border: #{settings-colors.$dark-ui-border};
-  --color-ui-shadow-color: #{settings-colors.$dark-ui-shadow-color};
-
-  --color-body-bg: #{settings-colors.$dark-body-bg};
-  --color-body-color: #{settings-colors.$dark-body-color};
   --color-heading: #{settings-colors.$dark-heading-color};
+  --color-text-inverse: #{settings-colors.$dark-text-inverse};
 
+  /* Borders & focus */
+  --color-ui-border: #{settings-colors.$dark-ui-border};
+  --color-ui-border-subtle: #{settings-colors.$dark-ui-border-subtle};
+  --color-focus-ring-color: #{settings-colors.$dark-focus-ring-color};
+
+  /* Accent system */
   --color-accent-primary: #{settings-colors.$dark-accent-primary};
   --color-accent-secondary: #{settings-colors.$dark-accent-secondary};
 
-  --color-link: #{settings-colors.$dark-link-color};
-  --color-link-hover: #{settings-colors.$dark-link-hover};
-
-  --color-button-bg: #{settings-colors.$dark-button-bg};
-  --color-button-bg-hover: #{settings-colors.$dark-button-bg-hover};
-  --color-button-text: #{settings-colors.$dark-button-text};
-  --color-button-border: #{settings-colors.$dark-button-border};
-
-  --color-tag-bg: #{settings-colors.$dark-tag-bg};
-  --color-tag-bg-hover: #{settings-colors.$dark-tag-bg-hover};
-  --color-tag-text: #{settings-colors.$dark-tag-text};
-
+  /* Status & feedback */
   --color-state-error: #{settings-colors.$dark-state-error};
   --color-state-success: #{settings-colors.$dark-state-success};
   --color-state-warning: #{settings-colors.$dark-state-warning};
   --color-state-info: #{settings-colors.$dark-state-info};
 
-  --color-focus-ring-color: #{settings-colors.$dark-focus-ring-color};
+  /* Effect */
+  --color-ui-shadow-color: #{settings-colors.$dark-ui-shadow-color};
 
-  --color-selection-text: #{settings-colors.$dark-selection-text};
-  --color-selection-bg: #{settings-colors.$dark-selection-bg};
-
+  /* Syntax highlighting */
   --color-syntax-base00: #{settings-colors.$dark-base00};
   --color-syntax-base01: #{settings-colors.$dark-base01};
   --color-syntax-base02: #{settings-colors.$dark-base02};
@@ -155,10 +140,44 @@ html[data-theme="dark"] {
 }
 
 /* -----------------------------------------------------------------------------
+   Tier 3 — Component aliases · 11 · theme-agnostic
+   Each aliases a Tier-2 token via var(), so it follows the light/dark switch
+   automatically and needs no dark override above. They name component intent
+   (so the shared accent stays legible per role) and give a single point to let
+   a role diverge from the accent later (e.g. buttons ≠ links).
+   ----------------------------------------------------------------------------- */
+
+:root {
+  /* Links */
+  --color-link: var(--color-accent-primary);
+  --color-link-hover: var(--color-accent-secondary);
+
+  /* Buttons */
+  --color-button-bg: var(--color-accent-primary);
+  --color-button-bg-hover: var(--color-accent-secondary);
+  --color-button-text: var(--color-text-inverse);
+  --color-button-border: transparent;
+
+  /* Tags (taxonomy chips) */
+  --color-tag-bg: var(--color-accent-primary);
+  --color-tag-bg-hover: var(--color-accent-secondary);
+  --color-tag-text: var(--color-text-inverse);
+
+  /* Text selection */
+  --color-selection-text: var(--color-ui-surface);
+  --color-selection-bg: var(--color-accent-primary);
+}
+
+/* =============================================================================
+   ELEMENT BASE STYLES  (consume the tokens above; define none)
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
    Document root
    ----------------------------------------------------------------------------- */
 
 html {
+  color-scheme: light dark;
   background-color: var(--color-ui-bg);
   color: var(--color-ui-text);
 }
@@ -175,8 +194,8 @@ body {
   font-weight: settings-typography.$font-weight-regular;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-body-color);
-  background-color: var(--color-body-bg);
+  color: var(--color-ui-text);
+  background-color: var(--color-ui-bg);
 
   -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
   -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;

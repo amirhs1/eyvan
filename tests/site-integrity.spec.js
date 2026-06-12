@@ -26,11 +26,39 @@ test('sitemap pages and their internal links and assets resolve', async ({ page,
     expect(response.ok(), `Sitemap page failed: ${pageUrl}`).toBe(true);
 
     const pageResources = await page.locator(
-      'a[href], img[src], script[src], link[href], source[src]'
-    ).evaluateAll((elements) => elements.map((element) => ({
-      attribute: element.hasAttribute('href') ? 'href' : 'src',
-      value: element.getAttribute(element.hasAttribute('href') ? 'href' : 'src'),
-    })));
+      'a[href], img[src], img[srcset], script[src], link[href], source[src], source[srcset]'
+    ).evaluateAll((elements) => elements.flatMap((element) => {
+      const resources = [];
+
+      if (element.hasAttribute('href')) {
+        resources.push({
+          attribute: 'href',
+          value: element.getAttribute('href'),
+        });
+      }
+
+      if (element.hasAttribute('src')) {
+        resources.push({
+          attribute: 'src',
+          value: element.getAttribute('src'),
+        });
+      }
+
+      if (element.hasAttribute('srcset')) {
+        const srcset = element.getAttribute('srcset') || '';
+        const candidates = srcset.split(',')
+          .map((candidate) => candidate.trim())
+          .filter(Boolean)
+          .map((candidate) => ({
+            attribute: 'srcset',
+            value: candidate.split(/\s+/)[0],
+          }));
+
+        resources.push(...candidates);
+      }
+
+      return resources;
+    }));
 
     for (const { attribute, value } of pageResources) {
       if (!value || value.startsWith('#')) {

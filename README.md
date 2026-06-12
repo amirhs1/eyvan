@@ -22,6 +22,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 - TOC support for `##` and `###` headings when `toc: true`
 - Optional cover images, post-card images, Open Graph, and Twitter/X preview images
 - Optional cover image positioning with `image_position`
+- Optional responsive image variants for covers, page images, and prose figures via `srcset`/`sizes`
 - MathJax support for LaTeX-style math when `math: true`
 - Numbered tables and figure-like media, including images, videos, and audio, with optional cross-references when `crossrefs: true`
 - Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`
@@ -146,6 +147,12 @@ Eyvan includes Liquid helpers for common long-form content patterns:
 - `ref.html` for cross-references to numbered figures and tables
 
 Use `crossrefs: true` in front matter when a post uses `ref.html`. Individual figures, videos, audio blocks, and table captions are numbered by default; pass `numbered="false"` to an include only when that item should not be counted or referenced.
+
+When a cover or figure needs responsive variants, pre-generate a small set of
+alternate widths and declare them with newline-delimited `path | descriptor`
+rows. Eyvan then rewrites each path through `relative_url` before emitting the
+final `srcset`, so the output stays baseurl-safe without adding a bundler or
+image pipeline.
 
 ## Deployment
 

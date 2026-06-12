@@ -37,9 +37,17 @@
   - page.previous.url
   - page.previous.title
   - page.previous.image
+  - page.previous.image_width
+  - page.previous.image_height
+  - page.previous.image_srcset
+  - page.previous.image_sizes
   - page.next.url
   - page.next.title
   - page.next.image
+  - page.next.image_width
+  - page.next.image_height
+  - page.next.image_srcset
+  - page.next.image_sizes
 {% endcomment %}
 
 {% assign has_previous_post = page.previous.url %}
@@ -60,6 +68,11 @@
               loading="lazy"
               src="{{ page.previous.image | relative_url }}"
               alt="{{ page.previous.title | escape }}"
+              {% if page.previous.image_width and page.previous.image_height %}
+              width="{{ page.previous.image_width }}"
+              height="{{ page.previous.image_height }}"
+              {% endif %}
+              {% include responsive-srcset.html entries=page.previous.image_srcset sizes=page.previous.image_sizes %}
             >
           </div>
         {% endif %}
@@ -97,6 +110,11 @@
               loading="lazy"
               src="{{ page.next.image | relative_url }}"
               alt="{{ page.next.title | escape }}"
+              {% if page.next.image_width and page.next.image_height %}
+              width="{{ page.next.image_width }}"
+              height="{{ page.next.image_height }}"
+              {% endif %}
+              {% include responsive-srcset.html entries=page.next.image_srcset sizes=page.next.image_sizes %}
             >
           </div>
         {% endif %}
@@ -105,4 +123,3 @@
   </nav>
   <!-- End of post-navigation.html -->
 {% endif %}
-

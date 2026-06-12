@@ -1,0 +1,51 @@
+{%- comment -%}
+  Responsive Srcset Attribute Include
+
+  Purpose:
+  Normalize a newline-delimited list of responsive image candidates into a
+  baseurl-safe `srcset` attribute, with an optional companion `sizes`
+  attribute.
+
+  Input format:
+    assets/images/example-480.webp | 480w
+    assets/images/example-960.webp | 960w
+
+  Options:
+    entries -> required newline-delimited candidate list
+    sizes   -> optional sizes attribute string
+
+  Notes:
+  - Each row uses `path | descriptor` so the path can be passed through
+    `relative_url` before the final `srcset` string is assembled.
+  - Descriptor values are optional, though width descriptors are the expected
+    production use case.
+{%- endcomment -%}
+
+{%- assign responsive_entries = include.entries | default: "" | strip -%}
+{%- if responsive_entries != "" -%}
+  {%- assign responsive_groups = responsive_entries | newline_to_br | split: "<br />" -%}
+  {%- assign normalized_srcset = "" -%}
+  {%- for raw_group in responsive_groups -%}
+    {%- assign responsive_group = raw_group | strip -%}
+    {%- if responsive_group != "" -%}
+      {%- assign responsive_rows = responsive_group | split: "," -%}
+      {%- for raw_row in responsive_rows -%}
+        {%- assign row = raw_row | strip -%}
+        {%- if row != "" -%}
+          {%- assign parts = row | split: "|" -%}
+          {%- assign candidate_src = parts[0] | strip -%}
+          {%- assign candidate_descriptor = parts[1] | strip -%}
+          {%- if candidate_src != "" -%}
+            {%- capture normalized_srcset -%}
+              {{- normalized_srcset -}}{%- if normalized_srcset != "" -%}, {% endif -%}{{ candidate_src | relative_url }}{% if candidate_descriptor != "" %} {{ candidate_descriptor | escape }}{% endif %}
+            {%- endcapture -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign normalized_srcset = normalized_srcset | strip -%}
+  {%- if normalized_srcset != "" -%}
+srcset="{{ normalized_srcset }}"{% if include.sizes %} sizes="{{ include.sizes | strip | escape }}"{% endif %}
+  {%- endif -%}
+{%- endif -%}

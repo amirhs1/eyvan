@@ -42,6 +42,8 @@
   - include.post.image_alt
   - include.post.image_width
   - include.post.image_height
+  - include.post.image_srcset
+  - include.post.image_sizes
   - include.post.tags
   - include.post.description
   - include.post.content
@@ -79,6 +81,7 @@
             width="{{ post.image_width }}"
             height="{{ post.image_height }}"
             {% endif %}
+            {% include responsive-srcset.html entries=post.image_srcset sizes=post.image_sizes %}
           >
         </a>
       </div>

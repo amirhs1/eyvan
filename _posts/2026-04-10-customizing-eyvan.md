@@ -203,7 +203,69 @@ The logo is an SVG rather than a raster image. When replacing it, keep a
 `viewBox` that tightly contains the new artwork so the header can scale the
 mark responsively without clipping or relying on fixed pixel dimensions.
 
-### Customizing the OG fallback image
+### Creating and installing your favicon
+
+A favicon is the small icon browsers show in tabs, bookmarks, history, and
+some home-screen shortcuts. You can create a complete favicon package with
+[favicon.io](https://favicon.io/):
+
+1. Choose **PNG → ICO**, **Text → ICO**, or **Emoji → ICO** and generate your
+   favicon.
+2. Download and extract the generated package.
+3. Replace the matching files in `assets/favicon/`:
+   `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`,
+   `apple-touch-icon.png`, `android-chrome-192x192.png`, and
+   `android-chrome-512x512.png`.
+4. Also replace the root-level `favicon.ico`. Eyvan keeps this compatibility
+   copy for browsers and tools that request `/favicon.ico` directly.
+
+Keep the existing filenames so `_includes/head.html` can continue loading the
+icons without template changes. You do not need to paste favicon.io's HTML
+snippet into the site because Eyvan already includes the required `<link>`
+elements.
+
+Open `assets/favicon/site.webmanifest` after copying the package and update the
+site identity and install-screen colors:
+
+```json
+{
+  "name": "Your Website Name",
+  "short_name": "Your Site",
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#4f46e5",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
+```
+
+`name` is the full website name, while `short_name` is the compact label used
+when space is limited. `theme_color` controls supported browser or installed-app
+interface colors, and `background_color` is used behind the app while it
+launches. These values do not recolor the pixels inside the favicon images; to
+change the favicon artwork or its colors, regenerate the images on favicon.io
+and replace the files.
+
+Keep the icon `src` values relative as shown above. Do not add a leading `/`,
+because root-relative paths break when the template is published under its
+default `/eyvan` base URL.
+
+### Understanding and replacing the Open Graph image
+
+An Open Graph (OG) image is the preview image shown when a page is shared on
+services such as Facebook, LinkedIn, Discord, and Slack. Eyvan also uses the
+same resolved image for its Twitter/X card metadata. A clear 1200 × 630 px
+image works well across these platforms.
 
 `assets/images/og-default.webp` is the fallback Open Graph image used when a page or post does not define its own `image`. Replace it with a 1200 × 630 px image that includes your name, site title, or a recognizable visual identity. Then confirm `_config.yml` still points to it:
 
@@ -211,7 +273,20 @@ mark responsively without clipping or relying on fixed pixel dimensions.
 default_og_image: "assets/images/og-default.webp"
 ```
 
-Individual posts can override the fallback with their own front matter:
+If `assets/images/og-default.webp` is missing, add your image at that path or
+store it elsewhere under `assets/images/` and update `default_og_image`. Keep
+the path relative and omit a leading `/` so Jekyll can generate a baseurl-safe
+absolute URL for social platforms.
+
+Individual pages and posts can override the fallback with a purpose-built
+social image:
+
+```yaml
+og_image: "assets/images/posts/your-social-preview.webp"
+image_alt: "Describe the social preview image"
+```
+
+If `og_image` is absent, Eyvan next uses the regular `image` front matter value:
 
 ```yaml
 image: "assets/images/posts/your-post-cover.webp"
@@ -223,6 +298,10 @@ image_height: 630
 Use the cover's exact pixel dimensions for `image_width` and `image_height`.
 Providing both values lets the browser reserve the correct space before the
 image loads; omit both when you do not know them.
+
+The resolution order is `og_image`, then `image`, then
+`site.default_og_image`. This lets you use one image as a visible post cover
+and a different 1200 × 630 px image for social sharing when needed.
 
 If you already have images in JPEG or PNG, you can convert them with [`cwebp`](https://developers.google.com/speed/webp/docs/cwebp), which is part of the `webp` package:
 

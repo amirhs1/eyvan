@@ -29,8 +29,10 @@ Related component:
   const BACK_TO_TOP_WRAP_SELECTOR = '[data-back-to-top-wrap]';
   const BACK_TO_TOP_LINK_SELECTOR = '[data-back-to-top]';
   const FOOTER_SELECTOR = '.c-site-footer';
+  const HEADER_SELECTOR = '.c-site-header';
   const HIDDEN_CLASS = 'is-back-to-top-hidden';
   const VISIBLE_SCROLL_THRESHOLD = 240;
+  const VISUAL_GAP = 24;
 
   /* ==========================================================================
      Back-to-top state
@@ -127,9 +129,22 @@ Related component:
     const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
 
     if (target) {
-      target.scrollIntoView({
-        behavior: scrollBehavior,
-        block: 'start'
+      // 1. Find the header element
+      const header = document.querySelector(HEADER_SELECTOR);
+
+      // 2. Get its exact rendered height (fallback to 0 if missing)
+      const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+      // 3. Calculate total offset (header height + visual gap)
+      const offset = headerHeight + VISUAL_GAP;
+
+      // 4. Calculate the final scroll position
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: scrollBehavior
       });
 
       return;

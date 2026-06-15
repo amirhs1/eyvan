@@ -92,9 +92,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - The climate demo's custom precipitation legend now uses the active
-  `on-surface` text color in dark mode, maps its three epochs to the Material 3
-  secondary, primary, and tertiary roles, and no longer observes the removed
-  `data-persona` attribute.
+  `on-surface` text color in dark mode, uses the more distinguishable Material
+  3 error/info colors for temperature and info/success/warning colors for
+  precipitation epochs, and no longer observes the removed `data-persona`
+  attribute.
 - The built-output policy checker now reads generated HTML and the sitemap as
   UTF-8 explicitly, preventing locale-dependent crashes in shells that default
   Ruby's external encoding to US-ASCII.

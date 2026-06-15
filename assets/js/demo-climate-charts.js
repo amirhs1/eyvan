@@ -46,9 +46,10 @@ tokens from CSS custom properties.
       text: getColor("--color-on-surface", "#201A1E"),
       muted: getColor("--color-on-surface-variant", "#4E444B"),
       border: getColor("--color-outline-variant", "#D1C3CC"),
-      primary: getColor("--color-primary", "#7E4D7C"),
-      secondary: getColor("--color-secondary", "#6D586A"),
-      tertiary: getColor("--color-tertiary", "#805548")
+      error: getColor("--color-error", "#BA1A1A"),
+      warning: getColor("--color-warning", "#59631F"),
+      info: getColor("--color-info", "#4E5C92"),
+      success: getColor("--color-success", "#0A6B5A")
     };
   }
 
@@ -185,8 +186,8 @@ tokens from CSS custom properties.
           {
             label: "Mean Maximum Temp (°C)",
             data: maxTemps,
-            borderColor: theme.primary,
-            backgroundColor: transparentize(theme.primary, 0.12),
+            borderColor: theme.error,
+            backgroundColor: transparentize(theme.error, 0.12),
             borderWidth: 2.5,
             pointRadius: 2.75,
             pointHoverRadius: 5,
@@ -197,8 +198,8 @@ tokens from CSS custom properties.
           {
             label: "Mean Minimum Temp (°C)",
             data: minTemps,
-            borderColor: theme.secondary,
-            backgroundColor: transparentize(theme.secondary, 0.12),
+            borderColor: theme.info,
+            backgroundColor: transparentize(theme.info, 0.12),
             borderWidth: 2.5,
             pointRadius: 2.75,
             pointHoverRadius: 5,
@@ -279,9 +280,9 @@ tokens from CSS custom properties.
     const ctx = canvas.getContext("2d");
     const baseOptions = getBaseOptions(theme);
 
-    const epochOne = theme.secondary;
-    const epochTwo = theme.primary;
-    const epochThree = theme.tertiary;
+    const epochOne = theme.info;
+    const epochTwo = theme.success;
+    const epochThree = theme.warning;
 
     precipitationChart = new window.Chart(ctx, {
       type: "bar",

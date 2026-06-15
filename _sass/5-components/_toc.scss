@@ -262,6 +262,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     inline-size: 2.75rem;
     block-size: 2.75rem;
     padding: 0;
+    border-color: transparent;
   }
 
   .c-mobile-toc__close-icon {

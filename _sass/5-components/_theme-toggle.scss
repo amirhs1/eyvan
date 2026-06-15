@@ -50,7 +50,7 @@ $theme-toggle-radius: 999px;
   padding-block: 0.625rem;
   padding-inline: 0.625rem;
 
-  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  border: settings-config.$global-border-width solid transparent;
   border-radius: $theme-toggle-radius;
   background-color: transparent;
   color: var(--color-on-surface);

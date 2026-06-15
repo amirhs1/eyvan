@@ -61,7 +61,7 @@ module Eyvan
       sitemap = @site_dir.join("sitemap.xml")
       return ["Built sitemap is missing: sitemap.xml"] unless sitemap.file?
 
-      contents = sitemap.read
+      contents = sitemap.read(encoding: "UTF-8")
 
       FORBIDDEN_SITEMAP_PATHS.filter_map do |path|
         "Sitemap contains excluded path: #{path}" if contents.include?(path)
@@ -83,7 +83,7 @@ module Eyvan
 
     def script_policy_errors(id, label, policy, forbid_async: false)
       @site_dir.glob("**/*.html").sort.flat_map do |path|
-        contents = path.read
+        contents = path.read(encoding: "UTF-8")
         relative = path.relative_path_from(@site_dir)
 
         contents.scan(/<script\b[^>]*>/i).filter_map do |tag|

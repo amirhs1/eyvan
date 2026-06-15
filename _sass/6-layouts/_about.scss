@@ -1,0 +1,271 @@
+// -----------------------------------------------------------------------------
+// Layout — About Page
+// ITCSS layer: 6-layouts
+// Path: _sass/6-layouts/_about.scss
+//
+// Description:
+// Controls page-level composition for the About page.
+// The About page is a personal narrative/profile page — not a project archive
+// and not a post-prose page.
+//
+// Structure:
+// - .l-about                        page wrapper + scroll anchor (#top)
+//   - .l-about__hero                two-column at desktop
+//     - .l-about__hero-copy         title + intro + actions (left col)
+//       - .l-about__intro           extended bio paragraphs
+//       - .l-about__actions         CTA button row
+//     - .l-about__portrait          image + caption (right col)
+//       - .l-about__portrait-image
+//       - .l-about__portrait-caption
+//   - .l-about__section--split      two-column at desktop (focus, currently)
+//     - .l-about__section-heading   label column
+//     - .l-about__section-body      content column
+//   - .l-about__contact             two-column at desktop (mirrors --split)
+//     - .l-about__contact-copy      label column
+//     - .l-about__contact-actions   buttons + social row
+//     - .l-about__social-links      social icons inside actions
+//
+// Rules:
+// - Outer width: o-container — matches homepage and projects.
+// - Uses <div id="top">, not <main>. default.html owns the <main> landmark.
+// - Never wrap the whole page in o-prose; apply measures to inner blocks only.
+// - Layout only — no colors, typography, or component cosmetics here.
+// - No project cards. No site.posts dependency.
+//
+// Responsive strategy:
+// - Mobile-first single column throughout.
+// - $bp-layout (1024px): hero and --split sections become two-column.
+// - $bp-wide  (1280px): hero column ratio widens slightly.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config"      as settings-config;
+@use "../0-settings/spacing"     as settings-spacing;
+@use "../0-settings/typography"  as settings-typography;
+@use "../1-tools/mixins"         as tools-mixins;
+@use "../1-tools/spacing-fluid"  as fluid;
+
+
+// -----------------------------------------------------------------------------
+// Page wrapper
+// Vertical grid stack. scroll-margin-block-start offsets the sticky header
+// when back-to-top.html returns the visitor to #top.
+// -----------------------------------------------------------------------------
+
+.l-about {
+  display: grid;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-6,
+    settings-spacing.$space-9
+  );
+
+  scroll-margin-block-start: calc(
+    var(--site-header-block-size, 4.5rem) + settings-spacing.$space-5
+  );
+}
+
+
+// -----------------------------------------------------------------------------
+// Hero
+// Mobile: single column, portrait stacks below copy.
+// Desktop: two-column grid — copy gets ~1.5fr, portrait gets ~0.5fr.
+// -----------------------------------------------------------------------------
+
+.l-about__hero {
+  display: grid;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-5,
+    settings-spacing.$space-7
+  );
+  align-items: start;
+}
+
+.l-about__hero-copy {
+  min-inline-size: 0;
+}
+
+// Extended bio paragraphs in the hero — not the short bio from author.yml.
+.l-about__intro {
+  max-inline-size: settings-typography.$text-measure-wide;
+  margin-block-start: settings-spacing.$space-5;
+}
+
+.l-about__intro > * + * {
+  margin-block-start: settings-spacing.$space-4;
+}
+
+// CTA button row (View Resume + Contact Me).
+.l-about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: settings-spacing.$space-3;
+  margin-block-start: settings-spacing.$space-5;
+}
+
+
+// -----------------------------------------------------------------------------
+// Portrait
+// aspect-ratio reserves layout space before the image loads.
+// max-inline-size caps the image regardless of column width.
+// object-fit: cover prevents distortion when the source image aspect differs.
+// -----------------------------------------------------------------------------
+
+.l-about__portrait {
+  display: grid;
+  gap: settings-spacing.$space-3;
+  margin: 0;
+}
+
+.l-about__portrait-image {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 22rem;
+  aspect-ratio: 3 / 4;
+  block-size: auto;
+  object-fit: cover;
+  border-radius: settings-config.$global-border-radius;
+}
+
+.l-about__portrait-caption {
+  max-inline-size: settings-typography.$text-measure-narrow;
+  color: var(--color-ui-text-muted);
+  font-family: settings-typography.$font-family-mono;
+  font-size: settings-typography.$font-size-sm;
+  line-height: settings-typography.$line-height-normal;
+}
+
+
+// -----------------------------------------------------------------------------
+// Sections (base)
+// Generic section used for the media block and as the base for --split.
+// -----------------------------------------------------------------------------
+
+.l-about__section {
+  display: grid;
+  gap: settings-spacing.$space-5;
+  min-inline-size: 0;
+}
+
+// Split variant adds a top border and switches to two columns at desktop.
+// Used by: Focus, Currently.
+.l-about__section--split {
+  padding-block-start: settings-spacing.$space-7;
+  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
+}
+
+.l-about__section-heading,
+.l-about__section-body {
+  min-inline-size: 0;
+}
+
+// Inner text measure: wide enough for comfortable reading, not full-container.
+.l-about__section-body {
+  max-inline-size: settings-typography.$text-measure-wide;
+}
+
+// Paragraph and list flow inside section bodies.
+.l-about__section-body > * + * {
+  margin-block-start: settings-spacing.$space-4;
+}
+
+.l-about__section-body ul,
+.l-about__section-body ol {
+  padding-inline-start: settings-spacing.$space-5;
+}
+
+.l-about__section-body li + li {
+  margin-block-start: settings-spacing.$space-2;
+}
+
+
+// -----------------------------------------------------------------------------
+// Contact
+// Mirrors the --split section column pattern for visual consistency.
+// Does not reuse .l-about__section--split to keep the selectors independent.
+// -----------------------------------------------------------------------------
+
+.l-about__contact {
+  display: grid;
+  gap: settings-spacing.$space-5;
+  padding-block-start: settings-spacing.$space-7;
+  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
+}
+
+.l-about__contact-copy,
+.l-about__contact-actions {
+  min-inline-size: 0;
+}
+
+// Buttons and social row — wraps naturally at narrow widths.
+.l-about__contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+}
+
+// Social links slot — no additional margin-inline-start offset needed.
+.l-about__social-links {
+  margin-inline-start: 0;
+}
+
+
+// -----------------------------------------------------------------------------
+// Responsive — $bp-layout (1024px)
+// Hero becomes two-column. Split sections and contact become heading|body grids.
+// -----------------------------------------------------------------------------
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
+
+  // Hero: copy occupies ~1.5fr, portrait occupies ~0.5fr with a 14rem floor.
+  .l-about__hero {
+    grid-template-columns: minmax(0, 1.5fr) minmax(14rem, 0.5fr);
+  }
+
+  // Portrait right-aligns within its column and stays top-anchored.
+  .l-about__portrait {
+    justify-self: end;
+    align-self: start;
+  }
+
+  // Split sections: narrow label column | wider body column.
+  // column-gap is fluid to scale between the two breakpoints.
+  .l-about__section--split {
+    grid-template-columns: minmax(12rem, 0.38fr) minmax(0, 0.62fr);
+    column-gap: fluid.fluid-space(
+      settings-spacing.$space-6,
+      settings-spacing.$space-9
+    );
+  }
+
+  // Contact mirrors the split column ratio.
+  .l-about__contact {
+    grid-template-columns: minmax(12rem, 0.38fr) minmax(0, 0.62fr);
+    column-gap: fluid.fluid-space(
+      settings-spacing.$space-6,
+      settings-spacing.$space-9
+    );
+    align-items: start;
+  }
+
+  // Left-align buttons within the right contact column.
+  // flex-end would push them to the trailing edge, which reads awkwardly
+  // against the left-to-right scan direction of the heading column.
+  .l-about__contact-actions {
+    justify-content: flex-start;
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// Responsive — $bp-wide (1280px)
+// Hero column ratio widens slightly to give copy more room on large screens.
+// Portrait column gains a larger minimum to prevent it from shrinking too much.
+// -----------------------------------------------------------------------------
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
+
+  .l-about__hero {
+    grid-template-columns: minmax(0, 1.55fr) minmax(16rem, 0.45fr);
+  }
+}

@@ -113,7 +113,7 @@ layout: default
           {% for tag in page.tags %}
             {% assign slug = tag | slugify %}
             <a
-              class="c-button c-button--tag c-page__tag"
+              class="c-tag c-page__tag"
               href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
               aria-label="View pages tagged {{ tag }}"
             >

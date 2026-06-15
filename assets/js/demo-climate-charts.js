@@ -48,7 +48,7 @@ tokens from CSS custom properties.
       border: getColor("--color-outline-variant", "#D1C3CC"),
       primary: getColor("--color-primary", "#7E4D7C"),
       secondary: getColor("--color-secondary", "#6D586A"),
-      warning: getColor("--color-warning", "#59631F")
+      tertiary: getColor("--color-tertiary", "#805548")
     };
   }
 
@@ -281,7 +281,7 @@ tokens from CSS custom properties.
 
     const epochOne = theme.secondary;
     const epochTwo = theme.primary;
-    const epochThree = theme.warning;
+    const epochThree = theme.tertiary;
 
     precipitationChart = new window.Chart(ctx, {
       type: "bar",
@@ -354,18 +354,21 @@ tokens from CSS custom properties.
                     text: "Epoch I (1996–2005)",
                     fillStyle: transparentize(epochOne, 0.7),
                     strokeStyle: epochOne,
+                    fontColor: theme.text,
                     lineWidth: 1.25
                   },
                   {
                     text: "Epoch II (2006–2015)",
                     fillStyle: transparentize(epochTwo, 0.7),
                     strokeStyle: epochTwo,
+                    fontColor: theme.text,
                     lineWidth: 1.25
                   },
                   {
                     text: "Epoch III (2016–2025)",
                     fillStyle: transparentize(epochThree, 0.7),
                     strokeStyle: epochThree,
+                    fontColor: theme.text,
                     lineWidth: 1.25
                   }
                 ];
@@ -460,7 +463,7 @@ tokens from CSS custom properties.
 
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["class", "data-theme", "data-persona"]
+      attributeFilter: ["data-theme"]
     });
   }
 

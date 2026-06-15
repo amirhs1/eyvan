@@ -174,6 +174,51 @@ test('the climate demo uses the pinned Chart.js CDN runtime', async ({ page }) =
   await expect(page.locator('#temperatureLineChart')).toBeVisible();
   await expect(page.locator('#precipitationBarChart')).toBeVisible();
 
+  await page.locator('[data-theme-toggle]:visible').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+  const darkThemeChartColors = await page.evaluate(() => {
+    const styles = getComputedStyle(document.documentElement);
+    const color = (name) => styles.getPropertyValue(name).trim();
+    const temperatureChart = window.Chart.getChart('temperatureLineChart');
+    const precipitationChart = window.Chart.getChart('precipitationBarChart');
+
+    return {
+      expected: {
+        text: color('--color-on-surface'),
+        primary: color('--color-primary'),
+        secondary: color('--color-secondary'),
+        tertiary: color('--color-tertiary'),
+      },
+      temperatureDatasets: temperatureChart.data.datasets.map(
+        (dataset) => dataset.borderColor
+      ),
+      precipitationLegend: precipitationChart.legend.legendItems.map((item) => ({
+        fontColor: item.fontColor,
+        strokeStyle: item.strokeStyle,
+      })),
+    };
+  });
+
+  expect(darkThemeChartColors.temperatureDatasets).toEqual([
+    darkThemeChartColors.expected.primary,
+    darkThemeChartColors.expected.secondary,
+  ]);
+  expect(
+    darkThemeChartColors.precipitationLegend.map((item) => item.strokeStyle)
+  ).toEqual([
+    darkThemeChartColors.expected.secondary,
+    darkThemeChartColors.expected.primary,
+    darkThemeChartColors.expected.tertiary,
+  ]);
+  expect(
+    darkThemeChartColors.precipitationLegend.map((item) => item.fontColor)
+  ).toEqual([
+    darkThemeChartColors.expected.text,
+    darkThemeChartColors.expected.text,
+    darkThemeChartColors.expected.text,
+  ]);
+
   expect(chartJsResponses).toHaveLength(1);
   expect(chartJsResponses[0].status).toBeLessThan(400);
   expect(chartJsResponses[0].url).toBe(

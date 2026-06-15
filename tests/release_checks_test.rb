@@ -19,6 +19,30 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_built_output_check_reads_utf8_when_the_shell_locale_is_ascii
+    with_site_fixture do |site|
+      File.write(
+        site.join("sitemap.xml"),
+        "<urlset><!-- Résumé — café --></urlset>",
+        encoding: "UTF-8"
+      )
+      File.write(
+        site.join("unicode.html"),
+        "<p>Résumé — café</p>",
+        encoding: "UTF-8"
+      )
+
+      stdout, stderr, status = run_script(
+        BUILT_OUTPUT_SCRIPT,
+        site,
+        env: { "LANG" => "C", "LC_ALL" => "C" }
+      )
+
+      assert status.success?, stderr
+      assert_includes stdout, "Built output policy passed"
+    end
+  end
+
   def test_built_output_check_rejects_forbidden_files_source_maps_and_resume_sitemap
     with_site_fixture do |site|
       File.write(site.join("LICENSE"), "license")

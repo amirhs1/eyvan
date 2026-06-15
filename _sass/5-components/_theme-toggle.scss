@@ -50,10 +50,10 @@ $theme-toggle-radius: 999px;
   padding-block: 0.625rem;
   padding-inline: 0.625rem;
 
-  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: $theme-toggle-radius;
   background-color: transparent;
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
 
   cursor: pointer;
   user-select: none;
@@ -63,9 +63,9 @@ $theme-toggle-radius: 999px;
   @include tools-motion.transition-ui-with-transform;
 
   &:hover {
-    color: var(--color-ui-bg);
-    background-color: var(--color-link-hover);
-    border-color: var(--color-link-hover);
+    color: var(--color-on-primary);
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
     transform: translateY(-1px);
   }
 
@@ -74,7 +74,7 @@ $theme-toggle-radius: 999px;
   }
 
   &:focus-visible {
-    border-color: var(--color-link-hover);
+    border-color: var(--color-primary);
     @include tools-mixins.focus-ring;
   }
 

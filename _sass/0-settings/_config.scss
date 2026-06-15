@@ -3,8 +3,9 @@
 // ITCSS layer: 0-settings
 //
 // Description:
-// Central configuration file that wires together persona,
-// theme, and global design-token imports.
+// Central configuration file for geometry, motion, elevation, and z-index
+// tokens. Colour lives in the mode files (0-settings/_light-mode, _dark-mode);
+// the only colour here is the theme-independent print ink/paper pair below.
 //
 // Scope & Rules:
 // - No CSS output
@@ -97,7 +98,7 @@ $transition-interaction: color $anim-speed $anim-easing,
    Focus & Accessibility
    ----------------------------------------------------------------------------- */
 
-// Geometry only — color is defined per persona theme
+// Geometry only — colour lives in the mode files ($focus-ring-color)
 $focus-ring-width: 2px;
 $focus-ring-offset: 3px;
 

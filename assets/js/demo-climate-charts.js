@@ -42,13 +42,13 @@ tokens from CSS custom properties.
       styles.getPropertyValue(name).trim() || fallback;
 
     return {
-      background: getColor("--color-ui-bg", "#ffffff"),
-      text: getColor("--color-ui-text", "#1f2937"),
-      muted: getColor("--color-ui-text-muted", "#6b7280"),
-      border: getColor("--color-ui-border", "#e5e7eb"),
-      accentPrimary: getColor("--color-accent-primary", "#4B3049"),
-      accentSecondary: getColor("--color-accent-secondary", "#C9A0C4"),
-      warning: getColor("--color-state-warning", "#f59e0b")
+      background: getColor("--color-surface", "#FFF7FA"),
+      text: getColor("--color-on-surface", "#201A1E"),
+      muted: getColor("--color-on-surface-variant", "#4E444B"),
+      border: getColor("--color-outline-variant", "#D1C3CC"),
+      primary: getColor("--color-primary", "#7E4D7C"),
+      secondary: getColor("--color-secondary", "#6D586A"),
+      warning: getColor("--color-warning", "#59631F")
     };
   }
 
@@ -185,8 +185,8 @@ tokens from CSS custom properties.
           {
             label: "Mean Maximum Temp (°C)",
             data: maxTemps,
-            borderColor: theme.accentPrimary,
-            backgroundColor: transparentize(theme.accentPrimary, 0.12),
+            borderColor: theme.primary,
+            backgroundColor: transparentize(theme.primary, 0.12),
             borderWidth: 2.5,
             pointRadius: 2.75,
             pointHoverRadius: 5,
@@ -197,8 +197,8 @@ tokens from CSS custom properties.
           {
             label: "Mean Minimum Temp (°C)",
             data: minTemps,
-            borderColor: theme.accentSecondary,
-            backgroundColor: transparentize(theme.accentSecondary, 0.12),
+            borderColor: theme.secondary,
+            backgroundColor: transparentize(theme.secondary, 0.12),
             borderWidth: 2.5,
             pointRadius: 2.75,
             pointHoverRadius: 5,
@@ -279,8 +279,8 @@ tokens from CSS custom properties.
     const ctx = canvas.getContext("2d");
     const baseOptions = getBaseOptions(theme);
 
-    const epochOne = theme.accentSecondary;
-    const epochTwo = theme.accentPrimary;
+    const epochOne = theme.secondary;
+    const epochTwo = theme.primary;
     const epochThree = theme.warning;
 
     precipitationChart = new window.Chart(ctx, {

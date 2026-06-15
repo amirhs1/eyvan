@@ -44,7 +44,7 @@
 .c-hero__eyebrow {
   margin-block: 0 settings-spacing.$space-stack-sm;
 
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
@@ -79,7 +79,7 @@
 .c-hero__description {
   inline-size: 100%;
   max-inline-size: settings-typography.$text-measure-base;
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
 }
 
 .c-hero__description > *:first-child {

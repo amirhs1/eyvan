@@ -2,78 +2,147 @@
 // Dark Mode — Color Tokens
 // ITCSS layer: 0-settings
 //
-// Mirrors _light-mode.scss structurally; same brand hue (aubergine) lifted in
-// luminance for legibility on dark surfaces. 33-token contract, no primitive
-// layer — each token carries its hex directly and only references another when
-// it genuinely reuses that role. $accent-primary is `!default` (injected by
-// assets/css/main.scss from _data/theme.yml). Every text/background pair meets
-// WCAG 2.1 AA. Verify before changing values.
+// Tier 1 — semantic Sass variables (dark). Mirrors _light-mode.scss section for
+// section; same Material 3 roles + Eyvan extensions + 16 Base16 syntax tokens,
+// lifted in luminance for legibility on dark surfaces. No primitive layer — each
+// token carries its hex directly and only references another when it genuinely
+// reuses that role. $primary is `!default` (injected by assets/css/main.scss
+// from _data/theme.yml).
+//
+// Values: Material Theme Builder export (seed #4B3049) — schemes.dark for the
+// core roles, the dark CSS export for warning/info/success. See _light-mode.scss
+// for the Eyvan-vs-M3 divergence notes (ui-backdrop, ui-shadow-color, etc.).
+// Every text/background pair meets WCAG 2.1 AA. Verify before changing values.
 // -----------------------------------------------------------------------------
 
 /* -----------------------------------------------------------------------------
-   Core UI roles
+   Primary (brand) — $primary injectable from _data/theme.yml
    ----------------------------------------------------------------------------- */
 
-$ui-bg: #0F1117;             // near-black, faint blue
-$ui-surface: #171A22;        // resting surface
-$ui-surface-raised: #222632; // elevated surface
-$ui-surface-overlay: #2A2F3D; // overlay surface — modal panels, fullscreen TOCs
-$ui-backdrop: rgba(#0F1117, 0.78); // translucent scrim behind overlay surfaces
-
-$ui-text: #E4E8EF;           // primary body text & default foreground
-$ui-text-muted: #9AA3B2;     // secondary/muted text
-
-$ui-border: #2C313D;         // default borders/dividers (subtle, non-text)
-$ui-border-subtle: #23272F;  // low-emphasis dividers
-$ui-shadow-color: rgba(#000000, 0.6); // elevation shadow
+$primary: #EFB4E9 !default;       // lifted aubergine (orchid) — brand
+$on-primary: #4B1F4B;
+$primary-container: #643663;
+$on-primary-container: #FFD6F8;
 
 /* -----------------------------------------------------------------------------
-   Accent system (brand) — $accent-primary injectable from _data/theme.yml
+   Secondary (independent accent — never a tonal step of primary)
    ----------------------------------------------------------------------------- */
 
-$accent-primary: #C9A0C4 !default; // lifted aubergine (orchid) — brand
-$accent-secondary: #DCBBD8;        // hover/emphasis (lighter step)
+$secondary: #D9BFD3;              // lifted mauve
+$on-secondary: #3C2B3A;
+$secondary-container: #544151;
+$on-secondary-container: #F6DBF0;
 
 /* -----------------------------------------------------------------------------
-   Typography & content
+   Tertiary (independent accent)
    ----------------------------------------------------------------------------- */
 
-$heading-color: #FFFFFF; // brighter than body text for emphasis on dark
-$text-inverse: $ui-bg;   // dark text on a bright accent fill
+$tertiary: #F6B8A9;               // lifted peach/rust
+$on-tertiary: #4C261C;
+$tertiary-container: #663B31;
+$on-tertiary-container: #FFDAD2;
 
 /* -----------------------------------------------------------------------------
-   Status & feedback
+   Error
    ----------------------------------------------------------------------------- */
 
-$state-error: #F08B82;   // lifted red
-$state-success: #6FD68C; // lifted green
-$state-warning: #E6B45C; // lifted amber
-$state-info: #8FB0F0;    // independent info blue (brand is no longer blue)
+$error: #FFB4AB;
+$on-error: #690005;
+$error-container: #93000A;
+$on-error-container: #FFDAD6;
 
 /* -----------------------------------------------------------------------------
-   Interaction helpers
+   Warning (Eyvan extension — full 4-role set)
    ----------------------------------------------------------------------------- */
 
-$focus-ring-color: $accent-primary; // keyboard focus ring (focus-ring mixin)
+$warning: #C1CD7D;                // lifted olive
+$on-warning: #2C3400;
+$warning-container: #424B07;
+$on-warning-container: #DDEA96;
+
+/* -----------------------------------------------------------------------------
+   Info (Eyvan extension — full 4-role set)
+   ----------------------------------------------------------------------------- */
+
+$info: #B7C4FF;
+$on-info: #1E2D61;
+$info-container: #364479;
+$on-info-container: #DCE1FF;
+
+/* -----------------------------------------------------------------------------
+   Success (Eyvan extension — full 4-role set)
+   ----------------------------------------------------------------------------- */
+
+$success: #85D6C0;
+$on-success: #00382E;
+$success-container: #005143;
+$on-success-container: #A1F2DC;
+
+/* -----------------------------------------------------------------------------
+   Surfaces & background
+   ----------------------------------------------------------------------------- */
+
+$background: #171216;
+$on-background: #EBDFE6;
+
+$surface: #171216;                       // page/body canvas
+$on-surface: #EBDFE6;                    // primary body text & default foreground
+$surface-variant: #4E444B;
+$on-surface-variant: #D1C3CC;            // secondary/muted text (>=4.5:1)
+
+$surface-dim: #171216;
+$surface-bright: #3E373C;
+$surface-container-lowest: #120D11;      // code canvas — just below surface
+$surface-container-low: #201A1E;
+$surface-container: #241E22;
+$surface-container-high: #2E282D;        // elevated surface — entry-meta, raised cards, menu
+$surface-container-highest: #3A3338;     // overlay surface — modal panels, fullscreen TOCs
+
+/* -----------------------------------------------------------------------------
+   Outline (borders & dividers — non-text)
+   ----------------------------------------------------------------------------- */
+
+$outline: #9A8D96;                // stronger boundary
+$outline-variant: #4E444B;        // default borders/dividers (subtle)
+
+/* -----------------------------------------------------------------------------
+   Inverse (high-contrast inversions)
+   ----------------------------------------------------------------------------- */
+
+$inverse-surface: #EBDFE6;
+$inverse-on-surface: #352E33;
+$inverse-primary: #7E4D7C;
+
+/* -----------------------------------------------------------------------------
+   Eyvan extensions (no stock M3 role — see _light-mode.scss header)
+   ----------------------------------------------------------------------------- */
+
+$heading-color: #FFFFFF;                 // brighter than body text for emphasis on dark
+$ui-backdrop: rgba($surface, 0.78);      // translucent scrim behind overlay surfaces
+$ui-shadow-color: rgba(#000000, 0.6);    // elevation shadow (pure black @ 60% on dark)
+$focus-ring-color: $primary;             // keyboard focus ring (focus-ring mixin)
+$ui-border-subtle: #2E282D;              // low-emphasis dividers — header/footer edges
 
 /* -----------------------------------------------------------------------------
    Syntax highlighting (Base16 — Dark). Code bg = base00.
-   Structural slots reuse UI/accent roles; chromatic slots are their own set.
+   Structural slots reuse surface/outline roles; chromatic slots reuse the M3
+   accent/status roles, each tuned to clear AA on base00 (#120D11). base0f uses
+   a JSON tertiary-palette tone (no clean role maps to "deprecated").
    ----------------------------------------------------------------------------- */
 
-$base00: #14171F;            // background (code block — just below ui-surface)
-$base01: $ui-surface-raised; // lighter bg / gutter
-$base02: $ui-border;         // selection bg
-$base03: #8A94A4;            // comments
-$base04: $ui-text-muted;     // dark foreground
-$base05: $ui-text;           // default foreground
-$base06: #F0F3F8;            // light foreground
-$base07: #FFFFFF;            // lightest bg
-$base08: $state-error;       // variables / tags (shares the state red)
-$base09: $state-warning;     // numbers / constants (shares the state amber)
-$base0a: $accent-primary;    // classes
-$base0b: $state-success;     // strings (shares the state green)
-$base0c: #6FB4E8;            // support / regex / operators
-$base0d: $state-info;        // functions (shares the state blue)
-$base0e: #C09BE8;            // keywords
-$base0f: #E68FC0;            // deprecated
+$base00: $surface-container-lowest; // background (code block)
+$base01: $surface-container-high;   // lighter bg / gutter
+$base02: $surface-container-highest; // selection bg
+$base03: $outline;                  // comments (>=4.5:1 on base00)
+$base04: $on-surface-variant;       // dark foreground (>=3:1)
+$base05: $on-surface;               // default foreground
+$base06: #F5EEF2;                   // light foreground
+$base07: #FFFFFF;                   // lightest bg
+$base08: $error;                    // variables / tags
+$base09: $tertiary;                 // numbers / constants
+$base0a: $primary;                  // classes (brand accent)
+$base0b: $success;                  // strings
+$base0c: $secondary;                // support / regex / operators
+$base0d: $info;                     // functions
+$base0e: $warning;                  // keywords
+$base0f: #DFC0B8;                   // deprecated (JSON tertiary palette tone)

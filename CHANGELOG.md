@@ -36,38 +36,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The removable climate demo now declares an exact Chart.js 4.5.1 CDN script
   with SHA-384 Subresource Integrity and privacy attributes instead of
   dynamically executing an unversioned package URL.
-- Reworked the color system into a clean three-tier token hierarchy. **Tier 2**
-  — the per-mode semantic layer in `0-settings` — is now a consistent
-  33-token contract (13 UI + 4 state + 16 Base16 syntax): it gains
-  `--color-text-inverse` (text on accent fills) and `--color-ui-border-subtle`
-  (the low-emphasis header/footer divider the codebase previously faked), and
-  drops the redundant `--color-body-bg` / `--color-body-color` aliases of
-  `--color-ui-bg` / `--color-ui-text`. **Tier 3** — component-intent aliases
-  (`--color-link*`, `--color-button-*`, `--color-tag-*`, `--color-selection-*`)
-  — now lives in `3-base/_base.scss` as theme-agnostic `var()` aliases of
-  Tier 2, defined once (they inherit the light/dark switch automatically) so
-  each component role stays self-documenting and keeps a single point to
-  diverge from the shared accent later.
-- Brand accent recolored from the Persian turquoise family to aubergine:
-  light mode's `$accent-primary` is aubergine glaze `#4B3049` (driving links,
-  buttons, focus rings, and text selection) and dark mode's is orchid
-  `#C9A0C4`. `_data/theme.yml` is the single source of truth for both values,
-  consumed by the mode files' `$accent-primary` fallback, the JS fallbacks in
+- Migrated the color system to **Material 3** with a two-tier token model.
+  Tier 1 is the per-mode semantic Sass layer (`0-settings/_light-mode.scss` +
+  `_dark-mode.scss`), now using the exact M3 role names — `primary`,
+  `secondary`, `tertiary`, `error`, the surface / `on-surface` ramp, `outline`,
+  `inverse-*` — plus full four-role `warning` / `info` / `success` extensions
+  and the 16 Base16 syntax tokens, all sourced from a Material Theme Builder
+  export (aubergine seed `#4B3049`). Tier 2 (`3-base/_base.scss`) emits these as
+  `--color-{m3-name}` custom properties on `:root` (light) and
+  `html[data-theme="dark"]` (dark), plus ten theme-agnostic component aliases.
+  The old primitive layer and the `--color-ui-*` / `--color-state-*` /
+  `text-inverse` vocabulary are retired in favour of the M3 names. Eyvan keeps a
+  few documented extensions where M3 has no role: `ui-backdrop` (replaces
+  `scrim`), `ui-shadow-color` (themed RGBA, replaces the hardcoded `#000`
+  `shadow`), `focus-ring-color`, `heading`, and `ui-border-subtle`.
+- `secondary` and `tertiary` are now genuine, independent M3 accent hues rather
+  than tonal steps of the primary. The mistaken `$accent-secondary` hover tint
+  is retired: hover is now a Material 3 **state layer** — `on-primary` at 8%
+  over `primary` via `color-mix()` for filled buttons and tags — and text-link
+  hover (links, navigation, post-card titles, back-to-top) is an underline. The
+  demo climate chart's two temperature series now use the distinct `primary` and
+  `secondary` hues.
+- Brand accent stays aubergine but is rebalanced to the M3 tonal values: light
+  `primary` is `#7E4D7C` and dark `primary` is `#EFB4E9`. `_data/theme.yml`
+  remains the single source of truth (now `primary_light` / `primary_dark`),
+  consumed by the mode files' `$primary` fallback, the JS fallbacks in
   `theme-toggle.js` / `demo-climate-charts.js`, and the browser `theme-color`
-  meta in `head.html`. The retired teal/turquoise hexes (`#00796B`,
-  `#3FE0D0`) are guarded against reintroduction by
-  `scripts/check-color-contract.rb`. Titles and headings stay neutral (body
-  text color), and indigo and blue remain in the palette as
-  syntax-highlighting accents.
-- Tag chips now have their own semantic tokens (`--color-tag-bg`,
-  `--color-tag-bg-hover`, `--color-tag-text`) instead of reusing the button
-  tokens, keeping their heritage indigo/blue identity in the light theme
-  while buttons carry the brand accent; dark-theme chips are unchanged
-  (matching the dark-mode accent, as with dark buttons).
-- Light-mode tag chips now point those tokens at the brand accent
-  (`$accent-primary` / `$accent-secondary`), matching `.c-button` instead of
-  the heritage indigo/blue, so tags and buttons share one hue again in both
-  themes (dark-theme chips already matched the accent and are unchanged).
+  meta in `head.html`. The retired teal/turquoise hexes (`#00796B`, `#3FE0D0`)
+  are still guarded against reintroduction by `scripts/check-color-contract.rb`,
+  which now also enforces the M3 role names, the `primary_*` keys, and the full
+  M3 contrast-pair set (every `on-role` / `role` and `on-container` / `container`
+  pair, plus the syntax slots).
 - Heading weight: the previous pass's Medium (500) read too light across
   the board, so the shared `h1`–`h6` rule, post titles, and
   `.c-section-heading--lg` (About/Projects/tag-archive titles and the
@@ -99,7 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   skip-link background, every `<hr>`, the icon-link and theme-toggle outlines,
   the sticky-header and footer top borders, the table-of-contents active/hover
   state, the footer text hierarchy, and the dark-mode heading color. Every
-  consumer now resolves to a defined token across the three-tier contract.
+  consumer now resolves to a defined token across the color-token contract.
 - Card and hero hover shadows referenced an undefined `--color-shadow-rgb`,
   always falling back to black and leaving the dark-mode "lift" invisible
   against the near-black canvas; they now reuse the theme-aware

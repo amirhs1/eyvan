@@ -53,7 +53,7 @@
   inline-size: 2.75rem;
   block-size: 2.75rem;
 
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   text-decoration: none;
 
   -webkit-tap-highlight-color: transparent;
@@ -64,12 +64,12 @@
     transform settings-config.$transition-base;
 
   &:visited {
-    color: var(--color-ui-text-muted);
+    color: var(--color-on-surface-variant);
   }
 
   &:hover {
-    color: var(--color-link-hover);
-    text-decoration: none;
+    color: var(--color-primary);
+    text-decoration: underline;
     transform: translateY(-1px);
   }
 

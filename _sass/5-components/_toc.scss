@@ -49,7 +49,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 .c-toc {
   padding: tools-spacing.$fluid-inline-sm;
   background-color: var(--color-syntax-base00);
-  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
 }
 
@@ -57,7 +57,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
   margin-block-end: tools-spacing.$space-stack-sm;
   padding-block-end: tools-spacing.$space-stack-sm;
   border-block-end: settings-config.$global-border-width solid
-    var(--color-ui-border);
+    var(--color-outline-variant);
   text-align: center;
 }
 
@@ -75,7 +75,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
   padding: 0;
   list-style: none;
 
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-sm;
   line-height: settings-typography.$line-height-tight;
@@ -93,16 +93,16 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 
 .c-toc__link {
   display: block;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   text-decoration: none;
   transition: color settings-config.$transition-base;
 
   &:hover {
-    color: var(--color-accent-primary);
+    color: var(--color-primary);
   }
 
   &.active {
-    color: var(--color-accent-primary);
+    color: var(--color-primary);
     font-weight: settings-typography.$font-weight-bold;
   }
 }
@@ -131,9 +131,9 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     margin-block: settings-spacing.$space-5 settings-spacing.$space-6;
     padding: settings-spacing.$space-3;
 
-    background-color: var(--color-ui-surface-raised);
+    background-color: var(--color-surface-container-high);
     border-block: settings-config.$global-border-width solid
-      var(--color-ui-border);
+      var(--color-outline-variant);
     box-shadow: settings-config.$elevation-raised;
   }
 
@@ -225,8 +225,8 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 
     padding: tools-spacing.$space-stack-sm;
 
-    background-color: var(--color-ui-surface-overlay);
-    border: settings-config.$global-border-width solid var(--color-ui-border);
+    background-color: var(--color-surface-container-highest);
+    border: settings-config.$global-border-width solid var(--color-outline-variant);
     border-radius: settings-config.$global-border-radius;
     box-shadow: settings-config.$elevation-overlay;
   }
@@ -241,7 +241,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     padding-block-end: tools-spacing.$space-stack-sm;
 
     border-block-end: settings-config.$global-border-width solid
-      var(--color-ui-border);
+      var(--color-outline-variant);
   }
 
   .c-mobile-toc__header {

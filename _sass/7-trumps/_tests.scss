@@ -17,39 +17,39 @@
 [class$="-test-frame"] {
   padding: 1.5rem;
   margin-block: 1.5rem;
-  border: 1px dashed var(--color-ui-border);
-  background: var(--color-ui-surface-raised);
+  border: 1px dashed var(--color-outline-variant);
+  background: var(--color-surface-container-high);
 }
 
 .c-test-box,
 [class$="-test-box"] {
   padding: 1rem;
-  border: 1px solid var(--color-ui-border);
-  background: var(--color-ui-surface);
-  color: var(--color-ui-text);
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface);
 }
 
 .c-test-note,
 [class$="-test-note"] {
   margin: 0;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-size: 0.95rem;
 }
 
 .c-test-fill,
 [class$="-test-fill"] {
   padding: 0.75rem;
-  border: 1px dashed var(--color-ui-border);
-  background: var(--color-ui-bg);
+  border: 1px dashed var(--color-outline-variant);
+  background: var(--color-surface);
 }
 
 .c-test-block,
 [class$="-test-block"] {
   min-inline-size: 0;
   padding: 1rem;
-  border: 1px dashed var(--color-ui-border);
-  background: var(--color-ui-surface-raised);
-  color: var(--color-ui-text);
+  border: 1px dashed var(--color-outline-variant);
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
 }
 
 .c-test-block--strong,
@@ -61,13 +61,13 @@
 [class$="-test-label"] {
   margin: 0;
   font-weight: 600;
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
 }
 
 .c-test-meta,
 [class$="-test-meta"] {
   margin: 0;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-size: 0.9rem;
 }
 
@@ -83,7 +83,7 @@
 .c-site-header-test-frame,
 .c-site-footer-test-frame,
 .c-prose-test-pre {
-  border-color: var(--color-ui-border);
+  border-color: var(--color-outline-variant);
 }
 
 /* Specific helper surfaces */
@@ -95,14 +95,14 @@
 .c-brand-test-frame,
 .c-entry-meta-test-frame,
 .c-prose-test-frame {
-  background: var(--color-ui-surface-raised);
+  background: var(--color-surface-container-high);
 }
 
 .c-prose-test-pre {
   padding: 1rem;
-  border: 1px solid var(--color-ui-border);
-  background: var(--color-ui-bg);
-  color: var(--color-ui-text);
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
   white-space: pre;
   overflow-x: auto;
 }
@@ -111,7 +111,7 @@
 .c-brand-test-spacer,
 .c-container-test-viewport-edge,
 .c-mobile-menu-test-spacer {
-  border: 1px dashed var(--color-ui-border);
-  background: var(--color-ui-bg);
-  color: var(--color-ui-text-muted);
+  border: 1px dashed var(--color-outline-variant);
+  background: var(--color-surface);
+  color: var(--color-on-surface-variant);
 }

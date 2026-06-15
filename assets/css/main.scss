@@ -16,10 +16,10 @@
 // -----------------------------------------------------------------------------
 
 @use "0-settings/light-mode" with (
-  $accent-primary: {{ site.data.theme.accent_light }}
+  $primary: {{ site.data.theme.primary_light }}
 );
 @use "0-settings/dark-mode" with (
-  $accent-primary: {{ site.data.theme.accent_dark }}
+  $primary: {{ site.data.theme.primary_dark }}
 );
 
 // -----------------------------------------------------------------------------

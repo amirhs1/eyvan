@@ -95,8 +95,8 @@
 
   padding: settings-spacing.$space-2;
 
-  background-color: var(--color-ui-surface);
-  border: settings-config.$global-border-width solid var(--color-ui-border);
+  background-color: var(--color-surface-container-low);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
   box-shadow: settings-config.$card-shadow-hover;
 }

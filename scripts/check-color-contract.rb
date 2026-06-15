@@ -14,7 +14,7 @@
 #
 #   2. Theme-color sync (audit R8.2)
 #      The brand accent in _data/theme.yml matches every checked-in copy
-#      (each mode file's $accent-primary fallback and both JS fallbacks),
+#      (each mode file's $primary fallback and both JS fallbacks),
 #      head.html still derives its theme-color from that data, and no retired
 #      teal hex is left behind anywhere.
 #
@@ -152,16 +152,16 @@ theme_text = read(THEME_DATA)
 if theme_text.nil?
   errors << "theme-color: missing #{THEME_DATA.relative_path_from(ROOT)}"
 else
-  accent_light = normalize_hex(theme_text[/accent_light:\s*"?(#?[0-9a-fA-F]{3,6})"?/, 1])
-  accent_dark  = normalize_hex(theme_text[/accent_dark:\s*"?(#?[0-9a-fA-F]{3,6})"?/, 1])
+  primary_light = normalize_hex(theme_text[/primary_light:\s*"?(#?[0-9a-fA-F]{3,6})"?/, 1])
+  primary_dark  = normalize_hex(theme_text[/primary_dark:\s*"?(#?[0-9a-fA-F]{3,6})"?/, 1])
 
-  if accent_light.nil? || accent_dark.nil?
-    errors << "theme-color: could not read accent_light/accent_dark from _data/theme.yml"
+  if primary_light.nil? || primary_dark.nil?
+    errors << "theme-color: could not read primary_light/primary_dark from _data/theme.yml"
   else
-    # Each mode file's $accent-primary fallback must equal the data source.
+    # Each mode file's $primary fallback must equal the data source.
     {
-      LIGHT_MODE => accent_light,
-      DARK_MODE => accent_dark
+      LIGHT_MODE => primary_light,
+      DARK_MODE => primary_dark
     }.each do |file, expected|
       text = read(file)
       rel = file.relative_path_from(ROOT)
@@ -170,27 +170,34 @@ else
         next
       end
 
-      actual = resolve_hex(parse_scss_vars(text), "accent-primary")
+      actual = resolve_hex(parse_scss_vars(text), "primary")
       unless actual == expected
-        errors << "theme-color: #{rel} $accent-primary #{actual.inspect} != theme.yml #{expected.inspect}"
+        errors << "theme-color: #{rel} $primary #{actual.inspect} != theme.yml #{expected.inspect}"
       end
     end
 
-    # Both JS fallback files must carry the same pair (case-insensitive).
-    [TOGGLE_JS, CHARTS_JS].each do |file|
-      text = read(file)
-      rel = file.relative_path_from(ROOT)
-      if text.nil?
-        errors << "theme-color: missing #{rel}"
-        next
-      end
-
-      upcased = text.upcase
-      [accent_light, accent_dark].each do |hex|
+    # theme-toggle.js swaps <meta theme-color> between modes, so it must carry
+    # both primary fallbacks. demo-climate-charts.js only falls back to the light
+    # primary for its --color-primary read, so it must carry that one.
+    toggle_rel = TOGGLE_JS.relative_path_from(ROOT)
+    toggle_text = read(TOGGLE_JS)
+    if toggle_text.nil?
+      errors << "theme-color: missing #{toggle_rel}"
+    else
+      upcased = toggle_text.upcase
+      [primary_light, primary_dark].each do |hex|
         unless upcased.include?(hex)
-          errors << "theme-color: #{rel} is missing the accent fallback #{hex}"
+          errors << "theme-color: #{toggle_rel} is missing the primary fallback #{hex}"
         end
       end
+    end
+
+    charts_rel = CHARTS_JS.relative_path_from(ROOT)
+    charts_text = read(CHARTS_JS)
+    if charts_text.nil?
+      errors << "theme-color: missing #{charts_rel}"
+    elsif !charts_text.upcase.include?(primary_light)
+      errors << "theme-color: #{charts_rel} is missing the primary fallback #{primary_light}"
     end
 
     # head.html must derive both values from the data source, not hardcode them.
@@ -198,7 +205,7 @@ else
     if head_text.nil?
       errors << "theme-color: missing #{HEAD.relative_path_from(ROOT)}"
     else
-      %w[accent_light accent_dark].each do |key|
+      %w[primary_light primary_dark].each do |key|
         unless head_text.include?("site.data.theme.#{key}")
           errors << "theme-color: head.html does not derive theme-color from site.data.theme.#{key}"
         end
@@ -227,32 +234,38 @@ end
 
 # fg token => minimum ratio against ui-bg.
 UI_AGAINST_BG = {
-  "ui-text" => 4.5,
-  "ui-text-muted" => 4.5,
+  "on-surface" => 4.5,
+  "on-surface-variant" => 4.5,
   "heading-color" => 4.5,
-  "accent-primary" => 4.5,
-  "accent-secondary" => 4.5,
-  "state-error" => 4.5,
-  "state-success" => 4.5,
-  "state-warning" => 4.5,
-  "state-info" => 4.5,
+  "primary" => 4.5,
+  "secondary" => 4.5,
+  "tertiary" => 4.5,
+  "error" => 4.5,
+  "success" => 4.5,
+  "warning" => 4.5,
+  "info" => 4.5,
   "focus-ring-color" => 3.0 # non-text UI component boundary
 }.freeze
 
+# Material on-role / role pairs: text or icon on a filled accent and on its
+# container. Both ship from the Theme Builder as accessible pairs; this asserts
+# none drifted out of AA on the way into the mode files.
+ACCENT_FAMILIES = %w[primary secondary tertiary error warning info success].freeze
+
 SURFACE_TEXT_PAIRS = {
-  "ui-surface" => {
-    "ui-text" => 4.5,
-    "ui-text-muted" => 4.5,
+  "surface-container-low" => {
+    "on-surface" => 4.5,
+    "on-surface-variant" => 4.5,
     "heading-color" => 4.5
   },
-  "ui-surface-raised" => {
-    "ui-text" => 4.5,
-    "ui-text-muted" => 4.5,
+  "surface-container-high" => {
+    "on-surface" => 4.5,
+    "on-surface-variant" => 4.5,
     "heading-color" => 4.5
   },
-  "ui-surface-overlay" => {
-    "ui-text" => 4.5,
-    "ui-text-muted" => 4.5,
+  "surface-container-highest" => {
+    "on-surface" => 4.5,
+    "on-surface-variant" => 4.5,
     "heading-color" => 4.5
   }
 }.freeze
@@ -293,12 +306,16 @@ SYNTAX_AGAINST_BASE00 = {
     end
   end
 
-  UI_AGAINST_BG.each { |fg, minimum| check.call(fg, "ui-bg", minimum, "ui-bg") }
+  UI_AGAINST_BG.each { |fg, minimum| check.call(fg, "surface", minimum, "surface") }
   SURFACE_TEXT_PAIRS.each do |bg, pairs|
     pairs.each { |fg, minimum| check.call(fg, bg, minimum, bg) }
   end
-  # Button/tag text sits on the accent fill, not the page background.
-  check.call("text-inverse", "accent-primary", 4.5, "accent-primary")
+  # Text/icon on each filled accent and on its container (button & tag fills,
+  # status chips). on-primary on primary also covers button/tag label contrast.
+  ACCENT_FAMILIES.each do |fam|
+    check.call("on-#{fam}", fam, 4.5, fam)
+    check.call("on-#{fam}-container", "#{fam}-container", 4.5, "#{fam}-container")
+  end
   SYNTAX_AGAINST_BASE00.each { |fg, minimum| check.call(fg, "base00", minimum, "base00") }
 end
 

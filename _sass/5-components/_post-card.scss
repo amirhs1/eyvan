@@ -66,9 +66,9 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
   block-size: 100%;
   overflow: hidden;
 
-  border: settings-config.$card-border-width solid var(--color-ui-border);
+  border: settings-config.$card-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
-  background-color: var(--color-ui-surface);
+  background-color: var(--color-surface-container-low);
   box-shadow: settings-config.$card-shadow-rest;
 
   @include tools-motion.transition-card;
@@ -76,7 +76,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
 
 .c-post-card:hover .c-post-card__inner,
 .c-post-card:focus-within .c-post-card__inner {
-  border-color: var(--color-accent-primary);
+  border-color: var(--color-primary);
   box-shadow: settings-config.$card-shadow-hover;
   transform: translateY(settings-config.$card-lift-hover);
 }
@@ -86,7 +86,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
    ----------------------------------------------------------------------------- */
 
 .c-post-card__media {
-  background-color: var(--color-ui-surface-raised);
+  background-color: var(--color-surface-container-high);
 }
 
 .c-post-card__image-link {
@@ -94,7 +94,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
   display: block;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  background-color: var(--color-ui-surface-raised);
+  background-color: var(--color-surface-container-high);
 
   &:focus-visible {
     @include tools-mixins.focus-ring;
@@ -174,8 +174,8 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
   }
 
   &:hover {
-    color: var(--color-link-hover);
-    text-decoration: none;
+    color: var(--color-primary);
+    text-decoration: underline;
   }
 
   &:focus-visible {
@@ -193,7 +193,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
   margin: 0 0 $post-card-excerpt-margin-block-end;
   overflow: hidden;
 
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-sm;
   line-height: settings-typography.$line-height-loose;
@@ -210,7 +210,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
   margin-block-start: auto;
   min-inline-size: 0;
   padding-block-start: $post-card-meta-padding-block-start;
-  border-block-start: 1px solid var(--color-ui-border);
+  border-block-start: 1px solid var(--color-outline-variant);
 }
 
 /* -----------------------------------------------------------------------------

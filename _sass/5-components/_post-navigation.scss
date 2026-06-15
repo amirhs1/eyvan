@@ -84,17 +84,17 @@ $post-nav-content-gap: settings-spacing.$space-2;
   padding-block: $post-nav-card-padding-block;
   padding-inline: $post-nav-card-padding-inline;
 
-  border: settings-config.$card-border-width solid var(--color-ui-border);
+  border: settings-config.$card-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
 
   background:
     linear-gradient(
       90deg,
-      var(--color-accent-primary) 0%,
+      var(--color-primary) 0%,
       color-mix(
         in srgb,
-        var(--color-accent-primary) 72%,
-        var(--color-ui-surface)
+        var(--color-primary) 72%,
+        var(--color-surface-container-low)
       ) 167%
     );
   box-shadow: settings-config.$card-shadow-rest;
@@ -109,7 +109,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   }
 
   &:hover {
-    border-color: var(--color-accent-primary);
+    border-color: var(--color-primary);
     color: var(--color-button-text);
     text-decoration: none;
     box-shadow: settings-config.$card-shadow-hover;
@@ -117,7 +117,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   }
 
   &:focus-visible {
-    border-color: var(--color-accent-primary);
+    border-color: var(--color-primary);
     @include tools-mixins.focus-ring;
   }
 }
@@ -150,7 +150,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   block-size: $post-nav-media-height;
   overflow: hidden;
   border-radius: settings-config.$global-border-radius;
-  background-color: var(--color-ui-surface-raised);
+  background-color: var(--color-surface-container-high);
   box-shadow: settings-config.$elevation-rest;
 }
 

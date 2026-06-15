@@ -155,7 +155,7 @@
   position: relative;
   overflow: hidden;
   inline-size: 100%;
-  background-color: var(--color-ui-surface-raised);
+  background-color: var(--color-surface-container-high);
   border-radius: settings-config.$global-border-radius;
 }
 
@@ -208,7 +208,7 @@
 
 .c-prose-caption {
   display: block;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-mono;
   font-size: settings-typography.$font-size-sm;
   line-height: settings-typography.$line-height-normal;
@@ -216,7 +216,7 @@
 
 .c-prose-caption--figure::before,
 .c-prose-caption--table::before {
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
   font-weight: settings-typography.$font-weight-bold;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -254,9 +254,9 @@
 }
 
 .c-prose-table thead th {
-  border-top: 2px solid var(--color-ui-border);
-  border-bottom: 2px solid var(--color-ui-border);
-  color: var(--color-ui-text);
+  border-top: 2px solid var(--color-outline-variant);
+  border-bottom: 2px solid var(--color-outline-variant);
+  color: var(--color-on-surface);
   font-family: settings-typography.$font-family-mono;
   font-weight: settings-typography.$font-weight-bold;
   letter-spacing: 0.04em;
@@ -271,20 +271,20 @@
 
 // When there is no thead, put a top border on the first tbody row
 .c-prose-table tbody:first-child tr:first-child > * {
-  border-top: 2px solid var(--color-ui-border);
+  border-top: 2px solid var(--color-outline-variant);
 }
 
 .c-prose-table tbody tr:last-child > * {
-  border-bottom: 2px solid var(--color-ui-border);
+  border-bottom: 2px solid var(--color-outline-variant);
 }
 
 .c-prose-table tfoot td {
   font-weight: settings-typography.$font-weight-bold;
-  border-top: 2px solid var(--color-ui-border);
+  border-top: 2px solid var(--color-outline-variant);
 }
 
 .c-prose-table tfoot tr:last-child > * {
-  border-bottom: 2px solid var(--color-ui-border);
+  border-bottom: 2px solid var(--color-outline-variant);
 }
 
 /* -----------------------------------------------------------------------------

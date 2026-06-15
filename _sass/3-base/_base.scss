@@ -11,15 +11,22 @@
 // - Consumes design tokens from 0-settings
 // - No component, layout, or state-specific styling
 //
-// Color-token contract (the complete, authoritative vocabulary — any
+// Color-token contract (two-tier — the complete, authoritative vocabulary; any
 // var(--color-*) used elsewhere that is not defined here is undefined):
-//   - Tier 2 (semantic): 35 tokens, emitted twice — :root (light) and
-//     html[data-theme="dark"] (dark) = 15 UI + 4 state + 16 Base16 syntax.
-//   - Tier 3 (component): 11 aliases of Tier 2, emitted once on :root
-//     (theme-agnostic — they inherit the light/dark switch through var()).
-//   => 35 + 35 + 11 = 81 custom-property definitions.
+//   - Tier 1 lives in _sass/0-settings/_light-mode.scss + _dark-mode.scss
+//     (semantic Sass variables, hex written directly).
+//   - Tier 2 (this file): CSS custom properties, emitted twice — :root (light)
+//     and html[data-theme="dark"] (dark) = 67 tokens per mode (Material 3 core
+//     roles + warning/info/success extensions + Eyvan extensions + 16 Base16
+//     syntax), plus 10 theme-agnostic component aliases emitted once on :root
+//     (they inherit the light/dark switch through var()).
+//   => 67 + 67 + 10 = 144 custom-property definitions.
 // The html / body / ::selection rules at the foot of this file only *consume*
 // these tokens (via var()); they do not add to the count.
+//
+// Hover is a Material 3 state layer, not a token: the *-bg-hover aliases derive
+// from on-primary @ 8% over primary via color-mix(), so no hand-picked hover
+// hex exists. Text-link hover is an underline (3-base/_links.scss), not a colour.
 //
 // Notes:
 // - Assumes browser normalization/reset are handled in 2-generic
@@ -35,40 +42,82 @@
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   Tier 2 — Semantic tokens · light · 35
+   Tier 2 — semantic tokens · light · 67
    ----------------------------------------------------------------------------- */
 
 :root {
-  /* Surfaces */
-  --color-ui-bg: #{light.$ui-bg};
-  --color-ui-surface: #{light.$ui-surface};
-  --color-ui-surface-raised: #{light.$ui-surface-raised};
-  --color-ui-surface-overlay: #{light.$ui-surface-overlay};
-  --color-ui-backdrop: #{light.$ui-backdrop};
+  /* Primary */
+  --color-primary: #{light.$primary};
+  --color-on-primary: #{light.$on-primary};
+  --color-primary-container: #{light.$primary-container};
+  --color-on-primary-container: #{light.$on-primary-container};
 
-  /* Foreground */
-  --color-ui-text: #{light.$ui-text};
-  --color-ui-text-muted: #{light.$ui-text-muted};
+  /* Secondary */
+  --color-secondary: #{light.$secondary};
+  --color-on-secondary: #{light.$on-secondary};
+  --color-secondary-container: #{light.$secondary-container};
+  --color-on-secondary-container: #{light.$on-secondary-container};
+
+  /* Tertiary */
+  --color-tertiary: #{light.$tertiary};
+  --color-on-tertiary: #{light.$on-tertiary};
+  --color-tertiary-container: #{light.$tertiary-container};
+  --color-on-tertiary-container: #{light.$on-tertiary-container};
+
+  /* Error */
+  --color-error: #{light.$error};
+  --color-on-error: #{light.$on-error};
+  --color-error-container: #{light.$error-container};
+  --color-on-error-container: #{light.$on-error-container};
+
+  /* Warning (extension) */
+  --color-warning: #{light.$warning};
+  --color-on-warning: #{light.$on-warning};
+  --color-warning-container: #{light.$warning-container};
+  --color-on-warning-container: #{light.$on-warning-container};
+
+  /* Info (extension) */
+  --color-info: #{light.$info};
+  --color-on-info: #{light.$on-info};
+  --color-info-container: #{light.$info-container};
+  --color-on-info-container: #{light.$on-info-container};
+
+  /* Success (extension) */
+  --color-success: #{light.$success};
+  --color-on-success: #{light.$on-success};
+  --color-success-container: #{light.$success-container};
+  --color-on-success-container: #{light.$on-success-container};
+
+  /* Surfaces & background */
+  --color-background: #{light.$background};
+  --color-on-background: #{light.$on-background};
+  --color-surface: #{light.$surface};
+  --color-on-surface: #{light.$on-surface};
+  --color-surface-variant: #{light.$surface-variant};
+  --color-on-surface-variant: #{light.$on-surface-variant};
+  --color-surface-dim: #{light.$surface-dim};
+  --color-surface-bright: #{light.$surface-bright};
+  --color-surface-container-lowest: #{light.$surface-container-lowest};
+  --color-surface-container-low: #{light.$surface-container-low};
+  --color-surface-container: #{light.$surface-container};
+  --color-surface-container-high: #{light.$surface-container-high};
+  --color-surface-container-highest: #{light.$surface-container-highest};
+
+  /* Outline */
+  --color-outline: #{light.$outline};
+  --color-outline-variant: #{light.$outline-variant};
+
+  /* Inverse */
+  --color-inverse-surface: #{light.$inverse-surface};
+  --color-inverse-on-surface: #{light.$inverse-on-surface};
+  --color-inverse-primary: #{light.$inverse-primary};
+
+  /* Eyvan extensions */
   --color-heading: #{light.$heading-color};
-  --color-text-inverse: #{light.$text-inverse};
-
-  /* Borders & focus */
-  --color-ui-border: #{light.$ui-border};
-  --color-ui-border-subtle: #{light.$ui-border-subtle};
-  --color-focus-ring-color: #{light.$focus-ring-color};
-
-  /* Accent system */
-  --color-accent-primary: #{light.$accent-primary};
-  --color-accent-secondary: #{light.$accent-secondary};
-
-  /* Status & feedback */
-  --color-state-error: #{light.$state-error};
-  --color-state-success: #{light.$state-success};
-  --color-state-warning: #{light.$state-warning};
-  --color-state-info: #{light.$state-info};
-
-  /* Effect */
+  --color-ui-backdrop: #{light.$ui-backdrop};
   --color-ui-shadow-color: #{light.$ui-shadow-color};
+  --color-focus-ring-color: #{light.$focus-ring-color};
+  --color-ui-border-subtle: #{light.$ui-border-subtle};
 
   /* Syntax highlighting */
   --color-syntax-base00: #{light.$base00};
@@ -90,40 +139,82 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Tier 2 — Semantic tokens · dark · 35
+   Tier 2 — semantic tokens · dark · 67
    ----------------------------------------------------------------------------- */
 
 html[data-theme="dark"] {
-  /* Surfaces */
-  --color-ui-bg: #{dark.$ui-bg};
-  --color-ui-surface: #{dark.$ui-surface};
-  --color-ui-surface-raised: #{dark.$ui-surface-raised};
-  --color-ui-surface-overlay: #{dark.$ui-surface-overlay};
-  --color-ui-backdrop: #{dark.$ui-backdrop};
+  /* Primary */
+  --color-primary: #{dark.$primary};
+  --color-on-primary: #{dark.$on-primary};
+  --color-primary-container: #{dark.$primary-container};
+  --color-on-primary-container: #{dark.$on-primary-container};
 
-  /* Foreground */
-  --color-ui-text: #{dark.$ui-text};
-  --color-ui-text-muted: #{dark.$ui-text-muted};
+  /* Secondary */
+  --color-secondary: #{dark.$secondary};
+  --color-on-secondary: #{dark.$on-secondary};
+  --color-secondary-container: #{dark.$secondary-container};
+  --color-on-secondary-container: #{dark.$on-secondary-container};
+
+  /* Tertiary */
+  --color-tertiary: #{dark.$tertiary};
+  --color-on-tertiary: #{dark.$on-tertiary};
+  --color-tertiary-container: #{dark.$tertiary-container};
+  --color-on-tertiary-container: #{dark.$on-tertiary-container};
+
+  /* Error */
+  --color-error: #{dark.$error};
+  --color-on-error: #{dark.$on-error};
+  --color-error-container: #{dark.$error-container};
+  --color-on-error-container: #{dark.$on-error-container};
+
+  /* Warning (extension) */
+  --color-warning: #{dark.$warning};
+  --color-on-warning: #{dark.$on-warning};
+  --color-warning-container: #{dark.$warning-container};
+  --color-on-warning-container: #{dark.$on-warning-container};
+
+  /* Info (extension) */
+  --color-info: #{dark.$info};
+  --color-on-info: #{dark.$on-info};
+  --color-info-container: #{dark.$info-container};
+  --color-on-info-container: #{dark.$on-info-container};
+
+  /* Success (extension) */
+  --color-success: #{dark.$success};
+  --color-on-success: #{dark.$on-success};
+  --color-success-container: #{dark.$success-container};
+  --color-on-success-container: #{dark.$on-success-container};
+
+  /* Surfaces & background */
+  --color-background: #{dark.$background};
+  --color-on-background: #{dark.$on-background};
+  --color-surface: #{dark.$surface};
+  --color-on-surface: #{dark.$on-surface};
+  --color-surface-variant: #{dark.$surface-variant};
+  --color-on-surface-variant: #{dark.$on-surface-variant};
+  --color-surface-dim: #{dark.$surface-dim};
+  --color-surface-bright: #{dark.$surface-bright};
+  --color-surface-container-lowest: #{dark.$surface-container-lowest};
+  --color-surface-container-low: #{dark.$surface-container-low};
+  --color-surface-container: #{dark.$surface-container};
+  --color-surface-container-high: #{dark.$surface-container-high};
+  --color-surface-container-highest: #{dark.$surface-container-highest};
+
+  /* Outline */
+  --color-outline: #{dark.$outline};
+  --color-outline-variant: #{dark.$outline-variant};
+
+  /* Inverse */
+  --color-inverse-surface: #{dark.$inverse-surface};
+  --color-inverse-on-surface: #{dark.$inverse-on-surface};
+  --color-inverse-primary: #{dark.$inverse-primary};
+
+  /* Eyvan extensions */
   --color-heading: #{dark.$heading-color};
-  --color-text-inverse: #{dark.$text-inverse};
-
-  /* Borders & focus */
-  --color-ui-border: #{dark.$ui-border};
-  --color-ui-border-subtle: #{dark.$ui-border-subtle};
-  --color-focus-ring-color: #{dark.$focus-ring-color};
-
-  /* Accent system */
-  --color-accent-primary: #{dark.$accent-primary};
-  --color-accent-secondary: #{dark.$accent-secondary};
-
-  /* Status & feedback */
-  --color-state-error: #{dark.$state-error};
-  --color-state-success: #{dark.$state-success};
-  --color-state-warning: #{dark.$state-warning};
-  --color-state-info: #{dark.$state-info};
-
-  /* Effect */
+  --color-ui-backdrop: #{dark.$ui-backdrop};
   --color-ui-shadow-color: #{dark.$ui-shadow-color};
+  --color-focus-ring-color: #{dark.$focus-ring-color};
+  --color-ui-border-subtle: #{dark.$ui-border-subtle};
 
   /* Syntax highlighting */
   --color-syntax-base00: #{dark.$base00};
@@ -145,32 +236,35 @@ html[data-theme="dark"] {
 }
 
 /* -----------------------------------------------------------------------------
-   Tier 3 — Component aliases · 11 · theme-agnostic
+   Component aliases · 10 · theme-agnostic
    Each aliases a Tier-2 token via var(), so it follows the light/dark switch
    automatically and needs no dark override above. They name component intent
-   (so the shared accent stays legible per role) and give a single point to let
-   a role diverge from the accent later (e.g. buttons ≠ links).
+   and give a single point to let a role diverge later (e.g. buttons != links).
+
+   Hover is an M3 state layer, not a token: *-bg-hover = on-primary @ 8% over
+   primary via color-mix(), the literal M3 hover overlay. It harmonizes with the
+   fill automatically (no hand-picked hover hex). Filled controls keep on-primary
+   text, so contrast is preserved across the transition.
    ----------------------------------------------------------------------------- */
 
 :root {
-  /* Links */
-  --color-link: var(--color-accent-primary);
-  --color-link-hover: var(--color-accent-secondary);
+  /* Links (hover is an underline — see 3-base/_links.scss) */
+  --color-link: var(--color-primary);
 
   /* Buttons */
-  --color-button-bg: var(--color-accent-primary);
-  --color-button-bg-hover: var(--color-accent-secondary);
-  --color-button-text: var(--color-text-inverse);
+  --color-button-bg: var(--color-primary);
+  --color-button-bg-hover: color-mix(in srgb, var(--color-on-primary) 8%, var(--color-primary));
+  --color-button-text: var(--color-on-primary);
   --color-button-border: transparent;
 
   /* Tags (taxonomy chips) */
-  --color-tag-bg: var(--color-accent-primary);
-  --color-tag-bg-hover: var(--color-accent-secondary);
-  --color-tag-text: var(--color-text-inverse);
+  --color-tag-bg: var(--color-primary);
+  --color-tag-bg-hover: color-mix(in srgb, var(--color-on-primary) 8%, var(--color-primary));
+  --color-tag-text: var(--color-on-primary);
 
   /* Text selection */
-  --color-selection-text: var(--color-ui-surface);
-  --color-selection-bg: var(--color-accent-primary);
+  --color-selection-text: var(--color-on-primary);
+  --color-selection-bg: var(--color-primary);
 }
 
 /* =============================================================================
@@ -183,8 +277,8 @@ html[data-theme="dark"] {
 
 html {
   color-scheme: light dark;
-  background-color: var(--color-ui-bg);
-  color: var(--color-ui-text);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
 }
 
 /* -----------------------------------------------------------------------------
@@ -199,8 +293,8 @@ body {
   font-weight: settings-typography.$font-weight-regular;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-ui-text);
-  background-color: var(--color-ui-bg);
+  color: var(--color-on-surface);
+  background-color: var(--color-surface);
 
   -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
   -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;

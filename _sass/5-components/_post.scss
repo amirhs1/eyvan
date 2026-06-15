@@ -169,7 +169,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
 .c-post__subtitle {
   max-inline-size: $post-subtitle-inline-size;
   margin: 0;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-body;
   font-size: settings-typography.$font-size-lg;
   font-weight: settings-typography.$font-weight-regular;
@@ -191,7 +191,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
   gap: $post-header-row-gap;
 
   padding-block-end: $post-header-row-padding-block-end;
-  border-block-end: $post-content-top-border-width solid var(--color-ui-border);
+  border-block-end: $post-content-top-border-width solid var(--color-outline-variant);
 }
 
 .c-post__header-meta {
@@ -266,7 +266,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
   margin: 0;
   padding: tools-spacing.$fluid-inline-sm;
   background-color: var(--color-syntax-base00);
-  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
 }
 
@@ -276,7 +276,7 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
   margin-block-end: tools-spacing.$space-stack-sm;
   padding-block-end: tools-spacing.$space-stack-sm;
   border-block-end: settings-config.$global-border-width solid
-    var(--color-ui-border);
+    var(--color-outline-variant);
 }
 
 .c-post-share-rail .c-post-share__title {

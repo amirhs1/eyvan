@@ -41,7 +41,7 @@ $site-header-border-width: 1px;
   inset-block-start: 0;
   z-index: settings-config.$z-header;
 
-  background-color: var(--color-ui-surface-raised);
+  background-color: var(--color-surface-container-high);
   border-block-end: $site-header-border-width solid var(--color-ui-border-subtle);
   box-shadow: settings-config.$elevation-raised;
 
@@ -57,13 +57,13 @@ $site-header-border-width: 1px;
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .c-site-header {
-    background-color: var(--color-ui-surface-raised);
+    background-color: var(--color-surface-container-high);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .c-site-header {
-    background-color: var(--color-ui-surface-raised);
+    background-color: var(--color-surface-container-high);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }

@@ -38,23 +38,21 @@ robots: noindex
 
 <style>
   .c-theme-toggle-test-frame[data-theme='light'] {
-    --color-ui-surface: #ffffff;
-    --color-ui-surface-raised: #f3f4f6;
-    --color-ui-border: #c7c9d1;
-    --color-ui-text: #1f2937;
-    --color-accent-primary: #00796b;
-    --color-accent-secondary: #00564b;
-    --color-ui-bg: #ffffff;
+    --color-surface-container-low: #ffffff;
+    --color-surface-container-high: #f3f4f6;
+    --color-outline-variant: #c7c9d1;
+    --color-on-surface: #1f2937;
+    --color-primary: #00796b;
+    --color-surface: #ffffff;
   }
 
   .c-theme-toggle-test-frame[data-theme='dark'] {
-    --color-ui-surface: #111827;
-    --color-ui-surface-raised: #1f2937;
-    --color-ui-border: #4b5563;
-    --color-ui-text: #f9fafb;
-    --color-accent-primary: #3fe0d0;
-    --color-accent-secondary: #3fe0d0;
-    --color-ui-bg: #0b1220;
+    --color-surface-container-low: #111827;
+    --color-surface-container-high: #1f2937;
+    --color-outline-variant: #4b5563;
+    --color-on-surface: #f9fafb;
+    --color-primary: #3fe0d0;
+    --color-surface: #0b1220;
     background: #0b1220;
     color: #f9fafb;
   }
@@ -75,8 +73,8 @@ robots: noindex
   .c-theme-toggle-test-inline-shell,
   .c-theme-toggle-test-fill-shell {
     padding: 0.75rem;
-    border: 1px dashed var(--color-ui-border);
-    background: color-mix(in srgb, var(--color-ui-surface-raised) 80%, transparent);
+    border: 1px dashed var(--color-outline-variant);
+    background: color-mix(in srgb, var(--color-surface-container-high) 80%, transparent);
   }
 
   .c-theme-toggle-test-mobile-shell {

@@ -40,9 +40,9 @@
   margin-block-start: settings-spacing.$space-section-md;
   padding-block: settings-spacing.$space-stack-md;
 
-  background-color: var(--color-ui-surface);
+  background-color: var(--color-surface-container-low);
   border-block-start: 1px solid var(--color-ui-border-subtle);
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
 }
 
 // -----------------------------------------------------------------------------
@@ -70,7 +70,7 @@
   font-weight: settings-typography.$font-weight-medium;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
   text-wrap: balance;
 }
 
@@ -87,7 +87,7 @@
   font-weight: settings-typography.$font-weight-regular;
   line-height: settings-typography.$line-height-normal;
 
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   text-wrap: pretty;
 }
 

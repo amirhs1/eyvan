@@ -94,7 +94,7 @@ $section-heading-head-gap: tools-spacing.$fluid-inline-md;
 .c-section-heading__eyebrow {
   margin: 0;
 
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-medium;
@@ -128,7 +128,7 @@ $section-heading-head-gap: tools-spacing.$fluid-inline-md;
 
 .c-section-heading__description {
   max-inline-size: none;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
 }
 
 .c-section-heading__description > :first-child {

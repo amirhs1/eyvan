@@ -71,7 +71,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   padding-block: settings-spacing.$space-2;
   padding-inline: settings-spacing.$space-1;
 
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-md;
   font-weight: settings-typography.$font-weight-medium;
@@ -89,7 +89,8 @@ $navigation-link-active-indicator-size: 0.1875rem;
 }
 
 .c-nav__link:hover {
-  color: var(--color-link-hover);
+  color: var(--color-primary);
+  text-decoration: underline;
 }
 
 /* -----------------------------------------------------------------------------
@@ -98,7 +99,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
 
 .c-nav__link.is-active,
 .c-nav__link[aria-current="page"] {
-  color: var(--color-accent-primary);
+  color: var(--color-primary);
 }
 
 .c-nav__link.is-active::after,
@@ -178,7 +179,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
 
   inline-size: $navigation-link-active-indicator-size;
   border-radius: 999px;
-  background-color: var(--color-accent-primary);
+  background-color: var(--color-primary);
 }
 
 .c-nav--mobile .c-nav__link.is-active::after,

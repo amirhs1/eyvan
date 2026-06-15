@@ -39,9 +39,9 @@ Related component:
   const themeColorMeta = document.querySelector('[data-theme-color-meta]');
 
   const THEME_COLOR_LIGHT =
-    themeColorMeta?.getAttribute('data-theme-color-light') || '#4B3049';
+    themeColorMeta?.getAttribute('data-theme-color-light') || '#7E4D7C';
   const THEME_COLOR_DARK =
-    themeColorMeta?.getAttribute('data-theme-color-dark') || '#C9A0C4';
+    themeColorMeta?.getAttribute('data-theme-color-dark') || '#EFB4E9';
 
   const systemThemeMediaQuery =
     window.matchMedia ? window.matchMedia(SYSTEM_THEME_QUERY) : null;

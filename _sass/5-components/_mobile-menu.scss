@@ -88,8 +88,8 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   tools-spacing.$fluid-stack-md
   tools-spacing.$fluid-inline-md;
     
-  background-color: var(--color-ui-surface-overlay);
-  border: settings-config.$global-border-width solid var(--color-ui-border);
+  background-color: var(--color-surface-container-highest);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
   box-shadow: settings-config.$elevation-overlay;
 }
@@ -120,7 +120,7 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 
   margin-block-end: tools-spacing.$fluid-stack-md;
   padding-block-end: settings-spacing.$space-3;
-  border-block-end: 1px solid var(--color-ui-border);
+  border-block-end: 1px solid var(--color-outline-variant);
 }
 
 .c-mobile-menu__top-left,
@@ -218,7 +218,7 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   gap: tools-spacing.$space-stack-sm;
   margin-block-start: tools-spacing.$fluid-stack-md;
   padding-block-start: tools-spacing.$space-stack-sm;
-  border-block-start: 1px solid var(--color-ui-border);
+  border-block-start: 1px solid var(--color-outline-variant);
 }
 
 /* -----------------------------------------------------------------------------

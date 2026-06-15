@@ -57,7 +57,7 @@ class ColorContractTest < Minitest::Test
   def test_flags_theme_color_drift
     with_color_fixture do |root|
       path = root.join("_data/theme.yml")
-      File.write(path, File.read(path, encoding: "UTF-8").sub("#4B3049", "#444444"))
+      File.write(path, File.read(path, encoding: "UTF-8").sub("#7E4D7C", "#444444"))
 
       _stdout, stderr, status = run_script("--root", root)
 
@@ -70,7 +70,7 @@ class ColorContractTest < Minitest::Test
     with_color_fixture do |root|
       path = root.join("_sass/0-settings/_light-mode.scss")
       mutated = File.read(path, encoding: "UTF-8")
-        .sub(/\$ui-text-muted:\s*#[0-9A-Fa-f]{6};/, "$ui-text-muted: #BBBBBB;")
+        .sub(/\$on-surface-variant:\s*#[0-9A-Fa-f]{6};/, "$on-surface-variant: #BBBBBB;")
       File.write(path, mutated)
 
       _stdout, stderr, status = run_script("--root", root)

@@ -42,10 +42,10 @@
   min-inline-size: 2.75rem;
   min-block-size: 2.75rem;
 
-  border: settings-config.$global-border-width solid var(--color-ui-border);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: 999px;
   background-color: transparent;
-  color: var(--color-ui-text);
+  color: var(--color-on-surface);
   text-decoration: none;
   appearance: none;
   -webkit-tap-highlight-color: transparent;
@@ -53,19 +53,19 @@
   @include tools-motion.transition-ui-with-transform;
 
   &:visited {
-    color: var(--color-ui-text);
+    color: var(--color-on-surface);
   }
 
   &:hover {
-    color: var(--color-ui-bg);
-    background-color: var(--color-link-hover);
-    border-color: var(--color-link-hover);
+    color: var(--color-on-primary);
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
     transform: translateY(-1px);
     text-decoration: none;
   }
 
   &:focus-visible {
-    border-color: var(--color-link-hover);
+    border-color: var(--color-primary);
     @include tools-mixins.focus-ring;
     text-decoration: none;
   }

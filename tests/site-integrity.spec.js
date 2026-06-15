@@ -186,9 +186,10 @@ test('the climate demo uses the pinned Chart.js CDN runtime', async ({ page }) =
     return {
       expected: {
         text: color('--color-on-surface'),
-        primary: color('--color-primary'),
-        secondary: color('--color-secondary'),
-        tertiary: color('--color-tertiary'),
+        error: color('--color-error'),
+        warning: color('--color-warning'),
+        info: color('--color-info'),
+        success: color('--color-success'),
       },
       temperatureDatasets: temperatureChart.data.datasets.map(
         (dataset) => dataset.borderColor
@@ -201,15 +202,15 @@ test('the climate demo uses the pinned Chart.js CDN runtime', async ({ page }) =
   });
 
   expect(darkThemeChartColors.temperatureDatasets).toEqual([
-    darkThemeChartColors.expected.primary,
-    darkThemeChartColors.expected.secondary,
+    darkThemeChartColors.expected.error,
+    darkThemeChartColors.expected.info,
   ]);
   expect(
     darkThemeChartColors.precipitationLegend.map((item) => item.strokeStyle)
   ).toEqual([
-    darkThemeChartColors.expected.secondary,
-    darkThemeChartColors.expected.primary,
-    darkThemeChartColors.expected.tertiary,
+    darkThemeChartColors.expected.info,
+    darkThemeChartColors.expected.success,
+    darkThemeChartColors.expected.warning,
   ]);
   expect(
     darkThemeChartColors.precipitationLegend.map((item) => item.fontColor)

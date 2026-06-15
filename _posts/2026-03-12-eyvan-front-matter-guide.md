@@ -195,7 +195,7 @@ Use `avatar` when the metadata row should show an author image. The post layout 
 
 ```yaml
 author: "John Michael Doe"
-avatar: "assets/images/authors/amir.webp"
+avatar: "assets/images/authors/john_doe.webp"
 ```
 
 Use `authors` when a post has multiple credited contributors. Keep names short and consistent, because they may appear in compact metadata areas such as post headers or cards depending on the include implementation.

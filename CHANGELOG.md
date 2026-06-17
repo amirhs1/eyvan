@@ -183,7 +183,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `responsive_srcset` / `responsive_sizes` for single- and multi-image
   figures, a new standalone `_includes/responsive-srcset.html` normalizes
   `path | descriptor` rows into a baseurl-safe `srcset` / `sizes` pair, and
-  the *Customizing Eyvan* and *Front Matter Field Reference* posts document a
+  the *Setting Up Eyvan* and *Front Matter Field Reference* posts document a
   no-bundler `cwebp` workflow for generating the variants.
 
 ### Changed — 2026-06-12
@@ -206,3 +206,38 @@ prior aubergine rewrite, which removed the primitive/persona layer entirely;
 R9 (deprecated Pa11y-related transitive dependencies — `glob@7`, `inflight`,
 `whatwg-encoding`, all from `pa11y-ci@4.1.1`) remains upstream-blocked with
 no safe update available.
+
+### Added — 2026-06-17
+
+- New *Theming Eyvan* demo post, split out from the setup guide as a dedicated
+  walkthrough for changing the look. It documents the color-token architecture
+  (`_data/theme.yml` as the brand single source of truth plus the
+  `0-settings/_light-mode.scss` / `_dark-mode.scss` role files), a no-code
+  Material Theme Builder workflow for re-branding, the four-place brand-hex sync
+  rule that `scripts/check-color-contract.rb` enforces, and where the font
+  families and spacing scale live.
+
+### Changed — 2026-06-17
+
+- Split the setup guide into two posts. *Customizing Eyvan* is now *Setting Up
+  Eyvan* and covers content setup only — config, data files, assets, and the
+  first post, with no SCSS — while theming moved to the new *Theming Eyvan*
+  post. The post was renamed `customizing-eyvan` → `setting-up-eyvan` (a
+  permalink slug change) and the two path references in
+  `tests/accessibility.spec.js` were updated to match.
+- The new theming post corrects the old setup guide's stale Step 10 facts: the
+  palette is aubergine (not the previously documented teal/green), the fonts are
+  Gelasio / Barlow Condensed / JetBrains Mono (not Literata / Space Grotesk),
+  and the tokens live in `_data/theme.yml` and the mode files (not the
+  nonexistent `_colors.scss` / `_themes.scss`).
+- Re-dated the three meta demo posts (*Front Matter Field Reference*, *Design
+  Philosophy and Architecture of Eyvan*, and the setup guide) into a current
+  cluster. The `/projects/:title/` permalink is date-independent, so the post
+  URLs are unchanged.
+- Trimmed the README, replacing the front-matter and reusable-includes
+  deep-dives that duplicated the demo posts with short pointers to them; the
+  attribution line now reads "including but not limited to" before the named
+  AI tools.
+- Standardized the per-post AI-attribution notes to say "AI tools" instead of
+  naming individual models, since the demo content was produced with several.
+  The license-required `Easy-Peasy.AI` cover-image backlink is left intact.

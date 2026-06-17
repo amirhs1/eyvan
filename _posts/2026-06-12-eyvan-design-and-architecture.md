@@ -18,7 +18,7 @@ image_sizes: "(min-width: 72rem) 60rem, 100vw"
 description: "A behind-the-scenes look at the design decisions, CSS architecture, layout system, and feature set of this template."
 ---
 
-> **Note:** This post was generated with OpenAI's ChatGPT and Anthropic's Claude for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
+> **Note:** This post was generated with AI tools for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
 
 A good portfolio template should feel almost invisible to the reader. It should frame the work, make writing comfortable to read, and give the site owner enough structure to keep growing without turning every new page into a design project. That is the central idea behind **Eyvan**: a visually restrained, content-first Jekyll template for portfolios, research notes, technical writing, and project archives.
 

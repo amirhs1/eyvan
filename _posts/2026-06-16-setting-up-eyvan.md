@@ -1,5 +1,5 @@
 ---
-title: "Customizing Eyvan"
+title: "Setting Up Eyvan"
 subtitle: "A practical walkthrough for personalizing the template before your first deploy"
 tags: [meta, jekyll, setup, documentation]
 image: "assets/images/posts/customizing_eyvan.webp"
@@ -10,9 +10,11 @@ toc: true
 description: "Step-by-step guide to replacing the demo content and making Eyvan your own — from config and data files to assets and posts."
 ---
 
-> **Note:** This post was generated with OpenAI's ChatGPT as a practical setup guide shipped with the Eyvan template. Follow it after cloning the repository and running `bundle install` for the first time.
+> **Note:** This post was generated with AI tools as a practical setup guide shipped with the Eyvan template. Follow it after cloning the repository and running `bundle install` for the first time.
 
 Eyvan ships with demo content — placeholder names, example posts, and sample images — so you can see the template running immediately. This guide walks you through replacing all of it with your own content, in the order that matters. None of this requires touching the templates or SCSS.[^1]
+
+> **Tip:** This guide covers content setup only. When you are ready to change the brand color, fonts, or spacing, see the companion post *Theming Eyvan*, which explains Eyvan's design tokens and a no-code color workflow built on Material Theme Builder.
 
 The rule of thumb: everything about *who you are* lives in `_data/`. Everything about *how Jekyll behaves* and *which site-wide assets are shared across templates* lives in `_config.yml`. Your *posts* live in `_posts/`. Your *images, fonts, and icons* live in `assets/`.
 
@@ -388,15 +390,18 @@ copyright: "© 2025 Your Name. All rights reserved."
 
 You can also add secondary links here, such as a privacy policy or a terms page. See the comments in the file for the supported fields.
 
-## Step 10 — Colors and typography (advanced)
+## Next — making it look like yours
 
-If you want to adjust the visual design, all design tokens live in `_sass/0-settings/`. You do not need to touch any other SCSS file for color or type changes.
+Everything above is content: the words, links, images, and posts that make the
+site *yours*. None of it requires touching SCSS, and on the shipped palette and
+type system it is enough for a polished first deploy.
 
-- **Colors**: `_sass/0-settings/_colors.scss` and `_sass/0-settings/_themes.scss` define the palette and the light/dark theme token maps. The shipped palette uses a Persian-inspired teal/green identity — replace the hex values there to change the brand color.
-- **Typography**: `_sass/0-settings/_typography.scss` sets the font families, scale, and line-height. The template uses Literata (body), Space Grotesk (UI), and JetBrains Mono (code) by default.
-- **Spacing and layout**: `_sass/0-settings/_config.scss` exposes global spacing, border-radius, and shadow values.
-
-After any SCSS change, run `bundle exec jekyll serve` and check the live reload — changes apply immediately without a full restart.
+When you want to change the *look* — the brand color, the fonts, or the
+spacing rhythm — that lives in the design tokens under `_sass/0-settings/`. It
+is a separate, slightly more technical task, so it has its own walkthrough:
+*Theming Eyvan*. Start there once your content is in place. It covers a no-code
+brand-color workflow built on Material Theme Builder, plus where the fonts and
+spacing scale live.
 
 ## Quick checklist
 
@@ -419,4 +424,4 @@ After deploy, verify that your canonical URL and Open Graph previews show your d
 
 ## Endnotes
 
-[^1]: The post's cover image was generated with OpenAI's ChatGPT for illustrative purposes by the author using the contents of this post as the generation prompt.
+[^1]: The post's cover image was generated with AI tools for illustrative purposes by the author using the contents of this post as the generation prompt.

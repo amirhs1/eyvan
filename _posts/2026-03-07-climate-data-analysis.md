@@ -11,7 +11,7 @@ image_height: 800
 description: "A data-rich demo post exploring synthetic temperature and precipitation trends using tables, math, cross-references, and embedded charts."
 ---
 
-> **Note:** This post and its associated synthetic, NOAA-inspired climate dataset were generated with Google’s Gemini and OpenAI’s ChatGPT to demonstrate Eyvan’s typography, mathematical notation, table captions, cross-references, and embedded charts. The values are plausible but should not be treated as a reproducible NOAA analysis unless they are replaced with a documented data pipeline and source files.
+> **Note:** This post and its associated synthetic, NOAA-inspired climate dataset were generated with AI tools to demonstrate Eyvan’s typography, mathematical notation, table captions, cross-references, and embedded charts. The values are plausible but should not be treated as a reproducible NOAA analysis unless they are replaced with a documented data pipeline and source files.
 
 > **Template note:** The interactive charts and `demo-climate-charts.js` are
 > demonstration content, not a core Eyvan dependency. Template users who do

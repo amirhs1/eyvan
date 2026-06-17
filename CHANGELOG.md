@@ -7,18 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-06-17
+
 ### Added
 
-- `THIRD_PARTY_NOTICES.md`, documenting bundled font, icon, demo media, and
-  optional demo integration license scope separately from the repository's MIT
-  license.
-- A site-level `lang` configuration value, used by the root HTML element with
-  an English fallback for template adopters.
 - Initial release of the Eyvan template: a minimalist, accessibility-first
   Jekyll portfolio and writing template for GitHub Pages, with an ITCSS/BEM
   Sass architecture, reusable long-form content includes (figures, video,
   audio, tables, cross-references), light/dark theming, and a GitHub Actions
   build-and-deploy pipeline gated by a Playwright + axe accessibility suite.
+- `THIRD_PARTY_NOTICES.md`, documenting bundled font, icon, demo media, and
+  optional demo integration license scope separately from the repository's MIT
+  license.
+- `SECURITY.md` and `CONTRIBUTING.md`.
+- This changelog.
+- A site-level `lang` configuration value, used by the root HTML element with
+  an English fallback for template adopters.
 - Dependabot configuration for Bundler, npm, and GitHub Actions, so dependency
   and security updates surface automatically as pull requests.
 - `.ruby-version`, with both CI workflows reading the Ruby version from it
@@ -29,8 +33,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the existing example posts using their real measured pixel dimensions.
 - An accessibility test covering a code-heavy page in both light and dark
   themes.
-- `SECURITY.md` and `CONTRIBUTING.md`.
-- This changelog.
+- `scripts/check-color-contract.rb` (`npm run test:colors`), a deterministic
+  static guard that runs in CI and checks: every consumed `var(--color-*)`
+  resolves to a Tier-2 definition in `_base.scss`; the brand accent in
+  `_data/theme.yml` stays in sync with both mode files' `$accent-primary`
+  fallback, the JS theme fallbacks, and `head.html`'s `theme-color` meta, and
+  the retired teal/turquoise hexes (`#00796B`, `#3FE0D0`) never reappear; and
+  every key text/UI/syntax token pair — including the Base16 operator color
+  `base0c` — meets WCAG 2.1 AA contrast in both themes.
+- Two new Tier-2 surface tokens, `--color-ui-surface-raised` and
+  `--color-ui-surface-overlay`, plus a formal `$elevation-rest` /
+  `$elevation-raised` / `$elevation-overlay` ladder in `_config.scss`,
+  completing the elevation token model (Tier 2 is now 35 tokens: 15 UI + 4
+  state + 16 Base16). `check-color-contract.rb` contrast-checks text against
+  both new surfaces in both themes.
+- `scripts/check-built-output.rb`, run in CI against the built `_site/`,
+  statically enforces the MathJax and Chart.js-demo CDN loader policy (pinned
+  version, SHA-384 Subresource Integrity, anonymous CORS, no-referrer,
+  deferred loading, `async` forbidden) and rejects published repository-only
+  files, source maps, and the excluded `/assets/files/resume.pdf` sitemap
+  entry.
+- Optional responsive image variants: `figure.html` accepts
+  `responsive_srcset` / `responsive_sizes` for single- and multi-image
+  figures, a new standalone `_includes/responsive-srcset.html` normalizes
+  `path | descriptor` rows into a baseurl-safe `srcset` / `sizes` pair, and
+  the *Setting Up Eyvan* and *Front Matter Field Reference* posts document a
+  no-bundler `cwebp` workflow for generating the variants.
+- New *Theming Eyvan* demo post, split out from the setup guide as a dedicated
+  walkthrough for changing the look. It documents the color-token architecture
+  (`_data/theme.yml` as the brand single source of truth plus the
+  `0-settings/_light-mode.scss` / `_dark-mode.scss` role files), a no-code
+  Material Theme Builder workflow for re-branding, the four-place brand-hex sync
+  rule that `scripts/check-color-contract.rb` enforces, and where the font
+  families and spacing scale live.
 
 ### Changed
 
@@ -100,6 +135,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The code-heavy accessibility test now also scans a post whose code samples
   contain comment and gutter tokens, closing the coverage gap that let the
   light-theme comment-contrast defect through CI.
+- Card and hero "lift" shadows (`$card-shadow-rest` / `$card-shadow-hover`)
+  now alias the new `$elevation-rest` / `$elevation-raised` tokens instead of
+  standalone values, so rest, raised, and overlay surfaces share one
+  consistent depth model.
+- Split the setup guide into two posts. *Customizing Eyvan* is now *Setting Up
+  Eyvan* and covers content setup only — config, data files, assets, and the
+  first post, with no SCSS — while theming moved to the new *Theming Eyvan*
+  post. The post was renamed `customizing-eyvan` → `setting-up-eyvan` (a
+  permalink slug change) and the two path references in
+  `tests/accessibility.spec.js` were updated to match.
+- The new theming post corrects the old setup guide's stale Step 10 facts: the
+  palette is aubergine (not the previously documented teal/green), the fonts are
+  Gelasio / Barlow Condensed / JetBrains Mono (not Literata / Space Grotesk),
+  and the tokens live in `_data/theme.yml` and the mode files (not the
+  nonexistent `_colors.scss` / `_themes.scss`).
+- Re-dated the three meta demo posts (*Front Matter Field Reference*, *Design
+  Philosophy and Architecture of Eyvan*, and the setup guide) into a current
+  cluster. The `/projects/:title/` permalink is date-independent, so the post
+  URLs are unchanged.
+- Trimmed the README, replacing the front-matter and reusable-includes
+  deep-dives that duplicated the demo posts with short pointers to them; the
+  attribution line now reads "including but not limited to" before the named
+  AI tools.
+- Standardized the per-post AI-attribution notes to say "AI tools" instead of
+  naming individual models, since the demo content was produced with several.
+  The license-required `Easy-Peasy.AI` cover-image backlink is left intact.
 
 ### Fixed
 
@@ -157,87 +218,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-### Added — 2026-06-12
-
-- `scripts/check-color-contract.rb` (`npm run test:colors`), a deterministic
-  static guard that runs in CI and checks: every consumed `var(--color-*)`
-  resolves to a Tier-2 definition in `_base.scss`; the brand accent in
-  `_data/theme.yml` stays in sync with both mode files' `$accent-primary`
-  fallback, the JS theme fallbacks, and `head.html`'s `theme-color` meta, and
-  the retired teal/turquoise hexes (`#00796B`, `#3FE0D0`) never reappear; and
-  every key text/UI/syntax token pair — including the Base16 operator color
-  `base0c` — meets WCAG 2.1 AA contrast in both themes.
-- Two new Tier-2 surface tokens, `--color-ui-surface-raised` and
-  `--color-ui-surface-overlay`, plus a formal `$elevation-rest` /
-  `$elevation-raised` / `$elevation-overlay` ladder in `_config.scss`,
-  completing the elevation token model (Tier 2 is now 35 tokens: 15 UI + 4
-  state + 16 Base16). `check-color-contract.rb` contrast-checks text against
-  both new surfaces in both themes.
-- `scripts/check-built-output.rb`, run in CI against the built `_site/`,
-  statically enforces the MathJax and Chart.js-demo CDN loader policy (pinned
-  version, SHA-384 Subresource Integrity, anonymous CORS, no-referrer,
-  deferred loading, `async` forbidden) and rejects published repository-only
-  files, source maps, and the excluded `/assets/files/resume.pdf` sitemap
-  entry.
-- Optional responsive image variants: `figure.html` accepts
-  `responsive_srcset` / `responsive_sizes` for single- and multi-image
-  figures, a new standalone `_includes/responsive-srcset.html` normalizes
-  `path | descriptor` rows into a baseurl-safe `srcset` / `sizes` pair, and
-  the *Setting Up Eyvan* and *Front Matter Field Reference* posts document a
-  no-bundler `cwebp` workflow for generating the variants.
-
-### Changed — 2026-06-12
-
-- Card and hero "lift" shadows (`$card-shadow-rest` / `$card-shadow-hover`)
-  now alias the new `$elevation-rest` / `$elevation-raised` tokens instead of
-  standalone values, so rest, raised, and overlay surfaces share one
-  consistent depth model.
-- Corrected stale "Changed" entries above that still described the
-  pre-aubergine brand: replaced the retired teal/turquoise (`#00796B` /
-  `#3FE0D0`) color descriptions with the current aubergine / orchid accent,
-  and removed references to the removed persona layer.
-
-This closes out the 2026 color-system and accessibility audit program: R1
-(`base0c` contrast), R2 (CDN pin + protect), R3 (responsive images), R5
-(elevation tokens), and R8 (token-contract / theme-color drift guards) are
-confirmed resolved by the changes above; R4, R6, and R7 (primitive gray/hue
-ramps, the Art persona, and token-naming headroom) are superseded by the
-prior aubergine rewrite, which removed the primitive/persona layer entirely;
-R9 (deprecated Pa11y-related transitive dependencies — `glob@7`, `inflight`,
-`whatwg-encoding`, all from `pa11y-ci@4.1.1`) remains upstream-blocked with
-no safe update available.
-
-### Added — 2026-06-17
-
-- New *Theming Eyvan* demo post, split out from the setup guide as a dedicated
-  walkthrough for changing the look. It documents the color-token architecture
-  (`_data/theme.yml` as the brand single source of truth plus the
-  `0-settings/_light-mode.scss` / `_dark-mode.scss` role files), a no-code
-  Material Theme Builder workflow for re-branding, the four-place brand-hex sync
-  rule that `scripts/check-color-contract.rb` enforces, and where the font
-  families and spacing scale live.
-
-### Changed — 2026-06-17
-
-- Split the setup guide into two posts. *Customizing Eyvan* is now *Setting Up
-  Eyvan* and covers content setup only — config, data files, assets, and the
-  first post, with no SCSS — while theming moved to the new *Theming Eyvan*
-  post. The post was renamed `customizing-eyvan` → `setting-up-eyvan` (a
-  permalink slug change) and the two path references in
-  `tests/accessibility.spec.js` were updated to match.
-- The new theming post corrects the old setup guide's stale Step 10 facts: the
-  palette is aubergine (not the previously documented teal/green), the fonts are
-  Gelasio / Barlow Condensed / JetBrains Mono (not Literata / Space Grotesk),
-  and the tokens live in `_data/theme.yml` and the mode files (not the
-  nonexistent `_colors.scss` / `_themes.scss`).
-- Re-dated the three meta demo posts (*Front Matter Field Reference*, *Design
-  Philosophy and Architecture of Eyvan*, and the setup guide) into a current
-  cluster. The `/projects/:title/` permalink is date-independent, so the post
-  URLs are unchanged.
-- Trimmed the README, replacing the front-matter and reusable-includes
-  deep-dives that duplicated the demo posts with short pointers to them; the
-  attribution line now reads "including but not limited to" before the named
-  AI tools.
-- Standardized the per-post AI-attribution notes to say "AI tools" instead of
-  naming individual models, since the demo content was produced with several.
-  The license-required `Easy-Peasy.AI` cover-image backlink is left intact.
+[Unreleased]: https://github.com/amirhs1/eyvan/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/amirhs1/eyvan/releases/tag/v1.0.0

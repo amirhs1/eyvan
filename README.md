@@ -39,6 +39,10 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 - Jekyll-compatible Ruby environment
 - Git, if cloning or publishing the repository
 
+Contributor QA also uses Node.js and npm for Playwright, axe-core, and Pa11y
+checks. CI currently runs those tools on Node 20; use `npm ci` before running
+the local QA scripts.
+
 Install dependencies with Bundler before running the site:
 
 ```bash
@@ -196,44 +200,22 @@ For a custom domain, configure the domain in GitHub Pages settings and add a `CN
 
 ## Attribution
 
-### Acknowledgments & Design Inspiration
-
-The template draw creative and technical inspiration from the following open-source projects:
+Eyvan draws creative and technical inspiration from the following open-source
+projects:
 
 - [minimal-mistakes](https://github.com/mmistakes/minimal-mistakes)
 - [analytics-link.github.io](https://github.com/analytics-link/analytics-link.github.io)
 - [vonge-jekyll-bookshop-template](https://github.com/CloudCannon/vonge-jekyll-bookshop-template)
 
-### Development & Core Assets
+Code generation, modular templating, refactoring, debugging scripts, and demo
+posts were developed in collaboration with Large Language Models, including
+OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
 
-- **AI Assistants**: Code generation, modular templating refactoring, refactoring logic, debugging scripts, and demo posts were developed in collaboration with Large Language Models, including OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
-- **JavaScript Assets**: Various scripting behaviors utilized within this template are adapted from existing open-source projects. For detailed licensing, original authors, and implementation notes, please refer to the documentation headers directly within the respective `.js` files located in the script directories.
-- **Chart.js Demo**: The climate demo loads Chart.js 4.5.1 from jsDelivr under the [MIT License](https://github.com/chartjs/Chart.js/blob/v4.5.1/LICENSE.md). The integration is limited to that removable post.
-
-### Typography Licensing
-
-The template self-hosts three font families as WOFF2 subsets (latin range only): Gelasio and JetBrains Mono as variable-weight files, and Barlow Condensed as static per-weight files. All three families are released under the [SIL Open Font License 1.1 (OFL)](https://openfontlicense.org/), which permits free use, modification, and redistribution in derivative works provided the OFL terms are preserved.
-
-- **Barlow Condensed** (display / UI condensed sans-serif): Designed by Jeremy Tribby. Source: [Google Fonts](https://fonts.google.com/specimen/Barlow+Condensed). Licensed under [OFL 1.1](https://openfontlicense.org/).
-- **Gelasio** (editorial / body serif, metric-compatible with Georgia): Designed by Eben Sorkin. Source: [Google Fonts](https://fonts.google.com/specimen/Gelasio). Licensed under [OFL 1.1](https://openfontlicense.org/).
-- **JetBrains Mono** (technical / code monospace): Designed by JetBrains, Philipp Nurullin, and Konstantin Bulenkov. Source: [Google Fonts](https://fonts.google.com/specimen/JetBrains+Mono). Licensed under [OFL 1.1](https://openfontlicense.org/).
-
-The exact upstream license texts and a file-by-file asset map are bundled in [`assets/fonts/licenses/`](assets/fonts/licenses/README.md).
-
-### Iconography Licensing
-
-The template incorporates third-party open-source iconography assets. Icons have been optimized to support dynamic light and dark mode styling by leveraging `currentColor` fills where applicable.
-
-- **CV Icon**: Original design by the template author.
-- **Ionicons** (`chevron-down-circle`, `chevron-up-circle`, `close-circle`, `discord`, `github`, `instagram`, `linkedin`, `mail`, `menu`, `moon`, `old-twitter`, `pinterest`, `print`, `rss`, `send`, `share`, `sunny`, `timer`, `youtube`): Developed by [Ionic](https://ionic.io/ionicons) and released under the [MIT License](https://opensource.org/licenses/MIT).
-- **Font Awesome** (`medium`): Brand icon provided by [Font Awesome](https://fontawesome.com/) under the [Font Awesome Free License / CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Subject to trademark guidelines.
-- **Google Scholar Icon** (`google_scholar`): Sourced via [SVG Repo](https://www.svgrepo.com/svg/306145/googlescholar) under the SVG Repo Logo License vectors agreement.
-- **ORCID iD** (`orcid`): Monochromatic optimization of the official asset sourced via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ORCID_iD.svg), governed by ORCID, Inc. asset guidelines and dedicated to the public domain under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
-- **X Logo** (`x`): Rendered via `currentColor` strictly as a solid monochromatic asset to comply with the scaling and color constraints outlined in the official [X Brand Toolkit](https://about.x.com/en/who-we-are/brand-toolkit). All rights and trademarks reside with X Corp.
-
-### Legal Notice & Trademarks
-
-Certain brand logos (including but not limited to Google Scholar, Medium, ORCID, X, GitHub, LinkedIn, and YouTube) are protected as registered trademarks of their respective copyright holders. The inclusion of these assets within this theme does not imply endorsement of the template by the trademark holders, nor vice versa. Users of this template are responsible for ensuring their deployment complies with the respective brand guidelines.
+Eyvan includes third-party fonts, icons, demo media, and optional demo
+integrations. For full third-party license notices, copyright information, and
+asset sources, see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md). Font
+license texts and the file-by-file font asset map are also included in
+[`assets/fonts/licenses/`](assets/fonts/licenses/README.md).
 
 ## License
 

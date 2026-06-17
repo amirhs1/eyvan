@@ -28,6 +28,8 @@ description_html: >-
 # ------------------------------------------------------------
 image: "assets/images/hero-placeholder.webp"
 image_alt: "Portrait or representative image for the homepage hero"
+image_width: 800
+image_height: 800
 
 # ------------------------------------------------------------
 # Primary call to action

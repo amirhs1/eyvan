@@ -51,6 +51,9 @@ contributions consistent with them:
 
 ## Running checks locally
 
+Local QA uses the Ruby version in `.ruby-version` and the Node.js test tooling
+installed with `npm ci`. CI currently runs the npm checks on Node 20.
+
 ```bash
 # Confirm the site builds (baseurl: "/eyvan" already makes this the subpath build)
 bundle exec jekyll build

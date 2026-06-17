@@ -12,6 +12,34 @@ The template is designed for personal portfolios, academic profiles, research no
 
 Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 
+## Using as a Template
+
+1. Click **"Use this template"** and name your new repository.
+   - For a personal site: name it `[your-username].github.io`
+   - For a project site: name it anything (e.g. `my-portfolio`)
+
+2. Go to **Settings → Pages → Source** and select **GitHub Actions**.
+   Eyvan deploys via its own workflow — the native Pages builder will not work.
+
+3. Edit `_config.yml` and replace the demo values:
+
+   ```yaml
+   # For a personal site (username.github.io)
+   url: "https://your-username.github.io"
+   baseurl: ""
+
+   # For a project site (username.github.io/repo-name)
+   url: "https://your-username.github.io"
+   baseurl: "/your-repo-name"
+   ```
+
+4. Edit `_data/author.yml` and `_data/footer.yml` with your name and details.
+
+5. Push — the deploy workflow runs automatically and your site goes live.
+
+> If any placeholder values remain after your first push, the deploy log will show
+> warnings in the **Check Template Identity** step to guide you.
+
 ## Features
 
 - Visually minimal portfolio layout with a responsive 12-column grid

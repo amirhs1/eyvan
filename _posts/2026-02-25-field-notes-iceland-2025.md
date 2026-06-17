@@ -6,6 +6,8 @@ math: true
 toc: true
 image: "assets/images/posts/iceland-hero.webp"
 image_alt: "A spectacular view of the rugged basalt cliffs of Reykjanes, Iceland, meeting the ocean under a cloudy sky."
+image_width: 900
+image_height: 675
 description: "A visual journey through Iceland — images, video, and prose working together."
 ---
 

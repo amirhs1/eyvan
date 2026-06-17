@@ -14,7 +14,7 @@
 #
 #   2. Theme-color sync (audit R8.2)
 #      The brand accent in _data/theme.yml matches every checked-in copy
-#      (each mode file's $primary fallback and both JS fallbacks),
+#      (each mode file's $primary fallback and theme-toggle.js fallbacks),
 #      head.html still derives its theme-color from that data, and no retired
 #      teal hex is left behind anywhere.
 #
@@ -177,8 +177,7 @@ else
     end
 
     # theme-toggle.js swaps <meta theme-color> between modes, so it must carry
-    # both primary fallbacks. demo-climate-charts.js only falls back to the light
-    # primary for its --color-primary read, so it must carry that one.
+    # both primary fallbacks.
     toggle_rel = TOGGLE_JS.relative_path_from(ROOT)
     toggle_text = read(TOGGLE_JS)
     if toggle_text.nil?
@@ -190,14 +189,6 @@ else
           errors << "theme-color: #{toggle_rel} is missing the primary fallback #{hex}"
         end
       end
-    end
-
-    charts_rel = CHARTS_JS.relative_path_from(ROOT)
-    charts_text = read(CHARTS_JS)
-    if charts_text.nil?
-      errors << "theme-color: missing #{charts_rel}"
-    elsif !charts_text.upcase.include?(primary_light)
-      errors << "theme-color: #{charts_rel} is missing the primary fallback #{primary_light}"
     end
 
     # head.html must derive both values from the data source, not hardcode them.

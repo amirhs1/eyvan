@@ -4,6 +4,8 @@ subtitle: "A practical walkthrough for personalizing the template before your fi
 tags: [meta, jekyll, setup, documentation]
 image: "assets/images/posts/customizing_eyvan.webp"
 image_alt: "Minimalist illustration of an Iranian arch framing a code editor with configuration keys"
+image_width: 1200
+image_height: 630
 toc: true
 description: "Step-by-step guide to replacing the demo content and making Eyvan your own — from config and data files to assets and posts."
 ---

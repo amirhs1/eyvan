@@ -6,6 +6,8 @@ math: true
 toc: true
 image: "assets/images/posts/global_temperature_rise.webp"
 image_alt: "Global Temperature Rise Visualized in Polar Perspective"
+image_width: 800
+image_height: 800
 description: "A data-rich demo post exploring synthetic temperature and precipitation trends using tables, math, cross-references, and embedded charts."
 ---
 

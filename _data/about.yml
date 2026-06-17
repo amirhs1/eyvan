@@ -1,0 +1,59 @@
+# About-page-specific content.
+# Identity fields (name, role, bio, email, avatar) come from _data/author.yml.
+
+# Hero eyebrow (small label above the h1)
+eyebrow: "About"
+
+# Extended hero paragraphs.
+# author.yml holds the short bio; these are the longer contextual paragraphs
+# that appear in the about hero only.
+intro:
+  paragraphs:
+    - >-
+      I use this portfolio as a quiet home for research notes, technical writing,
+      field observations, and small creative experiments. My work sits between careful
+      analysis and clear communication: I like turning complicated ideas into readable
+      explanations, useful tools, and visual stories.
+    - >-
+      This demo About page shows how an Eyvan site owner can introduce themselves
+      without turning the page into another project archive. It can hold a short
+      biography, personal interests, contact links, and a resume action in one
+      readable flow.
+
+# Caption displayed beneath the portrait image.
+portrait_caption: >-
+  A simple portrait area keeps the page personal without turning it into a card grid.
+
+# Focus section
+focus:
+  title: "What I care about"
+  description: "A short, human summary of the themes behind the portfolio."
+  intro: >-
+    I am interested in work that combines evidence, design, and storytelling.
+    Depending on the project, that might mean writing a clear technical guide,
+    building a small data visualisation, documenting a field note, or explaining
+    a scientific idea with careful typography and accessible media.
+  items:
+    - "Readable technical writing and research documentation"
+    - "Scientific and visual communication"
+    - "Small web tools, reproducible notes, and portfolio systems"
+    - "Photography, field audio, and place-based observation"
+
+# Currently section
+currently:
+  title: "Currently"
+  description: "A lighter section that makes the page feel alive."
+  paragraphs:
+    - >-
+      I am currently refining Eyvan as a clean Jekyll portfolio template for
+      GitHub Pages. The focus is simple: fast pages, accessible defaults, strong
+      typography, reusable media includes, and a design system that is easy to
+      customise without learning a large frontend framework.
+    - >-
+      Outside the template itself, I use this space to test writing patterns,
+      figures, audio, video, code blocks, citations, and long-form page layouts.
+
+# Contact section
+contact:
+  title: "Contact"
+  description: "Use the links below to connect, read more, or download the resume."

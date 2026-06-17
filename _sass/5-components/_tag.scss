@@ -14,8 +14,7 @@
 // - Intended for metadata/topic links, not primary actions
 //
 // Notes:
-// - Visual styling intentionally stays close to the former c-button--tag style
-//   to preserve the existing minimalist design.
+// - Compact dimensions keep taxonomy links visually subordinate to CTAs.
 // - c-button remains reserved for real actions and CTAs.
 // -----------------------------------------------------------------------------
 
@@ -29,8 +28,8 @@
    ----------------------------------------------------------------------------- */
 
 $tag-border-width: settings-config.$global-border-width;
-$tag-padding-block: settings-spacing.$space-2;
-$tag-padding-inline: settings-spacing.$space-3;
+$tag-padding-block: settings-spacing.$space-1;
+$tag-padding-inline: settings-spacing.$space-2;
 /* -----------------------------------------------------------------------------
    Base tag
    ----------------------------------------------------------------------------- */
@@ -40,7 +39,7 @@ $tag-padding-inline: settings-spacing.$space-3;
   align-items: center;
   justify-content: center;
 
-  min-block-size: 2.125rem;
+  min-block-size: 1.5rem;
   padding-block: $tag-padding-block;
   padding-inline: $tag-padding-inline;
 
@@ -50,7 +49,7 @@ $tag-padding-inline: settings-spacing.$space-3;
   color: var(--color-tag-text);
 
   font-family: settings-type.$font-family-mono;
-  font-size: settings-type.$font-size-sm;
+  font-size: settings-type.$font-size-xs;
   font-weight: settings-type.$font-weight-bold;
   line-height: 1;
   letter-spacing: settings-type.$letter-spacing-loose-sm;

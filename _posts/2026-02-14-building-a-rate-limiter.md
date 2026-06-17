@@ -11,7 +11,7 @@ image_height: 670
 description: "A hands-on walkthrough of implementing a token-bucket rate limiter with code in Python and Go."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic, mathematical, code, figure, and table capabilities of the Eyvan template.
+> **Note:** This post was generated with AI tools for the sole purpose of demonstrating the rich typographic, mathematical, code, figure, and table capabilities of the Eyvan template.
 
 Rate limiting is a foundational part of modern systems design. Whether you are running a public API, managing internal services, or protecting a database from cascading failures, controlling the flow of requests is essential. Without rate limiting, a system can become vulnerable to malicious denial-of-service attempts, accidental overload from client scripts, resource starvation, and unexpected infrastructure costs.
 
@@ -49,7 +49,7 @@ The key benefit of token bucket is that it allows **controlled bursts**. A clien
    alt=page.image_alt
    width="1200"
    height="670"
-   caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics. The diagram was generated with Google's Gemini for illustrative purposes by the author using the contents of this post as the generation prompt."
+   caption="Visual breakdown of the high-level token-bucket system architecture, illustrating request flow, token consumption, and refill mechanics. The diagram was generated with AI tools for illustrative purposes by the author using the contents of this post as the generation prompt."
 %}
 
 ### Naive vs. Lazy Refills

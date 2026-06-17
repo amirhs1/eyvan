@@ -116,7 +116,7 @@ The current `_config.yml` uses `baseurl: "/eyvan"`. If you change `baseurl` to a
 - `_data/share.yml` controls post share actions.
 - `_data/footer.yml` controls footer text.
 
-For a complete, step-by-step walkthrough of personalizing all of these files — including asset replacement and your first post — see the demo post *Customizing Eyvan* included in `_posts/`.
+For a complete, step-by-step walkthrough, see the demo posts included in `_posts/`: *Setting Up Eyvan* covers personalizing the config, data files, assets, and your first post; *Theming Eyvan* covers changing the brand color, fonts, and spacing.
 
 ## Writing Content
 
@@ -128,34 +128,7 @@ YYYY-MM-DD-post-slug.md
 
 Eyvan currently treats posts as both writing and project entries. The homepage shows recent posts, `/projects/` lists all posts, and tag archive pages group posts by front matter tags.
 
-Common post front matter:
-
-```yaml
----
-title: "Clear Post Title"
-subtitle: "Optional supporting sentence"
-tags: [project, research, writing]
-description: "One concise sentence for cards and previews."
-toc: true
-math: false
-crossrefs: true
-share: true
-image: "assets/images/posts/token-bucket-diagram.webp"
-image_alt: "Token bucket rate limiter system diagram"
-image_position: "center center"
----
-```
-
-Important behavior:
-
-- `toc: true` renders the post TOC wrappers and includes `##` / `###` headings.
-- `math: true` loads MathJax for that page.
-- `crossrefs: true` loads the JavaScript that resolves `{% include ref.html %}` links from raw ids into numbered labels such as `Figure 1` or `Table 2`.
-- `read_time` is not currently a per-post front matter switch; reading time is controlled globally by `read_time` and `words_per_minute` in `_config.yml`.
-- `share: false` hides post share controls.
-- `image` is used by the post cover, post cards, and social preview metadata.
-
-See the demo post *Front Matter Field Reference* for detailed examples.
+Front matter controls per-post behavior: `toc: true` for the table of contents, `math: true` to load MathJax, `crossrefs: true` for numbered figure/table references, `share: false` to hide share controls, and `image` for the cover and social preview. Reading time is global (`read_time` / `words_per_minute` in `_config.yml`), not per-post. The demo post *Front Matter Field Reference* documents every supported field with examples.
 
 MathJax is an intentional opt-in CDN integration. Eyvan pins the complete
 version, protects the entry bundle with Subresource Integrity, and checks the
@@ -178,13 +151,7 @@ Eyvan includes Liquid helpers for common long-form content patterns:
 - `table-caption.html` for numbered table captions
 - `ref.html` for cross-references to numbered figures and tables
 
-Use `crossrefs: true` in front matter when a post uses `ref.html`. Individual figures, videos, audio blocks, and table captions are numbered by default; pass `numbered="false"` to an include only when that item should not be counted or referenced.
-
-When a cover or figure needs responsive variants, pre-generate a small set of
-alternate widths and declare them with newline-delimited `path | descriptor`
-rows. Eyvan then rewrites each path through `relative_url` before emitting the
-final `srcset`, so the output stays baseurl-safe without adding a bundler or
-image pipeline.
+Use `crossrefs: true` in front matter when a post uses `ref.html`. Individual figures, videos, audio blocks, and table captions are numbered by default; pass `numbered="false"` to exclude an item. Covers and figures accept optional responsive `srcset`/`sizes` variants, which Eyvan rewrites through `relative_url` to stay baseurl-safe. See *Front Matter Field Reference* for the full include options.
 
 ## Deployment
 
@@ -236,8 +203,8 @@ projects:
 - [vonge-jekyll-bookshop-template](https://github.com/CloudCannon/vonge-jekyll-bookshop-template)
 
 Code generation, modular templating, refactoring, debugging scripts, and demo
-posts were developed in collaboration with Large Language Models, including
-OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
+posts were developed in collaboration with Large Language Models, including but
+not limited to OpenAI's ChatGPT/Codex, Google Gemini, and Anthropic Claude.
 
 Eyvan includes third-party fonts, icons, demo media, and optional demo
 integrations. For full third-party license notices, copyright information, and

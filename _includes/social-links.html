@@ -28,6 +28,10 @@
     "ellipsis-horizontal-circle" toggle button. Omit (or 0) to always render
     every available item inline (used by the footer and mobile menu, which
     wrap and center instead of collapsing).
+  - exclude (optional, comma-separated string): item keys to omit from this
+    render, e.g. exclude="cv,github". Used by surfaces that already surface
+    those actions elsewhere (the contact page promotes Resume and GitHub as
+    method cards, so it excludes them from the social row).
 
   Data dependencies:
   - site.data.social-links.github
@@ -55,17 +59,22 @@
 {% assign remaining_platforms = 'instagram,youtube,x,scholar,orcid,medium' | split: ',' %}
 {% assign priority_order = 'cv,linkedin,github' | split: ',' | concat: remaining_platforms %}
 
+{% comment %} Optional opt-out: keys listed in `exclude` are skipped here. {% endcomment %}
+{% assign exclude_items = include.exclude | default: '' | replace: ' ', '' | split: ',' %}
+
 {% assign available_items = '' | split: ',' %}
 {% for item in priority_order %}
   {% assign single_item = item | split: ',' %}
 
-  {% if item == 'cv' %}
-    {% if site.cv_url %}
+  {% unless exclude_items contains item %}
+    {% if item == 'cv' %}
+      {% if site.cv_url %}
+        {% assign available_items = available_items | concat: single_item %}
+      {% endif %}
+    {% elsif social[item] %}
       {% assign available_items = available_items | concat: single_item %}
     {% endif %}
-  {% elsif social[item] %}
-    {% assign available_items = available_items | concat: single_item %}
-  {% endif %}
+  {% endunless %}
 {% endfor %}
 
 {% assign collapse_after = include.collapse_after | default: 0 %}

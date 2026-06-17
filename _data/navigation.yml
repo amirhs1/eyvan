@@ -18,6 +18,10 @@ main:
     url: "/projects/"
     external: false
 
+  - title: "Contact"
+    url: "/contact/"
+    external: false
+
   - title: "Tests"
     url: "/tests/"
     external: false

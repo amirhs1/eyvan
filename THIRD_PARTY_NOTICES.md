@@ -65,7 +65,7 @@ Eyvan incorporates third-party open-source iconography. Icons have been
 optimized to support dynamic light and dark mode styling with `currentColor`
 fills where applicable.
 
-- **CV Icon**: Original design by the template author.
+- **Resume & CV Icons**: Original designs by the template author.
 - **Ionicons** (`chevron-down-circle`, `chevron-up-circle`,
   `close-circle`, `discord`, `github`, `instagram`, `linkedin`, `mail`,
   `menu`, `moon`, `old-twitter`, `pinterest`, `print`, `rss`, `send`,

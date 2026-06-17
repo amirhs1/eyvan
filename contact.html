@@ -1,0 +1,146 @@
+---
+layout: default
+title: Contact
+permalink: /contact/
+description: "Get in touch | email, resume, GitHub, or social platforms."
+seo_title: "Contact | Eyvan Portfolio Template"
+---
+
+{% comment %}
+  Contact Page
+  Purpose: Provide a clear, single-destination contact page.
+  Layout: default (not page) — the method grid needs full o-container width;
+  o-prose's measure inside layout: page is too constrained.
+
+  Structure:
+  - Contact page wrapper
+    - Page heading (section-heading.html)
+    - Method cards (c-contact-card): Email · Resume · GitHub
+      - each: decorative icon · title · description · action button
+    - Social row: remaining social profiles (cv + github excluded — promoted
+      to method cards above)
+
+  Architecture:
+  - layout: default → o-container → l-contact
+  - l-contact (grid composition) in 6-layouts/_contact.scss
+  - c-contact-card (card visuals) in 5-components/_contact-card.scss
+  - Uses <div id="top"> not <main> — default.html owns the <main> landmark
+  - Cards are a semantic list so assistive tech announces the count
+
+  Accessibility:
+  - Page h1 labelled by section-heading include
+  - Each card title is an h2 → clean Get in touch › Email/Resume/GitHub outline
+  - Card action links carry explicit aria-labels (generic visible labels)
+  - Social nav has an explicit aria-label
+  - External links use target=_blank + rel=noopener and announce the new tab
+
+  Data dependencies:
+  - site.data.author.name        — email CTA + aria-labels
+  - site.data.author.email       — mailto href
+  - site.cv_url                  — resume download link
+  - site.data.social-links.github — GitHub card link
+  - social-links.html            — social row (exclude="cv,github")
+{% endcomment %}
+
+{% assign author_name  = site.data.author.name  | default: site.author.name | default: site.title %}
+{% assign author_email = site.data.author.email | default: site.author.email %}
+{% assign github_url   = site.data.social-links.github %}
+
+<div class="o-container">
+  <div class="l-contact" id="top">
+
+    <!-- Page heading -->
+    <header class="l-contact__header">
+      {% include section-heading.html
+        id            = "contact-title"
+        heading_level = "h1"
+        modifier      = "lg"
+        eyebrow       = "Contact"
+        title         = "Get in touch"
+        description   = "Choose the channel that works best for you — I try to reply within a few working days."
+      %}
+    </header>
+
+    <!-- Method cards -->
+    <ul class="l-contact__methods" role="list">
+
+      {% if author_email %}
+        <li class="c-contact-card">
+          <span class="c-contact-card__icon" aria-hidden="true">
+            {% include icons/mail.svg %}
+          </span>
+          <div class="c-contact-card__body">
+            <h2 class="c-contact-card__title">Email</h2>
+            <p class="c-contact-card__desc">
+              Best for project enquiries, collaboration, or general questions.
+            </p>
+          </div>
+          <a
+            class="c-button c-button--primary c-button--small c-contact-card__action"
+            href="mailto:{{ author_email }}"
+            aria-label="Email {{ author_name }}"
+          >
+            Email me
+          </a>
+        </li>
+      {% endif %}
+
+      {% if site.cv_url %}
+        <li class="c-contact-card">
+          <span class="c-contact-card__icon" aria-hidden="true">
+            {% include icons/resume.svg %}
+          </span>
+          <div class="c-contact-card__body">
+            <h2 class="c-contact-card__title">Resume</h2>
+            <p class="c-contact-card__desc">
+              PDF — covers experience, research, writing, and open-source work.
+            </p>
+          </div>
+          <a
+            class="c-button c-button--secondary c-button--small c-contact-card__action"
+            href="{{ site.cv_url | relative_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            type="application/pdf"
+            aria-label="Download Resume PDF, opens in a new tab"
+          >
+            Download
+          </a>
+        </li>
+      {% endif %}
+
+      {% if github_url %}
+        <li class="c-contact-card">
+          <span class="c-contact-card__icon" aria-hidden="true">
+            {% include icons/github.svg %}
+          </span>
+          <div class="c-contact-card__body">
+            <h2 class="c-contact-card__title">GitHub</h2>
+            <p class="c-contact-card__desc">
+              Source code, issues, and pull requests for my open-source projects.
+            </p>
+          </div>
+          <a
+            class="c-button c-button--secondary c-button--small c-contact-card__action"
+            href="{{ github_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit my GitHub profile, opens in a new tab"
+          >
+            Visit
+          </a>
+        </li>
+      {% endif %}
+
+    </ul>
+
+    <!-- Social row — cv + github excluded (promoted to cards above) -->
+    <div class="l-contact__social">
+      <p class="l-contact__social-label">Also reachable on</p>
+      <nav class="c-social-links l-contact__social-links" aria-label="Other social profiles">
+        {% include social-links.html exclude="cv,github" %}
+      </nav>
+    </div>
+
+  </div>
+</div>

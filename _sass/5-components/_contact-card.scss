@@ -1,0 +1,131 @@
+// -----------------------------------------------------------------------------
+// Contact Card Component
+// ITCSS layer: 5-components
+// Path: _sass/5-components/_contact-card.scss
+//
+// Description:
+// A single contact-method row: a decorative icon badge, a title + description,
+// and an action button. Used on the Contact page method list. Page-level
+// composition (the list grid) belongs to l-contact in 6-layouts/_contact.scss.
+//
+// Structure:
+// - .c-contact-card                card wrapper (rendered on each <li>)
+//   - .c-contact-card__icon        circular icon badge (decorative)
+//   - .c-contact-card__body        title + description column
+//     - .c-contact-card__title     method name (h2, visually compact)
+//     - .c-contact-card__desc      one-line description
+//   - .c-contact-card__action      action button (delegates to c-button)
+//
+// Rules:
+// - Component visuals only — surface, border, padding, internal grid.
+// - Colours use Material 3 role tokens (surface-container, outline-variant,
+//   heading, on-surface-variant).
+// - Mobile-first: icon + body on one row, action wraps below. At $bp-sm the
+//   card becomes a single icon | body | action row.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config"      as settings-config;
+@use "../0-settings/spacing"     as settings-spacing;
+@use "../0-settings/typography"  as settings-typography;
+@use "../1-tools/mixins"         as tools-mixins;
+
+
+// -----------------------------------------------------------------------------
+// Card wrapper
+// Mobile: two-column grid (icon | body) with the action on a second row.
+// -----------------------------------------------------------------------------
+
+.c-contact-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "icon body"
+    "action action";
+  gap: settings-spacing.$space-3 settings-spacing.$space-4;
+  align-items: center;
+  padding: settings-spacing.$space-4 settings-spacing.$space-5;
+  background-color: var(--color-surface-container-low);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  border-radius: settings-config.$global-border-radius;
+}
+
+
+// -----------------------------------------------------------------------------
+// Icon badge — circular, decorative; aria-hidden in markup
+// -----------------------------------------------------------------------------
+
+.c-contact-card__icon {
+  grid-area: icon;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--color-surface-container-high);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+  flex-shrink: 0;
+
+  svg {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    fill: currentColor;
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// Body — title + description
+// -----------------------------------------------------------------------------
+
+.c-contact-card__body {
+  grid-area: body;
+  display: grid;
+  gap: settings-spacing.$space-1;
+  min-inline-size: 0;
+}
+
+.c-contact-card__title {
+  margin: 0;
+  color: var(--color-heading);
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-lg;
+  font-weight: settings-typography.$font-weight-bold;
+  line-height: settings-typography.$line-height-tight;
+}
+
+.c-contact-card__desc {
+  margin: 0;
+  color: var(--color-on-surface-variant);
+  font-size: settings-typography.$font-size-sm;
+  line-height: settings-typography.$line-height-normal;
+}
+
+
+// -----------------------------------------------------------------------------
+// Action — c-button owns its own visuals; placement only here
+// -----------------------------------------------------------------------------
+
+.c-contact-card__action {
+  grid-area: action;
+  justify-self: start;
+}
+
+
+// -----------------------------------------------------------------------------
+// Responsive — $bp-sm (480px)
+// Single row: icon | body | action.
+// -----------------------------------------------------------------------------
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-sm) {
+  .c-contact-card {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "icon body action";
+  }
+
+  .c-contact-card__action {
+    justify-self: end;
+  }
+}

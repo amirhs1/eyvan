@@ -80,7 +80,6 @@
 @use "4-objects/site-footer" as object-site-footer;
 @use "4-objects/hero" as object-hero;
 
-
 // -----------------------------------------------------------------------------
 // 5. COMPONENTS
 // Designed UI components
@@ -111,6 +110,7 @@
 @use "5-components/post" as component-post;
 
 @use "5-components/page" as component-page;
+@use "5-components/contact-card" as component-contact-card;
 @use "5-components/toc" as component-toc;
 @use "5-components/prose-media" as component-prose-media;
 
@@ -126,6 +126,7 @@
 @use "6-layouts/homepage" as layout-homepage;
 @use "6-layouts/projects" as layout-projects;
 @use "6-layouts/about" as layout-about;
+@use "6-layouts/contact" as layout-contact;
 
 // -----------------------------------------------------------------------------
 // 7. TRUMPS

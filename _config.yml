@@ -6,6 +6,7 @@
 # ------------------------------------------------------------
 title: "Your Name"
 description: "A clean, modern portfolio site for projects, writing, and professional information."
+lang: "en"
 # Feed-compatible author metadata. `jekyll-feed` reads `site.author`
 # from `_config.yml`; theme UI reads `_data/author.yml`. Keep both
 # places aligned when customizing the template identity.
@@ -130,6 +131,7 @@ exclude:
   - vendor/ruby
   - README.md
   - RELEASE_CHECKLIST.md
+  - THIRD_PARTY_NOTICES.md
   - notes
   - scripts
   - package.json

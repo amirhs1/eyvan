@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `THIRD_PARTY_NOTICES.md`, documenting bundled font, icon, demo media, and
+  optional demo integration license scope separately from the repository's MIT
+  license.
+- A site-level `lang` configuration value, used by the root HTML element with
+  an English fallback for template adopters.
 - Initial release of the Eyvan template: a minimalist, accessibility-first
   Jekyll portfolio and writing template for GitHub Pages, with an ITCSS/BEM
   Sass architecture, reusable long-form content includes (figures, video,
@@ -29,6 +34,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- README attribution is now a concise acknowledgment section that points to the
+  detailed third-party notices and bundled font license map.
+- Contributor QA documentation now calls out the Ruby version file, Node 20 CI
+  baseline, `npm ci`, and Playwright-backed checks.
+- Shipped demo post covers and the homepage hero image now provide measured
+  intrinsic dimensions where they were previously missing, improving layout
+  stability without adding an image pipeline.
 - The opt-in MathJax loader now uses the exact reviewed 4.1.2 CDN release,
   SHA-384 Subresource Integrity, anonymous CORS, a no-referrer policy, and
   ordered deferred loading; release checks reject mutable or unprotected
@@ -91,6 +103,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- The npm QA dependency lockfile now resolves `form-data` to a version that
+  clears the reported high-severity audit advisory in the `wait-on` dependency
+  chain.
 - The climate demo's custom precipitation legend now uses the active
   `on-surface` text color in dark mode, uses the more distinguishable Material
   3 error/info colors for temperature and info/success/warning colors for

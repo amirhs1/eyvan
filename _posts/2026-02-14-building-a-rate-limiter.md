@@ -6,6 +6,8 @@ toc: true
 math: true
 image: "assets/images/posts/token-bucket-diagram.webp"
 image_alt: "Token Bucket System Design Diagram"
+image_width: 1200
+image_height: 670
 description: "A hands-on walkthrough of implementing a token-bucket rate limiter with code in Python and Go."
 ---
 

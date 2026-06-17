@@ -42,6 +42,8 @@
   - site.data.hero.description_html
   - site.data.hero.image
   - site.data.hero.image_alt
+  - site.data.hero.image_width
+  - site.data.hero.image_height
   - site.data.hero.cta_button_primary_text
   - site.data.hero.cta_button_primary_link
   - site.data.hero.cta_button_secondary_text
@@ -68,6 +70,8 @@
 {% assign hero_description_html = hero.description_html %}
 {% assign hero_image_src = hero.image | default: 'assets/images/hero-placeholder.jpg' %}
 {% assign hero_image_alt = hero.image_alt | default: hero_name %}
+{% assign hero_image_width = hero.image_width %}
+{% assign hero_image_height = hero.image_height %}
 
 {% assign hero_primary_text = hero.cta_button_primary_text | default: 'Get in touch' %}
 {% assign hero_primary_link = hero.cta_button_primary_link | default: '/contact/' %}
@@ -144,6 +148,10 @@
               alt="{{ hero_image_alt | escape }}"
               loading="eager"
               fetchpriority="high"
+              {% if hero_image_width and hero_image_height %}
+              width="{{ hero_image_width }}"
+              height="{{ hero_image_height }}"
+              {% endif %}
             >
           </div>
         </div>

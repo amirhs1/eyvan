@@ -20,10 +20,6 @@
 //   - .l-about__section--split      two-column at desktop (focus, currently)
 //     - .l-about__section-heading   label column
 //     - .l-about__section-body      content column
-//   - .l-about__contact             two-column at desktop (mirrors --split)
-//     - .l-about__contact-copy      label column
-//     - .l-about__contact-actions   buttons + social row
-//     - .l-about__social-links      social icons inside actions
 //
 // Rules:
 // - Outer width: o-container — matches homepage and projects.
@@ -179,40 +175,8 @@
 
 
 // -----------------------------------------------------------------------------
-// Contact
-// Mirrors the --split section column pattern for visual consistency.
-// Does not reuse .l-about__section--split to keep the selectors independent.
-// -----------------------------------------------------------------------------
-
-.l-about__contact {
-  display: grid;
-  gap: settings-spacing.$space-5;
-  padding-block-start: settings-spacing.$space-7;
-  border-block-start: settings-config.$global-border-width solid var(--color-outline-variant);
-}
-
-.l-about__contact-copy,
-.l-about__contact-actions {
-  min-inline-size: 0;
-}
-
-// Buttons and social row — wraps naturally at narrow widths.
-.l-about__contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: settings-spacing.$space-3;
-}
-
-// Social links slot — no additional margin-inline-start offset needed.
-.l-about__social-links {
-  margin-inline-start: 0;
-}
-
-
-// -----------------------------------------------------------------------------
 // Responsive — $bp-layout (1024px)
-// Hero becomes two-column. Split sections and contact become heading|body grids.
+// Hero becomes two-column. Split sections become heading|body grids.
 // -----------------------------------------------------------------------------
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
@@ -236,23 +200,6 @@
       settings-spacing.$space-6,
       settings-spacing.$space-9
     );
-  }
-
-  // Contact mirrors the split column ratio.
-  .l-about__contact {
-    grid-template-columns: minmax(12rem, 0.38fr) minmax(0, 0.62fr);
-    column-gap: fluid.fluid-space(
-      settings-spacing.$space-6,
-      settings-spacing.$space-9
-    );
-    align-items: start;
-  }
-
-  // Left-align buttons within the right contact column.
-  // flex-end would push them to the trailing edge, which reads awkwardly
-  // against the left-to-right scan direction of the heading column.
-  .l-about__contact-actions {
-    justify-content: flex-start;
   }
 }
 

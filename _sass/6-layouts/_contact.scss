@@ -1,0 +1,90 @@
+// -----------------------------------------------------------------------------
+// Layout — Contact Page
+// ITCSS layer: 6-layouts
+// Path: _sass/6-layouts/_contact.scss
+//
+// Description:
+// Page-level composition for the Contact page (Method Cards layout).
+// Card visuals live in 5-components/_contact-card.scss; this file owns only
+// the page stack and the method list.
+//
+// Structure:
+// - .l-contact                 page wrapper (vertical stack)
+//   - .l-contact__header       section-heading block
+//   - .l-contact__methods      list of c-contact-card items (stacked)
+//   - .l-contact__social       social row
+//     - .l-contact__social-label   "Also reachable on" label
+//     - .l-contact__social-links   c-social-links nav
+//
+// Rules:
+// - Layout only — no card cosmetics (those belong to c-contact-card).
+// - Outer width: o-container (same as homepage, projects, about).
+// - Uses <div id="top"> not <main>.
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing"    as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as fluid;
+
+
+// -----------------------------------------------------------------------------
+// Page wrapper — vertical rhythm between heading, methods, and social row.
+// -----------------------------------------------------------------------------
+
+.l-contact {
+  display: grid;
+  gap: fluid.fluid-space(
+    settings-spacing.$space-6,
+    settings-spacing.$space-8
+  );
+}
+
+
+// -----------------------------------------------------------------------------
+// Header
+// section-heading.html renders inside this element and owns its own spacing.
+// -----------------------------------------------------------------------------
+
+.l-contact__header {
+  min-inline-size: 0;
+}
+
+
+// -----------------------------------------------------------------------------
+// Method list
+// Reset list chrome; stack cards with a consistent gap. Capped to the wide
+// reading measure so rows do not stretch uncomfortably on large screens.
+// -----------------------------------------------------------------------------
+
+.l-contact__methods {
+  display: grid;
+  gap: settings-spacing.$space-4;
+  max-inline-size: settings-typography.$text-measure-wide;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+// -----------------------------------------------------------------------------
+// Social row — secondary profiles below the primary method cards.
+// -----------------------------------------------------------------------------
+
+.l-contact__social {
+  display: grid;
+  gap: settings-spacing.$space-3;
+}
+
+.l-contact__social-label {
+  margin: 0;
+  font-family: settings-typography.$font-family-mono;
+  font-size: settings-typography.$font-size-sm;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+// c-social-links owns icon sizing and gap; no inline offset needed here.
+.l-contact__social-links {
+  margin-inline-start: 0;
+}

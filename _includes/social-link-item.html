@@ -1,6 +1,6 @@
 {% comment %}
   Social Link Item
-  Purpose: Render a single social platform or CV action link.
+  Purpose: Render a single social platform or Resume action link.
 
   Architecture:
   - Leaf include used by social-links.html for both visible and
@@ -31,21 +31,21 @@
 {% assign item = include.item %}
 
 {% if item == 'cv' %}
-  <!-- CV action link -->
+  <!-- Resume action link (internal slot key remains 'cv', tied to site.cv_url) -->
   <a
     class="c-icon-link c-social-links__item c-social-links__item--cv"
     href="{{ site.cv_url | relative_url }}"
     target="_blank"
     rel="noopener noreferrer"
     type="application/pdf"
-    aria-label="Open CV PDF in a new tab"
+    aria-label="Open Resume PDF in a new tab"
   >
-    <!-- Screen-reader label for CV action -->
-    <span class="u-visually-hidden">Open CV PDF in a new tab</span>
+    <!-- Screen-reader label for Resume action -->
+    <span class="u-visually-hidden">Open Resume PDF in a new tab</span>
 
-    <!-- Decorative CV icon -->
+    <!-- Decorative Resume (document) icon -->
     <span class="c-icon-link__icon c-social-links__icon" aria-hidden="true">
-      {% include icons/cv.svg %}
+      {% include icons/resume.svg %}
     </span>
   </a>
 {% else %}

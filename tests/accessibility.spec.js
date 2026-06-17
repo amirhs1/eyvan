@@ -118,7 +118,7 @@ test.describe('Eyvan interactive accessibility checks', () => {
         ],
       },
       {
-        path: '/projects/customizing-eyvan/',
+        path: '/projects/setting-up-eyvan/',
         expected: [
           ...globalScriptNames,
           'code-block-a11y.js',
@@ -154,7 +154,7 @@ test.describe('Eyvan interactive accessibility checks', () => {
     await expect(sharePanel).toBeHidden();
     await expect(shareToggle).toBeFocused();
 
-    await page.goto(`${baseUrl}/projects/customizing-eyvan/`);
+    await page.goto(`${baseUrl}/projects/setting-up-eyvan/`);
 
     const taskCheckbox = page.locator('.task-list-item-checkbox').first();
     await expect(taskCheckbox).toHaveAttribute(

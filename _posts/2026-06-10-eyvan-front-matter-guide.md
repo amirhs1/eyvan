@@ -11,7 +11,7 @@ crossrefs: true
 description: "A complete reference guide for all supported front matter fields in this Jekyll template."
 ---
 
-> **Note:** This post was generated with OpenAI's ChatGPT for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
+> **Note:** This post was generated with AI tools for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
 
 Front matter is the small YAML block at the top of a Jekyll page or post. It sits between two lines of three dashes and tells Jekyll how to process the file before it becomes HTML. In this template, front matter controls the page layout, post header, metadata, table of contents, social previews, MathJax loading, cover images, tags, cross-reference numbering, and sharing behavior.[^1]
 
@@ -47,7 +47,7 @@ YYYY-MM-DD-post-slug.md
 For this article, the file is saved as:
 
 ```text
-_posts/2026-03-12-eyvan-front-matter-guide.md
+_posts/2026-06-10-eyvan-front-matter-guide.md
 ```
 
 Because `_config.yml` sets defaults for posts, you usually do not need to write `layout: post` manually. Jekyll applies it automatically to files in the posts collection. You can still write it explicitly if you want the file to be self-documenting.
@@ -381,7 +381,7 @@ layout: post
 title: "Design Philosophy and Architecture of Eyvan"
 subtitle: "How the template is structured and why it was built this way"
 tags: [meta, design, jekyll, css, architecture]
-date: 2026-03-12 09:00:00 -0500
+date: 2026-06-12 09:00:00 -0500
 toc: true
 math: false
 crossrefs: true
@@ -652,4 +652,4 @@ Front matter is not just metadata. In this Jekyll template, it is the control pa
 
 ## Endnotes
 
-[^1]: The diagram (the post's cover image) was generated with Google's Gemini for illustrative purposes by the author using the contents of this post as the generation prompt.
+[^1]: The diagram (the post's cover image) was generated with AI tools for illustrative purposes by the author using the contents of this post as the generation prompt.

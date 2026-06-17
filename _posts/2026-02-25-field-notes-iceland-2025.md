@@ -11,7 +11,7 @@ image_height: 675
 description: "A visual journey through Iceland — images, video, and prose working together."
 ---
 
-> **Note:** This post was generated with Google's Gemini for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
+> **Note:** This post was generated with AI tools for the sole purpose of demonstrating the rich typographic and mathematical capabilities of the Eyvan template.
 
 The air at the edge of the Arctic Circle does not merely fill your lungs; it shocks the senses into a state of acute clarity. In the late autumn of 2025, I found myself standing on the basalt cliffs of Reykjanes, watching the North Atlantic smash itself to foam against rocks that are, geologically speaking, still in their infancy. Iceland is a landscape stripped of all ornamentation. Here, the planet’s molten spine breaks through the crust, creating a chaotic laboratory of steam, sulfur, and stone. To travel through this terrain with a camera and a notebook is to realize that the earth is not a static stage upon which life plays out, but a living, breathing entity undergoing perpetual transformation.
 

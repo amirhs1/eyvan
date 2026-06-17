@@ -50,6 +50,8 @@
   appearance: none;
   -webkit-tap-highlight-color: transparent;
 
+  --c-icon-link-knockout: var(--color-surface);
+
   @include tools-motion.transition-ui-with-transform;
 
   &:visited {
@@ -57,6 +59,7 @@
   }
 
   &:hover {
+    --c-icon-link-knockout: var(--color-primary);
     color: var(--color-on-primary);
     background-color: var(--color-primary);
     border-color: var(--color-primary);
@@ -76,15 +79,12 @@
 }
 
 .c-icon-link__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   flex: 0 0 auto;
 
   inline-size: 1.125rem;
   block-size: 1.125rem;
 
-  line-height: 1;
   color: inherit;
 
   svg,

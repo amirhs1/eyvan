@@ -1,8 +1,15 @@
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
-    d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm1.5 5a.9.9 0 0 0 0 1.8h7a.9.9 0 0 0 0-1.8h-7Zm0 4a.9.9 0 0 0 0 1.8h7a.9.9 0 0 0 0-1.8h-7Zm0 4a.9.9 0 0 0 0 1.8h4.5a.9.9 0 0 0 0-1.8H8.5Z"
-    fill="currentColor"
-  />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+  <path d="M44 12H164L212 60V232H44Z" fill="currentColor"/>
+
+  <!-- Sharp folded-corner separation -->
+  <path d="M164 12V60H212" fill="none" stroke="var(--c-icon-link-knockout, white)" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter"/>
+
+  <!-- Profile mark -->
+  <circle cx="104" cy="48" r="25" fill="var(--c-icon-link-knockout, white)"/>
+  <path d="M66 127V102C66 80 83 68 104 68C125 68 142 80 142 102V127Z" fill="var(--c-icon-link-knockout, white)"/>
+
+  <!-- Resume lines and bullets: sharp rectangles -->
+  <rect x="59" y="153" width="16" height="8" fill="var(--c-icon-link-knockout, white)"/> <rect x="96" y="153" width="102" height="8" fill="var(--c-icon-link-knockout, white)"/>
+  <rect x="59" y="178" width="16" height="8" fill="var(--c-icon-link-knockout, white)"/> <rect x="96" y="178" width="102" height="8" fill="var(--c-icon-link-knockout, white)"/>
+  <rect x="59" y="203" width="16" height="8" fill="var(--c-icon-link-knockout, white)"/> <rect x="96" y="203" width="102" height="8" fill="var(--c-icon-link-knockout, white)"/>
 </svg>

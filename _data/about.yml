@@ -16,9 +16,9 @@ intro:
       explanations, useful tools, and visual stories.
     - >-
       This demo About page shows how an Eyvan site owner can introduce themselves
-      without turning the page into another project archive. It can hold a short
-      biography, personal interests, contact links, and a resume action in one
-      readable flow.
+      without turning the page into another project archive. It holds a short
+      biography, personal interests, and current focus, with clear calls to action
+      to get in touch or browse the work.
 
 # Caption displayed beneath the portrait image.
 portrait_caption: >-
@@ -52,8 +52,3 @@ currently:
     - >-
       Outside the template itself, I use this space to test writing patterns,
       figures, audio, video, code blocks, citations, and long-form page layouts.
-
-# Contact section
-contact:
-  title: "Contact"
-  description: "Use the links below to connect, read more, or download the resume."

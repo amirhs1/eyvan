@@ -2,8 +2,8 @@
 layout: default
 title: About
 permalink: /about/
-description: "A personal about page for Eyvan, showing biography, interests, contact links, and resume access."
-seo_title: "About — Eyvan Portfolio Template"
+description: "A personal about page for Eyvan, showing biography, interests, and current focus."
+seo_title: "About | Eyvan Portfolio Template"
 image: "assets/images/avatar.webp"
 image_alt: "Portrait avatar for the portfolio owner"
 ---
@@ -14,14 +14,14 @@ image_alt: "Portrait avatar for the portfolio owner"
 
   Data sources:
   - _data/about.yml  — about-page-specific content (sections, captions, lists)
-  - _data/author.yml — identity (name, role, bio, email, avatar)
-  - _config.yml      — site.cv_url, site.author.*
+  - _data/author.yml — identity (name, role, avatar)
   - page front matter — portrait image path and alt text
 
   Architecture:
   - layout: default (shell only; does not use layout: page or c-page)
   - o-container → l-about (matches homepage/projects width pattern)
   - l-about SCSS in 6-layouts/_about.scss
+  - Hero CTAs funnel to the dedicated /contact/ and /projects/ pages
 
   Accessibility:
   - Uses <div> not <main> — default.html already owns the <main> landmark
@@ -32,7 +32,6 @@ image_alt: "Portrait avatar for the portfolio owner"
 {% assign about        = site.data.about %}
 {% assign author_name  = site.data.author.name  | default: site.author.name  | default: site.title %}
 {% assign author_role  = site.data.author.role  | default: "Researcher, writer, and builder" %}
-{% assign author_email = site.data.author.email | default: site.author.email %}
 
 <div class="o-container">
   <div class="l-about" id="top" aria-labelledby="about-title">
@@ -56,16 +55,12 @@ image_alt: "Portrait avatar for the portfolio owner"
         </div>
 
         <div class="l-about__actions" aria-label="About page actions">
-          {% if site.cv_url %}
-            <a class="c-button c-button--primary" href="{{ site.cv_url | relative_url }}">
-              View Resume
-            </a>
-          {% endif %}
-          {% if author_email %}
-            <a class="c-button c-button--secondary" href="mailto:{{ author_email }}">
-              Contact Me
-            </a>
-          {% endif %}
+          <a class="c-button c-button--primary" href="{{ '/contact/' | relative_url }}">
+            Contact me
+          </a>
+          <a class="c-button c-button--secondary" href="{{ '/projects/' | relative_url }}">
+            See my work
+          </a>
         </div>
       </div>
 
@@ -122,34 +117,6 @@ image_alt: "Portrait avatar for the portfolio owner"
         {% for paragraph in about.currently.paragraphs %}
           <p>{{ paragraph }}</p>
         {% endfor %}
-      </div>
-    </section>
-
-    <!-- ── Contact ───────────────────────────────────────────── -->
-    <section class="l-about__contact" aria-labelledby="about-contact-title">
-      <div class="l-about__contact-copy">
-        {% include section-heading.html
-          id            = "about-contact-title"
-          heading_level = "h2"
-          modifier      = "md"
-          title         = about.contact.title
-          description   = about.contact.description
-        %}
-      </div>
-      <div class="l-about__contact-actions">
-        {% if author_email %}
-          <a class="c-button c-button--primary" href="mailto:{{ author_email }}">
-            Email {{ author_name }}
-          </a>
-        {% endif %}
-        {% if site.cv_url %}
-          <a class="c-button c-button--secondary" href="{{ site.cv_url | relative_url }}">
-            Download Resume
-          </a>
-        {% endif %}
-        <nav class="c-social-links l-about__social-links" aria-label="About page social links">
-          {% include social-links.html %}
-        </nav>
       </div>
     </section>
 

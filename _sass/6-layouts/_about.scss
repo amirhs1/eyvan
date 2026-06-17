@@ -128,7 +128,7 @@
 
 .l-about__portrait-caption {
   max-inline-size: settings-typography.$text-measure-narrow;
-  color: var(--color-ui-text-muted);
+  color: var(--color-on-surface-variant);
   font-family: settings-typography.$font-family-mono;
   font-size: settings-typography.$font-size-sm;
   line-height: settings-typography.$line-height-normal;
@@ -150,7 +150,7 @@
 // Used by: Focus, Currently.
 .l-about__section--split {
   padding-block-start: settings-spacing.$space-7;
-  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
+  border-block-start: settings-config.$global-border-width solid var(--color-outline-variant);
 }
 
 .l-about__section-heading,
@@ -188,7 +188,7 @@
   display: grid;
   gap: settings-spacing.$space-5;
   padding-block-start: settings-spacing.$space-7;
-  border-block-start: settings-config.$global-border-width solid var(--color-ui-border);
+  border-block-start: settings-config.$global-border-width solid var(--color-outline-variant);
 }
 
 .l-about__contact-copy,

@@ -18,6 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `CNAME` file, GitHub Pages settings, the apex/subdomain DNS records, and the
   `baseurl: ""` adjustment a root-served custom domain requires.
 
+### Removed
+
+- The `pa11y-ci` development dependency and its `a11y` / `a11y:sitemap` npm
+  scripts. The accessibility gate is Playwright + axe (`npm run test:a11y`),
+  which `pa11y-ci` duplicated without being wired into any CI workflow;
+  removing it also clears the high-severity `undici` advisory it pulled in
+  transitively through `cheerio`, and reconciles the tooling with the
+  project's documented "Playwright + axe" accessibility policy. The README
+  contributor-QA note and the `dependabot.yml` npm comment were updated to
+  match.
+
 ## [1.0.0] - 2026-06-17
 
 ### Added

@@ -38,6 +38,13 @@ loader uses an exact reviewed release with Subresource Integrity and privacy
 attributes. MathJax is provided by the MathJax project under its own license
 terms.
 
+## Liquid Includes
+
+`_includes/toc.html` is a modified implementation based on
+[allejo/jekyll-toc](https://github.com/allejo/jekyll-toc), copyright (c) 2017
+Vladimir "allejo" Jimenez and distributed under the MIT License. The adapted
+file retains its attribution and license notice in its source comments.
+
 ## Typography Licensing
 
 Eyvan self-hosts three font families as WOFF2 subsets: Gelasio and JetBrains

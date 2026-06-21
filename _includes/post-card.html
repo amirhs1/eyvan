@@ -23,6 +23,10 @@
   - Designed to live inside responsive grid systems
   - Accepts:
     - include.post: post object
+    - include.eager: optional boolean; true loads the image eagerly with
+      fetchpriority="high" for a card rendered above the fold (e.g. the
+      first card in the homepage grid, the likely LCP element). Defaults
+      to lazy when omitted, so existing callers are unaffected.
   - Delegates reusable metadata rendering to:
     - entry-meta.html
   - Uses:
@@ -74,7 +78,8 @@
         >
           <img
             class="c-post-card__image"
-            loading="lazy"
+            loading="{% if include.eager %}eager{% else %}lazy{% endif %}"
+            {% if include.eager %}fetchpriority="high"{% endif %}
             src="{{ post.image | relative_url }}"
             alt="{{ post.image_alt | default: post.title | escape }}"
             {% if post.image_width and post.image_height %}

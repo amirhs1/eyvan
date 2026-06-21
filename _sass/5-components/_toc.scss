@@ -26,7 +26,7 @@
    Local component tokens
 ----------------------------------------------------------------------------- */
 
-$toc-sticky-top: calc(8rem + settings-spacing.$space-4);
+$toc-sticky-top: settings-config.$sticky-offset-top;
 $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 /* -----------------------------------------------------------------------------
    Sticky aside container
@@ -54,8 +54,8 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 }
 
 .c-toc__header {
-  margin-block-end: tools-spacing.$space-stack-sm;
-  padding-block-end: tools-spacing.$space-stack-sm;
+  margin-block-end: tools-spacing.$static-stack-sm;
+  padding-block-end: tools-spacing.$static-stack-sm;
   border-block-end: settings-config.$global-border-width solid
     var(--color-outline-variant);
   text-align: center;
@@ -101,7 +101,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     color: var(--color-primary);
   }
 
-  &.active {
+  &.is-active {
     color: var(--color-primary);
     font-weight: settings-typography.$font-weight-bold;
   }
@@ -223,7 +223,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     max-inline-size: none;
     min-block-size: 0;
 
-    padding: tools-spacing.$space-stack-sm;
+    padding: tools-spacing.$static-stack-sm;
 
     background-color: var(--color-surface-container-highest);
     border: settings-config.$global-border-width solid var(--color-outline-variant);
@@ -235,10 +235,10 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: tools-spacing.$space-stack-sm;
+    gap: tools-spacing.$static-stack-sm;
 
-    margin-block-end: tools-spacing.$space-stack-sm;
-    padding-block-end: tools-spacing.$space-stack-sm;
+    margin-block-end: tools-spacing.$static-stack-sm;
+    padding-block-end: tools-spacing.$static-stack-sm;
 
     border-block-end: settings-config.$global-border-width solid
       var(--color-outline-variant);
@@ -259,8 +259,8 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     align-items: center;
     justify-content: center;
 
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
+    inline-size: settings-config.$control-min-size;
+    block-size: settings-config.$control-min-size;
     padding: 0;
     border-color: transparent;
   }
@@ -301,21 +301,5 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     background-color: var(--color-ui-backdrop);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-  }
-}
-
-/* -----------------------------------------------------------------------------
-   Motion
------------------------------------------------------------------------------ */
-
-@keyframes tocFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

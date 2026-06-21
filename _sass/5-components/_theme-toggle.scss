@@ -31,7 +31,7 @@
    Component configuration
    ----------------------------------------------------------------------------- */
 
-$theme-toggle-size: 2.75rem;
+$theme-toggle-size: settings-config.$control-min-size;
 $theme-toggle-icon-size: 1.125rem;
 $theme-toggle-radius: 999px;
 
@@ -80,7 +80,7 @@ $theme-toggle-radius: 999px;
 
   &:disabled,
   &[aria-disabled="true"] {
-    opacity: 0.6;
+    opacity: settings-config.$disabled-opacity;
     cursor: not-allowed;
     transform: none;
   }
@@ -128,7 +128,7 @@ $theme-toggle-radius: 999px;
 .c-theme-toggle__label {
   font-size: settings-typography.$font-size-sm;
   font-weight: settings-typography.$font-weight-medium;
-  line-height: 1.2;
+  line-height: settings-typography.$line-height-tight;
   white-space: nowrap;
 }
 
@@ -157,7 +157,7 @@ $theme-toggle-radius: 999px;
 
 @media (min-width: settings-breakpoints.$bp-text) {
   .c-theme-toggle--mobile {
-    min-block-size: 2.75rem;
+    min-block-size: $theme-toggle-size;
   }
 }
 

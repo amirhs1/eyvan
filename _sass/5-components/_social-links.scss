@@ -136,10 +136,10 @@
 @media (min-width: settings-breakpoints.$bp-text) {
   .c-social-links--mobile {
     .c-icon-link {
-      inline-size: 2.75rem;
-      block-size: 2.75rem;
-      min-inline-size: 2.75rem;
-      min-block-size: 2.75rem;
+      inline-size: settings-config.$control-min-size;
+      block-size: settings-config.$control-min-size;
+      min-inline-size: settings-config.$control-min-size;
+      min-block-size: settings-config.$control-min-size;
     }
   }
 }

@@ -13,18 +13,20 @@
 // - Keeps test surfaces readable in both light and dark mode
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
+
 .c-test-frame,
 [class$="-test-frame"] {
   padding: 1.5rem;
   margin-block: 1.5rem;
-  border: 1px dashed var(--color-outline-variant);
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface-container-high);
 }
 
 .c-test-box,
 [class$="-test-box"] {
   padding: 1rem;
-  border: 1px solid var(--color-outline-variant);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   background: var(--color-surface-container-low);
   color: var(--color-on-surface);
 }
@@ -39,7 +41,7 @@
 .c-test-fill,
 [class$="-test-fill"] {
   padding: 0.75rem;
-  border: 1px dashed var(--color-outline-variant);
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface);
 }
 
@@ -47,14 +49,14 @@
 [class$="-test-block"] {
   min-inline-size: 0;
   padding: 1rem;
-  border: 1px dashed var(--color-outline-variant);
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface-container-high);
   color: var(--color-on-surface);
 }
 
 .c-test-block--strong,
 [class*="-test-block--strong"] {
-  border-width: 2px;
+  border-width: settings-config.$border-width-emphasis;
 }
 
 .c-test-label,
@@ -100,7 +102,7 @@
 
 .c-prose-test-pre {
   padding: 1rem;
-  border: 1px solid var(--color-outline-variant);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   background: var(--color-surface);
   color: var(--color-on-surface);
   white-space: pre;
@@ -111,7 +113,7 @@
 .c-brand-test-spacer,
 .c-container-test-viewport-edge,
 .c-mobile-menu-test-spacer {
-  border: 1px dashed var(--color-outline-variant);
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface);
   color: var(--color-on-surface-variant);
 }

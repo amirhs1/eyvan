@@ -67,7 +67,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   align-items: center;
   justify-content: center;
 
-  min-block-size: 2.75rem;
+  min-block-size: settings-config.$control-min-size;
   padding-block: settings-spacing.$space-2;
   padding-inline: settings-spacing.$space-1;
 
@@ -75,7 +75,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-md;
   font-weight: settings-typography.$font-weight-medium;
-  line-height: 1.2;
+  line-height: settings-typography.$line-height-tight;
   text-decoration: none;
   white-space: nowrap;
 
@@ -199,10 +199,10 @@ $navigation-link-active-indicator-size: 0.1875rem;
   justify-content: center;
   flex: 0 0 auto;
 
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
-  min-inline-size: 2.75rem;
-  min-block-size: 2.75rem;
+  inline-size: settings-config.$control-min-size;
+  block-size: settings-config.$control-min-size;
+  min-inline-size: settings-config.$control-min-size;
+  min-block-size: settings-config.$control-min-size;
 
   padding: 0;
   margin: 0;

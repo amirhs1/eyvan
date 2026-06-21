@@ -39,10 +39,12 @@
    1. Static Stack Aliases (pass-through from settings)
    ----------------------------------------------------------------------------- */
 // Used where fluid spacing is unnecessary or undesirable.
+// Named $static-stack-* (not $space-stack-*) to avoid colliding with the
+// distinct $space-stack-* tokens in 0-settings/_spacing.scss.
 
-$space-stack-xxs: settings-spacing.$space-1; // 4px
-$space-stack-xs: settings-spacing.$space-2; // 8px
-$space-stack-sm: settings-spacing.$space-3; // 12px
+$static-stack-xxs: settings-spacing.$space-1; // 4px
+$static-stack-xs: settings-spacing.$space-2; // 8px
+$static-stack-sm: settings-spacing.$space-3; // 12px
 
 
 /* -----------------------------------------------------------------------------

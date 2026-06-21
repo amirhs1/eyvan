@@ -25,6 +25,7 @@
 // - .c-button__label
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-type;
@@ -36,6 +37,7 @@
    ----------------------------------------------------------------------------- */
 
 $button-border-width: settings-config.$global-border-width;
+$button-min-block-size: settings-config.$control-min-size;
 
 $button-padding-block-sm: settings-spacing.$space-3;
 $button-padding-inline-sm: settings-spacing.$space-6;
@@ -56,7 +58,7 @@ $button-icon-size: 0.875rem;
   justify-content: center;
   gap: $button-gap-default;
 
-  min-block-size: 2.75rem;
+  min-block-size: $button-min-block-size;
   padding-block: $button-padding-block-sm;
   padding-inline: $button-padding-inline-sm;
 
@@ -66,7 +68,7 @@ $button-icon-size: 0.875rem;
   font-family: settings-type.$font-family-display;
   font-size: settings-type.$font-size-md;
   font-weight: settings-type.$font-weight-bold;
-  line-height: 1.2;
+  line-height: settings-type.$line-height-tight;
   letter-spacing: settings-type.$letter-spacing-normal;
   text-align: center;
   text-decoration: none;
@@ -146,7 +148,7 @@ $button-icon-size: 0.875rem;
    ----------------------------------------------------------------------------- */
 
 .c-button--small {
-  min-block-size: 2.75rem;
+  min-block-size: $button-min-block-size;
   padding-block: $button-padding-block-sm;
   padding-inline: $button-padding-inline-sm;
   font-size: settings-type.$font-size-md;
@@ -164,7 +166,7 @@ $button-icon-size: 0.875rem;
    ----------------------------------------------------------------------------- */
 
 .c-button--with-icon {
-  gap: tools-spacing.$space-stack-xs;
+  gap: tools-spacing.$static-stack-xs;
 }
 
 .c-button__icon-circle {
@@ -212,7 +214,7 @@ $button-icon-size: 0.875rem;
    Small-screen behavior
    ----------------------------------------------------------------------------- */
 
-@include tools-mixins.mq-up(22.5em) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-xs) {
   .c-button {
     min-inline-size: max-content;
   }

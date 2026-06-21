@@ -67,7 +67,7 @@ $post-share-title-letter-spacing: 0.08em;
   font-family: settings-typography.$font-family-display;
   font-size: $post-share-title-font-size;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.2;
+  line-height: settings-typography.$line-height-tight;
   letter-spacing: $post-share-title-letter-spacing;
   text-align: center;
   text-transform: uppercase;

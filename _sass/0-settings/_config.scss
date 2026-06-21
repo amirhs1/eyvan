@@ -17,14 +17,17 @@
 // - Acts as the entry point for settings layer
 // -----------------------------------------------------------------------------
 
+@use "spacing" as settings-spacing;
+
 /* -----------------------------------------------------------------------------
    Shape
    ----------------------------------------------------------------------------- */
 
-$global-radius: 0px;
-$global-button-radius: 0px;
-$global-border-width: 1px;
-$global-border-radius: 0px;
+$global-radius: 0px; // Default corner radius for surfaces (flat by design)
+$global-button-radius: 0px; // Corner radius for buttons specifically
+$global-border-width: 1px; // Default hairline border width
+$global-border-radius: 0px; // Corner radius for bordered containers
+$border-width-emphasis: 2px; // Heavier border weight for hr/table rules that need more visual separation than the hairline default
 
 
 /* -----------------------------------------------------------------------------
@@ -63,6 +66,16 @@ $brand-logo-size-collapsed: 2.375rem; // 38px
 // Maximum visible width of the brand text stack
 $brand-text-max-width: 18rem;
 
+// Minimum size for interactive controls (icon links, toggles, nav buttons) —
+// keeps tap targets at the ~44px WCAG-recommended minimum
+$control-min-size: 2.75rem;
+
+// Offset for content that must clear the sticky site header when scrolled or
+// focused into view (TOC anchors, sticky post-share rail). Compile-time
+// literal: both operands are static, so this resolves to a fixed CSS value —
+// it does not track the JS-measured --site-header-block-size custom property.
+$sticky-offset-top: calc(8rem + settings-spacing.$space-4);
+
 /* -----------------------------------------------------------------------------
    Interaction & Motion Tokens
    ----------------------------------------------------------------------------- */
@@ -83,7 +96,20 @@ $disabled-opacity: 0.5;    // WCAG-safe default
 
 // Global animation defaults (fast, restrained, non-distracting)
 $anim-speed: 0.2s;
+// Accepted token-format exception: cubic-bezier() is data (4 fixed control
+// points), not a runtime CSS dependency — it has no Settings-purity inversion
+// risk, unlike the var()-embedding elevation tokens below.
 $anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+// Reveal-on-scroll entrance duration, distinct from $anim-speed (used for
+// hover/focus interactions)
+$anim-speed-reveal: 220ms;
+
+// Reveal-on-scroll starting offset (1-tools/motion reveal-base mixin)
+$reveal-translate-distance: 10px;
+
+// Default scale factor for the hover-scale interaction mixin
+$hover-scale-default: 1.05;
 
 // Explicit transitions to avoid layout thrashing and browser jank
 $transition-fade: opacity $anim-speed $anim-easing;
@@ -116,16 +142,18 @@ $z-modal: 1000;
 
 /* -----------------------------------------------------------------------------
    Elevation (Shadow Geometry)
+   Geometry only — shadow color is the theme-aware --color-ui-shadow-color
+   custom property, composed at the $elevation-* tokens below.
    ----------------------------------------------------------------------------- */
 
-$shadow-offset-y: 9px;
-$shadow-blur: 18px;
-$shadow-spread: 0;
-$overlay-shadow-offset-y: 1.25rem;
-$overlay-shadow-blur: 2.5rem;
-$overlay-shadow-alpha: 18%;
-$overlay-backdrop-blur: 0.75rem;
-$header-backdrop-blur: 18px;
+$shadow-offset-y: 9px; // Vertical offset for the raised/hover card shadow
+$shadow-blur: 18px; // Blur radius for the raised/hover card shadow
+$shadow-spread: 0; // Spread for the raised/hover card shadow
+$overlay-shadow-offset-y: 1.25rem; // Vertical offset for modal/overlay shadows
+$overlay-shadow-blur: 2.5rem; // Blur radius for modal/overlay shadows
+$overlay-shadow-alpha: 18%; // Shadow color opacity for modal/overlay shadows
+$overlay-backdrop-blur: 0.75rem; // Backdrop-filter blur for modal/overlay scrims
+$header-backdrop-blur: 18px; // Backdrop-filter blur for the sticky site header
 
 /* -----------------------------------------------------------------------------
    Layout System
@@ -140,11 +168,16 @@ $grid-columns: 12 !default;
 
 $card-border-width: $global-border-width;
 
+// Accepted Settings-purity exception (all three $elevation-* tokens below):
+// they embed var(--color-ui-shadow-color), a custom property defined later in
+// 3-base/_base.scss, so geometry and theme-aware color are composed together
+// rather than split. This keeps every shadow consumer correct in dark mode
+// (a fixed black triplet is invisible on a near-black canvas) without
+// duplicating the color-composition logic at every call site. Functionally
+// correct today; treated as documented architectural debt rather than a bug.
 $elevation-rest:
   0 0 0.125rem var(--color-ui-shadow-color);
 
-// Hover/lift shadow reuses the theme-aware shadow color so dark-mode elevation
-// stays visible (a fixed black triplet is invisible on a near-black canvas).
 $elevation-raised:
   0 $shadow-offset-y $shadow-blur var(--color-ui-shadow-color);
 

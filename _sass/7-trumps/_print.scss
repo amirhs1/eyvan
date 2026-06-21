@@ -49,9 +49,7 @@
   .c-post-nav,
   .c-related-posts,
   .c-social-links,
-  .c-hero__actions,
-  .c-section-cta,
-  .c-projects-filter {
+  .c-hero__actions {
     display: none !important;
   }
 
@@ -66,18 +64,7 @@
     text-shadow: none !important;
   }
 
-  .c-post,
-  .c-article,
-  .l-page,
-  .l-container,
-  .container,
-  .row,
-  .col,
-  .col-12,
-  .col-10,
-  .col-d-12,
-  .push-1,
-  .push-d-0 {
+  .c-post {
     width: auto !important;
     max-width: none !important;
     margin: 0 !important;
@@ -85,9 +72,7 @@
     float: none !important;
   }
 
-  .c-post__content,
-  .l-page__body,
-  .c-article__content {
+  .c-post__content {
     max-width: none !important;
   }
 

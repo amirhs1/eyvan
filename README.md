@@ -183,7 +183,14 @@ url: "https://your-username.github.io"
 baseurl: ""
 ```
 
-For a custom domain, configure the domain in GitHub Pages settings and add a `CNAME` file if your deployment requires one.
+For a custom domain:
+
+1. Add a `CNAME` file at the repository root containing only your domain, e.g. `www.example.com`.
+2. In **Settings → Pages**, set the custom domain to the same value and enable "Enforce HTTPS" once DNS has propagated.
+3. At your DNS provider, point the domain at GitHub Pages: a `CNAME` record to `your-username.github.io` for a subdomain (e.g. `www`), or `A`/`ALIAS` records to GitHub's apex IPs for a bare domain.
+4. Since a custom domain serves from the root, set `baseurl: ""` and `url:` to your custom domain (with scheme, no trailing slash) in `_config.yml` — the same as the user/org site case above, just with your own domain instead of `*.github.io`.
+
+No changes to the GitHub Actions workflows are needed; GitHub Pages handles the CNAME-to-domain mapping itself.
 
 ## Limitations
 

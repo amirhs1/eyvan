@@ -73,7 +73,7 @@ layout: default
       <div class="l-homepage__projects-grid o-grid">
         {% for post in site.posts limit:6 %}
           <div class="o-grid__item o-grid__item--span-12 o-grid__item--span-tablet-6 o-grid__item--span-desktop-6">
-            {% include post-card.html post=post %}
+            {% include post-card.html post=post eager=forloop.first %}
           </div>
         {% endfor %}
       </div>

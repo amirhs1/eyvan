@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `post-card.html` now accepts an optional `eager` parameter. The homepage
+  project grid sets it on the first card so the likely above-the-fold LCP
+  cover loads eagerly with `fetchpriority="high"`, while every other card
+  keeps `loading="lazy"`. Behavior is unchanged for all existing callers,
+  which omit the parameter and stay lazy.
+
 ## [1.0.0] - 2026-06-17
 
 ### Added

@@ -28,6 +28,7 @@ $global-button-radius: 0px; // Corner radius for buttons specifically
 $global-border-width: 1px; // Default hairline border width
 $global-border-radius: 0px; // Corner radius for bordered containers
 $border-width-emphasis: 2px; // Heavier border weight for hr/table rules that need more visual separation than the hairline default
+$radius-pill: 999px; // Fully rounded radius for circular/pill-shaped controls (nav active indicator, icon-link, theme-toggle)
 
 
 /* -----------------------------------------------------------------------------

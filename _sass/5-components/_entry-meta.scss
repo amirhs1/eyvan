@@ -148,7 +148,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
   min-inline-size: $entry-meta-icon-size;
   min-block-size: $entry-meta-icon-size;
   color: currentColor;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: icon wrapper collapses to its content's height
 }
 
 .c-entry-meta__icon svg {

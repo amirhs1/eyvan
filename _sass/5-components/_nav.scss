@@ -111,7 +111,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   inset-block-end: 0.15rem;
 
   block-size: $navigation-link-active-indicator-size;
-  border-radius: 999px;
+  border-radius: settings-config.$radius-pill;
   background-color: currentColor;
 }
 
@@ -178,7 +178,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   transform: translateY(-45%);
 
   inline-size: $navigation-link-active-indicator-size;
-  border-radius: 999px;
+  border-radius: settings-config.$radius-pill;
   background-color: var(--color-primary);
 }
 

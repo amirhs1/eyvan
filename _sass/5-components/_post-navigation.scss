@@ -199,7 +199,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: single-line label, no token needed
   letter-spacing: settings-typography.$letter-spacing-loose-md;
   text-transform: uppercase;
 }
@@ -218,7 +218,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
     settings-typography.$font-size-xl
   );
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.3;
+  line-height: 1.3; // Intentional one-off between $line-height-tight (1.2) and $line-height-normal (1.5) for this clamp()'d heading
   letter-spacing: settings-typography.$letter-spacing-tight;
   text-wrap: balance;
 }

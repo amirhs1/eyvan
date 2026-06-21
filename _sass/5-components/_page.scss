@@ -40,7 +40,7 @@
    ----------------------------------------------------------------------------- */
 
 $page-media-gap: tools-spacing.$fluid-stack-md;
-$page-header-gap: tools-spacing.$space-stack-sm;
+$page-header-gap: tools-spacing.$static-stack-sm;
 $page-header-margin-block-end: tools-spacing.$fluid-stack-md;
 
 $page-header-inline-size: settings-typography.$text-measure-wide;
@@ -106,7 +106,7 @@ $page-image-max-block-size: min(34rem, 60vh);
     settings-typography.$font-size-h1-max
   );
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.08;
+  line-height: settings-typography.$line-height-display;
   letter-spacing: settings-typography.$letter-spacing-tight;
   text-wrap: balance;
 }

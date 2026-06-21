@@ -50,8 +50,8 @@
   align-items: center;
   justify-content: center;
 
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
+  inline-size: settings-config.$control-min-size;
+  block-size: settings-config.$control-min-size;
 
   color: var(--color-on-surface-variant);
   text-decoration: none;

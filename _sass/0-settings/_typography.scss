@@ -42,11 +42,11 @@ $font-family-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", SFMono-
    Font Weights
    ----------------------------------------------------------------------------- */
 
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-semi-bold: 600;
-$font-weight-bold: 700;
+$font-weight-light: 300; // Decorative/large display text only
+$font-weight-regular: 400; // Default body and UI text weight
+$font-weight-medium: 500; // Slightly emphasized UI labels (e.g. theme-toggle label)
+$font-weight-semi-bold: 600; // Hero heading weight
+$font-weight-bold: 700; // Standard heading and emphasis weight
 
 
 /* -----------------------------------------------------------------------------
@@ -67,6 +67,7 @@ $font-size-xxxl: 3rem; // 48px
    Line Heights (Unitless)
    ----------------------------------------------------------------------------- */
 
+$line-height-display: 1.08; // Large display headings (hero, page titles)
 $line-height-very-tight: 1.1; // Headings, tight UI labels
 $line-height-tight: 1.2; // Headings, tight UI labels
 $line-height-normal: 1.5; // Standard body text
@@ -87,11 +88,11 @@ $text-measure-wide: 75ch;
    Letter Spacing (Tracking)
    ----------------------------------------------------------------------------- */
 
-$letter-spacing-tight:    -0.02em;
-$letter-spacing-normal:    0;
-$letter-spacing-loose-sm:  0.01em;
-$letter-spacing-loose-md:  0.05em;
-$letter-spacing-loose-lg:  0.12em;
+$letter-spacing-tight:    -0.02em; // Large display headings (hero, page titles)
+$letter-spacing-normal:    0; // Default body and UI text
+$letter-spacing-loose-sm:  0.01em; // Subtle tracking for small UI labels
+$letter-spacing-loose-md:  0.05em; // Uppercase eyebrows and TOC headers
+$letter-spacing-loose-lg:  0.12em; // Wide tracking for sparse uppercase labels
 
 /* --------------------------------------------------
    Fluid Type Tokens (Optional)

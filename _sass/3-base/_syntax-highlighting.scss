@@ -17,19 +17,14 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
 
-code,
-kbd,
-samp {
-  font-family: settings-typography.$font-family-mono;
-  font-size: 0.9em;
-  font-variant-ligatures: none;
-  font-feature-settings: "liga" 0, "calt" 0;
-}
+// code/kbd/samp font-family, size, and ligature reset live in the base
+// `pre, code, kbd, samp` rule in 3-base/_typography.scss. This file owns only
+// Rouge-token color rules and the decorative `:not(pre) > code` treatment.
 
 :not(pre) > code {
   margin-inline: 0.08em;
   padding: 0.15em 0.35em;
-  border: 1px solid var(--color-outline-variant);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-syntax-base01);
   color: var(--color-syntax-base05);
@@ -37,17 +32,12 @@ samp {
 }
 
 pre {
-  overflow-x: auto;
   margin-block: settings-spacing.$space-5;
   padding: settings-spacing.$space-4;
-  border: 1px solid var(--color-outline-variant);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-syntax-base00);
   color: var(--color-syntax-base05);
-  font-family: settings-typography.$font-family-mono;
-  font-size: 0.9em;
-  font-variant-ligatures: none;
-  font-feature-settings: "liga" 0, "calt" 0;
   line-height: settings-typography.$line-height-loose;
 
   &:focus-visible {
@@ -65,7 +55,7 @@ pre code {
 
 .highlight {
   margin-block: settings-spacing.$space-5;
-  border: 1px solid var(--color-outline-variant);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-syntax-base00);
   color: var(--color-syntax-base05);

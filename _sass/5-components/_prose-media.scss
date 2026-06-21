@@ -254,8 +254,8 @@
 }
 
 .c-prose-table thead th {
-  border-top: 2px solid var(--color-outline-variant);
-  border-bottom: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
+  border-bottom: settings-config.$border-width-emphasis solid var(--color-outline-variant);
   color: var(--color-on-surface);
   font-family: settings-typography.$font-family-mono;
   font-weight: settings-typography.$font-weight-bold;
@@ -271,20 +271,20 @@
 
 // When there is no thead, put a top border on the first tbody row
 .c-prose-table tbody:first-child tr:first-child > * {
-  border-top: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 .c-prose-table tbody tr:last-child > * {
-  border-bottom: 2px solid var(--color-outline-variant);
+  border-bottom: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 .c-prose-table tfoot td {
   font-weight: settings-typography.$font-weight-bold;
-  border-top: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 .c-prose-table tfoot tr:last-child > * {
-  border-bottom: 2px solid var(--color-outline-variant);
+  border-bottom: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 /* -----------------------------------------------------------------------------

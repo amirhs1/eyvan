@@ -24,6 +24,8 @@
 // - This file owns the base layout and visual styling of the metadata block
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 
@@ -93,7 +95,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-sm;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.2;
+  line-height: settings-typography.$line-height-tight;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -104,7 +106,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
 
 .c-entry-meta__details {
   display: flex;
-  flex-wrap: unwrap;
+  flex-wrap: nowrap;
   align-items: center;
   min-inline-size: 0;
   gap: $entry-meta-details-gap;
@@ -113,7 +115,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-medium;
-  line-height: 1.2;
+  line-height: settings-typography.$line-height-tight;
 }
 
 .c-entry-meta__date {
@@ -164,7 +166,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: 48rem) {
+@media (max-width: settings-breakpoints.$bp-md) {
   .c-entry-meta {
     align-items: flex-start;
   }

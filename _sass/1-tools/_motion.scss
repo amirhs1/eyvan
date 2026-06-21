@@ -17,7 +17,7 @@
 
 /// Simple hover scale interaction
 /// @param {Number} $scale - Hover scale factor
-@mixin hover-scale($scale: 1.05) {
+@mixin hover-scale($scale: settings-config.$hover-scale-default) {
   transition: transform settings-config.$transition-fast;
 
   &:hover {
@@ -28,7 +28,7 @@
 /// Reveal-on-scroll base state
 @mixin reveal-base {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(settings-config.$reveal-translate-distance);
   transition:
     opacity settings-config.$transition-slow,
     transform settings-config.$transition-slow;

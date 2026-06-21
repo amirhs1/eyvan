@@ -120,7 +120,7 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 
   margin-block-end: tools-spacing.$fluid-stack-md;
   padding-block-end: settings-spacing.$space-3;
-  border-block-end: 1px solid var(--color-outline-variant);
+  border-block-end: settings-config.$global-border-width solid var(--color-outline-variant);
 }
 
 .c-mobile-menu__top-left,
@@ -149,9 +149,9 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
-  min-inline-size: 2.75rem;
+  inline-size: settings-config.$control-min-size;
+  block-size: settings-config.$control-min-size;
+  min-inline-size: settings-config.$control-min-size;
   padding: 0;
   border-radius: 50%;
 }
@@ -169,8 +169,8 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
+  inline-size: settings-config.$control-min-size;
+  block-size: settings-config.$control-min-size;
   padding: 0;
   border-color: transparent;
   flex: 0 0 auto;
@@ -216,10 +216,10 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 .c-mobile-menu__footer {
   display: grid;
   justify-content: center;
-  gap: tools-spacing.$space-stack-sm;
+  gap: tools-spacing.$static-stack-sm;
   margin-block-start: tools-spacing.$fluid-stack-md;
-  padding-block-start: tools-spacing.$space-stack-sm;
-  border-block-start: 1px solid var(--color-outline-variant);
+  padding-block-start: tools-spacing.$static-stack-sm;
+  border-block-start: settings-config.$global-border-width solid var(--color-outline-variant);
 }
 
 /* -----------------------------------------------------------------------------

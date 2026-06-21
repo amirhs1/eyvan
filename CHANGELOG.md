@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The `404.html` error-code line no longer relies on a presentational `<br>`
+  for spacing, and finally renders in the intended muted color. It used a
+  `u-text-muted` class that was never defined anywhere in the Sass, so the
+  text was not actually muted; a new `_sass/5-components/_404.scss` gives the
+  404 component its missing home, spacing the `.c-404__code` line and coloring
+  it with the existing `--color-on-surface-variant` token.
+
 ## [1.0.0] - 2026-06-17
 
 ### Added

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- The unused Barlow Condensed 900 (Black) weight: its `@font-face` block, the
+  `$font-weight-black` token, the shipped `Barlow-Condensed-normal-900-latin.woff2`
+  subset, and its entry in the bundled font-license map. No component
+  referenced the weight (headings use Bold/700, the hero uses Semi-Bold/600),
+  so dropping it trims the shipped font payload with no visual change.
+
 ## [1.0.0] - 2026-06-17
 
 ### Added

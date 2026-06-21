@@ -455,6 +455,42 @@ If the include supports figure numbering, you can usually disable numbering for 
 
 > **Important:** Images, videos, and audio blocks are numbered as figures by default. Use `numbered="false"` only when a captioned media item is decorative, supporting, or otherwise not meant to be counted or referenced. Do not use `ref.html` to reference an item marked `numbered="false"`, because that item is intentionally excluded from the numbering system.
 
+### Multi-image figure grids
+
+Use the `images` parameter instead of `src` when one caption and one figure number should cover two or more related images side by side — for example, a before/after pair or a set of photos from the same scene. Each image is one line inside `images`, and the lines are separated by pipes (`|`) into up to five segments:
+
+```
+path | alt text | WxH | srcset row | sizes
+```
+
+| Segment | Required | Purpose |
+| :--- | :--- | :--- |
+| `path` | Yes | Image source, same as `src` for a single image |
+| `alt` | Yes | Per-image alt text — each image in the grid needs its own |
+| `WxH` | No | Intrinsic pixel dimensions (e.g. `900x600`), used the same way as `width`/`height` on a single image to reserve layout space and prevent shift |
+| srcset row | No | One responsive candidate for that image, in `path \| descriptor` form, same convention as `responsive_srcset` |
+| sizes | No | A `sizes` attribute for that image's srcset |
+
+Only `path` and `alt` are required per image — the dimension, srcset, and sizes segments can be omitted on any line where you don't have that information yet.
+
+A two-image grid with full captions and `cols` set to control the grid width:
+
+{% raw %}
+```liquid
+{% include figure.html
+   id="fig-grid-example"
+   cols="2"
+   caption="Shared caption describing both images together."
+   images="
+     assets/images/posts/example-a.webp | First image alt text  | 900x600
+     assets/images/posts/example-b.webp | Second image alt text | 900x600
+   "
+%}
+```
+{% endraw %}
+
+`cols="2"`, `"3"`, or `"4"` controls how many columns the grid uses on wide viewports; on narrow viewports the images stack to a single column regardless of `cols`. The `caption` and `id` behave exactly as they do for a single image — one shared caption and one figure number for the whole grid, not one per image.
+
 ### Video figures
 
 Use `video.html` for self-hosted videos or third-party embeds. Videos share the same figure counter, so they can be referenced like other figures when they have an `id` and numbered caption.

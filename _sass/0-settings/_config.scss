@@ -17,11 +17,11 @@
 // - Acts as the entry point for settings layer
 // -----------------------------------------------------------------------------
 
-@use "spacing" as settings-spacing;
-
 /* -----------------------------------------------------------------------------
    Shape
    ----------------------------------------------------------------------------- */
+
+// Usage: border-radius: $global-border-radius; on shared surfaces.
 
 $global-radius: 0px; // Default corner radius for surfaces (flat by design)
 $global-button-radius: 0px; // Corner radius for buttons specifically
@@ -35,12 +35,15 @@ $radius-pill: 999px; // Fully rounded radius for circular/pill-shaped controls (
    Layout Constraints (Measures)
    ----------------------------------------------------------------------------- */
 
-// Maximum site width for large screens
+// Maximum site width for large screens.
+// Usage: max-inline-size: $measure-site; in the container object.
 $measure-site: 1280px;
 
 /* -----------------------------------------------------------------------------
    Component Constraints
    ----------------------------------------------------------------------------- */
+
+// Usage: component/object geometry in the shared hero implementation.
 
 // Minimum height for Hero and high-impact media blocks
 $hero-min-height: 230px;
@@ -58,6 +61,8 @@ $measure-hero-media-wide: 36rem;
    Brand Component Tokens
    ----------------------------------------------------------------------------- */
 
+// Usage: logo, text, and control geometry in shared header components.
+
 // Desktop brand logo size
 $brand-logo-size: 2.625rem; // 42px
 
@@ -71,22 +76,22 @@ $brand-text-max-width: 18rem;
 // keeps tap targets at the ~44px WCAG-recommended minimum
 $control-min-size: 2.75rem;
 
-// Offset for content that must clear the sticky site header when scrolled or
-// focused into view (TOC anchors, sticky post-share rail). Compile-time
-// literal: both operands are static, so this resolves to a fixed CSS value —
-// it does not track the JS-measured --site-header-block-size custom property.
-$sticky-offset-top: calc(8rem + settings-spacing.$space-4);
+// Base operand for content that must clear the sticky site header.
+// Usage: composed with spacing by 1-tools/_spacing-fluid.scss.
+$sticky-offset-base: 8rem;
 
 /* -----------------------------------------------------------------------------
    Interaction & Motion Tokens
    ----------------------------------------------------------------------------- */
 
-// Transitions
+// Shared transition speeds.
+// Usage: transition: opacity $transition-base;.
 $transition-fast: 0.15s ease;
 $transition-base: 0.2s ease;
 $transition-slow: 0.3s ease;
 
-// Accessibility
+// Interaction opacity states.
+// Usage: opacity: $disabled-opacity; for disabled controls.
 $focus-opacity: 1;         // Allows future fading if needed
 $disabled-opacity: 0.5;    // WCAG-safe default
 
@@ -95,12 +100,11 @@ $disabled-opacity: 0.5;    // WCAG-safe default
    Motion & Performance
    ----------------------------------------------------------------------------- */
 
-// Global animation defaults (fast, restrained, non-distracting)
+// Global animation defaults (fast, restrained, non-distracting).
+// Usage: composed into transition values by 1-tools/_motion.scss.
 $anim-speed: 0.2s;
-// Accepted token-format exception: cubic-bezier() is data (4 fixed control
-// points), not a runtime CSS dependency — it has no Settings-purity inversion
-// risk, unlike the var()-embedding elevation tokens below.
-$anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+// Control-point data composed into cubic-bezier() by 1-tools/_motion.scss.
+$anim-easing-control-points: 0.4, 0, 0.2, 1;
 
 // Reveal-on-scroll entrance duration, distinct from $anim-speed (used for
 // hover/focus interactions)
@@ -112,29 +116,24 @@ $reveal-translate-distance: 10px;
 // Default scale factor for the hover-scale interaction mixin
 $hover-scale-default: 1.05;
 
-// Explicit transitions to avoid layout thrashing and browser jank
-$transition-fade: opacity $anim-speed $anim-easing;
-$transition-transform: transform $anim-speed $anim-easing;
-$transition-interaction: color $anim-speed $anim-easing,
-  background-color $anim-speed $anim-easing,
-  border-color $anim-speed $anim-easing,
-  box-shadow $anim-speed $anim-easing;
-
-
 /* -----------------------------------------------------------------------------
    Focus & Accessibility
    ----------------------------------------------------------------------------- */
 
-// Geometry only — colour lives in the mode files ($focus-ring-color)
+// Geometry only; colour lives in the mode files ($focus-ring-color).
+// Usage: 1-tools/_mixins.scss focus-ring and visually-hidden helpers.
 $focus-ring-width: 2px;
 $focus-ring-offset: 3px;
+$visually-hidden-size: 1px;
+$visually-hidden-offset: -1px;
 
 
 /* -----------------------------------------------------------------------------
    Z-index Scale
    ----------------------------------------------------------------------------- */
 
-// Canonical stacking order to prevent ad-hoc z-index escalation
+// Canonical stacking order to prevent ad-hoc z-index escalation.
+// Usage: z-index: $z-header; on the sticky site header.
 $z-base: 1;
 $z-dropdown: 50;
 $z-header: 100;
@@ -143,13 +142,13 @@ $z-modal: 1000;
 
 /* -----------------------------------------------------------------------------
    Elevation (Shadow Geometry)
-   Geometry only — shadow color is the theme-aware --color-ui-shadow-color
-   custom property, composed at the $elevation-* tokens below.
+   Geometry only; 3-base/_base.scss composes the runtime elevation aliases.
+   Usage: --elevation-raised combines offset/blur with the theme shadow color.
    ----------------------------------------------------------------------------- */
 
 $shadow-offset-y: 9px; // Vertical offset for the raised/hover card shadow
 $shadow-blur: 18px; // Blur radius for the raised/hover card shadow
-$shadow-spread: 0; // Spread for the raised/hover card shadow
+$shadow-rest-blur: 0.125rem; // Blur radius for resting surface outlines
 $overlay-shadow-offset-y: 1.25rem; // Vertical offset for modal/overlay shadows
 $overlay-shadow-blur: 2.5rem; // Blur radius for modal/overlay shadows
 $overlay-shadow-alpha: 18%; // Shadow color opacity for modal/overlay shadows
@@ -160,6 +159,9 @@ $header-backdrop-blur: 18px; // Backdrop-filter blur for the sticky site header
    Layout System
    ----------------------------------------------------------------------------- */
 
+// Column count for the reusable grid object.
+// Usage: repeat($grid-columns, minmax(0, 1fr)).
+
 $grid-columns: 12 !default;
 
 
@@ -167,36 +169,12 @@ $grid-columns: 12 !default;
    Card system tokens
    ----------------------------------------------------------------------------- */
 
+// Shared card border and hover displacement.
+// Usage: card components consume both for consistent interaction geometry.
+
 $card-border-width: $global-border-width;
 
-// Accepted Settings-purity exception (all three $elevation-* tokens below):
-// they embed var(--color-ui-shadow-color), a custom property defined later in
-// 3-base/_base.scss, so geometry and theme-aware color are composed together
-// rather than split. This keeps every shadow consumer correct in dark mode
-// (a fixed black triplet is invisible on a near-black canvas) without
-// duplicating the color-composition logic at every call site. Functionally
-// correct today; treated as documented architectural debt rather than a bug.
-$elevation-rest:
-  0 0 0.125rem var(--color-ui-shadow-color);
-
-$elevation-raised:
-  0 $shadow-offset-y $shadow-blur var(--color-ui-shadow-color);
-
-$elevation-overlay:
-  0 $overlay-shadow-offset-y $overlay-shadow-blur
-  color-mix(in srgb, var(--color-ui-shadow-color) $overlay-shadow-alpha, transparent);
-
-$card-shadow-rest: $elevation-rest;
-$card-shadow-hover: $elevation-raised;
-
 $card-lift-hover: -0.25rem;
-
-$card-transition:
-  background-color $transition-base,
-  border-color $transition-base,
-  color $transition-base,
-  box-shadow $transition-base,
-  transform $transition-base;
 
 
 /* -----------------------------------------------------------------------------

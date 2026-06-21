@@ -53,10 +53,10 @@
 /// Hides an element visually while keeping it available to assistive technology.
 @mixin visually-hidden {
   position: absolute !important;
-  inline-size: 1px;
-  block-size: 1px;
+  inline-size: settings-config.$visually-hidden-size;
+  block-size: settings-config.$visually-hidden-size;
   padding: 0;
-  margin: -1px;
+  margin: settings-config.$visually-hidden-offset;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   clip-path: inset(50%);

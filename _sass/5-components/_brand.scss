@@ -38,6 +38,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/motion" as tools-motion;
 @use "../1-tools/mixins" as tools-mixins;
 
 $brand-logo-url: "../images/logo.svg" !default;
@@ -73,7 +74,7 @@ $brand-logo-url: "../images/logo.svg" !default;
   color: var(--color-on-surface);
   text-decoration: none;
   vertical-align: middle;
-  transition: settings-config.$transition-transform;
+  transition: tools-motion.$transition-transform;
   -webkit-tap-highlight-color: transparent;
 
   &:link,
@@ -110,7 +111,7 @@ $brand-logo-url: "../images/logo.svg" !default;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
-  transition: settings-config.$transition-transform;
+  transition: tools-motion.$transition-transform;
 }
 
 .c-brand__text {

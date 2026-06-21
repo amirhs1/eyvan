@@ -24,7 +24,7 @@
    Local component tokens
 ----------------------------------------------------------------------------- */
 
-$toc-sticky-top: settings-config.$sticky-offset-top;
+$toc-sticky-top: tools-spacing.$sticky-offset-top;
 $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 /* -----------------------------------------------------------------------------
    Sticky aside container
@@ -132,7 +132,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     background-color: var(--color-surface-container-high);
     border-block: settings-config.$global-border-width solid
       var(--color-outline-variant);
-    box-shadow: settings-config.$elevation-raised;
+    box-shadow: var(--elevation-raised);
   }
 
   .c-toc-toolbar__button {
@@ -226,7 +226,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     background-color: var(--color-surface-container-highest);
     border: settings-config.$global-border-width solid var(--color-outline-variant);
     border-radius: settings-config.$global-border-radius;
-    box-shadow: settings-config.$elevation-overlay;
+    box-shadow: var(--elevation-overlay);
   }
 
   .c-mobile-toc__top {

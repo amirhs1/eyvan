@@ -2,12 +2,15 @@
 // Fluid Spacing Tools
 // ITCSS layer: 1-tools
 //
-// NOTE:
-// - This file emits NO CSS.
-// - It defines computed spacing tokens built on top of 0-settings/_spacing.scss.
-// - Tokens here are consumed by objects, components, and layouts.
+// Description:
+// Defines fluid spacing functions and computed aliases built on Settings.
+//
+// Scope & Rules:
+// - Emits no CSS by default
+// - Consumed by objects, components, and layouts
 // -----------------------------------------------------------------------------
 @use "sass:math";
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -19,14 +22,17 @@
 ///
 /// @param {Number} $min - Minimum spacing value
 /// @param {Number} $max - Maximum spacing value
-/// @param {String} $viewport - Viewport-based scaling unit (default: 5vw)
-@function fluid-space($min, $max, $viewport: 5vw) {
+/// @param {String} $viewport - Viewport-based scaling unit
+@function fluid-space($min, $max, $viewport: settings-spacing.$fluid-space-viewport) {
   @if math.unit($min) != math.unit($max) {
     @error "fluid-space(): $min and $max must use the same unit.";
   }
 
   @return clamp(#{$min}, #{$viewport}, #{$max});
 }
+
+// Shared offset for sticky content that must clear the site header.
+$sticky-offset-top: calc(settings-config.$sticky-offset-base + settings-spacing.$space-4);
 
 
 /* -----------------------------------------------------------------------------

@@ -20,6 +20,8 @@
    Breakpoint values
    ----------------------------------------------------------------------------- */
 
+// Usage: @include tools-mixins.mq-up($bp-lg) { ... } for a raw threshold.
+
 $bp-xs: 22.5em; // 360px — very small viewports
 $bp-sm: 30em; // 480px — standard phones
 $bp-md: 48em; // 768px — text column / tablet
@@ -32,6 +34,7 @@ $bp-xxl: 90em; // 1440px — large / exhibition-scale screens
    Semantic breakpoint aliases
    ----------------------------------------------------------------------------- */
 // Prefer these aliases in layouts and modules.
+// Usage: @include tools-mixins.mq-up($bp-layout) { ... }.
 
 $bp-text: $bp-md; // Optimal line length for reading
 $bp-layout: $bp-lg; // Switch from single to multi-column layouts

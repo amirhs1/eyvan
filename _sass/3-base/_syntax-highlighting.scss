@@ -22,8 +22,8 @@
 // Rouge-token color rules and the decorative `:not(pre) > code` treatment.
 
 :not(pre) > code {
-  margin-inline: 0.08em;
-  padding: 0.15em 0.35em;
+  margin-inline: settings-spacing.$space-code-inline-margin;
+  padding: settings-spacing.$space-code-padding-block settings-spacing.$space-code-padding-inline;
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-syntax-base01);

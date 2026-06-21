@@ -70,7 +70,7 @@ hosted deployments.
 - Jekyll-compatible Ruby environment
 - Git, if cloning or publishing the repository
 
-Contributor QA also uses Node.js and npm for Playwright, axe-core, and Pa11y
+Contributor QA also uses Node.js and npm for Playwright and axe-core
 checks. CI currently runs those tools on Node 20; use `npm ci` before running
 the local QA scripts.
 

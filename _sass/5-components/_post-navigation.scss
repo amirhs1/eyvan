@@ -97,7 +97,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
         var(--color-surface-container-low)
       ) 167%
     );
-  box-shadow: settings-config.$card-shadow-rest;
+  box-shadow: var(--elevation-rest);
 
   color: var(--color-button-text);
   text-decoration: none;
@@ -112,7 +112,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
     border-color: var(--color-primary);
     color: var(--color-button-text);
     text-decoration: none;
-    box-shadow: settings-config.$card-shadow-hover;
+    box-shadow: var(--elevation-raised);
     transform: translateY(settings-config.$card-lift-hover);
   }
 
@@ -151,7 +151,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   overflow: hidden;
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-surface-container-high);
-  box-shadow: settings-config.$elevation-rest;
+  box-shadow: var(--elevation-rest);
 }
 
 .c-post-nav__media img {

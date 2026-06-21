@@ -34,6 +34,7 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/typography" as settings-typography;
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/light-mode" as light;
 @use "../0-settings/dark-mode" as dark;
 
@@ -46,6 +47,11 @@
    ----------------------------------------------------------------------------- */
 
 :root {
+  /* Elevation aliases compose Settings geometry with runtime theme color. */
+  --elevation-rest: 0 0 #{settings-config.$shadow-rest-blur} var(--color-ui-shadow-color);
+  --elevation-raised: 0 #{settings-config.$shadow-offset-y} #{settings-config.$shadow-blur} var(--color-ui-shadow-color);
+  --elevation-overlay: 0 #{settings-config.$overlay-shadow-offset-y} #{settings-config.$overlay-shadow-blur} color-mix(in srgb, var(--color-ui-shadow-color) #{settings-config.$overlay-shadow-alpha}, transparent);
+
   /* Primary */
   --color-primary: #{light.$primary};
   --color-on-primary: #{light.$on-primary};

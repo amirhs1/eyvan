@@ -137,7 +137,7 @@
 
 .c-hero__media {
   border-radius: settings-config.$global-border-radius;
-  box-shadow: settings-config.$elevation-raised;
+  box-shadow: var(--elevation-raised);
 }
 
 .c-hero__image {

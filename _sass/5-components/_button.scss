@@ -78,7 +78,7 @@ $button-icon-size: 0.875rem;
   user-select: none;
   vertical-align: middle;
 
-  box-shadow: settings-config.$elevation-rest;
+  box-shadow: var(--elevation-rest);
   transition:
     background-color settings-config.$transition-base,
     border-color settings-config.$transition-base,

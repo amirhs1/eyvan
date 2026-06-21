@@ -58,7 +58,7 @@ $tag-padding-inline: settings-spacing.$space-2;
   text-transform: capitalize;
   white-space: nowrap;
 
-  box-shadow: settings-config.$elevation-rest;
+  box-shadow: var(--elevation-rest);
 
   transition:
     background-color settings-config.$transition-base,

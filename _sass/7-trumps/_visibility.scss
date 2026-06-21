@@ -23,7 +23,8 @@
 
 /* -----------------------------------------------------------------------------
    Display Visibility
-   Explicit utility overrides for hiding or showing content.
+   Supported extension utilities for explicit display overrides. These remain
+   available to template consumers and are exercised by tests/test-7-trumps.html.
    ----------------------------------------------------------------------------- */
 
 .u-hidden {

@@ -99,7 +99,7 @@
   background-color: var(--color-surface-container-low);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
-  box-shadow: settings-config.$card-shadow-hover;
+  box-shadow: var(--elevation-raised);
 }
 
 .c-social-links__overflow[hidden] {

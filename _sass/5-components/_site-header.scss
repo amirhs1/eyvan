@@ -43,7 +43,7 @@ $site-header-border-width: settings-config.$global-border-width;
 
   background-color: var(--color-surface-container-high);
   border-block-end: $site-header-border-width solid var(--color-ui-border-subtle);
-  box-shadow: settings-config.$elevation-raised;
+  box-shadow: var(--elevation-raised);
 
   -webkit-backdrop-filter: blur(settings-config.$header-backdrop-blur);
   backdrop-filter: blur(settings-config.$header-backdrop-blur);

@@ -121,7 +121,7 @@ $post-share-title-letter-spacing: 0.08em;
   background-color: var(--color-surface-container-low);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
-  box-shadow: settings-config.$card-shadow-hover;
+  box-shadow: var(--elevation-raised);
 }
 
 .c-post-share__overflow[hidden] {

@@ -91,7 +91,7 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   background-color: var(--color-surface-container-highest);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
-  box-shadow: settings-config.$elevation-overlay;
+  box-shadow: var(--elevation-overlay);
 }
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {

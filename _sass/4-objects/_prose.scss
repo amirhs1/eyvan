@@ -36,7 +36,7 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tool-spacing-fluid;
 
-$toc-sticky-top-margin: settings-config.$sticky-offset-top;
+$toc-sticky-top-margin: tool-spacing-fluid.$sticky-offset-top;
 
 .o-prose {
   line-height: settings-typography.$line-height-loose;

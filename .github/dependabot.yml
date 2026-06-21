@@ -7,7 +7,7 @@ updates:
     schedule:
       interval: "weekly"
 
-  # npm devDependencies — Playwright, axe-core, pa11y-ci (QA tooling only)
+  # npm devDependencies — Playwright, axe-core (QA tooling only)
   - package-ecosystem: "npm"
     directory: "/"
     schedule:

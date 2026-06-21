@@ -82,7 +82,8 @@ steps in [`ACCESSIBILITY_TESTING.md`](ACCESSIBILITY_TESTING.md).
 
 Maintainers review pull requests for architectural fit, accessibility, and
 consistency with the conventions above. Humans own every merge into `develop`
-and `main`, and branch protection requires the accessibility check to pass
-first. We may suggest changes or a different approach if something doesn't fit
-the template's design goals — that's a normal part of keeping a shared template
-coherent for everyone who builds on it, not a judgment on the contribution.
+and `main`, and active repository rulesets require the accessibility check to
+pass first. We may suggest changes or a different approach if something doesn't
+fit the template's design goals — that's a normal part of keeping a shared
+template coherent for everyone who builds on it, not a judgment on the
+contribution.

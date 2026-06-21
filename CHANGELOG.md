@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A "Multi-image figure grids" walkthrough in the *Front Matter Field
+  Reference* demo post, documenting the `images="…"` parameter, its
+  pipe-delimited `path | alt | WxH | srcset | sizes` row format, and the
+  `cols` option — the one `figure.html` surface that previously had no
+  step-by-step guide outside the include's own comment header.
+- A step-by-step custom-domain / `CNAME` section in the README, covering the
+  `CNAME` file, GitHub Pages settings, the apex/subdomain DNS records, and the
+  `baseurl: ""` adjustment a root-served custom domain requires.
+
 ### Removed
 
 - The `pa11y-ci` development dependency and its `a11y` / `a11y:sitemap` npm

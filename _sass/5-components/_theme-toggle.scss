@@ -33,7 +33,7 @@
 
 $theme-toggle-size: settings-config.$control-min-size;
 $theme-toggle-icon-size: 1.125rem;
-$theme-toggle-radius: 999px;
+$theme-toggle-radius: settings-config.$radius-pill;
 
 /* -----------------------------------------------------------------------------
    Root button

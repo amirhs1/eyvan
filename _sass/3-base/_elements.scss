@@ -2,7 +2,7 @@
 // Base — Elements
 // ITCSS layer: 3-base
 //
-// Purpose:
+// Description:
 // Provides baseline styling for unclassed HTML elements that require
 // minimal visual normalization beyond resets and normalize.css.
 //
@@ -25,7 +25,7 @@
 //
 // Dependencies:
 // - spacing: vertical rhythm scale
-// ------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;

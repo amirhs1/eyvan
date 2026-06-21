@@ -6,7 +6,7 @@
 // Icon-only utility link that returns users to the top of the current page.
 //
 // Structure:
-// - .c-back-to-top-wrap
+// - .c-back-to-top__wrap
 // - .c-back-to-top
 //   - .c-back-to-top__icon
 //
@@ -19,7 +19,7 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 
-.c-back-to-top-wrap {
+.c-back-to-top__wrap {
   position: fixed;
   inset-block-end: max(settings-spacing.$space-4, env(safe-area-inset-bottom));
   inset-inline-start: 50%;
@@ -39,7 +39,7 @@
     visibility settings-config.$transition-base;
 }
 
-.c-back-to-top-wrap.is-back-to-top-hidden {
+.c-back-to-top__wrap.is-back-to-top-hidden {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -92,7 +92,7 @@
   block-size: 2.25rem;
 
   color: inherit;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: icon wrapper collapses to its content's height
 
   svg,
   img {

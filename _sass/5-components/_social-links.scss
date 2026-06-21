@@ -74,7 +74,7 @@
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: single-line label, no token needed
   text-transform: uppercase;
 }
 

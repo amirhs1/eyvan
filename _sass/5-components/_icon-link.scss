@@ -43,7 +43,7 @@
   min-block-size: settings-config.$control-min-size;
 
   border: settings-config.$global-border-width solid var(--color-outline-variant);
-  border-radius: 999px;
+  border-radius: settings-config.$radius-pill;
   background-color: transparent;
   color: var(--color-on-surface);
   text-decoration: none;

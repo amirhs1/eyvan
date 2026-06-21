@@ -51,7 +51,7 @@ $tag-padding-inline: settings-spacing.$space-2;
   font-family: settings-type.$font-family-mono;
   font-size: settings-type.$font-size-xs;
   font-weight: settings-type.$font-weight-bold;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: single-line label, no token needed
   letter-spacing: settings-type.$letter-spacing-loose-sm;
   text-align: center;
   text-decoration: none;

@@ -1,7 +1,6 @@
 // -----------------------------------------------------------------------------
 // Layout — About Page
 // ITCSS layer: 6-layouts
-// Path: _sass/6-layouts/_about.scss
 //
 // Description:
 // Controls page-level composition for the About page.
@@ -42,11 +41,11 @@
 @use "../1-tools/spacing-fluid"  as fluid;
 
 
-// -----------------------------------------------------------------------------
-// Page wrapper
-// Vertical grid stack. scroll-margin-block-start offsets the sticky header
-// when back-to-top.html returns the visitor to #top.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Page wrapper
+   Vertical grid stack. scroll-margin-block-start offsets the sticky header
+   when back-to-top.html returns the visitor to #top.
+   ----------------------------------------------------------------------------- */
 
 .l-about {
   display: grid;
@@ -61,11 +60,11 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Hero
-// Mobile: single column, portrait stacks below copy.
-// Desktop: two-column grid — copy gets ~1.5fr, portrait gets ~0.5fr.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Hero
+   Mobile: single column, portrait stacks below copy.
+   Desktop: two-column grid — copy gets ~1.5fr, portrait gets ~0.5fr.
+   ----------------------------------------------------------------------------- */
 
 .l-about__hero {
   display: grid;
@@ -99,12 +98,12 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Portrait
-// aspect-ratio reserves layout space before the image loads.
-// max-inline-size caps the image regardless of column width.
-// object-fit: cover prevents distortion when the source image aspect differs.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Portrait
+   aspect-ratio reserves layout space before the image loads.
+   max-inline-size caps the image regardless of column width.
+   object-fit: cover prevents distortion when the source image aspect differs.
+   ----------------------------------------------------------------------------- */
 
 .l-about__portrait {
   display: grid;
@@ -131,10 +130,10 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Sections (base)
-// Generic section used for the media block and as the base for --split.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Sections (base)
+   Generic section used for the media block and as the base for --split.
+   ----------------------------------------------------------------------------- */
 
 .l-about__section {
   display: grid;
@@ -174,10 +173,10 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Responsive — $bp-layout (1024px)
-// Hero becomes two-column. Split sections become heading|body grids.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Responsive — $bp-layout (1024px)
+   Hero becomes two-column. Split sections become heading|body grids.
+   ----------------------------------------------------------------------------- */
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
 
@@ -204,11 +203,11 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Responsive — $bp-wide (1280px)
-// Hero column ratio widens slightly to give copy more room on large screens.
-// Portrait column gains a larger minimum to prevent it from shrinking too much.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Responsive — $bp-wide (1280px)
+   Hero column ratio widens slightly to give copy more room on large screens.
+   Portrait column gains a larger minimum to prevent it from shrinking too much.
+   ----------------------------------------------------------------------------- */
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
 

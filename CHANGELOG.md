@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A "Multi-image figure grids" walkthrough in the *Front Matter Field
+  Reference* demo post, documenting the `images="…"` parameter, its
+  pipe-delimited `path | alt | WxH | srcset | sizes` row format, and the
+  `cols` option — the one `figure.html` surface that previously had no
+  step-by-step guide outside the include's own comment header.
+- A step-by-step custom-domain / `CNAME` section in the README, covering the
+  `CNAME` file, GitHub Pages settings, the apex/subdomain DNS records, and the
+  `baseurl: ""` adjustment a root-served custom domain requires.
+
 ### Removed
 
 - The `pa11y-ci` development dependency and its `a11y` / `a11y:sitemap` npm
@@ -17,6 +28,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   project's documented "Playwright + axe" accessibility policy. The README
   contributor-QA note and the `dependabot.yml` npm comment were updated to
   match.
+- The unused Barlow Condensed 900 (Black) weight: its `@font-face` block, the
+  `$font-weight-black` token, the shipped `Barlow-Condensed-normal-900-latin.woff2`
+  subset, and its entry in the bundled font-license map. No component
+  referenced the weight (headings use Bold/700, the hero uses Semi-Bold/600),
+  so dropping it trims the shipped font payload with no visual change.
+
+### Fixed
+
+- The `404.html` error-code line no longer relies on a presentational `<br>`
+  for spacing, and finally renders in the intended muted color. It used a
+  `u-text-muted` class that was never defined anywhere in the Sass, so the
+  text was not actually muted; a new `_sass/5-components/_404.scss` gives the
+  404 component its missing home, spacing the `.c-404__code` line and coloring
+  it with the existing `--color-on-surface-variant` token.
+
+### Changed
+
+- `post-card.html` now accepts an optional `eager` parameter. The homepage
+  project grid sets it on the first card so the likely above-the-fold LCP
+  cover loads eagerly with `fetchpriority="high"`, while every other card
+  keeps `loading="lazy"`. Behavior is unchanged for all existing callers,
+  which omit the parameter and stay lazy.
 
 ## [1.0.0] - 2026-06-17
 

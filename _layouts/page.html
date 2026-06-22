@@ -130,7 +130,9 @@ layout: default
     {% endif %}
 
     <!-- Page body content -->
-    <div class="c-page__body o-prose o-prose--measure-wide">
+    <!-- Full container width (matches homepage/projects/about/contact); o-prose
+         keeps content rhythm. Narrow long-form reading lives in layout: post. -->
+    <div class="c-page__body o-prose">
       {{ content }}
     </div>
   </article>

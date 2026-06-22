@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Button Test
 permalink: /tests/5-components/button/
 robots: noindex
@@ -36,7 +36,7 @@ robots: noindex
     - .c-button__icon-circle
     - .c-button__icon
     - .c-button__label
-  - Helper styles below are temporary and exist only to make the test cases
+  - Shared fixture styles exist only to make the test cases
     easier to inspect.
   - This page intentionally avoids depending on page-specific layout styling.
   - Resize the browser window to verify small-screen behavior.
@@ -54,7 +54,7 @@ robots: noindex
 <h2>Base button</h2>
 <p><strong>Expected behavior:</strong> The base button should render as an inline-flex control with centered content and stable alignment.</p>
 <div class="c-test-frame">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+  <div class="c-test-row">
     <a class="c-button c-button--primary" href="#base-link">Base button as link</a>
     <button class="c-button c-button--secondary" type="button">Base button as button</button>
   </div>
@@ -65,7 +65,7 @@ robots: noindex
 <h2>Filled action variants</h2>
 <p><strong>Expected behavior:</strong> Primary, secondary, and section CTA variants should share the same filled treatment.</p>
 <div class="c-test-frame">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+  <div class="c-test-row">
     <a class="c-button c-button--primary" href="#primary">Primary action</a>
     <a class="c-button c-button--secondary" href="#secondary">Secondary action</a>
     <a class="c-button c-button--section-cta" href="#section-cta-inline">Section CTA action</a>
@@ -77,7 +77,7 @@ robots: noindex
 <h2>Section CTA variant</h2>
 <p><strong>Expected behavior:</strong> The section CTA modifier should fill the available inline width.</p>
 <div class="c-test-frame">
-  <div style="max-inline-size:42rem;display:grid;gap:1rem;">
+  <div class="c-button-test-grid c-button-test-grid--wide">
     <div class="c-test-block">Placeholder block representing a section-level content area.</div>
     <a class="c-button c-button--section-cta" href="#section-cta-full">View All Projects</a>
   </div>
@@ -88,13 +88,13 @@ robots: noindex
 <h2>Size modifiers</h2>
 <p><strong>Expected behavior:</strong> Small and large modifiers should change height, padding, and font size while preserving alignment.</p>
 <div class="c-test-frame">
-  <div style="display:grid;gap:1rem;">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+  <div class="c-button-test-grid">
+    <div class="c-test-row">
       <span class="c-test-label">Primary sizes:</span>
       <a class="c-button c-button--primary c-button--small" href="#small-primary">Small primary</a>
       <a class="c-button c-button--primary c-button--large" href="#large-primary">Large primary</a>
     </div>
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+    <div class="c-test-row">
       <span class="c-test-label">Secondary sizes:</span>
       <a class="c-button c-button--secondary c-button--small" href="#small-secondary">Small secondary</a>
       <a class="c-button c-button--secondary c-button--large" href="#large-secondary">Large secondary</a>
@@ -107,7 +107,7 @@ robots: noindex
 <h2>Icon composition</h2>
 <p><strong>Expected behavior:</strong> Buttons using <code>.c-button--with-icon</code> should keep icon and label aligned on one line.</p>
 <div class="c-test-frame">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+  <div class="c-test-row">
     <a class="c-button c-button--secondary c-button--small c-button--with-icon" href="#icon-secondary">
       <span class="c-button__icon-circle" aria-hidden="true"><span class="c-button__icon">↓</span></span>
       <span class="c-button__label">Secondary with icon</span>
@@ -124,7 +124,7 @@ robots: noindex
 <h2>Disabled state</h2>
 <p><strong>Expected behavior:</strong> Disabled controls should appear visually muted and should not behave like interactive controls.</p>
 <div class="c-test-frame">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+  <div class="c-test-row">
     <button class="c-button c-button--primary" type="button" disabled>Native disabled button</button>
     <a class="c-button c-button--secondary" href="#aria-disabled" aria-disabled="true">ARIA-disabled link</a>
   </div>
@@ -137,8 +137,8 @@ robots: noindex
   <strong>Expected behavior:</strong> Standard buttons should prefer content width above the small-screen breakpoint, while <code>.c-button--section-cta</code> should remain full-width.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-fill" style="max-inline-size:18rem;">
-    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.75rem;">
+  <div class="c-test-fill c-button-test-fill--narrow">
+    <div class="c-test-column">
       <a class="c-button c-button--primary" href="#narrow-primary">Narrow primary test</a>
       <a class="c-button c-button--secondary c-button--with-icon" href="#narrow-secondary">
         <span class="c-button__icon-circle" aria-hidden="true"><span class="c-button__icon">↓</span></span>

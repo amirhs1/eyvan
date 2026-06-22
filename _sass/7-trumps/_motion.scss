@@ -12,6 +12,8 @@
 // - Always provide reduced-motion fallbacks
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
+
 /* -----------------------------------------------------------------------------
    Animate Hook
    Shared entry-motion utility for sections that reveal softly on load.
@@ -21,8 +23,8 @@
   opacity: 1;
   transform: translateY(0);
   transition:
-    opacity 220ms ease,
-    transform 220ms ease;
+    opacity settings-config.$anim-speed-reveal ease,
+    transform settings-config.$anim-speed-reveal ease;
 }
 
 /* -----------------------------------------------------------------------------
@@ -40,6 +42,8 @@
   *::before,
   *::after {
     scroll-behavior: auto !important;
+    // Intentional near-zero duration: disables visible motion while preserving
+    // animation lifecycle events relied on by some browser and script behavior.
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

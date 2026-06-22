@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Base Elements Test
 permalink: /tests/3-base/base-elements/
 robots: noindex
@@ -7,7 +7,7 @@ robots: noindex
 {% comment %}
   Base Elements Test Page
   Purpose: Visually verify the 3-base Sass layer using shared test helpers from
-  7-trumps/_tests.scss instead of page-local inline styles.
+  the shared development-only test stylesheet instead of page-local inline styles.
 
   What this page checks:
   - Document and body defaults
@@ -41,8 +41,8 @@ robots: noindex
 
 <p class="c-test-note">
   Development note: the framing and helper shells below now come from the shared
-  <code>7-trumps/_tests.scss</code> utilities rather than page-local inline styles. The native HTML elements remain the
-  primary thing under test.
+  development-only test stylesheet rather than page-local inline styles. The native
+  HTML elements remain the primary thing under test.
 </p>
 
 <hr>
@@ -292,7 +292,7 @@ robots: noindex
   <div class="c-test-frame">
     <div class="c-test-box">
       <img
-        src="{{ '/images/hero-placeholder.jpg' | relative_url }}"
+        src="{{ '/assets/images/hero-placeholder.webp' | relative_url }}"
         alt="Placeholder landscape used to test responsive image behavior"
       >
     </div>
@@ -407,7 +407,7 @@ robots: noindex
 
     <figure>
       <img
-        src="{{ '/assets/images/hero-placeholder.jpg' | relative_url }}"
+        src="{{ '/assets/images/hero-placeholder.webp' | relative_url }}"
         alt="Placeholder image used to inspect spacing around figure elements"
       >
     </figure>

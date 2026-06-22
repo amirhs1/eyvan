@@ -15,7 +15,6 @@ license texts in this directory were verified against Google Fonts revision
   - `Barlow-Condensed-normal-500-latin.woff2`
   - `Barlow-Condensed-normal-600-latin.woff2`
   - `Barlow-Condensed-normal-700-latin.woff2`
-  - `Barlow-Condensed-normal-900-latin.woff2`
 
 ## Gelasio
 

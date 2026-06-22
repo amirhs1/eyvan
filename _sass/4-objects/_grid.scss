@@ -26,25 +26,26 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../1-tools/spacing-fluid" as tools-fluid;
 
-// -----------------------------------------------------------------------------
-// Root grid object
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Root grid object
+   ----------------------------------------------------------------------------- */
 
 .o-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(settings-config.$grid-columns, minmax(0, 1fr));
   gap: tools-fluid.fluid-space(
     settings-spacing.$space-2,
     settings-spacing.$space-4
   );
 }
 
-// -----------------------------------------------------------------------------
-// Gap modifiers
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Gap modifiers
+   ----------------------------------------------------------------------------- */
 
 .o-grid--compact {
   gap: tools-fluid.fluid-space(
@@ -60,71 +61,71 @@
   );
 }
 
-// -----------------------------------------------------------------------------
-// Grid item base
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Grid item base
+   ----------------------------------------------------------------------------- */
 
 .o-grid__item {
   min-inline-size: 0;
-  grid-column: span 12;
+  grid-column: span settings-config.$grid-columns;
 }
 
-// -----------------------------------------------------------------------------
-// Default span utilities
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Default span utilities
+   ----------------------------------------------------------------------------- */
 
-@for $i from 1 through 12 {
+@for $i from 1 through settings-config.$grid-columns {
   .o-grid__item--span-#{$i} {
     grid-column: span #{$i};
   }
 }
 
-// -----------------------------------------------------------------------------
-// Default push utilities
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Default push utilities
+   ----------------------------------------------------------------------------- */
 
-@for $i from 0 through 11 {
+@for $i from 0 through (settings-config.$grid-columns - 1) {
   .o-grid__item--push-#{$i} {
     grid-column-start: #{$i + 1};
   }
 }
 
-// -----------------------------------------------------------------------------
-// Text / tablet breakpoint utilities
-// Maps to:
-// - .o-grid__item--span-tablet-*
-// - .o-grid__item--push-tablet-*
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Text / tablet breakpoint utilities
+   Maps to:
+   - .o-grid__item--span-tablet-*
+   - .o-grid__item--push-tablet-*
+   ----------------------------------------------------------------------------- */
 
 @media (min-width: settings-breakpoints.$bp-text) {
-  @for $i from 1 through 12 {
+  @for $i from 1 through settings-config.$grid-columns {
     .o-grid__item--span-tablet-#{$i} {
       grid-column: span #{$i};
     }
   }
 
-  @for $i from 0 through 11 {
+  @for $i from 0 through (settings-config.$grid-columns - 1) {
     .o-grid__item--push-tablet-#{$i} {
       grid-column-start: #{$i + 1};
     }
   }
 }
 
-// -----------------------------------------------------------------------------
-// Layout / desktop breakpoint utilities
-// Maps to:
-// - .o-grid__item--span-desktop-*
-// - .o-grid__item--push-desktop-*
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Layout / desktop breakpoint utilities
+   Maps to:
+   - .o-grid__item--span-desktop-*
+   - .o-grid__item--push-desktop-*
+   ----------------------------------------------------------------------------- */
 
 @media (min-width: settings-breakpoints.$bp-layout) {
-  @for $i from 1 through 12 {
+  @for $i from 1 through settings-config.$grid-columns {
     .o-grid__item--span-desktop-#{$i} {
       grid-column: span #{$i};
     }
   }
 
-  @for $i from 0 through 11 {
+  @for $i from 0 through (settings-config.$grid-columns - 1) {
     .o-grid__item--push-desktop-#{$i} {
       grid-column-start: #{$i + 1};
     }

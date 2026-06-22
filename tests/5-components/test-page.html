@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Page Test
 permalink: /tests/5-components/test-page/
 robots: noindex
@@ -12,7 +12,7 @@ robots: noindex
   Structure:
   - Base page shell
   - Page with featured image
-  - Title and subtitle treatment
+  - Canonical section-heading integration
   - Metadata wrapper placement
   - Tag wrapping behavior
   - Divider behavior
@@ -25,8 +25,6 @@ robots: noindex
   - .c-page__media
   - .c-page__image
   - .c-page__header
-  - .c-page__title
-  - .c-page__subtitle
   - .c-page__meta
   - .c-page__tags
   - .c-page__tag
@@ -36,56 +34,15 @@ robots: noindex
   to the prose object.
   - Shared metadata visuals are not tested here because they belong to the
   entry-meta component.
+  - Shared heading visuals are delegated to the section-heading component.
   - Shared tag/button visuals are not tested here because they belong to the
   button component.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-page-test-box--narrow {
-    inline-size: min(100%, 30rem);
-  }
 
-  .c-page-test-box--very-narrow {
-    inline-size: min(100%, 22rem);
-  }
-
-  .c-page-test-placeholder-image {
-    display: grid;
-    place-items: center;
-    min-block-size: 14rem;
-    color: var(--color-on-surface-variant);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    background: linear-gradient(135deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
-      linear-gradient(225deg, #ececec 25%, transparent 25%) -1rem 0 / 2rem 2rem,
-      linear-gradient(315deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem,
-      linear-gradient(45deg, #ececec 25%, transparent 25%) 0 0 / 2rem 2rem, #f7f7f7;
-  }
-
-  .c-page-test-meta-demo {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    color: var(--color-on-surface);
-    font-size: 0.95rem;
-  }
-
-  .c-page-test-meta-demo time {
-    white-space: nowrap;
-  }
-
-  .c-page-test-body-demo > *:first-child {
-    margin-top: 0;
-  }
-
-  .c-page-test-body-demo > *:last-child {
-    margin-bottom: 0;
-  }
-</style>
-
-<section class="l-section">
+<section>
   <p>
     This page verifies the functionality of the page classes defined in the <strong>5-components</strong> Sass layer.
   </p>
@@ -107,9 +64,12 @@ robots: noindex
   <div class="c-page-test-frame">
     <article class="c-page">
       <header class="c-page__header">
-        <h1 class="c-page__title">Base Page Title Example</h1>
-
-        <p class="c-page__subtitle">This subtitle checks the page header rhythm and readable line length.</p>
+        {% include section-heading.html
+          heading_level="h1"
+          modifier="lg"
+          title="Base Page Title Example"
+          description="This subtitle checks the page header rhythm and readable line length."
+        %}
       </header>
 
       <hr class="c-page__divider">
@@ -149,9 +109,12 @@ robots: noindex
       </div>
 
       <header class="c-page__header">
-        <h1 class="c-page__title">Page Title with Featured Image</h1>
-
-        <p class="c-page__subtitle">This verifies the spacing between the media block and the page header.</p>
+        {% include section-heading.html
+          heading_level="h1"
+          modifier="lg"
+          title="Page Title with Featured Image"
+          description="This verifies the spacing between the media block and the page header."
+        %}
       </header>
 
       <hr class="c-page__divider">
@@ -168,10 +131,10 @@ robots: noindex
   <hr>
 
   <!-- ============================================================= -->
-  <!-- Title and Subtitle Treatment -->
+  <!-- Canonical Section Heading Integration -->
   <!-- ============================================================= -->
 
-  <h2>Title and subtitle treatment</h2>
+  <h2>Canonical section-heading integration</h2>
 
   <p>
     <strong>Expected behavior:</strong>
@@ -182,12 +145,12 @@ robots: noindex
   <div class="c-page-test-frame">
     <article class="c-page">
       <header class="c-page__header">
-        <h1 class="c-page__title">A Longer Page Title Example for Checking Balance and Hierarchy</h1>
-
-        <p class="c-page__subtitle">
-          This longer subtitle is used to confirm that subtitle width remains readable and does not visually overpower
-          the main title.
-        </p>
+        {% include section-heading.html
+          heading_level="h1"
+          modifier="lg"
+          title="A Longer Page Title Example for Checking Balance and Hierarchy"
+          description="This longer subtitle is used to confirm that subtitle width remains readable and does not visually overpower the main title."
+        %}
       </header>
     </article>
   </div>
@@ -209,11 +172,12 @@ robots: noindex
   <div class="c-page-test-frame">
     <article class="c-page">
       <header class="c-page__header">
-        <h1 class="c-page__title">Page Title with Metadata</h1>
-
-        <p class="c-page__subtitle">
-          The metadata should feel attached to the heading group rather than to the body content below.
-        </p>
+        {% include section-heading.html
+          heading_level="h1"
+          modifier="lg"
+          title="Page Title with Metadata"
+          description="The metadata should feel attached to the heading group rather than to the body content below."
+        %}
 
         <div class="c-page__meta">
           <div class="c-page-test-meta-demo">
@@ -248,7 +212,11 @@ robots: noindex
   <div class="c-page-test-frame">
     <article class="c-page">
       <header class="c-page__header">
-        <h1 class="c-page__title">Page Title with Multiple Tags</h1>
+        {% include section-heading.html
+          heading_level="h1"
+          modifier="lg"
+          title="Page Title with Multiple Tags"
+        %}
 
         <div class="c-page__tags">
           <a class="c-tag c-page__tag" href="#">Jekyll</a>
@@ -279,9 +247,12 @@ robots: noindex
     <div class="c-page-test-box">
       <article class="c-page">
         <header class="c-page__header">
-          <h1 class="c-page__title">Header with Divider</h1>
-
-          <p class="c-page__subtitle">This version includes a divider between the header and the body.</p>
+          {% include section-heading.html
+            heading_level="h1"
+            modifier="lg"
+            title="Header with Divider"
+            description="This version includes a divider between the header and the body."
+          %}
         </header>
 
         <hr class="c-page__divider">
@@ -295,11 +266,12 @@ robots: noindex
     <div class="c-page-test-box">
       <article class="c-page">
         <header class="c-page__header">
-          <h1 class="c-page__title">Header without Divider</h1>
-
-          <p class="c-page__subtitle">
-            Compare this version to the one above to see the spacing effect of the divider more clearly.
-          </p>
+          {% include section-heading.html
+            heading_level="h1"
+            modifier="lg"
+            title="Header without Divider"
+            description="Compare this version to the one above to see the spacing effect of the divider more clearly."
+          %}
         </header>
 
         <div class="c-page__body o-prose c-page-test-body-demo">
@@ -329,7 +301,11 @@ robots: noindex
   <div class="c-page-test-frame">
     <article class="c-page">
       <header class="c-page__header">
-        <h1 class="c-page__title">Body Wrapper Containment Test</h1>
+        {% include section-heading.html
+          heading_level="h1"
+          modifier="lg"
+          title="Body Wrapper Containment Test"
+        %}
       </header>
 
       <hr class="c-page__divider">
@@ -364,9 +340,12 @@ robots: noindex
     <div class="c-page-test-box c-page-test-box--narrow">
       <article class="c-page">
         <header class="c-page__header">
-          <h1 class="c-page__title">Narrow Container Page Example</h1>
-
-          <p class="c-page__subtitle">This subtitle checks how the header behaves in a tighter width.</p>
+          {% include section-heading.html
+            heading_level="h1"
+            modifier="lg"
+            title="Narrow Container Page Example"
+            description="This subtitle checks how the header behaves in a tighter width."
+          %}
 
           <div class="c-page__tags">
             <a class="c-tag c-page__tag" href="#">Jekyll</a>
@@ -380,9 +359,12 @@ robots: noindex
     <div class="c-page-test-box c-page-test-box--very-narrow">
       <article class="c-page">
         <header class="c-page__header">
-          <h1 class="c-page__title">Very Narrow Page Test with a Longer Title</h1>
-
-          <p class="c-page__subtitle">The subtitle should wrap naturally and still feel visually secondary.</p>
+          {% include section-heading.html
+            heading_level="h1"
+            modifier="lg"
+            title="Very Narrow Page Test with a Longer Title"
+            description="The subtitle should wrap naturally and still feel visually secondary."
+          %}
 
           <div class="c-page__meta">
             <div class="c-page-test-meta-demo">

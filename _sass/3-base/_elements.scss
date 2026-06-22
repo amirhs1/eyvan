@@ -2,7 +2,7 @@
 // Base — Elements
 // ITCSS layer: 3-base
 //
-// Purpose:
+// Description:
 // Provides baseline styling for unclassed HTML elements that require
 // minimal visual normalization beyond resets and normalize.css.
 //
@@ -25,13 +25,14 @@
 //
 // Dependencies:
 // - spacing: vertical rhythm scale
-// ------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 
 hr {
   display: block;
   margin: settings-spacing.$space-6 0;
   border: 0;
-  border-top: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }

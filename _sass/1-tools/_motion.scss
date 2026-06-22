@@ -2,7 +2,7 @@
 // Motion Utilities
 // ITCSS layer: 1-tools
 //
-// Purpose:
+// Description:
 // Provides reusable motion and interaction helpers used across components
 // (e.g. hover effects, reveal transitions).
 //
@@ -15,9 +15,24 @@
 
 @use "../0-settings/config" as settings-config;
 
+$anim-easing: cubic-bezier(#{settings-config.$anim-easing-control-points});
+$transition-fade: opacity settings-config.$anim-speed $anim-easing;
+$transition-transform: transform settings-config.$anim-speed $anim-easing;
+$transition-interaction:
+  color settings-config.$anim-speed $anim-easing,
+  background-color settings-config.$anim-speed $anim-easing,
+  border-color settings-config.$anim-speed $anim-easing,
+  box-shadow settings-config.$anim-speed $anim-easing;
+$card-transition:
+  background-color settings-config.$transition-base,
+  border-color settings-config.$transition-base,
+  color settings-config.$transition-base,
+  box-shadow settings-config.$transition-base,
+  transform settings-config.$transition-base;
+
 /// Simple hover scale interaction
 /// @param {Number} $scale - Hover scale factor
-@mixin hover-scale($scale: 1.05) {
+@mixin hover-scale($scale: settings-config.$hover-scale-default) {
   transition: transform settings-config.$transition-fast;
 
   &:hover {
@@ -28,7 +43,7 @@
 /// Reveal-on-scroll base state
 @mixin reveal-base {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(settings-config.$reveal-translate-distance);
   transition:
     opacity settings-config.$transition-slow,
     transform settings-config.$transition-slow;
@@ -36,27 +51,27 @@
 
 /// Standard transition for common interactive UI properties
 @mixin transition-interaction {
-  transition: settings-config.$transition-interaction;
+  transition: $transition-interaction;
 }
 
 /// Standard transform transition
 @mixin transition-transform {
-  transition: settings-config.$transition-transform;
+  transition: $transition-transform;
 }
 
 /// Standard opacity fade transition
 @mixin transition-fade {
-  transition: settings-config.$transition-fade;
+  transition: $transition-fade;
 }
 
 /// Combined transition for interactive UI plus transform motion
 @mixin transition-ui-with-transform {
   transition:
-    settings-config.$transition-interaction,
-    settings-config.$transition-transform;
+    $transition-interaction,
+    $transition-transform;
 }
 
 /// Shared card transition pattern
 @mixin transition-card {
-  transition: settings-config.$card-transition;
+  transition: $card-transition;
 }

@@ -1,0 +1,30 @@
+// -----------------------------------------------------------------------------
+// 404 Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Minimal styling for the 404 "page not found" fallback rendered by
+// _layouts/page.html via 404.html. The page otherwise relies on shared
+// objects/components (.o-container, .c-button) and base element rhythm.
+//
+// Structure:
+// - .c-404
+//   - .c-404__inner
+//     - .c-404__description
+//     - .c-404__actions
+//     - .c-404__code        (this file owns its spacing + muted color)
+//
+// Scope & Rules:
+// - Component styling only
+// - Outer page containment belongs to .o-container
+// - This file owns only the error-code line: its separation from the CTA
+//   and its muted color (replacing the previously undefined `u-text-muted`)
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/spacing" as settings-spacing;
+
+.c-404__code {
+  display: inline-block;
+  margin-block-start: settings-spacing.$space-stack-md;
+  color: var(--color-on-surface-variant);
+}

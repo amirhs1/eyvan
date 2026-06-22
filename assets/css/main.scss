@@ -94,7 +94,7 @@
 @use "5-components/brand" as component-brand with (
   $brand-logo-url: "{{ site.logo | relative_url }}"
 );
-@use "5-components/navigation" as component-navigation;
+@use "5-components/nav" as component-nav;
 @use "5-components/mobile-menu" as component-mobile-menu;
 @use "5-components/site-header" as component-site-header;
 @use "5-components/site-footer" as component-site-footer;
@@ -110,11 +110,12 @@
 @use "5-components/post" as component-post;
 
 @use "5-components/page" as component-page;
+@use "5-components/404" as component-404;
 @use "5-components/contact-card" as component-contact-card;
 @use "5-components/toc" as component-toc;
 @use "5-components/prose-media" as component-prose-media;
 
-@use "5-components/back-to-top";
+@use "5-components/back-to-top" as component-back-to-top;
 
 // -----------------------------------------------------------------------------
 // 6. LAYOUTS

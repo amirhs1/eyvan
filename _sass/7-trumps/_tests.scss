@@ -4,8 +4,8 @@
 //
 // Purpose:
 // Shared helper styling for visual test pages in /tests.
-// These styles replace repeated inline <style> blocks that currently use
-// hard-coded light-theme colors.
+// These styles provide all fixture geometry and presentation so test markup
+// remains free of page-local and inline CSS.
 //
 // Notes:
 // - Development/testing only
@@ -13,18 +13,57 @@
 // - Keeps test surfaces readable in both light and dark mode
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/dark-mode" as dark-mode;
+@use "../0-settings/light-mode" as light-mode;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Test layout
+   ----------------------------------------------------------------------------- */
+
+.c-test-page__header {
+  display: grid;
+  gap: settings-spacing.$space-2;
+  margin-block-end: settings-spacing.$space-6;
+}
+
+.c-test-page__header > * {
+  margin-block: 0;
+}
+
+.c-test-page__content {
+  min-inline-size: 0;
+}
+
+.c-test-page__content--full > p,
+.c-test-page__content--full > h2,
+.c-test-page__content--full > hr {
+  inline-size: 100%;
+  max-inline-size: settings-config.$measure-site;
+  margin-inline: auto;
+  padding-inline: tools-spacing.$fluid-inline-md;
+}
+
+/* -----------------------------------------------------------------------------
+   Shared fixture helpers
+   ----------------------------------------------------------------------------- */
+
 .c-test-frame,
 [class$="-test-frame"] {
-  padding: 1.5rem;
-  margin-block: 1.5rem;
-  border: 1px dashed var(--color-outline-variant);
+  padding: settings-spacing.$space-5;
+  margin-block: settings-spacing.$space-5;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface-container-high);
 }
 
 .c-test-box,
 [class$="-test-box"] {
-  padding: 1rem;
-  border: 1px solid var(--color-outline-variant);
+  padding: settings-spacing.$space-4;
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   background: var(--color-surface-container-low);
   color: var(--color-on-surface);
 }
@@ -33,34 +72,34 @@
 [class$="-test-note"] {
   margin: 0;
   color: var(--color-on-surface-variant);
-  font-size: 0.95rem;
+  font-size: settings-typography.$font-size-sm;
 }
 
 .c-test-fill,
 [class$="-test-fill"] {
-  padding: 0.75rem;
-  border: 1px dashed var(--color-outline-variant);
+  padding: settings-spacing.$space-3;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface);
 }
 
 .c-test-block,
 [class$="-test-block"] {
   min-inline-size: 0;
-  padding: 1rem;
-  border: 1px dashed var(--color-outline-variant);
+  padding: settings-spacing.$space-4;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface-container-high);
   color: var(--color-on-surface);
 }
 
 .c-test-block--strong,
 [class*="-test-block--strong"] {
-  border-width: 2px;
+  border-width: settings-config.$border-width-emphasis;
 }
 
 .c-test-label,
 [class$="-test-label"] {
   margin: 0;
-  font-weight: 600;
+  font-weight: settings-typography.$font-weight-semi-bold;
   color: var(--color-on-surface);
 }
 
@@ -68,7 +107,41 @@
 [class$="-test-meta"] {
   margin: 0;
   color: var(--color-on-surface-variant);
-  font-size: 0.9rem;
+  font-size: settings-typography.$font-size-sm;
+}
+
+.c-test-stack {
+  display: grid;
+  gap: settings-spacing.$space-4;
+}
+
+.c-test-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+}
+
+.c-test-row--loose {
+  gap: settings-spacing.$space-4;
+}
+
+.c-test-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: settings-spacing.$space-3;
+}
+
+.c-test-icon {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.c-test-motion-sample {
+  margin-block-start: settings-spacing.$space-4;
+  transform: translateY(settings-spacing.$space-4);
 }
 
 /* Common helper shells used by some pages */
@@ -99,8 +172,8 @@
 }
 
 .c-prose-test-pre {
-  padding: 1rem;
-  border: 1px solid var(--color-outline-variant);
+  padding: settings-spacing.$space-4;
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
   background: var(--color-surface);
   color: var(--color-on-surface);
   white-space: pre;
@@ -111,7 +184,740 @@
 .c-brand-test-spacer,
 .c-container-test-viewport-edge,
 .c-mobile-menu-test-spacer {
-  border: 1px dashed var(--color-outline-variant);
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface);
   color: var(--color-on-surface-variant);
+}
+
+/* -----------------------------------------------------------------------------
+   Object harness fixtures
+   ----------------------------------------------------------------------------- */
+
+.c-container-test-measure {
+  min-block-size: 4rem;
+}
+
+.c-container-test-grid,
+.c-grid-test-nested {
+  display: grid;
+  gap: settings-spacing.$space-4;
+}
+
+.c-container-test-viewport-edge {
+  padding-block: settings-spacing.$space-2;
+  opacity: 0.8;
+}
+
+.c-container-test-full-width-section {
+  padding-block: settings-spacing.$space-5;
+  border-block: settings-config.$global-border-width solid currentColor;
+  opacity: 0.95;
+}
+
+@media (min-width: settings-breakpoints.$bp-md) {
+  .c-container-test-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.c-hero-test-text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.c-hero-test-stack > * + * {
+  margin-block-start: settings-spacing.$space-3;
+}
+
+.c-hero-test-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: settings-spacing.$space-3;
+}
+
+.c-hero-test-actions--spaced {
+  margin-block-start: settings-spacing.$space-3;
+}
+
+.c-hero-test-chip {
+  display: inline-block;
+  padding: settings-spacing.$space-2 settings-spacing.$space-3;
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface);
+  white-space: nowrap;
+}
+
+.c-hero-test-media-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 13.75rem;
+}
+
+.c-hero-test-media-box--tall {
+  min-block-size: 20rem;
+}
+
+.c-hero-test-center {
+  text-align: center;
+}
+
+/* -----------------------------------------------------------------------------
+   General component fixture geometry
+   ----------------------------------------------------------------------------- */
+
+.c-brand-test-row {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-4;
+}
+
+.c-brand-test-spacer {
+  flex: 1 1 auto;
+  min-inline-size: 3rem;
+  min-block-size: 2.5rem;
+}
+
+.c-brand-test-box--wide {
+  max-inline-size: 20rem;
+}
+
+.c-brand-test-box--narrow {
+  max-inline-size: 8rem;
+}
+
+.c-brand-test-link--fluid {
+  display: flex;
+  inline-size: 100%;
+  max-inline-size: 100%;
+}
+
+.c-button-test-grid {
+  display: grid;
+  gap: settings-spacing.$space-4;
+}
+
+.c-button-test-grid--wide {
+  max-inline-size: 42rem;
+}
+
+.c-button-test-fill--narrow {
+  max-inline-size: 18rem;
+}
+
+.c-entry-meta-test-box--wide {
+  max-inline-size: 52rem;
+}
+
+.c-entry-meta-test-box--narrow {
+  max-inline-size: 18rem;
+}
+
+.c-hero-component-test-box--wide {
+  max-inline-size: 34rem;
+}
+
+.c-hero-component-test-box--medium {
+  max-inline-size: 30rem;
+}
+
+.c-post-share-test-box--narrow {
+  max-inline-size: 14rem;
+}
+
+.c-post-test-box--narrow {
+  max-inline-size: 38rem;
+}
+
+.c-related-posts-test-box--narrow {
+  max-inline-size: 26rem;
+}
+
+.c-section-heading-test-box--narrow {
+  max-inline-size: 24rem;
+}
+
+.c-section-heading-test-fill--spaced {
+  margin-block-start: settings-spacing.$space-4;
+}
+
+/* -----------------------------------------------------------------------------
+   Navigation and menu fixtures
+   ----------------------------------------------------------------------------- */
+
+.c-nav-test-box--narrow {
+  inline-size: min(100%, 22rem);
+}
+
+.c-nav-test-box--mobile {
+  inline-size: min(100%, 28rem);
+}
+
+.c-nav-test-box--toggle {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-4;
+  inline-size: min(100%, 24rem);
+}
+
+.c-nav-test-desktop-wrap {
+  inline-size: min(100%, 20rem);
+}
+
+.c-mobile-menu-test-stack {
+  display: grid;
+  gap: settings-spacing.$space-4;
+}
+
+.c-mobile-menu-test-box--overlay {
+  position: relative;
+  min-block-size: 44rem;
+  overflow: hidden;
+}
+
+.c-mobile-menu-test-box--short {
+  min-block-size: 32rem;
+}
+
+.c-mobile-menu-test-box--tall {
+  min-block-size: 48rem;
+}
+
+.c-mobile-menu-test-spacer {
+  min-block-size: 18rem;
+  padding: settings-spacing.$space-3;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-surface-container-high),
+    var(--color-surface-container-high) 1.25rem,
+    var(--color-surface-container-low) 1.25rem,
+    var(--color-surface-container-low) 2.5rem
+  );
+}
+
+.c-mobile-menu-test-hidden-preview {
+  padding: settings-spacing.$space-3;
+  background: var(--color-surface);
+}
+
+.c-mobile-menu-test-box .c-mobile-menu {
+  position: absolute;
+  inset: 0;
+}
+
+.c-mobile-menu-test-box .c-mobile-menu[hidden] {
+  display: none !important;
+}
+
+.c-mobile-menu-test-close-state-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-4;
+}
+
+.c-mobile-menu-test-close-demo {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-3;
+  padding: settings-spacing.$space-3 settings-spacing.$space-4;
+  background: var(--color-surface-container-low);
+}
+
+.c-mobile-menu-test-close-demo--hover .c-mobile-menu__close,
+.c-mobile-menu-test-close-demo--focus .c-mobile-menu__close {
+  border-color: var(--color-primary);
+  background-color: var(--color-surface-container-high);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 settings-config.$focus-ring-width
+    color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+.c-mobile-menu-test-close-demo--active .c-mobile-menu__close {
+  transform: translateY(1px);
+  border-color: var(--color-primary);
+  background-color: var(--color-surface-container-high);
+  color: var(--color-primary);
+}
+
+.c-mobile-menu-test-svg-icon {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* -----------------------------------------------------------------------------
+   Page, card, and post fixtures
+   ----------------------------------------------------------------------------- */
+
+.c-page-test-box--narrow {
+  inline-size: min(100%, 30rem);
+}
+
+.c-page-test-box--very-narrow {
+  inline-size: min(100%, 22rem);
+}
+
+.c-page-test-placeholder-image {
+  display: grid;
+  place-items: center;
+  min-block-size: 14rem;
+  color: var(--color-on-surface-variant);
+  font-weight: settings-typography.$font-weight-semi-bold;
+  letter-spacing: settings-typography.$letter-spacing-loose-sm;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-surface-container-high),
+    var(--color-surface-container-high) 1rem,
+    var(--color-surface-container-low) 1rem,
+    var(--color-surface-container-low) 2rem
+  );
+}
+
+.c-page-test-meta-demo {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: settings-spacing.$space-2 settings-spacing.$space-4;
+  color: var(--color-on-surface);
+  font-size: settings-typography.$font-size-sm;
+}
+
+.c-page-test-meta-demo time {
+  white-space: nowrap;
+}
+
+.c-page-test-body-demo > *:first-child {
+  margin-block-start: 0;
+}
+
+.c-page-test-body-demo > *:last-child {
+  margin-block-end: 0;
+}
+
+.c-post-card-test-grid {
+  display: grid;
+  gap: settings-spacing.$space-4;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.c-post-card-test-grid--two-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.c-post-card-test-box--narrow {
+  inline-size: min(100%, 18rem);
+}
+
+.c-post-card-test-placeholder-image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 12rem;
+  object-fit: cover;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-container),
+    var(--color-surface-container-high)
+  );
+}
+
+.c-post-card-test-long-text {
+  max-inline-size: 60ch;
+}
+
+@media (max-width: settings-breakpoints.$bp-md) {
+  .c-post-card-test-grid--two-up {
+    grid-template-columns: 1fr;
+  }
+}
+
+.c-post-nav-test-box--narrow {
+  inline-size: min(100%, 34rem);
+}
+
+.c-post-nav-test-box--tight {
+  inline-size: min(100%, 26rem);
+}
+
+.c-post-nav-test-empty {
+  padding: settings-spacing.$space-4;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  background: var(--color-surface);
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+
+.c-post-nav-test-kbd {
+  display: inline-block;
+  padding: settings-spacing.$space-1 settings-spacing.$space-2;
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  border-radius: settings-config.$global-border-radius;
+  background: var(--color-surface-container-low);
+  font-family: settings-typography.$font-family-mono;
+  font-size: settings-typography.$font-size-code;
+}
+
+/* -----------------------------------------------------------------------------
+   Header, footer, social, and theme fixtures
+   ----------------------------------------------------------------------------- */
+
+.c-site-footer-test-stack,
+.c-social-links-test-stack {
+  display: grid;
+  gap: settings-spacing.$space-4;
+}
+
+.c-site-footer-test-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: settings-spacing.$space-3;
+}
+
+.c-site-footer-test-social {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+.c-site-footer-test-brand-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: settings-spacing.$space-2;
+  padding: settings-spacing.$space-2 settings-spacing.$space-3;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  border-radius: settings-config.$global-button-radius;
+  background: var(--color-surface-container-high);
+  color: inherit;
+  font-weight: settings-typography.$font-weight-semi-bold;
+  text-decoration: none;
+}
+
+.c-site-footer-test-brand-mark {
+  flex: 0 0 auto;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border-radius: 50%;
+  background: var(--color-outline-variant);
+}
+
+.c-site-footer-test-meta-shell {
+  display: grid;
+  justify-items: center;
+  gap: settings-spacing.$space-2;
+}
+
+.c-site-footer-test-box--narrow {
+  inline-size: min(100%, 26rem);
+}
+
+.c-site-footer-test-box--wide {
+  inline-size: min(100%, 72rem);
+}
+
+.c-social-links-test-box--narrow {
+  inline-size: min(100%, 14rem);
+}
+
+.c-social-links-test-box--mobile {
+  inline-size: min(100%, 24rem);
+}
+
+.c-social-links-test-box--footer {
+  inline-size: min(100%, 30rem);
+}
+
+.c-social-links-test-dark {
+  border-color: var(--color-ui-border-subtle);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+.c-site-header-test-page {
+  display: grid;
+  gap: settings-spacing.$space-6;
+}
+
+.c-site-header-test-frame {
+  margin-block: settings-spacing.$space-5;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-container-low),
+    var(--color-surface-container-high)
+  );
+}
+
+.c-site-header-test-label {
+  margin: 0 0 settings-spacing.$space-3;
+  font-weight: settings-typography.$font-weight-semi-bold;
+}
+
+.c-site-header-test-note {
+  margin: 0;
+  color: var(--color-on-surface-variant);
+  font-size: settings-typography.$font-size-sm;
+}
+
+.c-site-header-test-box {
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  background: var(--color-surface);
+}
+
+.c-site-header-test-fill {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: settings-spacing.$space-4;
+  min-block-size: 4.5rem;
+  padding: settings-spacing.$space-4;
+}
+
+.c-site-header-test-fill--compact {
+  min-block-size: 4rem;
+}
+
+.c-site-header-test-fill--wide {
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr) auto auto;
+}
+
+.c-site-header-test-brand,
+.c-site-header-test-nav,
+.c-site-header-test-actions,
+.c-site-header-test-toggle {
+  padding: settings-spacing.$space-3 settings-spacing.$space-4;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  color: var(--color-on-surface);
+}
+
+.c-site-header-test-brand,
+.c-site-header-test-nav {
+  min-inline-size: 0;
+}
+
+.c-site-header-test-brand strong,
+.c-site-header-test-nav strong,
+.c-site-header-test-actions strong,
+.c-site-header-test-toggle strong {
+  display: block;
+  margin-block-end: settings-spacing.$space-1;
+  font-size: settings-typography.$font-size-sm;
+}
+
+.c-site-header-test-brand span,
+.c-site-header-test-nav span,
+.c-site-header-test-actions span,
+.c-site-header-test-toggle span {
+  display: block;
+  color: var(--color-on-surface-variant);
+  font-size: settings-typography.$font-size-sm;
+  line-height: settings-typography.$line-height-normal;
+}
+
+.c-site-header-test-nav {
+  overflow-wrap: anywhere;
+}
+
+.c-site-header-test-scroll-area {
+  display: grid;
+  gap: settings-spacing.$space-4;
+  min-block-size: 90rem;
+  padding: settings-spacing.$space-5;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--color-surface-container-low) 0,
+    var(--color-surface-container-low) 1px,
+    var(--color-surface) 1px,
+    var(--color-surface) 2.75rem
+  );
+}
+
+.c-site-header-test-scroll-card {
+  max-inline-size: 52rem;
+  padding: settings-spacing.$space-4 settings-spacing.$space-5;
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  background: var(--color-surface);
+}
+
+.c-site-header-test-contrast-zone {
+  padding: settings-spacing.$space-5;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-container),
+    var(--color-surface-container-high)
+  );
+}
+
+.c-site-header-test-contrast-block {
+  min-block-size: 8rem;
+  padding: settings-spacing.$space-4;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+}
+
+.c-site-header-test-state-preview {
+  position: relative;
+}
+
+.c-site-header-test-state-preview .is-shrunk-note {
+  margin: 0;
+  padding: settings-spacing.$space-3 settings-spacing.$space-4 settings-spacing.$space-4;
+  color: var(--color-on-surface-variant);
+  font-size: settings-typography.$font-size-sm;
+}
+
+@media (max-width: settings-breakpoints.$bp-layout) {
+  .c-site-header-test-fill,
+  .c-site-header-test-fill--wide {
+    grid-template-columns: 1fr;
+  }
+}
+
+.c-theme-toggle-test-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: settings-spacing.$space-4;
+}
+
+.c-theme-toggle-test-frame[data-theme="light"] {
+  --color-surface-container-low: #{light-mode.$surface-container-low};
+  --color-surface-container-high: #{light-mode.$surface-container-high};
+  --color-outline-variant: #{light-mode.$outline-variant};
+  --color-on-surface: #{light-mode.$on-surface};
+  --color-primary: #{light-mode.$primary};
+  --color-surface: #{light-mode.$surface};
+}
+
+.c-theme-toggle-test-frame[data-theme="dark"] {
+  --color-surface-container-low: #{dark-mode.$surface-container-low};
+  --color-surface-container-high: #{dark-mode.$surface-container-high};
+  --color-outline-variant: #{dark-mode.$outline-variant};
+  --color-on-surface: #{dark-mode.$on-surface};
+  --color-primary: #{dark-mode.$primary};
+  --color-surface: #{dark-mode.$surface};
+
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+.c-theme-toggle-test-stack > * + * {
+  margin-block-start: settings-spacing.$space-3;
+}
+
+.c-theme-toggle-test-panel,
+.c-theme-toggle-test-mobile-shell,
+.c-theme-toggle-test-inline-shell,
+.c-theme-toggle-test-fill-shell {
+  padding: settings-spacing.$space-3;
+  border: settings-config.$global-border-width dashed var(--color-outline-variant);
+  background: color-mix(in srgb, var(--color-surface-container-high) 80%, transparent);
+}
+
+.c-theme-toggle-test-mobile-shell {
+  max-inline-size: 26rem;
+  padding: settings-spacing.$space-4;
+}
+
+.c-theme-toggle-test-inline-shell {
+  display: inline-flex;
+  padding: settings-spacing.$space-2;
+}
+
+.c-theme-toggle-test-fill-shell {
+  inline-size: 100%;
+  max-inline-size: 30rem;
+}
+
+.c-theme-toggle-test-label {
+  font-weight: settings-typography.$font-weight-semi-bold;
+}
+
+.c-theme-toggle-test-note {
+  font-size: settings-typography.$font-size-sm;
+}
+
+.c-theme-toggle-test-local-theme[data-theme="light"] .c-theme-toggle__icon--sun,
+.c-theme-toggle-test-local-theme[data-theme="dark"] .c-theme-toggle__icon--moon {
+  opacity: 0;
+  transform: scale(0.8) rotate(-20deg);
+  pointer-events: none;
+}
+
+.c-theme-toggle-test-local-theme[data-theme="light"] .c-theme-toggle__icon--moon,
+.c-theme-toggle-test-local-theme[data-theme="dark"] .c-theme-toggle__icon--sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.c-theme-toggle-test-long-label {
+  white-space: normal;
+}
+
+.c-theme-toggle__icon svg,
+.c-theme-toggle__icon use {
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Added component harness fixtures
+   ----------------------------------------------------------------------------- */
+
+.c-contact-card-test-list {
+  display: grid;
+  gap: settings-spacing.$space-4;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-contact-card-test-frame--narrow {
+  max-inline-size: 28rem;
+}
+
+.c-toc-test-desktop-frame {
+  max-inline-size: 22rem;
+}
+
+.c-toc-test-aside {
+  position: static;
+  max-block-size: none;
+  overflow: visible;
+}
+
+.c-toc-test-toolbar {
+  position: static;
+  margin-block: 0;
+}
+
+.c-toc-test-mobile-preview {
+  max-inline-size: 32rem;
+}
+
+.c-toc-test-mobile-preview .c-mobile-toc {
+  position: static;
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  min-block-size: 0;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.c-back-to-top-test-preview .c-back-to-top__wrap {
+  position: static;
+  min-block-size: settings-config.$control-min-size;
+  transform: none;
+}
+
+.c-tag-test-frame--narrow {
+  max-inline-size: 22rem;
 }

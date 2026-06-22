@@ -21,6 +21,8 @@
    Base spacing scale (static, predictable)
    ----------------------------------------------------------------------------- */
 
+// Usage: gap: $space-4; for a scale-based 1rem gap.
+
 $space-0: 0;
 $space-1: 0.25rem;  // 4px
 $space-2: 0.5rem;   // 8px
@@ -37,6 +39,7 @@ $space-9: 6rem;     // 96px
    Inline spacing
    ----------------------------------------------------------------------------- */
 // Use for padding, gaps, and tight horizontal relationships.
+// Usage: padding-inline: $space-inline-md;.
 
 $space-inline-xs: $space-1;
 $space-inline-sm: $space-2;
@@ -48,6 +51,7 @@ $space-inline-lg: $space-5;
    Stack spacing (vertical rhythm)
    ----------------------------------------------------------------------------- */
 // Use for vertical flow of content: paragraphs, blocks, media, sections.
+// Usage: margin-block-end: $space-stack-md;.
 
 $space-stack-xxs: $space-1;
 $space-stack-xs: $space-2;
@@ -61,7 +65,22 @@ $space-stack-xl: $space-9;
    Section-level spacing
    ----------------------------------------------------------------------------- */
 // Use for major layout separation (page sections, heroes, essays).
+// Usage: padding-block: $space-section-md;.
 
 $space-section-sm: $space-6;
 $space-section-md: $space-8;
 $space-section-lg: $space-9;
+
+/* -----------------------------------------------------------------------------
+   Specialized spacing primitives
+   ----------------------------------------------------------------------------- */
+
+// Default viewport coefficient used by fluid-space().
+// Usage: the default third argument in 1-tools/_spacing-fluid.scss.
+$fluid-space-viewport: 5vw;
+
+// Inline-code geometry; em units scale with the surrounding text.
+// Usage: margin and padding for :not(pre) > code.
+$space-code-inline-margin: 0.08em;
+$space-code-padding-block: 0.15em;
+$space-code-padding-inline: 0.35em;

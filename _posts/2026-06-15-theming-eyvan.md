@@ -8,6 +8,11 @@ description: "How to re-skin Eyvan — a no-code brand-color workflow built on M
 
 > **Note:** This post was generated with AI tools as a theming guide shipped with the Eyvan template. It is the companion to *Setting Up Eyvan* — do your content setup there first, then return here when you want to change how the site looks.
 
+> **Template note:** This post intentionally omits the `image` front matter
+> field to demonstrate that Eyvan posts do not need a visible cover image. Its
+> social metadata falls back to `site.default_og_image`, while the post header
+> and archive card use the image-free presentation.
+
 *Setting Up Eyvan* covered everything about *who you are* — names, links, images, and posts. None of it touched SCSS. This guide covers the other half: how the site *looks*. The brand color, the fonts, and the spacing rhythm all live in design tokens under `_sass/0-settings/`, and you can change them without editing a single layout, include, or component.[^1]
 
 This post assumes you are comfortable editing SCSS files and re-running the build. If you only want a different brand color, you can stop after the Material Theme Builder section — that is the most common change and the least code.

@@ -12,8 +12,8 @@
 // - Token-driven (fonts, sizes, weights, line-heights)
 //
 // Notes:
-// - Vertical rhythm (margins between blocks) should be handled in base spacing
-//   rules or via objects like .o-stack in 4-objects.
+// - Vertical rhythm (margins between blocks) is handled in base spacing rules
+//   or by the owning object/component.
 // - Theme-aware colors are consumed via global CSS custom properties defined
 //   in 3-base/_base.scss.
 // -----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ code,
 kbd,
 samp {
   font-family: settings-typography.$font-family-mono;
-  font-size: 0.9em;
+  font-size: settings-typography.$font-size-code;
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0, "calt" 0;
   overflow-x: auto;

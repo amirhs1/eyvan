@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Brand Test
 permalink: /tests/5-components/test-brand/
 robots: noindex
@@ -11,7 +11,7 @@ robots: noindex
   and behaves correctly across the site.
 
   Notes:
-  - Uses shared test helper styles from 7-trumps/_tests.scss
+  - Uses shared test helper styles from the shared development-only test stylesheet
   - This page tests only the component responsibilities of:
     - .c-brand
     - .c-brand--compact
@@ -56,8 +56,8 @@ robots: noindex
   ellipsis when horizontal space gets tight.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size: 20rem;">
-    <a class="c-brand" href="#" aria-label="Go to homepage" style="display:flex;inline-size:100%;max-inline-size:100%;">
+  <div class="c-test-box c-brand-test-box--wide">
+    <a class="c-brand c-brand-test-link--fluid" href="#" aria-label="Go to homepage">
       <span class="c-brand__logo" aria-hidden="true"></span>
       <span class="c-brand__text">
         <span class="c-brand__name">John Doe With a Very Long Professional Display Name</span>
@@ -95,7 +95,7 @@ robots: noindex
   text to logo only.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size: 20rem;">
+  <div class="c-test-box c-brand-test-box--wide">
     <a class="c-brand" href="#" aria-label="Go to homepage">
       <span class="c-brand__logo" aria-hidden="true"></span>
       <span class="c-brand__text">
@@ -120,7 +120,7 @@ robots: noindex
 <div class="c-test-frame">
   <div class="c-test-block">
     <p class="c-test-label">Normal header context</p>
-    <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="c-brand-test-row">
       <a class="c-brand" href="#" aria-label="Go to homepage">
         <span class="c-brand__logo" aria-hidden="true"></span>
         <span class="c-brand__text">
@@ -128,14 +128,14 @@ robots: noindex
           <span class="c-brand__role">Applied Scientist</span>
         </span>
       </a>
-      <div class="c-brand-test-spacer" aria-hidden="true" style="flex:1 1 auto;min-inline-size:3rem;min-block-size:2.5rem;"></div>
+      <div class="c-brand-test-spacer" aria-hidden="true"></div>
     </div>
     <p class="c-test-meta">This version should show the full text stack.</p>
   </div>
 
   <div class="c-site-header is-shrunk c-test-block">
     <p class="c-test-label">Shrunk header context</p>
-    <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="c-brand-test-row">
       <a class="c-brand" href="#" aria-label="Go to homepage">
         <span class="c-brand__logo" aria-hidden="true"></span>
         <span class="c-brand__text">
@@ -143,7 +143,7 @@ robots: noindex
           <span class="c-brand__role">Applied Scientist</span>
         </span>
       </a>
-      <div class="c-brand-test-spacer" aria-hidden="true" style="flex:1 1 auto;min-inline-size:3rem;min-block-size:2.5rem;"></div>
+      <div class="c-brand-test-spacer" aria-hidden="true"></div>
     </div>
     <p class="c-test-meta">This version should collapse because the ancestor is shrunk.</p>
   </div>
@@ -177,7 +177,7 @@ robots: noindex
   scenario.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size: 8rem;">
+  <div class="c-test-box c-brand-test-box--narrow">
     <a class="c-brand" href="#" aria-label="Go to homepage">
       <span class="c-brand__logo" aria-hidden="true"></span>
     </a>

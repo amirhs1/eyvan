@@ -1,0 +1,7 @@
+# Development-only navigation kept separate from the public site links.
+
+main:
+  - title: "Tests"
+    url: "/tests/"
+    external: false
+    dev_only: true

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Trumps Test
 permalink: /tests/7-trumps/trumps/
 robots: noindex
@@ -11,7 +11,7 @@ robots: noindex
   correctly across the site.
 
   Updated to match the current 7-trumps layer:
-  - Uses shared test helper classes from 7-trumps/_tests.scss
+  - Uses shared test helper classes from the shared development-only test stylesheet
   - Removes assumptions that do not match the actual utility behavior
   - Tests only what the utilities/state hooks explicitly define
 
@@ -227,9 +227,8 @@ robots: noindex
     </button>
 
     <div
-      class="c-test-block c-test-block--strong animate"
+      class="c-test-block c-test-block--strong c-test-motion-sample animate"
       data-motion-demo
-      style="margin-top: 1rem; opacity: 0.35; transform: translateY(1rem);"
     >
       Motion demo block
     </div>

@@ -18,42 +18,43 @@
 // -----------------------------------------------------------------------------
 
 /* -----------------------------------------------------------------------------
-   Font Families
-   ----------------------------------------------------------------------------- */
-
-// -----------------------------------------------------------------------------
-// Font Families
-// ITCSS layer: 0-settings
-// -----------------------------------------------------------------------------
+   Font Families
+   ----------------------------------------------------------------------------- */
 
 // 1. Display / UI (Condensed Sans-Serif)
 // Headings, navigation, buttons, brand, metadata, TOC, hero sections
+// Usage: font-family: $font-family-display;.
 $font-family-display: "Barlow Condensed", "Inter", "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 
 // 2. Editorial / Body (Serif)
 // Paragraphs, long-form writing, prose — metric-compatible with Georgia
+// Usage: font-family: $font-family-body;.
 $font-family-body: "Gelasio", Georgia, "Times New Roman", Times, serif;
 
 // 3. Technical / Data (Monospace)
 // Code, captions, tables, tags, ML parameters, metadata, dimensions
+// Usage: font-family: $font-family-mono;.
 $font-family-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 /* -----------------------------------------------------------------------------
-   Font Weights
-   ----------------------------------------------------------------------------- */
+   Font Weights
+   ----------------------------------------------------------------------------- */
 
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-semi-bold: 600;
-$font-weight-bold: 700;
-$font-weight-black: 900;
+// Usage: font-weight: $font-weight-bold; for headings and strong emphasis.
+
+$font-weight-light: 300; // Decorative/large display text only
+$font-weight-regular: 400; // Default body and UI text weight
+$font-weight-medium: 500; // Slightly emphasized UI labels (e.g. theme-toggle label)
+$font-weight-semi-bold: 600; // Hero heading weight
+$font-weight-bold: 700; // Standard heading and emphasis weight
 
 
 /* -----------------------------------------------------------------------------
-   Font Sizes (rem-based)
-   Documented with px equivalents for designer handoff reference.
-   ----------------------------------------------------------------------------- */
+   Font Sizes (rem-based)
+   Documented with px equivalents for designer handoff reference.
+   ----------------------------------------------------------------------------- */
+
+// Usage: font-size: $font-size-md; for base UI text.
 
 $font-size-xs: 0.75rem; // 12px
 $font-size-sm: 0.875rem; // 14px
@@ -62,12 +63,16 @@ $font-size-lg: 1.125rem; // 18px
 $font-size-xl: 1.5rem; // 24px
 $font-size-xxl: 2rem; // 32px
 $font-size-xxxl: 3rem; // 48px
+$font-size-code: 0.9em; // Code text relative to its surrounding content
 
 
 /* -----------------------------------------------------------------------------
-   Line Heights (Unitless)
-   ----------------------------------------------------------------------------- */
+   Line Heights (Unitless)
+   ----------------------------------------------------------------------------- */
 
+// Usage: line-height: $line-height-loose; for long-form prose.
+
+$line-height-display: 1.08; // Large display headings (hero, page titles)
 $line-height-very-tight: 1.1; // Headings, tight UI labels
 $line-height-tight: 1.2; // Headings, tight UI labels
 $line-height-normal: 1.5; // Standard body text
@@ -75,9 +80,11 @@ $line-height-loose: 1.75; // Academic or long-form reading
 
 
 /* -----------------------------------------------------------------------------
-   Measure (Line Length)
-   Used to limit the width of text blocks for optimal readability.
-   ----------------------------------------------------------------------------- */
+   Measure (Line Length)
+   Used to limit the width of text blocks for optimal readability.
+   ----------------------------------------------------------------------------- */
+
+// Usage: max-inline-size: $text-measure-base;.
 
 $text-measure-narrow: 45ch;
 $text-measure-base: 65ch;
@@ -85,20 +92,23 @@ $text-measure-wide: 75ch;
 
 
 /* -----------------------------------------------------------------------------
-   Letter Spacing (Tracking)
-   ----------------------------------------------------------------------------- */
+   Letter Spacing (Tracking)
+   ----------------------------------------------------------------------------- */
 
-$letter-spacing-tight:    -0.02em;
-$letter-spacing-normal:    0;
-$letter-spacing-loose-sm:  0.01em;
-$letter-spacing-loose-md:  0.05em;
-$letter-spacing-loose-lg:  0.12em;
+// Usage: letter-spacing: $letter-spacing-loose-md; for uppercase labels.
 
-/* --------------------------------------------------
+$letter-spacing-tight:    -0.02em; // Large display headings (hero, page titles)
+$letter-spacing-normal:    0; // Default body and UI text
+$letter-spacing-loose-sm:  0.01em; // Subtle tracking for small UI labels
+$letter-spacing-loose-md:  0.05em; // Uppercase eyebrows and TOC headers
+$letter-spacing-loose-lg:  0.12em; // Wide tracking for sparse uppercase labels
+
+/* -----------------------------------------------------------------------------
    Fluid Type Tokens (Optional)
    Heading-specific constraints for use with clamp()
    Applied in the Base layer only
-   -------------------------------------------------- */
+   Usage: clamp($font-size-h1-min, 5vw, $font-size-h1-max).
+   ----------------------------------------------------------------------------- */
 
 $font-size-h1-min: 1.75rem; // Mobile size (~28px)
 $font-size-h1-max: 3.5rem; // Desktop size (~56px)
@@ -107,9 +117,10 @@ $font-size-h2-min: 1.5rem; // Mobile size (~24px)
 $font-size-h2-max: 2.5rem; // Desktop size (~40px)
 
 /* -----------------------------------------------------------------------------
-   Rendering Settings
-   Used in Base layer for cross-browser text smoothing.
-   ----------------------------------------------------------------------------- */
+   Rendering Settings
+   Used in Base layer for cross-browser text smoothing.
+   Usage: consumed by 1-tools/_mixins.scss and 3-base/_base.scss.
+   ----------------------------------------------------------------------------- */
 
 $font-kerning-default: normal;
 $font-smoothing-webkit: antialiased;

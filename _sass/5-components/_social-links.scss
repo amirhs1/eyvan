@@ -74,7 +74,7 @@
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: single-line label, no token needed
   text-transform: uppercase;
 }
 
@@ -99,7 +99,7 @@
   background-color: var(--color-surface-container-low);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
-  box-shadow: settings-config.$card-shadow-hover;
+  box-shadow: var(--elevation-raised);
 }
 
 .c-social-links__overflow[hidden] {
@@ -136,10 +136,10 @@
 @media (min-width: settings-breakpoints.$bp-text) {
   .c-social-links--mobile {
     .c-icon-link {
-      inline-size: 2.75rem;
-      block-size: 2.75rem;
-      min-inline-size: 2.75rem;
-      min-block-size: 2.75rem;
+      inline-size: settings-config.$control-min-size;
+      block-size: settings-config.$control-min-size;
+      min-inline-size: settings-config.$control-min-size;
+      min-block-size: settings-config.$control-min-size;
     }
   }
 }

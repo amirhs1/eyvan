@@ -1,0 +1,42 @@
+---
+layout: test
+title: Component Back to Top Test
+permalink: /tests/5-components/test-back-to-top/
+robots: noindex
+---
+
+{% comment %}
+  Component Back to Top Test Page
+  Purpose: Verify visible and hidden states plus the icon-link interaction target.
+{% endcomment %}
+
+<p>This page isolates the <code>.c-back-to-top</code> control and its state wrapper.</p>
+
+<hr>
+
+<h2>Visible state</h2>
+<p><strong>Expected behavior:</strong> The icon control has a clear target, hover treatment, and keyboard focus ring.</p>
+
+<div class="c-test-frame c-back-to-top-test-preview">
+  <div class="c-back-to-top__wrap">
+    <a class="c-back-to-top" href="#test-page-title" aria-label="Back to test-page title">
+      <span class="c-back-to-top__icon" aria-hidden="true">
+        {% include icons/chevron-up-circle.svg %}
+      </span>
+    </a>
+  </div>
+</div>
+
+<h2>Hidden state</h2>
+<p><strong>Expected behavior:</strong> The state class removes the control from pointer interaction and visibility.</p>
+
+<div class="c-test-frame c-back-to-top-test-preview">
+  <div class="c-back-to-top__wrap is-back-to-top-hidden">
+    <a class="c-back-to-top" href="#test-page-title" aria-label="Hidden back-to-top example">
+      <span class="c-back-to-top__icon" aria-hidden="true">
+        {% include icons/chevron-up-circle.svg %}
+      </span>
+    </a>
+  </div>
+  <p class="c-test-note">The empty preview above is intentional.</p>
+</div>

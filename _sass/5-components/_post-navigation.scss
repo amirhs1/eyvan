@@ -76,6 +76,9 @@ $post-nav-content-gap: settings-spacing.$space-2;
    ----------------------------------------------------------------------------- */
 
 .c-post-nav__item {
+  position: relative;
+  isolation: isolate;
+
   display: grid;
   align-items: center;
   min-inline-size: 0;
@@ -87,17 +90,8 @@ $post-nav-content-gap: settings-spacing.$space-2;
   border: settings-config.$card-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
 
-  background:
-    linear-gradient(
-      90deg,
-      var(--color-primary) 0%,
-      color-mix(
-        in srgb,
-        var(--color-primary) 72%,
-        var(--color-surface-container-low)
-      ) 167%
-    );
-  box-shadow: settings-config.$card-shadow-rest;
+  background-color: var(--color-primary);
+  box-shadow: var(--elevation-rest);
 
   color: var(--color-button-text);
   text-decoration: none;
@@ -112,7 +106,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
     border-color: var(--color-primary);
     color: var(--color-button-text);
     text-decoration: none;
-    box-shadow: settings-config.$card-shadow-hover;
+    box-shadow: var(--elevation-raised);
     transform: translateY(settings-config.$card-lift-hover);
   }
 
@@ -120,6 +114,24 @@ $post-nav-content-gap: settings-spacing.$space-2;
     border-color: var(--color-primary);
     @include tools-mixins.focus-ring;
   }
+}
+
+.c-post-nav__item::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background-image: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    color-mix(
+      in srgb,
+      var(--color-primary) 72%,
+      var(--color-surface-container-low)
+    ) 167%
+  );
+
+  content: "";
 }
 
 /* -----------------------------------------------------------------------------
@@ -151,7 +163,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   overflow: hidden;
   border-radius: settings-config.$global-border-radius;
   background-color: var(--color-surface-container-high);
-  box-shadow: settings-config.$elevation-rest;
+  box-shadow: var(--elevation-rest);
 }
 
 .c-post-nav__media img {
@@ -193,13 +205,12 @@ $post-nav-content-gap: settings-spacing.$space-2;
 .c-post-nav__label {
   display: inline-block;
   margin: 0 0 $post-nav-label-margin-block-end;
-  opacity: 0.78;
 
   color: inherit;
   font-family: settings-typography.$font-family-display;
   font-size: settings-typography.$font-size-xs;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1;
+  line-height: 1; // Intentional one-off: single-line label, no token needed
   letter-spacing: settings-typography.$letter-spacing-loose-md;
   text-transform: uppercase;
 }
@@ -218,7 +229,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
     settings-typography.$font-size-xl
   );
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.3;
+  line-height: 1.3; // Intentional one-off between $line-height-tight (1.2) and $line-height-normal (1.5) for this clamp()'d heading
   letter-spacing: settings-typography.$letter-spacing-tight;
   text-wrap: balance;
 }

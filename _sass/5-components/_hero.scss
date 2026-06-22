@@ -68,7 +68,7 @@
     settings-typography.$font-size-h1-max
   );
   font-weight: settings-typography.$font-weight-semi-bold;
-  line-height: 1.08;
+  line-height: settings-typography.$line-height-display;
   letter-spacing: settings-typography.$letter-spacing-tight;
 }
 
@@ -137,16 +137,14 @@
 
 .c-hero__media {
   border-radius: settings-config.$global-border-radius;
-  box-shadow:
-    0 settings-config.$shadow-offset-y settings-config.$shadow-blur
-    var(--color-ui-shadow-color);
+  box-shadow: var(--elevation-raised);
 }
 
 .c-hero__image {
   display: block;
   inline-size: 100%;
   block-size: auto;
-  max-block-size: min(32rem, 60vh);
+  max-block-size: min(settings-config.$measure-hero-media, 60vh);
   object-fit: contain;
   object-position: center;
   border-radius: settings-config.$global-border-radius;

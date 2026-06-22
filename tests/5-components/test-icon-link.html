@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Icon Link Test
 permalink: /tests/5-components/test-icon-link/
 robots: noindex
@@ -38,7 +38,7 @@ robots: noindex
 <p><strong>Expected behavior:</strong> Icon links should render as centered inline-flex controls with consistent sizing and clear hover/focus feedback.</p>
 <div class="c-test-frame">
   <div class="c-test-box">
-    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+    <div class="c-test-row c-test-row--loose">
       <a class="c-icon-link" href="#" aria-label="GitHub">
         <span class="u-visually-hidden">GitHub</span>
         <span class="c-icon-link__icon" aria-hidden="true">G</span>
@@ -57,7 +57,7 @@ robots: noindex
 <p><strong>Expected behavior:</strong> The component should work identically when used as a button element.</p>
 <div class="c-test-frame">
   <div class="c-test-box">
-    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+    <div class="c-test-row c-test-row--loose">
       <button class="c-icon-link" type="button" aria-label="Print">
         <span class="u-visually-hidden">Print</span>
         <span class="c-icon-link__icon" aria-hidden="true">P</span>
@@ -76,11 +76,11 @@ robots: noindex
 <p><strong>Expected behavior:</strong> Icons should support inline SVG and text fallback while maintaining consistent sizing and alignment.</p>
 <div class="c-test-frame">
   <div class="c-test-box">
-    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+    <div class="c-test-row c-test-row--loose">
       <a class="c-icon-link" href="#" aria-label="SVG icon">
         <span class="u-visually-hidden">SVG icon</span>
         <span class="c-icon-link__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" style="display:block;inline-size:100%;block-size:100%;">
+          <svg class="c-test-icon" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="8" fill="currentColor" />
           </svg>
         </span>
@@ -99,7 +99,7 @@ robots: noindex
 <p><strong>Expected behavior:</strong> Multiple icon links should wrap cleanly and maintain spacing consistency.</p>
 <div class="c-test-frame">
   <div class="c-test-box">
-    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+    <div class="c-test-row c-test-row--loose">
       {% for i in (1..10) %}
         <a class="c-icon-link" href="#" aria-label="Item {{ i }}">
           <span class="u-visually-hidden">Item {{ i }}</span>

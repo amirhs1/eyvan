@@ -31,7 +31,7 @@
    Local configuration
    ----------------------------------------------------------------------------- */
 
-$site-header-border-width: 1px;
+$site-header-border-width: settings-config.$global-border-width;
 /* -----------------------------------------------------------------------------
    Component root
    ----------------------------------------------------------------------------- */
@@ -43,7 +43,7 @@ $site-header-border-width: 1px;
 
   background-color: var(--color-surface-container-high);
   border-block-end: $site-header-border-width solid var(--color-ui-border-subtle);
-  box-shadow: settings-config.$elevation-raised;
+  box-shadow: var(--elevation-raised);
 
   -webkit-backdrop-filter: blur(settings-config.$header-backdrop-blur);
   backdrop-filter: blur(settings-config.$header-backdrop-blur);
@@ -88,6 +88,6 @@ $site-header-border-width: 1px;
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-wide) {
   .c-site-header {
-    border-block-end-width: 1px;
+    border-block-end-width: settings-config.$global-border-width;
   }
 }

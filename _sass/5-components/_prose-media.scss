@@ -2,7 +2,7 @@
 // Prose Media Component
 // ITCSS layer: 5-components
 //
-// Purpose:
+// Description:
 // Provides reusable long-form content media patterns for prose environments,
 // including images, image grids, videos, audio, captions, table captions,
 // prose tables, and cross-references.
@@ -101,6 +101,12 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Local component tokens
+   ----------------------------------------------------------------------------- */
+
+$prose-label-letter-spacing: 0.04em; // Shared tracking for uppercase caption labels and table headers
 
 /* -----------------------------------------------------------------------------
    Prose figure/media
@@ -218,7 +224,7 @@
 .c-prose-caption--table::before {
   color: var(--color-on-surface);
   font-weight: settings-typography.$font-weight-bold;
-  letter-spacing: 0.04em;
+  letter-spacing: $prose-label-letter-spacing;
   text-transform: uppercase;
 }
 
@@ -254,12 +260,12 @@
 }
 
 .c-prose-table thead th {
-  border-top: 2px solid var(--color-outline-variant);
-  border-bottom: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
+  border-bottom: settings-config.$border-width-emphasis solid var(--color-outline-variant);
   color: var(--color-on-surface);
   font-family: settings-typography.$font-family-mono;
   font-weight: settings-typography.$font-weight-bold;
-  letter-spacing: 0.04em;
+  letter-spacing: $prose-label-letter-spacing;
   text-align: start;
   text-transform: uppercase;
 }
@@ -271,20 +277,20 @@
 
 // When there is no thead, put a top border on the first tbody row
 .c-prose-table tbody:first-child tr:first-child > * {
-  border-top: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 .c-prose-table tbody tr:last-child > * {
-  border-bottom: 2px solid var(--color-outline-variant);
+  border-bottom: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 .c-prose-table tfoot td {
   font-weight: settings-typography.$font-weight-bold;
-  border-top: 2px solid var(--color-outline-variant);
+  border-top: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 .c-prose-table tfoot tr:last-child > * {
-  border-bottom: 2px solid var(--color-outline-variant);
+  border-bottom: settings-config.$border-width-emphasis solid var(--color-outline-variant);
 }
 
 /* -----------------------------------------------------------------------------

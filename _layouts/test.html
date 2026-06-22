@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+{% comment %}
+  Visual Test Layout
+  Purpose: Render development-only Sass test pages without coupling them to
+  the production c-page component or o-prose typography object.
+
+  Structure:
+  - Shared production shell from default.html
+  - Visible test-page heading and development note
+  - Neutral content region
+
+  Data dependencies:
+  - page.title
+  - page.test_full_width
+  - content
+
+  Notes:
+  - Most harnesses use a bare o-container for neutral page containment.
+  - Set test_full_width: true only when testing viewport-level containment.
+  - Test helper CSS is loaded conditionally by head.html.
+{% endcomment %}
+
+{% if page.test_full_width %}
+  <header class="o-container c-test-page__header">
+    <h1 id="test-page-title">{{ page.title }}</h1>
+    <p class="c-test-note">Development-only visual test harness.</p>
+  </header>
+
+  <div class="c-test-page__content c-test-page__content--full">
+    {{ content }}
+  </div>
+{% else %}
+  <div class="o-container">
+    <header class="c-test-page__header">
+      <h1 id="test-page-title">{{ page.title }}</h1>
+      <p class="c-test-note">Development-only visual test harness.</p>
+    </header>
+
+    <div class="c-test-page__content">
+      {{ content }}
+    </div>
+  </div>
+{% endif %}

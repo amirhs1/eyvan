@@ -9,33 +9,30 @@ permalink: /404.html
   Purpose: Provide a simple fallback page when a route is not found.
 
   Structure:
-  - Container
-    - Centered message block
-      - Error code
-      - Description
-      - CTA back to homepage
+  - Message block (page.html owns the o-container + width)
+    - Error code
+    - Description
+    - CTA back to homepage
 
   Notes:
   - Keeps structure intentionally minimal
   - Uses existing button component for CTA
+  - No page-level o-container here: layout: page already provides it
 {% endcomment %}
 
-<div class="o-container">
-  <section class="c-404">
-    <div class="c-404__inner">
-      <p class="c-404__description">
-        Oops! It looks like nothing was found at this location.
-        Maybe return home, browse projects, or use the navigation above.
-      </p>
+<section class="c-404">
+  <div class="c-404__inner">
+    <p class="c-404__description">
+      Oops! It looks like nothing was found at this location.
+      Maybe return home, browse projects, or use the navigation above.
+    </p>
 
-      <div class="c-404__actions">
-        <a class="c-button c-button--primary" href="{{ '/' | relative_url }}">
-          Back to home
-        </a>
-      </div>
-      
-      <br>
-      <small class="u-text-muted">Error Code: 404</small>
+    <div class="c-404__actions">
+      <a class="c-button c-button--primary" href="{{ '/' | relative_url }}">
+        Back to home
+      </a>
     </div>
-  </section>
-</div>
+
+    <small class="c-404__code">Error Code: 404</small>
+  </div>
+</section>

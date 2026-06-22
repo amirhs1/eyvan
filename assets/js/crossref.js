@@ -1,49 +1,75 @@
 /*
-  Prose Cross-reference Resolver
+Prose Cross-reference Resolver
+Purpose:
+Resolve numbered prose cross-references rendered by {% include ref.html %} so
+their visible link text matches the CSS counter order at page load.
 
-  Purpose:
-  Resolve all {% include ref.html %} links.
+Features:
+- Counts elements with data-ref-type in document order
+- Mirrors the CSS counter order used for figures and tables
+- Updates c-prose-xref link text once the DOM is ready
 
-  Behavior:
-  - Counts elements with data-ref-type in document order
-  - Matches CSS counter order
-  - Updates c-prose-xref link text at page load
+Dependencies:
+- [data-ref-type]
+- a.c-prose-xref
+- .c-prose-xref--cref
 
-  Include once on layouts that render prose cross-references.
+Related component:
+- _includes/ref.html
 */
 
-document.addEventListener('DOMContentLoaded', function () {
-  var labels = {
-    figure: 'Figure',
-    table: 'Table'
-  };
+(() => {
+  'use strict';
 
-  var counts = {};
-  var numberOf = {};
+  /* ==========================================================================
+     Cross-reference resolution
+     ========================================================================== */
 
-  document.querySelectorAll('[data-ref-type]').forEach(function (element) {
-    var type = element.dataset.refType;
+  function initCrossrefs() {
+    const labels = {
+      figure: 'Figure',
+      table: 'Table'
+    };
 
-    counts[type] = (counts[type] || 0) + 1;
+    const counts = {};
+    const numberOf = {};
 
-    if (element.id) {
-      numberOf[element.id] = {
-        type: type,
-        number: counts[type]
-      };
-    }
-  });
+    document.querySelectorAll('[data-ref-type]').forEach((element) => {
+      const type = element.dataset.refType;
 
-  document.querySelectorAll('a.c-prose-xref').forEach(function (link) {
-    var id = (link.getAttribute('href') || '').replace(/^#/, '');
-    var info = numberOf[id];
+      counts[type] = (counts[type] || 0) + 1;
 
-    if (!info) return;
+      if (element.id) {
+        numberOf[element.id] = {
+          type: type,
+          number: counts[type]
+        };
+      }
+    });
 
-    var prefix = link.classList.contains('c-prose-xref--cref')
-      ? labels[info.type] + ' '
-      : '';
+    document.querySelectorAll('a.c-prose-xref').forEach((link) => {
+      const id = (link.getAttribute('href') || '').replace(/^#/, '');
+      const info = numberOf[id];
 
-    link.textContent = prefix + info.number;
-  });
-});
+      if (!info) {
+        return;
+      }
+
+      const prefix = link.classList.contains('c-prose-xref--cref')
+        ? labels[info.type] + ' '
+        : '';
+
+      link.textContent = prefix + info.number;
+    });
+  }
+
+  /* ==========================================================================
+     Initialization
+     ========================================================================== */
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCrossrefs, { once: true });
+  } else {
+    initCrossrefs();
+  }
+})();

@@ -1,14 +1,12 @@
 {
   "name": "eyvan",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "**Eyvan** — marked by the **A1** logo (pronounced /ey-van/) — is a visually minimalist, feature-rich Jekyll template inspired by the *eyvan* or *[ayvan](https://www.iranicaonline.org/articles/ayvan-palace/)*, an open threshold space in Iranian architecture.",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "a11y": "pa11y-ci http://127.0.0.1:4000/eyvan/ http://127.0.0.1:4000/eyvan/projects/ http://127.0.0.1:4000/eyvan/projects/field-notes-iceland-2025/",
-    "a11y:sitemap": "pa11y-ci --sitemap http://127.0.0.1:4000/eyvan/sitemap.xml",
     "test:a11y": "playwright test tests/accessibility.spec.js",
     "test:release": "ruby tests/release_checks_test.rb",
     "test:colors": "ruby tests/color_contract_test.rb",
@@ -29,7 +27,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.60.0",
-    "pa11y-ci": "^4.1.1",
     "wait-on": "^9.0.10"
   }
 }

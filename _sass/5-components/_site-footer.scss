@@ -28,26 +28,27 @@
 // - Tagline and copyright are centered and separated with a tight gap.
 // -----------------------------------------------------------------------------
 
+@use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../0-settings/breakpoints" as settings-breakpoints;
 
-// -----------------------------------------------------------------------------
-// Footer shell
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Footer shell
+   ----------------------------------------------------------------------------- */
 
 .c-site-footer {
   margin-block-start: settings-spacing.$space-section-md;
   padding-block: settings-spacing.$space-stack-md;
 
   background-color: var(--color-surface-container-low);
-  border-block-start: 1px solid var(--color-ui-border-subtle);
+  border-block-start: settings-config.$global-border-width solid var(--color-ui-border-subtle);
   color: var(--color-on-surface-variant);
 }
 
-// -----------------------------------------------------------------------------
-// Brand wrapper
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Brand wrapper
+   ----------------------------------------------------------------------------- */
 
 // Wrapper-only styling.
 // Brand internals belong to the brand component.
@@ -58,9 +59,9 @@
   color: inherit;
 }
 
-// -----------------------------------------------------------------------------
-// Copyright (primary text)
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Copyright (primary text)
+   ----------------------------------------------------------------------------- */
 
 .c-site-footer__copyright {
   margin: 0;
@@ -74,9 +75,9 @@
   text-wrap: balance;
 }
 
-// -----------------------------------------------------------------------------
-// Tagline (secondary / de-emphasized)
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Tagline (secondary / de-emphasized)
+   ----------------------------------------------------------------------------- */
 
 .c-site-footer__tagline {
   margin: 0;
@@ -91,9 +92,9 @@
   text-wrap: pretty;
 }
 
-// -----------------------------------------------------------------------------
-// Responsive refinement
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Responsive refinement
+   ----------------------------------------------------------------------------- */
 
 @media (min-width: settings-breakpoints.$bp-md) {
   .c-site-footer {

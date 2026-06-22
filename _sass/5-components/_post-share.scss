@@ -67,7 +67,7 @@ $post-share-title-letter-spacing: 0.08em;
   font-family: settings-typography.$font-family-display;
   font-size: $post-share-title-font-size;
   font-weight: settings-typography.$font-weight-bold;
-  line-height: 1.2;
+  line-height: settings-typography.$line-height-tight;
   letter-spacing: $post-share-title-letter-spacing;
   text-align: center;
   text-transform: uppercase;
@@ -121,7 +121,7 @@ $post-share-title-letter-spacing: 0.08em;
   background-color: var(--color-surface-container-low);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
-  box-shadow: settings-config.$card-shadow-hover;
+  box-shadow: var(--elevation-raised);
 }
 
 .c-post-share__overflow[hidden] {

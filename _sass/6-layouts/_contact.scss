@@ -1,7 +1,6 @@
 // -----------------------------------------------------------------------------
 // Layout — Contact Page
 // ITCSS layer: 6-layouts
-// Path: _sass/6-layouts/_contact.scss
 //
 // Description:
 // Page-level composition for the Contact page (Method Cards layout).
@@ -27,9 +26,9 @@
 @use "../1-tools/spacing-fluid" as fluid;
 
 
-// -----------------------------------------------------------------------------
-// Page wrapper — vertical rhythm between heading, methods, and social row.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Page wrapper — vertical rhythm between heading, methods, and social row.
+   ----------------------------------------------------------------------------- */
 
 .l-contact {
   display: grid;
@@ -40,21 +39,21 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Header
-// section-heading.html renders inside this element and owns its own spacing.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Header
+   section-heading.html renders inside this element and owns its own spacing.
+   ----------------------------------------------------------------------------- */
 
 .l-contact__header {
   min-inline-size: 0;
 }
 
 
-// -----------------------------------------------------------------------------
-// Method list
-// Reset list chrome; stack cards with a consistent gap. Capped to the wide
-// reading measure so rows do not stretch uncomfortably on large screens.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Method list
+   Reset list chrome; stack cards with a consistent gap. Capped to the wide
+   reading measure so rows do not stretch uncomfortably on large screens.
+   ----------------------------------------------------------------------------- */
 
 .l-contact__methods {
   display: grid;
@@ -66,9 +65,9 @@
 }
 
 
-// -----------------------------------------------------------------------------
-// Social row — secondary profiles below the primary method cards.
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   Social row — secondary profiles below the primary method cards.
+   ----------------------------------------------------------------------------- */
 
 .l-contact__social {
   display: grid;

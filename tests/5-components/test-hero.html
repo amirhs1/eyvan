@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Hero Test
 permalink: /tests/5-components/test-hero/
 robots: noindex
@@ -29,7 +29,7 @@ robots: noindex
     - .c-hero__image
   - Structural layout belongs to the separate 4-objects hero object.
   - Button styling belongs to the shared button component and is reused here.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify responsive spacing and type scaling.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -70,7 +70,7 @@ robots: noindex
           <div class="c-hero__media">
             <img
               class="c-hero__image"
-              src="{{ '/assets/images/hero-placeholder.jpg' | relative_url }}"
+              src="{{ '/assets/images/hero-placeholder.webp' | relative_url }}"
               alt="Placeholder portrait for hero component testing"
             >
           </div>
@@ -110,7 +110,7 @@ robots: noindex
           <div class="c-hero__media">
             <img
               class="c-hero__image"
-              src="{{ '/assets/images/hero-placeholder.jpg' | relative_url }}"
+              src="{{ '/assets/images/hero-placeholder.webp' | relative_url }}"
               alt="Decorative test image for hero without eyebrow"
             >
           </div>
@@ -128,7 +128,7 @@ robots: noindex
   above the first child and below the last child.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:34rem;">
+  <div class="c-test-box c-hero-component-test-box--wide">
     <div class="c-hero__description">
       <p>This first paragraph should start flush at the top of the container.</p>
       <p>
@@ -148,7 +148,7 @@ robots: noindex
   measure. On narrow screens, they should stack into one full-width column.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:34rem;">
+  <div class="c-test-box c-hero-component-test-box--wide">
     <div class="c-hero__description">
       <p>The action group below should align to the same left and right edges as this description.</p>
     </div>
@@ -170,11 +170,11 @@ robots: noindex
   fill the shell with <code>object-fit: cover</code>.
 </p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:30rem;">
+  <div class="c-test-box c-hero-component-test-box--medium">
     <div class="c-hero__media">
       <img
         class="c-hero__image"
-        src="{{ '/assets/images/hero-placeholder.jpg' | relative_url }}"
+        src="{{ '/assets/images/hero-placeholder.webp' | relative_url }}"
         alt="Hero media test image"
       >
     </div>

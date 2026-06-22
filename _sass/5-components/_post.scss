@@ -78,7 +78,7 @@ $post-layout-toc-max-width: 20rem;
 
 /* Mirrors the TOC sticky offset (see _toc.scss) so the share rail and the TOC
    align at the same top edge. */
-$post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
+$post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
 
 /* -----------------------------------------------------------------------------
    Cover
@@ -273,8 +273,8 @@ $post-share-rail-sticky-top: calc(8rem + settings-spacing.$space-4);
 /* Heading treatment mirrors .c-toc__header / .c-toc__header-text so "Share"
    and "On this page" read as a matched pair of sidebar headings. */
 .c-post-share-rail .c-post-share__head {
-  margin-block-end: tools-spacing.$space-stack-sm;
-  padding-block-end: tools-spacing.$space-stack-sm;
+  margin-block-end: tools-spacing.$static-stack-sm;
+  padding-block-end: tools-spacing.$static-stack-sm;
   border-block-end: settings-config.$global-border-width solid
     var(--color-outline-variant);
 }

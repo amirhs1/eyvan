@@ -390,9 +390,10 @@ sass:
 
 That keeps the final CSS smaller while preserving readable source SCSS in the repository.
 
-### Lazy-loaded post images
+### Image loading priorities
 
-Post cover images use `loading="lazy"`, which allows the browser to delay loading images until they are needed. Media includes for figures and embeds also default toward lazy behavior where appropriate.
+Post cover images, prose media, and most post-card covers use `loading="lazy"`,
+which allows the browser to delay loading images until they are needed.
 
 {% raw %}
 
@@ -407,7 +408,11 @@ Post cover images use `loading="lazy"`, which allows the browser to delay loadin
 
 {% endraw %}
 
-The exception is the homepage hero image, which can use eager loading and high fetch priority because it appears above the fold.
+The homepage gives eager loading and high fetch priority to two likely
+above-the-fold images: the hero image and the first post-card cover. Remaining
+homepage cards, project and tag archives, related posts, and long-form media
+stay lazy-loaded. This keeps the likely Largest Contentful Paint candidates
+responsive without eagerly fetching the entire archive.
 
 ### Pinned MathJax CDN Integration
 

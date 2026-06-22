@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Object Hero Test
 permalink: /tests/4-objects/hero/
 robots: noindex
@@ -23,52 +23,10 @@ robots: noindex
     - .o-hero
     - .o-hero__content
     - .o-hero__media
-  - page.html already owns the page-level container
-  - Shared test styling comes from 7-trumps/_tests.scss
-  - Local helpers below are only for demo-specific structure
+  - the dedicated test layout owns neutral page-level containment
+  - shared test styling comes from the development-only test stylesheet
 {% endcomment %}
 
-<style>
-  .c-hero-test-text {
-    min-inline-size: 0;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  .c-hero-test-stack > * + * {
-    margin-top: 0.75rem;
-  }
-
-  .c-hero-test-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .c-hero-test-chip {
-    display: inline-block;
-    padding: 0.4rem 0.75rem;
-    border: 1px solid var(--color-outline-variant);
-    background: var(--color-surface-container-low);
-    color: var(--color-on-surface);
-    white-space: nowrap;
-  }
-
-  .c-hero-test-media-box {
-    min-block-size: 220px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .c-hero-test-media-box--tall {
-    min-block-size: 320px;
-  }
-
-  .c-hero-test-center {
-    text-align: center;
-  }
-</style>
 
 <p>
   This page verifies the functionality of the <code>.o-hero</code> object and its structural child zones defined in the
@@ -76,7 +34,7 @@ robots: noindex
 </p>
 
 <p class="c-test-note">
-  Development note: shared helper styles come from <code>7-trumps/_tests.scss</code>. Local helpers here only support
+  Development note: the shared development-only test stylesheet provides the
   demo-specific layout and content stress cases.
 </p>
 
@@ -275,7 +233,7 @@ robots: noindex
           active.
         </div>
 
-        <div class="c-hero-test-actions" style="margin-top: 0.75rem;">
+        <div class="c-hero-test-actions c-hero-test-actions--spaced">
           <span class="c-hero-test-chip">Primary call to action</span>
           <span class="c-hero-test-chip">Secondary call to action with a longer label</span>
         </div>

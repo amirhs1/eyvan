@@ -39,3 +39,16 @@ publishing a template release.
       assets, scripts, and contributor workflows.
 - [ ] Confirm the version and tag name match the release notes.
 - [ ] Let a human maintainer merge and publish the release.
+
+## Post-Merge Publishing
+
+- [ ] Confirm the release PR was merged into `main` and the Pages deployment
+      completed successfully.
+- [ ] Verify the production site uses the merged commit and its primary pages,
+      assets, canonical URLs, sitemap, and feed resolve correctly.
+- [ ] Create and push an annotated `vX.Y.Z` tag from the release commit on
+      `main`.
+- [ ] Create the matching GitHub Release from that tag, using the versioned
+      changelog section as the release notes.
+- [ ] Confirm the tag, GitHub Release, deployed site, and changelog all report
+      the same version.

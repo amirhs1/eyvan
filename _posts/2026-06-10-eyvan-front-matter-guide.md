@@ -111,6 +111,7 @@ Search Engine Optimization (SEO) fields help the page appear correctly in search
 | :--- | :--- | :--- | :--- | :--- |
 | `title` | string | Site title fallback | `<title>`, Open Graph, Twitter | Defines the page title. |
 | `description` | string | `site.description` | Meta description, Open Graph, Twitter | Short summary for search and previews. |
+| `og_image` | string | none | Open Graph, Twitter | Overrides the social preview image without adding a visible post cover or card image. |
 | `image` | string | `site.default_og_image` or placeholder for social previews; none for the post cover | Post cover, post cards, Open Graph, Twitter | Provides the preferred social preview image and renders a post cover when set. |
 | `image_alt` | string | `page.title` | Post/page image alt text | Provides accessible text for the cover image. |
 | `image_width` | integer | none | Post cover, page image, post cards, post navigation | Adds the image's intrinsic pixel width so browsers can reserve layout space. |
@@ -127,6 +128,16 @@ description: "A complete reference guide for all supported front matter fields i
 ```
 
 The `image` field has several roles. In the post layout, it renders a full-width cover image above the article header. In post cards, it becomes the card image. In the head include, it becomes the social preview image. That makes it powerful, but it also means you should use it intentionally. If you want a header-only documentation post, omit `image` and let the head include fall back to `site.default_og_image` for social previews.
+
+Use `og_image` when a page needs a purpose-built social preview without a
+visible cover or when its social artwork should differ from its cover. Social
+metadata resolves images in this order: `og_image`, then `image`, then
+`site.default_og_image`. The `og_image` value does not render in the post header
+or archive card.
+
+```yaml
+og_image: "assets/images/posts/social-preview.webp"
+```
 
 ```yaml
 image: "assets/images/posts/token-bucket-diagram.webp"
@@ -455,6 +466,42 @@ If the include supports figure numbering, you can usually disable numbering for 
 
 > **Important:** Images, videos, and audio blocks are numbered as figures by default. Use `numbered="false"` only when a captioned media item is decorative, supporting, or otherwise not meant to be counted or referenced. Do not use `ref.html` to reference an item marked `numbered="false"`, because that item is intentionally excluded from the numbering system.
 
+### Multi-image figure grids
+
+Use the `images` parameter instead of `src` when one caption and one figure number should cover two or more related images side by side — for example, a before/after pair or a set of photos from the same scene. Each image is one line inside `images`, and the lines are separated by pipes (`|`) into up to five segments:
+
+```
+path | alt text | WxH | srcset row | sizes
+```
+
+| Segment | Required | Purpose |
+| :--- | :--- | :--- |
+| `path` | Yes | Image source, same as `src` for a single image |
+| `alt` | Yes | Per-image alt text — each image in the grid needs its own |
+| `WxH` | No | Intrinsic pixel dimensions (e.g. `900x600`), used the same way as `width`/`height` on a single image to reserve layout space and prevent shift |
+| srcset row | No | One responsive candidate for that image, in `path \| descriptor` form, same convention as `responsive_srcset` |
+| sizes | No | A `sizes` attribute for that image's srcset |
+
+Only `path` and `alt` are required per image — the dimension, srcset, and sizes segments can be omitted on any line where you don't have that information yet.
+
+A two-image grid with full captions and `cols` set to control the grid width:
+
+{% raw %}
+```liquid
+{% include figure.html
+   id="fig-grid-example"
+   cols="2"
+   caption="Shared caption describing both images together."
+   images="
+     assets/images/posts/example-a.webp | First image alt text  | 900x600
+     assets/images/posts/example-b.webp | Second image alt text | 900x600
+   "
+%}
+```
+{% endraw %}
+
+`cols="2"`, `"3"`, or `"4"` controls how many columns the grid uses on wide viewports; on narrow viewports the images stack to a single column regardless of `cols`. The `caption` and `id` behave exactly as they do for a single image — one shared caption and one figure number for the whole grid, not one per image.
+
 ### Video figures
 
 Use `video.html` for self-hosted videos or third-party embeds. Videos share the same figure counter, so they can be referenced like other figures when they have an `id` and numbered caption.
@@ -601,7 +648,7 @@ Only enable `math: true` on pages that need math so simple posts do not load Mat
 | TOC does not show | `toc` missing, false, or headings are outside the supported levels | Add `toc: true` and use clear `##` / `###` headings. |
 | Math does not render | `math: true` is missing | Add `math: true` to the post front matter. |
 | Cross-reference text stays as an id | `crossrefs: true` is missing | Add `crossrefs: true` when using `ref.html`. |
-| Social preview image is wrong | `image` missing or path incorrect | Add a valid relative path or configure `default_og_image`. |
+| Social preview image is wrong | `og_image` / `image` missing or path incorrect | Add a valid relative path or configure `default_og_image`. |
 | Cover image alt text is generic | `image_alt` missing | Add descriptive `image_alt` text. |
 | YAML build error | Bad indentation, colon, or unquoted special character | Quote strings that contain punctuation and keep arrays valid. |
 {: .c-prose-table }
@@ -644,7 +691,13 @@ description: "One concise sentence explaining what the reader will learn."
 ---
 ```
 
-Add `image` and `image_alt` only when the post needs a cover or social preview image. Add the exact `image_width` and `image_height` together when known, and add `image_position` when the cover needs custom cropping. Add `math: true` only when the post contains math. Add `crossrefs: true` only when the post uses `ref.html`. Add `share: false` only when you intentionally want to suppress the share controls.
+Add `image` and `image_alt` when the post needs a visible cover. Use
+`og_image` when it needs separate social artwork or a social preview without a
+cover. Add the exact `image_width` and `image_height` together when known, and
+add `image_position` when the cover needs custom cropping. Add `math: true` only
+when the post contains math. Add `crossrefs: true` only when the post uses
+`ref.html`. Add `share: false` only when you intentionally want to suppress the
+share controls.
 
 This approach keeps the content clean, the build predictable, and the template easy to maintain. The front matter stays small, but each key has a real job: `title` identifies the post, `subtitle` frames it, `tags` connect it to the archive, `toc` improves navigation, and `description` supports search and previews.
 

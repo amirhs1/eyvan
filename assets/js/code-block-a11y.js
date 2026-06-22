@@ -3,17 +3,26 @@ Code Block Accessibility Script
 Purpose:
 Make horizontally overflowing generated code blocks keyboard reachable.
 
-Behavior:
+Features:
 - Enhances Rouge/Jekyll-generated <pre> blocks only when they overflow
+- Gives each overflowing block a distinct accessible name (axe: landmark-unique)
 - Removes the enhancement again when responsive layout no longer overflows
+
+Dependencies:
+- pre.highlight
+- .highlight > pre
+
+Related component:
+- Rouge/kramdown-generated code blocks (loaded via _includes/scripts.html when
+  content contains class="highlight")
 */
 
-(function () {
-  const codeBlocks = document.querySelectorAll('pre.highlight, .highlight > pre');
+(() => {
+  'use strict';
 
-  if (!codeBlocks.length) {
-    return;
-  }
+  /* ==========================================================================
+     Code block enhancement
+     ========================================================================== */
 
   function updateCodeBlock(block, index) {
     const overflowsInline = block.scrollWidth > block.clientWidth;
@@ -36,22 +45,40 @@ Behavior:
     }
   }
 
-  function updateCodeBlocks() {
-    codeBlocks.forEach(updateCodeBlock);
-  }
+  /* ==========================================================================
+     Initialization
+     ========================================================================== */
 
-  let resizeFrame = null;
+  function initCodeBlockA11y() {
+    const codeBlocks = document.querySelectorAll('pre.highlight, .highlight > pre');
 
-  updateCodeBlocks();
-
-  window.addEventListener('resize', function () {
-    if (resizeFrame) {
-      window.cancelAnimationFrame(resizeFrame);
+    if (!codeBlocks.length) {
+      return;
     }
 
-    resizeFrame = window.requestAnimationFrame(function () {
-      updateCodeBlocks();
-      resizeFrame = null;
+    function updateCodeBlocks() {
+      codeBlocks.forEach(updateCodeBlock);
+    }
+
+    let resizeFrame = null;
+
+    updateCodeBlocks();
+
+    window.addEventListener('resize', () => {
+      if (resizeFrame) {
+        window.cancelAnimationFrame(resizeFrame);
+      }
+
+      resizeFrame = window.requestAnimationFrame(() => {
+        updateCodeBlocks();
+        resizeFrame = null;
+      });
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCodeBlockA11y, { once: true });
+  } else {
+    initCodeBlockA11y();
+  }
 })();

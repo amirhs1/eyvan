@@ -1,0 +1,79 @@
+---
+layout: test
+title: Component Prose Media Test
+permalink: /tests/5-components/test-prose-media/
+robots: noindex
+crossrefs: true
+---
+
+{% comment %}
+  Component Prose Media Test Page
+  Purpose: Verify figures, responsive image grids, self-hosted video, audio,
+  captions, prose tables, and cross-reference presentation.
+{% endcomment %}
+
+<p>This page exercises the reusable <code>c-prose-*</code> media components through their production includes.</p>
+
+<div class="o-prose o-prose--measure-wide">
+  <h2>Single image and caption</h2>
+  <p><strong>Expected behavior:</strong> The image preserves its ratio and the caption receives automatic figure numbering.</p>
+
+  {% include figure.html
+    id="prose-media-figure"
+    src="assets/images/hero-placeholder.webp"
+    alt="Abstract Eyvan placeholder artwork"
+    width="800"
+    height="800"
+    caption="Single-image figure rendered through figure.html."
+  %}
+
+  <p>Cross-reference sample: {% include ref.html id="prose-media-figure" cref="true" %}.</p>
+
+  <h2>Responsive image grid</h2>
+  <p><strong>Expected behavior:</strong> The pair stacks on narrow screens and forms two columns at the media breakpoint.</p>
+
+  {% include figure.html
+    id="prose-media-grid"
+    cols="2"
+    caption="Two-image responsive figure grid."
+    images="
+      assets/images/hero-placeholder.webp | Square placeholder artwork | 800x800
+      assets/images/posts/iceland-basalt.webp | Basalt landscape in Iceland | 800x1067
+    "
+  %}
+
+  <h2>Self-hosted video</h2>
+  <p><strong>Expected behavior:</strong> The controls remain usable inside a responsive 16:9 frame.</p>
+
+  {% include video.html
+    id="prose-media-video"
+    src="assets/videos/posts/geysir-iceland-2023-erupting-geyser-strokkur.webm | video/webm"
+    poster="assets/images/posts/geysir-iceland-2023-erupting-geyser-strokkur.webp"
+    ratio="16-9"
+    caption="Self-hosted video rendered through video.html."
+  %}
+
+  <h2>Audio and caption</h2>
+  <p><strong>Expected behavior:</strong> The native audio control fills the prose measure and the caption aligns below it.</p>
+
+  <figure class="c-prose-figure c-prose-figure--audio" data-ref-type="figure">
+    <audio class="c-prose-figure__audio" controls preload="none">
+      Your browser does not support the audio element.
+    </audio>
+    <figcaption class="c-prose-caption c-prose-figure__caption c-prose-caption--figure">
+      Audio-player presentation without a repository audio fixture.
+    </figcaption>
+  </figure>
+
+  <h2>Table caption and table</h2>
+  {% include table-caption.html id="prose-media-table" caption="Example comparison values." %}
+  <table class="c-prose-table">
+    <thead>
+      <tr><th scope="col">Variant</th><th scope="col">Score</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Baseline</th><td>0.82</td></tr>
+      <tr><th scope="row">Improved</th><td>0.91</td></tr>
+    </tbody>
+  </table>
+</div>

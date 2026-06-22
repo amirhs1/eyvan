@@ -1,0 +1,56 @@
+---
+layout: test
+title: Component 404 Test
+permalink: /tests/5-components/test-404/
+robots: noindex
+---
+
+{% comment %}
+  Component 404 Test Page
+  Purpose: Verify the minimal c-404 message, action, and error-code treatment.
+{% endcomment %}
+
+<p>
+  This page isolates the <code>.c-404</code> component used by the production
+  not-found page.
+</p>
+
+<hr>
+
+<h2>Production composition</h2>
+<p><strong>Expected behavior:</strong> Description, action, and muted error code remain clearly ordered.</p>
+
+<div class="c-test-frame">
+  <section class="c-404" aria-labelledby="error-sample-title">
+    <div class="c-404__inner">
+      <h3 id="error-sample-title">Page not found</h3>
+      <p class="c-404__description">
+        Nothing was found at this location. Return home or use the site navigation.
+      </p>
+      <div class="c-404__actions">
+        <a class="c-button c-button--primary" href="{{ '/' | relative_url }}">Back to home</a>
+      </div>
+      <small class="c-404__code">Error Code: 404</small>
+    </div>
+  </section>
+</div>
+
+<h2>Long-copy stress case</h2>
+<p><strong>Expected behavior:</strong> Long text wraps naturally without displacing the action or code.</p>
+
+<div class="c-test-frame">
+  <section class="c-404" aria-labelledby="error-stress-title">
+    <div class="c-404__inner">
+      <h3 id="error-stress-title">The requested project archive could not be found</h3>
+      <p class="c-404__description">
+        The address may have changed, the entry may have been renamed, or the link may be incomplete.
+        Browse the current projects or return to the homepage to continue.
+      </p>
+      <div class="c-404__actions c-test-row">
+        <a class="c-button c-button--primary" href="{{ '/' | relative_url }}">Back to home</a>
+        <a class="c-button c-button--secondary" href="{{ '/projects/' | relative_url }}">Browse projects</a>
+      </div>
+      <small class="c-404__code">Error Code: 404</small>
+    </div>
+  </section>
+</div>

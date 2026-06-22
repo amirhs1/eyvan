@@ -70,6 +70,7 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 }
 
 .c-mobile-menu[hidden] {
+  // Enforce the native hidden contract against overlay display declarations.
   display: none !important;
 }
 
@@ -263,6 +264,7 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
   .c-mobile-menu {
+    // The mobile overlay must remain suppressed in the desktop composition.
     display: none !important;
   }
 }

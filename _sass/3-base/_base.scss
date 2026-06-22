@@ -31,6 +31,7 @@
 // Notes:
 // - Assumes browser normalization/reset are handled in 2-generic
 // - Runtime light/dark theme switching is powered by CSS custom properties
+// - Equals-sign banners mark major domains; dash banners mark their subsections
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/typography" as settings-typography;

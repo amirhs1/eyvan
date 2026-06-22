@@ -10,8 +10,6 @@
 //   - .c-page__media
 //   - .c-page__image
 //   - .c-page__header
-//   - .c-page__title
-//   - .c-page__subtitle
 //   - .c-page__meta
 //     - shared .c-entry-meta component
 //   - .c-page__tags
@@ -32,7 +30,6 @@
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
-@use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -42,8 +39,6 @@
 $page-media-gap: tools-spacing.$fluid-stack-md;
 $page-header-gap: tools-spacing.$static-stack-sm;
 $page-header-margin-block-end: tools-spacing.$fluid-stack-md;
-
-$page-subtitle-inline-size: settings-typography.$text-measure-base;
 
 $page-tag-gap: settings-spacing.$space-2;
 $page-meta-padding-block-start: settings-spacing.$space-1;
@@ -90,36 +85,6 @@ $page-image-max-block-size: min(34rem, 60vh);
   flex-direction: column;
   gap: $page-header-gap;
   margin-block-end: $page-header-margin-block-end;
-}
-
-/* -----------------------------------------------------------------------------
-   Title + subtitle
-   ----------------------------------------------------------------------------- */
-
-.c-page__title {
-  margin: 0;
-  color: var(--color-heading);
-  font-family: settings-typography.$font-family-display;
-  font-size: clamp(
-    settings-typography.$font-size-h1-min,
-    5vw,
-    settings-typography.$font-size-h1-max
-  );
-  font-weight: settings-typography.$font-weight-bold;
-  line-height: settings-typography.$line-height-display;
-  letter-spacing: settings-typography.$letter-spacing-tight;
-  text-wrap: balance;
-}
-
-.c-page__subtitle {
-  max-inline-size: $page-subtitle-inline-size;
-  margin: 0;
-  color: var(--color-on-surface-variant);
-  font-family: settings-typography.$font-family-body;
-  font-size: settings-typography.$font-size-lg;
-  font-weight: settings-typography.$font-weight-regular;
-  line-height: settings-typography.$line-height-loose;
-  text-wrap: pretty;
 }
 
 /* -----------------------------------------------------------------------------
@@ -193,10 +158,6 @@ $page-image-max-block-size: min(34rem, 60vh);
   .c-page__header {
     gap: settings-spacing.$space-2;
     margin-block-end: settings-spacing.$space-4;
-  }
-
-  .c-page__subtitle {
-    font-size: settings-typography.$font-size-md;
   }
 
   .c-page__divider {

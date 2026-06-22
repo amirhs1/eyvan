@@ -212,6 +212,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
   }
 
   .c-mobile-toc[hidden] {
+    // Enforce the native hidden contract against overlay display declarations.
     display: none !important;
   }
 

@@ -1,29 +1,33 @@
-/*!
- * normalize.css v8.0.0 (adapted)
- * MIT License | github.com/necolas/normalize.css
- *
- * Adapted for:
- * - SCSS (@use syntax)
- * - ITCSS architecture
- * - Token-based design system
- *
- * NOTE:
- * This file intentionally avoids design decisions.
- * Typography, transitions, and aesthetics belong in 3-base and above.
- */
+// -----------------------------------------------------------------------------
+// Normalize
+// ITCSS layer: 2-generic
+//
+// Description:
+// Provides a consistent browser baseline using normalize.css v8.0.0, adapted
+// for Eyvan's Sass module architecture and design-token system.
+//
+// Scope & Rules:
+// - Owns browser normalization and cross-browser consistency only
+// - May consume 0-settings tokens where normalization requires shared values
+// - Does NOT own typography, transitions, or aesthetic design decisions
+// - Visual defaults belong in 3-base and above
+//
+// Upstream:
+// - normalize.css v8.0.0 (adapted)
+// - MIT License: github.com/necolas/normalize.css
+// - Adapted for SCSS @use syntax, ITCSS, and Eyvan's token system
+// -----------------------------------------------------------------------------
 
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/typography" as settings-typography;
 
-/* Document
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Document
+   ----------------------------------------------------------------------------- */
 
-/**
- * Establish a consistent box-sizing model.
- * This is considered a generic, non-design decision.
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
+// Establish a consistent box-sizing model as a generic, non-design decision.
+// 1. Correct the line height in all browsers.
+// 2. Prevent font-size adjustments after orientation changes in iOS.
 
 html {
   line-height: 1.15; // 1
@@ -36,34 +40,29 @@ html {
   box-sizing: inherit;
 }
 
-/* Sections
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Sections
+   ----------------------------------------------------------------------------- */
 
-/**
- * Remove default margin in all browsers.
- */
+// Remove default margin in all browsers.
 
 body {
   margin: 0;
 }
 
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
+// Correct h1 font size and margin in section/article contexts across browsers.
 
 h1 {
   font-size: 2em;
   margin: 0.67em 0; // 1
 }
 
-/* Grouping content
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Grouping content
+   ----------------------------------------------------------------------------- */
 
-/**
- * 1. Add the correct box sizing in Firefox.
- * 2. Show the overflow in Edge and IE.
- */
+// 1. Add the correct box sizing in Firefox.
+// 2. Show overflow in Edge and IE.
 
 hr {
   box-sizing: content-box; // 1
@@ -71,31 +70,26 @@ hr {
   overflow: visible; // 2
 }
 
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
+// 1. Correct font-size inheritance and scaling across browsers.
+// 2. Correct odd em-based font sizing across browsers.
 
 pre {
   font-family: monospace, monospace; // 1
   font-size: 1em; // 2
 }
 
-/* Text-level semantics
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Text-level semantics
+   ----------------------------------------------------------------------------- */
 
-/**
- * Remove the gray background on active links in IE 10.
- */
+// Remove the gray background on active links in IE 10.
 
 a {
   background-color: transparent;
 }
 
-/**
- * 1. Remove the bottom border in Chrome 57-
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
- */
+// 1. Remove the bottom border in Chrome 57 and earlier.
+// 2. Add consistent text decoration across browsers.
 
 abbr[title] {
   border-bottom: none; // 1
@@ -103,19 +97,15 @@ abbr[title] {
   text-decoration: underline dotted; // 2
 }
 
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
+// Add the correct font weight in Chrome, Edge, and Safari.
 
 b,
 strong {
   font-weight: bolder;
 }
 
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
+// 1. Correct font-size inheritance and scaling across browsers.
+// 2. Correct odd em-based font sizing across browsers.
 
 code,
 kbd,
@@ -124,17 +114,13 @@ samp {
   font-size: 1em; // 2
 }
 
-/**
- * Add the correct font size in all browsers.
- */
+// Add the correct font size in all browsers.
 
 small {
   font-size: 80%;
 }
 
-/**
- * Prevent `sub` and `sup` elements from affecting the line height.
- */
+// Prevent sub and sup elements from affecting line height.
 
 sub,
 sup {
@@ -152,13 +138,11 @@ sup {
   top: -0.5em;
 }
 
-/* Embedded content
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Embedded content
+   ----------------------------------------------------------------------------- */
 
-/**
- * Remove the border on images inside links in IE 10.
- * Add responsive safety without aesthetic intent.
- */
+// Remove linked-image borders in IE 10 and add non-aesthetic responsive safety.
 
 img {
   border-style: none;
@@ -166,13 +150,12 @@ img {
   height: auto;
 }
 
-/* Forms
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Forms
+   ----------------------------------------------------------------------------- */
 
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
+// 1. Normalize font styles across browsers.
+// 2. Remove default margins in Firefox and Safari.
 
 button,
 input,
@@ -185,27 +168,21 @@ textarea {
   margin: 0; // 2
 }
 
-/**
- * Show the overflow in IE and Edge.
- */
+// Show overflow in IE and Edge.
 
 button,
 input {
   overflow: visible;
 }
 
-/**
- * Remove the inheritance of text transform.
- */
+// Remove inherited text transforms.
 
 button,
 select {
   text-transform: none;
 }
 
-/**
- * Correct the inability to style clickable types in iOS and Safari.
- */
+// Allow clickable input types to be styled in iOS and Safari.
 
 button,
 [type="button"],
@@ -214,9 +191,7 @@ button,
   -webkit-appearance: button;
 }
 
-/**
- * Remove the inner border and padding in Firefox.
- */
+// Remove inner borders and padding in Firefox.
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
@@ -226,9 +201,7 @@ button::-moz-focus-inner,
   padding: 0;
 }
 
-/**
- * Restore the focus styles unset by the previous rule.
- */
+// Restore focus styles unset by the previous rule.
 
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
@@ -237,20 +210,15 @@ button:-moz-focusring,
   outline: 1px dotted ButtonText;
 }
 
-/**
- * Correct the padding in Firefox.
- */
+// Correct fieldset padding in Firefox.
 
 fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
 
-/**
- * 1. Correct the text wrapping in Edge and IE.
- * 2. Correct the color inheritance from `fieldset` elements in IE.
- * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
- */
+// 1. Correct text wrapping in Edge and IE.
+// 2. Correct color inheritance from fieldset elements in IE.
+// 3. Remove padding to avoid conflicts when fieldset padding is reset.
 
 legend {
   box-sizing: border-box;
@@ -261,25 +229,19 @@ legend {
   white-space: normal;
 }
 
-/**
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
+// Add the correct vertical alignment in Chrome, Firefox, and Opera.
 
 progress {
   vertical-align: baseline;
 }
 
-/**
- * Remove the default vertical scrollbar in IE 10+.
- */
+// Remove the default vertical scrollbar in IE 10 and later.
 
 textarea {
   overflow: auto;
 }
 
-/**
- * Correct box sizing and padding in IE 10.
- */
+// Correct box sizing and padding in IE 10.
 
 [type="checkbox"],
 [type="radio"] {
@@ -287,76 +249,62 @@ textarea {
   padding: 0;
 }
 
-/**
- * Correct the cursor style of number inputs.
- */
+// Correct the cursor style of number inputs.
 
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
-/**
- * 1. Correct the odd appearance in Chrome and Safari.
- * 2. Correct the outline style in Safari.
- */
+// 1. Correct search-field appearance in Chrome and Safari.
+// 2. Correct the outline style in Safari.
 
 [type="search"] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
 
-/**
- * Remove the inner padding in Chrome and Safari on macOS.
- */
+// Remove inner padding in Chrome and Safari on macOS.
 
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-/**
- * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
- */
+// 1. Allow file-upload buttons to be styled in iOS and Safari.
+// 2. Inherit font properties in Safari.
 
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
   font: inherit;
 }
 
-/* Interactive
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Interactive
+   ----------------------------------------------------------------------------- */
 
-/**
- * Add the correct display in Edge, IE 10+, and Firefox.
- */
+// Add the correct display in Edge, IE 10 and later, and Firefox.
 
 details {
   display: block;
 }
 
-/**
- * Add the correct display in all browsers.
- */
+// Add the correct display in all browsers.
 
 summary {
   display: list-item;
 }
 
-/* Misc
-   ========================================================================== */
+/* -----------------------------------------------------------------------------
+   Miscellaneous
+   ----------------------------------------------------------------------------- */
 
-/**
- * Add the correct display in IE 10+.
- */
+// Add the correct display in IE 10 and later.
 
 template {
   display: none;
 }
 
-/**
- * Add the correct display in IE 10.
- */
+// Add the correct display in IE 10.
 
 [hidden] {
   display: none;

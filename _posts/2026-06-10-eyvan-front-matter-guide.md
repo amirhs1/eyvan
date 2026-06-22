@@ -111,6 +111,7 @@ Search Engine Optimization (SEO) fields help the page appear correctly in search
 | :--- | :--- | :--- | :--- | :--- |
 | `title` | string | Site title fallback | `<title>`, Open Graph, Twitter | Defines the page title. |
 | `description` | string | `site.description` | Meta description, Open Graph, Twitter | Short summary for search and previews. |
+| `og_image` | string | none | Open Graph, Twitter | Overrides the social preview image without adding a visible post cover or card image. |
 | `image` | string | `site.default_og_image` or placeholder for social previews; none for the post cover | Post cover, post cards, Open Graph, Twitter | Provides the preferred social preview image and renders a post cover when set. |
 | `image_alt` | string | `page.title` | Post/page image alt text | Provides accessible text for the cover image. |
 | `image_width` | integer | none | Post cover, page image, post cards, post navigation | Adds the image's intrinsic pixel width so browsers can reserve layout space. |
@@ -127,6 +128,16 @@ description: "A complete reference guide for all supported front matter fields i
 ```
 
 The `image` field has several roles. In the post layout, it renders a full-width cover image above the article header. In post cards, it becomes the card image. In the head include, it becomes the social preview image. That makes it powerful, but it also means you should use it intentionally. If you want a header-only documentation post, omit `image` and let the head include fall back to `site.default_og_image` for social previews.
+
+Use `og_image` when a page needs a purpose-built social preview without a
+visible cover or when its social artwork should differ from its cover. Social
+metadata resolves images in this order: `og_image`, then `image`, then
+`site.default_og_image`. The `og_image` value does not render in the post header
+or archive card.
+
+```yaml
+og_image: "assets/images/posts/social-preview.webp"
+```
 
 ```yaml
 image: "assets/images/posts/token-bucket-diagram.webp"
@@ -637,7 +648,7 @@ Only enable `math: true` on pages that need math so simple posts do not load Mat
 | TOC does not show | `toc` missing, false, or headings are outside the supported levels | Add `toc: true` and use clear `##` / `###` headings. |
 | Math does not render | `math: true` is missing | Add `math: true` to the post front matter. |
 | Cross-reference text stays as an id | `crossrefs: true` is missing | Add `crossrefs: true` when using `ref.html`. |
-| Social preview image is wrong | `image` missing or path incorrect | Add a valid relative path or configure `default_og_image`. |
+| Social preview image is wrong | `og_image` / `image` missing or path incorrect | Add a valid relative path or configure `default_og_image`. |
 | Cover image alt text is generic | `image_alt` missing | Add descriptive `image_alt` text. |
 | YAML build error | Bad indentation, colon, or unquoted special character | Quote strings that contain punctuation and keep arrays valid. |
 {: .c-prose-table }
@@ -680,7 +691,13 @@ description: "One concise sentence explaining what the reader will learn."
 ---
 ```
 
-Add `image` and `image_alt` only when the post needs a cover or social preview image. Add the exact `image_width` and `image_height` together when known, and add `image_position` when the cover needs custom cropping. Add `math: true` only when the post contains math. Add `crossrefs: true` only when the post uses `ref.html`. Add `share: false` only when you intentionally want to suppress the share controls.
+Add `image` and `image_alt` when the post needs a visible cover. Use
+`og_image` when it needs separate social artwork or a social preview without a
+cover. Add the exact `image_width` and `image_height` together when known, and
+add `image_position` when the cover needs custom cropping. Add `math: true` only
+when the post contains math. Add `crossrefs: true` only when the post uses
+`ref.html`. Add `share: false` only when you intentionally want to suppress the
+share controls.
 
 This approach keeps the content clean, the build predictable, and the template easy to maintain. The front matter stays small, but each key has a real job: `title` identifies the post, `subtitle` frames it, `tags` connect it to the archive, `toc` improves navigation, and `description` supports search and previews.
 

@@ -4,6 +4,7 @@ subtitle: "Tables, charts, and statistical summaries from a synthetic climate da
 tags: [data, climate, visualization, analysis]
 math: true
 toc: true
+crossrefs: true
 image: "assets/images/posts/global_temperature_rise.webp"
 image_alt: "Global Temperature Rise Visualized in Polar Perspective"
 image_width: 800

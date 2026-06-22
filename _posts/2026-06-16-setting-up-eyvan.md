@@ -143,25 +143,28 @@ main:
     url: "/"
     external: false
 
-  - title: "Projects"
-    url: "/projects/"
-    external: false
-
   - title: "About"
     url: "/about/"
     external: false
 
-  - title: "Tests"
-    url: "/tests/"
+  - title: "Projects"
+    url: "/projects/"
     external: false
-    dev_only: true
+
+  - title: "Contact"
+    url: "/contact/"
+    external: false
 ```
 
 Edit the `title` and `url` for each entry. Keep internal URLs baseurl-safe by writing them as site-relative paths such as `/projects/`; the navigation include applies `relative_url` for you.
 
 `external` is only needed when a navigation item should open in a new tab. The include also treats absolute URLs and PDF links as new-tab links automatically, but keeping `external: true` on intentional off-site links makes the data file easier to read.
 
-`dev_only` is used for links that should appear only when `dev_only: true` is set in `_config.yml`. The shipped test pages use it so the demo and production site do not expose development-only surfaces. Keep it on the Tests entry and its children; you can remove those entries entirely if you do not want local test navigation.
+Development-only navigation is kept separately in
+`_data/test-navigation.yml`. When `dev_only: true` is set in `_config.yml`, the
+navigation include appends its Tests entry to the public links above. Keep that
+file separate so production navigation remains focused and the demo site does
+not expose development-only surfaces.
 
 ## Step 6 — Social and share links
 

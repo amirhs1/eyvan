@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-22
+
 ### Added
 
 - A "Multi-image figure grids" walkthrough in the *Front Matter Field
@@ -17,6 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A step-by-step custom-domain / `CNAME` section in the README, covering the
   `CNAME` file, GitHub Pages settings, the apex/subdomain DNS records, and the
   `baseurl: ""` adjustment a root-served custom domain requires.
+- Development-only test layout, navigation data, and component harnesses that
+  exercise the visual system without publishing test pages or helper CSS in
+  production builds.
+- Documentation for the `og_image` front matter override and its precedence
+  over visible post covers and the site-wide social fallback.
 
 ### Removed
 
@@ -33,6 +40,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   subset, and its entry in the bundled font-license map. No component
   referenced the weight (headings use Bold/700, the hero uses Semi-Bold/600),
   so dropping it trims the shipped font payload with no visual change.
+- Obsolete Sass selectors and rules, including the unused page title/subtitle
+  selector API and stale state, animation, and print styles superseded by the
+  canonical components and utilities.
 
 ### Fixed
 
@@ -42,6 +52,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   text was not actually muted; a new `_sass/5-components/_404.scss` gives the
   404 component its missing home, spacing the `.c-404__code` line and coloring
   it with the existing `--color-on-surface-variant` token.
+- Generic pages now fill the same container width as the homepage, projects,
+  about, and contact pages; long-form posts retain their intentionally narrower
+  prose measure.
+- The entry-meta component now emits the valid `flex-wrap: nowrap` value instead
+  of the invalid `unwrap` declaration.
+- The climate demo enables cross-reference resolution, so its numbered table
+  reference renders a reader-facing label instead of the raw element id.
+- Development harness fixtures now use valid assets, unique landmarks, and
+  accessible component states exposed by the expanded test crawl.
 
 ### Changed
 
@@ -50,6 +69,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   cover loads eagerly with `fetchpriority="high"`, while every other card
   keeps `loading="lazy"`. Behavior is unchanged for all existing callers,
   which omit the parameter and stay lazy.
+- Sass architecture now uses consolidated semantic tokens, corrected BEM names,
+  normalized component filenames and headers, and clearer boundaries between
+  settings data, layout objects, components, and development-only test styles.
+- The setup, theming, architecture, README, and contributor guidance now match
+  the shipped navigation split, optional-image behavior, image loading policy,
+  deployment choices, Playwright/axe QA workflow, and repository rulesets.
 
 ## [1.0.0] - 2026-06-17
 
@@ -262,5 +287,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-[Unreleased]: https://github.com/amirhs1/eyvan/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/amirhs1/eyvan/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/amirhs1/eyvan/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/amirhs1/eyvan/releases/tag/v1.0.0

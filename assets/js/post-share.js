@@ -20,8 +20,13 @@ Related component:
 - _includes/post-share.html
 */
 
-(function () {
-  // Section: Element references
+(() => {
+  'use strict';
+
+  /* ==========================================================================
+     Element references
+     ========================================================================== */
+
   const shareButtons = document.querySelectorAll('.js-share-button');
   const printButtons = document.querySelectorAll('.js-print-button');
 
@@ -40,13 +45,16 @@ Related component:
     }, 10);
   }
 
-  // Section: Native share / clipboard fallback
+  /* ==========================================================================
+     Native share / clipboard fallback
+     ========================================================================== */
+
   shareButtons.forEach((button) => {
     button.addEventListener('click', async function (e) {
       const title = e.currentTarget.getAttribute('data-title') || document.title;
       const url = e.currentTarget.getAttribute('data-url') || window.location.href;
 
-      // Subsection: Use Web Share API when available
+      // Use the Web Share API when available
       if (navigator.share) {
         try {
           await navigator.share({
@@ -57,7 +65,7 @@ Related component:
           console.debug('Share cancelled or failed:', err);
         }
 
-      // Subsection: Clipboard fallback
+      // Clipboard fallback
       } else if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
           await navigator.clipboard.writeText(url);
@@ -67,7 +75,7 @@ Related component:
           updateShareStatus(e.currentTarget, 'Unable to copy link.');
         }
 
-      // Subsection: Legacy fallback
+      // Legacy execCommand fallback
       } else {
         let tempInput = null;
 
@@ -90,14 +98,20 @@ Related component:
     });
   });
 
-  // Section: Print / Save as PDF
+  /* ==========================================================================
+     Print / Save as PDF
+     ========================================================================== */
+
   printButtons.forEach((button) => {
     button.addEventListener('click', function () {
       window.print();
     });
   });
 
-  // Section: Overflow disclosure
+  /* ==========================================================================
+     Overflow disclosure
+     ========================================================================== */
+
   const overflowToggles = document.querySelectorAll('[data-overflow-toggle]');
 
   overflowToggles.forEach((toggle) => {

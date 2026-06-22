@@ -7,6 +7,10 @@ full-screen overlay is open.
 Public API:
 - window.EyvanOverlayIsolation.activate(overlay)
 - window.EyvanOverlayIsolation.deactivate(overlay)
+
+Consumed by:
+- mobile-menu.js
+- mobile-toc.js
 */
 
 (() => {

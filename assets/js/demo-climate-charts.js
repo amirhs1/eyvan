@@ -1,12 +1,33 @@
 /*
-Demo climate charts
+Demo Climate Charts
 Purpose:
 Render the demo climate line and bar charts with Chart.js, using Eyvan theme
 tokens from CSS custom properties.
+
+Features:
+- Builds a yearly temperature line chart (mean maximum / mean minimum)
+- Builds a precipitation bar chart grouped into three color-coded epochs
+- Reads Eyvan theme colors from CSS custom properties at render time
+- Re-renders both charts when the site theme changes
+- Skips rendering and logs a message when Chart.js is unavailable
+
+Dependencies:
+- #temperatureLineChart
+- #precipitationBarChart
+- window.Chart (Chart.js)
+- --color-* custom properties (surface, on-surface, on-surface-variant,
+  outline-variant, error, warning, info, success)
+
+Related component:
+- _posts/2026-03-07-climate-data-analysis.md
 */
 
 (() => {
-  "use strict";
+  'use strict';
+
+  /* ==========================================================================
+     Climate data and chart state
+     ========================================================================== */
 
   const years = [
     1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
@@ -35,6 +56,10 @@ tokens from CSS custom properties.
   let temperatureChart = null;
   let precipitationChart = null;
 
+  /* ==========================================================================
+     Theme and color helpers
+     ========================================================================== */
+
   function getTheme() {
     const styles = getComputedStyle(document.documentElement);
 
@@ -42,26 +67,26 @@ tokens from CSS custom properties.
       styles.getPropertyValue(name).trim() || fallback;
 
     return {
-      background: getColor("--color-surface", "#FFF7FA"),
-      text: getColor("--color-on-surface", "#201A1E"),
-      muted: getColor("--color-on-surface-variant", "#4E444B"),
-      border: getColor("--color-outline-variant", "#D1C3CC"),
-      error: getColor("--color-error", "#BA1A1A"),
-      warning: getColor("--color-warning", "#59631F"),
-      info: getColor("--color-info", "#4E5C92"),
-      success: getColor("--color-success", "#0A6B5A")
+      background: getColor('--color-surface', '#FFF7FA'),
+      text: getColor('--color-on-surface', '#201A1E'),
+      muted: getColor('--color-on-surface-variant', '#4E444B'),
+      border: getColor('--color-outline-variant', '#D1C3CC'),
+      error: getColor('--color-error', '#BA1A1A'),
+      warning: getColor('--color-warning', '#59631F'),
+      info: getColor('--color-info', '#4E5C92'),
+      success: getColor('--color-success', '#0A6B5A')
     };
   }
 
   function transparentize(color, alpha) {
-    if (!color || !color.startsWith("#")) {
+    if (!color || !color.startsWith('#')) {
       return color;
     }
 
-    const hex = color.replace("#", "");
+    const hex = color.replace('#', '');
     const fullHex =
       hex.length === 3
-        ? hex.split("").map((char) => char + char).join("")
+        ? hex.split('').map((char) => char + char).join('')
         : hex;
 
     const value = parseInt(fullHex, 16);
@@ -72,15 +97,19 @@ tokens from CSS custom properties.
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
   }
 
+  /* ==========================================================================
+     Base chart configuration
+     ========================================================================== */
+
   const chartCanvasBackground = {
-    id: "chartCanvasBackground",
+    id: 'chartCanvasBackground',
 
     beforeDraw(chart, args, options) {
       const { ctx, canvas } = chart;
 
       ctx.save();
-      ctx.globalCompositeOperation = "destination-over";
-      ctx.fillStyle = options.color || "#ffffff";
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = options.color || '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.restore();
     }
@@ -92,7 +121,7 @@ tokens from CSS custom properties.
       maintainAspectRatio: false,
 
       interaction: {
-        mode: "index",
+        mode: 'index',
         intersect: false
       },
 
@@ -115,15 +144,15 @@ tokens from CSS custom properties.
         },
 
         legend: {
-          position: "bottom",
-          align: "center",
+          position: 'bottom',
+          align: 'center',
           labels: {
             color: theme.text,
             boxWidth: 14,
             boxHeight: 14,
             padding: 18,
             usePointStyle: true,
-            pointStyle: "circle"
+            pointStyle: 'circle'
           }
         },
 
@@ -147,8 +176,8 @@ tokens from CSS custom properties.
       return;
     }
 
-    frame.style.position = frame.style.position || "relative";
-    frame.style.minHeight = frame.style.minHeight || "360px";
+    frame.style.position = frame.style.position || 'relative';
+    frame.style.minHeight = frame.style.minHeight || '360px';
   }
 
   function destroyCharts() {
@@ -163,8 +192,12 @@ tokens from CSS custom properties.
     }
   }
 
+  /* ==========================================================================
+     Chart builders
+     ========================================================================== */
+
   function drawTemperatureChart(theme) {
-    const canvas = document.getElementById("temperatureLineChart");
+    const canvas = document.getElementById('temperatureLineChart');
 
     if (!canvas) {
       return;
@@ -172,11 +205,11 @@ tokens from CSS custom properties.
 
     prepareChartFrame(canvas);
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     const baseOptions = getBaseOptions(theme);
 
     temperatureChart = new window.Chart(ctx, {
-      type: "line",
+      type: 'line',
       plugins: [chartCanvasBackground],
 
       data: {
@@ -184,7 +217,7 @@ tokens from CSS custom properties.
 
         datasets: [
           {
-            label: "Mean Maximum Temp (°C)",
+            label: 'Mean Maximum Temp (°C)',
             data: maxTemps,
             borderColor: theme.error,
             backgroundColor: transparentize(theme.error, 0.12),
@@ -196,7 +229,7 @@ tokens from CSS custom properties.
             fill: false
           },
           {
-            label: "Mean Minimum Temp (°C)",
+            label: 'Mean Minimum Temp (°C)',
             data: minTemps,
             borderColor: theme.info,
             backgroundColor: transparentize(theme.info, 0.12),
@@ -227,11 +260,11 @@ tokens from CSS custom properties.
             },
             title: {
               display: true,
-              text: "Observation Year",
+              text: 'Observation Year',
               color: theme.text,
               font: {
                 size: 14,
-                weight: "500"
+                weight: '500'
               },
               padding: {
                 top: 12
@@ -252,11 +285,11 @@ tokens from CSS custom properties.
             },
             title: {
               display: true,
-              text: "Temperature Baseline (°C)",
+              text: 'Temperature Baseline (°C)',
               color: theme.text,
               font: {
                 size: 14,
-                weight: "500"
+                weight: '500'
               },
               padding: {
                 bottom: 12
@@ -269,7 +302,7 @@ tokens from CSS custom properties.
   }
 
   function drawPrecipitationChart(theme) {
-    const canvas = document.getElementById("precipitationBarChart");
+    const canvas = document.getElementById('precipitationBarChart');
 
     if (!canvas) {
       return;
@@ -277,7 +310,7 @@ tokens from CSS custom properties.
 
     prepareChartFrame(canvas);
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     const baseOptions = getBaseOptions(theme);
 
     const epochOne = theme.info;
@@ -285,7 +318,7 @@ tokens from CSS custom properties.
     const epochThree = theme.warning;
 
     precipitationChart = new window.Chart(ctx, {
-      type: "bar",
+      type: 'bar',
       plugins: [chartCanvasBackground],
 
       data: {
@@ -293,7 +326,7 @@ tokens from CSS custom properties.
 
         datasets: [
           {
-            label: "Annual Precipitation (mm)",
+            label: 'Annual Precipitation (mm)',
             data: precipitation,
 
             backgroundColor(context) {
@@ -340,8 +373,8 @@ tokens from CSS custom properties.
           ...baseOptions.plugins,
 
           legend: {
-            position: "bottom",
-            align: "center",
+            position: 'bottom',
+            align: 'center',
 
             labels: {
               color: theme.text,
@@ -352,21 +385,21 @@ tokens from CSS custom properties.
               generateLabels() {
                 return [
                   {
-                    text: "Epoch I (1996–2005)",
+                    text: 'Epoch I (1996–2005)',
                     fillStyle: transparentize(epochOne, 0.7),
                     strokeStyle: epochOne,
                     fontColor: theme.text,
                     lineWidth: 1.25
                   },
                   {
-                    text: "Epoch II (2006–2015)",
+                    text: 'Epoch II (2006–2015)',
                     fillStyle: transparentize(epochTwo, 0.7),
                     strokeStyle: epochTwo,
                     fontColor: theme.text,
                     lineWidth: 1.25
                   },
                   {
-                    text: "Epoch III (2016–2025)",
+                    text: 'Epoch III (2016–2025)',
                     fillStyle: transparentize(epochThree, 0.7),
                     strokeStyle: epochThree,
                     fontColor: theme.text,
@@ -406,11 +439,11 @@ tokens from CSS custom properties.
             },
             title: {
               display: true,
-              text: "Observation Year (Abbreviated)",
+              text: 'Observation Year (Abbreviated)',
               color: theme.text,
               font: {
                 size: 14,
-                weight: "500"
+                weight: '500'
               },
               padding: {
                 top: 12
@@ -431,11 +464,11 @@ tokens from CSS custom properties.
             },
             title: {
               display: true,
-              text: "Cumulative Rain/Snowmelt (mm)",
+              text: 'Cumulative Rain/Snowmelt (mm)',
               color: theme.text,
               font: {
                 size: 14,
-                weight: "500"
+                weight: '500'
               },
               padding: {
                 bottom: 12
@@ -446,6 +479,10 @@ tokens from CSS custom properties.
       }
     });
   }
+
+  /* ==========================================================================
+     Rendering and theme synchronization
+     ========================================================================== */
 
   function drawCharts() {
     if (!window.Chart) {
@@ -464,14 +501,18 @@ tokens from CSS custom properties.
 
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-theme"]
+      attributeFilter: ['data-theme']
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  /* ==========================================================================
+     Initialization
+     ========================================================================== */
+
+  document.addEventListener('DOMContentLoaded', () => {
     if (!window.Chart) {
       console.error(
-        "Climate demo charts were not rendered because Chart.js is unavailable."
+        'Climate demo charts were not rendered because Chart.js is unavailable.'
       );
       return;
     }

@@ -129,16 +129,12 @@ Related component:
     const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
 
     if (target) {
-      // 1. Find the header element
+      // Offset the target by the sticky header height plus a visual gap so the
+      // destination is not hidden underneath the fixed header after scrolling.
       const header = document.querySelector(HEADER_SELECTOR);
-
-      // 2. Get its exact rendered height (fallback to 0 if missing)
       const headerHeight = header ? header.getBoundingClientRect().height : 0;
-
-      // 3. Calculate total offset (header height + visual gap)
       const offset = headerHeight + VISUAL_GAP;
 
-      // 4. Calculate the final scroll position
       const elementPosition = target.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - offset;
 

@@ -3,29 +3,52 @@ Task List Accessibility Script
 Purpose:
 Give generated GFM/kramdown task-list checkboxes useful accessible names.
 
-Behavior:
+Features:
 - Reads the parent task-list item's visible text
+- Skips checkboxes that already expose an accessible name
 - Applies that text as an aria-label without changing visible markup
+
+Dependencies:
+- .task-list-item-checkbox
+- .task-list-item
+
+Related component:
+- GFM/kramdown-generated task lists (loaded via _includes/scripts.html when
+  content contains task-list-item-checkbox)
 */
 
-(function () {
-  const taskCheckboxes = document.querySelectorAll('.task-list-item-checkbox');
+(() => {
+  'use strict';
 
-  taskCheckboxes.forEach((checkbox) => {
-    if (checkbox.hasAttribute('aria-label') || checkbox.hasAttribute('aria-labelledby')) {
-      return;
-    }
+  /* ==========================================================================
+     Initialization
+     ========================================================================== */
 
-    const taskItem = checkbox.closest('.task-list-item') || checkbox.closest('li');
+  function initTaskListA11y() {
+    const taskCheckboxes = document.querySelectorAll('.task-list-item-checkbox');
 
-    if (!taskItem) {
-      return;
-    }
+    taskCheckboxes.forEach((checkbox) => {
+      if (checkbox.hasAttribute('aria-label') || checkbox.hasAttribute('aria-labelledby')) {
+        return;
+      }
 
-    const taskText = taskItem.textContent.replace(/\s+/g, ' ').trim();
+      const taskItem = checkbox.closest('.task-list-item') || checkbox.closest('li');
 
-    if (taskText) {
-      checkbox.setAttribute('aria-label', taskText);
-    }
-  });
+      if (!taskItem) {
+        return;
+      }
+
+      const taskText = taskItem.textContent.replace(/\s+/g, ' ').trim();
+
+      if (taskText) {
+        checkbox.setAttribute('aria-label', taskText);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTaskListA11y, { once: true });
+  } else {
+    initTaskListA11y();
+  }
 })();

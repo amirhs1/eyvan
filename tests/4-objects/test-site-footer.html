@@ -1,8 +1,9 @@
 ---
-layout: default
+layout: test
 title: Object Site Footer Test
 permalink: /tests/4-objects/site-footer/
 robots: noindex
+test_full_width: true
 ---
 {% comment %}
   Site Footer Object Test Page
@@ -23,17 +24,14 @@ robots: noindex
     - .o-site-footer__brand
     - .o-site-footer__meta
     - .o-site-footer__actions
-  - Helper styling is provided by 7-trumps/_tests.scss
-  - This page intentionally uses the default layout so the footer object can be
-    viewed without the page component wrapper.
+  - Helper styling is provided by the shared development-only test stylesheet
+  - The neutral test layout keeps the footer object outside the page component.
   - Resize the browser window to verify breakpoint behavior.
   - This page is intended for development testing only.
 {% endcomment %}
 
 <div class="o-container">
-  <section aria-labelledby="test-site-footer-title">
-    <h1 id="test-site-footer-title">Object Site Footer Test</h1>
-
+  <section aria-labelledby="test-page-title">
     <p>
       This page verifies the functionality of the <code>.o-site-footer</code> object and its structural child zones
       defined in the <strong>4-objects</strong> Sass layer.

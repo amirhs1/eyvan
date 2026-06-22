@@ -1,0 +1,82 @@
+---
+layout: test
+title: Component Table of Contents Test
+permalink: /tests/5-components/test-toc/
+robots: noindex
+---
+
+{% comment %}
+  Component Table of Contents Test Page
+  Purpose: Verify desktop TOC hierarchy, active links, responsive toolbar,
+  and the mobile panel presentation without production post-layout coupling.
+{% endcomment %}
+
+<p>This page isolates the desktop and mobile classes defined by <code>_toc.scss</code>.</p>
+
+<hr>
+
+<h2>Desktop navigation</h2>
+<p><strong>Expected behavior:</strong> The hierarchy is readable, the active item is distinct, and long labels wrap.</p>
+
+<div class="c-test-frame c-toc-test-desktop-frame">
+  <aside class="c-post-layout__aside c-toc-test-aside">
+    <nav class="c-toc" aria-labelledby="toc-test-title">
+      <header class="c-toc__header">
+        <span id="toc-test-title" class="c-toc__header-text">On this page</span>
+      </header>
+      <ul class="c-toc__menu">
+        <li class="c-toc__item"><a class="c-toc__link" href="#toc-overview">Overview</a></li>
+        <li class="c-toc__item">
+          <a class="c-toc__link is-active" href="#toc-architecture" aria-current="location">Architecture</a>
+          <ul>
+            <li class="c-toc__item">
+              <a class="c-toc__link" href="#toc-responsive">Responsive behavior with a deliberately long label</a>
+            </li>
+          </ul>
+        </li>
+        <li class="c-toc__item"><a class="c-toc__link" href="#toc-accessibility">Accessibility</a></li>
+      </ul>
+    </nav>
+  </aside>
+</div>
+
+<h2>Responsive toolbar</h2>
+<p><strong>Expected behavior:</strong> At tablet widths and below, the toolbar presents a clear Contents control.</p>
+
+<div class="c-test-frame">
+  <div class="c-toc-toolbar c-toc-test-toolbar">
+    <button class="c-button c-button--secondary c-button--small c-toc-toolbar__button" type="button">
+      <span class="c-button__label">Contents</span>
+    </button>
+    <span class="c-test-meta">Toolbar companion actions</span>
+  </div>
+</div>
+
+<h2>Mobile panel preview</h2>
+<p><strong>Expected behavior:</strong> The panel header, close control, and nested links remain usable in a constrained frame.</p>
+
+<div class="c-test-frame c-toc-test-mobile-preview">
+  <div class="c-mobile-toc">
+    <nav class="c-mobile-toc__inner" aria-labelledby="mobile-toc-test-title">
+      <div class="c-mobile-toc__top">
+        <div class="c-mobile-toc__top-left">
+          <h3 class="c-mobile-toc__header" id="mobile-toc-test-title">Mobile contents preview</h3>
+        </div>
+        <div class="c-mobile-toc__top-right">
+          <button class="c-mobile-toc__close c-icon-link" type="button" aria-label="Close contents preview">
+            <span class="c-mobile-toc__close-icon c-icon-link__icon" aria-hidden="true">
+              {% include icons/close-circle.svg %}
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="c-mobile-toc__nav">
+        <ul class="c-toc__menu c-mobile-toc__menu">
+          <li class="c-toc__item"><a class="c-toc__link c-mobile-toc__link is-active" href="#mobile-overview">Overview</a></li>
+          <li class="c-toc__item"><a class="c-toc__link c-mobile-toc__link" href="#mobile-details">Implementation details</a></li>
+          <li class="c-toc__item"><a class="c-toc__link c-mobile-toc__link" href="#mobile-results">Results</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>

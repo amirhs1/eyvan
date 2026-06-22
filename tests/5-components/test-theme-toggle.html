@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Theme Toggle Test
 permalink: /tests/5-components/theme-toggle/
 robots: noindex
@@ -28,7 +28,7 @@ robots: noindex
     - .c-theme-toggle__icon--moon
     - .c-theme-toggle__label
     - .c-theme-toggle--mobile
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - This page intentionally avoids relying on production JavaScript behavior.
   - Theme-specific icon visibility is tested by scoping examples inside
     wrappers that simulate html[data-theme] states locally.
@@ -36,101 +36,6 @@ robots: noindex
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-theme-toggle-test-frame[data-theme='light'] {
-    --color-surface-container-low: #ffffff;
-    --color-surface-container-high: #f3f4f6;
-    --color-outline-variant: #c7c9d1;
-    --color-on-surface: #1f2937;
-    --color-primary: #00796b;
-    --color-surface: #ffffff;
-  }
-
-  .c-theme-toggle-test-frame[data-theme='dark'] {
-    --color-surface-container-low: #111827;
-    --color-surface-container-high: #1f2937;
-    --color-outline-variant: #4b5563;
-    --color-on-surface: #f9fafb;
-    --color-primary: #3fe0d0;
-    --color-surface: #0b1220;
-    background: #0b1220;
-    color: #f9fafb;
-  }
-
-  .c-theme-toggle-test-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .c-theme-toggle-test-stack > * + * {
-    margin-top: 0.75rem;
-  }
-
-  .c-theme-toggle-test-panel,
-  .c-theme-toggle-test-mobile-shell,
-  .c-theme-toggle-test-inline-shell,
-  .c-theme-toggle-test-fill-shell {
-    padding: 0.75rem;
-    border: 1px dashed var(--color-outline-variant);
-    background: color-mix(in srgb, var(--color-surface-container-high) 80%, transparent);
-  }
-
-  .c-theme-toggle-test-mobile-shell {
-    max-width: 26rem;
-    padding: 1rem;
-  }
-
-  .c-theme-toggle-test-inline-shell {
-    display: inline-flex;
-    padding: 0.5rem;
-  }
-
-  .c-theme-toggle-test-fill-shell {
-    width: 100%;
-    max-width: 30rem;
-  }
-
-  .c-theme-toggle-test-label {
-    font-weight: 600;
-  }
-
-  .c-theme-toggle-test-note {
-    font-size: 0.9375rem;
-  }
-
-  .c-theme-toggle-test-local-theme[data-theme='light'] .c-theme-toggle__icon--sun {
-    opacity: 0;
-    transform: scale(0.8) rotate(-20deg);
-    pointer-events: none;
-  }
-
-  .c-theme-toggle-test-local-theme[data-theme='light'] .c-theme-toggle__icon--moon {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-
-  .c-theme-toggle-test-local-theme[data-theme='dark'] .c-theme-toggle__icon--sun {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-
-  .c-theme-toggle-test-local-theme[data-theme='dark'] .c-theme-toggle__icon--moon {
-    opacity: 0;
-    transform: scale(0.8) rotate(20deg);
-    pointer-events: none;
-  }
-
-  .c-theme-toggle-test-long-label {
-    white-space: normal;
-  }
-
-  .c-theme-toggle__icon svg,
-  .c-theme-toggle__icon use {
-    pointer-events: none;
-  }
-</style>
 
 <p>This page verifies the <code>.c-theme-toggle</code> component defined in the <strong>5-components</strong> layer.</p>
 

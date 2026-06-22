@@ -1,0 +1,13 @@
+---
+---
+
+// Development-only visual test helpers. This entry point is emitted only when
+// site.dev_only keeps the tests/ pages in the Jekyll build.
+
+@use "0-settings/light-mode" with (
+  $primary: {{ site.data.theme.primary_light }}
+);
+@use "0-settings/dark-mode" with (
+  $primary: {{ site.data.theme.primary_dark }}
+);
+@use "7-trumps/tests" as test-helpers;

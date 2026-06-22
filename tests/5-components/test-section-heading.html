@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Section Heading Test
 permalink: /tests/5-components/test-section-heading/
 robots: noindex
@@ -44,7 +44,7 @@ robots: noindex
   - .c-section-heading--lg
   - This page also tests the Liquid include API of:
   - _includes/section-heading.html
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify responsive stacking behavior.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -86,7 +86,7 @@ robots: noindex
         </div>
       </div>
 
-      <div class="c-test-fill c-section-heading-test-fill" style="margin-block-start: 1rem;">
+      <div class="c-test-fill c-section-heading-test-fill c-section-heading-test-fill--spaced">
         Following content to verify spacing below the heading block.
       </div>
     </div>
@@ -152,7 +152,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
-    <div style="display: grid; gap: 1rem;">
+    <div class="c-test-stack">
       <div class="c-test-box c-section-heading-test-box">
         {%
           include section-heading.html
@@ -181,9 +181,9 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
-    <div style="display: grid; gap: 1rem;">
+    <div class="c-test-stack">
       <div class="c-test-box c-section-heading-test-box">
-        {% include section-heading.html title="Heading level h1" heading_level="h1" %}
+        {% include section-heading.html title="Heading level h2" heading_level="h2" %}
       </div>
 
       <div class="c-test-box c-section-heading-test-box">
@@ -206,7 +206,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
-    <div style="display: grid; gap: 1rem;">
+    <div class="c-test-stack">
       <div class="c-test-box c-section-heading-test-box">
         <div class="c-section-heading c-section-heading--sm">
           <div class="c-section-heading__content">
@@ -248,7 +248,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-section-heading-test-frame">
-    <div class="c-test-box c-section-heading-test-box" style="max-inline-size: 24rem;">
+    <div class="c-test-box c-section-heading-test-box c-section-heading-test-box--narrow">
       <div class="c-section-heading c-section-heading--md">
         <div class="c-section-heading__content">
           <p class="c-section-heading__eyebrow">responsive behavior</p>

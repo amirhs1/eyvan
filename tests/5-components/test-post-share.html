@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Post Share Test
 permalink: /tests/5-components/test-post-share/
 robots: noindex
@@ -12,7 +12,7 @@ robots: noindex
 
   Notes:
   - Written from scratch based on _post-share.scss.
-  - Uses shared test helpers from 7-trumps/_tests.scss.
+  - Uses shared test helpers from the shared development-only test stylesheet.
   - This page tests only the component responsibilities of:
     - .c-post-share
     - .c-post-share__head
@@ -99,7 +99,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-post-share-test-frame">
-    <div class="c-test-box c-post-share-test-box" style="max-inline-size: 14rem;">
+    <div class="c-test-box c-post-share-test-box c-post-share-test-box--narrow">
       <div class="c-post-share">
         <div class="c-post-share__head">
           <p class="c-post-share__title">Share this post</p>

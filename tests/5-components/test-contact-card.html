@@ -1,0 +1,61 @@
+---
+layout: test
+title: Component Contact Card Test
+permalink: /tests/5-components/test-contact-card/
+robots: noindex
+---
+
+{% comment %}
+  Component Contact Card Test Page
+  Purpose: Verify contact-card structure, action variants, responsive flow,
+  and long-content resilience.
+{% endcomment %}
+
+<p>This page isolates the <code>.c-contact-card</code> component used on the Contact page.</p>
+
+<hr>
+
+<h2>Action variants</h2>
+<p><strong>Expected behavior:</strong> Cards align icon, copy, and action while preserving clear button hierarchy.</p>
+
+<ul class="c-contact-card-test-list" role="list">
+  <li class="c-contact-card">
+    <span class="c-contact-card__icon" aria-hidden="true">{% include icons/mail.svg %}</span>
+    <div class="c-contact-card__body">
+      <h3 class="c-contact-card__title">Email</h3>
+      <p class="c-contact-card__desc">Best for project enquiries and collaboration.</p>
+    </div>
+    <a class="c-button c-button--primary c-button--small c-contact-card__action" href="mailto:test@example.com">
+      Email me
+    </a>
+  </li>
+
+  <li class="c-contact-card">
+    <span class="c-contact-card__icon" aria-hidden="true">{% include icons/resume.svg %}</span>
+    <div class="c-contact-card__body">
+      <h3 class="c-contact-card__title">Resume</h3>
+      <p class="c-contact-card__desc">Experience, research, writing, and open-source work.</p>
+    </div>
+    <a class="c-button c-button--secondary c-button--small c-contact-card__action" href="#contact-card-resume">
+      Download
+    </a>
+  </li>
+</ul>
+
+<h2>Narrow and long-content case</h2>
+<p><strong>Expected behavior:</strong> The action wraps below the body on narrow screens and long copy remains contained.</p>
+
+<div class="c-test-frame c-contact-card-test-frame--narrow">
+  <div class="c-contact-card">
+    <span class="c-contact-card__icon" aria-hidden="true">{% include icons/github.svg %}</span>
+    <div class="c-contact-card__body">
+      <h3 class="c-contact-card__title">Open-source project discussions and repository questions</h3>
+      <p class="c-contact-card__desc">
+        Use this channel for detailed issue reports, contribution proposals, and technical questions with long context.
+      </p>
+    </div>
+    <a class="c-button c-button--secondary c-button--small c-contact-card__action" href="#contact-card-github">
+      Visit profile
+    </a>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+---
+layout: test
+title: Component Tag Test
+permalink: /tests/5-components/test-tag/
+robots: noindex
+---
+
+{% comment %}
+  Component Tag Test Page
+  Purpose: Verify tag appearance, interaction states, capitalization,
+  and multi-row wrapping.
+{% endcomment %}
+
+<p>This page isolates the reusable taxonomy-link <code>.c-tag</code> component.</p>
+
+<hr>
+
+<h2>Labels and interaction</h2>
+<p><strong>Expected behavior:</strong> Labels remain compact and keyboard focus is clearly visible.</p>
+
+<div class="c-test-frame">
+  <div class="c-test-row">
+    <a class="c-tag" href="#tag-design">design</a>
+    <a class="c-tag" href="#tag-research">research</a>
+    <a class="c-tag" href="#tag-data">data visualization</a>
+    <a class="c-tag" href="#tag-accessibility">accessibility</a>
+  </div>
+</div>
+
+<h2>Wrapping stress case</h2>
+<p><strong>Expected behavior:</strong> The group wraps between complete tags without clipping individual labels.</p>
+
+<div class="c-test-frame c-tag-test-frame--narrow">
+  <div class="c-test-row">
+    <a class="c-tag" href="#tag-one">interaction design</a>
+    <a class="c-tag" href="#tag-two">open source</a>
+    <a class="c-tag" href="#tag-three">field notes</a>
+    <a class="c-tag" href="#tag-four">machine learning</a>
+  </div>
+</div>

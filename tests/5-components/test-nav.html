@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: test
 title: Component Navigation Test
-permalink: /tests/5-components/test-navigation/
+permalink: /tests/5-components/test-nav/
 robots: noindex
 ---
 {% comment %}
@@ -33,33 +33,13 @@ robots: noindex
     - [aria-current="page"]
   - The mobile menu panel shell is intentionally not tested here because it
     belongs to the separate mobile-menu component.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify responsive visibility behavior.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-navigation-test-box--narrow {
-      inline-size: min(100%, 22rem);
-    }
 
-  .c-navigation-test-box--mobile {
-      inline-size: min(100%, 28rem);
-    }
-
-  .c-navigation-test-box--toggle {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      inline-size: min(100%, 24rem);
-    }
-
-  .c-navigation-test-desktop-wrap {
-      inline-size: min(100%, 20rem);
-    }
-</style>
-
-<section class="l-section">
+<section>
   <p>
     This page verifies the functionality of the navigation classes defined in the <strong>5-components</strong> Sass
     layer.
@@ -80,7 +60,7 @@ robots: noindex
     <code>.u-list-reset</code>.
   </p>
 
-  <div class="c-navigation-test-frame">
+  <div class="c-nav-test-frame">
     <nav class="c-nav" aria-label="Test base navigation">
       <ul class="c-nav__list u-list-reset">
         <li class="c-nav__item">
@@ -113,8 +93,8 @@ robots: noindex
     <strong>hidden</strong>. At and above the layout breakpoint it should become <strong>visible</strong>.
   </p>
 
-  <div class="c-navigation-test-frame">
-    <div class="c-navigation-test-box">
+  <div class="c-nav-test-frame">
+    <div class="c-nav-test-box">
       <nav class="c-nav c-nav--desktop" aria-label="Test desktop navigation">
         <ul class="c-nav__list u-list-reset">
           <li class="c-nav__item">
@@ -133,7 +113,7 @@ robots: noindex
       </nav>
     </div>
 
-    <p class="c-navigation-test-note">Resize the browser width to confirm the desktop navigation visibility rule.</p>
+    <p class="c-nav-test-note">Resize the browser width to confirm the desktop navigation visibility rule.</p>
   </div>
 
   <hr>
@@ -150,7 +130,7 @@ robots: noindex
     or desktop-style navigation, they should also show a <strong>small circular marker</strong> near the bottom.
   </p>
 
-  <div class="c-navigation-test-frame">
+  <div class="c-nav-test-frame">
     <nav class="c-nav" aria-label="Test active states">
       <ul class="c-nav__list u-list-reset">
         <li class="c-nav__item">
@@ -185,8 +165,8 @@ robots: noindex
     appear on the same row if there is enough horizontal space.
   </p>
 
-  <div class="c-navigation-test-frame">
-    <div class="c-navigation-test-box c-navigation-test-desktop-wrap">
+  <div class="c-nav-test-frame">
+    <div class="c-nav-test-box c-nav-test-desktop-wrap">
       <nav class="c-nav c-nav--desktop" aria-label="Test desktop wrapping">
         <ul class="c-nav__list u-list-reset">
           <li class="c-nav__item">
@@ -221,8 +201,8 @@ robots: noindex
     render the circular marker used by the default or desktop style.
   </p>
 
-  <div class="c-navigation-test-frame">
-    <div class="c-navigation-test-box c-navigation-test-box--mobile">
+  <div class="c-nav-test-frame">
+    <div class="c-nav-test-box c-nav-test-box--mobile">
       <nav class="c-nav c-nav--mobile" aria-label="Test mobile navigation">
         <ul class="c-nav__list u-list-reset">
           <li class="c-nav__item">
@@ -257,8 +237,8 @@ robots: noindex
     <code>nowrap</code> to <code>normal</code>.
   </p>
 
-  <div class="c-navigation-test-frame">
-    <div class="c-navigation-test-box c-navigation-test-box--mobile">
+  <div class="c-nav-test-frame">
+    <div class="c-nav-test-box c-nav-test-box--mobile">
       <nav class="c-nav c-nav--mobile" aria-label="Test long labels mobile">
         <ul class="c-nav__list u-list-reset">
           <li class="c-nav__item">
@@ -287,7 +267,7 @@ robots: noindex
     <code>rel="noopener noreferrer"</code>.
   </p>
 
-  <div class="c-navigation-test-frame">
+  <div class="c-nav-test-frame">
     <nav class="c-nav" aria-label="Test external link navigation">
       <ul class="c-nav__list u-list-reset">
         <li class="c-nav__item">
@@ -324,8 +304,8 @@ robots: noindex
     become <strong>hidden</strong>.
   </p>
 
-  <div class="c-navigation-test-frame c-navigation-test-stack">
-    <div class="c-navigation-test-box c-navigation-test-box--toggle">
+  <div class="c-nav-test-frame c-nav-test-stack">
+    <div class="c-nav-test-box c-nav-test-box--toggle">
       <button
         class="c-nav-toggle c-icon-link"
         type="button"
@@ -340,10 +320,10 @@ robots: noindex
         </span>
       </button>
 
-      <p class="c-navigation-test-note">Collapsed state: <code>aria-expanded="false"</code></p>
+      <p class="c-nav-test-note">Collapsed state: <code>aria-expanded="false"</code></p>
     </div>
 
-    <div class="c-navigation-test-box c-navigation-test-box--toggle">
+    <div class="c-nav-test-box c-nav-test-box--toggle">
       <button
         class="c-nav-toggle c-icon-link"
         type="button"
@@ -358,7 +338,7 @@ robots: noindex
         </span>
       </button>
 
-      <p class="c-navigation-test-note">Expanded state: <code>aria-expanded="true"</code></p>
+      <p class="c-nav-test-note">Expanded state: <code>aria-expanded="true"</code></p>
     </div>
   </div>
 

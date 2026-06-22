@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Post Navigation Test
 permalink: /tests/5-components/test-post-navigation/
 robots: noindex
@@ -41,41 +41,14 @@ robots: noindex
     - previous card: media then content
     - next card: content then media
   - Media is optional.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify the two-column to one-column shift,
     card integrity, content shrink behavior, and media placement.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-post-nav-test-box--narrow {
-    inline-size: min(100%, 34rem);
-  }
 
-  .c-post-nav-test-box--tight {
-    inline-size: min(100%, 26rem);
-  }
-
-  .c-post-nav-test-empty {
-    padding: 1rem;
-    border: 1px dashed var(--color-outline-variant);
-    color: var(--color-on-surface-variant);
-    background: var(--color-surface);
-    font-style: italic;
-  }
-
-  .c-post-nav-test-kbd {
-    display: inline-block;
-    padding: 0.15rem 0.4rem;
-    border: 1px solid var(--color-outline-variant);
-    border-radius: 0.25rem;
-    background: var(--color-surface-container-low);
-    font-family: monospace;
-    font-size: 0.9em;
-  }
-</style>
-
-<section class="l-section">
+<section>
   <p>
     This page verifies the functionality of the post navigation classes defined in the
     <strong>5-components</strong> Sass layer.
@@ -98,12 +71,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 1">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/11.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/aurora-borealis.webp' | relative_url }}"
               alt="Preview image for previous post"
             >
           </div>
@@ -125,7 +98,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/15.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/church-at-buoirdwarfed.webp' | relative_url }}"
               alt="Preview image for next post"
             >
           </div>
@@ -150,12 +123,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 2">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/16.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/frozen-volcanic-ash.webp' | relative_url }}"
               alt="Preview image for previous-only post navigation card"
             >
           </div>
@@ -186,7 +159,7 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 3">
         <a class="c-post-nav__item c-post-nav__item--next" href="#">
           <div class="c-post-nav__content">
             <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
@@ -197,7 +170,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/19.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/geysir-iceland-2023-erupting-geyser-strokkur.webp' | relative_url }}"
               alt="Preview image for next-only post navigation card"
             >
           </div>
@@ -244,7 +217,7 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 4">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__content">
             <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
@@ -280,12 +253,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 5">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/20.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/iceland-glacier.webp' | relative_url }}"
               alt="Preview image for mixed-state previous post"
             >
           </div>
@@ -325,12 +298,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 6">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/23.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/iceland-vent.webp' | relative_url }}"
               alt="Preview image for long-title previous post"
             >
           </div>
@@ -358,7 +331,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/25.png' | relative_url }}"
+              src="{{ '/assets/images/posts/token-bucket-diagram.webp' | relative_url }}"
               alt="Preview image for long-title next post"
             >
           </div>
@@ -383,12 +356,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box c-post-nav-test-box--narrow">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 7">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/8.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/khane-amerian-eyvan-640.webp' | relative_url }}"
               alt="Preview image for narrow-width previous card"
             >
           </div>
@@ -410,7 +383,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/11.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/aurora-borealis.webp' | relative_url }}"
               alt="Preview image for narrow-width next card"
             >
           </div>
@@ -439,12 +412,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box c-post-nav-test-box--tight">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 8">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/15.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/church-at-buoirdwarfed.webp' | relative_url }}"
               alt="Preview image for tight-width navigation test"
             >
           </div>
@@ -475,12 +448,12 @@ robots: noindex
 
   <div class="c-post-nav-test-frame">
     <div class="c-post-nav-test-box">
-      <nav class="c-post-nav" aria-label="Post navigation">
+      <nav class="c-post-nav" aria-label="Post navigation example 9">
         <a class="c-post-nav__item c-post-nav__item--prev" href="#focus-test-prev">
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/19.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/geysir-iceland-2023-erupting-geyser-strokkur.webp' | relative_url }}"
               alt="Preview image for interaction test previous card"
             >
           </div>
@@ -502,7 +475,7 @@ robots: noindex
           <div class="c-post-nav__media">
             <img
               loading="lazy"
-              src="{{ '/assets/images/posts/20.jpg' | relative_url }}"
+              src="{{ '/assets/images/posts/iceland-glacier.webp' | relative_url }}"
               alt="Preview image for interaction test next card"
             >
           </div>

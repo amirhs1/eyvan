@@ -1,8 +1,9 @@
 ---
-layout: default
+layout: test
 title: Object Site Header Test
 permalink: /tests/4-objects/site-header/
 robots: noindex
+test_full_width: true
 ---
 {% comment %}
   Object Site Header Test Page
@@ -24,17 +25,14 @@ robots: noindex
     - .o-site-header__theme
     - .o-site-header__actions
     - .o-site-header__mobile-controls
-  - Helper styling is provided by 7-trumps/_tests.scss
-  - This page intentionally uses the default layout so the header object can be
-    viewed without the page component wrapper.
+  - Helper styling is provided by the shared development-only test stylesheet
+  - The neutral test layout keeps the header object outside the page component.
   - Resize the browser window to verify breakpoint behavior.
   - This page is intended for development testing only.
 {% endcomment %}
 
 <div class="o-container">
-  <section aria-labelledby="test-site-header-title">
-    <h1 id="test-site-header-title">Object Site Header Test</h1>
-
+  <section aria-labelledby="test-page-title">
     <p>
       This page verifies the functionality of the <code>.o-site-header</code> object and its structural child zones
       defined in the <strong>4-objects</strong> Sass layer. The desktop theme zone is nested inside the flexible

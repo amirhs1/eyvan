@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Post Test
 permalink: /tests/5-components/test-post/
 robots: noindex
@@ -41,7 +41,7 @@ robots: noindex
   - Shared share-control visuals belong to the separate post-share component.
   - Tag cosmetics are not owned by this file; this test checks only contextual
     grouping and capitalization behavior.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify responsive header-row stacking.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -66,7 +66,7 @@ robots: noindex
       <div class="c-post-cover__media">
         <img
           class="c-post-cover__image"
-          src="{{ '/assets/images/posts/25.png' | relative_url }}"
+          src="{{ '/assets/images/posts/token-bucket-diagram.webp' | relative_url }}"
           alt="Test post cover image"
         >
       </div>
@@ -160,7 +160,7 @@ robots: noindex
               <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                 <img
                   class="c-entry-meta__avatar"
-                  src="{{ '/assets/images/avatar.jpg' | relative_url }}"
+                  src="{{ '/assets/images/avatar.webp' | relative_url }}"
                   alt="Author avatar"
                 >
               </a>
@@ -234,7 +234,7 @@ robots: noindex
               <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                 <img
                   class="c-entry-meta__avatar"
-                  src="{{ '/assets/images/avatar.jpg' | relative_url }}"
+                  src="{{ '/assets/images/avatar.webp' | relative_url }}"
                   alt="Author avatar"
                 >
               </a>
@@ -297,7 +297,7 @@ robots: noindex
               <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                 <img
                   class="c-entry-meta__avatar"
-                  src="{{ '/assets/images/avatar.jpg' | relative_url }}"
+                  src="{{ '/assets/images/avatar.webp' | relative_url }}"
                   alt="Author avatar"
                 >
               </a>
@@ -345,7 +345,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-post-test-frame">
-    <div class="c-test-box c-post-test-box" style="max-inline-size: 38rem;">
+    <div class="c-test-box c-post-test-box c-post-test-box--narrow">
       <article class="c-post">
         <header class="c-post__header">
           <h1 class="c-post__title">
@@ -367,7 +367,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-post-test-frame">
-    <div class="c-test-box c-post-test-box" style="max-inline-size: 38rem;">
+    <div class="c-test-box c-post-test-box c-post-test-box--narrow">
       <article class="c-post">
         <header class="c-post__header">
           <h1 class="c-post__title">Responsive Header Row Example</h1>
@@ -379,7 +379,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/assets/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>

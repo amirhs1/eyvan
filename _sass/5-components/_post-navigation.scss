@@ -76,6 +76,9 @@ $post-nav-content-gap: settings-spacing.$space-2;
    ----------------------------------------------------------------------------- */
 
 .c-post-nav__item {
+  position: relative;
+  isolation: isolate;
+
   display: grid;
   align-items: center;
   min-inline-size: 0;
@@ -87,16 +90,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
   border: settings-config.$card-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
 
-  background:
-    linear-gradient(
-      90deg,
-      var(--color-primary) 0%,
-      color-mix(
-        in srgb,
-        var(--color-primary) 72%,
-        var(--color-surface-container-low)
-      ) 167%
-    );
+  background-color: var(--color-primary);
   box-shadow: var(--elevation-rest);
 
   color: var(--color-button-text);
@@ -120,6 +114,24 @@ $post-nav-content-gap: settings-spacing.$space-2;
     border-color: var(--color-primary);
     @include tools-mixins.focus-ring;
   }
+}
+
+.c-post-nav__item::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background-image: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    color-mix(
+      in srgb,
+      var(--color-primary) 72%,
+      var(--color-surface-container-low)
+    ) 167%
+  );
+
+  content: "";
 }
 
 /* -----------------------------------------------------------------------------
@@ -193,7 +205,6 @@ $post-nav-content-gap: settings-spacing.$space-2;
 .c-post-nav__label {
   display: inline-block;
   margin: 0 0 $post-nav-label-margin-block-end;
-  opacity: 0.78;
 
   color: inherit;
   font-family: settings-typography.$font-family-display;

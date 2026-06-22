@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Entry Meta Test
 permalink: /tests/5-components/test-entry-meta/
 robots: noindex
@@ -30,7 +30,7 @@ robots: noindex
     - .c-entry-meta__date
     - .c-entry-meta__read-time
     - .c-entry-meta__icon
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify narrow-screen alignment behavior.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -45,10 +45,10 @@ robots: noindex
 <h2>Base entry-meta structure</h2>
 <p><strong>Expected behavior:</strong> The component should render as a horizontal row with a circular avatar and a stacked content area.</p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:52rem;">
+  <div class="c-test-box c-entry-meta-test-box--wide">
     <div class="c-entry-meta">
       <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.webp' | relative_url }}" alt="Author avatar">
       </a>
       <div class="c-entry-meta__content">
         <p class="c-entry-meta__author-name">Iwan van der Drift</p>
@@ -69,10 +69,10 @@ robots: noindex
 <h2>Author-name truncation behavior</h2>
 <p><strong>Expected behavior:</strong> The author name should stay on a single line and truncate with ellipsis when space becomes tight.</p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:18rem;">
+  <div class="c-test-box c-entry-meta-test-box--narrow">
     <div class="c-entry-meta">
       <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.webp' | relative_url }}" alt="Author avatar">
       </a>
       <div class="c-entry-meta__content">
         <p class="c-entry-meta__author-name">Dr. Iwan van der Drift with an Intentionally Very Long Author Name for Overflow Testing</p>
@@ -93,10 +93,10 @@ robots: noindex
 <h2>Details row layout</h2>
 <p><strong>Expected behavior:</strong> The details row should render as a muted inline flex row with consistent spacing between the date and read-time group.</p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:52rem;">
+  <div class="c-test-box c-entry-meta-test-box--wide">
     <div class="c-entry-meta">
       <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.webp' | relative_url }}" alt="Author avatar">
       </a>
       <div class="c-entry-meta__content">
         <p class="c-entry-meta__author-name">Details row test</p>
@@ -117,11 +117,11 @@ robots: noindex
 <h2>Read-time icon alignment</h2>
 <p><strong>Expected behavior:</strong> The timer icon should remain visually centered next to the read-time text.</p>
 <div class="c-test-frame">
-  <div style="display:grid;gap:1rem;">
-    <div class="c-test-box" style="max-inline-size:52rem;">
+  <div class="c-test-stack">
+    <div class="c-test-box c-entry-meta-test-box--wide">
       <div class="c-entry-meta">
         <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+          <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.webp' | relative_url }}" alt="Author avatar">
         </a>
         <div class="c-entry-meta__content">
           <p class="c-entry-meta__author-name">Short read-time label</p>
@@ -136,10 +136,10 @@ robots: noindex
       </div>
     </div>
 
-    <div class="c-test-box" style="max-inline-size:52rem;">
+    <div class="c-test-box c-entry-meta-test-box--wide">
       <div class="c-entry-meta">
         <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-          <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+          <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.webp' | relative_url }}" alt="Author avatar">
         </a>
         <div class="c-entry-meta__content">
           <p class="c-entry-meta__author-name">Long read-time label</p>
@@ -161,10 +161,10 @@ robots: noindex
 <h2>Narrow-width responsive behavior</h2>
 <p><strong>Expected behavior:</strong> Below <code>48rem</code>, the root component should align to the top rather than vertically centering.</p>
 <div class="c-test-frame">
-  <div class="c-test-box" style="max-inline-size:18rem;">
+  <div class="c-test-box c-entry-meta-test-box--narrow">
     <div class="c-entry-meta">
       <a class="c-entry-meta__author" href="#" aria-label="View author profile">
-        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Author avatar">
+        <img class="c-entry-meta__avatar" src="{{ '/assets/images/avatar.webp' | relative_url }}" alt="Author avatar">
       </a>
       <div class="c-entry-meta__content">
         <p class="c-entry-meta__author-name">Responsive alignment behavior in a narrow container</p>

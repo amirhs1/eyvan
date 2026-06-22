@@ -11,6 +11,7 @@
   - Favicons and web app manifest
   - Browser theme colours
   - Main stylesheet
+  - Development-only visual-test stylesheet when layout: test is active
   - Optional Google Analytics
 
   Architecture:
@@ -144,6 +145,11 @@
 
   <!-- Main compiled CSS bundle -->
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+
+  {% if page.layout == 'test' %}
+  <!-- Development-only visual test helpers -->
+  <link rel="stylesheet" href="{{ 'tests/assets/css/tests.css' | relative_url }}">
+  {% endif %}
 
   <!-- Google Analytics integration (optional) -->
   {% assign google_analytics_id = site.google_analytics | default: '' | strip %}

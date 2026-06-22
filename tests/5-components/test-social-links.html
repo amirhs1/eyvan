@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Social Links Test
 permalink: /tests/5-components/test-social-links/
 robots: noindex
@@ -30,36 +30,12 @@ robots: noindex
     - .c-social-links__icon--text
   - The clickable control primitive .c-icon-link and .c-icon-link__icon is a
     dependency used by this component, not the primary subject of this test.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify responsive behavior of the mobile
     modifier.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-social-links-test-stack {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .c-social-links-test-box--narrow {
-    inline-size: min(100%, 14rem);
-  }
-
-  .c-social-links-test-box--mobile {
-    inline-size: min(100%, 24rem);
-  }
-
-  .c-social-links-test-box--footer {
-    inline-size: min(100%, 30rem);
-  }
-
-  .c-social-links-test-dark {
-    border-color: var(--color-ui-border-subtle);
-    background: var(--color-surface);
-    color: var(--color-on-surface);
-  }
-</style>
 
 <p>This page verifies the <code>.c-social-links</code> component defined in the <strong>5-components</strong> layer.</p>
 

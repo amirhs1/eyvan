@@ -1,8 +1,9 @@
 ---
-layout: default
+layout: test
 title: Object Prose Test
 permalink: /tests/4-objects/test-prose/
 robots: noindex
+test_full_width: true
 ---
 {% comment %}
   Object Prose Test Page
@@ -24,18 +25,16 @@ robots: noindex
     - .o-prose--measure-base
     - .o-prose--measure-wide
     - Headings, paragraphs, lists, links, and pre inside .o-prose
-  - Helper styling is provided by 7-trumps/_tests.scss
-  - This page intentionally uses the default layout instead of the page layout
-    so the page shell does not add an outer .o-prose wrapper.
+  - Helper styling is provided by the shared development-only test stylesheet
+  - This page uses the neutral test layout so the page shell does not add an
+    outer .o-prose wrapper.
   - The outer container is used only as page-shell containment for reading the test.
   - Decorative colors are not under test here.
   - This page is intended for development testing only.
 {% endcomment %}
 
 <div class="o-container">
-  <section aria-labelledby="test-prose-title">
-    <h1 id="test-prose-title">Object Prose Test</h1>
-
+  <section aria-labelledby="test-page-title">
     <p>
       This page verifies the functionality of the prose object classes defined in the
       <strong>4-objects</strong> Sass layer.
@@ -243,7 +242,7 @@ robots: noindex
 
     <div class="c-prose-test-frame">
       <article class="o-prose o-prose--measure-wide">
-        <pre class="c-prose-test-pre">const intentionallyLongLine = 'This line is intentionally long so you can verify that preformatted content scrolls horizontally inside the prose object instead of overflowing the page shell.';</pre>
+        <pre class="c-prose-test-pre" tabindex="0">const intentionallyLongLine = 'This line is intentionally long so you can verify that preformatted content scrolls horizontally inside the prose object instead of overflowing the page shell.';</pre>
       </article>
     </div>
 

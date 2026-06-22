@@ -1,8 +1,9 @@
 ---
-layout: page
+layout: test
 title: Object Container Test
 permalink: /tests/4-objects/container/
 robots: noindex
+test_full_width: true
 ---
 
 {% comment %}
@@ -11,8 +12,8 @@ robots: noindex
   and behaves correctly across the site.
 
   Updated for:
-  - page.html layout ownership of the page-level container
-  - shared 7-trumps/_tests.scss helpers
+  - neutral test-layout rendering without a page-level container
+  - shared development-only test helpers
   - current _container.scss behavior:
     - centered max-width wrapper
     - fluid inline gutters
@@ -20,38 +21,11 @@ robots: noindex
     - wider gutter at the wide breakpoint
 
   Notes:
-  - Do not add a page-level o-container here because page.html already provides it.
-  - Shared helper surfaces come from 7-trumps/_tests.scss.
-  - Small page-local helpers remain only where needed for demo structure.
+  - This is the only harness that opts out of test-layout containment so it can
+    exercise viewport-level container behavior without nesting contamination.
+  - Shared helper surfaces come from the development-only test stylesheet.
 {% endcomment %}
 
-<style>
-  .c-container-test-measure {
-    min-height: 4rem;
-  }
-
-  .c-container-test-grid {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .c-container-test-viewport-edge {
-    padding-block: 0.5rem;
-    opacity: 0.8;
-  }
-
-  .c-container-test-full-width-section {
-    padding-block: 1.5rem;
-    border-block: 1px solid currentColor;
-    opacity: 0.95;
-  }
-
-  @media (min-width: 48rem) {
-    .c-container-test-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-</style>
 
 <p>
   This page verifies the functionality of the <code>.o-container</code> object and the
@@ -59,8 +33,7 @@ robots: noindex
 </p>
 
 <p class="c-test-note">
-  Development note: helper surfaces on this page come from the shared
-  test helpers in <code>7-trumps/_tests.scss</code>.
+  Development note: helper surfaces come from the shared development-only test stylesheet.
 </p>
 
 <hr>

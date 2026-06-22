@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Related Posts Test
 permalink: /tests/5-components/test-related-posts/
 robots: noindex
@@ -27,7 +27,7 @@ robots: noindex
   - Card visuals belong to the separate post-card component.
   - Conditional rendering in the real include is handled by Liquid and is
     documented here, but cannot be fully demonstrated in static test markup.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify responsive spacing changes.
   - This page is intended for development testing only.
 {% endcomment %}
@@ -139,11 +139,11 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
-    <div class="c-test-box c-related-posts-test-box" style="max-inline-size: 26rem;">
+    <div class="c-test-box c-related-posts-test-box c-related-posts-test-box--narrow">
       <section class="c-related-posts" aria-labelledby="test-related-posts-title-narrow">
         <div class="o-container">
           <header class="c-related-posts__header">
-            <h2 class="c-related-posts__title" id="test-related-posts-title-narrow">You may also like</h2>
+            <h2 class="c-related-posts__title" id="test-related-posts-title-narrow">You may also like, narrow preview</h2>
           </header>
 
           <div class="o-grid">
@@ -172,7 +172,7 @@ robots: noindex
   </p>
 
   <div class="c-test-frame c-related-posts-test-frame">
-    <div style="display: grid; gap: 1rem;">
+    <div class="c-test-stack">
       <section class="c-related-posts" aria-labelledby="test-related-posts-title-a">
         <div class="o-container">
           <header class="c-related-posts__header">

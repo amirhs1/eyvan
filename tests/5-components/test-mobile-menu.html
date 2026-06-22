@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Mobile Menu Test
 permalink: /tests/5-components/test-mobile-menu/
 robots: noindex
@@ -38,99 +38,14 @@ robots: noindex
     - .c-nav__link
   - Theme-toggle cosmetics are delegated to the shared theme-toggle component.
   - Social-link cosmetics are delegated to the shared social-links component.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - Resize the browser window to verify that the component is intended only
     for mobile/tablet contexts and should not appear at the layout breakpoint up.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-mobile-menu-test-stack {
-      display: grid;
-      gap: 1rem;
-    }
 
-  .c-mobile-menu-test-box--overlay {
-      position: relative;
-      min-block-size: 44rem;
-      overflow: hidden;
-    }
-
-  .c-mobile-menu-test-box--short {
-      min-block-size: 32rem;
-    }
-
-  .c-mobile-menu-test-box--tall {
-      min-block-size: 48rem;
-    }
-
-  .c-mobile-menu-test-spacer {
-      min-block-size: 18rem;
-      padding: 0.75rem;
-      border: 1px dashed var(--color-outline-variant);
-      background: repeating-linear-gradient(
-        to bottom,
-        var(--color-surface-container-high),
-        var(--color-surface-container-high) 1.25rem,
-        #f0f0f0 1.25rem,
-        #f0f0f0 2.5rem
-      );
-    }
-
-  .c-mobile-menu-test-hidden-preview {
-      padding: 0.75rem;
-      border: 1px dashed var(--color-outline-variant);
-      background: var(--color-surface);
-    }
-
-  .c-mobile-menu-test-box .c-mobile-menu {
-      position: absolute;
-      inset: 0;
-    }
-
-  .c-mobile-menu-test-box .c-mobile-menu[hidden] {
-      display: none !important;
-    }
-
-  .c-mobile-menu-test-close-state-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-    }
-
-  .c-mobile-menu-test-close-demo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--color-outline-variant);
-      background: var(--color-surface-container-low);
-    }
-
-  .c-mobile-menu-test-close-demo--hover .c-mobile-menu__close,
-    .c-mobile-menu-test-close-demo--focus .c-mobile-menu__close {
-      border-color: var(--color-primary);
-      background-color: var(--color-surface-container-high);
-      color: var(--color-primary);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
-    }
-
-  .c-mobile-menu-test-close-demo--active .c-mobile-menu__close {
-      transform: translateY(1px);
-      border-color: var(--color-primary);
-      background-color: var(--color-surface-container-high);
-      color: var(--color-primary);
-    }
-
-  .c-mobile-menu-test-svg-icon {
-      inline-size: 100%;
-      block-size: 100%;
-      display: block;
-    }
-</style>
-
-<section class="l-section">
+<section>
   <p>
     This page verifies the functionality of the mobile-menu classes defined in
     the <strong>5-components</strong> Sass layer. The overlay examples below

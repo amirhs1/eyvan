@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Object Grid Test
 permalink: /tests/4-objects/grid/
 robots: noindex
@@ -13,8 +13,8 @@ robots: noindex
   and behaves correctly using CSS Grid.
 
   Updated for:
-  - page.html layout ownership of the page-level container
-  - shared 7-trumps/_tests.scss helpers
+  - neutral containment supplied by the dedicated test layout
+  - shared development-only test helpers
   - current _grid.scss behavior:
     - 12-column CSS Grid
     - default full-width items
@@ -24,12 +24,6 @@ robots: noindex
     - compact and spacious gap modifiers
 {% endcomment %}
 
-<style>
-  .c-grid-test-nested {
-    display: grid;
-    gap: 0.75rem;
-  }
-</style>
 
 <p>
   This page verifies the behavior of the <code>.o-grid</code> object,
@@ -37,7 +31,7 @@ robots: noindex
 </p>
 
 <p class="c-test-note">
-  Shared helper surfaces come from <code>7-trumps/_tests.scss</code>.
+  Shared helper surfaces come from the development-only test stylesheet.
 </p>
 
 <hr>

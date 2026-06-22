@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: test
 title: Component Post Card Test
 permalink: /tests/5-components/test-post-card/
 robots: noindex
@@ -40,46 +40,12 @@ robots: noindex
   - Shared metadata presentation inside .c-post-card__meta is represented with
     the real .c-entry-meta structure where helpful, because detailed metadata
     styling belongs to the separate entry-meta component.
-  - Helper styles below are temporary and exist only for testing.
+  - Fixture styles are provided by the shared development-only test stylesheet.
   - This page is intended for development testing only.
 {% endcomment %}
 
-<style>
-  .c-post-card-test-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  }
 
-  .c-post-card-test-grid--two-up {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .c-post-card-test-box--narrow {
-    inline-size: min(100%, 18rem);
-  }
-
-  .c-post-card-test-placeholder-image {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-    min-block-size: 12rem;
-    object-fit: cover;
-    background: linear-gradient(135deg, #dfe7ff 0%, #c8f1ec 100%);
-  }
-
-  .c-post-card-test-long-text {
-    max-inline-size: 60ch;
-  }
-
-  @media (max-width: 48rem) {
-    .c-post-card-test-grid--two-up {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
-<section class="l-section">
+<section>
   <p>
     This page verifies the functionality of the post-card classes defined in the <strong>5-components</strong> Sass
     layer.
@@ -133,7 +99,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -207,7 +173,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -275,7 +241,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -337,7 +303,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -399,7 +365,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -459,7 +425,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -512,7 +478,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -567,7 +533,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -618,7 +584,7 @@ robots: noindex
                   <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                     <img
                       class="c-entry-meta__avatar"
-                      src="{{ '/images/avatar.jpg' | relative_url }}"
+                      src="{{ '/assets/images/avatar.webp' | relative_url }}"
                       alt="Author avatar"
                     >
                   </a>
@@ -662,7 +628,7 @@ robots: noindex
                   <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                     <img
                       class="c-entry-meta__avatar"
-                      src="{{ '/images/avatar.jpg' | relative_url }}"
+                      src="{{ '/assets/images/avatar.webp' | relative_url }}"
                       alt="Author avatar"
                     >
                   </a>
@@ -724,7 +690,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -773,7 +739,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>
@@ -814,7 +780,7 @@ robots: noindex
                 <a class="c-entry-meta__author" href="#" aria-label="View author profile">
                   <img
                     class="c-entry-meta__avatar"
-                    src="{{ '/images/avatar.jpg' | relative_url }}"
+                    src="{{ '/assets/images/avatar.webp' | relative_url }}"
                     alt="Author avatar"
                   >
                 </a>

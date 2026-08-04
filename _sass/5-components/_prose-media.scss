@@ -7,6 +7,23 @@
 // including images, image grids, videos, audio, captions, table captions,
 // prose tables, and cross-references.
 //
+// Structure:
+// - .c-prose-figure
+//   - .c-prose-figure--cols-1 / --cols-2 / --cols-3 / --cols-4
+//   - .c-prose-figure--ratio-1-1 / --ratio-4-3 / --ratio-16-9 / --ratio-cinema
+//   - .c-prose-figure__grid
+//     - .c-prose-figure__frame
+//       - .c-prose-figure__asset
+//       - .c-prose-figure__embed
+//       - .c-prose-figure__video
+//       - .c-prose-figure__audio
+// - .c-prose-caption
+//   - .c-prose-caption--figure
+//   - .c-prose-caption--table
+//   - .c-prose-caption--table-block
+// - .c-prose-table
+// - .c-prose-xref
+//
 // Scope:
 // - Figures rendered by _includes/figure.html
 // - Videos rendered by _includes/video.html

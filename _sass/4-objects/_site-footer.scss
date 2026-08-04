@@ -7,6 +7,12 @@
 // Arranges the brand, meta, and actions regions without applying cosmetic
 // component styling.
 //
+// Structure:
+// - .o-site-footer
+//   - .o-site-footer__brand
+//   - .o-site-footer__meta
+//   - .o-site-footer__actions
+//
 // Scope & Rules:
 // - Layout only
 // - No colors, borders, shadows, or typography

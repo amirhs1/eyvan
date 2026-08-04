@@ -11,7 +11,8 @@
 // - No branded decisions
 //
 // Notes:
-// - Use 5-components/_tables.scss (.c-table) for styled tables.
+// - Use 5-components/_prose-media.scss (.c-prose-table) for styled tables.
+//   Apply it to a Markdown table with {: .c-prose-table }.
 // -----------------------------------------------------------------------------
 
 table {

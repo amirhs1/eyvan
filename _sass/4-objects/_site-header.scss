@@ -9,6 +9,14 @@
 // and mobile controls without applying
 // cosmetic component styling.
 //
+// Structure:
+// - .o-site-header
+//   - .o-site-header__brand
+//   - .o-site-header__nav
+//   - .o-site-header__actions
+//   - .o-site-header__theme
+//   - .o-site-header__mobile-controls
+//
 // Scope & Rules:
 // - Layout only
 // - No colors, borders, shadows, or typography

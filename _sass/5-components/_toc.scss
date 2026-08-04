@@ -6,6 +6,26 @@
 // Visual styling of .c-toc, sticky behavior of .c-post-layout__aside, and the
 // mobile/tablet toolbar and full-screen overlay presentations.
 //
+// Structure:
+// - .c-post-layout__aside (sticky column shell; grid owned by _post.scss)
+//   - .c-toc
+//     - .c-toc__header
+//       - .c-toc__header-text
+//     - .c-toc__menu
+//       - .c-toc__item
+//         - .c-toc__link
+// - .c-toc-toolbar (mobile/tablet)
+//   - .c-toc-toolbar__button
+//   - .c-toc-toolbar__share
+// - .c-mobile-toc (full-screen overlay)
+//   - .c-mobile-toc__inner
+//     - .c-mobile-toc__header
+//       - .c-mobile-toc__top
+//       - .c-mobile-toc__close (composes .c-icon-link)
+//         - .c-mobile-toc__close-icon
+//     - .c-mobile-toc__nav
+//       - .c-mobile-toc__menu
+//
 // Notes:
 // - The desktop post grid is owned by _post.scss.
 // - The desktop TOC column sizing is owned by _post.scss.

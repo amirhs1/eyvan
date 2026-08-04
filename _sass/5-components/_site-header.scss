@@ -7,6 +7,10 @@
 // This file owns only the outer header chrome: background, border, elevation,
 // sticky behavior, and shell-level state transitions.
 //
+// Structure:
+// - .c-site-header
+//   Inner regions are owned by 4-objects/_site-header.scss (.o-site-header__*).
+//
 // Scope & Rules:
 // - Component shell only
 // - No layout responsibilities already owned by .o-site-header

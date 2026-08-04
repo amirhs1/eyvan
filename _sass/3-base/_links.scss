@@ -15,9 +15,11 @@
 // - Component-specific link styling belongs in 5-components.
 // - Theme-aware colors are consumed via global CSS custom properties defined
 //   in 3-base/_base.scss.
+// - Focus styling uses the shared 1-tools/_mixins.scss focus-ring mixin, so the
+//   ring stays in sync with every other focusable control in the system.
 // -----------------------------------------------------------------------------
 
-@use "../0-settings/config" as settings-config;
+@use "../1-tools/mixins" as tools-mixins;
 
 a {
   color: var(--color-link);
@@ -29,6 +31,5 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: settings-config.$focus-ring-width solid var(--color-link);
-  outline-offset: settings-config.$focus-ring-offset;
+  @include tools-mixins.focus-ring;
 }

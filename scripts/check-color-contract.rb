@@ -23,6 +23,12 @@
 #      from the token values. This deterministically catches punctuation-only
 #      operator tokens (base0c) that axe can miss on code-heavy pages.
 #
+#   4. Documented-token definedness (audit R4)
+#      The theming guide publishes the palette as a public API, so prose can
+#      rot the same way code can. Every --color-* named in the shipped docs
+#      must still be emitted by _base.scss. CHANGELOG.md is exempt: release
+#      notes legitimately name retired tokens when recording their removal.
+#
 # Usage:  ruby scripts/check-color-contract.rb [--root DIR]
 # Exit 0 and prints "Color contract policy passed" when clean; otherwise prints
 # each violation to stderr and exits 1.
@@ -58,6 +64,16 @@ USE_GLOBS = [
   "_layouts/**/*.html",
   "assets/js/**/*.js"
 ].freeze
+
+# Shipped prose that documents the palette as a public API.
+DOC_GLOBS = [
+  "_posts/**/*.md",
+  "*.md"
+].freeze
+
+# Release notes name retired tokens on purpose, to record that they were
+# removed. Exempting the changelog keeps that history writable.
+DOC_EXEMPT = ["CHANGELOG.md"].freeze
 
 # Retired brand hexes that must never reappear (teal/turquoise pre-aubergine).
 RETIRED_HEXES = ["#00796B", "#3FE0D0"].freeze
@@ -129,6 +145,7 @@ end
 # ----- check 1: custom-property definedness (R8.1) ---------------------------
 
 base_text = read(BASE)
+defined = Set.new
 if base_text.nil?
   errors << "definedness: missing #{BASE.relative_path_from(ROOT)}"
 else
@@ -308,6 +325,34 @@ SYNTAX_AGAINST_BASE00 = {
     check.call("on-#{fam}-container", "#{fam}-container", 4.5, "#{fam}-container")
   end
   SYNTAX_AGAINST_BASE00.each { |fg, minimum| check.call(fg, "base00", minimum, "base00") }
+end
+
+# ----- check 4: documented-token definedness (R4) ----------------------------
+
+# The theming guide lists the palette so template users can build with it. A
+# token renamed in the styles would leave the prose pointing at a property that
+# no longer exists, and nothing else would catch it.
+unless defined.empty?
+  documented = Hash.new { |hash, key| hash[key] = Set.new }
+
+  DOC_GLOBS.each do |glob|
+    Dir.glob(ROOT.join(glob)).sort.each do |file|
+      path = Pathname(file)
+      relative = path.relative_path_from(ROOT).to_s
+      next if DOC_EXEMPT.include?(relative)
+
+      path.read(encoding: "UTF-8").scan(/--color-[a-z0-9-]+/i) do |token|
+        documented[relative] << token
+      end
+    end
+  end
+
+  documented.each do |relative, tokens|
+    missing = (tokens - defined).sort
+    next if missing.empty?
+
+    errors << "documented tokens: #{relative} names undefined custom properties: #{missing.join(', ')}"
+  end
 end
 
 # ----- report ----------------------------------------------------------------

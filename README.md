@@ -117,7 +117,7 @@ The current `_config.yml` uses `baseurl: "/eyvan"`. If you change `baseurl` to a
 Most customization is intentionally kept in one site configuration file and a
 small set of YAML data files:
 
-- `_config.yml` controls site metadata, `url`, `baseurl`, permalink format, plugins, Sass output, global reading time, analytics, and defaults.
+- `_config.yml` controls site metadata, `url`, `baseurl`, permalink format, plugins, Sass output, global reading time, analytics, defaults, and the `dev_only` flag that reveals the [component gallery](#component-gallery).
 - `_data/author.yml` controls the displayed name, role, location, avatar, biography, and contact fields.
 - `_data/hero.yml` controls the homepage hero copy, image, and call-to-action links.
 - `_data/navigation.yml` controls header and mobile navigation links.
@@ -171,6 +171,32 @@ Eyvan includes Liquid helpers for common long-form content patterns:
 - `ref.html` for cross-references to numbered figures and tables
 
 Use `crossrefs: true` in front matter when a post uses `ref.html`. Individual figures, videos, audio blocks, and table captions are numbered by default; pass `numbered="false"` to exclude an item. Covers and figures accept optional responsive `srcset`/`sizes` variants, which Eyvan rewrites through `relative_url` to stay baseurl-safe. See *Front Matter Field Reference* for the full include options.
+
+## Component Gallery
+
+Eyvan ships a component gallery covering every component and object in
+`_sass/`: 24 pages under `tests/5-components/`, 6 under `tests/4-objects/`,
+plus `test-3-base.html` and `test-7-trumps.html` for the base and utility
+layers. Each page exercises a component's variants and states side by side —
+including surfaces you will not see on the demo content, such as
+`c-button--large`, `c-brand--compact`, `o-grid--compact`, and the
+`c-prose-figure` column and ratio modifiers.
+
+The gallery is **hidden by default**, since it is a development surface rather
+than part of your published site. To browse it locally, set `dev_only` in
+`_config.yml`:
+
+```yaml
+dev_only: true
+```
+
+That adds the `/tests/` pages to the build, shows the `Tests` entry in the
+navigation, and enables the `dev-debug` window. Restart the server, then open
+`/tests/`. Set it back to `false` before deploying so the gallery stays out of
+your published site.
+
+Use the gallery as the reference when extending the styles: it is the fastest
+way to see which modifiers already exist before adding a new one.
 
 ## Deployment
 

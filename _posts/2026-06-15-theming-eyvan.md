@@ -118,6 +118,120 @@ blocks.
 > hand-pick colors instead of using a generated accessible scheme, run the check
 > locally and fix any contrast failures before you push.
 
+## Using the palette in your own components
+
+The section above is about *changing* the colors. This one is about *using*
+them: you are adding a component of your own and you want it to work in both
+themes without hardcoding a hex.
+
+The mode files are the source, but components never read them directly.
+`_sass/3-base/_base.scss` compiles both modes into CSS custom properties on
+`:root` and swaps the whole set when the theme changes. Read a token with
+`var()` and your component follows light and dark for free:
+
+```scss
+.c-callout {
+  background-color: var(--color-info-container);
+  color: var(--color-on-info-container);
+  border-inline-start: 4px solid var(--color-info);
+}
+```
+
+Eyvan's own components use roughly half the palette. The rest is emitted on
+purpose: it completes the Material 3 role set, so a full re-theme has a home
+for every role the Theme Builder exports, and so you have accessible,
+theme-aware choices ready for the things the template does not ship.
+
+### The four-role pattern
+
+Most of the palette arrives in groups of four. Learning the shape is worth more
+than memorizing the names, because it repeats for every family:
+
+| Role | Use for |
+| --- | --- |
+| `X` | A filled, high-emphasis surface: a solid button, a status dot |
+| `on-X` | Text and icons placed **on** `X` |
+| `X-container` | A soft, low-emphasis fill: a callout background, a chip |
+| `on-X-container` | Text and icons placed **on** `X-container` |
+{: .c-prose-table }
+
+Each role becomes a custom property with the `--color-` prefix, so the
+`warning` family gives you `--color-warning`, `--color-on-warning`,
+`--color-warning-container`, and `--color-on-warning-container`.
+
+> **Warning:** Pair them only as shown — `on-X` on `X`, and `on-X-container` on
+> `X-container`. Those are the pairs that ship at WCAG AA or better and that
+> `scripts/check-color-contract.rb` verifies on every PR. Crossing the groups,
+> such as `on-X` on `X-container`, is the one combination nothing guarantees.
+
+Seven families follow the pattern:
+
+| Family | Use for |
+| --- | --- |
+| `primary` | The brand accent: links, buttons, tags, focus rings |
+| `secondary` | An independent accent, never a tonal step of primary |
+| `tertiary` | A second independent accent, for charts or categories |
+| `error` | Destructive actions and validation failures |
+| `warning` | Cautions that do not block |
+| `info` | Neutral notices |
+| `success` | Confirmations and passing states |
+{: .c-prose-table }
+
+`error`, `warning`, `info`, and `success` form a complete status system that
+Eyvan does not currently render anywhere. It is there for you to build on.
+
+### Surfaces, text, and borders
+
+Backgrounds come as a ladder, from the plain canvas up to the surface used
+behind overlays:
+
+| Token | Use for |
+| --- | --- |
+| `--color-surface` | The page canvas |
+| `--color-surface-container-lowest` | The flattest step; the code canvas in dark mode |
+| `--color-surface-container-low` | Resting surfaces: cards, footer, TOC, code blocks |
+| `--color-surface-container` | A middle step between resting and elevated |
+| `--color-surface-container-high` | Elevated surfaces: raised cards, menus, entry meta |
+| `--color-surface-container-highest` | Overlay surfaces: modal panels, full-screen TOCs |
+| `--color-surface-dim` | The dim end of the ladder |
+| `--color-surface-bright` | The bright end of the ladder |
+| `--color-surface-variant` | A tinted alternative to the plain canvas |
+{: .c-prose-table }
+
+The text and border roles that sit on those surfaces:
+
+| Token | Use for |
+| --- | --- |
+| `--color-on-surface` | Primary body text and the default foreground |
+| `--color-on-surface-variant` | Secondary and muted text |
+| `--color-outline-variant` | Default borders and dividers |
+| `--color-outline` | A stronger boundary when the subtle one is too faint |
+{: .c-prose-table }
+
+For a high-contrast inversion — a tooltip or a snackbar, neither of which Eyvan
+ships — use the inverse trio together: `--color-inverse-surface` as the
+background, `--color-inverse-on-surface` as its text, and
+`--color-inverse-primary` for an accent inside it.
+
+### Two things not to reach for
+
+`--color-background` and `--color-on-background` are aliases. They hold exactly
+the same values as `--color-surface` and `--color-on-surface` in both modes.
+Material 3 keeps them for backward compatibility and Eyvan emits them for role
+completeness. Prefer the `surface` pair.
+
+The Base16 palette has sixteen slots, but Rouge only emits classes for eleven of
+them. `base02`, `base04`, `base06`, `base07`, and `base0f` are defined so the
+palette stays complete and a Base16 scheme can be dropped in whole, but no code
+block currently renders them. Retune them when you swap syntax themes; do not
+expect them to change anything otherwise.
+
+> **Note:** To see which tokens the template already uses, search the styles for
+> `var(--color-`. `scripts/check-color-contract.rb` guarantees the other
+> direction: every token used in the styles, and every token named in this
+> guide, is one the base layer actually emits — so this list cannot quietly go
+> out of date.
+
 ## Typography
 
 Font families are set in `_sass/0-settings/_typography.scss`. Eyvan ships three:

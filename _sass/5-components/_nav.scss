@@ -7,6 +7,16 @@
 // inside the mobile menu. This file also includes the header mobile menu
 // toggle, since it is part of the same navigation interaction system.
 //
+// Structure:
+// - .c-nav
+//   - .c-nav--desktop
+//   - .c-nav--mobile
+//   - .c-nav__list
+//     - .c-nav__item
+//       - .c-nav__link
+// - .c-nav-toggle
+//   - .c-nav-toggle__icon
+//
 // Scope & Rules:
 // - Component styling only
 // - Uses shared tokens from 0-settings and 1-tools

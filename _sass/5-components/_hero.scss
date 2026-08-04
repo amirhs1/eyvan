@@ -5,21 +5,21 @@
 // Description:
 // Styles the visual presentation of the homepage hero component.
 //
+// Structure:
+// - .c-hero
+//   - .c-hero__eyebrow
+//   - .c-hero__title
+//   - .c-hero__description
+//   - .c-hero__actions
+//   - .c-hero__media
+//     - .c-hero__image
+//
 // Scope & Rules:
 // - Component styling only
 // - Structural layout belongs to 4-objects/_hero.scss
 // - Outer page-shell spacing belongs to .l-site-main
 // - Reuses the shared .c-button component for hero actions
 // - No grid, column, or object-level layout rules here
-//
-// Supported selectors:
-// - .c-hero
-// - .c-hero__eyebrow
-// - .c-hero__title
-// - .c-hero__description
-// - .c-hero__actions
-// - .c-hero__media
-// - .c-hero__image
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;

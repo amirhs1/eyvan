@@ -7,6 +7,10 @@
 // This file owns only the outer header chrome: background, border, elevation,
 // sticky behavior, and shell-level state transitions.
 //
+// Structure:
+// - .c-site-header
+//   Inner regions are owned by 4-objects/_site-header.scss (.o-site-header__*).
+//
 // Scope & Rules:
 // - Component shell only
 // - No layout responsibilities already owned by .o-site-header
@@ -19,6 +23,10 @@
 // - Applied to the <header class="c-site-header"> root in header.html
 // - Designed to sit above page content and below modal-level overlays
 // - Uses theme-driven CSS custom properties from the base layer
+// - .is-shrunk is an opt-in state hook for this root. Eyvan ships no
+//   shrink-on-scroll behavior, so nothing adds it at runtime, and this file
+//   deliberately does not style it — the only rule keyed on it is the brand
+//   collapse in _brand.scss. Add your own scroll handler to use it.
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;

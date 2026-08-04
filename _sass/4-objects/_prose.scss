@@ -7,6 +7,11 @@
 // Intended for Markdown-rendered and content-heavy areas such as page bodies,
 // post bodies, and future essay/documentation templates.
 //
+// Structure:
+// - .o-prose
+//   - .o-prose--measure-base
+//   - .o-prose--measure-wide
+//
 // Scope & Rules:
 // - Root object: .o-prose
 // - Child element rules are scoped inside .o-prose only

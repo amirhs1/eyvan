@@ -21,7 +21,11 @@ class ColorContractTest < Minitest::Test
     _includes/head.html
     assets/js/theme-toggle.js
     assets/js/demo-climate-charts.js
+    _posts/2026-06-15-theming-eyvan.md
   ].freeze
+
+  # Relative path of the shipped doc that publishes the palette as a public API.
+  THEMING_POST = "_posts/2026-06-15-theming-eyvan.md"
 
   def test_passes_for_canonical_repository
     stdout, stderr, status = run_script
@@ -77,6 +81,38 @@ class ColorContractTest < Minitest::Test
 
       refute status.success?
       assert_includes stderr, "contrast"
+    end
+  end
+
+  def test_flags_documented_token_that_no_longer_exists
+    with_color_fixture do |root|
+      path = root.join(THEMING_POST)
+      File.write(
+        path,
+        "#{File.read(path, encoding: 'UTF-8')}\n\nUse `--color-retired-role` for callouts.\n"
+      )
+
+      _stdout, stderr, status = run_script("--root", root)
+
+      refute status.success?
+      assert_includes stderr, "documented tokens"
+      assert_includes stderr, "--color-retired-role"
+    end
+  end
+
+  # Release notes name retired tokens on purpose when recording their removal,
+  # so the changelog must stay writable without tripping the guard.
+  def test_ignores_retired_tokens_named_in_the_changelog
+    with_color_fixture do |root|
+      File.write(
+        root.join("CHANGELOG.md"),
+        "# Changelog\n\n- Removed `--color-retired-role` in favor of `--color-primary`.\n"
+      )
+
+      stdout, stderr, status = run_script("--root", root)
+
+      assert status.success?, stderr
+      assert_includes stdout, "Color contract policy passed"
     end
   end
 

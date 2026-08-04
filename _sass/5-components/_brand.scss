@@ -23,8 +23,12 @@
 // - Layout placement belongs to the surrounding header object
 // - The whole brand remains a single homepage link
 // - Compact/collapsed presentation may be triggered by:
-//   - .c-brand--compact
-//   - .c-site-header.is-shrunk on the parent header
+//   - .c-brand--compact — the portable modifier; use this by default
+//   - .c-site-header.is-shrunk on the parent header — an opt-in extension
+//     hook. Eyvan ships no shrink-on-scroll behavior, so nothing adds
+//     .is-shrunk at runtime; the rule exists so you can wire your own
+//     scroll handler without editing this file. Not dead code — see
+//     tests/5-components/test-brand.html for the demo.
 //
 // Notes:
 // - The logo is treated as a fixed visual unit

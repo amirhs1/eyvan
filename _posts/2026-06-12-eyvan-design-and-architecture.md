@@ -498,9 +498,11 @@ Then add layout-specific spacing in the layouts layer:
 /* --- ################################################ --- */
 /* --- Sub-file: _notes.scss --- */
 
+@use "../0-settings/spacing" as settings-spacing;
+
 .l-notes {
   display: grid;
-  gap: var(--space-6);
+  gap: settings-spacing.$space-6;
 }
 ```
 
@@ -526,18 +528,28 @@ For a new component, start with a focused include and one component block. Do no
 /* --- ################################################ --- */
 /* --- Sub-file: _callout.scss --- */
 
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-type;
+
 .c-callout {
-  padding: var(--space-4);
-  border: 1px solid var(--color-ui-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-ui-surface-raised);
+  padding: settings-spacing.$space-4;
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  border-radius: settings-config.$global-radius;
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
 }
 
 .c-callout__title {
-  margin-block: 0 var(--space-2);
-  font-weight: 700;
+  margin-block: 0 settings-spacing.$space-2;
+  font-weight: settings-type.$font-weight-bold;
 }
 ```
+
+Note the split: geometry and type come from Sass tokens through `@use`, while
+color comes from CSS custom properties. That is deliberate — geometry is fixed
+at build time, but color has to change with the theme at runtime. *Theming
+Eyvan* covers the full palette and which role to reach for.
 
 ### Add a new include
 

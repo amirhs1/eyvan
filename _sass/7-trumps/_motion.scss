@@ -17,9 +17,11 @@
 /* -----------------------------------------------------------------------------
    Animate Hook
    Shared entry-motion utility for sections that reveal softly on load.
+   Applied in markup alongside a component/object class, e.g.
+   <section class="c-hero u-animate">.
    ----------------------------------------------------------------------------- */
 
-.animate {
+.u-animate {
   opacity: 1;
   transform: translateY(0);
   transition:
@@ -33,7 +35,7 @@
    ----------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .animate {
+  .u-animate {
     transition: none !important;
     transform: none !important;
   }

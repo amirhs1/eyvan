@@ -24,7 +24,7 @@ robots: noindex
   - Native HTML hidden attribute
 
   Notes:
-  - .animate is a transition/reduced-motion hook, not a full reveal system.
+  - .u-animate is a transition/reduced-motion hook, not a full reveal system.
   - Visual styling for .is-active and .is-open belongs to owning components.
   - Use print preview and DevTools where noted.
 {% endcomment %}
@@ -210,7 +210,7 @@ robots: noindex
 <div class="c-test-frame">
   <p class="c-test-note">
     <strong>Expected:</strong>
-    <code>.animate</code> provides transition behavior and reduced-motion
+    <code>.u-animate</code> provides transition behavior and reduced-motion
     safeguards. It does <strong>not</strong> create a hidden initial state by
     itself. Clicking the button should animate the box between two inline
     states unless reduced motion is enabled.
@@ -227,7 +227,7 @@ robots: noindex
     </button>
 
     <div
-      class="c-test-block c-test-block--strong c-test-motion-sample animate"
+      class="c-test-block c-test-block--strong c-test-motion-sample u-animate"
       data-motion-demo
     >
       Motion demo block

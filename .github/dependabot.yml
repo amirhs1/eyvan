@@ -1,20 +1,33 @@
 version: 2
 
+# Dependabot opens its pull requests against `develop`, not the default branch.
+# Every change reaches `main` through a release PR from `develop`; a dependency
+# bump is not an exception.
+
 updates:
   # Ruby gems (Gemfile / Gemfile.lock) — Jekyll, plugins, dev/test tools
   - package-ecosystem: "bundler"
     directory: "/"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
     schedule:
       interval: "weekly"
 
   # npm devDependencies — Playwright, axe-core (QA tooling only)
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
     schedule:
       interval: "weekly"
 
   # GitHub Actions used by develop.yml and jekyll-pages.yml
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
     schedule:
       interval: "weekly"

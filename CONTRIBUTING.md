@@ -47,6 +47,9 @@ contributions consistent with them:
 
 - Work on a short-lived branch with a conventional prefix: `feature/*`,
   `fix/*`, `hotfix/*`, `refactor/*`, `chore/*`, or `docs/*`.
+- Use the commit template in [`.gitmessage`](.gitmessage). It is not applied
+  automatically; enable it once per clone with
+  `git config commit.template .gitmessage`.
 - Open your pull request against `develop` (not `main`).
 - Keep each PR scoped to a single concern — avoid bundling unrelated changes.
 - Write a clear description: what changed, why it changed, and which checks

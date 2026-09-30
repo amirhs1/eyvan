@@ -39,6 +39,9 @@ contributions consistent with them:
 - **Accessibility**: a core requirement, not an afterthought — semantic HTML,
   keyboard access, meaningful labels, correct ARIA, and visible focus states
   must be preserved in every change.
+- **Agent skills**: `.agents/skills/` is the only source; `.claude/skills` is a
+  symlink to it, so edit the source. On Windows, enable Developer Mode and clone
+  with `git clone -c core.symlinks=true …` (or use WSL) so the symlink resolves.
 
 ## Branching & pull requests
 

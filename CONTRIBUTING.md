@@ -39,11 +39,17 @@ contributions consistent with them:
 - **Accessibility**: a core requirement, not an afterthought — semantic HTML,
   keyboard access, meaningful labels, correct ARIA, and visible focus states
   must be preserved in every change.
+- **Agent skills**: `.agents/skills/` is the only source; `.claude/skills` is a
+  symlink to it, so edit the source. On Windows, enable Developer Mode and clone
+  with `git clone -c core.symlinks=true …` (or use WSL) so the symlink resolves.
 
 ## Branching & pull requests
 
 - Work on a short-lived branch with a conventional prefix: `feature/*`,
   `fix/*`, `hotfix/*`, `refactor/*`, `chore/*`, or `docs/*`.
+- Use the commit template in [`.gitmessage`](.gitmessage). It is not applied
+  automatically; enable it once per clone with
+  `git config commit.template .gitmessage`.
 - Open your pull request against `develop` (not `main`).
 - Keep each PR scoped to a single concern — avoid bundling unrelated changes.
 - Write a clear description: what changed, why it changed, and which checks

@@ -44,10 +44,10 @@ Thumbs.db
 # -----------------------------
 .vscode/
 .idea/
-.claude/
-CLAUDE.md
-AGENTS.md
-.codex/
+
+# Agent instructions and skills are tracked (AGENTS.md, CLAUDE.md, .agents/,
+# .claude/) — they ship with the template. Only machine-local settings are not.
+.claude/settings.local.json
 
 # -----------------------------
 # Project-specific files

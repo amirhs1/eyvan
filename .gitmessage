@@ -1,0 +1,33 @@
+# <type>(<scope>): <imperative subject>
+#
+# Describe the changes using concise imperative bullet points.
+#
+# Why: <reason supplied by a person; omit for a trivial change>
+#
+# Types:
+#   feat, fix, docs, refactor, chore, style, ci, test
+#
+# Scopes:
+#   sass, includes, layouts, data, config, assets,
+#   scripts, tests, ci, docs, agents, deps
+#
+# Add each applicable trailer as an uncommented line at the end, after a blank
+# line. Repeat Assisted-by for multiple materially involved tools or models.
+#
+# Assisted-by: <tool>, <model id> (<role / extent>)
+# Checks-run: <check actually run and its result>
+# Ground-truth-source: <citation, or "n/a — property test">
+#
+# Roles: plan, partial implementation, full implementation, review, refactor.
+#
+# Omit Checks-run when no check ran.
+# Omit Ground-truth-source when no reference value changed.
+# A property test does not require a Ground-truth-source trailer.
+#
+# Decide how to record prose assistance and document gaps in the history.
+# Review the final commit message after rebasing or squash merging.
+# Do not infer or reconstruct trailers from memory; record only known provenance.
+#
+# Git uses this template only for editor-based commits when commit.template is set.
+# git commit -m bypasses it. Review the final message, including squash commits.
+

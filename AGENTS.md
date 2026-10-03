@@ -85,6 +85,33 @@ Do not re-litigate these or report them as findings.
 
 ---
 
+## Where you may write
+
+| Path                             | Tier         | Your role                                                                        |
+| -------------------------------- | ------------ | -------------------------------------------------------------------------------- |
+| `_layouts/`, `_includes/`        | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_sass/`                         | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `assets/js/`                     | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
+| `_plugins/`                      | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
+| `_config.yml`, `_data/`          | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `scripts/`, `.github/workflows/` | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
+| `tests/`: HTML and SCSS fixtures | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `tests/`: JavaScript and Ruby    | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
+| `_posts/`, pages                 | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+
+- HTML, CSS, and Jekyll files are Instrumented; Ruby and JavaScript are
+  Supervised; CI workflows are Supervised. Paths not listed, such as `Gemfile`
+  and `Gemfile.lock`, default to Supervised. Work that touches security,
+  credentials, private data, or published results is never Delegated, whatever
+  the table says.
+- Apply only wording the maintainer supplies: the README AI section,
+  `AGENTS.md`, and `CONTRIBUTING.md`.
+- Never edit these; draft a change for the maintainer instead:
+  `.github/workflows/`, `_site/`, `.jekyll-cache/`, `node_modules/`,
+  `Gemfile.lock`, `package-lock.json`.
+
+---
+
 ## Branching & delivery
 
 - Never commit or push directly to `main` or `develop`. If the tree is on a

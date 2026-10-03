@@ -273,6 +273,41 @@ asset sources, see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md). Font
 license texts and the file-by-file font asset map are also included in
 [`assets/fonts/licenses/`](assets/fonts/licenses/README.md).
 
+## AI-assisted development
+
+I use AI tools in this project. Each part has a tier, set by whether I can
+evaluate AI output there. The table records the checks or human review applied
+to each part:
+
+- **Instrumented** — I could write it myself. AI is used for review,
+  refactoring, and alternative implementations, not first drafts of core logic.
+- **Supervised** — AI drafts; I read every line and set the acceptance criteria
+  and test values.
+- **Delegated** — AI generates; I can't fully evaluate it. It is covered by
+  tests, kept isolated and low-risk, and not presented as my work.
+
+| Part                               | Tier         | Checks or human review                                                                                   |
+| ---------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------- |
+| `_layouts/`, `_includes/`          | Instrumented | `test:a11y` (Playwright + axe), `test:site` (internal links and assets), `check-built-output.rb`          |
+| `_sass/`                           | Instrumented | `check-color-contract.rb` (tokens, theme-colour drift, contrast), `test:a11y`                             |
+| `assets/js/`                       | Supervised   | `test:a11y` (script loading and interactive enhancements); line-by-line review                            |
+| `_plugins/`                        | Supervised   | `bundle exec jekyll build`, `check-built-output.rb`; line-by-line review                                  |
+| `_config.yml`, `_data/`            | Instrumented | `check-template-placeholders.rb`, `check-color-contract.rb` (`_data/theme.yml`), `check-built-output.rb`  |
+| `scripts/`, `.github/workflows/`   | Supervised   | `test:release` and `test:colors` (scripts); line-by-line review (workflows have no automated check)       |
+| `tests/`: HTML and SCSS fixtures   | Instrumented | Review only: CI does not build the fixtures (`dev_only: false`)                                           |
+| `tests/`: JavaScript and Ruby      | Supervised   | Run on every pull request; line-by-line review                                                            |
+| `_posts/`, pages                   | Instrumented | `test:site` (internal links and assets), `test:a11y` (home and code-heavy pages)                          |
+
+HTML, CSS, and Jekyll files are Instrumented; Ruby and JavaScript are
+Supervised; CI workflows are Supervised. Paths not listed, such as `Gemfile`
+and `Gemfile.lock`, default to Supervised.
+
+Nothing that handles security, credentials, private data, or published results,
+or that can block a merge, is Delegated. Where a tier is unclear, I treat the
+part as Supervised. Tiers last reviewed: 2026-10-03.
+
+Instructions for AI agents: [`AGENTS.md`](AGENTS.md).
+
 ## License
 
 This project is released under the MIT License. See [LICENSE](./LICENSE) for details.

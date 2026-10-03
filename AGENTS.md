@@ -164,10 +164,10 @@ Do not re-litigate these or report them as findings.
 ## Commit format
 
 ```text
-<type>(<scope>): <subject>          <- you may draft
+<type>(<scope>): <subject>                         <- you may draft
 
-<what changed>                      <- you may draft
-Why: TODO (maintainer)              <- do not invent; copy-edit only if supplied
+<what changed>                                     <- you may draft
+Why: <maintainer-supplied reason; omit otherwise>  <- do not invent; copy-edit only if supplied
 
 Assisted-by: <tool>, <model id> (<role / extent>)
 Checks-run: <check actually run and its result>
@@ -183,8 +183,15 @@ checks executed this session with their observed result — never inferred.
 `Ground-truth-source:` appears only when a commit adds or changes an expected
 value. Running a check does not make you the verifier: a green result is not
 independent verification when the same model produced both the implementation
-and the expectation. Never backfill trailers from memory. On a squash merge,
-trailers go on the squash commit.
+and the expectation. Never backfill trailers from memory.
+
+End every commit message with one trailer block: one trailer per line, no
+blank line between them, nothing after them. An AI-assisted commit carries
+`Assisted-by: <tool>, <model id> (<role>)`; add `Checks-run:` and
+`Ground-truth-source:` when they apply. Never add a `Co-authored-by:` line for
+an AI tool; Claude Code's own line is turned off in `.claude/settings.json`.
+Pull requests merge with a merge commit, so each commit lands unchanged: keep
+every commit coherent.
 
 ---
 

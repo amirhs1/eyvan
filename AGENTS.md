@@ -221,6 +221,8 @@ Scopes: `sass`, `includes`, `layouts`, `data`, `config`, `assets`, `scripts`,
   expected value.
 - Never add a `Co-authored-by:` line for an AI tool; write `Assisted-by:`
   instead. Claude Code's own line is turned off in `.claude/settings.json`.
+- If the `commit-msg` hook rejects a commit, fix the message. Never use
+  `--no-verify`.
 
 ---
 

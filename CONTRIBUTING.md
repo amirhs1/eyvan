@@ -43,6 +43,28 @@ contributions consistent with them:
   symlink to it, so edit the source. On Windows, enable Developer Mode and clone
   with `git clone -c core.symlinks=true …` (or use WSL) so the symlink resolves.
 
+## AI-assisted contributions
+
+### Setup
+
+- [ ] `.claude/settings.json` is committed with the attribution block.
+- [ ] `git config core.hooksPath .githooks` has been run in this clone.
+- [ ] `.gitmessage` is committed.
+- [ ] `git config commit.template .gitmessage` has been run, for commits
+      written in an editor.
+- [ ] A test commit made by each tool in use ends with `Assisted-by:` and no
+      AI `Co-authored-by:` (`git log -1 --format=%B`).
+- [ ] `.gitignore` has the agent-files block:
+
+  ```gitignore
+  # Agent files: local only
+  CLAUDE.local.md
+  AGENTS.local.md
+  .claude/settings.local.json
+  .claude/worktrees/
+  .claude/.cc-writes/
+  ```
+
 ## Branching & pull requests
 
 - Work on a short-lived branch with a conventional prefix: `feature/*`,

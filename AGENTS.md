@@ -226,6 +226,18 @@ Scopes: `sass`, `includes`, `layouts`, `data`, `config`, `assets`, `scripts`,
 
 ---
 
+## Reporting
+
+Report back with the `report-back` skill.
+
+- **Full chat report** for an end product: a code or design change, an
+  issue, a pull request, or a decision for the maintainer.
+- **Short chat report** otherwise, including after posting a comment.
+- **Pull request body:** the full report, in the sections of
+  `.github/pull_request_template.md`.
+
+---
+
 ## When stuck
 
 | Situation                                      | Do this                                                   |

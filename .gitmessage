@@ -11,23 +11,34 @@
 #   sass, includes, layouts, data, config, assets,
 #   scripts, tests, ci, docs, agents, deps
 #
-# Add each applicable trailer as an uncommented line at the end, after a blank
-# line. Repeat Assisted-by for multiple materially involved tools or models.
+# Add each applicable trailer as an uncommented line. All trailers sit in one
+# final paragraph, after a blank line, one per line, with no blank line
+# between them and nothing after them; Why: stays in the body above that
+# paragraph. Repeat Assisted-by for multiple materially involved tools or
+# models.
 #
-# Assisted-by: <tool>, <model id> (<role / extent>)
+# Assisted-by: <tool>, <model id or not recorded> (<role>)
 # Checks-run: <check actually run and its result>
 # Ground-truth-source: <citation, or "n/a — property test">
 #
-# Roles: plan, partial implementation, full implementation, review, refactor.
+# Roles: pick the first that fits.
+#   full implementation: the tool wrote essentially all of the committed content.
+#   partial implementation: the tool wrote part of it; a person wrote the rest.
+#   refactor: the tool chose how to restructure existing content without
+#     changing what it does or says.
+#   plan: the tool proposed the approach or steps; a person wrote the content.
+#   review: the tool reviewed or tested a person's work and wrote none of it.
+#   transcription: a person wrote or fully specified the change; the tool
+#     entered, moved, formatted, or committed it without adding content.
 #
 # Omit Checks-run when no check ran.
 # Omit Ground-truth-source when no reference value changed.
 # A property test does not require a Ground-truth-source trailer.
 #
 # Decide how to record prose assistance and document gaps in the history.
-# Review the final commit message after rebasing or squash merging.
+# Each commit lands on develop unchanged; keep it coherent.
 # Do not infer or reconstruct trailers from memory; record only known provenance.
 #
 # Git uses this template only for editor-based commits when commit.template is set.
-# git commit -m bypasses it. Review the final message, including squash commits.
+# git commit -m bypasses it. Review the final message.
 

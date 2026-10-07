@@ -273,7 +273,7 @@ asset sources, see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md). Font
 license texts and the file-by-file font asset map are also included in
 [`assets/fonts/licenses/`](assets/fonts/licenses/README.md).
 
-## AI-assisted development
+## AI assistance
 
 I use AI tools in this project. Each part has a tier, set by whether I can
 evaluate AI output there. The table records the checks or human review applied

@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/amirhs1/eyvan#readme",
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.3",
-    "@playwright/test": "^1.60.0",
-    "wait-on": "^9.0.10"
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "wait-on": "^9.5.1"
   }
 }

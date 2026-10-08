@@ -79,9 +79,9 @@ GEM
     rexml (3.4.4)
     rouge (4.7.0)
     safe_yaml (1.0.5)
-    sass-embedded (1.101.0-arm64-darwin)
+    sass-embedded (1.105.1-arm64-darwin)
       google-protobuf (~> 4.31)
-    sass-embedded (1.101.0-x86_64-linux-gnu)
+    sass-embedded (1.105.1-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
@@ -145,8 +145,8 @@ CHECKSUMS
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   rouge (4.7.0) sha256=dba5896715c0325c362e895460a6d350803dbf6427454f49a47500f3193ea739
   safe_yaml (1.0.5) sha256=a6ac2d64b7eb027bdeeca1851fe7e7af0d668e133e8a88066a0c6f7087d9f848
-  sass-embedded (1.101.0-arm64-darwin) sha256=9fed684380b49499dfc856aba0d026a0748f924bd78044ffff2bae1537aea73e
-  sass-embedded (1.101.0-x86_64-linux-gnu) sha256=ff48452b2351eaaf4e6e02f59de0e9e35f6f163e8456d520db49b4d87cf73c27
+  sass-embedded (1.105.1-arm64-darwin) sha256=e414773b18cd25851c292e34a2462eae04011fffc0eb94d5b65a40f29b1044ac
+  sass-embedded (1.105.1-x86_64-linux-gnu) sha256=9038bc2256d7ecbfd352c15b77a3c8b6f0b72b763348d26564b5c0a123f48351
   terminal-table (3.0.2) sha256=f951b6af5f3e00203fb290a669e0a85c5dd5b051b3b023392ccfd67ba5abae91
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   unicode-display_width (2.6.0) sha256=12279874bba6d5e4d2728cef814b19197dbb10d7a7837a869bab65da943b7f5a

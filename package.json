@@ -27,6 +27,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.60.0",
-    "wait-on": "^9.0.10"
+    "wait-on": "^9.5.1"
   }
 }

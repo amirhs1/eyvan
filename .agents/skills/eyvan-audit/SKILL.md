@@ -10,7 +10,7 @@ The repository is **Eyvan**, a visually minimalist, feature-rich Jekyll template
 
 Do not make code changes unless explicitly asked. Do not delete files. Do not modify lockfiles. Do not edit configuration. Do not deploy or publish anything. The one file you may **create** is the audit report itself (see Section 11). Your job is to audit, verify, score, and recommend.
 
-> **SCSS architecture is evaluated by the dedicated sub-audit (`eyvan-sass-audit.md`).** Run that agent first. Section 8.5 of this audit relies on its findings — see below.
+> **SCSS architecture is evaluated by the dedicated sub-audit (`.agents/skills/eyvan-sass-audit/SKILL.md`).** Run that agent first. Section 8.5 of this audit relies on its findings — see below.
 
 ## 0. Workflow Overview
 
@@ -131,7 +131,7 @@ If `bundle audit` is unavailable, do not install it globally — skip it and sta
 
 The repository ships with **Playwright + axe** (`@axe-core/playwright`) for accessibility and end-to-end testing — the industry-standard tooling this project has deliberately chosen **instead of pa11y**. Use it rather than defaulting to a static-only accessibility review. **pa11y / pa11y-ci is not part of this project; do not flag its absence as a gap, and do not recommend adding it.**
 
-First inspect `package.json` and any test config (`playwright.config.*`, the `tests/`/`e2e/` directory) to learn the configured commands, then prefer the project's own scripts:
+First inspect `package.json` and any test config (`playwright.config.*`, the `tests/` directory) to learn the configured commands, then prefer the project's own scripts:
 
 ```bash
 sed -n '1,200p' package.json 2>/dev/null || true
@@ -211,7 +211,7 @@ This is the single source of truth for what to evaluate. Each subsection maps di
 
 ### 8.5 SCSS Architecture and Maintainability
 
-> **This category is covered in depth by the dedicated SCSS sub-audit (`eyvan-sass-audit.md`).** Run that agent separately and carry its Layer Compliance Summary and highest-severity findings into Section 5.5 and Section 4 of this report. Score this category based on the sub-audit's overall status and the impact of any Critical or High findings on rendered output or accessibility.
+> **This category is covered in depth by the dedicated SCSS sub-audit (`.agents/skills/eyvan-sass-audit/SKILL.md`).** Run that agent separately and carry its Layer Compliance Summary and highest-severity findings into Section 5.5 and Section 4 of this report. Score this category based on the sub-audit's overall status and the impact of any Critical or High findings on rendered output or accessibility.
 
 For the main audit, confirm only these surface-level items:
 

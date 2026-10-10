@@ -67,8 +67,7 @@ contributions consistent with them:
 
 ## Branching & pull requests
 
-- Work on a short-lived branch with a conventional prefix: `feature/*`,
-  `fix/*`, `hotfix/*`, `refactor/*`, `chore/*`, or `docs/*`.
+- Work on a short-lived branch, named as "Names" below sets it.
 - Use the commit template in [`.gitmessage`](.gitmessage). It is not applied
   automatically; enable it once per clone with
   `git config commit.template .gitmessage`.
@@ -76,6 +75,57 @@ contributions consistent with them:
 - Keep each PR scoped to a single concern — avoid bundling unrelated changes.
 - Write a clear description: what changed, why it changed, and which checks
   you ran.
+
+## Names
+
+Two axes name every change. _Type_, the kind of change, is one word list, used
+unchanged as the branch prefix, the commit type, the pull request title's
+type, and the label `type:<word>`. _Area_, the part of the repository, is one
+list, used unchanged as the commit scope, the issue title's bracket, and the
+label `area:<word>`. Scope and area are one list.
+
+```text
+types: feat fix docs test refactor ci chore release
+areas: sass includes layouts data config assets scripts tests ci docs agents deps
+```
+
+| Name                          | Form                                    |
+| ----------------------------- | --------------------------------------- |
+| Branch                        | `<type>/<short-name>`                   |
+| Commit and pull request title | `<type>(<area>): <imperative summary>`  |
+| Issue title                   | `[<area>] <imperative summary>`         |
+| Epic                          | A parent issue, titled as an issue      |
+| Milestone                     | `v<MAJOR>.<MINOR>.<PATCH>`, the release |
+| Tag and release title         | `v<MAJOR>.<MINOR>.<PATCH>`              |
+
+Labels combine: one `type:` plus one or more `area:`. There are no
+combination labels. Status and priority are not labels.
+
+`release` marks a versioned release, with a `v<MAJOR>.<MINOR>.<PATCH>` tag and
+a GitHub Release, when the template changes for the people who use it (as #8
+and #24); a routine `develop` → `main` sync takes `chore` and no tag (as #37).
+
+Issue templates set a default type: `type:fix` for a bug report, `type:feat`
+for a feature request.
+
+Dependabot follows these names through `.github/dependabot.yml`: its branches
+start `chore/`, its commits and pull request titles `chore(deps):`, and its
+labels are `type:chore` and `area:deps`.
+
+### Where these names are used
+
+- `.gitmessage`
+- `.github/pull_request_template.md`
+- `.github/ISSUE_TEMPLATE/*`
+- `.github/dependabot.yml`
+- `.agents/skills/create-branch/SKILL.md`,
+  `.agents/skills/draft-release/SKILL.md`,
+  `.agents/skills/open-issue/SKILL.md`,
+  `.agents/skills/open-pull-request/SKILL.md`,
+  `.agents/skills/write-commit/SKILL.md`
+- `AGENTS.md`, "Git"
+
+Each of these cites this section.
 
 ## Running checks locally
 

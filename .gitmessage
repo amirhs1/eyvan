@@ -4,12 +4,11 @@
 #
 # Why: <reason supplied by a person; omit for a trivial change>
 #
-# Types:
-#   feat, fix, docs, refactor, chore, style, ci, test
-#
-# Scopes:
-#   sass, includes, layouts, data, config, assets,
-#   scripts, tests, ci, docs, agents, deps
+# TYPES AND SCOPES
+# Types and scopes are in CONTRIBUTING.md, "Names"; a scope is an area there.
+#   Types: feat, fix, docs, test, refactor, ci, chore, release
+# Pick one dominant scope or omit it.
+# For a breaking change, add ! after the type or scope and explain it in the body.
 #
 # Add each applicable trailer as an uncommented line. All trailers sit in one
 # final paragraph, after a blank line, one per line, with no blank line
@@ -17,9 +16,9 @@
 # paragraph. Repeat Assisted-by for multiple materially involved tools or
 # models.
 #
-# Assisted-by: <tool>, <model id or not recorded> (<role>)
-# Checks-run: <check actually run and its result>
-# Ground-truth-source: <citation, or "n/a — property test">
+# Assisted-by: <tool>, <model identifier or not recorded> (<role>)
+# Checks-run: <check actually run> — <observed result>
+# Ground-truth-source: <independent source of an added or changed reference value>
 #
 # Roles: pick the first that fits.
 #   full implementation: the tool wrote essentially all of the committed content.
@@ -35,7 +34,6 @@
 # Omit Ground-truth-source when no reference value changed.
 # A property test does not require a Ground-truth-source trailer.
 #
-# Decide how to record prose assistance and document gaps in the history.
 # Each commit lands on develop unchanged; keep it coherent.
 # Do not infer or reconstruct trailers from memory; record only known provenance.
 #

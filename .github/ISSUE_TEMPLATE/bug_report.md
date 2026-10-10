@@ -2,10 +2,12 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: 'type:fix'
 assignees: ''
 
 ---
+
+<!-- Title: as CONTRIBUTING.md, "Names", sets it. -->
 
 **Describe the bug**
 A clear and concise description of what the bug is.

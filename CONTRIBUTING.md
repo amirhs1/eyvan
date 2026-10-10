@@ -30,7 +30,7 @@ contributions consistent with them:
   (which doesn't support the `jekyll/tagging` plugin). `_config.yml` ships with
   `baseurl: "/eyvan"` — keep links `baseurl`-safe with `relative_url` /
   `absolute_url`, and never hardcode root-relative paths.
-- **Styling**: `_sass/` follows ITCSS (seven layers, `0-settings` through
+- **Styling**: `_sass/` follows ITCSS (eight layers, `0-settings` through
   `7-trumps`) with BEM naming (`o-`, `c-`, `l-`, `u-`, `is-` prefixes). No CSS
   frameworks, utility-class systems, inline styles, or one-off class names.
 - **Templating**: standard Jekyll Liquid via `_includes` and `_layouts`. Reuse

@@ -1,16 +1,23 @@
 version: 2
 
-# Dependabot opens its pull requests against `develop`, not the default branch.
-# Every change reaches `main` through a release PR from `develop`; a dependency
-# bump is not an exception.
+# Dependabot opens its version updates against `develop`, not the default
+# branch. Every change reaches `main` through a release PR from `develop`; a
+# dependency bump is not an exception. Security updates always open against
+# `main`; CONTRIBUTING.md, "Branching & pull requests", says how to handle them.
+# Branches, commits, and labels follow CONTRIBUTING.md, "Names".
 
 updates:
   # Ruby gems (Gemfile / Gemfile.lock) — Jekyll, plugins, dev/test tools
   - package-ecosystem: "bundler"
     directory: "/"
     target-branch: "develop"
+    pull-request-branch-name:
+      prefix: "chore"
+    commit-message:
+      prefix: "chore(deps)"
     labels:
-      - "dependencies"
+      - "type:chore"
+      - "area:deps"
     schedule:
       interval: "weekly"
 
@@ -18,8 +25,13 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     target-branch: "develop"
+    pull-request-branch-name:
+      prefix: "chore"
+    commit-message:
+      prefix: "chore(deps)"
     labels:
-      - "dependencies"
+      - "type:chore"
+      - "area:deps"
     schedule:
       interval: "weekly"
 
@@ -27,7 +39,12 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "develop"
+    pull-request-branch-name:
+      prefix: "chore"
+    commit-message:
+      prefix: "chore(deps)"
     labels:
-      - "dependencies"
+      - "type:chore"
+      - "area:deps"
     schedule:
       interval: "weekly"

@@ -45,6 +45,18 @@ contributions consistent with them:
 
 ## AI-assisted contributions
 
+AI tools are welcome. Read the [AI policy](AI-POLICY.md) before opening a pull
+request. The rules most often missed:
+
+- Understand, and be able to explain, everything you submit.
+- Say in the pull request which AI tools you used and for what.
+- Write issues, pull request descriptions, and replies in your own words. If
+  an AI agent writes them for you, you answer for every word, and its text
+  ends with its `Assisted-by:` trailer, with `not recorded` for an unknown
+  model.
+
+Pull requests that don't follow the policy may be closed without review.
+
 ### Setup
 
 - [ ] `.claude/settings.json` is committed with the attribution block.
@@ -52,8 +64,9 @@ contributions consistent with them:
 - [ ] `.gitmessage` is committed.
 - [ ] `git config commit.template .gitmessage` has been run, for commits
       written in an editor.
-- [ ] A test commit made by each tool in use ends with `Assisted-by:` and no
-      AI `Co-authored-by:` (`git log -1 --format=%B`).
+- [ ] A test commit made by each tool in use ends with one trailer block that
+      includes `Assisted-by:` and no AI `Co-authored-by:`
+      (`git log -1 --format=%B`).
 - [ ] `.gitignore` has the agent-files block:
 
   ```gitignore

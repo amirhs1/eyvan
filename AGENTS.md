@@ -4,9 +4,6 @@ Eyvan is a minimalist Jekyll portfolio/writing template for GitHub Pages, built
 and deployed with GitHub Actions. People adopt it by forking it, so every change
 here ships to someone else's site.
 
-**Authority:** this repository carries no `AI-POLICY.md`, so the rules below are
-the policy. They stand alone; there is no other file to consult.
-
 ---
 
 ## Commands

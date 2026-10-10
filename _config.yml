@@ -143,3 +143,4 @@ exclude:
   - AUDIT_REPORT.md
   - CLAUDE.md
   - AGENTS.md
+  - AI-POLICY.md

@@ -60,17 +60,20 @@ Do not re-litigate these or report them as findings.
 - Deployed via **GitHub Actions, not the native Pages builder** — the native one
   cannot run `jekyll/tagging`.
 - **`baseurl: "/eyvan"`** is set, so a plain build *is* the subpath build. Keep
-  links baseurl-safe (`relative_url`); never hardcode root-relative paths.
+  links baseurl-safe (`relative_url` / `absolute_url`); never hardcode
+  root-relative paths.
 - **`main`/`develop` are protected by rulesets**, not legacy branch protection.
-  Query `gh api repos/{owner}/{repo}/rulesets`.
+  Query `gh api repos/{owner}/{repo}/rulesets` — never report a branch as
+  unprotected because legacy protection is unset.
 - **Opt-in stays opt-in**: MathJax needs `math: true`, cross-refs need
   `crossrefs: true`, reading time is global. **`site.dev_only`** (default
   `false`) gates `/tests/*`, the `Tests` nav entry, and `dev-debug.html`.
 - The **large demo GIF is a deliberate showcase** of media support. Do not flag
   its weight.
-- **Accessibility is a requirement.** The gate is Playwright + axe; pa11y is not
-  used and Lighthouse CI was removed for supply-chain reasons. Reintroduce
-  neither.
+- **Accessibility is a requirement**: semantic HTML, keyboard access, meaningful
+  labels, unique landmarks, alt text, correct ARIA. The gate is Playwright +
+  axe; pa11y is not used and Lighthouse CI was removed for supply-chain
+  reasons. Reintroduce neither.
 - Identity/navigation live in **`_config.yml` and `_data/*.yml`**, not layouts.
 - Assets stay self-hosted under `assets/`. A CDN is an exception, used only
   where self-hosting is impractical: pinned to an exact version, checked with
@@ -113,7 +116,7 @@ Do these only with explicit approval for that change from the maintainer or the
 person running you:
 
 - Add, upgrade, or remove a dependency, or change a pinned version, GitHub
-  Actions included (pinned to full SHAs).
+  Actions included (pinned to full SHAs with a version comment).
 - Change `.github/workflows/`.
 - Rewrite history (rebase, amend, squash); show the command before running it.
 - Create a release or a tag.

@@ -47,7 +47,13 @@ Thumbs.db
 
 # Agent instructions and skills are tracked (AGENTS.md, CLAUDE.md, .agents/,
 # .claude/) — they ship with the template. Only machine-local settings are not.
+
+# Agent files: local only
+CLAUDE.local.md
+AGENTS.local.md
 .claude/settings.local.json
+.claude/worktrees/
+.claude/.cc-writes/
 
 # -----------------------------
 # Project-specific files

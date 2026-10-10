@@ -228,11 +228,12 @@ only the source.
 
 | Skill               | Use when                                   |
 | ------------------- | ------------------------------------------ |
+| `create-branch`     | Starting a change                          |
 | `write-commit`      | Every commit                               |
 | `open-issue`        | Filing or revising an issue                |
 | `open-pull-request` | A change is committed and ready for review |
 | `post-comment`      | Replying on an issue or pull request       |
-| `report-back`       | The end of every task                      |
+| `draft-release`     | Never on your own; a person invokes it     |
 | `eyvan-audit`       | Asked to audit the template                |
 | `eyvan-sass-audit`  | Asked to audit `_sass/`                    |
 

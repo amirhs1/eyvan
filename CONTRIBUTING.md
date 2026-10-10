@@ -72,6 +72,10 @@ contributions consistent with them:
   automatically; enable it once per clone with
   `git config commit.template .gitmessage`.
 - Open your pull request against `develop` (not `main`).
+- Dependabot opens security updates against `main`, the default branch,
+  whatever `target-branch` says. Retarget such a pull request to `develop`
+  before it merges (`gh pr edit <n> --base develop`); it reaches `main` with
+  the next release.
 - Keep each PR scoped to a single concern — avoid bundling unrelated changes.
 - Write a clear description: what changed, why it changed, and which checks
   you ran.

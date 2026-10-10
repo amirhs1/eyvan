@@ -78,7 +78,14 @@ Do not re-litigate these or report them as findings.
   used and Lighthouse CI was removed for supply-chain reasons. Reintroduce
   neither.
 - Identity/navigation live in **`_config.yml` and `_data/*.yml`**, not layouts.
-  Assets stay **self-hosted under `assets/`** — no CDNs.
+- Assets stay self-hosted under `assets/`. A CDN is an exception, used only
+  where self-hosting is impractical: pinned to an exact version, checked with
+  an integrity hash, loaded only on the pages that need it, and recorded in
+  "Settled decisions".
+- MathJax 4.1.2 loads from jsDelivr, with an integrity hash, only on pages with
+  `math: true`.
+- Chart.js 4.5.1 loads from jsDelivr, with an integrity hash, only on the
+  climate demo post.
 
 ---
 

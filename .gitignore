@@ -58,8 +58,6 @@ AGENTS.local.md
 # -----------------------------
 # Project-specific files
 # -----------------------------
-structure.txt
-create_structure.sh
 _sass/*.sh
 assets/fonts/*.zip
 AUDIT_REPORT.*

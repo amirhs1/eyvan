@@ -1,6 +1,6 @@
 ---
 name: eyvan-audit
-description: Audit the Eyvan Jekyll template and write notes/AUDIT_REPORT.md covering build reliability, accessibility, architecture, performance, security, maintainability, and release readiness.
+description: Audit the Eyvan Jekyll template and write notes/AUDIT_REPORT.md covering build reliability, accessibility, architecture, performance, security, maintainability, and release readiness. Use when asked for a full audit of the template or its release readiness; for `_sass/` alone, use eyvan-sass-audit.
 ---
 # Eyvan Jekyll Template Audit Prompt
 
@@ -8,9 +8,9 @@ You are auditing this repository as a professional Jekyll template reviewer. Ass
 
 The repository is **Eyvan**, a visually minimalist, feature-rich Jekyll template intended for GitHub Pages. Your goal is to produce an evidence-based audit report that determines whether the template is clean, maintainable, accessible, performant, legally reusable, easy to customize, and reliable to build/deploy.
 
-Do not make code changes unless explicitly asked. Do not delete files. Do not modify lockfiles. Do not edit configuration. Do not deploy or publish anything. The one file you may **create** is the audit report itself (see Section 11). Your job is to audit, verify, score, and recommend.
+Do not make code changes unless explicitly asked. Do not delete files. Do not modify lockfiles. Do not edit configuration. Do not deploy or publish anything. The one file you may **create or overwrite** is the audit report itself (see Section 11). Your job is to audit, verify, score, and recommend.
 
-> **SCSS architecture is evaluated by the dedicated sub-audit (`eyvan-sass-audit.md`).** Run that agent first. Section 8.5 of this audit relies on its findings — see below.
+> **SCSS architecture is evaluated by the dedicated sub-audit (`.agents/skills/eyvan-sass-audit/SKILL.md`).** Run that agent first. Section 8.5 of this audit relies on its findings — see below.
 
 ## 0. Workflow Overview
 
@@ -20,7 +20,7 @@ Work in this order, and do not skip ahead:
 2. **Build verification** — confirm it builds, including subpath/`baseurl` behavior (Section 6).
 3. **Selective deep reads** — read representative files against the checklists (Section 8); do not read everything.
 4. **Score** — apply the weighted scorecard (Section 9) and assign severities (Section 10).
-5. **Report** — write the report to a file in the repo root (Section 11), formatted per Section 12.
+5. **Report** — write the report to `notes/AUDIT_REPORT.md` (Section 11), formatted per Section 12.
 
 ## 1. Audit Philosophy
 
@@ -32,7 +32,7 @@ Clearly separate **Evidence**, **Interpretation**, and **Recommendation** throug
 
 Do not guess external metrics such as GitHub stars, traffic, usage, or maintainership signals unless they are visible in the repository or accessible through safe commands.
 
-Before finalizing Section 4 (Key Findings) and Section 9 (Optional Enhancements), check existing GitHub issues (`gh issue list --state all`) so you don't re-raise something already tracked. If a finding or enhancement matches an open or closed issue, reference the issue number instead of restating it as new.
+Before finalizing the report's Key Findings and Optional Enhancements sections, check existing GitHub issues (`gh issue list --state all`) so you don't re-raise something already tracked. If a finding or enhancement matches an open or closed issue, reference the issue number instead of restating it as new.
 
 ## 2. Eyvan-Specific Context
 
@@ -91,7 +91,7 @@ sed -n '1,260p' README.md 2>/dev/null || true
 sed -n '1,220p' package.json 2>/dev/null || true
 ```
 
-Map the project before reading deeply. Use `find`, `ls`, `grep`, `rg`, or `tree`, then read only representative files that support the audit. Relevant locations include `_layouts/`, `_includes/`, `_data/`, `_sass/`, `assets/`, `_posts/`, any custom collections, `index.*`, `projects.html`, `404.html`, `.github/workflows/`, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, and `structure.txt` if present.
+Map the project before reading deeply. Use `find`, `ls`, `grep`, `rg`, or `tree`, then read only representative files that support the audit. Relevant locations include `_layouts/`, `_includes/`, `_data/`, `_sass/`, `assets/`, `_posts/`, any custom collections, `index.*`, `projects.html`, `404.html`, `.github/workflows/`, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`, and `SECURITY.md`.
 
 ## 5. Command Safety Rules
 
@@ -101,12 +101,14 @@ Before running any `Makefile` target, npm script, Rake task, or custom script, i
 
 ## 6. Build Verification
 
-If safe and practical, run:
+Check the gems without rewriting the lockfile: run `bundle install` only if `bundle check` fails, then report any change to `Gemfile.lock`.
 
 ```bash
-bundle install
-bundle exec jekyll build
+bundle check || bundle install
+git status --short Gemfile.lock
 ```
+
+Then run the full gate in AGENTS.md, "Commands", as written, and record each step's result. It is the only definition of "checks pass" here: it builds the site, runs the release, colour, and built-output checks, serves the build, and runs `test:site` and `test:a11y` against it.
 
 To verify project-page (subpath) deployment **without editing configuration**, use the non-destructive build flag rather than modifying `_config.yml`. The repository ships with `baseurl: "/eyvan"`, so test that real subpath:
 
@@ -114,7 +116,7 @@ To verify project-page (subpath) deployment **without editing configuration**, u
 bundle exec jekyll build --baseurl "/eyvan"
 ```
 
-Also confirm behavior at the root (user/org site) with `--baseurl ""`. Compare builds and inspect `_site` for hardcoded root-relative links that break under a subpath. Run `bundle exec jekyll serve` only if useful; if the environment cannot interact with the served site, rely on the build output instead.
+Also confirm behavior at the root (user/org site) with `--baseurl ""`. Compare builds and inspect `_site` for hardcoded root-relative links that break under a subpath.
 
 Optional checks, if available and safe:
 
@@ -131,26 +133,24 @@ If `bundle audit` is unavailable, do not install it globally — skip it and sta
 
 The repository ships with **Playwright + axe** (`@axe-core/playwright`) for accessibility and end-to-end testing — the industry-standard tooling this project has deliberately chosen **instead of pa11y**. Use it rather than defaulting to a static-only accessibility review. **pa11y / pa11y-ci is not part of this project; do not flag its absence as a gap, and do not recommend adding it.**
 
-First inspect `package.json` and any test config (`playwright.config.*`, the `tests/`/`e2e/` directory) to learn the configured commands, then prefer the project's own scripts:
+First inspect `package.json` and any test config (`playwright.config.*`, the `tests/` directory) to learn the configured commands, then prefer the project's own scripts:
 
 ```bash
 sed -n '1,200p' package.json 2>/dev/null || true
-ls -la playwright.config.* tests e2e 2>/dev/null || true
-# then run the project's configured scripts, for example:
-npm ci
-npm run test:a11y    # Playwright + axe
+ls -la playwright.config.* tests 2>/dev/null || true
+npm ci    # once, before the full gate
 ```
 
 Notes and guardrails:
 
-- Playwright + axe typically runs against the **built** site or a locally served build, so build first (Section 6) before running it.
+- Playwright + axe runs against the locally served build: the full gate serves it (`jekyll serve --detach`, then `wait-on`) before `test:site` and `test:a11y`.
 - Playwright may require a one-time browser download (`npx playwright install`). Treat that as a download step under the command-safety rules: note it, and only perform it if the environment clearly expects it.
 - **Lighthouse CI (`@lhci/cli`) was intentionally removed** because it introduced npm-audit vulnerabilities and an unsafe dependency-downgrade path. **Do not reinstall, reintroduce, or run Lighthouse CI, PageSpeed, or any replacement performance tool**, and do not flag its absence as a deficiency. Performance is assessed statically from build output (Section 8.7).
 - Apply the one-retry and timeout rules from Section 7 to all test commands. Record which tools ran, which did not, and why.
 
 ### External / GitHub repository signals (optional, not scored)
 
-Stars, forks, traffic, ruleset/protection settings, and Actions run history live in GitHub's API, not in the repository files, so prior audits have listed them as an unverifiable limitation (Section 10). If the `gh` CLI is installed and authenticated, you can check some of them directly instead of treating them as unverifiable. These commands are read-only and safe to run under the Section 5 rules:
+Stars, forks, traffic, ruleset/protection settings, and Actions run history live in GitHub's API, not in the repository files, so prior audits have listed them as an unverifiable limitation in the report's Limitations section. If the `gh` CLI is installed and authenticated, you can check some of them directly instead of treating them as unverifiable. These commands are read-only and safe to run under the Section 5 rules:
 
 ```bash
 gh auth status 2>&1 | head -5
@@ -162,12 +162,12 @@ gh run list --workflow=secret-scan.yml --limit 5 2>&1 || true
 
 Notes and guardrails:
 
-- If `gh auth status` shows no authenticated account, skip the rest of this block and record "`gh` not authenticated" as a limitation in Section 10 — do not attempt to authenticate.
+- If `gh auth status` shows no authenticated account, skip the rest of this block and record "`gh` not authenticated" as a limitation in the report's Limitations section — do not attempt to authenticate.
 - **This repository protects `main`/`develop` via GitHub repository *rulesets*, not the legacy branch-protection API.** Do not check `branches/{branch}/protection` and do not report "`main` is not branch-protected" — that endpoint reflects legacy branch protection only and reads empty even when rulesets are active. Check `gh api repos/{owner}/{repo}/rulesets` instead; if it returns 403/404 for a non-admin token, record "ruleset configuration not visible with the available credentials," not a finding that the branch is unprotected.
 - Use this only to replace the *unverifiable* framing with an actual answer where one is available (stars, recent Actions run outcomes, whether ruleset configuration is readable at all). Do not infer maintenance quality, popularity, or risk from star/fork counts — report them as context only.
 - If `gitleaks` is installed locally (`command -v gitleaks`), prefer actually running the Section 8.8 `gitleaks detect --source .` check over recording it as "not run," since a local secret scan is more current evidence than relying solely on the CI workflow's history.
 
-Record the results (or the specific reason each command could not run) in Section 2 (Repository Context) and Section 10 (Limitations), so Section 10 states precisely which external signals were checked, which returned data, and which remain genuinely unverifiable.
+Record the results (or the specific reason each command could not run) in the report's Repository Context and Limitations sections, so the Limitations section states precisely which external signals were checked, which returned data, and which remain genuinely unverifiable.
 
 ## 7. Bailout and Timeout Rules
 
@@ -183,7 +183,7 @@ This is the single source of truth for what to evaluate. Each subsection maps di
 
 ### 8.1 Build and Deployment Reliability
 
-- Result of `bundle install` and `bundle exec jekyll build`; warnings and errors.
+- Result of the gems check and of each full-gate step; warnings and errors.
 - GitHub Pages compatibility and gem/version constraints.
 - **`baseurl` behavior** at both `/` (user/org site) and the shipped subpath `/eyvan/` (project site), using the build flag from Section 6.
 - Correct use of `relative_url`, `absolute_url`, `site.url`, and `site.baseurl`; flag hardcoded root-relative links that break project-page deployment.
@@ -196,7 +196,7 @@ This is the single source of truth for what to evaluate. Each subsection maps di
 - Homepage project preview, projects archive, post cards, tags and tag-archive behavior, related posts, post navigation.
 - **Post experience** as a long-form writing/project-detail page: title/subtitle, cover image, image alt fallback, metadata, share controls, mobile and desktop TOC, content width, heading hierarchy, keyboard/scroll behavior, back-to-top (if present).
 - **Figures, media, and cross-references**: images, GIFs, videos, audio, tables, captions, numbering, cross-references, responsive aspect ratios, missing-media handling, lazy loading, accessible labels. Flag cases where users won't know which include to use.
-- **Intended behaviors — evaluate as designed, do not flag as defects**: reading time is global (set via `read_time` and `words_per_minute` in `_config.yml`), not a per-post front-matter override; cross-reference links degrade to plain anchors and only render numbered labels (e.g., "Figure 1") when `crossrefs: true`; MathJax loads only when `math: true`. Assess whether these are documented and behave as described, not whether they "should" be per-post.
+- **Intended behaviors — evaluate as designed, do not flag as defects**: reading time is global (set via `read_time` and `words_per_minute` in `_config.yml`), not a per-post front-matter override; cross-reference links degrade to plain anchors and only render numbered labels (e.g., "Figure 1") when `crossrefs: true`; MathJax loads only when `math: true`; `site.dev_only` (default `false`) gates the `/tests/*` pages, the `Tests` nav entry, and `dev-debug.html`. Assess whether these are documented and behave as described, not whether they "should" be per-post.
 
 ### 8.3 Configuration and Front Matter Design
 
@@ -211,7 +211,7 @@ This is the single source of truth for what to evaluate. Each subsection maps di
 
 ### 8.5 SCSS Architecture and Maintainability
 
-> **This category is covered in depth by the dedicated SCSS sub-audit (`eyvan-sass-audit.md`).** Run that agent separately and carry its Layer Compliance Summary and highest-severity findings into Section 5.5 and Section 4 of this report. Score this category based on the sub-audit's overall status and the impact of any Critical or High findings on rendered output or accessibility.
+> **This category is covered in depth by the dedicated SCSS sub-audit (`.agents/skills/eyvan-sass-audit/SKILL.md`).** Run that agent separately and carry its Layer Compliance Summary and highest-severity findings into Section 5.5 and Section 4 of this report. Score this category based on the sub-audit's overall status and the impact of any Critical or High findings on rendered output or accessibility.
 
 For the main audit, confirm only these surface-level items:
 
@@ -220,7 +220,7 @@ For the main audit, confirm only these surface-level items:
 - `bundle exec jekyll build` completes without Sass compilation errors.
 - No Critical or High findings from the sub-audit affect rendered output, build stability, or accessibility.
 
-Record any Critical or High SCSS findings from the sub-audit in Section 4 of this report. If the SCSS sub-audit has not been run, note this in Section 10 (Limitations) and assess this category from the build output and a surface-level layer structure check only.
+Record any Critical or High SCSS findings from the sub-audit in Section 4 of this report. If the SCSS sub-audit has not been run, note this in the report's Limitations section and assess this category from the build output and a surface-level layer structure check only.
 
 ### 8.6 Accessibility
 
@@ -304,7 +304,7 @@ The SCSS category (weight 10) is scored from the SCSS sub-audit's overall status
 | Pass with issues       | 7–8             |
 | Needs cleanup          | 4–6             |
 | Critical               | 0–3             |
-| Sub-audit not run      | Score from surface check; note limitation in Section 10 |
+| Sub-audit not run      | Score from surface check; note limitation in the report's Limitations section |
 
 ## 10. Severity Levels
 
@@ -316,7 +316,7 @@ The SCSS category (weight 10) is scored from the SCSS sub-audit's overall status
 
 ## 11. Output Location
 
-Write the final audit report as a **new Markdown file in the repository root**, named `notes/AUDIT_REPORT.md`. This is the only file you may create; do not modify any existing file. Format the report exactly as specified in Section 12.
+Write the final audit report as a Markdown file in `notes/`, named `notes/AUDIT_REPORT.md`. This is the only file you may create or overwrite; modify no other file. Format the report exactly as specified in Section 12.
 
 ## 12. Required Final Report Format
 

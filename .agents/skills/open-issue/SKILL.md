@@ -1,21 +1,28 @@
 ---
 name: open-issue
-description: Open an issue that states a problem, its evidence, and the proposed change. Use when asked to file an issue.
+description: Open a GitHub issue that states a problem, its evidence, and the proposed change. Use when asked to file or revise an issue; not for a suspected vulnerability or a reply on an existing issue.
 ---
 
 # Open an issue
 
-1. Open an issue only for deferred or undecided work; work starting now gets
-   a pull request (AGENTS.md, "Git"). Search for a duplicate first:
+1. A suspected vulnerability goes where `SECURITY.md` says, never into a
+   public issue: stop and tell the person running you.
+2. Search for a duplicate first:
    `gh issue list --state all --search "<terms>"`.
-2. Title: follow "Names" in AGENTS.md, "Git".
-3. Body: follow the matching form in `.github/ISSUE_TEMPLATE/`, with its
-   bold headings in order: `bug_report.md` for a bug, `feature_request.md`
-   otherwise. Leave out a heading that does not apply, such as the device
-   details for a bug that does not depend on them.
-   - Give evidence as `path:line`, `command → result`, or a link.
-   - Mark wording you drafted as a proposal.
-4. The reason comes from the person who asked, or from the evidence; never
-   invent it. Include no secrets or personal data.
-5. Open it with `gh issue create --title "<title>" --body-file <file>`, then
-   give the full chat report.
+3. Title: follow "Names" in CONTRIBUTING.md.
+4. Body, in this order:
+   - `## Problem`: what is wrong or missing, with evidence as `path:line`,
+     `command → result`, or a link.
+   - `## Solution`: the change proposed. Mark wording you drafted as a
+     proposal.
+   - `## Changes`: one checkbox per file:
+     `- [ ] <path>, <section>: <change> (add | change | remove)`.
+   - Last, your trailer block, as AGENTS.md, "Provenance", gives it.
+5. The reason comes only from a person or from the source of the evidence;
+   never invent it. Include no secrets or personal data.
+6. Labels, from "Names": the type that fits the work, with the issue
+   template's type as the default, and the area of each part it changes.
+7. Open it with
+   `gh issue create --title "<title>" --label <labels> --body-file <file>`.
+8. To revise an issue you opened, rewrite its body file and run
+   `gh issue edit <n> --body-file <file>`.

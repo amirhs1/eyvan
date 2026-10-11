@@ -306,7 +306,8 @@ Nothing that handles security, credentials, private data, or published results,
 or that can block a merge, is Delegated. Where a tier is unclear, I treat the
 part as Supervised. Tiers last reviewed: 2026-10-03.
 
-Instructions for AI agents: [`AGENTS.md`](AGENTS.md).
+Rules for contributors: [`AI-POLICY.md`](AI-POLICY.md). Instructions for AI
+agents: [`AGENTS.md`](AGENTS.md).
 
 ## License
 

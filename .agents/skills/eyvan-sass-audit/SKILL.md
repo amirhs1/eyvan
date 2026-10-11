@@ -54,7 +54,7 @@ _sass/
   7-trumps/       .u-* utilities, .is-* states, print, reduced-motion, overrides
 ```
 
-The compiled import order must follow this sequence. If `assets/css/main.scss` is not available, request it before drawing conclusions about import order.
+The compiled import order must follow this sequence. If `assets/css/main.scss` is not available, record that as a limitation and draw no conclusion about import order.
 
 ---
 
@@ -94,7 +94,7 @@ The following are pre-approved when available:
 ```bash
 bundle exec jekyll build
 ruby scripts/check-color-contract.rb
-npm run test
+npm run test:colors
 npm run test:a11y
 ```
 
@@ -209,10 +209,10 @@ This section is the primary audit checklist. For each layer, identify: rules tha
 
 ```scss
 // Flag (High) — Settings variable depends on a custom property defined in 3-base
-$elevation-rest: 0 0 0.125rem var(--color-ui-shadow-color);
+$<shadow-token>: 0 0 0.125rem var(--color-<role>);
 
 // Flag (Medium) — Settings variable is a computed CSS function rather than a literal value
-$anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+$<easing-token>: cubic-bezier(0.4, 0, 0.2, 1);
 ```
 
 **Eyvan note:** Theme color values may live here. Color tokens are defined as hex values based on the Material 3 (M3) color system, not OKLCH. Defining colors via M3 roles does not by itself prove WCAG contrast compliance — that requires testing actual foreground/background pairs (see Section 13.2).
@@ -349,7 +349,7 @@ Confirm that file names, mixin/function names, and token names accurately descri
 For each `.scss` partial, confirm the filename matches its primary BEM block, token domain, or responsibility.
 
 ```text
-_sass/5-components/_navigation.scss   defines  .c-nav        → mismatch: rename to _nav.scss or document the mapping
+_sass/5-components/_<name>.scss       defines  .c-<other>    → mismatch: rename the file or document the mapping
 _sass/1-tools/_motion.scss            defines  motion mixins → fine, name matches domain
 _sass/0-settings/_config.scss         defines  geometry/elevation/motion/z-index tokens → fine if header documents the combined scope
 ```
@@ -413,9 +413,9 @@ Flag any header that:
 Use this banner style for internal section dividers inside a Sass partial:
 
 ```scss
-/* —————————————————————————————
+/* -----------------------------------------------------------------------------
    Section Title
-   ————————————————————————————— */
+   ----------------------------------------------------------------------------- */
 ```
 
 If the codebase's dominant style differs from this template, treat the dominant style (by frequency across all layers) as canonical instead, and flag the minority style. Flag any in-file section comment that uses a different banner character, inconsistent dash length, or a mixed style (e.g. one file using `====` banners and another using `----` banners for the same purpose).
@@ -492,7 +492,7 @@ margin-bottom: 24px;
 transition: all 0.2s ease;
 ```
 
-**No hard-coded values are acceptable.** If a value does not yet have a corresponding token, the fix is not to leave the literal in place with an explanatory comment at the point of use — the fix is to **add a new token to `0-settings`**, with a comment there explaining why the value exists and is distinct from existing tokens (per the documentation requirement in Section 9.1), then reference that token at the call site. A literal value with no token is always a finding; "explained but hard-coded" is not an acceptable end state.
+**Outside `_sass/0-settings/`, a literal value is a finding unless a comment at its point of use explains the exception.** The usual fix is to **add a token to `0-settings`**, with a comment there explaining why the value exists and is distinct from existing tokens (per the documentation requirement in Section 9.1), then reference that token at the call site.
 
 **Comprehensive sweep — run across all of `_sass/`, not a sample:**
 
@@ -594,7 +594,7 @@ grep -RhoE '\.[a-zA-Z][a-zA-Z0-9_-]*' _sass | sort -u
 grep -R "c-post-card" _includes _layouts _posts assets/js tests *.html 2>/dev/null
 
 # Broad search for all o-/c-/l-/u- classes used in templates
-grep -RhoE 'class="[^"]*"' _includes _layouts *.html 2>/dev/null | grep -oE '[oclU]-[a-zA-Z0-9_-]+'
+grep -RhoE 'class="[^"]*"' _includes _layouts *.html 2>/dev/null | grep -oE '[oclu]-[a-zA-Z0-9_-]+'
 ```
 
 ### 16.2 Classification
@@ -613,7 +613,7 @@ Liquid-generated class names and JS-toggled state classes can be missed by a sim
 
 ## 17. Required Files for a Complete Audit
 
-A complete audit requires these files. If a file listed in `structure.txt` is not available, request it before drawing conclusions that depend on it.
+A complete audit requires these files. If a file listed below is not available, record that as a limitation and draw no conclusion that depends on it.
 
 ```text
 assets/css/main.scss            (import order)
@@ -721,8 +721,8 @@ List every `0-settings` variable whose value contains a CSS function call or a `
 
 | Token | File | Issue | Severity | Recommendation |
 |---|---|---|---|---|
-| `$elevation-rest` | `_sass/0-settings/_config.scss` | Value references `var(--color-ui-shadow-color)`, a custom property defined in `3-base` | High | Store the literal shadow geometry here and compose the color at the point of use, or document the exception explicitly. |
-| `$anim-easing` | `_sass/0-settings/_config.scss` | Value is a `cubic-bezier()` function call rather than a literal token | Medium | Acceptable only as a documented exception; otherwise store control points as data. |
+| `$<shadow-token>` | `_sass/0-settings/_<file>.scss` | Value references `var(--color-<role>)`, a custom property defined in `3-base` | High | Store the literal shadow geometry here and compose the color at the point of use, or document the exception explicitly. |
+| `$<easing-token>` | `_sass/0-settings/_<file>.scss` | Value is a `cubic-bezier()` function call rather than a literal token | Medium | Acceptable only as a documented exception; otherwise store control points as data. |
 
 ## Token Documentation Findings
 
@@ -731,13 +731,13 @@ List **every token or tightly related token group individually** — one row per
 | Token / Group | File | Line | Purpose comment? | Usage example? | Status | Note |
 |---|---|---|---|---|---|---|
 | `$space-4` | `_sass/0-settings/_spacing.scss` | 12 | Yes | Yes | Pass | — |
-| `$anim-easing` | `_sass/0-settings/_config.scss` | 34 | No | No | Fail | Also a Settings Purity finding — see above. |
+| `$<easing-token>` | `_sass/0-settings/_<file>.scss` | `<line>` | No | No | Fail | Also a Settings Purity finding — see above. |
 
 ## File and Identifier Naming Findings
 
 | File / Identifier | Layer | Issue | Recommendation |
 |---|---|---|---|
-| `_navigation.scss` | 5-components | Defines `.c-nav`, not `.c-navigation` | Rename file to `_nav.scss` or document the mapping |
+| `_<name>.scss` | 5-components | Defines `.c-<other>`, not `.c-<name>` | Rename the file or document the mapping |
 
 ## Documentation Style Findings
 
@@ -817,7 +817,7 @@ Pay special attention to these areas:
 4. **`7-trumps` / print styles** — audit for legacy selectors such as `.container`, `.row`, `.col`, or unused article/filter classes from previous iterations.
 5. **`3-base` / syntax highlighting** — keep Rouge token classes documented as generated-output exceptions.
 6. **`2-generic` / fonts** — verify font paths are correct; check that no font licensing text is unnecessarily embedded in CSS comments.
-7. **Token usage** — replace unexplained hard-coded values with existing settings variables or CSS custom properties.
+7. **Token usage** — replace unexplained hard-coded values with existing settings variables, or `--color-*` custom properties for colour.
 8. **JS-coupled selectors** — preserve `.is-*` state classes and `data-*` hooks unless the corresponding JavaScript is also updated.
 9. **`0-settings` / `_config.scss`** — check elevation, shadow, and easing tokens specifically for `var()` references into `3-base` and for unliteral CSS function calls; this is the most likely place for a Settings-purity violation.
 10. **`1-tools` / `_mixins.scss` and `_motion.scss`** — check every mixin body for hard-coded literals (durations, easing, radii, colors) that should be Settings tokens instead of invented locally.

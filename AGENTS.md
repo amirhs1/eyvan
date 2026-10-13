@@ -24,7 +24,7 @@ bundle exec jekyll build \
   && npm run test:colors \
   && ruby scripts/check-color-contract.rb \
   && bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach \
-  && npx wait-on http://127.0.0.1:4000/eyvan/ \
+  && npm run test:wait \
   && npm run test:site \
   && npm run test:a11y
 ```

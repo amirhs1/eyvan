@@ -155,7 +155,7 @@ bundle exec jekyll build
 
 # Accessibility suite (Playwright + axe-core) — needs a running server
 bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
-npx wait-on http://127.0.0.1:4000/eyvan/
+npm run test:wait
 npm run test:a11y
 ```
 

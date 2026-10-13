@@ -63,7 +63,7 @@ jobs:
         run: bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 
       - name: Wait for Jekyll Server
-        run: npx wait-on http://127.0.0.1:4000/eyvan/
+        run: npm run test:wait
 
       - name: Test Site Integrity
         run: npm run test:site

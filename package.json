@@ -10,7 +10,8 @@
     "test:a11y": "playwright test tests/accessibility.spec.js",
     "test:release": "ruby tests/release_checks_test.rb",
     "test:colors": "ruby tests/color_contract_test.rb",
-    "test:site": "playwright test tests/site-integrity.spec.js"
+    "test:site": "playwright test tests/site-integrity.spec.js",
+    "test:wait": "wait-on http://127.0.0.1:4000/eyvan/"
   },
   "repository": {
     "type": "git",

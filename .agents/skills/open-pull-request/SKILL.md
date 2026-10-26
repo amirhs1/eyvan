@@ -14,7 +14,8 @@ description: Open a draft GitHub pull request whose body is the full report. Use
    "Ask first", needs that approval before you push it.
 3. Write the body from `.github/pull_request_template.md`: every section, in
    order; a section that does not apply says `None`.
-   - Summary: the reason only as the maintainer supplied it.
+   - Summary: the reason only from the linked issue, the maintainer, or an
+     outside report.
    - Related issues: one `Closes #n` per issue the pull request completes;
      `Refs #n` for one it covers only in part.
    - Checks run: commands you ran in this session, with their actual output.

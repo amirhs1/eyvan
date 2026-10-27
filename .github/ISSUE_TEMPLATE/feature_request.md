@@ -1,7 +1,7 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
+about: Suggest a feature or change for Eyvan
+title: "[area] "
 labels: 'type:feat'
 assignees: ''
 
@@ -10,13 +10,13 @@ assignees: ''
 <!-- Title: as CONTRIBUTING.md, "Names", sets it. -->
 
 **Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+What can't you do in a site built on Eyvan today? Ex. I can't [...] without editing a layout.
 
 **Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+What should Eyvan do? If you know, name the setting, front matter field, or page it would change.
 
 **Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+What else did you consider, including workarounds in your own site?
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
+Add links, screenshots, or examples from other sites or themes.

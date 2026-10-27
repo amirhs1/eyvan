@@ -164,7 +164,8 @@ person running you:
 3. Plan first when the change spans files or the approach is uncertain: name
    the files that will change and what could break.
 4. Implement only against acceptance criteria the maintainer has approved. You
-   may propose criteria or ask; do not decide them.
+   may propose criteria or ask; do not decide them. When the change adds or
+   changes a test, follow the `write-test` skill.
 5. Change only what was asked. Propose unrelated improvements separately.
    Before proposing follow-up work, check `gh issue list --state all` and cite
    the issue number instead of re-proposing.
@@ -232,6 +233,7 @@ only the source.
 | Skill               | Use when                                   |
 | ------------------- | ------------------------------------------ |
 | `create-branch`     | Starting a change                          |
+| `write-test`        | A change adds or changes a test            |
 | `write-commit`      | Every commit                               |
 | `open-issue`        | Filing or revising an issue                |
 | `open-pull-request` | A change is committed and ready for review |

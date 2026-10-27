@@ -164,7 +164,8 @@ on every pull request into `develop` and `main`, and a failing run blocks the
 merge. Run the suite locally whenever your change affects rendered output
 (layouts, includes, components, JavaScript, ARIA, or contrast-affecting CSS).
 For content-only or configuration-only changes, a local `bundle exec jekyll
-build` is enough — let CI handle the accessibility pass.
+build` is enough — let CI handle the accessibility pass. To add or change a
+test, follow the [`write-test` skill](.agents/skills/write-test/SKILL.md).
 
 ## Release and accessibility checklists
 

@@ -30,7 +30,7 @@ jobs:
           cache: "npm"
 
       - name: Setup Ruby
-        uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1
+        uses: ruby/setup-ruby@b1da4809b005e0178fe08a1d57317bffc00b7b4c # v1
         with:
           ruby-version-file: .ruby-version
           bundler-cache: true
@@ -63,13 +63,22 @@ jobs:
         run: bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 
       - name: Wait for Jekyll Server
-        run: npx wait-on http://127.0.0.1:4000/eyvan/
+        run: npm run test:wait
 
       - name: Test Site Integrity
         run: npm run test:site
 
       - name: Run Accessibility Tests
         run: npm run test:a11y
+
+      - name: Start Component Gallery Server
+        run: bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
+
+      - name: Wait for Component Gallery Server
+        run: npm run test:wait:gallery
+
+      - name: Scan Component Gallery
+        run: npm run test:gallery
 
       - name: Upload Test Reports if Failed
         if: failure()

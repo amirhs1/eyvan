@@ -8,7 +8,8 @@ description: Write and make a commit in this project's format, on a branch that 
 1. Check the branch: `git branch --show-current`. On `main` or
    `develop`, stop; create a branch first (create-branch).
 2. Read the staged diff (`git diff --cached`). One commit holds one coherent
-   change.
+   change, and only what the maintainer approved, as AGENTS.md, "Git",
+   describes.
 3. Write the message in this shape; `.gitmessage`, where the project has one,
    holds the same shape for commits written in an editor:
 
@@ -17,7 +18,7 @@ description: Write and make a commit in this project's format, on a branch that 
 
    <what changed>
 
-   Why: <reason the maintainer supplied; omit otherwise, never a placeholder>
+   Why: <reason from the issue, the maintainer, or an outside report; omit otherwise, never a placeholder>
 
    Assisted-by: <tool>, <model identifier or not recorded> (<role>)
    Checks-run: <check actually run> — <observed result>
@@ -28,8 +29,10 @@ description: Write and make a commit in this project's format, on a branch that 
      CONTRIBUTING.md, "Names".
    - Body: bullets of what changed, including which wording or code you were
      given and which you wrote. This is where the detail of your role goes.
-   - `Why:` only for a reason the maintainer supplied, in the issue, the pull
-     request, or this session. Otherwise leave it out.
+   - `Why:` only for a reason from the linked issue, from the maintainer (in
+     the pull request or this session), or from an outside report the change
+     answers, such as a bug report, a security alert, or a CI failure.
+     Otherwise leave it out.
    - Trailers: one block, after a blank line, with no blank line in it and
      nothing after it. Pick each trailer and the role as AGENTS.md,
      "Provenance", defines them.

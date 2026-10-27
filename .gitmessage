@@ -2,7 +2,7 @@
 #
 # Describe the changes using concise imperative bullet points.
 #
-# Why: <reason supplied by a person; omit for a trivial change>
+# Why: <reason from the issue, the maintainer, or an outside report; omit otherwise>
 #
 # TYPES AND SCOPES
 # Types and scopes are in CONTRIBUTING.md, "Names"; a scope is an area there.

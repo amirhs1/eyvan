@@ -155,8 +155,13 @@ bundle exec jekyll build
 
 # Accessibility suite (Playwright + axe-core) — needs a running server
 bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
-npx wait-on http://127.0.0.1:4000/eyvan/
+npm run test:wait
 npm run test:a11y
+
+# Component gallery scan (Playwright + axe-core, light and dark), built into _site-gallery/
+bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
+npm run test:wait:gallery
+npm run test:gallery
 ```
 
 [`develop.yml`](.github/workflows/develop.yml) runs this exact sequence in CI
@@ -164,7 +169,8 @@ on every pull request into `develop` and `main`, and a failing run blocks the
 merge. Run the suite locally whenever your change affects rendered output
 (layouts, includes, components, JavaScript, ARIA, or contrast-affecting CSS).
 For content-only or configuration-only changes, a local `bundle exec jekyll
-build` is enough — let CI handle the accessibility pass.
+build` is enough — let CI handle the accessibility pass. To add or change a
+test, follow the [`write-test` skill](.agents/skills/write-test/SKILL.md).
 
 ## Release and accessibility checklists
 

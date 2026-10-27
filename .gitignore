@@ -2,6 +2,7 @@
 # Jekyll build output
 # -----------------------------
 _site/
+_site-gallery/
 .jekyll-cache/
 .jekyll-metadata
 .sass-cache/
@@ -58,8 +59,6 @@ AGENTS.local.md
 # -----------------------------
 # Project-specific files
 # -----------------------------
-structure.txt
-create_structure.sh
 _sass/*.sh
 assets/fonts/*.zip
 AUDIT_REPORT.*

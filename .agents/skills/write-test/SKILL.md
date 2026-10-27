@@ -8,9 +8,10 @@ description: Write or change a test in tests/ - a Playwright spec, an axe scan, 
 Eyvan's tests, by tool:
 
 - Playwright, against a served site: `tests/accessibility.spec.js`
-  (interaction and script loading, with axe-core scans) and
+  (interaction and script loading, with axe-core scans),
   `tests/site-integrity.spec.js` (sitemap links and assets, pinned CDN
-  runtimes).
+  runtimes), and `tests/component-gallery.spec.js` (axe-core scans of every
+  fixture page, light and dark).
 - Minitest, for the guard scripts: `tests/color_contract_test.rb`
   (`scripts/check-color-contract.rb`) and `tests/release_checks_test.rb`
   (`scripts/check-built-output.rb`, `scripts/check-template-placeholders.rb`).
@@ -86,8 +87,10 @@ Never invent a rule for a feature these tools lack.
     behaviours it exercises (`tests/4-objects/test-container.html`).
 22. List each fixture a spec scans in that spec, with a comment on what it
     covers.
-23. Fixtures render only when `site.dev_only` is true; a test never changes
-    that gate.
+23. Fixtures render only when `site.dev_only` is true.
+    `tests/component-gallery.spec.js` scans them on the build that
+    `_config.gallery.yml` overlays; a test never changes the default in
+    `_config.yml`.
 
 ## F. Expected values
 

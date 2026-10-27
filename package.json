@@ -11,7 +11,9 @@
     "test:release": "ruby tests/release_checks_test.rb",
     "test:colors": "ruby tests/color_contract_test.rb",
     "test:site": "playwright test tests/site-integrity.spec.js",
-    "test:wait": "wait-on http://127.0.0.1:4000/eyvan/"
+    "test:gallery": "playwright test tests/component-gallery.spec.js",
+    "test:wait": "wait-on http://127.0.0.1:4000/eyvan/",
+    "test:wait:gallery": "wait-on http://127.0.0.1:4001/eyvan/tests/"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,2 @@
+# Overlay for the component gallery build: --config _config.yml,_config.gallery.yml
+dev_only: true

@@ -11,7 +11,7 @@ here ships to someone else's site.
 | Install         | `bundle install` · `npm ci`                                      |
 | Build           | `bundle exec jekyll build`                                       |
 | Serve for tests | `bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach` |
-| One suite       | `npm run test:a11y` · `test:site` · `test:colors` · `test:release` |
+| One suite       | `npm run test:a11y` · `test:site` · `test:colors` · `test:release` · `test:gallery` |
 
 **Full gate** — the exact sequence `.github/workflows/develop.yml` runs, and the
 only definition of "checks pass":
@@ -26,7 +26,11 @@ bundle exec jekyll build \
   && bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach \
   && npm run test:wait \
   && npm run test:site \
-  && npm run test:a11y
+  && npm run test:a11y \
+  && bundle exec jekyll serve --config _config.yml,_config.gallery.yml \
+       --destination _site-gallery --host 127.0.0.1 --port 4001 --detach \
+  && npm run test:wait:gallery \
+  && npm run test:gallery
 ```
 
 **CI is the gate** and takes under two minutes, so running it locally is a

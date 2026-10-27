@@ -5,12 +5,19 @@ description: Write or change a test in tests/ - a Playwright spec, an axe scan, 
 
 # Write a test
 
-Eyvan tests with Playwright specs (`tests/*.spec.js`, against a served site),
-axe-core inside `tests/accessibility.spec.js`, Minitest for the guard scripts
-(`tests/*_test.rb`), and fixture pages for the Sass layers
-(`tests/test-3-base.html`, `tests/4-objects/`, `tests/5-components/`,
-`tests/test-7-trumps.html`). Never invent a rule for a feature these tools
-lack.
+Eyvan's tests, by tool:
+
+- Playwright, against a served site: `tests/accessibility.spec.js`
+  (interaction and script loading, with axe-core scans) and
+  `tests/site-integrity.spec.js` (sitemap links and assets, pinned CDN
+  runtimes).
+- Minitest, for the guard scripts: `tests/color_contract_test.rb`
+  (`scripts/check-color-contract.rb`) and `tests/release_checks_test.rb`
+  (`scripts/check-built-output.rb`, `scripts/check-template-placeholders.rb`).
+- Fixture pages for the Sass layers: `tests/test-3-base.html`,
+  `tests/4-objects/`, `tests/5-components/`, `tests/test-7-trumps.html`.
+
+Never invent a rule for a feature these tools lack.
 
 ## A. Every test
 

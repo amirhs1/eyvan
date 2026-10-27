@@ -22,7 +22,9 @@ Never invent a rule for a feature these tools lack.
 ## A. Every test
 
 1. Name it after the behaviour it protects, as the claim that is false if it
-   fails; never after the file or function under test.
+   fails; never after the file or function under test. Add a one-line comment
+   above it only when the name cannot carry the claim or its reason
+   (`tests/color_contract_test.rb:103-104`).
 2. Test one behaviour. Several asserts are fine when they check that one
    behaviour.
 3. Show each new test can fail: break the markup, token, or script under test

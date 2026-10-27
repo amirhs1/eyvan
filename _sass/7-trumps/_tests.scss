@@ -790,8 +790,11 @@
   --color-surface-container-high: #{light-mode.$surface-container-high};
   --color-outline-variant: #{light-mode.$outline-variant};
   --color-on-surface: #{light-mode.$on-surface};
+  --color-on-surface-variant: #{light-mode.$on-surface-variant};
   --color-primary: #{light-mode.$primary};
   --color-surface: #{light-mode.$surface};
+
+  color: var(--color-on-surface);
 }
 
 .c-theme-toggle-test-frame[data-theme="dark"] {
@@ -799,6 +802,7 @@
   --color-surface-container-high: #{dark-mode.$surface-container-high};
   --color-outline-variant: #{dark-mode.$outline-variant};
   --color-on-surface: #{dark-mode.$on-surface};
+  --color-on-surface-variant: #{dark-mode.$on-surface-variant};
   --color-primary: #{dark-mode.$primary};
   --color-surface: #{dark-mode.$surface};
 

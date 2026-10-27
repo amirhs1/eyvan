@@ -129,9 +129,3 @@ names the code, not the claim);
 `expect(results.violations.length).toBeLessThan(3)` (a count); a fixture
 without `layout: test` and `robots: noindex`, or with a permalink outside
 `/tests/`.
-
-References, leads the maintainer has not yet checked: Playwright, "Best
-Practices" (rules 7, 8, 12), <https://playwright.dev/docs/best-practices>;
-Playwright, "Accessibility testing" (13, 16, 17),
-<https://playwright.dev/docs/accessibility-testing>; axe-core API (16),
-<https://github.com/dequelabs/axe-core/blob/develop/doc/API.md>.

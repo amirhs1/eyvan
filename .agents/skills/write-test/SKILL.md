@@ -7,8 +7,10 @@ description: Write or change a test in tests/ - a Playwright spec, an axe scan, 
 
 Eyvan tests with Playwright specs (`tests/*.spec.js`, against a served site),
 axe-core inside `tests/accessibility.spec.js`, Minitest for the guard scripts
-(`tests/*_test.rb`), and fixture pages under `tests/4-objects/` and
-`tests/5-components/`. Never invent a rule for a feature these tools lack.
+(`tests/*_test.rb`), and fixture pages for the Sass layers
+(`tests/test-3-base.html`, `tests/4-objects/`, `tests/5-components/`,
+`tests/test-7-trumps.html`). Never invent a rule for a feature these tools
+lack.
 
 ## A. Every test
 

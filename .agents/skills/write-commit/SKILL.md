@@ -8,7 +8,8 @@ description: Write and make a commit in this project's format, on a branch that 
 1. Check the branch: `git branch --show-current`. On `main` or
    `develop`, stop; create a branch first (create-branch).
 2. Read the staged diff (`git diff --cached`). One commit holds one coherent
-   change.
+   change, and only what the maintainer approved, as AGENTS.md, "Git",
+   describes.
 3. Write the message in this shape; `.gitmessage`, where the project has one,
    holds the same shape for commits written in an editor:
 

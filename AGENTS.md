@@ -6,6 +6,12 @@ here ships to someone else's site.
 
 ## Commands
 
+Run each command from the repository root. Settings for the machine you run
+on, such as which Ruby to use and how to call it, are in `AGENTS.local.md` at
+the repository root when that file exists; read it before running a command.
+It is gitignored: never commit it, and never copy its contents into a tracked
+file.
+
 | Purpose         | Command                                                          |
 | --------------- | ---------------------------------------------------------------- |
 | Install         | `bundle install` · `npm ci`                                      |

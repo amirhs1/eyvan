@@ -11,7 +11,12 @@ description: Open a draft GitHub pull request whose body is the full report. Use
 2. Before the push, review the diff: `git status --short`, then the whole
    branch diff, `git diff develop...HEAD`, for unrelated files, secrets,
    private data, and accidental deletions. A change on the list in AGENTS.md,
-   "Ask first", needs that approval before you push it.
+   "Ask first", needs that approval before you push it. When the diff touches
+   `_layouts/` or `_includes/`, also read the changed markup for landmarks
+   that stay unique on every page using the file, headings that skip no
+   level, and an accessible name on every control and link. Name anything
+   you find under "Notes for review"; this read does not replace
+   `npm run test:a11y`.
 3. Write the body from `.github/pull_request_template.md`: every section, in
    order; a section that does not apply says `None`.
    - Summary: the reason only as the maintainer supplied it.
@@ -24,9 +29,15 @@ description: Open a draft GitHub pull request whose body is the full report. Use
      characters, since GitHub wraps the body into the merge commit; give a
      long check result in "Checks run" and a short one in the trailer.
 4. Title and labels: follow "Names" in CONTRIBUTING.md. The type comes from
-   the branch name; the areas, from the parts the diff changes.
+   the branch name; the areas, from the parts the diff changes. `Closes #n`
+   goes in the body, never in the title, and the title has no agent or tool
+   prefix. If the branch prefix and the intended type label disagree, stop
+   and ask.
 5. Push the branch, open a draft, then read it back with `gh pr view`:
    `gh pr create --draft --base develop --title "<title>" --label <labels> --body-file <file>`.
    Never mark it ready or merge it.
-6. If the branch already has an open pull request, push, then replace its
+6. Before pushing to a branch that has a pull request, run
+   `gh pr view <n> --json state`; if it has merged, stop and tell the person
+   running you.
+7. If the branch already has an open pull request, push, then replace its
    body and read it back: `gh pr edit <n> --body-file <file>`.

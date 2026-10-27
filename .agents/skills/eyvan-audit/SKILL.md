@@ -108,7 +108,7 @@ bundle check || bundle install
 git status --short Gemfile.lock
 ```
 
-Then run the full gate in AGENTS.md, "Commands", as written, and record each step's result. It is the only definition of "checks pass" here: it builds the site, runs the release, colour, and built-output checks, serves the build, and runs `test:site` and `test:a11y` against it.
+Then run the full gate in AGENTS.md, "Commands", as written, and record each step's result. It is the only definition of "checks pass" here: it builds the site, runs the release, colour, and built-output checks, serves the build, and runs `test:site` and `test:a11y` against it, then serves the component gallery build and runs `test:gallery` against that.
 
 To verify project-page (subpath) deployment **without editing configuration**, use the non-destructive build flag rather than modifying `_config.yml`. The repository ships with `baseurl: "/eyvan"`, so test that real subpath:
 
@@ -143,7 +143,7 @@ npm ci    # once, before the full gate
 
 Notes and guardrails:
 
-- Playwright + axe runs against the locally served build: the full gate serves it (`jekyll serve --detach`, then `wait-on`) before `test:site` and `test:a11y`.
+- Playwright + axe runs against the locally served build: the full gate serves it (`jekyll serve --detach`, then `wait-on`) before `test:site` and `test:a11y`, and serves the component gallery on port 4001 (`_config.gallery.yml`, into `_site-gallery/`) before `test:gallery`.
 - Playwright may require a one-time browser download (`npx playwright install`). Treat that as a download step under the command-safety rules: note it, and only perform it if the environment clearly expects it.
 - **Lighthouse CI (`@lhci/cli`) was intentionally removed** because it introduced npm-audit vulnerabilities and an unsafe dependency-downgrade path. **Do not reinstall, reintroduce, or run Lighthouse CI, PageSpeed, or any replacement performance tool**, and do not flag its absence as a deficiency. Performance is assessed statically from build output (Section 8.7).
 - Apply the one-retry and timeout rules from Section 7 to all test commands. Record which tools ran, which did not, and why.

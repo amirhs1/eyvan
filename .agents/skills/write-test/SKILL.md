@@ -49,8 +49,10 @@ Never invent a rule for a feature these tools lack.
     with the page in the title (`tests/accessibility.spec.js:82-83`).
 11. A fixed wait needs a comment giving its reason and the number's source
     (`tests/accessibility.spec.js:92-94`).
-12. Never reach an external host; assert a pinned CDN runtime by its tag and
-    hash (`tests/site-integrity.spec.js:119-128`).
+12. Never reach an external host. The one exception is the CDN runtimes in
+    `AGENTS.md`, "Settled decisions": `tests/site-integrity.spec.js` loads
+    them through the page and asserts their tags and hashes (`:119-128`),
+    since only a real fetch shows the pinned version and hash still load.
 
 ## C. axe
 

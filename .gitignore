@@ -2,6 +2,7 @@
 # Jekyll build output
 # -----------------------------
 _site/
+_site-gallery/
 .jekyll-cache/
 .jekyll-metadata
 .sass-cache/

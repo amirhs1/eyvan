@@ -289,12 +289,12 @@ to each part:
 | Part                               | Tier         | Checks or human review                                                                                   |
 | ---------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------- |
 | `_layouts/`, `_includes/`          | Instrumented | `test:a11y` (Playwright + axe), `test:site` (internal links and assets), `check-built-output.rb`          |
-| `_sass/`                           | Instrumented | `check-color-contract.rb` (tokens, theme-colour drift, contrast), `test:a11y`                             |
+| `_sass/`                           | Instrumented | `check-color-contract.rb` (tokens, theme-colour drift, contrast), `test:a11y`, `test:gallery`             |
 | `assets/js/`                       | Supervised   | `test:a11y` (script loading and interactive enhancements); line-by-line review                            |
 | `_plugins/`                        | Supervised   | `bundle exec jekyll build`, `check-built-output.rb`; line-by-line review                                  |
 | `_config.yml`, `_data/`            | Instrumented | `check-template-placeholders.rb`, `check-color-contract.rb` (`_data/theme.yml`), `check-built-output.rb`  |
 | `scripts/`, `.github/workflows/`   | Supervised   | `test:release` and `test:colors` (scripts); line-by-line review (workflows have no automated check)       |
-| `tests/`: HTML and SCSS fixtures   | Instrumented | Review only: CI does not build the fixtures (`dev_only: false`)                                           |
+| `tests/`: HTML and SCSS fixtures   | Instrumented | `test:gallery` (Playwright + axe, light and dark, on a `dev_only: true` build)                            |
 | `tests/`: JavaScript and Ruby      | Supervised   | Run on every pull request; line-by-line review                                                            |
 | `_posts/`, pages                   | Instrumented | `test:site` (internal links and assets), `test:a11y` (home and code-heavy pages)                          |
 

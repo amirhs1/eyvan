@@ -19,6 +19,7 @@ publishing a template release.
 - [ ] Run `ruby scripts/check-built-output.rb`.
 - [ ] Start the local site and run `npm run test:site`.
 - [ ] Run `npm run test:a11y`.
+- [ ] Start the component gallery and run `npm run test:gallery`.
 - [ ] Confirm the required GitHub Actions checks pass on the release PR.
 
 ## Manual Review

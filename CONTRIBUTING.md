@@ -157,6 +157,11 @@ bundle exec jekyll build
 bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 npm run test:wait
 npm run test:a11y
+
+# Component gallery scan (Playwright + axe-core, light and dark), built into _site-gallery/
+bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
+npm run test:wait:gallery
+npm run test:gallery
 ```
 
 [`develop.yml`](.github/workflows/develop.yml) runs this exact sequence in CI

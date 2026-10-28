@@ -98,10 +98,9 @@
         <!-- Post card tags -->
         <div class="c-post-card__tags">
           {% for tag in post.tags %}
-            {% assign slug = tag | slugify %}
             <a
               class="c-tag c-post-card__tag"
-              href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+              href="{{ tag | tag_url }}"
               aria-label="View posts tagged {{ tag }}"
             >
               {{ tag }}

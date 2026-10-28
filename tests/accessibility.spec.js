@@ -71,6 +71,43 @@ test.describe('Eyvan interactive accessibility checks', () => {
     await expect(page.locator('[data-toc-open]')).toBeFocused();
   });
 
+  // 1280px is past $bp-layout (64em), where CSS hides the overlays and toggles.
+  const overlaysClosedAtLayoutBreakpoint = [
+    {
+      name: 'mobile menu',
+      path: '/',
+      toggle: '[data-nav-toggle]',
+      overlay: '[data-mobile-menu]',
+    },
+    {
+      name: 'post mobile TOC',
+      path: '/projects/field-notes-iceland-2025/',
+      toggle: '[data-toc-open]',
+      overlay: '[data-mobile-toc]',
+    },
+  ];
+
+  for (const { name, path, toggle, overlay } of overlaysClosedAtLayoutBreakpoint) {
+    test(`${name} closes and releases the page when the layout breakpoint starts matching`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(`${baseUrl}${path}`);
+
+      await page.locator(toggle).click();
+      await expect(page.locator(overlay)).toBeVisible();
+
+      await page.setViewportSize({ width: 1280, height: 900 });
+
+      await expect(page.locator(toggle)).toHaveAttribute('aria-expanded', 'false');
+      await expect(page.locator(overlay)).toHaveJSProperty('hidden', true);
+      await expect(page.locator('body > [inert]')).toHaveCount(0);
+      await expect(page.getByRole('main')).toBeFocused();
+
+      await page.mouse.move(640, 450);
+      await page.mouse.wheel(0, 400);
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+    });
+  }
+
   // Together these two posts render every syntax-token family that has failed
   // contrast before: strings/numbers (front-matter guide) and comment/gutter
   // tokens (rate limiter), in both themes.

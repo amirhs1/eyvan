@@ -1,20 +1,25 @@
 /*
 Code Block Accessibility Script
 Purpose:
-Make horizontally overflowing generated code blocks keyboard reachable.
+Make horizontally overflowing generated code blocks and prose tables keyboard
+reachable.
 
 Features:
 - Enhances Rouge/Jekyll-generated <pre> blocks only when they overflow
 - Gives each overflowing block a distinct accessible name (axe: landmark-unique)
-- Removes the enhancement again when responsive layout no longer overflows
+- Makes overflowing prose tables focusable and names them from their <caption>
+  or "Table N", keeping their native table role
+- Removes the enhancement again when responsive layout no longer overflows;
+  a table loses only the attributes this script added
 
 Dependencies:
 - pre.highlight
 - .highlight > pre
+- .o-prose table (the scroll container in _sass/4-objects/_prose.scss)
 
 Related component:
-- Rouge/kramdown-generated code blocks (loaded via _includes/scripts.html when
-  content contains class="highlight")
+- Rouge/kramdown-generated code blocks and prose tables (loaded via
+  _includes/scripts.html when content contains class="highlight" or <table)
 */
 
 (() => {
@@ -46,23 +51,59 @@ Related component:
   }
 
   /* ==========================================================================
+     Prose table enhancement
+     ========================================================================== */
+
+  function updateTable(table, index) {
+    const overflowsInline = table.scrollWidth > table.clientWidth;
+    // Space-separated names of the attributes this script added.
+    const added = table.getAttribute('data-table-a11y');
+
+    if (overflowsInline) {
+      if (added !== null) {
+        return;
+      }
+
+      const caption = table.caption ? table.caption.textContent.trim() : '';
+      // No role: an explicit role would replace the native table semantics.
+      const enhancements = {
+        tabindex: '0',
+        'aria-label': caption || 'Table ' + (index + 1),
+      };
+      const addedNames = Object.keys(enhancements).filter((name) => !table.hasAttribute(name));
+
+      addedNames.forEach((name) => table.setAttribute(name, enhancements[name]));
+      table.setAttribute('data-table-a11y', addedNames.join(' '));
+      return;
+    }
+
+    if (added !== null) {
+      added.split(' ').filter(Boolean).forEach((name) => table.removeAttribute(name));
+      table.removeAttribute('data-table-a11y');
+    }
+  }
+
+  /* ==========================================================================
      Initialization
      ========================================================================== */
 
   function initCodeBlockA11y() {
     const codeBlocks = document.querySelectorAll('pre.highlight, .highlight > pre');
+    // Same scope as the table overflow rule in _sass/4-objects/_prose.scss.
+    const tables = document.querySelectorAll('.o-prose table');
 
-    if (!codeBlocks.length) {
+    if (!codeBlocks.length && !tables.length) {
       return;
     }
 
-    function updateCodeBlocks() {
+    function updateEnhancements() {
       codeBlocks.forEach(updateCodeBlock);
+      tables.forEach(updateTable);
     }
 
     let resizeFrame = null;
 
-    updateCodeBlocks();
+    updateEnhancements();
 
     window.addEventListener('resize', () => {
       if (resizeFrame) {
@@ -70,7 +111,7 @@ Related component:
       }
 
       resizeFrame = window.requestAnimationFrame(() => {
-        updateCodeBlocks();
+        updateEnhancements();
         resizeFrame = null;
       });
     });

@@ -46,7 +46,7 @@
 <figure
   class="c-prose-figure c-prose-figure--video c-prose-figure--ratio-{{ ratio }}"
   {% if include.id %}id="{{ include.id }}"{% endif %}
-  {% if include.numbered != "false" %}data-ref-type="figure"{% endif %}
+  {% if include.caption and include.numbered != "false" %}data-ref-type="figure"{% endif %}
 >
   <div class="c-prose-figure__frame">
     {%- if include.embed -%}

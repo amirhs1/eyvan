@@ -103,10 +103,9 @@ layout: default
         {% if page.tags and page.tags.size >= 1 %}
           <div class="c-post__tags">
             {% for tag in page.tags %}
-              {% assign slug = tag | slugify %}
               <a
                 class="c-tag c-post__tag"
-                href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+                href="{{ tag | tag_url }}"
                 aria-label="View posts tagged {{ tag }}"
               >
                 {{ tag }}

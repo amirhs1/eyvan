@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require "date"
 require "optparse"
 require "pathname"
 require "yaml"
@@ -68,7 +69,7 @@ module Eyvan
       path = @root.join(relative_path)
       return {} unless path.file?
 
-      YAML.safe_load(path.read, aliases: true) || {}
+      YAML.safe_load(path.read, permitted_classes: [Date, Time], aliases: true) || {}
     end
   end
 end

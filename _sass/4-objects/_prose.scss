@@ -122,17 +122,21 @@ $toc-sticky-top-margin: tool-spacing-fluid.$sticky-offset-top;
     list-style: none;
   }
 
+  // Block layout, not flex: as flex items, inline <code> runs shrank below
+  // their text and became keyboard-unreachable scroll containers (#109).
+  // The checkbox sits in the hanging indent so wrapped lines align with the
+  // label text.
   .task-list-item {
-    display: flex;
-    align-items: flex-start;
-    gap: settings-spacing.$space-2;
+    position: relative;
+    padding-inline-start: settings-spacing.$space-5;
     list-style: none;
   }
 
   .task-list-item-checkbox {
-    flex: 0 0 auto;
-    margin-block-start: 0.45em;
-    margin-inline: 0;
+    position: absolute;
+    inset-block-start: 0.45em;
+    inset-inline-start: 0;
+    margin: 0;
   }
 
   // Links

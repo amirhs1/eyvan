@@ -189,6 +189,23 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_placeholder_check_warns_without_failing_when_config_has_a_date
+    with_template_fixture do |root|
+      File.write(root.join("_config.yml"), "last_updated: 2026-01-15\n", mode: "a")
+
+      stdout, stderr, status = run_script(
+        PLACEHOLDER_SCRIPT,
+        "--root",
+        root,
+        "--repository",
+        "example/portfolio"
+      )
+
+      assert status.success?, stderr
+      assert_includes stdout, "Template identity check completed with 10 warning(s)."
+    end
+  end
+
   private
 
   def run_script(script, *arguments, env: {})

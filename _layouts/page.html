@@ -111,10 +111,9 @@ layout: default
       {% if page.tags %}
         <div class="c-page__tags">
           {% for tag in page.tags %}
-            {% assign slug = tag | slugify %}
             <a
               class="c-tag c-page__tag"
-              href="{{ '/tag/' | append: slug | append: '/' | relative_url }}"
+              href="{{ tag | tag_url }}"
               aria-label="View pages tagged {{ tag }}"
             >
               {{ tag }}

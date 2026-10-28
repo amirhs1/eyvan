@@ -70,7 +70,7 @@
 <figure
   class="c-prose-figure c-prose-figure--image c-prose-figure--cols-{{ cols }}"
   {% if include.id %}id="{{ include.id }}"{% endif %}
-  {% if include.numbered != "false" %}data-ref-type="figure"{% endif %}
+  {% if include.caption and include.numbered != "false" %}data-ref-type="figure"{% endif %}
 >
   <div class="c-prose-figure__grid">
     {%- for row in raw_rows -%}

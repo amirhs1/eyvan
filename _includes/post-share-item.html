@@ -34,19 +34,19 @@
 
 {% case item.id %}
   {% when 'x' %}
-    {% capture href %}https://x.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | absolute_url | uri_escape }}{% endcapture %}
+    {% capture href %}https://x.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url | url_encode }}{% endcapture %}
     {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
 
   {% when 'linkedin' %}
-    {% capture href %}https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | uri_escape }}{% endcapture %}
+    {% capture href %}https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}{% endcapture %}
     {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
 
   {% when 'pinterest' %}
-    {% capture href %}https://pinterest.com/pin/create/button/?url={{ page.url | absolute_url | uri_escape }}&media={{ page.image | absolute_url | uri_escape }}&description={{ page.title | uri_escape }}{% endcapture %}
+    {% capture href %}https://pinterest.com/pin/create/button/?url={{ page.url | absolute_url | url_encode }}&media={{ page.image | absolute_url | url_encode }}&description={{ page.title | url_encode }}{% endcapture %}
     {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
 
   {% when 'email' %}
-    {% capture href %}mailto:?subject={{ page.title | uri_escape }}&body={{ 'I thought you might enjoy this post:' | uri_escape }}%0A%0A{{ page.title | uri_escape }}%0A{{ page.url | absolute_url | uri_escape }}{% endcapture %}
+    {% capture href %}mailto:?subject={{ page.title | url_encode }}&body={{ 'I thought you might enjoy this post:' | url_encode }}%0A%0A{{ page.title | url_encode }}%0A{{ page.url | absolute_url | url_encode }}{% endcapture %}
 {% endcase %}
 
 {% if item.type == 'link' %}

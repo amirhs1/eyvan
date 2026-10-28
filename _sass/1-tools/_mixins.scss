@@ -35,6 +35,24 @@
   }
 }
 
+/// Max-width counterpart of mq-up.
+/// Ends 0.01 of the breakpoint's own unit below `$breakpoint`
+/// (64em compiles to max-width: 63.99em), so `mq-up($bp)` and
+/// `mq-down($bp)` never both match: the breakpoint value belongs to `mq-up`.
+/// @param {Number} $breakpoint - Breakpoint token with units
+///   (for example: 48rem or settings-breakpoints.$bp-md)
+@mixin mq-down($breakpoint) {
+  @if meta.type-of($breakpoint) != "number" or math.is-unitless($breakpoint) {
+    @error "mq-down expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}";
+  }
+
+  // A unitless operand takes $breakpoint's unit, so this subtracts 0.01em
+  // from an em token and 0.01rem from a rem token.
+  @media (max-width: $breakpoint - 0.01) {
+    @content;
+  }
+}
+
 /* -----------------------------------------------------------------------------
    Typography Helpers
    ----------------------------------------------------------------------------- */

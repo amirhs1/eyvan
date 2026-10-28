@@ -244,7 +244,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-text) {
   .c-post-nav {
     grid-template-columns: 1fr;
     gap: $post-nav-gap-mobile;

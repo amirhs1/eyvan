@@ -217,7 +217,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-post-card__content {
     padding: $post-card-content-padding-mobile;
   }

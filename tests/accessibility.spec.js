@@ -108,6 +108,35 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // $bp-layout is 64em, 1024px at the default 16px font size
+  // (_sass/0-settings/_breakpoints.scss). The desktop post chrome owns the
+  // breakpoint value itself (#77), so 1024px gets only the desktop chrome and
+  // 1023px only the mobile chrome; the two never apply together.
+  const postChromeAtLayoutBreakpoint = [
+    { width: 1024, chrome: 'desktop' },
+    { width: 1023, chrome: 'mobile' },
+  ];
+
+  for (const { width, chrome } of postChromeAtLayoutBreakpoint) {
+    test(`post shows only the ${chrome} chrome at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${baseUrl}/projects/field-notes-iceland-2025/`);
+
+      const mobileToolbar = page.locator('[data-toc-toolbar]');
+      const desktopToc = page.getByRole('navigation', { name: 'On this page' });
+      // The desktop share rail is the share group outside the mobile toolbar;
+      // this post has a TOC, so the header renders no share group.
+      const desktopShareRail = page
+        .getByLabel('Share this post')
+        .and(page.locator(':not([data-toc-toolbar] *)'));
+
+      const isDesktop = chrome === 'desktop';
+      await expect(mobileToolbar).toBeVisible({ visible: !isDesktop });
+      await expect(desktopToc).toBeVisible({ visible: isDesktop });
+      await expect(desktopShareRail).toBeVisible({ visible: isDesktop });
+    });
+  }
+
   // Together these two posts render every syntax-token family that has failed
   // contrast before: strings/numbers (front-matter guide) and comment/gutter
   // tokens (rate limiter), in both themes.

@@ -135,6 +135,67 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // These five posts have prose tables that overflow a 390px viewport; an axe
+  // sweep found scrollable-region-focusable on each of them there (issue #71).
+  const wideTablePages = [
+    '/projects/building-a-rate-limiter/',
+    '/projects/climate-data-analysis/',
+    '/projects/eyvan-front-matter-guide/',
+    '/projects/eyvan-design-and-architecture/',
+    '/projects/setting-up-eyvan/',
+  ];
+
+  for (const path of wideTablePages) {
+    test(`wide-table page ${path} has no detectable axe violations at 390px in light and dark themes`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(`${baseUrl}${path}`);
+
+      const lightResults = await new AxeBuilder({ page }).analyze();
+      await testInfo.attach('axe-incomplete-light', {
+        body: JSON.stringify(lightResults.incomplete, null, 2),
+        contentType: 'application/json',
+      });
+      expect(lightResults.violations).toEqual([]);
+
+      // At 390px the only theme toggle sits inside the closed mobile menu, so
+      // load the dark theme the head bootstrap picks from prefers-color-scheme.
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.reload();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+      const darkResults = await new AxeBuilder({ page }).analyze();
+      await testInfo.attach('axe-incomplete-dark', {
+        body: JSON.stringify(darkResults.incomplete, null, 2),
+        contentType: 'application/json',
+      });
+      expect(darkResults.violations).toEqual([]);
+    });
+  }
+
+  test('overflowing prose tables are focusable, named, and still exposed as tables', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${baseUrl}/projects/eyvan-front-matter-guide/`);
+
+    // Select by markup, not getByRole('table'), so a table that lost its role
+    // fails the role assertion instead of silently dropping out of the set.
+    const tables = page.locator('.o-prose table');
+    const overflowing = await tables.evaluateAll((elements) => (
+      elements
+        .map((element, index) => (element.scrollWidth > element.clientWidth ? index : -1))
+        .filter((index) => index >= 0)
+    ));
+    expect(overflowing.length).toBeGreaterThan(0);
+
+    for (const index of overflowing) {
+      const table = tables.nth(index);
+      await expect(table).toHaveRole('table');
+      await expect(table).toHaveAccessibleName(/\S/);
+      await expect(table).toHaveAttribute('tabindex', '0');
+      await table.focus();
+      await expect(table).toBeFocused();
+    }
+  });
+
   test('page-specific scripts load only when their features are rendered', async ({ page }) => {
     const cases = [
       {

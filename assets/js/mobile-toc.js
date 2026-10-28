@@ -13,7 +13,10 @@ Features:
   - open/close buttons
   - Escape key
   - TOC link selection
+  - layout breakpoint starting to match
 - Returns focus to the Contents button after keyboard/button-driven close actions
+- Moves focus to #main-content after a breakpoint-driven close, since the
+  Contents button is hidden there
 
 Dependencies:
 - .c-site-header
@@ -23,6 +26,7 @@ Dependencies:
 - .c-mobile-toc__link
 - body.is-mobile-toc-open
 - .c-mobile-toc.is-open
+- #main-content
 
 Related components:
 - _layouts/post.html
@@ -197,6 +201,35 @@ Related components:
       });
     }
 
+    function focusMainContent() {
+      const mainContent = document.getElementById('main-content');
+      if (!mainContent) {
+        return;
+      }
+
+      if (!mainContent.hasAttribute('tabindex')) {
+        mainContent.setAttribute('tabindex', '-1');
+      }
+      mainContent.focus();
+    }
+
+    function bindLayoutBreakpoint() {
+      if (!overlayIsolation) {
+        return;
+      }
+
+      const layoutQuery = window.matchMedia(overlayIsolation.layoutQuery);
+
+      layoutQuery.addEventListener('change', (event) => {
+        if (!event.matches || !isMobileTocOpen()) {
+          return;
+        }
+
+        closeMobileToc({ returnFocus: false });
+        focusMainContent();
+      });
+    }
+
     /* ==========================================================================
        Initialization
        ========================================================================== */
@@ -209,6 +242,7 @@ Related components:
       bindFocusTrap();
       bindTocLinks();
       bindPageExit();
+      bindLayoutBreakpoint();
     }
 
     setupMobileToc();

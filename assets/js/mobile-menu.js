@@ -13,7 +13,10 @@ Features:
   - close button
   - Escape key
   - mobile navigation link selection
+  - layout breakpoint starting to match
 - Returns focus to the toggle after keyboard/button-driven close actions
+- Moves focus to #main-content after a breakpoint-driven close, since the
+  toggle is hidden there
 
 Dependencies:
 - [data-nav-toggle]
@@ -23,6 +26,7 @@ Dependencies:
 - .c-nav__link
 - body.is-mobile-menu-open
 - .c-mobile-menu.is-open
+- #main-content
 
 Related components:
 - _includes/header.html
@@ -178,6 +182,35 @@ Related components:
       });
     }
 
+    function focusMainContent() {
+      const mainContent = document.getElementById('main-content');
+      if (!mainContent) {
+        return;
+      }
+
+      if (!mainContent.hasAttribute('tabindex')) {
+        mainContent.setAttribute('tabindex', '-1');
+      }
+      mainContent.focus();
+    }
+
+    function bindLayoutBreakpoint() {
+      if (!overlayIsolation) {
+        return;
+      }
+
+      const layoutQuery = window.matchMedia(overlayIsolation.layoutQuery);
+
+      layoutQuery.addEventListener('change', (event) => {
+        if (!event.matches || !isMobileMenuOpen()) {
+          return;
+        }
+
+        closeMobileMenu();
+        focusMainContent();
+      });
+    }
+
     /* ==========================================================================
        Initialization
        ========================================================================== */
@@ -190,6 +223,7 @@ Related components:
       bindFocusTrap();
       bindMobileNavLinks();
       bindPageExit();
+      bindLayoutBreakpoint();
     }
 
     setupMobileMenu();

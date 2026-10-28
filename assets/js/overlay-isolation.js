@@ -7,6 +7,7 @@ full-screen overlay is open.
 Public API:
 - window.EyvanOverlayIsolation.activate(overlay)
 - window.EyvanOverlayIsolation.deactivate(overlay)
+- window.EyvanOverlayIsolation.layoutQuery
 
 Consumed by:
 - mobile-menu.js
@@ -15,6 +16,9 @@ Consumed by:
 
 (() => {
   'use strict';
+
+  // Keep in step with $bp-layout in _sass/0-settings/_breakpoints.scss.
+  const LAYOUT_QUERY = '(min-width: 64em)';
 
   let activeOverlay = null;
   let previousStates = new Map();
@@ -62,6 +66,7 @@ Consumed by:
 
   window.EyvanOverlayIsolation = {
     activate,
-    deactivate
+    deactivate,
+    layoutQuery: LAYOUT_QUERY
   };
 })();

@@ -32,7 +32,7 @@
 <figure
   class="c-prose-figure c-prose-figure--audio"
   {% if include.id %}id="{{ include.id }}"{% endif %}
-  {% if include.numbered != "false" %}data-ref-type="figure"{% endif %}
+  {% if include.caption and include.numbered != "false" %}data-ref-type="figure"{% endif %}
 >
   <audio
     class="c-prose-figure__audio"

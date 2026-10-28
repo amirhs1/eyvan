@@ -28,6 +28,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 
 /* -----------------------------------------------------------------------------
    Local component tokens
@@ -166,7 +167,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-md) {
   .c-entry-meta {
     align-items: flex-start;
   }

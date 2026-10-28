@@ -38,6 +38,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -133,7 +134,7 @@
   }
 }
 
-@media (min-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-text) {
   .c-social-links--mobile {
     .c-icon-link {
       inline-size: settings-config.$control-min-size;

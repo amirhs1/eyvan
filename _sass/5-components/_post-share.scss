@@ -34,6 +34,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 
 /* -----------------------------------------------------------------------------
    Local component tokens
@@ -132,7 +133,7 @@ $post-share-title-letter-spacing: 0.08em;
    Small-screen adjustment
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-post-share {
     margin-block: settings-spacing.$space-6;
   }

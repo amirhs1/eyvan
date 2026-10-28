@@ -155,7 +155,7 @@ $theme-toggle-radius: settings-config.$radius-pill;
   border-radius: settings-config.$global-radius;
 }
 
-@media (min-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-text) {
   .c-theme-toggle--mobile {
     min-block-size: $theme-toggle-size;
   }

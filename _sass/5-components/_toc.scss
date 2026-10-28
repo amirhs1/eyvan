@@ -37,6 +37,7 @@
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../0-settings/typography" as settings-typography;
 
@@ -133,7 +134,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
   display: none;
 }
 
-@media (max-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-layout) {
   .c-toc-toolbar {
     display: flex;
     align-items: center;
@@ -201,7 +202,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
   display: none;
 }
 
-@media (max-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-layout) {
   .c-mobile-toc {
     position: fixed;
     inset: 0;

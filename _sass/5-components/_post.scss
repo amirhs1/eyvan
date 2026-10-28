@@ -51,6 +51,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -291,7 +292,7 @@ $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
 }
 
 /* The rail replaces the header share from the layout breakpoint up. */
-@media (min-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
   .c-post__header-actions {
     display: none;
   }
@@ -347,7 +348,7 @@ $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
    Responsive adjustments
 ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-layout) {
   .c-post-layout {
     display: block;
   }
@@ -359,7 +360,7 @@ $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
   }
 }
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-post__header-row {
     align-items: flex-start;
     gap: $post-header-row-gap-mobile;

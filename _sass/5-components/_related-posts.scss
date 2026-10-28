@@ -26,6 +26,7 @@
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -87,7 +88,7 @@ $related-posts-title-padding-block-end: settings-spacing.$space-3;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-text) {
   .c-related-posts {
     margin-block-start: settings-spacing.$space-7;
     padding-block-start: settings-spacing.$space-5;
@@ -98,7 +99,7 @@ $related-posts-title-padding-block-end: settings-spacing.$space-3;
   }
 }
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-related-posts {
     margin-block-start: settings-spacing.$space-6;
     padding-block-start: settings-spacing.$space-4;

@@ -28,6 +28,7 @@
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-fluid;
 
 /* -----------------------------------------------------------------------------
@@ -97,7 +98,7 @@
    - .o-grid__item--push-tablet-*
    ----------------------------------------------------------------------------- */
 
-@media (min-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-text) {
   @for $i from 1 through settings-config.$grid-columns {
     .o-grid__item--span-tablet-#{$i} {
       grid-column: span #{$i};
@@ -118,7 +119,7 @@
    - .o-grid__item--push-desktop-*
    ----------------------------------------------------------------------------- */
 
-@media (min-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
   @for $i from 1 through settings-config.$grid-columns {
     .o-grid__item--span-desktop-#{$i} {
       grid-column: span #{$i};

@@ -30,6 +30,7 @@
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -134,7 +135,7 @@ $page-image-max-block-size: min(34rem, 60vh);
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-md) {
   .c-page__media {
     margin-block-end: settings-spacing.$space-5;
   }
@@ -149,7 +150,7 @@ $page-image-max-block-size: min(34rem, 60vh);
   }
 }
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-page__media {
     margin-block-end: settings-spacing.$space-4;
     border-radius: settings-config.$global-radius;

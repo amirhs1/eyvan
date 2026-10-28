@@ -125,7 +125,7 @@
   min-inline-size: 0;
 }
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-hero__actions {
     grid-template-columns: minmax(0, 1fr);
   }

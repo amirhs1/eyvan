@@ -45,6 +45,13 @@ const galleryPages = [
   '/tests/7-trumps/trumps/',
 ];
 
+// Desktop as #95 decided, and the mobile size tests/accessibility.spec.js
+// opens the mobile menu at (#96).
+const viewports = [
+  { width: 1280, height: 720 },
+  { width: 390, height: 844 },
+];
+
 test.describe('Eyvan component gallery accessibility checks', () => {
   test('the scan list names exactly the pages the /tests/ index links to', async ({ page }) => {
     await page.goto(`${baseUrl}/tests/`);
@@ -60,26 +67,29 @@ test.describe('Eyvan component gallery accessibility checks', () => {
   });
 
   for (const theme of ['light', 'dark']) {
-    test.describe(`${theme} theme`, () => {
-      // Desktop only, as #95 decided; the 390 x 844 pass is #96.
-      // The head script applies data-theme from prefers-color-scheme before
-      // first paint, so no colour transition runs and no settle wait is needed.
-      test.use({ colorScheme: theme, viewport: { width: 1280, height: 720 } });
+    for (const viewport of viewports) {
+      const size = `${viewport.width} x ${viewport.height}`;
 
-      for (const path of galleryPages) {
-        test(`${path} has no detectable axe violations in the ${theme} theme`, async ({ page }, testInfo) => {
-          await page.goto(`${baseUrl}${path}`);
-          await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+      test.describe(`${theme} theme at ${size}`, () => {
+        // The head script applies data-theme from prefers-color-scheme before
+        // first paint, so no colour transition runs and no settle wait is needed.
+        test.use({ colorScheme: theme, viewport });
 
-          const results = await new AxeBuilder({ page }).analyze();
+        for (const path of galleryPages) {
+          test(`${path} has no detectable axe violations in the ${theme} theme at ${size}`, async ({ page }, testInfo) => {
+            await page.goto(`${baseUrl}${path}`);
+            await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
 
-          await testInfo.attach('axe incomplete', {
-            body: JSON.stringify(results.incomplete, null, 2),
-            contentType: 'application/json',
+            const results = await new AxeBuilder({ page }).analyze();
+
+            await testInfo.attach('axe incomplete', {
+              body: JSON.stringify(results.incomplete, null, 2),
+              contentType: 'application/json',
+            });
+            expect(results.violations).toEqual([]);
           });
-          expect(results.violations).toEqual([]);
-        });
-      }
-    });
+        }
+      });
+    }
   }
 });

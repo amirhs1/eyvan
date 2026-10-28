@@ -135,6 +135,42 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // Property test, no reference value: the native widgets' scheme must match
+  // the palette in use, whatever the operating system prefers (issue #78).
+  const rootColorScheme = (page) => (
+    page.evaluate(() => getComputedStyle(document.documentElement).colorScheme)
+  );
+
+  test('color-scheme matches the chosen theme, including after the toggle switches it', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto(`${baseUrl}/`);
+
+    const root = page.locator('html');
+    const toggle = page.locator('[data-theme-toggle]:visible');
+
+    await expect(root).toHaveAttribute('data-theme', 'dark');
+    await expect.poll(() => rootColorScheme(page)).toBe('dark');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'light');
+    await expect.poll(() => rootColorScheme(page)).toBe('light');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'dark');
+    await expect.poll(() => rootColorScheme(page)).toBe('dark');
+  });
+
+  test.describe('without JavaScript', () => {
+    test.use({ javaScriptEnabled: false, colorScheme: 'dark' });
+
+    test('color-scheme stays light, matching the light palette that applies without data-theme', async ({ page }) => {
+      await page.goto(`${baseUrl}/`);
+
+      await expect(page.locator('html')).not.toHaveAttribute('data-theme');
+      await expect.poll(() => rootColorScheme(page)).toBe('light');
+    });
+  });
+
   // These five posts have prose tables that overflow a 390px viewport; an axe
   // sweep found scrollable-region-focusable on each of them there (issue #71).
   const wideTablePages = [

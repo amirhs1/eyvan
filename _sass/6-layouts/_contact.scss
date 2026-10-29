@@ -57,8 +57,9 @@ $contact-methods-inline-size: 46rem; // A layout width, not a text measure
 
 /* -----------------------------------------------------------------------------
    Method list
-   Reset list chrome; stack cards with a consistent gap. Capped to the wide
-   reading measure so rows do not stretch uncomfortably on large screens.
+   Reset list chrome; stack cards with a consistent gap. Capped to a layout
+   width ($contact-methods-inline-size) so rows do not stretch uncomfortably
+   on large screens.
    ----------------------------------------------------------------------------- */
 
 .l-contact__methods {

@@ -25,6 +25,12 @@
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as fluid;
 
+/* -----------------------------------------------------------------------------
+   Local layout tokens
+   ----------------------------------------------------------------------------- */
+
+$contact-methods-inline-size: 46rem; // A layout width, not a text measure
+
 
 /* -----------------------------------------------------------------------------
    Page wrapper — vertical rhythm between heading, methods, and social row.
@@ -58,7 +64,7 @@
 .l-contact__methods {
   display: grid;
   gap: settings-spacing.$space-4;
-  max-inline-size: settings-typography.$text-measure-wide;
+  max-inline-size: $contact-methods-inline-size;
   margin: 0;
   padding: 0;
   list-style: none;

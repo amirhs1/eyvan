@@ -31,7 +31,7 @@
 //
 // TOC layout note:
 // - Desktop uses a 3-column grid:
-//   | flexible left column | 75ch prose | flexible right TOC column |
+//   | flexible left column | prose ($text-measure-wide) | flexible right TOC column |
 // - The grid row stretches vertically so the sticky TOC can be bounded by
 //   the post body/prose height.
 // - Mobile collapses to a single column. TOC visibility/overlay behavior

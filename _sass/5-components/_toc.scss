@@ -114,6 +114,8 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
   display: block;
   color: var(--color-on-surface-variant);
   text-decoration: none;
+  // Wraps a heading word too long for the rail instead of crossing its border.
+  overflow-wrap: break-word;
   transition: color settings-config.$transition-base;
 
   &:hover {

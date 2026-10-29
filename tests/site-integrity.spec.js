@@ -354,3 +354,47 @@ for (const { name, path, block, checkEveryLine } of readingMeasureBlocks) {
     }
   });
 }
+
+// #102 measured these widths: just above $bp-layout (64em), where the rail
+// is narrowest, up to where it last held whole words.
+for (const width of [1024, 1032, 1100, 1180]) {
+  test(`Contents rail keeps every link inside it and every word whole at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(`${baseUrl}/projects/field-notes-iceland-2025/`);
+    await page.evaluate(() => document.fonts.ready);
+
+    const rail = page.getByRole('navigation', { name: 'On this page' });
+    const links = rail.getByRole('link');
+
+    await expect(rail).toBeVisible();
+    await expect(links).not.toHaveCount(0);
+
+    const railBox = await rail.boundingBox();
+    const problems = await links.evaluateAll((elements, right) => elements.flatMap((link) => {
+      const found = [];
+
+      if (link.scrollWidth > link.clientWidth || link.getBoundingClientRect().right > right + 0.5) {
+        found.push(`"${link.textContent.trim()}" overflows the rail`);
+      }
+
+      // A word broken at a space, hyphen, or dash is whole; one broken
+      // anywhere else spans two line boxes.
+      for (const node of [...link.childNodes].filter((child) => child.nodeType === Node.TEXT_NODE)) {
+        for (const match of node.textContent.matchAll(/[^\s\-–—]+/g)) {
+          const range = document.createRange();
+          range.setStart(node, match.index);
+          range.setEnd(node, match.index + match[0].length);
+          const lineTops = new Set([...range.getClientRects()].map((rect) => Math.round(rect.top)));
+
+          if (lineTops.size > 1) {
+            found.push(`"${match[0]}" is split across lines`);
+          }
+        }
+      }
+
+      return found;
+    }), railBox.x + railBox.width);
+
+    expect(problems).toEqual([]);
+  });
+}

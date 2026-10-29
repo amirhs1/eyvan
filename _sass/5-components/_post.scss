@@ -60,6 +60,7 @@
 
 $post-header-inline-size: settings-typography.$text-measure-wide;
 $post-subtitle-inline-size: settings-typography.$text-measure-base;
+$post-cover-inline-size: 46rem; // A layout width, not a text measure
 
 $post-cover-gap: tools-spacing.$fluid-stack-md;
 $post-header-gap: tools-spacing.$fluid-stack-md;
@@ -86,7 +87,7 @@ $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
 ----------------------------------------------------------------------------- */
 
 .c-post-cover {
-  max-inline-size: $post-header-inline-size;
+  max-inline-size: $post-cover-inline-size;
   margin-inline: auto;
   margin-block-end: $post-cover-gap;
 }

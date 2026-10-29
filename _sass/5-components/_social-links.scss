@@ -86,25 +86,7 @@
    ----------------------------------------------------------------------------- */
 
 .c-social-links__overflow {
-  position: absolute;
-  z-index: settings-config.$z-dropdown;
-  inset-block-start: calc(100% + settings-spacing.$space-2);
-  inset-inline-end: 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: settings-spacing.$space-1;
-
-  padding: settings-spacing.$space-2;
-
-  background-color: var(--color-surface-container-low);
-  border: settings-config.$global-border-width solid var(--color-outline-variant);
-  border-radius: settings-config.$global-border-radius;
-  box-shadow: var(--elevation-raised);
-}
-
-.c-social-links__overflow[hidden] {
-  display: none;
+  @include tools-mixins.disclosure-popover;
 }
 
 /* -----------------------------------------------------------------------------

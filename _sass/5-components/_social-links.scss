@@ -39,7 +39,6 @@
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/mixins" as tools-mixins;
-@use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
    Social-links group/context styles
@@ -106,7 +105,7 @@
 
 .c-social-links--mobile {
   justify-content: center;
-  gap: tools-spacing.$fluid-inline-sm;
+  gap: settings-spacing.$space-3;
 
   .c-icon-link {
     inline-size: 3rem;

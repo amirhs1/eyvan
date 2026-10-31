@@ -21,7 +21,6 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/config" as settings-config;
-@use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
@@ -144,21 +143,18 @@ $theme-toggle-radius: settings-config.$radius-pill;
 
 /* -----------------------------------------------------------------------------
    Mobile modifier
+   The toggle as the mobile menu shows it: a round, icon-only button.
    ----------------------------------------------------------------------------- */
 
 .c-theme-toggle--mobile {
-  justify-content: flex-start;
-  inline-size: 100%;
-  min-inline-size: 0;
-  padding-inline: tools-spacing.$fluid-inline-sm;
-
-  border-radius: settings-config.$global-radius;
+  inline-size: $theme-toggle-size;
+  block-size: $theme-toggle-size;
+  padding: 0;
+  border-radius: 50%;
 }
 
-@include tools-mixins.mq-up(settings-breakpoints.$bp-text) {
-  .c-theme-toggle--mobile {
-    min-block-size: $theme-toggle-size;
-  }
+.c-theme-toggle--mobile .c-theme-toggle__label {
+  display: none;
 }
 
 /* -----------------------------------------------------------------------------

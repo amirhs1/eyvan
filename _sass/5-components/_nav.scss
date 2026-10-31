@@ -148,13 +148,14 @@ $navigation-link-active-indicator-size: 0.1875rem;
    ----------------------------------------------------------------------------- */
 
 .c-nav--mobile {
+  flex: 1 1 auto;
   inline-size: 100%;
 }
 
 .c-nav--mobile .c-nav__list {
   flex-direction: column;
   align-items: stretch;
-  gap: settings-spacing.$space-2;
+  gap: settings-spacing.$space-1;
 }
 
 .c-nav--mobile .c-nav__item {
@@ -168,7 +169,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   inline-size: 100%;
   min-block-size: 3rem;
   padding-block: settings-spacing.$space-3;
-  padding-inline: settings-spacing.$space-4 0;
+  padding-inline: settings-spacing.$space-4 settings-spacing.$space-3;
   
   font-size: settings-typography.$font-size-lg;
   font-weight: settings-typography.$font-weight-bold;

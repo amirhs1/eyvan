@@ -88,8 +88,8 @@
   align-items: center;
   justify-content: center;
 
-  inline-size: 2.25rem;
-  block-size: 2.25rem;
+  inline-size: settings-config.$control-size-sm;
+  block-size: settings-config.$control-size-sm;
 
   color: inherit;
   line-height: 1; // Intentional one-off: icon wrapper collapses to its content's height

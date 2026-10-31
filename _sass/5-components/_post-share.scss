@@ -147,8 +147,8 @@ $post-share-title-letter-spacing: 0.08em;
 }
 
 .c-post-share--collapsed .c-icon-link {
-  inline-size: 2.25rem;
-  block-size: 2.25rem;
-  min-inline-size: 2.25rem;
-  min-block-size: 2.25rem;
+  inline-size: settings-config.$control-size-sm;
+  block-size: settings-config.$control-size-sm;
+  min-inline-size: settings-config.$control-size-sm;
+  min-block-size: settings-config.$control-size-sm;
 }

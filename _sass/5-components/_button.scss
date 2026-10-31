@@ -45,7 +45,7 @@ $button-padding-block-lg: settings-spacing.$space-4;
 $button-padding-inline-lg: settings-spacing.$space-7;
 
 $button-gap-default: settings-spacing.$space-2;
-$button-icon-circle-size: 1.25rem;
+$button-icon-circle-size: settings-config.$icon-size-lg;
 $button-icon-size: 0.875rem;
 /* -----------------------------------------------------------------------------
    Base button

@@ -167,7 +167,7 @@ $navigation-link-active-indicator-size: 0.1875rem;
   justify-content: flex-start;
   align-items: center;
   inline-size: 100%;
-  min-block-size: 3rem;
+  min-block-size: settings-config.$control-size-lg;
   padding-block: settings-spacing.$space-3;
   padding-inline: settings-spacing.$space-4 settings-spacing.$space-3;
   
@@ -231,8 +231,8 @@ $navigation-link-active-indicator-size: 0.1875rem;
   justify-content: center;
   flex: 0 0 auto;
 
-  inline-size: 1.125rem;
-  block-size: 1.125rem;
+  inline-size: settings-config.$icon-size;
+  block-size: settings-config.$icon-size;
   color: inherit;
 }
 

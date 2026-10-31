@@ -15,7 +15,7 @@
 //       - .l-about__actions         CTA button row
 //     - .l-about__portrait          image + caption (right col)
 //       - .l-about__portrait-image
-//       - .l-about__portrait-caption (c-prose-caption)
+//       - figcaption.c-prose-caption
 //   - .l-about__section--split      two-column at desktop (focus, currently)
 //     - .l-about__section-heading   label column
 //     - .l-about__section-body      content column
@@ -101,29 +101,28 @@
 /* -----------------------------------------------------------------------------
    Portrait
    aspect-ratio reserves layout space before the image loads.
-   max-inline-size caps the image regardless of column width.
+   max-inline-size caps the figure regardless of column width, so the image
+   and its caption share one width, as post figures do.
    object-fit: cover prevents distortion when the source image aspect differs.
    ----------------------------------------------------------------------------- */
 
+// Centred while the hero is one column; the $bp-layout rule below aligns it
+// to the end of its column.
 .l-about__portrait {
   display: grid;
+  justify-self: center;
   gap: settings-spacing.$space-3;
+  max-inline-size: 22rem;
   margin: 0;
 }
 
 .l-about__portrait-image {
   display: block;
   inline-size: 100%;
-  max-inline-size: 22rem;
   aspect-ratio: 3 / 4;
   block-size: auto;
   object-fit: cover;
   border-radius: settings-config.$global-border-radius;
-}
-
-// Type and colour come from c-prose-caption.
-.l-about__portrait-caption {
-  max-inline-size: settings-typography.$text-measure-narrow;
 }
 
 

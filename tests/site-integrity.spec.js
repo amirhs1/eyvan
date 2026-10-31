@@ -398,3 +398,31 @@ for (const width of [1024, 1032, 1100, 1180]) {
     expect(problems).toEqual([]);
   });
 }
+
+// 768px is where the header stacks and the caption used to outgrow the photo.
+for (const width of [390, 768, 1024, 1280]) {
+  test(`About portrait caption stays within its photo's width at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(`${baseUrl}/about/`);
+    await page.evaluate(() => document.fonts.ready);
+
+    const portrait = page.getByRole('figure');
+    await expect(portrait).toHaveCount(1);
+
+    const overhang = await portrait.evaluate((figure) => {
+      const photo = figure.querySelector('img').getBoundingClientRect();
+      const range = document.createRange();
+      range.selectNodeContents(figure.querySelector('figcaption'));
+      const text = [...range.getClientRects()];
+
+      return {
+        left: photo.left - Math.min(...text.map((rect) => rect.left)),
+        right: Math.max(...text.map((rect) => rect.right)) - photo.right,
+      };
+    });
+
+    // A property, not a reference value: no caption text outside the photo.
+    expect(overhang.left).toBeLessThanOrEqual(0.5);
+    expect(overhang.right).toBeLessThanOrEqual(0.5);
+  });
+}

@@ -39,6 +39,10 @@ bundle exec jekyll build \
   && npm run test:gallery
 ```
 
+On a pull request into `develop` that changes only the docs and agent files
+`scripts/classify-docs-only.rb` lists, CI skips the Playwright steps and says
+so in the job summary; the full gate above stays the full sequence.
+
 **CI is the gate** and takes under two minutes, so running it locally is a
 duplicate — do it only when the change affects rendered output (layouts,
 includes, components, JS, ARIA, contrast-affecting CSS). Otherwise

@@ -172,6 +172,11 @@ For content-only or configuration-only changes, a local `bundle exec jekyll
 build` is enough — let CI handle the accessibility pass. To add or change a
 test, follow the [`write-test` skill](.agents/skills/write-test/SKILL.md).
 
+On a pull request into `develop` that changes only documentation or agent files
+(listed in `scripts/classify-docs-only.rb`), CI skips the Playwright checks and
+says so in the job summary; pushes and pull requests into `main` run every
+check.
+
 ## Release and accessibility checklists
 
 Before tagging or publishing a release, complete

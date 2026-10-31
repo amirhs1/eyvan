@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -35,10 +37,15 @@ jobs:
           ruby-version-file: .ruby-version
           bundler-cache: true
 
+      - name: Classify Docs-Only Change
+        id: docs
+        run: ruby scripts/classify-docs-only.rb
+
       - name: Install Node Dependencies
         run: npm ci
 
       - name: Install Playwright Browsers
+        if: steps.docs.outputs.docs_only != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Build Jekyll Site
@@ -60,24 +67,31 @@ jobs:
         run: ruby scripts/check-color-contract.rb
 
       - name: Start Local Jekyll Server
+        if: steps.docs.outputs.docs_only != 'true'
         run: bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 
       - name: Wait for Jekyll Server
+        if: steps.docs.outputs.docs_only != 'true'
         run: npm run test:wait
 
       - name: Test Site Integrity
+        if: steps.docs.outputs.docs_only != 'true'
         run: npm run test:site
 
       - name: Run Accessibility Tests
+        if: steps.docs.outputs.docs_only != 'true'
         run: npm run test:a11y
 
       - name: Start Component Gallery Server
+        if: steps.docs.outputs.docs_only != 'true'
         run: bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
 
       - name: Wait for Component Gallery Server
+        if: steps.docs.outputs.docs_only != 'true'
         run: npm run test:wait:gallery
 
       - name: Scan Component Gallery
+        if: steps.docs.outputs.docs_only != 'true'
         run: npm run test:gallery
 
       - name: Upload Test Reports if Failed

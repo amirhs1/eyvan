@@ -76,6 +76,18 @@ $brand-text-max-width: 18rem;
 // keeps tap targets at the ~44px WCAG-recommended minimum
 $control-min-size: 2.75rem;
 
+// Control sizes that depart from the minimum: compact in toolbars and cards,
+// large where the control is the main target (mobile menu, mobile nav links).
+// Usage: inline-size: $control-size-sm; on a toolbar icon control.
+$control-size-sm: 2.25rem; // 36px — toolbar controls (back to top, toolbar share)
+$control-size-md: 2.5rem; // 40px — controls inside cards and narrow rows
+$control-size-lg: 3rem; // 48px — large controls and mobile nav link height
+
+// Glyph sizes inside controls.
+// Usage: inline-size: $icon-size; on the svg or icon box inside a control.
+$icon-size: 1.125rem; // 18px — default glyph
+$icon-size-lg: 1.25rem; // 20px — larger glyph (close buttons, card icons)
+
 // Base operand for content that must clear the sticky site header.
 // Usage: composed with spacing by 1-tools/_spacing-fluid.scss.
 $sticky-offset-base: 8rem;
@@ -170,6 +182,13 @@ $grid-columns: 12 !default;
 $card-border-width: $global-border-width;
 
 $card-lift-hover: -0.25rem;
+
+// Control interaction geometry: the hover lift of icon controls, and the
+// press (active) displacement and scale of buttons and tags.
+// Usage: transform: translateY($control-lift-hover); in a :hover rule.
+$control-lift-hover: -1px;
+$control-press-offset: 1px;
+$control-press-scale: 0.98;
 
 
 /* -----------------------------------------------------------------------------

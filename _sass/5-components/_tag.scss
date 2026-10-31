@@ -84,6 +84,6 @@ $tag-padding-inline: settings-spacing.$space-2;
   }
 
   &:active {
-    transform: translateY(1px) scale(0.98);
+    transform: translateY(settings-config.$control-press-offset) scale(settings-config.$control-press-scale);
   }
 }

@@ -85,10 +85,13 @@ $line-height-loose: 1.75; // Academic or long-form reading
    ----------------------------------------------------------------------------- */
 
 // Usage: max-inline-size: $text-measure-base;.
+// 1ch is the width of "0", not of an average character, so one value holds a
+// different number of characters in each font. tests/site-integrity.spec.js
+// counts the rendered characters per line; run it after changing a font.
 
 $text-measure-narrow: 45ch;
 $text-measure-base: 65ch;
-$text-measure-wide: 75ch;
+$text-measure-wide: 50ch; // About 66 characters per line in Gelasio (#115)
 
 
 /* -----------------------------------------------------------------------------

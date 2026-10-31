@@ -25,6 +25,7 @@ const galleryPages = [
   '/tests/5-components/test-entry-meta/',
   '/tests/5-components/test-hero/',
   '/tests/5-components/test-icon-link/',
+  '/tests/5-components/test-label/',
   '/tests/5-components/test-mobile-menu/',
   '/tests/5-components/test-nav/',
   '/tests/5-components/test-page/',

@@ -21,7 +21,8 @@
 #   3. Deterministic token contrast (audit R1)
 #      Every key text / UI / syntax pair meets WCAG 2.1 AA, computed straight
 #      from the token values. This deterministically catches punctuation-only
-#      operator tokens (base0c) that axe can miss on code-heavy pages.
+#      operator tokens (base0c) that axe can miss on code-heavy pages. It also
+#      checks the post-navigation text where its card gradient is weakest.
 #
 #   4. Documented-token definedness (audit R4)
 #      The theming guide publishes the palette as a public API, so prose can
@@ -55,6 +56,7 @@ BASE       = ROOT.join("_sass/3-base/_base.scss")
 THEME_DATA = ROOT.join("_data/theme.yml")
 HEAD       = ROOT.join("_includes/head.html")
 TOGGLE_JS  = ROOT.join("assets/js/theme-toggle.js")
+POST_NAV   = ROOT.join("_sass/5-components/_post-navigation.scss")
 CHARTS_JS  = ROOT.join("assets/js/demo-climate-charts.js")
 
 # Directories whose source *consumes* the contract (var(--color-*) references).
@@ -140,6 +142,16 @@ def contrast_ratio(fg, bg)
   l2 = relative_luminance(bg)
   hi, lo = [l1, l2].max, [l1, l2].min
   (hi + 0.05) / (lo + 0.05)
+end
+
+# Colour at 100% of a gradient that runs from `from` at 0% to
+# color-mix(in srgb, from mix, toward) at `stop` (> 1), interpolated in sRGB.
+def gradient_edge_hex(from, toward, mix, stop)
+  start = from.delete("#").scan(/../).map { |pair| pair.to_i(16) }
+  other = toward.delete("#").scan(/../).map { |pair| pair.to_i(16) }
+  finish = start.zip(other).map { |a, b| a * mix + b * (1 - mix) }
+  edge = start.zip(finish).map { |a, b| (a + (b - a) / stop).round.clamp(0, 255) }
+  "#" + edge.map { |c| c.to_s(16).rjust(2, "0") }.join.upcase
 end
 
 # ----- check 1: custom-property definedness (R8.1) ---------------------------
@@ -264,7 +276,8 @@ SURFACE_TEXT_PAIRS = {
   "surface-container-low" => {
     "on-surface" => 4.5,
     "on-surface-variant" => 4.5,
-    "heading-color" => 4.5
+    "heading-color" => 4.5,
+    "primary" => 4.5 # active link in the Contents rail
   },
   "surface-container-high" => {
     "on-surface" => 4.5,
@@ -286,6 +299,18 @@ SYNTAX_AGAINST_BASE00 = {
   "base0b" => 4.5, "base0c" => 4.5, "base0d" => 4.5, "base0e" => 4.5,
   "base0f" => 4.5
 }.freeze
+
+# Post-navigation cards (_post-navigation.scss) put on-primary text over a
+# gradient from primary toward a primary/surface-container-low mix whose stop
+# lies past the card, so the card's far edge is the text's weakest background.
+nav_vars = parse_scss_vars(read(POST_NAV).to_s)
+nav_mix = nav_vars["post-nav-gradient-mix"]&.match(/\A([\d.]+)%\z/)&.[](1)&.to_f
+nav_stop = nav_vars["post-nav-gradient-end"]&.match(/\A([\d.]+)%\z/)&.[](1)&.to_f
+unless nav_mix && nav_stop && nav_stop > 100
+  errors << "contrast: cannot read the post-navigation gradient " \
+            "($post-nav-gradient-mix, $post-nav-gradient-end) from #{POST_NAV.relative_path_from(ROOT)}"
+  nav_mix = nil
+end
 
 { "light" => LIGHT_MODE, "dark" => DARK_MODE }.each do |mode, file|
   text = read(file)
@@ -325,6 +350,23 @@ SYNTAX_AGAINST_BASE00 = {
     check.call("on-#{fam}-container", "#{fam}-container", 4.5, "#{fam}-container")
   end
   SYNTAX_AGAINST_BASE00.each { |fg, minimum| check.call(fg, "base00", minimum, "base00") }
+
+  if nav_mix
+    primary, surface, text_hex = resolve.call("primary"), resolve.call("surface-container-low"), resolve.call("on-primary")
+    if primary.nil? || surface.nil? || text_hex.nil?
+      errors << "contrast (#{mode}): cannot resolve the post-navigation gradient colours"
+    else
+      edge = gradient_edge_hex(primary, surface, nav_mix / 100, nav_stop / 100)
+      ratio = contrast_ratio(text_hex, edge)
+      # WCAG 2.1 SC 1.4.3: 4.5:1 for text.
+      if ratio < 4.5
+        errors << format(
+          "contrast (%s): on-primary on the post-navigation gradient edge (%s) is %.2f:1 (needs 4.5:1)",
+          mode, edge, ratio
+        )
+      end
+    end
+  end
 end
 
 # ----- check 4: documented-token definedness (R4) ----------------------------

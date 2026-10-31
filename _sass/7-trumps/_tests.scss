@@ -19,6 +19,7 @@
 @use "../0-settings/light-mode" as light-mode;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -214,7 +215,7 @@
   opacity: 0.95;
 }
 
-@media (min-width: settings-breakpoints.$bp-md) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
   .c-container-test-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -337,6 +338,10 @@
 
 .c-section-heading-test-box--narrow {
   max-inline-size: 24rem;
+}
+
+.c-label-test-box--narrow {
+  max-inline-size: 16rem;
 }
 
 .c-section-heading-test-fill--spaced {
@@ -527,7 +532,7 @@
   max-inline-size: 60ch;
 }
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-md) {
   .c-post-card-test-grid--two-up {
     grid-template-columns: 1fr;
   }
@@ -771,7 +776,7 @@
   font-size: settings-typography.$font-size-sm;
 }
 
-@media (max-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-layout) {
   .c-site-header-test-fill,
   .c-site-header-test-fill--wide {
     grid-template-columns: 1fr;

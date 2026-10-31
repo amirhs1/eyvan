@@ -33,7 +33,8 @@
     "platform" action (x, linkedin, pinterest, or email - whichever comes
     first and is available) plus the pinned Print and Native actions render
     inline; any remaining platform actions render inside a hidden overflow
-    panel revealed by an "ellipsis-horizontal-circle" toggle. Used by the
+    panel revealed by an "ellipsis-horizontal-circle" toggle, and the root
+    gets c-post-share--collapsed. Used by the
     mobile/tablet TOC toolbar to keep it compact. Omit (or false) to render
     every available action inline (used by the desktop share rail and the
     no-TOC header fallback).
@@ -78,7 +79,7 @@
 {% endif %}
 
 <!-- post-share.html -->
-<div class="c-post-share" aria-label="Share this post">
+<div class="c-post-share{% if collapse %} c-post-share--collapsed{% endif %}" aria-label="Share this post">
   <div class="c-post-share__head">
     <p class="c-post-share__title">Share</p>
   </div>

@@ -40,6 +40,7 @@
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 /* -----------------------------------------------------------------------------
@@ -143,7 +144,7 @@ $section-heading-head-gap: tools-spacing.$fluid-inline-md;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-md) {
   .c-section-heading__head {
     flex-direction: column;
     align-items: stretch;

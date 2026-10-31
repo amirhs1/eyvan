@@ -42,15 +42,10 @@ $sticky-offset-top: calc(settings-config.$sticky-offset-base + settings-spacing.
 // These variables DO NOT output CSS on their own.
 
 /* -----------------------------------------------------------------------------
-   1. Static Stack Aliases (pass-through from settings)
+   1. Static Stack
    ----------------------------------------------------------------------------- */
-// Used where fluid spacing is unnecessary or undesirable.
-// Named $static-stack-* (not $space-stack-*) to avoid colliding with the
-// distinct $space-stack-* tokens in 0-settings/_spacing.scss.
-
-$static-stack-xxs: settings-spacing.$space-1; // 4px
-$static-stack-xs: settings-spacing.$space-2; // 8px
-$static-stack-sm: settings-spacing.$space-3; // 12px
+// Where fluid spacing is unnecessary or undesirable, use the fixed
+// $space-stack-* tokens in 0-settings/_spacing.scss directly.
 
 
 /* -----------------------------------------------------------------------------

@@ -1,0 +1,119 @@
+// -----------------------------------------------------------------------------
+// Post Layout
+// ITCSS layer: 6-layouts
+//
+// Description:
+// The post page's content grid: share rail, prose, and the sticky Contents
+// rail, used by _layouts/post.html.
+//
+// Structure:
+// - .l-post
+//   - .l-post__col--left            share rail column
+//   - .l-post__col--main
+//     - .l-post__prose
+//       - .o-prose
+//   - .l-post__col--right           Contents rail column
+//     - .l-post__aside              sticky shell (_includes/post-toc-desktop.html)
+//       - .c-toc
+//
+// Notes:
+// - Desktop uses a 3-column grid:
+//   | flexible left column | prose ($text-measure-wide) | flexible right TOC column |
+// - The grid row stretches vertically so the sticky aside can be bounded by
+//   the post body/prose height.
+// - Below $bp-layout the grid collapses to a single column and both side
+//   columns hide; _toc.scss and toc.js own the mobile Contents toolbar.
+//
+// Scope & Rules:
+// - Layout only: grid, column sizing, and sticky placement
+// - Contents rail visuals belong to c-toc; share rail visuals to c-post
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/spacing-fluid" as tools-spacing;
+
+/* -----------------------------------------------------------------------------
+   Local layout tokens
+   ----------------------------------------------------------------------------- */
+
+$post-layout-toc-max-width: 20rem;
+$post-aside-sticky-top: tools-spacing.$sticky-offset-top;
+
+/* -----------------------------------------------------------------------------
+   Content grid: 3-column symmetric grid
+   ----------------------------------------------------------------------------- */
+
+.l-post {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, settings-typography.$text-measure-wide)
+    minmax(0, 1fr);
+
+  column-gap: settings-spacing.$space-6;
+
+  /*
+    Important:
+    Use stretch here so the right TOC column has the same block-size as
+    the prose column. This gives position: sticky a vertical parent range.
+  */
+  align-items: stretch;
+}
+
+.l-post__col {
+  min-inline-size: 0;
+}
+
+.l-post__col--left,
+.l-post__col--main {
+  align-self: stretch;
+}
+
+.l-post__col--right {
+  align-self: stretch;
+  justify-self: stretch;
+
+  inline-size: 100%;
+  max-inline-size: $post-layout-toc-max-width;
+}
+
+.l-post__prose {
+  display: flex;
+  justify-content: center;
+  min-inline-size: 0;
+  overflow-x: clip;
+}
+
+/* -----------------------------------------------------------------------------
+   Sticky aside: the Contents rail's column shell
+   ----------------------------------------------------------------------------- */
+
+.l-post__aside {
+  position: sticky;
+  top: $post-aside-sticky-top;
+  z-index: 2; // Local: above the prose column only, not on the page-level $z-* scale
+  align-self: start;
+
+  max-block-size: calc(100vh - #{$post-aside-sticky-top * 2});
+  overflow-y: auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-down(settings-breakpoints.$bp-layout) {
+  .l-post {
+    display: block;
+  }
+
+  .l-post__col--left,
+  .l-post__col--right {
+    display: none;
+    max-inline-size: none;
+  }
+}

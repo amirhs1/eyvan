@@ -30,6 +30,7 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/spacing" as settings-spacing;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 
@@ -46,7 +47,7 @@
   min-inline-size: 0;
 
   column-gap: tools-spacing.$fluid-inline-md;
-  row-gap: tools-spacing.$static-stack-xs;
+  row-gap: settings-spacing.$space-stack-xs;
 
   padding-block: tools-spacing.$fluid-stack-md;
 }

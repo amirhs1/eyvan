@@ -38,7 +38,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
-@use "../1-tools/spacing-fluid" as tools-spacing;
+@use "../1-tools/mixins" as tools-mixins;
 
 /* -----------------------------------------------------------------------------
    Social-links group/context styles
@@ -61,8 +61,8 @@
 
 .c-social-links__item--cv {
   .c-icon-link__icon {
-    inline-size: 1.25rem;
-    block-size: 1.25rem;
+    inline-size: settings-config.$icon-size-lg;
+    block-size: settings-config.$icon-size-lg;
   }
 }
 
@@ -85,25 +85,7 @@
    ----------------------------------------------------------------------------- */
 
 .c-social-links__overflow {
-  position: absolute;
-  z-index: settings-config.$z-dropdown;
-  inset-block-start: calc(100% + settings-spacing.$space-2);
-  inset-inline-end: 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: settings-spacing.$space-1;
-
-  padding: settings-spacing.$space-2;
-
-  background-color: var(--color-surface-container-low);
-  border: settings-config.$global-border-width solid var(--color-outline-variant);
-  border-radius: settings-config.$global-border-radius;
-  box-shadow: var(--elevation-raised);
-}
-
-.c-social-links__overflow[hidden] {
-  display: none;
+  @include tools-mixins.disclosure-popover;
 }
 
 /* -----------------------------------------------------------------------------
@@ -114,26 +96,26 @@
   justify-content: center;
 
   .c-icon-link {
-    inline-size: 2.5rem;
-    block-size: 2.5rem;
-    min-inline-size: 2.5rem;
-    min-block-size: 2.5rem;
+    inline-size: settings-config.$control-size-md;
+    block-size: settings-config.$control-size-md;
+    min-inline-size: settings-config.$control-size-md;
+    min-block-size: settings-config.$control-size-md;
   }
 }
 
 .c-social-links--mobile {
   justify-content: center;
-  gap: tools-spacing.$fluid-inline-sm;
+  gap: settings-spacing.$space-3;
 
   .c-icon-link {
-    inline-size: 3rem;
-    block-size: 3rem;
-    min-inline-size: 3rem;
-    min-block-size: 3rem;
+    inline-size: settings-config.$control-size-lg;
+    block-size: settings-config.$control-size-lg;
+    min-inline-size: settings-config.$control-size-lg;
+    min-block-size: settings-config.$control-size-lg;
   }
 }
 
-@media (min-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-text) {
   .c-social-links--mobile {
     .c-icon-link {
       inline-size: settings-config.$control-min-size;

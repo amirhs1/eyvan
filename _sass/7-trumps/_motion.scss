@@ -25,8 +25,8 @@
   opacity: 1;
   transform: translateY(0);
   transition:
-    opacity settings-config.$anim-speed-reveal ease,
-    transform settings-config.$anim-speed-reveal ease;
+    opacity settings-config.$anim-speed-reveal cubic-bezier(#{settings-config.$anim-easing-control-points}),
+    transform settings-config.$anim-speed-reveal cubic-bezier(#{settings-config.$anim-easing-control-points});
 }
 
 /* -----------------------------------------------------------------------------

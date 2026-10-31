@@ -87,6 +87,7 @@
 
 @use "5-components/button" as component-button;
 @use "5-components/tag" as component-tag;
+@use "5-components/label" as component-label;
 @use "5-components/icon-link" as component-icon-link;
 @use "5-components/social-links" as component-social-links;
 @use "5-components/theme-toggle" as component-theme-toggle;
@@ -123,6 +124,7 @@
 // -----------------------------------------------------------------------------
 
 @use "6-layouts/default" as layout-default;
+@use "6-layouts/post" as layout-post;
 @use "6-layouts/tag-page" as layout-tag-page;
 @use "6-layouts/homepage" as layout-homepage;
 @use "6-layouts/projects" as layout-projects;

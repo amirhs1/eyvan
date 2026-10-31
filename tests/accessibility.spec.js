@@ -108,6 +108,35 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // $bp-layout is 64em, 1024px at the default 16px font size
+  // (_sass/0-settings/_breakpoints.scss). The desktop post chrome owns the
+  // breakpoint value itself (#77), so 1024px gets only the desktop chrome and
+  // 1023px only the mobile chrome; the two never apply together.
+  const postChromeAtLayoutBreakpoint = [
+    { width: 1024, chrome: 'desktop' },
+    { width: 1023, chrome: 'mobile' },
+  ];
+
+  for (const { width, chrome } of postChromeAtLayoutBreakpoint) {
+    test(`post shows only the ${chrome} chrome at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${baseUrl}/projects/field-notes-iceland-2025/`);
+
+      const mobileToolbar = page.locator('[data-toc-toolbar]');
+      const desktopToc = page.getByRole('navigation', { name: 'On this page' });
+      // The desktop share rail is the share group outside the mobile toolbar;
+      // this post has a TOC, so the header renders no share group.
+      const desktopShareRail = page
+        .getByLabel('Share this post')
+        .and(page.locator(':not([data-toc-toolbar] *)'));
+
+      const isDesktop = chrome === 'desktop';
+      await expect(mobileToolbar).toBeVisible({ visible: !isDesktop });
+      await expect(desktopToc).toBeVisible({ visible: isDesktop });
+      await expect(desktopShareRail).toBeVisible({ visible: isDesktop });
+    });
+  }
+
   // Together these two posts render every syntax-token family that has failed
   // contrast before: strings/numbers (front-matter guide) and comment/gutter
   // tokens (rate limiter), in both themes.
@@ -134,6 +163,42 @@ test.describe('Eyvan interactive accessibility checks', () => {
       expect(darkResults.violations).toEqual([]);
     });
   }
+
+  // Property test, no reference value: the native widgets' scheme must match
+  // the palette in use, whatever the operating system prefers (issue #78).
+  const rootColorScheme = (page) => (
+    page.evaluate(() => getComputedStyle(document.documentElement).colorScheme)
+  );
+
+  test('color-scheme matches the chosen theme, including after the toggle switches it', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto(`${baseUrl}/`);
+
+    const root = page.locator('html');
+    const toggle = page.locator('[data-theme-toggle]:visible');
+
+    await expect(root).toHaveAttribute('data-theme', 'dark');
+    await expect.poll(() => rootColorScheme(page)).toBe('dark');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'light');
+    await expect.poll(() => rootColorScheme(page)).toBe('light');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'dark');
+    await expect.poll(() => rootColorScheme(page)).toBe('dark');
+  });
+
+  test.describe('without JavaScript', () => {
+    test.use({ javaScriptEnabled: false, colorScheme: 'dark' });
+
+    test('color-scheme stays light, matching the light palette that applies without data-theme', async ({ page }) => {
+      await page.goto(`${baseUrl}/`);
+
+      await expect(page.locator('html')).not.toHaveAttribute('data-theme');
+      await expect.poll(() => rootColorScheme(page)).toBe('light');
+    });
+  });
 
   // These five posts have prose tables that overflow a 390px viewport; an axe
   // sweep found scrollable-region-focusable on each of them there (issue #71).

@@ -11,7 +11,7 @@
   Architecture:
   - Reusable post-specific include
   - Uses the shared toc.html generator for the list only
-  - Desktop placement remains owned by _post.scss through c-post-layout
+  - Desktop placement remains owned by 6-layouts/_post.scss through l-post
   - TOC visual styling remains owned by _toc.scss
 
   Accessibility:
@@ -24,7 +24,7 @@
 {% endcomment %}
 
 {% if page.toc %}
-  <div class="c-post-layout__aside">
+  <div class="l-post__aside">
     <nav
       class="c-toc"
       id="post-toc"

@@ -144,7 +144,7 @@ In this template, the Sass source is organized as ITCSS layer directories. The c
 | Base       | `_sass/3-base/`        | Default element styling for HTML, body, headings, links, media, tables, lists, and syntax highlighting.                       |
 | Objects    | `_sass/4-objects/`     | Reusable layout patterns such as containers, grids, hero structure, site header layout, site footer layout, and prose measure. |
 | Components | `_sass/5-components/`  | Specific UI components such as buttons, nav, cards, hero, post layout, TOC, media figures, and theme toggle.                   |
-| Layouts    | `_sass/6-layouts/`     | Page-level composition for the homepage, projects page, tag pages, and default shell spacing.                                  |
+| Layouts    | `_sass/6-layouts/`     | Page-level composition for the homepage, projects page, tag pages, the post page grid, and default shell spacing.             |
 | Trumps     | `_sass/7-trumps/`      | Utilities, state helpers, print rules, and high-priority overrides.                                                           |
 
 {: .c-prose-table }
@@ -264,19 +264,19 @@ The left gutter is intentionally empty. It balances the right-side table of cont
 {% raw %}
 
 ```html
-<div class="c-post-layout">
+<div class="l-post">
   <div
-    class="c-post-layout__col c-post-layout__col--left"
+    class="l-post__col l-post__col--left"
     aria-hidden="true"
   ></div>
 
-  <div class="c-post-layout__col c-post-layout__col--main">
-    <div class="c-post-layout__prose">
+  <div class="l-post__col l-post__col--main">
+    <div class="l-post__prose">
       <div class="o-prose o-prose--measure-wide">{{ content }}</div>
     </div>
   </div>
 
-  <div class="c-post-layout__col c-post-layout__col--right">
+  <div class="l-post__col l-post__col--right">
     {% include post-toc-desktop.html %}
   </div>
 </div>
@@ -308,7 +308,6 @@ The template is built from small components that can be reused across layouts. T
 | `c-post-card`       | Card preview for posts and projects.                                  | Homepage, projects archive, related posts |
 | `c-post`            | Main article shell for long-form posts.                               | Post layout                               |
 | `c-post-cover`      | Optional cover image area above the article header.                   | Post layout                               |
-| `c-post-layout`     | Three-column article composition with left gutter, prose, and TOC.    | Post layout                               |
 | `c-toc`             | Desktop table of contents navigation.                                 | Post layout                               |
 | `c-mobile-toc`      | Mobile/tablet table of contents panel.                                | Post layout                               |
 | `c-prose-figure`    | Responsive single images, multi-image figure grids, audio, and video with captions. | Markdown posts via includes               |

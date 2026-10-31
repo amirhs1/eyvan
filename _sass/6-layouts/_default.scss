@@ -16,19 +16,20 @@
 
 @use "../0-settings/breakpoints" as settings-breakpoints;
 @use "../0-settings/spacing" as settings-spacing;
+@use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 
 .l-default {
   padding-block: tools-spacing.$fluid-section-sm;
 }
 
-@media (min-width: settings-breakpoints.$bp-layout) {
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
   .l-default {
     padding-block: tools-spacing.$fluid-section-md;
   }
 }
 
-@media (max-width: settings-breakpoints.$bp-md) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-md) {
   .l-default {
     padding-block: settings-spacing.$space-4;
   }

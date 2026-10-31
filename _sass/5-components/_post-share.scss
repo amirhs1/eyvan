@@ -19,6 +19,7 @@
 //   - .c-post-share__status
 //
 // Modifiers:
+// - .c-post-share--collapsed (compact single row; post-share.html collapse=true)
 // - .c-post-share__toggle (overflow disclosure trigger)
 // - .c-post-share__overflow (overflow disclosure panel)
 //
@@ -34,6 +35,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
 
 /* -----------------------------------------------------------------------------
    Local component tokens
@@ -107,33 +109,46 @@ $post-share-title-letter-spacing: 0.08em;
    ----------------------------------------------------------------------------- */
 
 .c-post-share__overflow {
-  position: absolute;
-  z-index: settings-config.$z-dropdown;
-  inset-block-start: calc(100% + settings-spacing.$space-2);
-  inset-inline-end: 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: settings-spacing.$space-1;
-
-  padding: settings-spacing.$space-2;
-
-  background-color: var(--color-surface-container-low);
-  border: settings-config.$global-border-width solid var(--color-outline-variant);
-  border-radius: settings-config.$global-border-radius;
-  box-shadow: var(--elevation-raised);
-}
-
-.c-post-share__overflow[hidden] {
-  display: none;
+  @include tools-mixins.disclosure-popover;
 }
 
 /* -----------------------------------------------------------------------------
    Small-screen adjustment
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-sm) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-post-share {
     margin-block: settings-spacing.$space-6;
   }
+}
+
+/* -----------------------------------------------------------------------------
+   Collapsed modifier
+   Set by post-share.html when collapse=true: one compact row, as in the
+   mobile/tablet Contents toolbar. Comes last so it wins over the margins
+   above.
+   ----------------------------------------------------------------------------- */
+
+.c-post-share--collapsed {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-2;
+  margin: 0;
+}
+
+.c-post-share--collapsed .c-post-share__head {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.c-post-share--collapsed .c-post-share__list {
+  flex-wrap: nowrap;
+  gap: settings-spacing.$space-1;
+}
+
+.c-post-share--collapsed .c-icon-link {
+  inline-size: settings-config.$control-size-sm;
+  block-size: settings-config.$control-size-sm;
+  min-inline-size: settings-config.$control-size-sm;
+  min-block-size: settings-config.$control-size-sm;
 }

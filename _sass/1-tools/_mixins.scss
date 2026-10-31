@@ -17,6 +17,7 @@
 @use "sass:meta";
 
 @use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
 
 /* -----------------------------------------------------------------------------
    Responsive Media Queries
@@ -31,6 +32,24 @@
   }
 
   @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+/// Max-width counterpart of mq-up.
+/// Ends 0.01 of the breakpoint's own unit below `$breakpoint`
+/// (64em compiles to max-width: 63.99em), so `mq-up($bp)` and
+/// `mq-down($bp)` never both match: the breakpoint value belongs to `mq-up`.
+/// @param {Number} $breakpoint - Breakpoint token with units
+///   (for example: 48rem or settings-breakpoints.$bp-md)
+@mixin mq-down($breakpoint) {
+  @if meta.type-of($breakpoint) != "number" or math.is-unitless($breakpoint) {
+    @error "mq-down expects a length with units (e.g. 48rem, $bp-md). Got: #{$breakpoint}";
+  }
+
+  // A unitless operand takes $breakpoint's unit, so this subtracts 0.01em
+  // from an em token and 0.01rem from a rem token.
+  @media (max-width: $breakpoint - 0.01) {
     @content;
   }
 }
@@ -112,4 +131,33 @@
 @mixin size-square($size) {
   inline-size: $size;
   block-size: $size;
+}
+
+/* -----------------------------------------------------------------------------
+   Disclosure Popover
+   ----------------------------------------------------------------------------- */
+
+/// Panel of a disclosure toggle: a column of items, absolutely positioned
+/// below the end edge of its nearest positioned ancestor, and removed while
+/// it carries the [hidden] attribute.
+@mixin disclosure-popover {
+  position: absolute;
+  z-index: settings-config.$z-dropdown;
+  inset-block-start: calc(100% + settings-spacing.$space-2);
+  inset-inline-end: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: settings-spacing.$space-1;
+
+  padding: settings-spacing.$space-2;
+
+  background-color: var(--color-surface-container-low);
+  border: settings-config.$global-border-width solid var(--color-outline-variant);
+  border-radius: settings-config.$global-border-radius;
+  box-shadow: var(--elevation-raised);
+
+  &[hidden] {
+    display: none;
+  }
 }

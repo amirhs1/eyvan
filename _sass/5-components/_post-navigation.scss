@@ -60,6 +60,12 @@ $post-nav-media-gap: settings-spacing.$space-4;
 $post-nav-label-margin-block-end: settings-spacing.$space-2;
 $post-nav-content-gap: settings-spacing.$space-2;
 
+// Card gradient: primary at 0% toward a primary/surface mix at the end stop,
+// past the card's far edge. scripts/check-color-contract.rb reads both values
+// to check on-primary text at that edge.
+$post-nav-gradient-mix: 72%; // primary's share of the end colour
+$post-nav-gradient-end: 167%; // end stop
+
 /* -----------------------------------------------------------------------------
    Root
    ----------------------------------------------------------------------------- */
@@ -119,16 +125,16 @@ $post-nav-content-gap: settings-spacing.$space-2;
 .c-post-nav__item::before {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: -1; // Local: behind the card content within its isolated stacking context
 
   background-image: linear-gradient(
     90deg,
     var(--color-primary) 0%,
     color-mix(
       in srgb,
-      var(--color-primary) 72%,
+      var(--color-primary) $post-nav-gradient-mix,
       var(--color-surface-container-low)
-    ) 167%
+    ) $post-nav-gradient-end
   );
 
   content: "";
@@ -244,7 +250,7 @@ $post-nav-content-gap: settings-spacing.$space-2;
    Responsive adjustments
    ----------------------------------------------------------------------------- */
 
-@media (max-width: settings-breakpoints.$bp-text) {
+@include tools-mixins.mq-down(settings-breakpoints.$bp-text) {
   .c-post-nav {
     grid-template-columns: 1fr;
     gap: $post-nav-gap-mobile;

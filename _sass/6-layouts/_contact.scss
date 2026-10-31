@@ -12,7 +12,7 @@
 //   - .l-contact__header       section-heading block
 //   - .l-contact__methods      list of c-contact-card items (stacked)
 //   - .l-contact__social       social row
-//     - .l-contact__social-label   "Also reachable on" label
+//     - .l-contact__social-label   "Also reachable on" label (c-label)
 //     - .l-contact__social-links   c-social-links nav
 //
 // Rules:
@@ -22,7 +22,6 @@
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/spacing"    as settings-spacing;
-@use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as fluid;
 
 /* -----------------------------------------------------------------------------
@@ -81,13 +80,9 @@ $contact-methods-inline-size: 46rem; // A layout width, not a text measure
   gap: settings-spacing.$space-3;
 }
 
+// Type and colour come from c-label.
 .l-contact__social-label {
   margin: 0;
-  font-family: settings-typography.$font-family-mono;
-  font-size: settings-typography.$font-size-sm;
-  letter-spacing: settings-typography.$letter-spacing-loose-md;
-  text-transform: uppercase;
-  color: var(--color-on-surface-variant);
 }
 
 // c-social-links owns icon sizing and gap; no inline offset needed here.

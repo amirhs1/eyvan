@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------
+// Label Component
+// ITCSS layer: 5-components
+//
+// Description:
+// A short uppercase text label in the mono face, such as the "Also reachable
+// on" line above the contact page's social links.
+//
+// Structure:
+// - .c-label
+//
+// Scope & Rules:
+// - Component styling only: type and colour
+// - Does NOT own its margins or position; the parent layout places it
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/typography" as settings-typography;
+
+.c-label {
+  font-family: settings-typography.$font-family-mono;
+  font-size: settings-typography.$font-size-sm;
+  letter-spacing: settings-typography.$letter-spacing-loose-md;
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}

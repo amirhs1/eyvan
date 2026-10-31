@@ -54,7 +54,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 
 .c-toc {
   padding: tools-spacing.$fluid-inline-sm;
-  background-color: var(--color-syntax-base00);
+  background-color: var(--color-surface-container-low);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   border-radius: settings-config.$global-border-radius;
 }

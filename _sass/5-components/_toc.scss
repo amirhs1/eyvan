@@ -60,8 +60,8 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
 }
 
 .c-toc__header {
-  margin-block-end: tools-spacing.$static-stack-sm;
-  padding-block-end: tools-spacing.$static-stack-sm;
+  margin-block-end: settings-spacing.$space-stack-sm;
+  padding-block-end: settings-spacing.$space-stack-sm;
   border-block-end: settings-config.$global-border-width solid
     var(--color-outline-variant);
   text-align: center;
@@ -209,7 +209,7 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     max-inline-size: none;
     min-block-size: 0;
 
-    padding: tools-spacing.$static-stack-sm;
+    padding: settings-spacing.$space-stack-sm;
 
     background-color: var(--color-surface-container-highest);
     border: settings-config.$global-border-width solid var(--color-outline-variant);
@@ -221,10 +221,10 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: tools-spacing.$static-stack-sm;
+    gap: settings-spacing.$space-stack-sm;
 
-    margin-block-end: tools-spacing.$static-stack-sm;
-    padding-block-end: tools-spacing.$static-stack-sm;
+    margin-block-end: settings-spacing.$space-stack-sm;
+    padding-block-end: settings-spacing.$space-stack-sm;
 
     border-block-end: settings-config.$global-border-width solid
       var(--color-outline-variant);

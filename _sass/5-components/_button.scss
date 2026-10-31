@@ -29,7 +29,6 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
 @use "../0-settings/typography" as settings-type;
-@use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 
 /* -----------------------------------------------------------------------------
@@ -166,7 +165,7 @@ $button-icon-size: 0.875rem;
    ----------------------------------------------------------------------------- */
 
 .c-button--with-icon {
-  gap: tools-spacing.$static-stack-xs;
+  gap: settings-spacing.$space-stack-xs;
 }
 
 .c-button__icon-circle {

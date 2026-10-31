@@ -15,7 +15,7 @@
 //       - .l-about__actions         CTA button row
 //     - .l-about__portrait          image + caption (right col)
 //       - .l-about__portrait-image
-//       - .l-about__portrait-caption
+//       - .l-about__portrait-caption (c-prose-caption)
 //   - .l-about__section--split      two-column at desktop (focus, currently)
 //     - .l-about__section-heading   label column
 //     - .l-about__section-body      content column
@@ -121,12 +121,9 @@
   border-radius: settings-config.$global-border-radius;
 }
 
+// Type and colour come from c-prose-caption.
 .l-about__portrait-caption {
   max-inline-size: settings-typography.$text-measure-narrow;
-  color: var(--color-on-surface-variant);
-  font-family: settings-typography.$font-family-mono;
-  font-size: settings-typography.$font-size-sm;
-  line-height: settings-typography.$line-height-normal;
 }
 
 

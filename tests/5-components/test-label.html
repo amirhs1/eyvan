@@ -1,0 +1,32 @@
+---
+layout: test
+title: Component Label Test
+permalink: /tests/5-components/test-label/
+robots: noindex
+---
+
+{% comment %}
+  Component Label Test Page
+  Purpose: Verify the .c-label component's type and colour, alone and above
+  a row of links as on the contact page, and when its text wraps.
+  Selectors: .c-label
+{% endcomment %}
+
+<p>This page isolates the short uppercase <code>.c-label</code> component.</p>
+
+<hr>
+
+<h2>Label above a link row</h2>
+<p><strong>Expected behavior:</strong> The label reads as small, muted, uppercase mono text, distinct from the links below it.</p>
+
+<div class="c-test-frame">
+  <p class="c-label">Also reachable on</p>
+  <p><a href="#label-one">First profile</a> · <a href="#label-two">Second profile</a></p>
+</div>
+
+<h2>Wrapping stress case</h2>
+<p><strong>Expected behavior:</strong> A long label wraps between words and stays legible.</p>
+
+<div class="c-test-frame c-label-test-box--narrow">
+  <p class="c-label">A deliberately long label that has to wrap onto a second line</p>
+</div>

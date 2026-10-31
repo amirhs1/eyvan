@@ -180,9 +180,9 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 .c-mobile-menu__footer {
   display: grid;
   justify-content: center;
-  gap: tools-spacing.$static-stack-sm;
+  gap: settings-spacing.$space-stack-sm;
   margin-block-start: tools-spacing.$fluid-stack-md;
-  padding-block-start: tools-spacing.$static-stack-sm;
+  padding-block-start: settings-spacing.$space-stack-sm;
   border-block-start: settings-config.$global-border-width solid var(--color-outline-variant);
 }
 

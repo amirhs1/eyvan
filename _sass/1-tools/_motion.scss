@@ -15,14 +15,13 @@
 
 @use "../0-settings/config" as settings-config;
 
-$anim-easing: cubic-bezier(#{settings-config.$anim-easing-control-points});
-$transition-fade: opacity settings-config.$anim-speed $anim-easing;
-$transition-transform: transform settings-config.$anim-speed $anim-easing;
+$transition-fade: opacity settings-config.$transition-base;
+$transition-transform: transform settings-config.$transition-base;
 $transition-interaction:
-  color settings-config.$anim-speed $anim-easing,
-  background-color settings-config.$anim-speed $anim-easing,
-  border-color settings-config.$anim-speed $anim-easing,
-  box-shadow settings-config.$anim-speed $anim-easing;
+  color settings-config.$transition-base,
+  background-color settings-config.$transition-base,
+  border-color settings-config.$transition-base,
+  box-shadow settings-config.$transition-base;
 $card-transition:
   background-color settings-config.$transition-base,
   border-color settings-config.$transition-base,

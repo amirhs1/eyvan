@@ -84,11 +84,12 @@ $sticky-offset-base: 8rem;
    Interaction & Motion Tokens
    ----------------------------------------------------------------------------- */
 
-// Shared transition speeds.
+// Shared transitions: one easing curve at three speeds.
 // Usage: transition: opacity $transition-base;.
-$transition-fast: 0.15s ease;
-$transition-base: 0.2s ease;
-$transition-slow: 0.3s ease;
+$anim-easing-control-points: 0.4, 0, 0.2, 1;
+$transition-fast: 0.15s cubic-bezier(#{$anim-easing-control-points});
+$transition-base: 0.2s cubic-bezier(#{$anim-easing-control-points});
+$transition-slow: 0.3s cubic-bezier(#{$anim-easing-control-points});
 
 // Interaction opacity states.
 // Usage: opacity: $disabled-opacity; for disabled controls.
@@ -100,14 +101,8 @@ $disabled-opacity: 0.5;    // WCAG-safe default
    Motion & Performance
    ----------------------------------------------------------------------------- */
 
-// Global animation defaults (fast, restrained, non-distracting).
-// Usage: composed into transition values by 1-tools/_motion.scss.
-$anim-speed: 0.2s;
-// Control-point data composed into cubic-bezier() by 1-tools/_motion.scss.
-$anim-easing-control-points: 0.4, 0, 0.2, 1;
-
-// Reveal-on-scroll entrance duration, distinct from $anim-speed (used for
-// hover/focus interactions)
+// Reveal-on-scroll entrance duration, distinct from $transition-base (used
+// for hover/focus interactions)
 $anim-speed-reveal: 220ms;
 
 // Reveal-on-scroll starting offset (1-tools/motion reveal-base mixin)

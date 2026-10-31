@@ -114,7 +114,7 @@ $post-card-meta-padding-block-start: settings-spacing.$space-3;
 
 .c-post-card:hover .c-post-card__image,
 .c-post-card:focus-within .c-post-card__image {
-  transform: scale(1.03);
+  transform: scale(1.03); // Intentional one-off: image zoom on card hover, not a control
 }
 
 /* -----------------------------------------------------------------------------

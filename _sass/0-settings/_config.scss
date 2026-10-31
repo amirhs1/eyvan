@@ -183,6 +183,12 @@ $card-border-width: $global-border-width;
 
 $card-lift-hover: -0.25rem;
 
+// Control interaction geometry: the hover lift of icon controls, and the
+// press (active) displacement and scale of buttons and tags.
+// Usage: transform: translateY($control-lift-hover); in a :hover rule.
+$control-lift-hover: -1px;
+$control-press-offset: 1px;
+$control-press-scale: 0.98;
 
 
 /* -----------------------------------------------------------------------------

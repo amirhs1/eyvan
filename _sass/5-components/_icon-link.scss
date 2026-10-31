@@ -63,7 +63,7 @@
     color: var(--color-on-primary);
     background-color: var(--color-primary);
     border-color: var(--color-primary);
-    transform: translateY(-1px);
+    transform: translateY(settings-config.$control-lift-hover);
     text-decoration: none;
   }
 

@@ -95,7 +95,7 @@ $post-aside-sticky-top: tools-spacing.$sticky-offset-top;
 .l-post__aside {
   position: sticky;
   top: $post-aside-sticky-top;
-  z-index: 2;
+  z-index: 2; // Local: above the prose column only, not on the page-level $z-* scale
   align-self: start;
 
   max-block-size: calc(100vh - #{$post-aside-sticky-top * 2});

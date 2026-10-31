@@ -13,14 +13,14 @@
 
 @use "../0-settings/spacing" as settings-spacing;
 
+// hr (_elements.scss), blockquote (_typography.scss), and pre
+// (_syntax-highlighting.scss) set their own margins; listing them here too
+// would put a second margin rule on each.
 h1, h2, h3, h4, h5, h6,
 p,
-blockquote,
 address,
-pre,
 table,
 figure,
-fieldset,
-hr {
+fieldset {
   margin-bottom: settings-spacing.$space-4;
 }

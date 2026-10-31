@@ -60,6 +60,12 @@ $post-nav-media-gap: settings-spacing.$space-4;
 $post-nav-label-margin-block-end: settings-spacing.$space-2;
 $post-nav-content-gap: settings-spacing.$space-2;
 
+// Card gradient: primary at 0% toward a primary/surface mix at the end stop,
+// past the card's far edge. scripts/check-color-contract.rb reads both values
+// to check on-primary text at that edge.
+$post-nav-gradient-mix: 72%; // primary's share of the end colour
+$post-nav-gradient-end: 167%; // end stop
+
 /* -----------------------------------------------------------------------------
    Root
    ----------------------------------------------------------------------------- */
@@ -126,9 +132,9 @@ $post-nav-content-gap: settings-spacing.$space-2;
     var(--color-primary) 0%,
     color-mix(
       in srgb,
-      var(--color-primary) 72%,
+      var(--color-primary) $post-nav-gradient-mix,
       var(--color-surface-container-low)
-    ) 167%
+    ) $post-nav-gradient-end
   );
 
   content: "";

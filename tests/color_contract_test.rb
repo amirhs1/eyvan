@@ -18,6 +18,7 @@ class ColorContractTest < Minitest::Test
     _sass/0-settings/_light-mode.scss
     _sass/0-settings/_dark-mode.scss
     _sass/3-base/_base.scss
+    _sass/5-components/_post-navigation.scss
     _includes/head.html
     assets/js/theme-toggle.js
     assets/js/demo-climate-charts.js
@@ -26,6 +27,9 @@ class ColorContractTest < Minitest::Test
 
   # Relative path of the shipped doc that publishes the palette as a public API.
   THEMING_POST = "_posts/2026-06-15-theming-eyvan.md"
+
+  # Relative path of the component whose gradient tokens the guard reads.
+  POST_NAVIGATION = "_sass/5-components/_post-navigation.scss"
 
   def test_passes_for_canonical_repository
     stdout, stderr, status = run_script
@@ -81,6 +85,35 @@ class ColorContractTest < Minitest::Test
 
       refute status.success?
       assert_includes stderr, "contrast"
+    end
+  end
+
+  # A lighter end colour moves the card's far edge below WCAG 2.1 SC 1.4.3's
+  # 4.5:1 for the on-primary text, which plain primary alone would not show.
+  def test_flags_post_navigation_text_below_aa_at_gradient_edge
+    with_color_fixture do |root|
+      path = root.join(POST_NAVIGATION)
+      mutated = File.read(path, encoding: "UTF-8")
+        .sub(/\$post-nav-gradient-mix:\s*[\d.]+%;/, "$post-nav-gradient-mix: 30%;")
+      File.write(path, mutated)
+
+      _stdout, stderr, status = run_script("--root", root)
+
+      refute status.success?
+      assert_includes stderr, "on-primary on the post-navigation gradient edge"
+    end
+  end
+
+  def test_flags_unreadable_post_navigation_gradient
+    with_color_fixture do |root|
+      path = root.join(POST_NAVIGATION)
+      mutated = File.read(path, encoding: "UTF-8").sub(/^\$post-nav-gradient-end:.*\n/, "")
+      File.write(path, mutated)
+
+      _stdout, stderr, status = run_script("--root", root)
+
+      refute status.success?
+      assert_includes stderr, "cannot read the post-navigation gradient"
     end
   end
 

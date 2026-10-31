@@ -142,26 +142,6 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 }
 
 /* -----------------------------------------------------------------------------
-   Theme toggle placement in top-left
-   Keep shared button styling from _theme-toggle.scss.
-   ----------------------------------------------------------------------------- */
-
-.c-mobile-menu__top-left .c-theme-toggle--mobile {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: settings-config.$control-min-size;
-  block-size: settings-config.$control-min-size;
-  min-inline-size: settings-config.$control-min-size;
-  padding: 0;
-  border-radius: 50%;
-}
-
-.c-mobile-menu__top-left .c-theme-toggle--mobile .c-theme-toggle__label {
-  display: none;
-}
-
-/* -----------------------------------------------------------------------------
    Close button
    Reuses shared icon-link visuals; only local structure belongs here.
    ----------------------------------------------------------------------------- */
@@ -194,23 +174,6 @@ $mobile-menu-z-index: settings-config.$z-overlay;
 }
 
 /* -----------------------------------------------------------------------------
-   Mobile navigation placement
-   Delegates link styling to nav.scss.
-   ----------------------------------------------------------------------------- */
-
-.c-mobile-menu .c-nav--mobile {
-  flex: 1 1 auto;
-}
-
-.c-mobile-menu .c-nav--mobile .c-nav__list {
-  gap: settings-spacing.$space-1;
-}
-
-.c-mobile-menu .c-nav--mobile .c-nav__link {
-  padding-inline-end: settings-spacing.$space-3;
-}
-
-/* -----------------------------------------------------------------------------
    Footer action area
    ----------------------------------------------------------------------------- */
 
@@ -221,21 +184,6 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   margin-block-start: tools-spacing.$fluid-stack-md;
   padding-block-start: tools-spacing.$static-stack-sm;
   border-block-start: settings-config.$global-border-width solid var(--color-outline-variant);
-}
-
-/* -----------------------------------------------------------------------------
-   Mobile social links
-   ----------------------------------------------------------------------------- */
-
-.c-mobile-menu__footer .c-social-links--mobile {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: settings-spacing.$space-3;
-}
-
-.c-mobile-menu__footer .c-social-links--mobile .c-social-links__item {
-  flex: 0 0 auto;
 }
 
 /* -----------------------------------------------------------------------------

@@ -19,6 +19,7 @@
 //   - .c-post-share__status
 //
 // Modifiers:
+// - .c-post-share--collapsed (compact single row; post-share.html collapse=true)
 // - .c-post-share__toggle (overflow disclosure trigger)
 // - .c-post-share__overflow (overflow disclosure panel)
 //
@@ -119,4 +120,35 @@ $post-share-title-letter-spacing: 0.08em;
   .c-post-share {
     margin-block: settings-spacing.$space-6;
   }
+}
+
+/* -----------------------------------------------------------------------------
+   Collapsed modifier
+   Set by post-share.html when collapse=true: one compact row, as in the
+   mobile/tablet Contents toolbar. Comes last so it wins over the margins
+   above.
+   ----------------------------------------------------------------------------- */
+
+.c-post-share--collapsed {
+  display: flex;
+  align-items: center;
+  gap: settings-spacing.$space-2;
+  margin: 0;
+}
+
+.c-post-share--collapsed .c-post-share__head {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.c-post-share--collapsed .c-post-share__list {
+  flex-wrap: nowrap;
+  gap: settings-spacing.$space-1;
+}
+
+.c-post-share--collapsed .c-icon-link {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  min-inline-size: 2.25rem;
+  min-block-size: 2.25rem;
 }

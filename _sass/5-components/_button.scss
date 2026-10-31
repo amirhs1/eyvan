@@ -176,7 +176,7 @@ $button-icon-size: 0.875rem;
 
   inline-size: $button-icon-circle-size;
   block-size: $button-icon-circle-size;
-  border-radius: 50%;
+  border-radius: settings-config.$radius-pill;
 
   background-color: var(--color-button-bg);
   color: var(--color-button-text);

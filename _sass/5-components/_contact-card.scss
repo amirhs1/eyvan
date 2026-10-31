@@ -61,7 +61,7 @@
   justify-content: center;
   inline-size: 2.5rem;
   block-size: 2.5rem;
-  border-radius: 50%;
+  border-radius: settings-config.$radius-pill;
   background-color: var(--color-surface-container-high);
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   color: var(--color-on-surface-variant);

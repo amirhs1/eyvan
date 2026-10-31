@@ -61,7 +61,7 @@ $entry-meta-details-gap: settings-spacing.$space-2;
   inline-size: $entry-meta-avatar-size;
   block-size: $entry-meta-avatar-size;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: settings-config.$radius-pill;
   background-color: var(--color-surface-container-high);
 }
 

@@ -153,33 +153,10 @@ $toc-scroll-margin-top: calc(#{$toc-sticky-top} + settings-spacing.$space-6);
     font-size: settings-typography.$font-size-sm;
   }
 
+  // The share block inside is c-post-share--collapsed (_post-share.scss).
   .c-toc-toolbar__share {
     flex: 0 0 auto;
     margin-inline-start: auto;
-
-    .c-post-share {
-      display: flex;
-      align-items: center;
-      gap: settings-spacing.$space-2;
-      margin: 0;
-    }
-
-    .c-post-share__head {
-      flex: 0 0 auto;
-      margin: 0;
-    }
-
-    .c-post-share__list {
-      flex-wrap: nowrap;
-      gap: settings-spacing.$space-1;
-    }
-
-    .c-icon-link {
-      inline-size: 2.25rem;
-      block-size: 2.25rem;
-      min-inline-size: 2.25rem;
-      min-block-size: 2.25rem;
-    }
   }
 }
 

@@ -43,7 +43,7 @@ layout: default
   Architecture:
   - Layout layer of the site
   - Uses ITCSS + BEM naming
-  - Content layout handled by c-post-layout
+  - Content grid handled by l-post (6-layouts/_post.scss)
   - Reusable UI fragments are delegated to includes
   - Tag links use the shared c-tag component
 
@@ -144,8 +144,8 @@ layout: default
 
       <!-- Post body content -->
       <div class="c-post__content">
-        <div class="c-post-layout">
-          <div class="c-post-layout__col c-post-layout__col--left">
+        <div class="l-post">
+          <div class="l-post__col l-post__col--left">
             {% if page.share != false %}
               <!-- Desktop sticky share rail (hidden on mobile/tablet) -->
               <div class="c-post-share-rail">
@@ -154,15 +154,15 @@ layout: default
             {% endif %}
           </div>
 
-          <div class="c-post-layout__col c-post-layout__col--main">
-            <div class="c-post-layout__prose">
+          <div class="l-post__col l-post__col--main">
+            <div class="l-post__prose">
               <div class="o-prose o-prose--measure-wide">
                 {{ content }}
               </div>
             </div>
           </div>
 
-          <div class="c-post-layout__col c-post-layout__col--right">
+          <div class="l-post__col l-post__col--right">
             {% include post-toc-desktop.html %}
           </div>
         </div>

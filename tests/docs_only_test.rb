@@ -53,6 +53,9 @@ class DocsOnlyTest < Minitest::Test
     "GITHUB_BASE_REF" => "develop"
   }.freeze
 
+  # The reason logged when HEAD has no second parent.
+  NOT_A_MERGE = "HEAD is not a merge commit, or its parents were not fetched".freeze
+
   Run = Struct.new(:stdout, :output, :summary)
 
   def test_pull_request_into_develop_changing_only_listed_paths_may_skip
@@ -128,8 +131,39 @@ class DocsOnlyTest < Minitest::Test
     assert_equal "docs_only=false: no changed files\n", run.stdout
   end
 
+  # Without the merge check, HEAD^1..HEAD shows only AGENTS.md and skips.
+  def test_non_merge_head_runs_every_step
+    run = with_repository do |repo, outputs|
+      write(repo, "_includes/head.html")
+      commit(repo, "code change")
+      write(repo, "AGENTS.md")
+      commit(repo, "docs change")
+      run_classifier(repo, outputs, PULL_REQUEST_INTO_DEVELOP)
+    end
+
+    assert_equal "docs_only=false\n", run.output
+    assert_equal "docs_only=false: #{NOT_A_MERGE}\n", run.stdout
+  end
+
+  # A depth-1 clone, the actions/checkout default, has no parents of HEAD.
   def test_missing_base_commit_runs_every_step
     run = with_repository do |repo, outputs|
+      merge_pull_request(repo) { write(repo, "AGENTS.md") }
+      clone = repo.dirname.join("shallow")
+      git(repo.dirname, "clone", "-q", "--depth", "1", "file://#{repo}", clone.to_s)
+      run_classifier(clone, outputs, PULL_REQUEST_INTO_DEVELOP)
+    end
+
+    assert_equal "docs_only=false\n", run.output
+    assert_equal "docs_only=false: #{NOT_A_MERGE}\n", run.stdout
+  end
+
+  # Deleting the base commit's root tree makes the diff itself fail.
+  def test_failed_diff_runs_every_step
+    run = with_repository do |repo, outputs|
+      merge_pull_request(repo) { write(repo, "AGENTS.md") }
+      tree = git(repo, "rev-parse", "HEAD^1^{tree}").strip
+      File.delete(repo.join(".git/objects", tree[0, 2], tree[2..]))
       run_classifier(repo, outputs, PULL_REQUEST_INTO_DEVELOP)
     end
 
@@ -210,17 +244,21 @@ class DocsOnlyTest < Minitest::Test
   # with --no-ff, the shape GitHub's merge ref has. Only the first parent sees
   # the commit that moved develop on, so diffing the wrong parent shows a
   # _layouts/ path and fails the docs-only cases.
-  def classify_pull_request(env: PULL_REQUEST_INTO_DEVELOP)
+  def classify_pull_request(env: PULL_REQUEST_INTO_DEVELOP, &changes)
     with_repository do |repo, outputs|
-      git(repo, "switch", "-q", "-c", "pull-request")
-      yield repo
-      commit(repo, "pull request")
-      git(repo, "switch", "-q", "develop")
-      write(repo, "_layouts/default.html")
-      commit(repo, "develop moves on")
-      git(repo, "merge", "-q", "--no-ff", "-m", "merge pull request", "pull-request")
+      merge_pull_request(repo, &changes)
       run_classifier(repo, outputs, env)
     end
+  end
+
+  def merge_pull_request(repo)
+    git(repo, "switch", "-q", "-c", "pull-request")
+    yield repo
+    commit(repo, "pull request")
+    git(repo, "switch", "-q", "develop")
+    write(repo, "_layouts/default.html")
+    commit(repo, "develop moves on")
+    git(repo, "merge", "-q", "--no-ff", "-m", "merge pull request", "pull-request")
   end
 
   def with_repository
@@ -268,7 +306,8 @@ class DocsOnlyTest < Minitest::Test
   end
 
   def git(repo, *arguments)
-    _stdout, stderr, status = Open3.capture3(GIT_ENV, "git", *arguments, chdir: repo.to_s)
+    stdout, stderr, status = Open3.capture3(GIT_ENV, "git", *arguments, chdir: repo.to_s)
     assert status.success?, stderr
+    stdout
   end
 end

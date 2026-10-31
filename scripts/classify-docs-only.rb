@@ -5,8 +5,9 @@
 # Writes docs_only=true or docs_only=false to $GITHUB_OUTPUT, and on true lists
 # the changed files in $GITHUB_STEP_SUMMARY.
 #
-# Fails closed: any other event or base branch, a missing base commit, a failed
-# diff, an empty diff, or any path off the list gives docs_only=false.
+# Fails closed: any other event or base branch, a HEAD that is not a merge
+# commit, a missing base commit, a failed diff, an empty diff, or any path off
+# the list gives docs_only=false.
 #
 # Changed paths come from the pull request, so on a fork they are untrusted:
 # git runs without a shell, -z keeps each name whole, and names are escaped
@@ -40,8 +41,12 @@ module Eyvan
     ].freeze
 
     # On a pull_request run the checkout is GitHub's merge commit, whose first
-    # parent is the base branch tip. --no-renames lists both sides of a rename,
-    # so moving a code file into a docs directory still lists the code path.
+    # parent is the base branch tip. Without a second parent, HEAD^1 is only
+    # the previous commit, so the diff could miss earlier changes.
+    MERGE_CHECK_COMMAND = %w[git rev-parse --verify --quiet HEAD^2].freeze
+
+    # --no-renames lists both sides of a rename, so moving a code file into a
+    # docs directory still lists the code path.
     DIFF_COMMAND = %w[git diff -z --name-only --no-renames HEAD^1 HEAD].freeze
 
     SKIP_HEADING = "Playwright steps skipped: docs-only change".freeze
@@ -58,6 +63,11 @@ module Eyvan
         return Result.new(false, "not a pull request into develop", [])
       end
 
+      _stdout, _stderr, merge = Open3.capture3(*MERGE_CHECK_COMMAND)
+      unless merge.success?
+        return Result.new(false, "HEAD is not a merge commit, or its parents were not fetched", [])
+      end
+
       stdout, stderr, status = Open3.capture3(*DIFF_COMMAND)
       return Result.new(false, "git diff failed: #{stderr.strip.dump}", []) unless status.success?
 
@@ -69,7 +79,7 @@ module Eyvan
 
       Result.new(true, "#{paths.length} docs-only paths changed", paths)
     rescue SystemCallError => error
-      Result.new(false, "git diff failed: #{error.message.dump}", [])
+      Result.new(false, "git could not run: #{error.message.dump}", [])
     end
 
     def summary(paths)

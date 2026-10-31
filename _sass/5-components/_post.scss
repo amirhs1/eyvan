@@ -17,25 +17,11 @@
 //     - .c-post__header-actions
 //   - .c-post__share
 //   - .c-post__content
-//     - .c-post-layout
-//       - .c-post-layout__col--left
-//       - .c-post-layout__col--main
-//         - .c-post-layout__prose
-//           - .o-prose
-//       - .c-post-layout__col--right
-//         - .c-post-layout__aside
-//           - .c-toc
+//     - .l-post (content grid, 6-layouts/_post.scss)
+//       - .c-post-share-rail (left column)
 // - .c-post-cover
 //   - .c-post-cover__media
 //   - .c-post-cover__image
-//
-// TOC layout note:
-// - Desktop uses a 3-column grid:
-//   | flexible left column | prose ($text-measure-wide) | flexible right TOC column |
-// - The grid row stretches vertically so the sticky TOC can be bounded by
-//   the post body/prose height.
-// - Mobile collapses to a single column. TOC visibility/overlay behavior
-//   is handled by _toc.scss and toc.js.
 //
 // Scope & Rules:
 // - Component styling only
@@ -76,10 +62,10 @@ $post-header-meta-avatar-size: 3rem;
 $post-header-meta-avatar-size-mobile: 2.75rem;
 
 $post-content-top-border-width: settings-config.$global-border-width;
-$post-layout-toc-max-width: 20rem;
 
-/* Mirrors the TOC sticky offset (see _toc.scss) so the share rail and the TOC
-   align at the same top edge. */
+/* Mirrors the Contents rail's sticky offset (see .l-post__aside in
+   6-layouts/_post.scss) so the share rail and the TOC align at the same top
+   edge. */
 $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
 
 /* -----------------------------------------------------------------------------
@@ -251,8 +237,8 @@ $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
 /* -----------------------------------------------------------------------------
    Desktop share rail (left column)
    Vertical, sticky sharing affordance that mirrors the TOC on the opposite
-   side. The left column is hidden on mobile/tablet (see Responsive adjustments
-   below), where sharing is handled by the TOC toolbar or the header fallback.
+   side. The left column is hidden on mobile/tablet (6-layouts/_post.scss),
+   where sharing is handled by the TOC toolbar or the header fallback.
 ----------------------------------------------------------------------------- */
 
 .c-post-share-rail {
@@ -300,66 +286,8 @@ $post-share-rail-sticky-top: tools-spacing.$sticky-offset-top;
 }
 
 /* -----------------------------------------------------------------------------
-   Content Layout: 3-column symmetric grid
------------------------------------------------------------------------------ */
-
-.c-post-layout {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, settings-typography.$text-measure-wide)
-    minmax(0, 1fr);
-
-  column-gap: settings-spacing.$space-6;
-
-  /*
-    Important:
-    Use stretch here so the right TOC column has the same block-size as
-    the prose column. This gives position: sticky a vertical parent range.
-  */
-  align-items: stretch;
-}
-
-.c-post-layout__col {
-  min-inline-size: 0;
-}
-
-.c-post-layout__col--left,
-.c-post-layout__col--main {
-  align-self: stretch;
-}
-
-.c-post-layout__col--right {
-  align-self: stretch;
-  justify-self: stretch;
-
-  inline-size: 100%;
-  max-inline-size: $post-layout-toc-max-width;
-}
-
-.c-post-layout__prose {
-  display: flex;
-  justify-content: center;
-  min-inline-size: 0;
-  overflow-x: clip;
-}
-
-/* -----------------------------------------------------------------------------
    Responsive adjustments
 ----------------------------------------------------------------------------- */
-
-@include tools-mixins.mq-down(settings-breakpoints.$bp-layout) {
-  .c-post-layout {
-    display: block;
-  }
-
-  .c-post-layout__col--left,
-  .c-post-layout__col--right {
-    display: none;
-    max-inline-size: none;
-  }
-}
 
 @include tools-mixins.mq-down(settings-breakpoints.$bp-sm) {
   .c-post__header-row {

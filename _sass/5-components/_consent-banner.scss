@@ -1,0 +1,133 @@
+// -----------------------------------------------------------------------------
+// Consent Banner Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the analytics consent banner that analytics-consent.html renders
+// when Google Analytics is configured. The banner is fixed to the bottom of
+// the viewport.
+//
+// Structure:
+// - .c-consent-banner
+//   - .c-consent-banner__inner
+//   - .c-consent-banner__message
+//   - .c-consent-banner__link
+//   - .c-consent-banner__actions
+//
+// Used in:
+// - analytics-consent.html
+//
+// Scope & Rules:
+// - Component styling only; the buttons are c-button
+// - Hidden until analytics-consent.js sets html[data-analytics-consent-open],
+//   which it does before first paint
+// - analytics-consent.js publishes the open banner's height as
+//   --consent-banner-block-size. The site footer, html scroll-padding, the
+//   back-to-top button, and the development overlay use it to stay clear of
+//   the banner
+// - Shares the back-to-top layer below the header. It comes first in the
+//   DOM, so the Contents panel, moved to the end of <body> when open, paints
+//   over it; the mobile menu sits on the higher overlay layer
+//
+// Notes:
+// - Surface, border, and text colours match the site footer
+// - Mobile-first: content stacks and centres like the footer; from the
+//   layout breakpoint up, the message fills the row beside the buttons
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/breakpoints" as settings-breakpoints;
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
+@use "../1-tools/mixins" as tools-mixins;
+
+/* -----------------------------------------------------------------------------
+   Banner shell
+   ----------------------------------------------------------------------------- */
+
+.c-consent-banner {
+  display: none;
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: calc(settings-config.$z-header - 1);
+
+  // On short viewports and at high zoom, the banner scrolls inside itself
+  // rather than covering the whole page.
+  max-block-size: 50dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  padding-block-start: settings-spacing.$space-stack-sm;
+  padding-block-end: max(settings-spacing.$space-stack-sm, env(safe-area-inset-bottom));
+
+  background-color: var(--color-surface-container-low);
+  border-block-start: settings-config.$global-border-width solid var(--color-ui-border-subtle);
+  color: var(--color-on-surface);
+
+  // The banner spans the viewport, so an outset ring would be clipped.
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+    outline-offset: -(settings-config.$focus-ring-width);
+  }
+}
+
+html[data-analytics-consent-open] .c-consent-banner {
+  display: block;
+}
+
+/* -----------------------------------------------------------------------------
+   Content layout
+   ----------------------------------------------------------------------------- */
+
+.c-consent-banner__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: settings-spacing.$space-stack-sm;
+
+  text-align: center;
+}
+
+.c-consent-banner__message {
+  margin: 0;
+  max-inline-size: settings-typography.$text-measure-base;
+
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-sm;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-normal;
+
+  text-wrap: pretty;
+}
+
+.c-consent-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: settings-spacing.$space-stack-xs;
+}
+
+/* -----------------------------------------------------------------------------
+   Desktop layout
+   ----------------------------------------------------------------------------- */
+
+@include tools-mixins.mq-up(settings-breakpoints.$bp-layout) {
+  .c-consent-banner__inner {
+    flex-direction: row;
+    column-gap: settings-spacing.$space-6;
+
+    text-align: start;
+  }
+
+  // A short interface message, not prose, so it fills the row beside the
+  // buttons instead of keeping the reading measure.
+  .c-consent-banner__message {
+    flex: 1 1 auto;
+    max-inline-size: none;
+  }
+
+  .c-consent-banner__actions {
+    flex: 0 0 auto;
+  }
+}

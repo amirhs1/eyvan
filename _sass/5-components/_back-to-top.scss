@@ -21,7 +21,11 @@
 
 .c-back-to-top__wrap {
   position: fixed;
-  inset-block-end: max(settings-spacing.$space-4, env(safe-area-inset-bottom));
+  // Rises above the analytics consent banner while it is open.
+  inset-block-end: calc(
+    max(settings-spacing.$space-4, env(safe-area-inset-bottom)) +
+      var(--consent-banner-block-size, 0px)
+  );
   inset-inline-start: 50%;
   z-index: calc(settings-config.$z-header - 1);
 

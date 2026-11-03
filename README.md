@@ -124,6 +124,7 @@ small set of YAML data files:
 - `_data/social-links.yml` controls social/profile links.
 - `_data/share.yml` controls post share actions.
 - `_data/footer.yml` controls footer text.
+- `_data/analytics.yml` controls the text of the analytics consent banner, shown only when `google_analytics` is set.
 
 For a complete, step-by-step walkthrough, see the demo posts included in `_posts/`: *Setting Up Eyvan* covers personalizing the config, data files, assets, and your first post; *Theming Eyvan* covers changing the brand color, fonts, and spacing.
 

@@ -10,8 +10,9 @@ Eyvan's tests, by tool:
 - Playwright, against a served site: `tests/accessibility.spec.js`
   (interaction and script loading, with axe-core scans),
   `tests/site-integrity.spec.js` (sitemap links and assets, pinned CDN
-  runtimes), and `tests/component-gallery.spec.js` (axe-core scans of every
-  fixture page, light and dark).
+  runtimes), `tests/component-gallery.spec.js` (axe-core scans of every
+  fixture page, light and dark), and `tests/analytics-consent.spec.js` (the
+  consent banner on the gallery build, with every request to Google aborted).
 - Minitest, for the guard scripts: `tests/color_contract_test.rb`
   (`scripts/check-color-contract.rb`) and `tests/release_checks_test.rb`
   (`scripts/check-built-output.rb`, `scripts/check-template-placeholders.rb`).

@@ -14,6 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   only the number: `read_time: false` still hides reading time. If your fork
   has its own copy of `_includes/entry-meta.html`, copy the new
   `override_minutes` lines into it.
+- When `google_analytics` is set, a banner asks visitors whether to allow
+  Google Analytics, and an "Analytics preferences" button in the footer lets
+  them change their choice later (#3). The banner's text is in
+  `_data/analytics.yml`.
+
+### Changed
+
+- **For sites that set `google_analytics`:** the Google tag now loads only
+  after the visitor accepts, so nothing is requested from Google before then,
+  and visitors who decline or never choose are not counted (#3). Declining
+  deletes the `_ga` and `_ga_*` cookies. If your site already asks for consent
+  another way, set `google_analytics_consent: false` in `_config.yml` to load
+  the tag on every page as before.
 
 ## [2.0.0] - 2026-11-03
 

@@ -231,7 +231,7 @@ date: 2026-04-01 09:00:00 -0500
 
 ## Feature fields
 
-Feature fields are boolean switches. They turn optional behavior on or off for a single page.
+Feature fields are mostly boolean switches. They turn optional behavior on or off for a single page. The exception, `read_time_override`, takes a number of minutes.
 
 {% include table-caption.html
    caption="Feature-toggle front matter fields."
@@ -244,6 +244,7 @@ Feature fields are boolean switches. They turn optional behavior on or off for a
 | `math` | boolean | false | `_includes/math.html` | Loads MathJax only on pages that need LaTeX math. |
 | `crossrefs` | boolean | false | `_includes/scripts.html` | Loads the script that resolves `ref.html` links to numbered table and figure references. |
 | `share` | boolean | true for posts | Post header | Shows or hides the share controls. |
+| `read_time_override` | whole number | none | `_includes/entry-meta.html` | Replaces the estimated minutes in the read-time text on the post's card and header. |
 {: .c-prose-table }
 
 Use `toc: true` for long posts with several `##` and `###` headings. The post layout includes mobile and desktop TOC wrappers, and the current TOC includes only second- and third-level headings. This is especially useful for documentation, architecture notes, and tutorials.
@@ -273,14 +274,22 @@ Use `share: false` when sharing controls would be distracting or unnecessary. Fo
 share: false
 ```
 
-Reading time is currently controlled globally in `_config.yml`, not by individual post front matter. The metadata include checks `site.read_time` and `site.words_per_minute`.
+Reading time is estimated from the word count, and `_config.yml` controls it for the whole site. The metadata include checks `site.read_time` and `site.words_per_minute`.
 
 ```yaml
 read_time: true
 words_per_minute: 238
 ```
 
-> **Tip:** Reading time is an estimate, not a promise. It is most useful when the post is primarily prose. For media-heavy posts, use the introduction to set expectations instead.
+When the estimate would mislead for one post, such as a post that is mostly code, dense math, or data tables, set `read_time_override` to a whole number of minutes. It replaces the estimate in the "N min read" text on that post's card and header.
+
+```yaml
+read_time_override: 12
+```
+
+The override changes only the number. `read_time: false` still hides reading time for the whole site, and an empty, zero, or non-numeric value keeps the estimate.
+
+> **Tip:** Reading time is an estimate, not a promise. It is most useful when the post is primarily prose. For posts heavy with code, math, or media, set `read_time_override` or use the introduction to set expectations.
 
 > **Warning:** Do not enable `math: true` globally unless almost every page uses math. Conditional loading is better for performance and keeps simple posts simple.
 

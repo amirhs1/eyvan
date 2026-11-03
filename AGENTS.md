@@ -81,8 +81,9 @@ Do not re-litigate these or report them as findings.
   Query `gh api repos/{owner}/{repo}/rulesets` — never report a branch as
   unprotected because legacy protection is unset.
 - **Opt-in stays opt-in**: MathJax needs `math: true`, cross-refs need
-  `crossrefs: true`, reading time is global. **`site.dev_only`** (default
-  `false`) gates `/tests/*`, the `Tests` nav entry, and `dev-debug.html`.
+  `crossrefs: true`, reading time is global, with an optional per-post
+  `read_time_override`. **`site.dev_only`** (default `false`) gates
+  `/tests/*`, the `Tests` nav entry, and `dev-debug.html`.
 - The **large demo GIF is a deliberate showcase** of media support. Do not flag
   its weight.
 - **Accessibility is a requirement**: semantic HTML, keyboard access, meaningful

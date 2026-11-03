@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- A `read_time_override` front matter field that replaces the estimated minutes
+  in a post's "N min read" text with a whole number you set (#1). It changes
+  only the number: `read_time: false` still hides reading time. If your fork
+  has its own copy of `_includes/entry-meta.html`, copy the new
+  `override_minutes` lines into it.
 - When `google_analytics` is set, a banner asks visitors whether to allow
   Google Analytics, and an "Analytics preferences" button in the footer lets
   them change their choice later (#3). The banner's text is in

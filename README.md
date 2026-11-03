@@ -52,7 +52,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
   `crossrefs: true`
 - Accessibility safeguards and automated Playwright/axe testing for rendered pages
 - Detailed, task-focused documentation supplied as removable demo posts
-- Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`
+- Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`, with an optional per-post `read_time_override`
 - Syntax-highlighted code blocks via Rouge
 - Tag archive pages powered by `jekyll/tagging`
 - SEO sitemap via `jekyll-sitemap`
@@ -138,7 +138,7 @@ YYYY-MM-DD-post-slug.md
 
 Eyvan currently treats posts as both writing and project entries. The homepage shows recent posts, `/projects/` lists all posts, and tag archive pages group posts by front matter tags.
 
-Front matter controls per-post behavior: `toc: true` for the table of contents, `math: true` to load MathJax, `crossrefs: true` for numbered figure/table references, `share: false` to hide share controls, and `image` for the cover and social preview. Reading time is global (`read_time` / `words_per_minute` in `_config.yml`), not per-post. The demo post *Front Matter Field Reference* documents every supported field with examples.
+Front matter controls per-post behavior: `toc: true` for the table of contents, `math: true` to load MathJax, `crossrefs: true` for numbered figure/table references, `share: false` to hide share controls, and `image` for the cover and social preview. Reading time is estimated globally (`read_time` / `words_per_minute` in `_config.yml`), and `read_time_override: 12` replaces the minutes for one post. The demo post *Front Matter Field Reference* documents every supported field with examples.
 
 All rendered images scale with their containers by default. The optional
 `image_srcset`/`image_sizes` fields and figure include options solve a different
@@ -160,6 +160,21 @@ demo post, not to Eyvan's core runtime. Its CDN release is exact,
 integrity-protected, and checked independently from the MathJax feature. You
 can delete the climate post and its demo script when replacing the sample
 content.
+
+## External Link Check
+
+A weekly workflow, `.github/workflows/link-check.yml`, builds your site and
+reports dead links to other sites, such as citations and references in posts,
+in its job summary. A broken link turns that run red; it never blocks a merge
+or a deploy. The test suite checks links within your site. Settings are in
+`.lychee.toml`.
+
+GitHub runs scheduled workflows only from the default branch. It disables them
+by default in forks, and in any public repository after 60 days without
+activity. If the runs stop, open the **Actions** tab, choose **Check External
+Links**, and choose **Enable workflow**. To run the check on demand, choose
+**Run workflow** in the same place. To turn it off, disable the workflow there,
+or delete `.github/workflows/link-check.yml` and `.lychee.toml`.
 
 ## Reusable Includes
 
@@ -250,7 +265,6 @@ No changes to the GitHub Actions workflows are needed; GitHub Pages handles the 
 
 ## Limitations
 
-- Reading time is global, not a per-post front matter override.
 - Cross-reference links work as anchors without JavaScript, but numbered reference text requires `crossrefs: true`.
 - Tag pages require the GitHub Actions build path because `jekyll/tagging` is not supported by the native GitHub Pages builder.
 - Search is not included.

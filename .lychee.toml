@@ -1,0 +1,25 @@
+# Settings for the scheduled external link check,
+# .github/workflows/link-check.yml. lychee reads this file only when it is
+# passed with --config. The leading dot keeps Jekyll from copying it into
+# _site/. Internal links stay with `npm run test:site`.
+
+# Check links to other sites only.
+scheme = ["http", "https"]
+
+# The workflow builds the site with url: "http://127.0.0.1", so every absolute
+# link to the site itself points at loopback and is skipped here.
+exclude_loopback = true
+
+# Retries and timeout. These are lychee's own defaults, written out so they are
+# easy to tune.
+max_retries = 3
+retry_wait_time = 1
+timeout = 20
+
+# A 401, 403, 429, or 999 often means a site wants a login, refused a bot, or is
+# rate limiting, not that the page is gone, so those statuses do not count as
+# broken. A 404 still does.
+accept = ["200..=299", "401", "403", "429", "999"]
+
+# To skip a site, list URL patterns (regular expressions):
+# exclude = ["^https://example\\.com/private/"]

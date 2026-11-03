@@ -97,7 +97,7 @@ read_time: true           # show or hide reading time on posts
 words_per_minute: 238     # reading speed used for the estimate
 ```
 
-Set `read_time: false` to hide the reading-time display site-wide.
+Set `read_time: false` to hide the reading-time display site-wide. A single post can replace the estimate with `read_time_override: 12` in its front matter; see the *Front Matter Field Reference* post.
 
 ## Step 3 — Your profile in `_data/author.yml`
 

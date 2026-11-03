@@ -1,0 +1,66 @@
+name: Check External Links
+
+# Reports dead links to other sites. It never gates a merge: external sites fail
+# for reasons unrelated to a change (rate limits, bot blocking, outages), so it
+# runs on a schedule, outside develop.yml. Internal links stay with
+# `npm run test:site`; settings are in .lychee.toml.
+#
+# GitHub runs `schedule` and `workflow_dispatch` only from the default branch.
+
+on:
+  schedule:
+    # Mondays at 06:17 UTC, off the hour: scheduled runs can be delayed when
+    # many start at once.
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-site:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1
+        with:
+          bundler-cache: true
+
+      # With url set to loopback, links from the site to itself are skipped
+      # (exclude_loopback in .lychee.toml), whatever url the site really uses.
+      - name: Build Jekyll Site With a Loopback URL
+        run: |
+          printf 'url: "http://127.0.0.1"\n' > "$RUNNER_TEMP/link-check.yml"
+          bundle exec jekyll build --config "_config.yml,$RUNNER_TEMP/link-check.yml"
+
+      - name: Check External Links in the Built Site
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config .lychee.toml --no-progress --root-dir "$(pwd)/_site" ./_site
+
+  # The template's own documentation is not part of a site built from it, so
+  # this job runs only in the template repository.
+  check-docs:
+    if: github.repository == 'amirhs1/eyvan'
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check External Links in the Repository Docs
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config .lychee.toml --no-progress --root-dir "$(pwd)" './*.md' './.agents/**/*.md' './.github/**/*.md'

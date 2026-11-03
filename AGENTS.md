@@ -23,7 +23,8 @@ file.
 only definition of "checks pass":
 
 ```bash
-bundle exec jekyll build \
+bundle exec bundle-audit check --update \
+  && bundle exec jekyll build \
   && npm run test:release \
   && ruby scripts/check-built-output.rb \
   && ruby scripts/check-template-placeholders.rb \

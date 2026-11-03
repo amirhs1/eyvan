@@ -37,6 +37,9 @@ jobs:
           ruby-version-file: .ruby-version
           bundler-cache: true
 
+      - name: Check Dependency Advisories
+        run: bundle exec bundle-audit check --update
+
       - name: Classify Docs-Only Change
         id: docs
         run: ruby scripts/classify-docs-only.rb

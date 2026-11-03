@@ -16,9 +16,10 @@ max_retries = 3
 retry_wait_time = 1
 timeout = 20
 
-# A 403, 429, or 999 often means a site refused a bot or is rate limiting, not
-# that the page is gone, so those statuses do not count as broken.
-accept = ["200..=299", "403", "429", "999"]
+# A 401, 403, 429, or 999 often means a site wants a login, refused a bot, or is
+# rate limiting, not that the page is gone, so those statuses do not count as
+# broken. A 404 still does.
+accept = ["200..=299", "401", "403", "429", "999"]
 
 # To skip a site, list URL patterns (regular expressions):
 # exclude = ["^https://example\\.com/private/"]

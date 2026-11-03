@@ -395,13 +395,11 @@ toc: true
 
 ## Step 9 — Footer in `_data/footer.yml`
 
-The footer text — copyright notice, tagline, or links — is driven by this file. The default is a simple copyright line:
+The footer text — copyright notice and tagline — is driven by this file. The default is a simple copyright line:
 
 ```yaml
 copyright: "© 2025 Your Name. All rights reserved."
 ```
-
-You can also add secondary links here, such as a privacy policy or a terms page. See the comments in the file for the supported fields.
 
 ## Next — making it look like yours
 

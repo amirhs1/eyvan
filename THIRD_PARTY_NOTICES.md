@@ -104,12 +104,15 @@ MIT-licensed code.
 
 | Asset or group | Source / creator | License or terms noted in content |
 | --- | --- | --- |
+| `assets/images/avatar.webp` and `assets/images/hero-placeholder.webp` | ["Black and White Close-Up Portrait Photography"](https://www.pexels.com/photo/black-and-white-close-up-portrait-photography-32449512/) by Benoit Vacherie via Pexels | [Pexels License](https://www.pexels.com/license/); attribution is not required and is given here. Resized from the 2973 × 2973 original and converted to WebP |
+| `assets/images/og-default.webp` | Original design by the repository's author | MIT License, the same terms as the repository (see [LICENSE](./LICENSE)) |
 | `assets/images/posts/token-bucket-diagram.webp` | Generated with Google's Gemini for illustrative demo use | Generated demo asset; attribution note appears in the rate-limiter post |
 | `assets/images/posts/front-matter-cover.webp` | Generated with Google's Gemini for illustrative demo use | Generated demo asset; attribution note appears in the front-matter guide |
 | `assets/images/posts/customizing_eyvan.webp` | Generated with OpenAI's ChatGPT for illustrative demo use | Generated demo asset; attribution note appears in the customizing guide |
 | `assets/images/posts/global_temperature_rise.webp` | Easy-Peasy.AI image generator | Free-to-use with backlink attribution noted in the climate demo post |
 | `assets/images/posts/khane-amerian-eyvan*.webp` | Matthias Blume via Wikimedia Commons | CC BY-SA 3.0, attribution noted in the architecture post |
 | `assets/images/posts/quantum_entanglement_vs_classical_correlation_video.webp` | JozumBjada via Wikimedia Commons | CC BY-SA 4.0, attribution noted in the quantum post |
+| `assets/images/posts/quantum-entanglement-cover.webp` | A frame from ["Quantum entanglement vs classical correlation video.gif"](https://commons.wikimedia.org/wiki/File:Quantum_entanglement_vs_classical_correlation_video.gif) by JozumBjada via Wikimedia Commons | CC BY-SA 4.0, as an adaptation of that work; changed to a single frame saved as WebP |
 | `assets/images/posts/iceland-hero.webp` | Lyn Ong via Pexels | Pexels License, attribution noted in the Iceland post |
 | `assets/images/posts/iceland-basalt.webp` | Batin Ozen via Pexels | Pexels License, attribution noted in the Iceland post |
 | `assets/images/posts/iceland-vent.webp` | Francesco Ungaro via Pexels | Pexels License, attribution noted in the Iceland post |

@@ -165,3 +165,32 @@ test.describe('Entry meta read-time override', () => {
     await expect(readTime(page, 'no-content')).toHaveCount(0);
   });
 });
+
+// The same entry_meta object goes through the real _includes/entry-meta.html with
+// show_read_time omitted, true, and false. Liquid 4.0.4's default filter turns
+// false into true, which made the include ignore an explicit false (#150).
+test.describe('Entry meta show_read_time argument', () => {
+  const fixture = `${baseUrl}/tests/5-components/test-entry-meta/`;
+
+  const entry = (page, argument) => page.locator(`[data-show-read-time-argument="${argument}"]`);
+
+  test('an omitted show_read_time shows the read time', async ({ page }) => {
+    await page.goto(fixture);
+
+    await expect(entry(page, 'omitted').getByText(/min read/)).toHaveText(/^\s*\d+ min read\s*$/);
+  });
+
+  test('show_read_time=true shows the read time', async ({ page }) => {
+    await page.goto(fixture);
+
+    await expect(entry(page, 'true').getByText(/min read/)).toHaveText(/^\s*\d+ min read\s*$/);
+  });
+
+  test('show_read_time=false hides the read time but keeps the date', async ({ page }) => {
+    await page.goto(fixture);
+
+    // The date is the fixture entry's own, and proves the entry rendered.
+    await expect(entry(page, 'false').locator('time')).toHaveText('March 30, 2026');
+    await expect(entry(page, 'false').getByText(/min read/)).toHaveCount(0);
+  });
+});

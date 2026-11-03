@@ -45,6 +45,13 @@ read_time_cases:
   - id: no-content
     author: 'read_time_override: 12, no content'
     read_time_override: 12
+# The entry for the "Read-time visibility argument" section: one entry_meta
+# object, with a date so the row has more than the read time in it, rendered
+# with show_read_time omitted, true, and false.
+read_time_visibility_entry:
+  author: 'show_read_time include argument'
+  date: 2026-03-30
+  content: Short entry body.
 ---
 
 {% comment %}
@@ -61,11 +68,14 @@ read_time_cases:
   - Read-time icon alignment
   - Narrow-width responsive behavior
   - Read-time override (renders the real include)
+  - Read-time visibility argument (renders the real include)
 
   Notes:
   - The Read-time override section renders _includes/entry-meta.html from the
-    read_time_cases front matter above, and tests/component-gallery.spec.js
-    asserts its output. Every other section is static markup.
+    read_time_cases front matter above, and the Read-time visibility argument
+    section renders it from read_time_visibility_entry. In both,
+    tests/component-gallery.spec.js asserts the output. Every other section is
+    static markup.
   - This page tests only the component responsibilities of:
     - .c-entry-meta
     - .c-entry-meta__author
@@ -238,5 +248,23 @@ read_time_cases:
         {% include entry-meta.html entry_meta=entry %}
       </div>
     {% endfor %}
+  </div>
+</div>
+
+<hr>
+
+<h2>Read-time visibility argument</h2>
+<p><strong>Expected behavior:</strong> The same entry, which has a date and content, goes through the real <code>entry-meta.html</code> include three times. With <code>show_read_time</code> left out or set to <code>true</code> the read time shows. With <code>show_read_time=false</code> it does not, and the date still shows.</p>
+<div class="c-test-frame">
+  <div class="c-test-stack">
+    <div class="c-test-box c-entry-meta-test-box--wide" data-show-read-time-argument="omitted">
+      {% include entry-meta.html entry_meta=page.read_time_visibility_entry %}
+    </div>
+    <div class="c-test-box c-entry-meta-test-box--wide" data-show-read-time-argument="true">
+      {% include entry-meta.html entry_meta=page.read_time_visibility_entry show_read_time=true %}
+    </div>
+    <div class="c-test-box c-entry-meta-test-box--wide" data-show-read-time-argument="false">
+      {% include entry-meta.html entry_meta=page.read_time_visibility_entry show_read_time=false %}
+    </div>
   </div>
 </div>

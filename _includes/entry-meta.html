@@ -26,7 +26,8 @@
   - Accepts:
     - include.entry_meta: post/page object
     - include.show_avatar: boolean-like flag controlling avatar visibility
-    - include.show_read_time: boolean-like flag controlling read-time visibility
+    - include.show_read_time: flag controlling read-time visibility; true when
+      omitted, and only the boolean false hides it
 
   Accessibility:
   - Uses a semantic time element for the publish date
@@ -57,13 +58,20 @@
     entry's content. A value that is empty, non-numeric, or rounds to zero or
     below falls back to the estimate. It is read from entry_meta, not page, so
     cards show each post's own value
+  - show_read_time is compared with false instead of using the default filter,
+    because Liquid 4.0.4 (the version Jekyll uses here) makes default replace
+    false as well as nil, which turned a caller's show_read_time=false back
+    into true
   - Spacing between date and read time should be handled in CSS, not with
     hardcoded separators in the markup
 {% endcomment %}
 
 {% assign entry_meta = include.entry_meta %}
 {% assign show_avatar = include.show_avatar | default: false %}
-{% assign show_read_time = include.show_read_time | default: true %}
+{% assign show_read_time = true %}
+{% if include.show_read_time == false %}
+  {% assign show_read_time = false %}
+{% endif %}
 
 {% if entry_meta %}
   {% assign author_avatar = entry_meta.avatar | default: site.data.author.avatar %}

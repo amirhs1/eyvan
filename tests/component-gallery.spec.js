@@ -53,7 +53,27 @@ const viewports = [
   { width: 390, height: 844 },
 ];
 
+// This build sets a placeholder google_analytics ID (_config.gallery.yml), so
+// a scan must never reach Google even if the tag loads without consent (#3).
+// tests/analytics-consent.spec.js asserts that it does not.
+const GOOGLE_HOST_SUFFIXES = [
+  'googletagmanager.com',
+  'google-analytics.com',
+  'google.com',
+  'doubleclick.net',
+];
+
+function isGoogleRequest(url) {
+  return GOOGLE_HOST_SUFFIXES.some((suffix) => (
+    url.hostname === suffix || url.hostname.endsWith(`.${suffix}`)
+  ));
+}
+
 test.describe('Eyvan component gallery accessibility checks', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.route(isGoogleRequest, (route) => route.abort());
+  });
+
   test('the scan list names exactly the pages the /tests/ index links to', async ({ page }) => {
     await page.goto(`${baseUrl}/tests/`);
 

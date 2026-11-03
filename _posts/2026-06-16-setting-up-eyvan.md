@@ -78,6 +78,16 @@ google_analytics: "G-XXXXXXXXXX"
 
 Leave it blank (or remove it) to disable analytics entirely. No tracking request is made when the field is empty.
 
+When the ID is set, Eyvan asks each visitor first. A banner at the bottom of the screen says the site would like to use Google Analytics, with **Accept analytics** and **Decline analytics** buttons. Google Analytics loads only after a visitor accepts; until then, and after a decline, nothing is requested from Google. The browser remembers the choice, and an **Analytics preferences** button at the bottom of every page lets visitors change it. Visitors without JavaScript never see the banner, and nothing loads for them.
+
+The banner's wording is in `_data/analytics.yml`. If you have a privacy policy page, set `privacy_url` there and the banner links to it. Eyvan cannot tell you whether your site meets the privacy rules where you or your visitors live; that also depends on your privacy policy and your Google Analytics settings.
+
+If your site already asks for consent another way, turn the banner off. Google Analytics then loads on every page, as it did before:
+
+```yaml
+google_analytics_consent: false
+```
+
 ### Reading time
 
 Reading time is estimated automatically from the word count of each post. Two global knobs control it:

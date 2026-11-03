@@ -11,6 +11,7 @@
 //   - .c-site-footer__meta
 //   - .c-site-footer__tagline
 //   - .c-site-footer__copyright
+//   - .c-site-footer__consent
 //
 // Used in:
 // - footer.html
@@ -38,9 +39,12 @@
    Footer shell
    ----------------------------------------------------------------------------- */
 
+// The extra end padding lets the end of the page scroll clear of the fixed
+// analytics consent banner while it is open.
 .c-site-footer {
   margin-block-start: settings-spacing.$space-section-md;
-  padding-block: settings-spacing.$space-stack-md;
+  padding-block-start: settings-spacing.$space-stack-md;
+  padding-block-end: calc(settings-spacing.$space-stack-md + var(--consent-banner-block-size, 0px));
 
   background-color: var(--color-surface-container-low);
   border-block-start: settings-config.$global-border-width solid var(--color-ui-border-subtle);
@@ -94,11 +98,37 @@
 }
 
 /* -----------------------------------------------------------------------------
+   Analytics preferences button (quiet, link-styled)
+   ----------------------------------------------------------------------------- */
+
+.c-site-footer__consent {
+  min-block-size: settings-spacing.$space-5; // WCAG 2.2 SC 2.5.8: targets at least 24 by 24 CSS px
+  padding: 0;
+
+  background: none;
+  border: 0;
+
+  font-family: settings-typography.$font-family-display;
+  font-size: settings-typography.$font-size-xs;
+  font-weight: settings-typography.$font-weight-regular;
+  line-height: settings-typography.$line-height-normal;
+
+  color: var(--color-link);
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+}
+
+/* -----------------------------------------------------------------------------
    Responsive refinement
    ----------------------------------------------------------------------------- */
 
 @include tools-mixins.mq-up(settings-breakpoints.$bp-md) {
   .c-site-footer {
-    padding-block: settings-spacing.$space-stack-lg;
+    padding-block-start: settings-spacing.$space-stack-lg;
+    padding-block-end: calc(settings-spacing.$space-stack-lg + var(--consent-banner-block-size, 0px));
   }
 }

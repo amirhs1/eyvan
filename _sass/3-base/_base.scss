@@ -286,6 +286,10 @@ html {
   color-scheme: light;
   background-color: var(--color-surface);
   color: var(--color-on-surface);
+
+  // Keeps focused and scrolled-to elements above the analytics consent
+  // banner, which analytics-consent.js sizes while it is open.
+  scroll-padding-block-end: var(--consent-banner-block-size, 0px);
 }
 
 html[data-theme="dark"] {

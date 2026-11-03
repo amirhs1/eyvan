@@ -26,7 +26,7 @@ What did you expect Eyvan to do instead?
 If the problem shows on a page, add a screenshot.
 
 ## Environment
- - Eyvan version or commit: [e.g. v1.1.0 or a commit SHA]
+ - Eyvan version or commit: [e.g. v2.0.0 or a commit SHA]
  - Ruby and Jekyll versions: [output of `ruby -v` and `bundle exec jekyll -v`]
  - Build: [Eyvan's GitHub Actions workflow, or how you build instead]
  - Fork repository: [public URL]

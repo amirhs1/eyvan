@@ -25,6 +25,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   script, index, or markup while `search` is off, and takes the config path
   as an optional second argument (#2).
 
+### Fixed
+
+- In a crowded desktop header, such as one with five navigation links or a
+  search link, the navigation no longer shrinks under the theme toggle; the
+  brand text shortens with an ellipsis instead (#2).
+
 ## [2.0.0] - 2026-11-03
 
 ### Breaking changes

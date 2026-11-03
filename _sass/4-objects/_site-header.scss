@@ -68,8 +68,9 @@
   display: none;
   align-items: center;
   justify-content: center;
-  flex: 1 1 auto;
-  min-inline-size: 0;
+  // Never narrower than its links, so a crowded header shortens the brand
+  // (which truncates with an ellipsis) instead of overlapping the theme toggle.
+  flex: 1 0 auto;
   column-gap: tools-spacing.$fluid-inline-md;
 }
 

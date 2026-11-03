@@ -113,8 +113,15 @@ search: false
 # Analytics
 # Leave blank (or omit) to disable Google Analytics entirely.
 # Set to your Measurement ID (e.g. "G-XXXXXXXXXX") to enable.
+#
+# google_analytics_consent: true (the default) loads Google Analytics
+# only after a visitor accepts the banner; until then, and after a
+# decline, nothing is sent to Google. The banner's text is in
+# _data/analytics.yml. Set it to false only if your site already asks
+# for consent another way: the tag then loads on every page.
 # ------------------------------------------------------------
 google_analytics: ""
+google_analytics_consent: true
 
 # ------------------------------------------------------------
 # Files and folders to exclude from the build

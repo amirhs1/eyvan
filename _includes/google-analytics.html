@@ -1,67 +1,78 @@
 {% comment %}
   Google Analytics Include
   Purpose: Load the Google tag for Google Analytics 4 (GA4) when a site
-  measurement ID is configured.
+  measurement ID is configured, by default only after the visitor accepts.
 
   Structure:
   - Guard: render nothing unless `site.google_analytics` is set
-  - Loader: fetch the Google tag library asynchronously from Google Tag Manager
-  - Bootstrap: initialize the global data layer and `gtag` helper
-  - Config: register the configured GA4 measurement ID
+  - Consent loader (default): load `assets/js/analytics-consent.js`, which
+    loads the Google tag only after the visitor accepts the banner
+  - Direct loader (`google_analytics_consent: false`): fetch the Google tag
+    on every page, initialize the data layer, and register the measurement ID
 
   Architecture:
   - This file is a focused include for analytics loading only
   - It keeps third-party tracking code out of layouts and page templates
   - It is intended to be included once from the global `<head>`
   - Site-level opt-in is controlled through `_config.yml`: `google_analytics`
+    and `google_analytics_consent`
+  - The banner is analytics-consent.html; the footer button that reopens it
+    is in footer.html
 
   Behavior:
-  - Loads the Google tag asynchronously to reduce render blocking
-  - Initializes `window.dataLayer` safely if it does not already exist
-  - Registers the current page with the configured GA4 property
+  - By default, nothing is requested from Google until the visitor accepts
+  - The consent loader is a classic script without `async` or `defer`, so the
+    stored choice is applied before first paint
+  - The direct loader loads the Google tag asynchronously on every page
   - Renders nothing when analytics is not configured
-
-  Performance:
-  - The external analytics library is loaded asynchronously
-  - The include is skipped entirely when no GA4 ID is configured
-  - Keeps the inline bootstrap script minimal
 
   Usage:
   - Add a GA4 measurement ID such as `G-XXXXXXXXXX` to
     `{% raw %}google_analytics:{% endraw %}` in `_config.yml`
   - Include this file once from `_includes/head.html` or another global head include
-  - Leave the value blank in development or privacy-sensitive environments
+  - Set `{% raw %}google_analytics_consent: false{% endraw %}` only when the site
+    asks for consent another way
+  - Leave the ID blank in development or privacy-sensitive environments
     where tracking should be disabled
 
   Dependencies:
   - site.google_analytics
+  - site.google_analytics_consent
+  - assets/js/analytics-consent.js
   - Google tag / GA4 script from `googletagmanager.com`
 
   Notes:
   - This implementation is for Google Analytics 4, not Universal Analytics
   - The configured value should be a GA4 measurement ID in `G-...` format
-  - If you later add consent management, this is the include to update
 {% endcomment %}
 
 {% assign google_analytics_id = site.google_analytics | default: '' | strip %}
 {% if google_analytics_id != '' %}
   <!-- google-analytics.html -->
-  <!-- Google tag (GA4) loader -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}">
-  </script>
+  {% if site.google_analytics_consent == false %}
+    <!-- Google tag (GA4) loader -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}">
+    </script>
 
-  <!-- Google Analytics bootstrap and configuration -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
+    <!-- Google Analytics bootstrap and configuration -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+      function gtag() {
+        dataLayer.push(arguments);
+      }
 
-    gtag('js', new Date());
-    gtag('config', '{{ google_analytics_id }}');
-  </script>
+      gtag('js', new Date());
+      gtag('config', '{{ google_analytics_id }}');
+    </script>
+  {% else %}
+    <!-- Consent-gated Google tag loader -->
+    <script
+      src="{{ 'assets/js/analytics-consent.js' | relative_url }}"
+      data-analytics-id="{{ google_analytics_id | escape }}">
+    </script>
+  {% endif %}
   <!-- End of google-analytics.html -->
 {% endif %}

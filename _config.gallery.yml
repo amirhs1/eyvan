@@ -2,3 +2,7 @@
 dev_only: true
 # Search is off in _config.yml, so this build is where tests/search.spec.js runs.
 search: true
+
+# Placeholder GA4 ID, so this build renders the analytics consent banner for
+# tests/analytics-consent.spec.js. The tests abort every request to Google.
+google_analytics: "G-XXXXXXXXXX"

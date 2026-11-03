@@ -52,7 +52,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
   `crossrefs: true`
 - Accessibility safeguards and automated Playwright/axe testing for rendered pages
 - Detailed, task-focused documentation supplied as removable demo posts
-- Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`
+- Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`, with an optional per-post `read_time_override`
 - Optional full-text search of posts when `search: true`, built by Pagefind and served from your own site
 - Syntax-highlighted code blocks via Rouge
 - Tag archive pages powered by `jekyll/tagging`
@@ -138,7 +138,7 @@ YYYY-MM-DD-post-slug.md
 
 Eyvan currently treats posts as both writing and project entries. The homepage shows recent posts, `/projects/` lists all posts, and tag archive pages group posts by front matter tags.
 
-Front matter controls per-post behavior: `toc: true` for the table of contents, `math: true` to load MathJax, `crossrefs: true` for numbered figure/table references, `share: false` to hide share controls, and `image` for the cover and social preview. Reading time is global (`read_time` / `words_per_minute` in `_config.yml`), not per-post. The demo post *Front Matter Field Reference* documents every supported field with examples.
+Front matter controls per-post behavior: `toc: true` for the table of contents, `math: true` to load MathJax, `crossrefs: true` for numbered figure/table references, `share: false` to hide share controls, and `image` for the cover and social preview. Reading time is estimated globally (`read_time` / `words_per_minute` in `_config.yml`), and `read_time_override: 12` replaces the minutes for one post. The demo post *Front Matter Field Reference* documents every supported field with examples.
 
 All rendered images scale with their containers by default. The optional
 `image_srcset`/`image_sizes` fields and figure include options solve a different
@@ -290,7 +290,6 @@ No changes to the GitHub Actions workflows are needed; GitHub Pages handles the 
 
 ## Limitations
 
-- Reading time is global, not a per-post front matter override.
 - Cross-reference links work as anchors without JavaScript, but numbered reference text requires `crossrefs: true`.
 - Tag pages require the GitHub Actions build path because `jekyll/tagging` is not supported by the native GitHub Pages builder.
 - Search covers posts only and needs JavaScript. A plain `jekyll serve` builds

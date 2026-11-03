@@ -94,7 +94,7 @@ The stack is deliberately conservative. Each tool solves a specific problem and 
 
 The most important architectural choice is that the stack is **Jekyll-first**. Features are built with layouts, includes, front matter, and SCSS before reaching for custom JavaScript. JavaScript is used only where it improves behavior: theme initialization, mobile navigation, table of contents interaction, social sharing, back-to-top scrolling, cross-references, and conditional third-party loading.
 
-The front matter and config are the control panel. For example, posts use the `post` layout by default, sharing is enabled by default, and read time is controlled globally:
+The front matter and config are the control panel. For example, posts use the `post` layout by default, sharing is enabled by default, and read time is estimated site-wide unless a post overrides it:
 
 ```yaml
 # _config.yml
@@ -354,14 +354,20 @@ This is a good example of a feature flag that supports tone. Not every page need
 
 ### Control read time globally
 
-Read time is controlled globally through `_config.yml`. The current metadata include does not read a per-post `read_time` front matter value.
+Read time is estimated from the word count and controlled for the whole site through `_config.yml`.
 
 ```yaml
 read_time: true
 words_per_minute: 238
 ```
 
-The global configuration uses a words-per-minute value, which keeps the estimate predictable across the site. To support per-post read-time overrides, the metadata include would need to be changed.
+The global configuration uses a words-per-minute value, which keeps the estimate predictable across the site. When the estimate would mislead for one post, set `read_time_override` to a whole number of minutes in its front matter. The metadata include reads it from the entry it renders, so the post's card and its page header show the same number.
+
+```yaml
+read_time_override: 12
+```
+
+The override changes only the number. `read_time: false` still hides read time site-wide.
 
 ### Enable cross-references
 

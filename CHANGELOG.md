@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0]
+## [2.0.0] - 2026-11-03
 
 ### Breaking changes
 
@@ -106,6 +106,9 @@ when you merge this release into your fork.
 - The Contents rail stays readable just above the layout breakpoint (#116).
 - On the About page below 1024px, the portrait caption no longer runs past
   the photo (#123).
+- CI no longer passes `ruby/setup-ruby` the `ruby-version-file` input, which
+  it does not accept, so the Setup Ruby step stops logging an "Unexpected
+  input" warning; Ruby is still read from `.ruby-version` (#142).
 
 ### Changed
 
@@ -138,11 +141,18 @@ when you merge this release into your fork.
   commit-message hook, pull request and issue templates, and Dependabot
   pull requests aimed at `develop` (#30, #32, #34, #36, #55, #59, #61, #81,
   #87, #88, #89, #92, #99, #100).
+- `THIRD_PARTY_NOTICES.md` records the source and terms of four shipped
+  images: the portrait and hero placeholder (Pexels License), the default
+  Open Graph image (MIT), and the quantum entanglement post cover
+  (CC BY-SA 4.0) (#141).
 
 ### Security
 
 - `addressable` 2.9.0 → 2.9.2, which clears seven advisories reported
   against 2.9.0 (#137).
+- `follow-redirects` 1.16.1 → 1.16.2, a development dependency, which clears
+  the high-severity advisory GHSA-mrwp-f3q8-3g9p reported against 1.16.0
+  and 1.16.1 (#139).
 
 ## [1.1.0] - 2026-06-22
 
@@ -424,6 +434,7 @@ when you merge this release into your fork.
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-[Unreleased]: https://github.com/amirhs1/eyvan/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/amirhs1/eyvan/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/amirhs1/eyvan/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/amirhs1/eyvan/releases/tag/v1.0.0

@@ -87,6 +87,7 @@
   justify-content: flex-end;
   flex: 0 0 auto;
   min-inline-size: 0;
+  column-gap: settings-spacing.$space-2; // Matches the social links' own gap
 }
 
 .o-site-header__mobile-controls {

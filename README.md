@@ -53,6 +53,7 @@ Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 - Accessibility safeguards and automated Playwright/axe testing for rendered pages
 - Detailed, task-focused documentation supplied as removable demo posts
 - Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`
+- Optional full-text search of posts when `search: true`, built by Pagefind and served from your own site
 - Syntax-highlighted code blocks via Rouge
 - Tag archive pages powered by `jekyll/tagging`
 - SEO sitemap via `jekyll-sitemap`
@@ -72,7 +73,7 @@ hosted deployments.
 
 Contributor QA also uses Node.js and npm for Playwright and axe-core
 checks. CI currently runs those tools on Node 20; use `npm ci` before running
-the local QA scripts.
+the local QA scripts. Previewing [search](#search) locally also needs `npm ci`.
 
 Install dependencies with Bundler before running the site:
 
@@ -117,7 +118,7 @@ The current `_config.yml` uses `baseurl: "/eyvan"`. If you change `baseurl` to a
 Most customization is intentionally kept in one site configuration file and a
 small set of YAML data files:
 
-- `_config.yml` controls site metadata, `url`, `baseurl`, permalink format, plugins, Sass output, global reading time, analytics, defaults, and the `dev_only` flag that reveals the [component gallery](#component-gallery).
+- `_config.yml` controls site metadata, `url`, `baseurl`, permalink format, plugins, Sass output, global reading time, [search](#search), analytics, defaults, and the `dev_only` flag that reveals the [component gallery](#component-gallery).
 - `_data/author.yml` controls the displayed name, role, location, avatar, biography, and contact fields.
 - `_data/hero.yml` controls the homepage hero copy, image, and call-to-action links.
 - `_data/navigation.yml` controls header and mobile navigation links.
@@ -159,6 +160,31 @@ demo post, not to Eyvan's core runtime. Its CDN release is exact,
 integrity-protected, and checked independently from the MathJax feature. You
 can delete the climate post and its demo script when replacing the sample
 content.
+
+## Search
+
+Search is off by default. Set `search: true` in `_config.yml` to add a
+`/search/` page, a search link at the right end of the desktop header, and a
+search field at the top of the mobile menu. With search off, none of these is
+built.
+
+[Pagefind](https://pagefind.app/) builds the index from the finished site, so
+it runs after `jekyll build`. The deploy workflow does this whenever the build
+contains `/search/`. The index covers the full text of every post, with title
+and tag matches ranked first. A search downloads only the parts of the index it
+needs, from your own site; nothing goes to another service. Without
+JavaScript, the search page links to the Projects page and every tag page
+instead.
+
+To try search locally, run `npm ci` once, then build the site, index it, and
+serve the built files without rebuilding them, since a rebuild deletes the
+index:
+
+```bash
+bundle exec jekyll build
+npm run search:index
+bundle exec jekyll serve --skip-initial-build --no-watch
+```
 
 ## External Link Check
 
@@ -267,7 +293,9 @@ No changes to the GitHub Actions workflows are needed; GitHub Pages handles the 
 - Reading time is global, not a per-post front matter override.
 - Cross-reference links work as anchors without JavaScript, but numbered reference text requires `crossrefs: true`.
 - Tag pages require the GitHub Actions build path because `jekyll/tagging` is not supported by the native GitHub Pages builder.
-- Search is not included.
+- Search covers posts only and needs JavaScript. A plain `jekyll serve` builds
+  no index, so the search page says search could not load until you run
+  `npm run search:index` (see [Search](#search)).
 
 ## Attribution
 

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Optional full-text search of posts with [Pagefind](https://pagefind.app/),
+  off by default (#2). Set `search: true` in `_config.yml` to add a
+  `/search/` page, a search link at the right end of the desktop header, and
+  a search field at the top of the mobile menu. Pagefind 1.5.2 is a new
+  development dependency. When the build contains `/search/`, the deploy
+  workflow sets up Node.js and builds the index; see "Search" in `README.md`
+  to preview it locally.
+- `scripts/check-built-output.rb` fails a build that ships any search page,
+  script, index, or markup while `search` is off, and takes the config path
+  as an optional second argument (#2).
+
 ## [2.0.0] - 2026-11-03
 
 ### Breaking changes

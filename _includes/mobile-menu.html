@@ -5,6 +5,7 @@
 
   Structure:
   - Top: theme toggle (left) + close control (right)
+  - Search form when site.search is true, except on the search page itself
   - Middle: primary navigation links
   - Bottom: social links
 
@@ -75,6 +76,13 @@
         </button>
       </div>
     </div>
+
+    {% if site.search and page.url != '/search/' %}
+      <!-- Mobile search form -->
+      <div class="c-mobile-menu__search">
+        {% include search-form.html id="mobile-search-input" hide_label=true %}
+      </div>
+    {% endif %}
 
     <!-- Mobile primary navigation -->
     {%

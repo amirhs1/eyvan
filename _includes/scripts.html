@@ -30,6 +30,7 @@
   - assets/js/social-links-overflow.js
   - assets/js/back-to-top.js
   - assets/js/crossref.js
+  - assets/js/search.js
 
   Notes:
   - Avoid adding large libraries unless necessary
@@ -85,5 +86,8 @@
 ></script>
 {% if page.crossrefs %}
   <script src="{{ 'assets/js/crossref.js' | relative_url }}" defer></script>
+{% endif %}
+{% if site.search and page.url == '/search/' %}
+  <script src="{{ 'assets/js/search.js' | relative_url }}" defer></script>
 {% endif %}
 <!-- End of scripts.html -->

@@ -1,0 +1,178 @@
+// -----------------------------------------------------------------------------
+// Search Component
+// ITCSS layer: 5-components
+//
+// Description:
+// Styles the header search link, the shared search form (mobile menu and
+// /search/), and the search page's notice, status line, and results.
+//
+// Structure:
+// - .c-search-link (with .c-icon-link)
+// - .c-search-form
+//   - .c-search-form__label
+//   - .c-search-form__input
+//   - .c-search-form__button (with .c-button)
+// - .c-search
+//   - .c-search__heading
+//   - .c-search__notice
+//     - .c-search__notice-text
+//     - .c-search__tags
+//   - .c-search__form
+//   - .c-search__status
+//   - .c-search__results
+//     - .c-search__result
+//       - .c-search__result-title
+//         - .c-search__result-link
+//       - .c-search__result-excerpt
+//         - .c-search__match (the <mark> around each matched word)
+//   - .c-search__more (with .c-button)
+//
+// Scope & Rules:
+// - Component styling only
+// - Loaded by assets/css/main.scss only when site.search is true
+// - Does NOT own its placement in the header or mobile menu; those parents do
+// - Result titles stay neutral like post-card titles; only links and controls
+//   take the brand colour
+// -----------------------------------------------------------------------------
+
+@use "../0-settings/config" as settings-config;
+@use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-type;
+@use "../1-tools/mixins" as tools-mixins;
+@use "../1-tools/motion" as tools-motion;
+
+/* -----------------------------------------------------------------------------
+   Header search link
+   ----------------------------------------------------------------------------- */
+
+// Matches the neighbouring social icons, which hide the icon-link border at rest.
+.c-search-link {
+  border-color: transparent;
+}
+
+/* -----------------------------------------------------------------------------
+   Search form
+   ----------------------------------------------------------------------------- */
+
+.c-search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: settings-spacing.$space-2;
+}
+
+.c-search-form__label {
+  flex: 1 0 100%;
+
+  color: var(--color-on-surface);
+  font-family: settings-type.$font-family-display;
+  font-size: settings-type.$font-size-lg;
+  font-weight: settings-type.$font-weight-bold;
+  line-height: settings-type.$line-height-tight;
+}
+
+.c-search-form__input {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: settings-config.$control-min-size;
+  padding-inline: settings-spacing.$space-3;
+
+  border: settings-config.$global-border-width solid var(--color-outline);
+  border-radius: settings-config.$global-border-radius;
+  background-color: var(--color-surface-container-lowest);
+  color: var(--color-on-surface);
+
+  font-family: settings-type.$font-family-body;
+  font-size: settings-type.$font-size-md;
+  line-height: settings-type.$line-height-normal;
+
+  &:focus-visible {
+    border-color: var(--color-primary);
+    @include tools-mixins.focus-ring;
+  }
+}
+
+.c-search-form__button {
+  flex: 0 0 auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Search page
+   ----------------------------------------------------------------------------- */
+
+.c-search {
+  display: flex;
+  flex-direction: column;
+  gap: settings-spacing.$space-stack-md;
+}
+
+.c-search__notice-text {
+  margin: 0;
+}
+
+.c-search__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: settings-spacing.$space-2;
+
+  margin-block-start: settings-spacing.$space-3;
+}
+
+.c-search__status {
+  margin: 0;
+
+  color: var(--color-on-surface-variant);
+}
+
+.c-search__results {
+  display: flex;
+  flex-direction: column;
+  gap: settings-spacing.$space-stack-md;
+}
+
+.c-search__result-title {
+  margin: 0 0 settings-spacing.$space-2;
+
+  color: var(--color-heading);
+  font-family: settings-type.$font-family-display;
+  font-size: settings-type.$font-size-xl;
+  font-weight: settings-type.$font-weight-bold;
+  line-height: settings-type.$line-height-tight;
+  letter-spacing: settings-type.$letter-spacing-tight;
+}
+
+.c-search__result-link {
+  color: inherit;
+  text-decoration: none;
+
+  @include tools-motion.transition-interaction;
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    @include tools-mixins.focus-ring;
+  }
+}
+
+.c-search__result-excerpt {
+  margin: 0;
+
+  color: var(--color-on-surface);
+}
+
+.c-search__match {
+  background-color: var(--color-surface-container-highest);
+  color: inherit;
+  font-weight: settings-type.$font-weight-bold;
+}
+
+.c-search__more {
+  align-self: flex-start;
+}

@@ -16,6 +16,8 @@
 //       - .c-mobile-menu__top-right
 //         - .c-mobile-menu__close.c-icon-link
 //           - .c-mobile-menu__close-icon.c-icon-link__icon
+//     - .c-mobile-menu__search (only when site.search is true)
+//       - .c-search-form
 //     - .c-nav.c-nav--mobile
 //     - .c-mobile-menu__footer
 //       - .c-social-links.c-social-links--mobile
@@ -122,6 +124,10 @@ $mobile-menu-z-index: settings-config.$z-overlay;
   margin-block-end: tools-spacing.$fluid-stack-md;
   padding-block-end: settings-spacing.$space-3;
   border-block-end: settings-config.$global-border-width solid var(--color-outline-variant);
+}
+
+.c-mobile-menu__search {
+  margin-block-end: tools-spacing.$fluid-stack-md;
 }
 
 .c-mobile-menu__top-left,

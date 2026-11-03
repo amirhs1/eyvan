@@ -40,6 +40,7 @@
   - include.entry_meta.avatar
   - include.entry_meta.date
   - include.entry_meta.content
+  - include.entry_meta.read_time_override
   - include.show_avatar
   - include.show_read_time
   - site.data.author.name
@@ -50,6 +51,12 @@
   Notes:
   - This component centralizes metadata markup so cards, posts, and pages
     share the same structure
+  - A positive read_time_override in an entry's front matter replaces only the
+    minutes shown, rounded to the nearest whole minute; whether the read time
+    appears at all is still decided by show_read_time, site.read_time, and the
+    entry's content. A value that is empty, non-numeric, or rounds to zero or
+    below falls back to the estimate. It is read from entry_meta, not page, so
+    cards show each post's own value
   - Spacing between date and read time should be handled in CSS, not with
     hardcoded separators in the markup
 {% endcomment %}
@@ -106,12 +113,17 @@
           {% endif %}
 
           {% if show_read_time and site.read_time and entry_meta.content %}
+            {% assign override_minutes = entry_meta.read_time_override | plus: 0 | round %}
             <!-- Read time -->
             <span class="c-entry-meta__read-time">
               <span class="c-entry-meta__icon" aria-hidden="true">
                 {% include icons/timer.svg %}
               </span>
-              {% include read-time.html content=entry_meta.content %}
+              {% if override_minutes > 0 %}
+                {{ override_minutes }} min read
+              {% else %}
+                {% include read-time.html content=entry_meta.content %}
+              {% endif %}
             </span>
           {% endif %}
         </div>

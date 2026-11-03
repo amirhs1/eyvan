@@ -160,6 +160,21 @@ integrity-protected, and checked independently from the MathJax feature. You
 can delete the climate post and its demo script when replacing the sample
 content.
 
+## External Link Check
+
+A weekly workflow, `.github/workflows/link-check.yml`, builds your site and
+reports dead links to other sites, such as citations and references in posts,
+in its job summary. A broken link turns that run red; it never blocks a merge
+or a deploy. The test suite checks links within your site. Settings are in
+`.lychee.toml`.
+
+GitHub runs scheduled workflows only from the default branch. It disables them
+by default in forks, and in any public repository after 60 days without
+activity. If the runs stop, open the **Actions** tab, choose **Check External
+Links**, and choose **Enable workflow**. To run the check on demand, choose
+**Run workflow** in the same place. To turn it off, disable the workflow there,
+or delete `.github/workflows/link-check.yml` and `.lychee.toml`.
+
 ## Reusable Includes
 
 Eyvan includes Liquid helpers for common long-form content patterns:

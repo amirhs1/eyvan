@@ -150,6 +150,9 @@ Local QA uses the Ruby version in `.ruby-version` and the Node.js test tooling
 installed with `npm ci`. CI currently runs the npm checks on Node 20.
 
 ```bash
+# Check the locked Ruby gems against the advisory database (needs network)
+bundle exec bundle-audit check --update
+
 # Confirm the site builds (baseurl: "/eyvan" already makes this the subpath build)
 bundle exec jekyll build
 
@@ -171,6 +174,11 @@ merge. Run the suite locally whenever your change affects rendered output
 For content-only or configuration-only changes, a local `bundle exec jekyll
 build` is enough — let CI handle the accessibility pass. To add or change a
 test, follow the [`write-test` skill](.agents/skills/write-test/SKILL.md).
+
+On a pull request into `develop` that changes only documentation or agent files
+(listed in `scripts/classify-docs-only.rb`), CI skips the Playwright checks and
+says so in the job summary; pushes and pull requests into `main` run every
+check.
 
 ## Release and accessibility checklists
 

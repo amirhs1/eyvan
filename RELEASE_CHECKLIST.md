@@ -14,6 +14,7 @@ publishing a template release.
 
 ## Automated Checks
 
+- [ ] Run `bundle exec bundle-audit check --update`.
 - [ ] Run `bundle exec jekyll build`.
 - [ ] Run `npm run test:release`.
 - [ ] Run `ruby scripts/check-built-output.rb`.

@@ -23,7 +23,8 @@ file.
 only definition of "checks pass":
 
 ```bash
-bundle exec jekyll build \
+bundle exec bundle-audit check --update \
+  && bundle exec jekyll build \
   && npm run test:release \
   && ruby scripts/check-built-output.rb \
   && ruby scripts/check-template-placeholders.rb \
@@ -38,6 +39,10 @@ bundle exec jekyll build \
   && npm run test:wait:gallery \
   && npm run test:gallery
 ```
+
+On a pull request into `develop` that changes only the docs and agent files
+`scripts/classify-docs-only.rb` lists, CI skips the Playwright steps and says
+so in the job summary; the full gate above stays the full sequence.
 
 **CI is the gate** and takes under two minutes, so running it locally is a
 duplicate — do it only when the change affects rendered output (layouts,

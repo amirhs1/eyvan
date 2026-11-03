@@ -13,12 +13,6 @@ on:
     # many start at once.
     - cron: "17 6 * * 1"
   workflow_dispatch:
-  # TEMPORARY: lets the workflow run from the pull request before it reaches
-  # the default branch. Remove before the pull request leaves draft.
-  pull_request:
-    paths:
-      - ".github/workflows/link-check.yml"
-      - ".lychee.toml"
 
 permissions:
   contents: read

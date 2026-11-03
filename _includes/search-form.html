@@ -1,0 +1,50 @@
+{% comment %}
+  Search Form Include
+  Purpose: Render a plain search form that sends its query to /search/?q=.
+
+  Parameters:
+  - include.id: id for the input, unique on the page (required)
+  - include.hide_label: true keeps the label for assistive technology only
+
+  Structure:
+  - Search landmark (form role="search")
+    - Label
+    - Search input
+    - Submit button
+
+  Accessibility:
+  - The input has a <label>; the visible "Search" button names the action
+  - The form is a search landmark named "Site search"; the search page and the
+    mobile menu never render it twice on one page
+
+  Notes:
+  - The form works without JavaScript: submitting it loads /search/?q=.
+  - assets/js/search.js runs the query on the search page.
+{% endcomment %}
+
+<!-- search-form.html -->
+<form
+  class="c-search-form"
+  role="search"
+  aria-label="Site search"
+  action="{{ '/search/' | relative_url }}"
+  method="get"
+>
+  <label
+    class="c-search-form__label{% if include.hide_label %} u-visually-hidden{% endif %}"
+    for="{{ include.id }}"
+  >
+    Search posts
+  </label>
+  <input
+    class="c-search-form__input"
+    id="{{ include.id }}"
+    type="search"
+    name="q"
+    autocomplete="off"
+  >
+  <button class="c-button c-button--primary c-search-form__button" type="submit">
+    Search
+  </button>
+</form>
+<!-- End of search-form.html -->

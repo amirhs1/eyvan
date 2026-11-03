@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   only the number: `read_time: false` still hides reading time. If your fork
   has its own copy of `_includes/entry-meta.html`, copy the new
   `override_minutes` lines into it.
+- Optional full-text search of posts with [Pagefind](https://pagefind.app/),
+  off by default (#2). Set `search: true` in `_config.yml` to add a
+  `/search/` page, a search link at the right end of the desktop header, and
+  a search field at the top of the mobile menu. Pagefind 1.5.2 is a new
+  development dependency. When the build contains `/search/`, the deploy
+  workflow sets up Node.js and builds the index; see "Search" in `README.md`
+  to preview it locally.
+- `scripts/check-built-output.rb` fails a build that ships any search page,
+  script, index, or markup while `search` is off, and takes the config path
+  as an optional second argument (#2).
 - When `google_analytics` is set, a banner asks visitors whether to allow
   Google Analytics, and an "Analytics preferences" button in the footer lets
   them change their choice later (#3). The banner's text is in
@@ -27,6 +37,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   deletes the `_ga` and `_ga_*` cookies. If your site already asks for consent
   another way, set `google_analytics_consent: false` in `_config.yml` to load
   the tag on every page as before.
+
+### Fixed
+
+- In a crowded desktop header, such as one with five navigation links or a
+  search link, the navigation no longer shrinks under the theme toggle; the
+  brand text shortens with an ellipsis instead (#2).
 
 ## [2.0.0] - 2026-11-03
 

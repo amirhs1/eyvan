@@ -88,6 +88,10 @@ jobs:
         if: steps.docs.outputs.docs_only != 'true'
         run: bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
 
+      - name: Build Gallery Search Index
+        if: steps.docs.outputs.docs_only != 'true'
+        run: npm run search:index:gallery
+
       - name: Wait for Component Gallery Server
         if: steps.docs.outputs.docs_only != 'true'
         run: npm run test:wait:gallery

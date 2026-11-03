@@ -118,6 +118,9 @@
 @use "5-components/prose-media" as component-prose-media;
 
 @use "5-components/back-to-top" as component-back-to-top;
+{% if site.search %}
+@use "5-components/search" as component-search;
+{% endif %}
 
 // -----------------------------------------------------------------------------
 // 6. LAYOUTS

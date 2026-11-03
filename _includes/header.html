@@ -6,7 +6,8 @@
   Structure:
   - Left (desktop): brand link with logo, name, and role
   - Center (desktop): primary navigation + theme toggle
-  - Right (desktop): social links + CV action
+  - Right (desktop): social links + CV action, then the search link when
+    site.search is true
   - Tablet/Mobile top bar: brand + hamburger toggle
   - Tablet/Mobile expanded menu: delegated to mobile-menu.html
 
@@ -23,6 +24,7 @@
     - brand.html
     - social-links.html
     - theme-toggle.html
+    - search-link.html
     - mobile-menu.html
 
   Accessibility:
@@ -80,6 +82,11 @@
         <nav class="c-social-links" aria-label="Header social links">
           {% include social-links.html collapse_after=4 %}
         </nav>
+
+        {% if site.search %}
+          <!-- Desktop search link -->
+          {% include search-link.html %}
+        {% endif %}
       </div>
 
       <!-- Header mobile controls -->

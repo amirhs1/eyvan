@@ -161,8 +161,10 @@ bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 npm run test:wait
 npm run test:a11y
 
-# Component gallery scan (Playwright + axe-core, light and dark), built into _site-gallery/
+# Component gallery scan and search tests (Playwright + axe-core, light and dark),
+# built into _site-gallery/ with search on, then indexed by Pagefind
 bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
+npm run search:index:gallery
 npm run test:wait:gallery
 npm run test:gallery
 ```

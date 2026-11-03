@@ -36,6 +36,7 @@ bundle exec bundle-audit check --update \
   && npm run test:a11y \
   && bundle exec jekyll serve --config _config.yml,_config.gallery.yml \
        --destination _site-gallery --host 127.0.0.1 --port 4001 --detach \
+  && npm run search:index:gallery \
   && npm run test:wait:gallery \
   && npm run test:gallery
 ```

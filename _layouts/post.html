@@ -66,7 +66,15 @@ layout: default
   - page.tags
   - page.share
   - page.toc
+  - site.search
   - content
+
+  Search:
+  - When site.search is true, data-pagefind-body marks the header and prose as
+    the text Pagefind indexes; pages without it, including /tests/*, stay out.
+  - Tags carry data-pagefind-weight="7", Pagefind's default weight for the h1
+    title, so tag and title matches rank alike, above body text.
+  - The author, date, and share row is data-pagefind-ignore.
 {% endcomment %}
 
 <div class="o-container u-animate" id="top">
@@ -99,9 +107,9 @@ layout: default
     <!-- Post article -->
     <article class="o-grid__item o-grid__item--span-12 c-post">
       <!-- Post header -->
-      <header class="c-post__header">
+      <header class="c-post__header"{% if site.search %} data-pagefind-body{% endif %}>
         {% if page.tags and page.tags.size >= 1 %}
-          <div class="c-post__tags">
+          <div class="c-post__tags"{% if site.search %} data-pagefind-weight="7"{% endif %}>
             {% for tag in page.tags %}
               <a
                 class="c-tag c-post__tag"
@@ -120,7 +128,7 @@ layout: default
           <p class="c-post__subtitle">{{ page.subtitle | escape }}</p>
         {% endif %}
 
-        <div class="c-post__header-row">
+        <div class="c-post__header-row"{% if site.search %} data-pagefind-ignore{% endif %}>
           <div class="c-post__header-meta">
             {% include entry-meta.html entry_meta=page show_avatar=true %}
           </div>
@@ -156,7 +164,7 @@ layout: default
 
           <div class="l-post__col l-post__col--main">
             <div class="l-post__prose">
-              <div class="o-prose o-prose--measure-wide">
+              <div class="o-prose o-prose--measure-wide"{% if site.search %} data-pagefind-body{% endif %}>
                 {{ content }}
               </div>
             </div>

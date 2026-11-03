@@ -154,6 +154,37 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_built_output_check_rejects_search_output_when_search_is_off
+    with_site_fixture do |site|
+      config = site.join("_config.yml")
+      File.write(config, "search: false\n")
+      write_search_output(site)
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site, config)
+
+      refute status.success?
+      assert_includes stderr, "Search file was published while search is off: search/index.html"
+      assert_includes stderr, "Search file was published while search is off: assets/js/search.js"
+      assert_includes stderr, "Search index was published while search is off: pagefind/"
+      assert_includes stderr, "Search markup was published while search is off: index.html"
+      assert_includes stderr, "Search markup was published while search is off: projects/post/index.html"
+      assert_includes stderr, "Search markup was published while search is off: assets/css/main.css"
+    end
+  end
+
+  def test_built_output_check_accepts_search_output_when_search_is_on
+    with_site_fixture do |site|
+      config = site.join("_config.yml")
+      File.write(config, "search: true\n")
+      write_search_output(site)
+
+      stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site, config)
+
+      assert status.success?, stderr
+      assert_includes stdout, "Built output policy passed"
+    end
+  end
+
   def test_placeholder_check_is_silent_for_canonical_repository
     with_template_fixture do |root|
       stdout, stderr, status = run_script(
@@ -218,6 +249,21 @@ class ReleaseChecksTest < Minitest::Test
       File.write(site.join("sitemap.xml"), "<urlset></urlset>")
       yield site
     end
+  end
+
+  # One file per kind of output a search-enabled build ships.
+  def write_search_output(site)
+    FileUtils.mkdir_p(site.join("search"))
+    File.write(site.join("search/index.html"), '<div class="c-search" data-search></div>')
+    FileUtils.mkdir_p(site.join("assets/js"))
+    File.write(site.join("assets/js/search.js"), "")
+    FileUtils.mkdir_p(site.join("pagefind"))
+    File.write(site.join("pagefind/pagefind.js"), "")
+    File.write(site.join("index.html"), '<a class="c-icon-link c-search-link" href="/search/">Search</a>')
+    FileUtils.mkdir_p(site.join("projects/post"))
+    File.write(site.join("projects/post/index.html"), "<article data-pagefind-body></article>")
+    FileUtils.mkdir_p(site.join("assets/css"))
+    File.write(site.join("assets/css/main.css"), ".c-search-link{border-color:transparent}")
   end
 
   def with_template_fixture

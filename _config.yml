@@ -104,6 +104,11 @@ sass:
 words_per_minute: 238
 read_time: true
 
+# Full-text search of posts, built by Pagefind after `jekyll build`. When true,
+# Eyvan adds a /search/ page, a search link in the header, and a search field
+# in the mobile menu; the deploy workflow builds the index. See "Search" in README.md.
+search: false
+
 # ------------------------------------------------------------
 # Analytics
 # Leave blank (or omit) to disable Google Analytics entirely.

@@ -7,6 +7,153 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-11-03
+
+### Breaking changes
+
+Each item below can break a site built on Eyvan. Follow its migration step
+when you merge this release into your fork.
+
+- The `.animate` motion class is now `.u-animate` (#26). If your content,
+  overrides, or CSS use `animate`, rename it to `u-animate`.
+- **Breaking for forks that customize the post layout:** the post page's
+  content grid moved from `_sass/5-components/_post.scss` to a new
+  `_sass/6-layouts/_post.scss`, and its classes were renamed from
+  `c-post-layout*` to `l-post*` (`l-post`, `l-post__col`,
+  `l-post__col--left`, `l-post__col--main`, `l-post__col--right`,
+  `l-post__prose`, `l-post__aside`) (#125). If your site overrides
+  `_layouts/post.html` or `_includes/post-toc-desktop.html`, or adds CSS
+  for `.c-post-layout*`, rename those classes. Rendering is unchanged.
+- The Sass variables `$anim-speed` and `$anim-easing` are removed, so Sass
+  that uses them no longer compiles (#129). Use `$transition-base` from
+  `_sass/0-settings/_config.scss` instead.
+- The Sass variables `$static-stack-xxs`, `$static-stack-xs`, and
+  `$static-stack-sm` are removed (#129). Use the equal `$space-stack-xxs`,
+  `$space-stack-xs`, and `$space-stack-sm` from
+  `_sass/0-settings/_spacing.scss` instead.
+- The `.c-theme-toggle--mobile`, `.c-nav--mobile`, and
+  `.c-social-links--mobile` modifiers now carry the mobile menu's look
+  wherever they are used, and the Contents toolbar's compact share styles
+  now need the new `c-post-share--collapsed` class (#127). If you style
+  these modifiers outside the menu, check them; if your fork has its own
+  copy of `_includes/post-share.html`, add `c-post-share--collapsed` to its
+  root when `collapse` is set, as the template's copy now does.
+- The About portrait caption and the contact page's "Also reachable on"
+  label now take their type from component classes, and
+  `.l-about__portrait-caption` is removed (#123). If you have customized
+  `about.html` or `contact.html`, give the portrait `figcaption` the class
+  `c-prose-caption` and the label `c-label` alongside
+  `l-contact__social-label`.
+- CI now runs `bundle exec bundle-audit check --update` as a blocking step
+  (#137). A known advisory against your `Gemfile.lock` fails the build until
+  you update the gem or record a waiver in `.bundler-audit.yml`.
+- `@axe-core/playwright` 4.14.0 turns on the `label-content-name-mismatch`
+  rule (#69). A link whose `aria-label` does not contain its visible text
+  now fails `npm run test:a11y`; remove the label or make it include the
+  visible text.
+- New CI checks can fail on a fork's own changes:
+  - The component gallery scan checks its page list against `/tests/`
+    (#97). If you delete gallery fixture pages, update `galleryPages` in
+    `tests/component-gallery.spec.js`.
+  - `npm run test:site` counts characters per line in running text (#116).
+    With a different body font, the failure message names the
+    `$text-measure-wide` value that averages about 66 characters.
+  - `scripts/check-color-contract.rb` fails when a post or a root Markdown
+    file names a `--color-*` property that the base layer does not emit
+    (#28). Rename or remove the property in that file.
+  - `scripts/check-color-contract.rb` checks the post-navigation text at the
+    far edge of its gradient (#131). A palette change that lowers that
+    contrast below WCAG 2.1 AA now fails CI.
+
+### Added
+
+- A `mq-down` Sass mixin that ends just below a breakpoint, beside `mq-up`
+  (#114).
+- A `.c-label` component for small uppercase labels (#123).
+- Sass tokens for control sizes, icon sizes, and the hover and press offsets
+  (`$control-size-sm/md/lg`, `$icon-size`, `$icon-size-lg`,
+  `$control-lift-hover`, `$control-press-offset`, `$control-press-scale`)
+  (#133).
+- An axe scan of every component gallery page in CI, in light and dark, at
+  1280 × 720 and 390 × 844, run with `npm run test:gallery` (#97, #111).
+- A "Component Gallery" section in the README, and documentation of
+  `.is-shrunk` as an opt-in hook for your own shrink-on-scroll (#27).
+- A "Using the palette in your own components" section in the *Theming
+  Eyvan* post (#28).
+
+### Fixed
+
+- The "Add a new component" example in the architecture post now uses tokens
+  that exist, so copying it gives a styled component (#28).
+- Cross-reference numbers count only captioned figures, video, and audio,
+  so they match the visible labels; a reference to an uncaptioned figure now
+  shows its id (#103).
+- The mobile menu and the mobile Contents panel close, and release the page,
+  when the window widens past the layout breakpoint (#104).
+- Tag links use jekyll-tagging's `tag_url` filter, so tags such as `C++` or
+  `Café` no longer link to a missing page (#105).
+- Share links encode titles that contain `#`, `&`, or `+` (#106).
+- The template identity check in the deploy workflow no longer fails on a
+  date in `_config.yml` or `_data/` (#107).
+- Prose tables that overflow their column can be reached and scrolled with
+  the keyboard (#110).
+- Task-list items no longer turn inline code into small scroll boxes on
+  narrow screens (#112).
+- Native controls, such as task-list checkboxes, follow the chosen theme
+  instead of the operating system's (#113).
+- At exactly 480, 768, and 1024px, pages no longer show the mobile and
+  desktop layouts at once (#114).
+- The Contents rail stays readable just above the layout breakpoint (#116).
+- On the About page below 1024px, the portrait caption no longer runs past
+  the photo (#123).
+- CI no longer passes `ruby/setup-ruby` the `ruby-version-file` input, which
+  it does not accept, so the Setup Ruby step stops logging an "Unexpected
+  input" warning; Ruby is still read from `.ruby-version` (#142).
+
+### Changed
+
+- The post and About reading measure is now about 66 characters per line
+  (`$text-measure-wide` from `75ch` to `50ch`) (#116).
+- The brand link is named by its visible name and role; the
+  `aria-label="Go to homepage"` is removed (#94).
+- Transitions use one easing curve, `cubic-bezier(0.4, 0, 0.2, 1)`, with
+  their durations unchanged, and `.u-animate` uses it too (#129, #133).
+- In the dark theme, the Contents and share rails are one step lighter than
+  the page (`--color-surface-container-low`) (#131).
+- A bare `hr` outside post prose has 2rem of space below it, as above it;
+  posts are unchanged (#121).
+- Links use the shared focus-ring mixin, so re-theming
+  `--color-focus-ring-color` now reaches links too; no visual change (#25).
+- CI runs on `ubuntu-24.04` (#49), waits for the server through
+  `npm run test:wait` (#64), and skips its Playwright steps on pull requests
+  into `develop` that change only documentation (#136).
+- Build dependencies: `sass-embedded` 1.101.0 → 1.106.1 (#38, #67) and
+  `jekyll-feed` 0.17.0 → 0.18.0 (#41).
+- CI actions: `ruby/setup-ruby` 1.313.0 → 1.335.0 (#39, #68, #135),
+  `actions/checkout` 6.0.3 → 7.0.1 (#40), `actions/setup-node` 6.4.0 →
+  7.1.0 (#43, #57), `actions/deploy-pages` 5.0.0 → 5.0.1 (#45), and
+  `actions/upload-artifact` 7.0.1 → 7.0.2 (#56).
+- Test tools: `@playwright/test` 1.60.0 → 1.64.1 (#42, #58, #66),
+  `@axe-core/playwright` 4.11.3 → 4.14.0 (#46, #69), `wait-on` 9.0.10 →
+  9.5.1 (#44), `axios` 1.17.0 → 1.20.0 (#47), and `joi` 18.2.1 → 18.2.9
+  (#48).
+- Contributor and agent tooling: agent rules and skills, `AI-POLICY.md`, a
+  commit-message hook, pull request and issue templates, and Dependabot
+  pull requests aimed at `develop` (#30, #32, #34, #36, #55, #59, #61, #81,
+  #87, #88, #89, #92, #99, #100).
+- `THIRD_PARTY_NOTICES.md` records the source and terms of four shipped
+  images: the portrait and hero placeholder (Pexels License), the default
+  Open Graph image (MIT), and the quantum entanglement post cover
+  (CC BY-SA 4.0) (#141).
+
+### Security
+
+- `addressable` 2.9.0 → 2.9.2, which clears seven advisories reported
+  against 2.9.0 (#137).
+- `follow-redirects` 1.16.1 → 1.16.2, a development dependency, which clears
+  the high-severity advisory GHSA-mrwp-f3q8-3g9p reported against 1.16.0
+  and 1.16.1 (#139).
+
 ## [1.1.0] - 2026-06-22
 
 ### Added
@@ -287,6 +434,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-[Unreleased]: https://github.com/amirhs1/eyvan/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/amirhs1/eyvan/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/amirhs1/eyvan/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/amirhs1/eyvan/releases/tag/v1.0.0

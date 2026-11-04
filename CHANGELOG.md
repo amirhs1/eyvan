@@ -28,6 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Google Analytics, and an "Analytics preferences" button in the footer lets
   them change their choice later (#3). The banner's text is in
   `_data/analytics.yml`.
+- A weekly workflow, `.github/workflows/link-check.yml`, that builds your site
+  and reports dead links to other sites, such as citations and references in
+  posts, in its job summary (#62). A broken link turns that run red; it never
+  blocks a merge or a deploy. It uses `lycheeverse/lychee-action` 2.9.0, and
+  its settings are in `.lychee.toml`. GitHub disables scheduled workflows in
+  forks by default: to turn the check on, open the **Actions** tab, choose
+  **Check External Links**, and choose **Enable workflow**. See "External Link
+  Check" in `README.md` to run it on demand or turn it off.
 
 ### Changed
 

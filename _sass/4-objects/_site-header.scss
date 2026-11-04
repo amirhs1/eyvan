@@ -69,7 +69,8 @@
   align-items: center;
   justify-content: center;
   // Never narrower than its links, so a crowded header shortens the brand
-  // (which truncates with an ellipsis) instead of overlapping the theme toggle.
+  // (which truncates with an ellipsis) instead of the links overlapping the
+  // brand or the actions.
   flex: 1 0 auto;
   column-gap: tools-spacing.$fluid-inline-md;
 }

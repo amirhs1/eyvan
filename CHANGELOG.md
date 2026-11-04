@@ -37,6 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   deletes the `_ga` and `_ga_*` cookies. If your site already asks for consent
   another way, set `google_analytics_consent: false` in `_config.yml` to load
   the tag on every page as before.
+- The desktop theme toggle moved from before Home to the right end of the
+  header, after the social links and, when `search` is on, after the search
+  link (#149). Tab now reaches it last in the header. If your fork has its own
+  copy of `_includes/header.html`, move its `o-site-header__theme` block to the
+  end of `o-site-header__actions` to match.
 
 ### Fixed
 

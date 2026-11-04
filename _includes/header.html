@@ -5,9 +5,9 @@
 
   Structure:
   - Left (desktop): brand link with logo, name, and role
-  - Center (desktop): primary navigation + theme toggle
+  - Center (desktop): primary navigation
   - Right (desktop): social links + CV action, then the search link when
-    site.search is true
+    site.search is true, then the theme toggle
   - Tablet/Mobile top bar: brand + hamburger toggle
   - Tablet/Mobile expanded menu: delegated to mobile-menu.html
 
@@ -63,11 +63,6 @@
 
       <!-- Header desktop navigation cluster -->
       <div class="o-site-header__nav">
-        <!-- Desktop theme toggle -->
-        <div class="o-site-header__theme">
-          {% include theme-toggle.html hide_label=true %}
-        </div>
-
         <!-- Primary desktop navigation include -->
         {%
           include navigation.html
@@ -87,6 +82,11 @@
           <!-- Desktop search link -->
           {% include search-link.html %}
         {% endif %}
+
+        <!-- Desktop theme toggle, outside the social links nav: it is a setting, not a link -->
+        <div class="o-site-header__theme">
+          {% include theme-toggle.html hide_label=true %}
+        </div>
       </div>
 
       <!-- Header mobile controls -->

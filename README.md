@@ -2,6 +2,7 @@
 
 [![Run Automated Tests](https://github.com/amirhs1/eyvan/actions/workflows/develop.yml/badge.svg)](https://github.com/amirhs1/eyvan/actions/workflows/develop.yml)
 [![Deploy Jekyll site to Pages](https://github.com/amirhs1/eyvan/actions/workflows/jekyll-pages.yml/badge.svg)](https://github.com/amirhs1/eyvan/actions/workflows/jekyll-pages.yml)
+[![Latest release](https://img.shields.io/github/v/release/amirhs1/eyvan)](https://github.com/amirhs1/eyvan/releases/latest)
 [![Accessibility: axe](https://img.shields.io/badge/accessibility-axe-brightgreen)](https://github.com/amirhs1/eyvan/actions/workflows/develop.yml)
 [![Jekyll](https://img.shields.io/badge/jekyll-~%3E%204.4-blue)](https://jekyllrb.com/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
@@ -58,6 +59,8 @@ without them.
 - Detailed, task-focused documentation supplied as removable demo posts
 - Estimated reading time controlled globally through `read_time` and `words_per_minute` in `_config.yml`, with an optional per-post `read_time_override`
 - Optional full-text search of posts when `search: true`, built by Pagefind and served from your own site
+- Optional Google Analytics that loads only after a visitor accepts a consent banner, with the banner's text in `_data/analytics.yml`
+- A weekly [external link check](#external-link-check) that reports dead links in posts without blocking merges or deploys
 - Syntax-highlighted code blocks via Rouge
 - Tag archive pages powered by `jekyll/tagging`
 - SEO sitemap via `jekyll-sitemap`

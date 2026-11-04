@@ -28,7 +28,26 @@ jobs:
         run: ruby scripts/check-template-placeholders.rb
 
       - name: Build with Jekyll
+        if: github.repository != 'amirhs1/eyvan'
         run: bundle exec jekyll build
+
+      # The template's own demo turns on the opt-in features that _config.yml
+      # leaves off for forks: search, and Google Analytics with its consent
+      # banner once the EYVAN_DEMO_GA_ID repository variable is set.
+      - name: Build Jekyll Site With Demo Features
+        if: github.repository == 'amirhs1/eyvan'
+        env:
+          DEMO_GA_ID: ${{ vars.EYVAN_DEMO_GA_ID }}
+        run: |
+          printf 'search: true\n' > "$RUNNER_TEMP/demo.yml"
+          if [ -n "$DEMO_GA_ID" ]; then
+            if [[ ! "$DEMO_GA_ID" =~ ^G-[A-Z0-9]+$ ]]; then
+              echo "::error::EYVAN_DEMO_GA_ID must be a GA4 Measurement ID, such as G-XXXXXXXXXX."
+              exit 1
+            fi
+            printf 'google_analytics: "%s"\n' "$DEMO_GA_ID" >> "$RUNNER_TEMP/demo.yml"
+          fi
+          bundle exec jekyll build --config "_config.yml,$RUNNER_TEMP/demo.yml"
 
       # _plugins/hide_search_page.rb builds /search/ only when `search: true`.
       - name: Check Search Setting

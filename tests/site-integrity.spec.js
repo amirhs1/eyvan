@@ -426,3 +426,97 @@ for (const width of [390, 768, 1024, 1280]) {
     expect(overhang.right).toBeLessThanOrEqual(0.5);
   });
 }
+
+// Each named part must end at or before the next one's left edge.
+function outOfOrder(boxes) {
+  return boxes.slice(1).flatMap(([name, box], index) => {
+    const [previousName, previous] = boxes[index];
+    return previous.x + previous.width <= box.x ? [] : [`${previousName} / ${name}`];
+  });
+}
+
+// The banner's visible links and buttons, by aria-label or text, sorted by left edge.
+async function bannerControlsLeftToRight(page) {
+  return page.getByRole('banner').locator('a[href]:visible, button:visible').evaluateAll((controls) => controls
+    .map((control) => [
+      control.getBoundingClientRect().x,
+      (control.getAttribute('aria-label') || control.textContent).replace(/\s+/g, ' ').trim(),
+    ])
+    .sort(([a], [b]) => a - b)
+    .map(([, name]) => name));
+}
+
+// The banner controls Tab reaches, named as above, starting from the brand link.
+async function bannerTabStops(page) {
+  const banner = page.getByRole('banner');
+  const focused = banner.locator(':focus');
+  const stops = [];
+  await banner.getByRole('link').first().focus();
+  // 50 is only a guard against a focus loop; the header has far fewer controls.
+  while (stops.length < 50 && await focused.count()) {
+    stops.push(await focused.evaluate((control) => (
+      (control.getAttribute('aria-label') || control.textContent).replace(/\s+/g, ' ').trim()
+    )));
+    await page.keyboard.press('Tab');
+  }
+  return stops;
+}
+
+// Properties with no reference value (#149), on this build's search-off header;
+// tests/search.spec.js checks the search-on header. 1024px is $bp-layout (64em).
+for (const width of [1024, 1280, 1440]) {
+  test(`header parts do not overlap at ${width}px with search off`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 720 });
+    await page.goto(`${baseUrl}/`);
+
+    const banner = page.getByRole('banner');
+    await expect(banner.getByRole('link', { name: 'Search', exact: true })).toHaveCount(0);
+    const navLinks = banner.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link');
+    const parts = [
+      ['brand', banner.getByRole('link').first()],
+      ...(await navLinks.all()).map((link, index) => [`nav link ${index + 1}`, link]),
+      ['social links', banner.getByRole('navigation', { name: 'Header social links' })],
+      ['theme toggle', banner.locator('[data-theme-toggle]')],
+    ];
+    const boxes = [];
+    for (const [name, locator] of parts) {
+      boxes.push([name, await locator.boundingBox()]);
+    }
+
+    const overlaps = [];
+    boxes.forEach(([a, r], i) => boxes.slice(i + 1).forEach(([b, s]) => {
+      if (r.x < s.x + s.width && s.x < r.x + r.width && r.y < s.y + s.height && s.y < r.y + r.height) {
+        overlaps.push(`${a} / ${b}`);
+      }
+    }));
+
+    expect(overlaps).toEqual([]);
+  });
+
+  test(`header runs nav links, social links, theme toggle left to right at ${width}px with search off`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 720 });
+    await page.goto(`${baseUrl}/`);
+
+    const banner = page.getByRole('banner');
+    await expect(banner.getByRole('link', { name: 'Search', exact: true })).toHaveCount(0);
+    const navLinks = banner.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link');
+    const parts = [
+      ...(await navLinks.all()).map((link, index) => [`nav link ${index + 1}`, link]),
+      ['social links', banner.getByRole('navigation', { name: 'Header social links' })],
+      ['theme toggle', banner.locator('[data-theme-toggle]')],
+    ];
+    const boxes = [];
+    for (const [name, locator] of parts) {
+      boxes.push([name, await locator.boundingBox()]);
+    }
+
+    expect(outOfOrder(boxes)).toEqual([]);
+  });
+
+  test(`Tab moves through the header from left to right at ${width}px with search off`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 720 });
+    await page.goto(`${baseUrl}/`);
+
+    expect(await bannerTabStops(page)).toEqual(await bannerControlsLeftToRight(page));
+  });
+}

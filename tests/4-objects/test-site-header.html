@@ -35,8 +35,8 @@ test_full_width: true
   <section aria-labelledby="test-page-title">
     <p>
       This page verifies the functionality of the <code>.o-site-header</code> object and its structural child zones
-      defined in the <strong>4-objects</strong> Sass layer. The desktop theme zone is nested inside the flexible
-      navigation cluster so it can sit immediately before the primary navigation.
+      defined in the <strong>4-objects</strong> Sass layer. The desktop theme zone is nested inside the actions zone
+      so it can sit at the right end of the header, after the other actions.
     </p>
 
     <p class="c-test-note">
@@ -62,12 +62,6 @@ test_full_width: true
         </div>
 
         <div class="o-site-header__nav">
-          <div class="o-site-header__theme">
-            <div class="c-site-header-test-block">
-              <span class="c-site-header-test-label">Theme</span>
-            </div>
-          </div>
-
           <div class="c-site-header-test-block">
             <span class="c-site-header-test-label">Nav</span>
           </div>
@@ -76,6 +70,12 @@ test_full_width: true
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block">
             <span class="c-site-header-test-label">Actions</span>
+          </div>
+
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">
+              <span class="c-site-header-test-label">Theme</span>
+            </div>
           </div>
         </div>
 
@@ -94,7 +94,7 @@ test_full_width: true
     <p>
       <strong>Expected behavior:</strong>
       On smaller screens, only the brand zone and mobile controls zone should be visible. The desktop navigation
-      cluster, including its theme control, and the actions zone should be hidden.
+      cluster and the actions zone, including its theme control, should be hidden.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -104,15 +104,15 @@ test_full_width: true
         </div>
 
         <div class="o-site-header__nav">
-          <div class="o-site-header__theme">
-            <div class="c-site-header-test-block">Theme hidden with nav cluster</div>
-          </div>
-
           <div class="c-site-header-test-block">Nav hidden on small screens</div>
         </div>
 
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block">Actions hidden on small screens</div>
+
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">Theme hidden with actions zone</div>
+          </div>
         </div>
 
         <div class="o-site-header__mobile-controls">
@@ -128,8 +128,8 @@ test_full_width: true
     <p>
       <strong>Expected behavior:</strong>
       At the layout breakpoint and above, the navigation cluster and actions zone should become visible, while the
-      mobile controls zone should become hidden. The theme control should appear first in the centered navigation
-      cluster, separated from the nav content by the same gap used between navigation items.
+      mobile controls zone should become hidden. The theme control should appear last in the actions zone,
+      separated from the actions content by the same gap used between action items.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -139,12 +139,6 @@ test_full_width: true
         </div>
 
         <div class="o-site-header__nav">
-          <div class="o-site-header__theme">
-            <div class="c-site-header-test-block c-site-header-test-block--strong">
-              Theme visible at layout breakpoint
-            </div>
-          </div>
-
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             Nav visible at layout breakpoint
           </div>
@@ -153,6 +147,12 @@ test_full_width: true
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             Actions visible at layout breakpoint
+          </div>
+
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block c-site-header-test-block--strong">
+              Theme visible at layout breakpoint
+            </div>
           </div>
         </div>
 
@@ -169,7 +169,7 @@ test_full_width: true
     <p>
       <strong>Expected behavior:</strong>
       At the layout breakpoint and above, the nav zone should take the flexible middle space because it uses
-      <code>flex: 1 1 auto</code>. Its theme and navigation content should appear together in the center.
+      <code>flex: 1 1 auto</code>. Its navigation content should appear in the center.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -179,10 +179,6 @@ test_full_width: true
         </div>
 
         <div class="o-site-header__nav">
-          <div class="o-site-header__theme">
-            <div class="c-site-header-test-block">Theme</div>
-          </div>
-
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             Centered flexible nav zone
           </div>
@@ -190,6 +186,10 @@ test_full_width: true
 
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block">Actions</div>
+
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">Theme</div>
+          </div>
         </div>
 
         <div class="o-site-header__mobile-controls">
@@ -206,8 +206,8 @@ test_full_width: true
       <strong>Expected behavior:</strong>
       This test should stress the zone that is actually flexible in the header object. At the layout breakpoint and
       above, the nav zone should absorb long content without causing obvious horizontal overflow, because it is the
-      middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The nested theme
-      control remains content-sized alongside the navigation content.
+      middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The theme
+      control nested in the actions zone remains content-sized alongside the actions content.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -219,12 +219,6 @@ test_full_width: true
         </div>
 
         <div class="o-site-header__nav">
-          <div class="o-site-header__theme">
-            <div class="c-site-header-test-block">
-              <div class="c-site-header-test-text">Theme</div>
-            </div>
-          </div>
-
           <div class="c-site-header-test-block c-site-header-test-block--strong">
             <div class="c-site-header-test-text">
               Navigation area with intentionally long placeholder content to verify that the flexible middle header zone
@@ -237,6 +231,12 @@ test_full_width: true
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block">
             <div class="c-site-header-test-text">Actions</div>
+          </div>
+
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">
+              <div class="c-site-header-test-text">Theme</div>
+            </div>
           </div>
         </div>
 
@@ -261,8 +261,8 @@ test_full_width: true
     <p>
       <strong>Expected behavior:</strong>
       This final example combines all structural zones in one place. On small screens, you should see brand plus mobile
-      controls. At the layout breakpoint and above, you should see brand, the theme-plus-nav cluster, and actions, while
-      mobile controls disappear.
+      controls. At the layout breakpoint and above, you should see brand, the nav cluster, and actions ending with
+      the theme zone, while mobile controls disappear.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -272,15 +272,15 @@ test_full_width: true
         </div>
 
         <div class="o-site-header__nav">
-          <div class="o-site-header__theme">
-            <div class="c-site-header-test-block">Final theme zone</div>
-          </div>
-
           <div class="c-site-header-test-block">Final nav zone</div>
         </div>
 
         <div class="o-site-header__actions">
           <div class="c-site-header-test-block">Final actions zone</div>
+
+          <div class="o-site-header__theme">
+            <div class="c-site-header-test-block">Final theme zone</div>
+          </div>
         </div>
 
         <div class="o-site-header__mobile-controls">

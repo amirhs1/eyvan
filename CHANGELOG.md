@@ -7,15 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-04
+
 ### Added
 
 - A `read_time_override` front matter field that replaces the estimated minutes
-  in a post's "N min read" text with a whole number you set (#1). It changes
+  in a post's "N min read" text with a whole number you set (#148). It changes
   only the number: `read_time: false` still hides reading time. If your fork
   has its own copy of `_includes/entry-meta.html`, copy the new
   `override_minutes` lines into it.
 - Optional full-text search of posts with [Pagefind](https://pagefind.app/),
-  off by default (#2). Set `search: true` in `_config.yml` to add a
+  off by default (#153). Set `search: true` in `_config.yml` to add a
   `/search/` page, a search link at the right end of the desktop header, and
   a search field at the top of the mobile menu. Pagefind 1.5.2 is a new
   development dependency. When the build contains `/search/`, the deploy
@@ -23,51 +25,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   to preview it locally.
 - `scripts/check-built-output.rb` fails a build that ships any search page,
   script, index, or markup while `search` is off, and takes the config path
-  as an optional second argument (#2).
+  as an optional second argument (#153).
 - When `google_analytics` is set, a banner asks visitors whether to allow
   Google Analytics, and an "Analytics preferences" button in the footer lets
-  them change their choice later (#3). The banner's text is in
+  them change their choice later (#152). The banner's text is in
   `_data/analytics.yml`.
 - A weekly workflow, `.github/workflows/link-check.yml`, that builds your site
   and reports dead links to other sites, such as citations and references in
-  posts, in its job summary (#62). A broken link turns that run red; it never
+  posts, in its job summary (#146). A broken link turns that run red; it never
   blocks a merge or a deploy. It uses `lycheeverse/lychee-action` 2.9.0, and
   its settings are in `.lychee.toml`. GitHub disables scheduled workflows in
   forks by default: to turn the check on, open the **Actions** tab, choose
   **Check External Links**, and choose **Enable workflow**. See "External Link
   Check" in `README.md` to run it on demand or turn it off.
 
+### Fixed
+
+- In a crowded desktop header, such as one with five navigation links or a
+  search link, the navigation no longer shrinks under the theme toggle; the
+  brand text shortens with an ellipsis instead (#153).
+- Pages that use `layout: page` and have a date or author no longer show
+  "N min read" (#151). The layout passes `show_read_time=false` to
+  `_includes/entry-meta.html`, which turned it back into `true`; any layout of
+  yours that passes it now hides the read time too. If your fork has its own
+  copy of `_includes/entry-meta.html`, copy the new `show_read_time` lines into
+  it.
+- The "Setting Up Eyvan" post and the first comment in `_data/footer.yml` no
+  longer say the footer takes links, such as a privacy policy; the file holds
+  only the footer's tagline and copyright text (#154).
+
 ### Changed
 
 - **For sites that set `google_analytics`:** the Google tag now loads only
   after the visitor accepts, so nothing is requested from Google before then,
-  and visitors who decline or never choose are not counted (#3). Declining
+  and visitors who decline or never choose are not counted (#152). Declining
   deletes the `_ga` and `_ga_*` cookies. If your site already asks for consent
   another way, set `google_analytics_consent: false` in `_config.yml` to load
   the tag on every page as before.
 - The desktop theme toggle moved from before Home to the right end of the
   header, after the social links and, when `search` is on, after the search
-  link (#149). Tab now reaches it last in the header. If your fork has its own
+  link (#158). Tab now reaches it last in the header. If your fork has its own
   copy of `_includes/header.html`, move its `o-site-header__theme` block to the
   end of `o-site-header__actions` to match.
-
-### Fixed
-
-- In a crowded desktop header, such as one with five navigation links or a
-  search link, the navigation no longer shrinks under the theme toggle; the
-  brand text shortens with an ellipsis instead (#2).
-- Pages that use `layout: page` and have a date or author no longer show
-  "N min read" (#150). The layout passes `show_read_time=false` to
-  `_includes/entry-meta.html`, which turned it back into `true`; any layout of
-  yours that passes it now hides the read time too. If your fork has its own
-  copy of `_includes/entry-meta.html`, copy the new `show_read_time` lines into
-  it.
 
 ### Security
 
 - `joi` 18.2.9 → 18.3.1, a development dependency reached through `wait-on`,
   which clears the high-severity advisory GHSA-4528-x5fx-h6hg reported against
-  18.0.0 to 18.3.0 (#155).
+  18.0.0 to 18.3.0 (#157).
 
 ## [2.0.0] - 2026-11-03
 
@@ -496,7 +501,8 @@ when you merge this release into your fork.
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/amirhs1/eyvan/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/amirhs1/eyvan/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/amirhs1/eyvan/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/amirhs1/eyvan/releases/tag/v1.0.0

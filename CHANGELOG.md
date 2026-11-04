@@ -56,6 +56,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In a crowded desktop header, such as one with five navigation links or a
   search link, the navigation no longer shrinks under the theme toggle; the
   brand text shortens with an ellipsis instead (#2).
+- Pages that use `layout: page` and have a date or author no longer show
+  "N min read" (#150). The layout passes `show_read_time=false` to
+  `_includes/entry-meta.html`, which turned it back into `true`; any layout of
+  yours that passes it now hides the read time too. If your fork has its own
+  copy of `_includes/entry-meta.html`, copy the new `show_read_time` lines into
+  it.
 
 ### Security
 

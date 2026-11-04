@@ -169,7 +169,7 @@ test_full_width: true
     <p>
       <strong>Expected behavior:</strong>
       At the layout breakpoint and above, the nav zone should take the flexible middle space because it uses
-      <code>flex: 1 1 auto</code>. Its navigation content should appear in the center.
+      <code>flex: 1 0 auto</code>. Its navigation content should appear in the center.
     </p>
 
     <div class="c-site-header-test-frame">
@@ -204,27 +204,29 @@ test_full_width: true
 
     <p>
       <strong>Expected behavior:</strong>
-      This test should stress the zone that is actually flexible in the header object. At the layout breakpoint and
-      above, the nav zone should absorb long content without causing obvious horizontal overflow, because it is the
-      middle flexible region using <code>flex: 1 1 auto</code> and <code>min-inline-size: 0</code>. The theme
-      control nested in the actions zone remains content-sized alongside the actions content.
+      This test crowds the header so that its zones cannot all keep their natural width. At the layout breakpoint and
+      above, the nav zone never becomes narrower than its content, because it uses <code>flex: 1 0 auto</code>, so its
+      placeholder stays on one line. The brand zone gives up its space instead, because it uses
+      <code>flex: 0 1 auto</code> and <code>min-inline-size: 0</code>, and its long placeholder wraps. The header
+      should stay inside the frame. In the real header, the brand component shortens its text with an ellipsis; this
+      object only gives the brand less room. The theme control nested in the actions zone remains content-sized
+      alongside the actions content.
     </p>
 
     <div class="c-site-header-test-frame">
       <div class="o-site-header">
         <div class="o-site-header__brand">
           <div class="c-site-header-test-block c-site-header-test-block--strong">
-            <div class="c-site-header-test-text">Brand</div>
+            <div class="c-site-header-test-text">
+              Brand placeholder with intentionally long content, standing in for a long site name and role, that should
+              narrow and wrap
+            </div>
           </div>
         </div>
 
         <div class="o-site-header__nav">
           <div class="c-site-header-test-block c-site-header-test-block--strong">
-            <div class="c-site-header-test-text">
-              Navigation area with intentionally long placeholder content to verify that the flexible middle header zone
-              can absorb length, shrink reasonably, and wrap inside the available space without forcing obvious
-              horizontal overflow
-            </div>
+            <div class="c-site-header-test-text">Navigation placeholder that keeps its width on one line</div>
           </div>
         </div>
 
@@ -249,9 +251,9 @@ test_full_width: true
     </div>
 
     <p class="c-test-note">
-      Resize the viewport and confirm that the long nav content stays inside the container at the layout breakpoint and
-      above. On smaller screens, the navigation cluster and actions zone should remain hidden while brand and mobile
-      controls remain visible.
+      Resize the viewport and confirm that, at the layout breakpoint and above, the nav placeholder stays on one line,
+      the brand placeholder wraps, and the header stays inside the frame. On smaller screens, the navigation cluster
+      and actions zone should remain hidden while brand and mobile controls remain visible.
     </p>
 
     <hr>

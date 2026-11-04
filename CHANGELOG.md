@@ -44,6 +44,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   search link, the navigation no longer shrinks under the theme toggle; the
   brand text shortens with an ellipsis instead (#2).
 
+### Security
+
+- `joi` 18.2.9 → 18.3.1, a development dependency reached through `wait-on`,
+  which clears the high-severity advisory GHSA-4528-x5fx-h6hg reported against
+  18.0.0 to 18.3.0 (#155).
+
 ## [2.0.0] - 2026-11-03
 
 ### Breaking changes

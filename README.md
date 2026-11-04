@@ -12,6 +12,10 @@ The template is designed for personal portfolios, academic profiles, research no
 
 Live demo: [Eyvan](https://amirhs1.github.io/eyvan/)
 
+The demo also turns on [search](#search) and Google Analytics with its consent
+banner. Both are off in `_config.yml`, so a site made from this template starts
+without them.
+
 ## Using as a Template
 
 1. Click **"Use this template"** and name your new repository.
@@ -253,7 +257,8 @@ Recommended setup:
 
 1. In GitHub, go to **Settings -> Pages**.
 2. Set **Source** to **GitHub Actions**.
-3. Keep or adapt `.github/workflows/jekyll-pages.yml`.
+3. Keep or adapt `.github/workflows/jekyll-pages.yml`. Its demo-features step
+   runs only in `amirhs1/eyvan`; your site builds from `_config.yml` alone.
 4. Set `url` and `baseurl` in `_config.yml` to your own site (see examples below).
 
 `url` is the origin of the published site, including the scheme and hostname.

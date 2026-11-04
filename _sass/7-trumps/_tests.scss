@@ -53,8 +53,13 @@
    Shared fixture helpers
    ----------------------------------------------------------------------------- */
 
+// A "<prefix>-test-<name>" helper class matches wherever it sits in the class
+// attribute: [class$=] when it is the last class, [class*=" "] when another
+// class, such as a modifier, follows it.
+
 .c-test-frame,
-[class$="-test-frame"] {
+[class$="-test-frame"],
+[class*="-test-frame "] {
   padding: settings-spacing.$space-5;
   margin-block: settings-spacing.$space-5;
   border: settings-config.$global-border-width dashed var(--color-outline-variant);
@@ -62,7 +67,8 @@
 }
 
 .c-test-box,
-[class$="-test-box"] {
+[class$="-test-box"],
+[class*="-test-box "] {
   padding: settings-spacing.$space-4;
   border: settings-config.$global-border-width solid var(--color-outline-variant);
   background: var(--color-surface-container-low);
@@ -70,21 +76,24 @@
 }
 
 .c-test-note,
-[class$="-test-note"] {
+[class$="-test-note"],
+[class*="-test-note "] {
   margin: 0;
   color: var(--color-on-surface-variant);
   font-size: settings-typography.$font-size-sm;
 }
 
 .c-test-fill,
-[class$="-test-fill"] {
+[class$="-test-fill"],
+[class*="-test-fill "] {
   padding: settings-spacing.$space-3;
   border: settings-config.$global-border-width dashed var(--color-outline-variant);
   background: var(--color-surface);
 }
 
 .c-test-block,
-[class$="-test-block"] {
+[class$="-test-block"],
+[class*="-test-block "] {
   min-inline-size: 0;
   padding: settings-spacing.$space-4;
   border: settings-config.$global-border-width dashed var(--color-outline-variant);
@@ -98,14 +107,16 @@
 }
 
 .c-test-label,
-[class$="-test-label"] {
+[class$="-test-label"],
+[class*="-test-label "] {
   margin: 0;
   font-weight: settings-typography.$font-weight-semi-bold;
   color: var(--color-on-surface);
 }
 
 .c-test-meta,
-[class$="-test-meta"] {
+[class$="-test-meta"],
+[class*="-test-meta "] {
   margin: 0;
   color: var(--color-on-surface-variant);
   font-size: settings-typography.$font-size-sm;
@@ -660,6 +671,11 @@
 .c-site-header-test-label {
   margin: 0 0 settings-spacing.$space-3;
   font-weight: settings-typography.$font-weight-semi-bold;
+}
+
+.c-site-header-test-text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
 }
 
 .c-site-header-test-note {

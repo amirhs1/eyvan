@@ -99,6 +99,7 @@
 @use "5-components/mobile-menu" as component-mobile-menu;
 @use "5-components/site-header" as component-site-header;
 @use "5-components/site-footer" as component-site-footer;
+@use "5-components/consent-banner" as component-consent-banner;
 
 @use "5-components/section-heading" as component-section-heading;
 @use "5-components/hero" as component-hero;
@@ -117,6 +118,9 @@
 @use "5-components/prose-media" as component-prose-media;
 
 @use "5-components/back-to-top" as component-back-to-top;
+{% if site.search %}
+@use "5-components/search" as component-search;
+{% endif %}
 
 // -----------------------------------------------------------------------------
 // 6. LAYOUTS

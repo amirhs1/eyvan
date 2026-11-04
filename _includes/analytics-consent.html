@@ -1,0 +1,88 @@
+{% comment %}
+  Analytics Consent Banner
+  Purpose: Ask visitors whether the site may load Google Analytics.
+
+  Structure:
+  - Guard: render only when `site.google_analytics` is set and
+    `site.google_analytics_consent` is not false
+  - Region: the message, an optional privacy-policy link, and the Accept and
+    Decline buttons
+
+  Architecture:
+  - Uses ITCSS + BEM naming:
+    - Objects: o-
+    - Components: c-
+  - Component shell: c-consent-banner
+  - Buttons reuse the shared c-button component, with equal weight
+  - Behaviour belongs to assets/js/analytics-consent.js, through the
+    data-analytics-consent* hooks
+  - Text comes from _data/analytics.yml
+
+  Accessibility:
+  - A labelled region, not a dialog: it takes no focus on load and traps none
+  - Rendered right after the skip link, so it is the next Tab stop, though it
+    shows fixed at the bottom of the viewport
+  - Rendered as a direct child of <body>, so overlay-isolation.js makes it
+    inert while the mobile menu or Contents panel is open
+  - Hidden by CSS until the script sets html[data-analytics-consent-open], so
+    it never shows without JavaScript
+
+  Data dependencies:
+  - site.google_analytics
+  - site.google_analytics_consent
+  - site.data.analytics.label
+  - site.data.analytics.message
+  - site.data.analytics.accept
+  - site.data.analytics.decline
+  - site.data.analytics.privacy_url
+  - site.data.analytics.privacy_label
+{% endcomment %}
+
+{% assign google_analytics_id = site.google_analytics | default: '' | strip %}
+{% if google_analytics_id != '' and site.google_analytics_consent != false %}
+  {% assign consent_text = site.data.analytics %}
+  {% assign privacy_url = consent_text.privacy_url | default: '' | strip %}
+
+  <!-- analytics-consent.html -->
+  <section
+    class="c-consent-banner"
+    aria-label="{{ consent_text.label | default: 'Analytics consent' | escape }}"
+    data-analytics-consent
+  >
+    <div class="o-container">
+      <div class="c-consent-banner__inner">
+        <p class="c-consent-banner__message">
+          {{ consent_text.message | default: 'This site would like to use Google Analytics to count visits.' | escape }}
+          {% if privacy_url != '' %}
+            {% if privacy_url contains '://' %}
+              {% assign privacy_href = privacy_url %}
+            {% else %}
+              {% assign privacy_href = privacy_url | relative_url %}
+            {% endif %}
+            <a class="c-consent-banner__link" href="{{ privacy_href | escape }}">
+              {{- consent_text.privacy_label | default: 'Privacy policy' | escape -}}
+            </a>
+          {% endif %}
+        </p>
+
+        <div class="c-consent-banner__actions">
+          <button
+            type="button"
+            class="c-button c-button--secondary c-button--small"
+            data-analytics-consent-accept
+          >
+            {{ consent_text.accept | default: 'Accept analytics' | escape }}
+          </button>
+          <button
+            type="button"
+            class="c-button c-button--secondary c-button--small"
+            data-analytics-consent-decline
+          >
+            {{ consent_text.decline | default: 'Decline analytics' | escape }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End of analytics-consent.html -->
+{% endif %}

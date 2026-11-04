@@ -1,0 +1,26 @@
+# Text for the analytics consent banner and the footer button that reopens it.
+# Used only when google_analytics is set in _config.yml and
+# google_analytics_consent is not false.
+
+# ------------------------------------------------------------
+# Banner
+# label names the banner for screen readers; it is not shown.
+# The message should say what is collected, by whom, and how to change the
+# choice later.
+# ------------------------------------------------------------
+label: "Analytics consent"
+message: "This site would like to use Google Analytics to count visits and see which pages are read. If you accept, Google Analytics stores cookies in your browser and sends data about your visit to Google. If you decline, nothing is sent. You can change your choice at any time with Analytics preferences at the bottom of the page."
+accept: "Accept analytics"
+decline: "Decline analytics"
+
+# ------------------------------------------------------------
+# Privacy policy link (optional)
+# A page on this site ("/privacy/") or a full URL. Leave blank to hide it.
+# ------------------------------------------------------------
+privacy_url: ""
+privacy_label: "Privacy policy"
+
+# ------------------------------------------------------------
+# Footer button
+# ------------------------------------------------------------
+manage: "Analytics preferences"

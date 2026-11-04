@@ -161,8 +161,10 @@ bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach
 npm run test:wait
 npm run test:a11y
 
-# Component gallery scan (Playwright + axe-core, light and dark), built into _site-gallery/
+# Component gallery scan and search tests (Playwright + axe-core, light and dark),
+# built into _site-gallery/ with search on, then indexed by Pagefind
 bundle exec jekyll serve --config _config.yml,_config.gallery.yml --destination _site-gallery --host 127.0.0.1 --port 4001 --detach
+npm run search:index:gallery
 npm run test:wait:gallery
 npm run test:gallery
 ```
@@ -179,6 +181,24 @@ On a pull request into `develop` that changes only documentation or agent files
 (listed in `scripts/classify-docs-only.rb`), CI skips the Playwright checks and
 says so in the job summary; pushes and pull requests into `main` run every
 check.
+
+The external link check is not part of that sequence.
+[`link-check.yml`](.github/workflows/link-check.yml) runs weekly from the
+default branch, or on demand with **Run workflow** in the Actions tab, and
+reports dead links to other sites in its job summary. A broken link turns the
+run red but never blocks a merge. To run it locally, install
+[lychee](https://github.com/lycheeverse/lychee), then:
+
+```bash
+# Build the site with a loopback url, so links from the site to itself are skipped
+site="$(mktemp -d)"
+override="$(mktemp)" && printf 'url: "http://127.0.0.1"\n' > "$override"
+bundle exec jekyll build --config "_config.yml,$override" --destination "$site"
+lychee --config .lychee.toml --no-progress --root-dir "$site" "$site"
+
+# The template's own docs, which the workflow checks only in the template repository
+lychee --config .lychee.toml --no-progress --root-dir "$(pwd)" './*.md' './.agents/**/*.md' './.github/**/*.md'
+```
 
 ## Release and accessibility checklists
 

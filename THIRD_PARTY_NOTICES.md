@@ -38,6 +38,11 @@ loader uses an exact reviewed release with Subresource Integrity and privacy
 attributes. MathJax is provided by the MathJax project under its own license
 terms.
 
+When `search: true`, the build runs Pagefind 1.5.2, a development dependency
+released under the MIT License, which writes its own JavaScript and
+WebAssembly search runtime into `pagefind/` in the built site. Those files are
+served from the site itself, not from a CDN.
+
 ## Liquid Includes
 
 `_includes/toc.html` is a modified implementation based on
@@ -75,8 +80,8 @@ fills where applicable.
 - **Resume & CV Icons**: Original designs by the template author.
 - **Ionicons** (`chevron-down-circle`, `chevron-up-circle`,
   `close-circle`, `discord`, `github`, `instagram`, `linkedin`, `mail`,
-  `menu`, `moon`, `old-twitter`, `pinterest`, `print`, `rss`, `send`,
-  `share`, `sunny`, `timer`, `youtube`): Developed by
+  `menu`, `moon`, `old-twitter`, `pinterest`, `print`, `rss`, `search`,
+  `send`, `share`, `sunny`, `timer`, `youtube`): Developed by
   [Ionic](https://ionic.io/ionicons) and released under the
   [MIT License](https://opensource.org/licenses/MIT).
 - **Font Awesome** (`medium`): Brand icon provided by

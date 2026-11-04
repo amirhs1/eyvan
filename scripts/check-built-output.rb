@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
+require "date"
 require "pathname"
+require "yaml"
 
 module Eyvan
   class BuiltOutputCheck
@@ -31,15 +33,25 @@ module Eyvan
       /assets/files/resume.pdf
     ].freeze
 
-    def initialize(site_dir)
+    # With `search` off in the config, none of these may reach the built site.
+    SEARCH_FILES = %w[
+      search/index.html
+      assets/js/search.js
+    ].freeze
+    SEARCH_INDEX_DIR = "pagefind".freeze
+    SEARCH_HTML_MARKUP = /data-pagefind-|class="[^"]*\bc-search/
+    SEARCH_CSS_MARKUP = /\.c-search/
+
+    def initialize(site_dir, config_path = "_config.yml")
       @site_dir = Pathname(site_dir).expand_path
+      @config_path = Pathname(config_path).expand_path
     end
 
     def errors
       return ["Built site directory does not exist: #{@site_dir}"] unless @site_dir.directory?
 
       forbidden_files + source_maps + sitemap_policy_errors +
-        mathjax_policy_errors + chartjs_demo_policy_errors
+        mathjax_policy_errors + chartjs_demo_policy_errors + search_off_policy_errors
     end
 
     private
@@ -81,6 +93,34 @@ module Eyvan
       )
     end
 
+    def search_off_policy_errors
+      return [] if search_enabled?
+
+      files = SEARCH_FILES.filter_map do |name|
+        "Search file was published while search is off: #{name}" if @site_dir.join(name).exist?
+      end
+
+      if @site_dir.join(SEARCH_INDEX_DIR).exist?
+        files << "Search index was published while search is off: #{SEARCH_INDEX_DIR}/"
+      end
+
+      markup = @site_dir.glob("**/*.{html,css}").sort.filter_map do |path|
+        pattern = path.extname == ".css" ? SEARCH_CSS_MARKUP : SEARCH_HTML_MARKUP
+        next unless path.read(encoding: "UTF-8").match?(pattern)
+
+        "Search markup was published while search is off: #{path.relative_path_from(@site_dir)}"
+      end
+
+      files + markup
+    end
+
+    def search_enabled?
+      return false unless @config_path.file?
+
+      config = YAML.safe_load(@config_path.read, permitted_classes: [Date, Time], aliases: true) || {}
+      config["search"] ? true : false
+    end
+
     def script_policy_errors(id, label, policy, forbid_async: false)
       @site_dir.glob("**/*.html").sort.flat_map do |path|
         contents = path.read(encoding: "UTF-8")
@@ -114,7 +154,8 @@ end
 
 if $PROGRAM_NAME == __FILE__
   site_dir = ARGV.fetch(0, "_site")
-  check = Eyvan::BuiltOutputCheck.new(site_dir)
+  config_path = ARGV.fetch(1, "_config.yml")
+  check = Eyvan::BuiltOutputCheck.new(site_dir, config_path)
   errors = check.errors
 
   if errors.empty?

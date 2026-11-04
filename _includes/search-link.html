@@ -1,0 +1,33 @@
+{% comment %}
+  Search Link Include
+  Purpose: Render the icon-only header link to the /search/ page.
+
+  Accessibility:
+  - The visually hidden text gives the link its accessible name
+  - The icon wrapper is hidden from assistive technology
+  - aria-current="page" marks the link on the search page itself
+
+  Data dependencies:
+  - page.url
+
+  Notes:
+  - header.html includes this only when site.search is true.
+  - The link sits outside the "Header social links" nav: search is not a social link.
+{% endcomment %}
+
+{% assign search_url = '/search/' %}
+
+<!-- search-link.html -->
+<a
+  class="c-icon-link c-search-link"
+  href="{{ search_url | relative_url }}"
+  {% if page.url == search_url %}
+    aria-current="page"
+  {% endif %}
+>
+  <span class="u-visually-hidden">Search</span>
+  <span class="c-icon-link__icon" aria-hidden="true">
+    {% include icons/search.svg %}
+  </span>
+</a>
+<!-- End of search-link.html -->

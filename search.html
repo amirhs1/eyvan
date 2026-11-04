@@ -1,0 +1,99 @@
+---
+layout: default
+title: Search
+permalink: /search/
+description: "Search the full text of every post."
+seo_title: "Search | Eyvan Portfolio Template"
+---
+
+{% comment %}
+  Search Page
+  Purpose: Search the full text of every post with Pagefind, entirely in the
+  browser, and fall back to browsing links when search cannot run.
+
+  Structure:
+  - Search page wrapper
+    - Shared page heading
+    - Notice with links to Projects and every tag (shown until search loads)
+    - Search form (hidden until search loads)
+    - Status line (role="status")
+    - Results list
+    - "Show more results" button (hidden until there are more)
+
+  Architecture:
+  - Built only when site.search is true (_plugins/hide_search_page.rb)
+  - Uses ITCSS + BEM naming:
+    - Objects: o-
+    - Components: c-
+  - Reuses shared UI fragments:
+    - section-heading.html
+    - search-form.html
+  - assets/js/search.js loads the Pagefind bundle, reveals the form, and
+    renders results into the hooks below
+
+  Accessibility:
+  - The status line announces result counts and load failures
+  - Results are links in an ordered list, reached with Tab
+  - The notice is plain HTML, so it shows whenever JavaScript is off or fails
+
+  Data dependencies:
+  - site.tags
+  - The Pagefind bundle at /pagefind/, written after `jekyll build`
+
+  Notes:
+  - data-search-bundle and data-search-base are baseurl-safe, so the bundle and
+    every result URL resolve under site.baseurl.
+{% endcomment %}
+
+{% assign sorted_tags = site.tags | sort %}
+
+<div class="o-container">
+  <div
+    class="c-search"
+    data-search
+    data-search-bundle="{{ '/pagefind/' | relative_url }}"
+    data-search-base="{{ '/' | relative_url }}"
+  >
+    <!-- Search page heading -->
+    <div class="c-search__heading">
+      {% include section-heading.html
+        id="search-title"
+        heading_level="h1"
+        modifier="lg"
+        title="Search"
+        description="Search the full text of every post."
+      %}
+    </div>
+
+    <!-- Shown until search.js has loaded the index -->
+    <div class="c-search__notice" data-search-notice>
+      <p class="c-search__notice-text">
+        Search needs JavaScript and could not start. Browse every post on the
+        <a href="{{ '/projects/' | relative_url }}">Projects</a> page, or by tag:
+      </p>
+
+      {% if sorted_tags.size > 0 %}
+        <ul class="c-search__tags u-list-reset">
+          {% for tag in sorted_tags %}
+            <li>
+              <a class="c-tag" href="{{ tag[0] | tag_url }}">{{ tag[0] }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- Revealed by search.js once the index has loaded -->
+    <div class="c-search__form" hidden data-search-form>
+      {% include search-form.html id="search-input" %}
+    </div>
+
+    <p class="c-search__status" role="status" data-search-status></p>
+
+    <ol class="c-search__results u-list-reset" data-search-results></ol>
+
+    <button class="c-button c-button--secondary c-search__more" type="button" hidden data-search-more>
+      Show more results
+    </button>
+  </div>
+</div>

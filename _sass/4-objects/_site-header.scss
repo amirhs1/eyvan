@@ -68,8 +68,10 @@
   display: none;
   align-items: center;
   justify-content: center;
-  flex: 1 1 auto;
-  min-inline-size: 0;
+  // Never narrower than its links, so a crowded header shortens the brand
+  // (which truncates with an ellipsis) instead of the links overlapping the
+  // brand or the actions.
+  flex: 1 0 auto;
   column-gap: tools-spacing.$fluid-inline-md;
 }
 
@@ -87,6 +89,7 @@
   justify-content: flex-end;
   flex: 0 0 auto;
   min-inline-size: 0;
+  column-gap: settings-spacing.$space-2; // Matches the social links' own gap
 }
 
 .o-site-header__mobile-controls {

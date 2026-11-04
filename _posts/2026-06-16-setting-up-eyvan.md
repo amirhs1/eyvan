@@ -78,6 +78,16 @@ google_analytics: "G-XXXXXXXXXX"
 
 Leave it blank (or remove it) to disable analytics entirely. No tracking request is made when the field is empty.
 
+When the ID is set, Eyvan asks each visitor first. A banner at the bottom of the screen says the site would like to use Google Analytics, with **Accept analytics** and **Decline analytics** buttons. Google Analytics loads only after a visitor accepts; until then, and after a decline, nothing is requested from Google. The browser remembers the choice, and an **Analytics preferences** button at the bottom of every page lets visitors change it. Visitors without JavaScript never see the banner, and nothing loads for them.
+
+The banner's wording is in `_data/analytics.yml`. If you have a privacy policy page, set `privacy_url` there and the banner links to it. Eyvan cannot tell you whether your site meets the privacy rules where you or your visitors live; that also depends on your privacy policy and your Google Analytics settings.
+
+If your site already asks for consent another way, turn the banner off. Google Analytics then loads on every page, as it did before:
+
+```yaml
+google_analytics_consent: false
+```
+
 ### Reading time
 
 Reading time is estimated automatically from the word count of each post. Two global knobs control it:
@@ -87,7 +97,7 @@ read_time: true           # show or hide reading time on posts
 words_per_minute: 238     # reading speed used for the estimate
 ```
 
-Set `read_time: false` to hide the reading-time display site-wide.
+Set `read_time: false` to hide the reading-time display site-wide. A single post can replace the estimate with `read_time_override: 12` in its front matter; see the *Front Matter Field Reference* post.
 
 ## Step 3 — Your profile in `_data/author.yml`
 
@@ -385,13 +395,11 @@ toc: true
 
 ## Step 9 — Footer in `_data/footer.yml`
 
-The footer text — copyright notice, tagline, or links — is driven by this file. The default is a simple copyright line:
+The footer text — copyright notice and tagline — is driven by this file. The default is a simple copyright line:
 
 ```yaml
 copyright: "© 2025 Your Name. All rights reserved."
 ```
-
-You can also add secondary links here, such as a privacy policy or a terms page. See the comments in the file for the supported fields.
 
 ## Next — making it look like yours
 

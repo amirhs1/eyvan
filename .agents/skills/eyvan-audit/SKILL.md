@@ -196,7 +196,7 @@ This is the single source of truth for what to evaluate. Each subsection maps di
 - Homepage project preview, projects archive, post cards, tags and tag-archive behavior, related posts, post navigation.
 - **Post experience** as a long-form writing/project-detail page: title/subtitle, cover image, image alt fallback, metadata, share controls, mobile and desktop TOC, content width, heading hierarchy, keyboard/scroll behavior, back-to-top (if present).
 - **Figures, media, and cross-references**: images, GIFs, videos, audio, tables, captions, numbering, cross-references, responsive aspect ratios, missing-media handling, lazy loading, accessible labels. Flag cases where users won't know which include to use.
-- **Intended behaviors — evaluate as designed, do not flag as defects**: reading time is global (set via `read_time` and `words_per_minute` in `_config.yml`), not a per-post front-matter override; cross-reference links degrade to plain anchors and only render numbered labels (e.g., "Figure 1") when `crossrefs: true`; MathJax loads only when `math: true`; `site.dev_only` (default `false`) gates the `/tests/*` pages, the `Tests` nav entry, and `dev-debug.html`. Assess whether these are documented and behave as described, not whether they "should" be per-post.
+- **Intended behaviors — evaluate as designed, do not flag as defects**: reading time is estimated globally (set via `read_time` and `words_per_minute` in `_config.yml`), and a post can replace the minutes with `read_time_override`; cross-reference links degrade to plain anchors and only render numbered labels (e.g., "Figure 1") when `crossrefs: true`; MathJax loads only when `math: true`; `site.dev_only` (default `false`) gates the `/tests/*` pages, the `Tests` nav entry, and `dev-debug.html`. Assess whether these are documented and behave as described, not whether they "should" be per-post.
 
 ### 8.3 Configuration and Front Matter Design
 
@@ -294,7 +294,7 @@ Interpretation:
 
 A single critical issue — a broken build, missing license, unsafe dependency, or broken deployment path — can outweigh a high numeric score.
 
-Do not lower a category score for a capability that is **intentionally and documentedly** out of scope (e.g., no search, posts-as-projects model, global read time). Record those as future enhancements in report Section 9, not as scored deficiencies.
+Do not lower a category score for a capability that is **intentionally and documentedly** out of scope (e.g., no search, posts-as-projects model). Record those as future enhancements in report Section 9, not as scored deficiencies.
 
 The SCSS category (weight 10) is scored from the SCSS sub-audit's overall status and the impact of its findings:
 
@@ -404,7 +404,7 @@ Prioritize fixes affecting, in order: build/deployment, legal reuse, accessibili
 
 Separate from remediation, propose forward-looking improvements and net-new features that would extend Eyvan without contradicting its minimalist, content-first intent. These are suggestions only.
 
-**These must not be counted against the score.** Eyvan intentionally omits some capabilities; do not treat a documented, deliberate omission (e.g., no search, posts-as-projects rather than a separate collection, global rather than per-post read time) as a defect. List enhancements here, not as findings in Section 4.
+**These must not be counted against the score.** Eyvan intentionally omits some capabilities; do not treat a documented, deliberate omission (e.g., no search, posts-as-projects rather than a separate collection) as a defect. List enhancements here, not as findings in Section 4.
 
 **The posts-as-projects content model is a settled decision, not an open question.** A post can be a project, an experience, an idea, or any other kind of entry — there is no projects-vs-blog split and none is planned. Do not recommend "a dedicated `projects` collection separate from `_posts`" or any variant of separating portfolio work from writing, even framed as a future-proofing suggestion.
 

@@ -5,7 +5,8 @@
 
   Structure:
   - Left: brand link
-  - Center: tagline and copyright
+  - Center: tagline, copyright, and the analytics preferences button when
+    consent-gated analytics is on
   - Right: social/CV links
 
   Architecture:
@@ -29,6 +30,9 @@
   - brand.html dependencies
   - site.data.footer.tagline
   - site.data.footer.copyright
+  - site.google_analytics
+  - site.google_analytics_consent
+  - site.data.analytics.manage
   - social-links.html dependencies
 
   Notes:
@@ -68,6 +72,19 @@
           <p class="c-site-footer__tagline">
             {{ site.data.footer.tagline }}
           </p>
+        {% endif %}
+
+        {% assign google_analytics_id = site.google_analytics | default: '' | strip %}
+        {% if google_analytics_id != '' and site.google_analytics_consent != false %}
+          <!-- Footer analytics preferences: analytics-consent.js removes hidden -->
+          <button
+            type="button"
+            class="c-site-footer__consent"
+            data-analytics-consent-manage
+            hidden
+          >
+            {{ site.data.analytics.manage | default: 'Analytics preferences' | escape }}
+          </button>
         {% endif %}
       </div>
 

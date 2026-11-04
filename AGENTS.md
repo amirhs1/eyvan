@@ -36,6 +36,7 @@ bundle exec bundle-audit check --update \
   && npm run test:a11y \
   && bundle exec jekyll serve --config _config.yml,_config.gallery.yml \
        --destination _site-gallery --host 127.0.0.1 --port 4001 --detach \
+  && npm run search:index:gallery \
   && npm run test:wait:gallery \
   && npm run test:gallery
 ```
@@ -81,8 +82,9 @@ Do not re-litigate these or report them as findings.
   Query `gh api repos/{owner}/{repo}/rulesets` — never report a branch as
   unprotected because legacy protection is unset.
 - **Opt-in stays opt-in**: MathJax needs `math: true`, cross-refs need
-  `crossrefs: true`, reading time is global. **`site.dev_only`** (default
-  `false`) gates `/tests/*`, the `Tests` nav entry, and `dev-debug.html`.
+  `crossrefs: true`, reading time is global, with an optional per-post
+  `read_time_override`. **`site.dev_only`** (default `false`) gates
+  `/tests/*`, the `Tests` nav entry, and `dev-debug.html`.
 - The **large demo GIF is a deliberate showcase** of media support. Do not flag
   its weight.
 - **Accessibility is a requirement**: semantic HTML, keyboard access, meaningful

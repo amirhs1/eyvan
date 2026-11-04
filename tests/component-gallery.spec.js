@@ -53,7 +53,27 @@ const viewports = [
   { width: 390, height: 844 },
 ];
 
+// This build sets a placeholder google_analytics ID (_config.gallery.yml), so
+// a scan must never reach Google even if the tag loads without consent (#3).
+// tests/analytics-consent.spec.js asserts that it does not.
+const GOOGLE_HOST_SUFFIXES = [
+  'googletagmanager.com',
+  'google-analytics.com',
+  'google.com',
+  'doubleclick.net',
+];
+
+function isGoogleRequest(url) {
+  return GOOGLE_HOST_SUFFIXES.some((suffix) => (
+    url.hostname === suffix || url.hostname.endsWith(`.${suffix}`)
+  ));
+}
+
 test.describe('Eyvan component gallery accessibility checks', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.route(isGoogleRequest, (route) => route.abort());
+  });
+
   test('the scan list names exactly the pages the /tests/ index links to', async ({ page }) => {
     await page.goto(`${baseUrl}/tests/`);
 
@@ -93,4 +113,104 @@ test.describe('Eyvan component gallery accessibility checks', () => {
       });
     }
   }
+});
+
+// tests/5-components/test-entry-meta.html renders these entries from its front
+// matter through the real _includes/entry-meta.html, so they test the include,
+// unlike the static markup elsewhere on that page. The rule is the maintainer's
+// decision on #1: a number of minutes, rounded to the nearest whole minute,
+// shows as "N min read"; any other value keeps the computed estimate; an
+// override never changes whether the read time appears.
+test.describe('Entry meta read-time override', () => {
+  const fixture = `${baseUrl}/tests/5-components/test-entry-meta/`;
+
+  // Fixture entry id and the text the rule gives it.
+  const overrides = [
+    { id: 'integer', text: '12 min read' },
+    { id: 'numeric-string', text: '7 min read' },
+    { id: 'decimal', text: '2 min read' },
+  ];
+  // Fixture entries whose override is not a positive number of minutes.
+  const fallbacks = ['empty-string', 'whitespace', 'false', 'zero', 'non-numeric-text'];
+
+  // Playwright does not normalize whitespace when it matches a regular
+  // expression, and read-time.html's template tags leave blank lines around
+  // the text; the browser collapses them.
+  const estimateText = /^\s*\d+ min read\s*$/;
+
+  const readTime = (page, id) => page.locator(`[data-read-time-case="${id}"]`).getByText(/min read/);
+
+  test('the read-time cases named here are exactly the entries the fixture renders', async ({ page }) => {
+    await page.goto(fixture);
+
+    const rendered = await page
+      .locator('[data-read-time-case]')
+      .evaluateAll((boxes) => boxes.map((box) => box.dataset.readTimeCase));
+
+    expect(rendered.sort()).toEqual(
+      ['no-override', 'no-content', ...overrides.map(({ id }) => id), ...fallbacks].sort(),
+    );
+  });
+
+  test('without a read_time_override an entry shows its computed estimate as "N min read"', async ({ page }) => {
+    await page.goto(fixture);
+
+    await expect(readTime(page, 'no-override')).toHaveText(estimateText);
+  });
+
+  for (const { id, text } of overrides) {
+    test(`read_time_override "${id}" replaces the estimate with "${text}"`, async ({ page }) => {
+      await page.goto(fixture);
+
+      await expect(readTime(page, id)).toHaveText(text);
+    });
+  }
+
+  for (const id of fallbacks) {
+    test(`read_time_override "${id}" keeps the computed estimate`, async ({ page }) => {
+      await page.goto(fixture);
+
+      // The same body as the no-override entry, so the estimate must be equal.
+      const estimate = (await readTime(page, 'no-override').innerText()).trim();
+      await expect(readTime(page, id)).toHaveText(estimateText);
+      await expect(readTime(page, id)).toHaveText(estimate);
+    });
+  }
+
+  test('an entry with no content shows no read time even with a read_time_override', async ({ page }) => {
+    await page.goto(fixture);
+
+    // Guard against passing because the entry was never rendered.
+    await expect(page.locator('[data-read-time-case="no-content"]')).toBeVisible();
+    await expect(readTime(page, 'no-content')).toHaveCount(0);
+  });
+});
+
+// The same entry_meta object goes through the real _includes/entry-meta.html with
+// show_read_time omitted, true, and false. Liquid 4.0.4's default filter turns
+// false into true, which made the include ignore an explicit false (#150).
+test.describe('Entry meta show_read_time argument', () => {
+  const fixture = `${baseUrl}/tests/5-components/test-entry-meta/`;
+
+  const entry = (page, argument) => page.locator(`[data-show-read-time-argument="${argument}"]`);
+
+  test('an omitted show_read_time shows the read time', async ({ page }) => {
+    await page.goto(fixture);
+
+    await expect(entry(page, 'omitted').getByText(/min read/)).toHaveText(/^\s*\d+ min read\s*$/);
+  });
+
+  test('show_read_time=true shows the read time', async ({ page }) => {
+    await page.goto(fixture);
+
+    await expect(entry(page, 'true').getByText(/min read/)).toHaveText(/^\s*\d+ min read\s*$/);
+  });
+
+  test('show_read_time=false hides the read time but keeps the date', async ({ page }) => {
+    await page.goto(fixture);
+
+    // The date is the fixture entry's own, and proves the entry rendered.
+    await expect(entry(page, 'false').locator('time')).toHaveText('March 30, 2026');
+    await expect(entry(page, 'false').getByText(/min read/)).toHaveCount(0);
+  });
 });

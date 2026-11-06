@@ -268,6 +268,30 @@ test.describe('Eyvan interactive accessibility checks', () => {
     await expect.poll(() => rootColorScheme(page)).toBe('dark');
   });
 
+  // A toggle button carries its state once: a fixed name, with aria-pressed
+  // true while the dark theme applies (issue #176).
+  test('theme toggle keeps its name and reports the dark theme through aria-pressed', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto(`${baseUrl}/`);
+
+    const root = page.locator('html');
+    const toggle = page.locator('[data-theme-toggle]:visible');
+
+    await expect(root).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAccessibleName('Dark theme');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'dark');
+    await expect(toggle).toHaveAccessibleName('Dark theme');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAccessibleName('Dark theme');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  });
+
   test.describe('without JavaScript', () => {
     test.use({ javaScriptEnabled: false, colorScheme: 'dark' });
 

@@ -7,15 +7,14 @@ Features:
 - Applies saved theme preference from localStorage
 - Falls back to system color-scheme preference when no manual choice exists
 - Synchronizes all theme toggle buttons across desktop and mobile contexts
-- Updates accessible labels and aria-pressed state
+- Updates aria-pressed, which is true while the dark theme applies; the
+  button's label stays constant
 - Updates the browser UI theme-color meta tag
 - Responds to system theme changes when no manual theme is stored
 - Synchronizes theme changes across browser tabs
 
 Dependencies:
 - [data-theme-toggle]
-- [data-theme-label-sr]
-- [data-theme-label-visible]
 - [data-theme-color-meta]
 - html[data-theme]
 
@@ -88,14 +87,8 @@ Related component:
   }
 
   /* ==========================================================================
-     Accessible label helpers
+     Accessible state helpers
      ========================================================================== */
-
-  function getThemeActionLabel(theme) {
-    return theme === THEME_DARK
-      ? 'Switch to light theme'
-      : 'Switch to dark theme';
-  }
 
   function getThemePressedState(theme) {
     return theme === THEME_DARK ? 'true' : 'false';
@@ -116,22 +109,9 @@ Related component:
     );
   }
 
+  // The button's name stays "Dark theme"; only aria-pressed carries the state.
   function updateToggleButton(button, theme) {
-    const actionLabel = getThemeActionLabel(theme);
-    const pressedState = getThemePressedState(theme);
-
-    button.setAttribute('aria-label', actionLabel);
-    button.setAttribute('aria-pressed', pressedState);
-
-    const srLabel = button.querySelector('[data-theme-label-sr]');
-    if (srLabel) {
-      srLabel.textContent = actionLabel;
-    }
-
-    const visibleLabel = button.querySelector('[data-theme-label-visible]');
-    if (visibleLabel) {
-      visibleLabel.textContent = actionLabel;
-    }
+    button.setAttribute('aria-pressed', getThemePressedState(theme));
   }
 
   function updateAllToggleButtons(theme) {

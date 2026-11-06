@@ -20,19 +20,14 @@
     - data-theme-toggle
 
   Accessibility:
-  - Uses aria-label to describe the next toggle action
-  - Uses aria-pressed to expose toggle state
+  - The label is constant, "Dark theme"; it names the control, not the action
+  - aria-pressed carries the state: true while the dark theme applies
   - Decorative inline SVG icons are hidden from assistive technology
   - Always includes a visually hidden label for assistive technology
 
   Notes:
   - The visible label is omitted when include.hide_label is true
-  - JavaScript should update:
-    - aria-label
-    - aria-pressed
-    - [data-theme-label-sr] text
-    - [data-theme-label-visible] text
-    - theme/state classes or attributes as needed
+  - JavaScript updates only aria-pressed
 {% endcomment %}
 
 {% assign should_hide_label = include.hide_label | default: true %}
@@ -41,7 +36,7 @@
 <button
   class="c-theme-toggle{% if include.modifier %} {{ include.modifier }}{% endif %}"
   type="button"
-  aria-label="Switch to dark theme"
+  aria-label="Dark theme"
   aria-pressed="false"
   data-theme-toggle
 >
@@ -65,11 +60,11 @@
   </span>
 
   <!-- Screen-reader label -->
-  <span class="u-visually-hidden" data-theme-label-sr> Switch to dark theme </span>
+  <span class="u-visually-hidden">Dark theme</span>
 
   {% unless should_hide_label %}
     <!-- Visible theme toggle label -->
-    <span class="c-theme-toggle__label" data-theme-label-visible> Switch to dark theme </span>
+    <span class="c-theme-toggle__label">Dark theme</span>
   {% endunless %}
 </button>
 <!-- End of theme-toggle.html -->

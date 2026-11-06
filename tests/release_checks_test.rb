@@ -9,6 +9,9 @@ class ReleaseChecksTest < Minitest::Test
   ROOT = Pathname(__dir__).join("..").expand_path
   BUILT_OUTPUT_SCRIPT = ROOT.join("scripts/check-built-output.rb")
   PLACEHOLDER_SCRIPT = ROOT.join("scripts/check-template-placeholders.rb")
+  # CI sets GITHUB_ACTIONS, which switches the placeholder check to
+  # annotation output; tests that assert the local WARNING lines unset it.
+  LOCAL_OUTPUT = { "GITHUB_ACTIONS" => nil }.freeze
 
   def test_built_output_check_accepts_clean_site
     with_site_fixture do |site|
@@ -259,7 +262,8 @@ class ReleaseChecksTest < Minitest::Test
         "--root",
         root,
         "--repository",
-        "example/portfolio"
+        "example/portfolio",
+        env: LOCAL_OUTPUT
       )
 
       assert status.success?, stderr
@@ -277,7 +281,8 @@ class ReleaseChecksTest < Minitest::Test
         "--root",
         root,
         "--repository",
-        "example/portfolio"
+        "example/portfolio",
+        env: LOCAL_OUTPUT
       )
 
       assert status.success?, stderr
@@ -294,7 +299,8 @@ class ReleaseChecksTest < Minitest::Test
       "--root",
       ROOT,
       "--repository",
-      "example/portfolio"
+      "example/portfolio",
+      env: LOCAL_OUTPUT
     )
 
     assert status.success?, stderr

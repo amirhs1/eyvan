@@ -62,6 +62,19 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_built_output_check_rejects_machine_local_agent_files
+    with_site_fixture do |site|
+      File.write(site.join("AGENTS.local.md"), "local settings")
+      File.write(site.join("CLAUDE.local.md"), "@AGENTS.local.md")
+
+      _stdout, stderr, status = run_script(BUILT_OUTPUT_SCRIPT, site)
+
+      refute status.success?
+      assert_includes stderr, "Repository-only file was published: AGENTS.local.md"
+      assert_includes stderr, "Repository-only file was published: CLAUDE.local.md"
+    end
+  end
+
   def test_built_output_check_rejects_mutable_or_unprotected_mathjax
     with_site_fixture do |site|
       File.write(

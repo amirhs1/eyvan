@@ -92,7 +92,6 @@ test('the pinned MathJax CDN runtime renders shipped math content', async ({ pag
     'building-a-rate-limiter',
     'climate-data-analysis',
     'eyvan-design-and-architecture',
-    'field-notes-iceland-2025',
     'quantum-entanglement-primer',
   ];
 

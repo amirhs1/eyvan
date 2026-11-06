@@ -99,6 +99,10 @@ words_per_minute: 238     # reading speed used for the estimate
 
 Set `read_time: false` to hide the reading-time display site-wide. A single post can replace the estimate with `read_time_override: 12` in its front matter; see the *Front Matter Field Reference* post.
 
+### Page titles and descriptions
+
+Five pages set their own title and description in their front matter, and the shipped values name the template: `index.html`, `projects.html`, `about.html`, `contact.html`, and `search.html`. Replace `title`, `seo_title`, and `description` in each. `seo_title` sets the browser-tab and search-result title; leave it out and the page uses `title`. The deploy log warns while any shipped value remains.
+
 ## Step 3 — Your profile in `_data/author.yml`
 
 This file drives your name, role, biography, avatar, and contact information wherever they appear — the homepage hero, post metadata, and the about page.
@@ -119,6 +123,10 @@ email: "you@example.com"
 ```
 
 Replace `assets/images/avatar.webp` with your own portrait (see [Step 7](#step-7--replacing-visual-assets)). The `bio` field supports the YAML block scalar (`>-`) so you can write longer text without escaping quotes.
+
+### The About page in `_data/about.yml`
+
+The About page takes your name, role, and short bio from `_data/author.yml`, and the rest from `_data/about.yml`: the introduction paragraphs, the caption under the portrait, the "What I care about" focus list, and the "Currently" section. The demo text describes the template's author, so rewrite each field before your first deploy.
 
 ## Step 4 — Homepage hero in `_data/hero.yml`
 
@@ -420,7 +428,9 @@ Run through this before your first deploy:
 
 - [ ] `url` and `baseurl` updated in `_config.yml`
 - [ ] Site `title`, `description`, and `author` set in `_config.yml`
+- [ ] `title`, `seo_title`, and `description` replaced in `index.html`, `projects.html`, `about.html`, `contact.html`, and `search.html`
 - [ ] Your name, role, bio, and avatar path set in `_data/author.yml`
+- [ ] About-page introduction, focus, and "Currently" text rewritten in `_data/about.yml`
 - [ ] Hero headline and description updated in `_data/hero.yml`
 - [ ] Navigation links updated in `_data/navigation.yml`
 - [ ] Social links updated in `_data/social-links.yml`

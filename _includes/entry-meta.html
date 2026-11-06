@@ -32,7 +32,9 @@
   Accessibility:
   - Uses a semantic time element for the publish date
   - Decorative timer icon is hidden from assistive technology
-  - Avatar alt text falls back to the resolved author name
+  - The avatar has an empty alt while the author name renders beside it, so
+    screen readers do not announce the name twice; with no author name, its
+    alt is "Site author"
 
   Data dependencies:
   - include.entry_meta
@@ -64,6 +66,10 @@
     into true
   - Spacing between date and read time should be handled in CSS, not with
     hardcoded separators in the markup
+  - The avatar's width and height of 44 match $entry-meta-avatar-size
+    (2.75rem at a 16px root) in _sass/5-components/_entry-meta.scss. CSS sets
+    the rendered size; the attributes reserve the square box before the image
+    loads. Update them together
 {% endcomment %}
 
 {% assign entry_meta = include.entry_meta %}
@@ -93,7 +99,9 @@
           class="c-entry-meta__avatar"
           loading="lazy"
           src="{{ author_avatar | relative_url }}"
-          alt="{{ author_display | default: 'Site author' | escape }}"
+          alt="{% unless author_display %}Site author{% endunless %}"
+          width="44"
+          height="44"
         >
       </div>
     {% endif %}

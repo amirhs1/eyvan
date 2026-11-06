@@ -38,6 +38,9 @@
   - Theme toggle remains separate so navigation stays a focused component
   - Navigation items support both internal and external URLs
   - Items marked `dev_only: true` are automatically hidden in production builds
+  - The active-state comparison gives both URLs a single trailing slash,
+    so a nav URL written as /about or /about/ marks /about/ as current.
+    Liquid 4.0.4 has no regex filter, so this uses replace and append only
 {% endcomment %}
 
 {% assign nav_aria_label = include.aria_label | default: 'Primary navigation' %}
@@ -81,16 +84,8 @@
       {% endunless %}
 
       <!-- Normalize URLs for active-state comparison -->
-      {% assign normalized_item_url = item.url %}
-      {% assign normalized_page_url = page.url %}
-
-      {% if normalized_item_url != '/' %}
-        {% assign normalized_item_url = normalized_item_url | replace: '//', '/' | replace_regex: '/$', '' %}
-      {% endif %}
-
-      {% if normalized_page_url != '/' %}
-        {% assign normalized_page_url = normalized_page_url | replace: '//', '/' | replace_regex: '/$', '' %}
-      {% endif %}
+      {% assign normalized_item_url = item.url | replace: '//', '/' | append: '/' | replace: '//', '/' %}
+      {% assign normalized_page_url = page.url | replace: '//', '/' | append: '/' | replace: '//', '/' %}
 
       <!-- Determine active navigation state -->
       {% assign is_active = false %}

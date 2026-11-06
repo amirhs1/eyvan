@@ -23,6 +23,7 @@
   - Filtering and ordering logic remains in this include
 
   Accessibility:
+  - The root is a group named "Share this post"
   - Per-item accessibility is delegated to post-share-item.html
   - The overflow toggle uses aria-expanded and aria-controls
   - The overflow panel is hidden via the `hidden` attribute when collapsed
@@ -79,7 +80,7 @@
 {% endif %}
 
 <!-- post-share.html -->
-<div class="c-post-share{% if collapse %} c-post-share--collapsed{% endif %}" aria-label="Share this post">
+<div class="c-post-share{% if collapse %} c-post-share--collapsed{% endif %}" role="group" aria-label="Share this post">
   <div class="c-post-share__head">
     <p class="c-post-share__title">Share</p>
   </div>

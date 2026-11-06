@@ -6,6 +6,8 @@ description: "A personal about page for Eyvan, showing biography, interests, and
 seo_title: "About | Eyvan Portfolio Template"
 image: "assets/images/avatar.webp"
 image_alt: "Portrait avatar for the portfolio owner"
+image_width: 300
+image_height: 300
 ---
 
 {% comment %}
@@ -15,7 +17,7 @@ image_alt: "Portrait avatar for the portfolio owner"
   Data sources:
   - _data/about.yml  — about-page-specific content (sections, captions, lists)
   - _data/author.yml — identity (name, role, avatar)
-  - page front matter — portrait image path and alt text
+  - page front matter — portrait image path, alt text, and pixel size
 
   Architecture:
   - layout: default (shell only; does not use layout: page or c-page)
@@ -34,7 +36,7 @@ image_alt: "Portrait avatar for the portfolio owner"
 {% assign author_role  = site.data.author.role  | default: "Researcher, writer, and builder" %}
 
 <div class="o-container">
-  <div class="l-about" id="top" aria-labelledby="about-title">
+  <div class="l-about" id="top">
 
     <!-- ── Hero ─────────────────────────────────────────────── -->
     <header class="l-about__hero">
@@ -54,7 +56,7 @@ image_alt: "Portrait avatar for the portfolio owner"
           {% endfor %}
         </div>
 
-        <div class="l-about__actions" aria-label="About page actions">
+        <div class="l-about__actions">
           <a class="c-button c-button--primary" href="{{ '/contact/' | relative_url }}">
             Contact me
           </a>
@@ -69,6 +71,10 @@ image_alt: "Portrait avatar for the portfolio owner"
           class="l-about__portrait-image"
           src="{{ page.image | relative_url }}"
           alt="{{ page.image_alt | escape }}"
+          {% if page.image_width and page.image_height %}
+          width="{{ page.image_width }}"
+          height="{{ page.image_height }}"
+          {% endif %}
           loading="lazy"
         >
         <figcaption class="c-prose-caption">

@@ -20,6 +20,7 @@ robots: noindex
   - Title element
   - Description element
   - Description API: text vs HTML
+  - Plain-text escaping of title, eyebrow, and description
   - Actions element
   - Action variants and sizes
   - Heading levels
@@ -168,6 +169,26 @@ robots: noindex
           description_html="<p><strong>Bold HTML</strong> inside description.</p><p>Second paragraph rendered from description_html.</p>"
         %}
       </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>Plain-text escaping</h2>
+  <p>
+    <strong>Expected behavior:</strong>
+    <code>title</code>, <code>eyebrow</code>, and <code>description</code> are plain text, so characters such as
+    <code>&amp;</code> and <code>&lt;</code> should show as typed instead of being read as markup.
+  </p>
+
+  <div class="c-test-frame c-section-heading-test-frame">
+    <div class="c-test-box c-section-heading-test-box" data-section-heading-case="escaping">
+      {%
+        include section-heading.html
+        eyebrow="R&D <beta>"
+        title="Fish & <Chips>"
+        description="Salt & <vinegar>"
+      %}
     </div>
   </div>
 

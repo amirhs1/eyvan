@@ -11,17 +11,15 @@
 //   - .c-theme-toggle__icons
 //     - .c-theme-toggle__icon--sun
 //     - .c-theme-toggle__icon--moon
-//   - .c-theme-toggle__label (optional)
 //
 // Scope & Rules:
 // - Component styling only
 // - No page-level layout responsibilities
-// - Supports icon-only and labeled variants
+// - Icon-only in every context; the name comes from aria-label
 // - Visual theme state is driven by html[data-theme]
 // -----------------------------------------------------------------------------
 
 @use "../0-settings/config" as settings-config;
-@use "../0-settings/typography" as settings-typography;
 @use "../1-tools/spacing-fluid" as tools-spacing;
 @use "../1-tools/mixins" as tools-mixins;
 @use "../1-tools/motion" as tools-motion;
@@ -121,17 +119,6 @@ $theme-toggle-radius: settings-config.$radius-pill;
 }
 
 /* -----------------------------------------------------------------------------
-   Visible text label
-   ----------------------------------------------------------------------------- */
-
-.c-theme-toggle__label {
-  font-size: settings-typography.$font-size-sm;
-  font-weight: settings-typography.$font-weight-medium;
-  line-height: settings-typography.$line-height-tight;
-  white-space: nowrap;
-}
-
-/* -----------------------------------------------------------------------------
    Desktop / compact default
    ----------------------------------------------------------------------------- */
 
@@ -151,10 +138,6 @@ $theme-toggle-radius: settings-config.$radius-pill;
   block-size: $theme-toggle-size;
   padding: 0;
   border-radius: settings-config.$radius-pill;
-}
-
-.c-theme-toggle--mobile .c-theme-toggle__label {
-  display: none;
 }
 
 /* -----------------------------------------------------------------------------

@@ -12,6 +12,8 @@
   - Each action has an explicit title and aria-label
   - Decorative inline SVG icons are hidden from assistive technology
   - External share links use rel as configured in _data/share.yml
+  - Share popups open with noopener: rel does not apply to window.open, so
+    without it the popup could navigate this page through window.opener
 
   Params:
   - item: a single entry from site.data.share (id, type, label, icon, and
@@ -35,15 +37,15 @@
 {% case item.id %}
   {% when 'x' %}
     {% capture href %}https://x.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url | url_encode }}{% endcapture %}
-    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
+    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }},noopener'); return false;{% endcapture %}
 
   {% when 'linkedin' %}
     {% capture href %}https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}{% endcapture %}
-    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
+    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }},noopener'); return false;{% endcapture %}
 
   {% when 'pinterest' %}
     {% capture href %}https://pinterest.com/pin/create/button/?url={{ page.url | absolute_url | url_encode }}&media={{ page.image | absolute_url | url_encode }}&description={{ page.title | url_encode }}{% endcapture %}
-    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }}'); return false;{% endcapture %}
+    {% capture onclick %}window.open(this.href,'{{ item.popup_name }}','width={{ item.popup_width }},height={{ item.popup_height }},noopener'); return false;{% endcapture %}
 
   {% when 'email' %}
     {% capture href %}mailto:?subject={{ page.title | url_encode }}&body={{ 'I thought you might enjoy this post:' | url_encode }}%0A%0A{{ page.title | url_encode }}%0A{{ page.url | absolute_url | url_encode }}{% endcapture %}

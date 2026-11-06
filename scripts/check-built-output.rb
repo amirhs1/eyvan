@@ -20,9 +20,13 @@ module Eyvan
       "referrerpolicy" => "no-referrer"
     }.freeze
 
+    # Machine-local agent files are gitignored, so only a local build can
+    # copy them; they hold one workstation's settings.
     FORBIDDEN_ROOT_FILES = %w[
       ACCESSIBILITY_TESTING.md
+      AGENTS.local.md
       CHANGELOG.md
+      CLAUDE.local.md
       CONTRIBUTING.md
       LICENSE
       RELEASE_CHECKLIST.md

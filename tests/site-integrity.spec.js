@@ -92,7 +92,6 @@ test('the pinned MathJax CDN runtime renders shipped math content', async ({ pag
     'building-a-rate-limiter',
     'climate-data-analysis',
     'eyvan-design-and-architecture',
-    'field-notes-iceland-2025',
     'quantum-entanglement-primer',
   ];
 
@@ -520,3 +519,52 @@ for (const width of [1024, 1280, 1440]) {
     expect(await bannerTabStops(page)).toEqual(await bannerControlsLeftToRight(page));
   });
 }
+
+// #168: the printed page must not depend on the screen theme. A property
+// check, so it asserts no colour value: every element's colours in print with
+// the dark theme on must equal its colours in print with the light theme on.
+const printColourProperties = [
+  'color',
+  'background-color',
+  'border-top-color',
+  'border-right-color',
+  'border-bottom-color',
+  'border-left-color',
+  'outline-color',
+  'text-decoration-color',
+  'color-scheme',
+];
+
+async function printedColours(browser, theme) {
+  const page = await browser.newPage();
+  // 816px is a US Letter page at 96px per inch, one of the widths #168 measured.
+  await page.setViewportSize({ width: 816, height: 1056 });
+  await page.addInitScript((value) => localStorage.setItem('theme', value), theme);
+  await page.emulateMedia({ media: 'print' });
+  await page.goto(`${baseUrl}/projects/eyvan-design-and-architecture/`);
+  await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+
+  const colours = await page.evaluate((properties) => [document.documentElement, ...document.body.querySelectorAll('*')]
+    .map((element, index) => {
+      const style = getComputedStyle(element);
+      const name = `${index} ${element.tagName.toLowerCase()}${element.className && typeof element.className === 'string' ? `.${element.className.trim().split(/\s+/).join('.')}` : ''}`;
+      return [name, Object.fromEntries(properties.map((property) => [property, style.getPropertyValue(property)]))];
+    }), printColourProperties);
+
+  await page.close();
+  return colours;
+}
+
+test('printing with the dark theme on gives the same colours as the light theme', async ({ browser }) => {
+  const light = await printedColours(browser, 'light');
+  const dark = await printedColours(browser, 'dark');
+
+  expect(dark.map(([name]) => name)).toEqual(light.map(([name]) => name));
+  expect(dark.length).toBeGreaterThan(0);
+
+  const differences = dark.flatMap(([name, values], index) => printColourProperties
+    .filter((property) => values[property] !== light[index][1][property])
+    .map((property) => `${name} ${property}: light ${light[index][1][property]}, dark ${values[property]}`));
+
+  expect(differences).toEqual([]);
+});

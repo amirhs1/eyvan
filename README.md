@@ -29,7 +29,9 @@ without them.
 3. Edit `_config.yml` and replace the demo identity and URL values. Choose the
    `url` and `baseurl` pair for your hosting type in [Deployment](#deployment).
 
-4. Edit `_data/author.yml` and `_data/footer.yml` with your name and details.
+4. Edit `_data/author.yml` and `_data/footer.yml` with your name and details,
+   and replace the template's wording in the front matter of the five top-level
+   pages (see *Setting Up Eyvan*).
 
 5. Push — the deploy workflow runs automatically and your site goes live.
 
@@ -79,8 +81,9 @@ hosted deployments.
 - Git, if cloning or publishing the repository
 
 Contributor QA also uses Node.js and npm for Playwright and axe-core
-checks. CI currently runs those tools on Node 20; use `npm ci` before running
-the local QA scripts. Previewing [search](#search) locally also needs `npm ci`.
+checks. CI runs those tools on the Node.js version in `.nvmrc`; use `npm ci`
+before running the local QA scripts. Previewing [search](#search) locally also
+needs `npm ci`.
 
 Install dependencies with Bundler before running the site:
 
@@ -127,6 +130,7 @@ small set of YAML data files:
 
 - `_config.yml` controls site metadata, `url`, `baseurl`, permalink format, plugins, Sass output, global reading time, [search](#search), analytics, defaults, and the `dev_only` flag that reveals the [component gallery](#component-gallery).
 - `_data/author.yml` controls the displayed name, role, location, avatar, biography, and contact fields.
+- `_data/about.yml` controls the About page's introduction, portrait caption, focus list, and "Currently" section.
 - `_data/hero.yml` controls the homepage hero copy, image, and call-to-action links.
 - `_data/navigation.yml` controls header and mobile navigation links.
 - `_data/social-links.yml` controls social/profile links.

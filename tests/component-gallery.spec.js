@@ -239,3 +239,20 @@ test.describe('Primary navigation current-page state', () => {
     });
   }
 });
+
+// tests/5-components/test-section-heading.html passes these values through the
+// real _includes/section-heading.html. They are plain text, so each must show
+// as typed; before #182 the include printed them raw and the browser read
+// <beta>, <Chips>, and <vinegar> as elements.
+test.describe('Section heading plain-text parameters', () => {
+  const fixture = `${baseUrl}/tests/5-components/test-section-heading/`;
+
+  test('title, eyebrow, and description show & and < as literal text', async ({ page }) => {
+    await page.goto(fixture);
+
+    const box = page.locator('[data-section-heading-case="escaping"]');
+    await expect(box.getByRole('heading')).toHaveText('Fish & <Chips>');
+    await expect(box.getByText('R&D <beta>', { exact: true })).toBeVisible();
+    await expect(box.getByText('Salt & <vinegar>', { exact: true })).toBeVisible();
+  });
+});

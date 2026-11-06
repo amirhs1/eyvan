@@ -201,6 +201,31 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // Property test, no reference value. axe reports a duplicate id only as a
+  // needs-review result, which the violation scans above do not fail on
+  // (issue #174).
+  const markupPropertyPages = [
+    '/',
+    ...sitePages,
+    '/projects/building-a-rate-limiter/',
+  ];
+
+  for (const path of markupPropertyPages) {
+    test(`every id on ${path} is unique`, async ({ page }) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const duplicateIds = await page.locator('[id]').evaluateAll((elements) => {
+        const counts = new Map();
+        for (const element of elements) {
+          counts.set(element.id, (counts.get(element.id) || 0) + 1);
+        }
+        return [...counts].filter(([, count]) => count > 1).map(([id]) => id);
+      });
+
+      expect(duplicateIds).toEqual([]);
+    });
+  }
+
   // Property test, no reference value: the native widgets' scheme must match
   // the palette in use, whatever the operating system prefers (issue #78).
   const rootColorScheme = (page) => (

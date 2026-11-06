@@ -147,7 +147,8 @@ Each of these cites this section.
 ## Running checks locally
 
 Local QA uses the Ruby version in `.ruby-version` and the Node.js test tooling
-installed with `npm ci`. CI currently runs the npm checks on Node 20.
+installed with `npm ci`. CI runs the npm checks on the Node.js version in
+`.nvmrc`.
 
 ```bash
 # Check the locked Ruby gems against the advisory database (needs network)

@@ -9,6 +9,9 @@ class ReleaseChecksTest < Minitest::Test
   ROOT = Pathname(__dir__).join("..").expand_path
   BUILT_OUTPUT_SCRIPT = ROOT.join("scripts/check-built-output.rb")
   PLACEHOLDER_SCRIPT = ROOT.join("scripts/check-template-placeholders.rb")
+  # CI sets GITHUB_ACTIONS, which switches the placeholder check to
+  # annotation output; tests that assert the local WARNING lines unset it.
+  LOCAL_OUTPUT = { "GITHUB_ACTIONS" => nil }.freeze
 
   def test_built_output_check_accepts_clean_site
     with_site_fixture do |site|
@@ -250,7 +253,67 @@ class ReleaseChecksTest < Minitest::Test
     end
   end
 
+  def test_placeholder_check_is_silent_for_a_page_with_its_own_wording
+    with_template_fixture do |root|
+      write_page(root, "contact.html", 'seo_title: "Contact | Ada Lovelace"')
+
+      stdout, stderr, status = run_script(
+        PLACEHOLDER_SCRIPT,
+        "--root",
+        root,
+        "--repository",
+        "example/portfolio",
+        env: LOCAL_OUTPUT
+      )
+
+      assert status.success?, stderr
+      refute_includes stdout, "contact.html"
+      assert_includes stdout, "Template identity check completed with 10 warning(s)."
+    end
+  end
+
+  def test_placeholder_check_warns_for_a_page_that_keeps_the_template_wording
+    with_template_fixture do |root|
+      write_page(root, "contact.html", 'seo_title: "Contact | Eyvan Portfolio Template"')
+
+      stdout, stderr, status = run_script(
+        PLACEHOLDER_SCRIPT,
+        "--root",
+        root,
+        "--repository",
+        "example/portfolio",
+        env: LOCAL_OUTPUT
+      )
+
+      assert status.success?, stderr
+      assert_includes stdout, "WARNING contact.html: Replace the template's own title, SEO title, or description."
+      assert_includes stdout, "Template identity check completed with 11 warning(s)."
+    end
+  end
+
+  # Runs against the repository itself, so a changed demo title that the
+  # check no longer recognizes fails here instead of going quiet.
+  def test_placeholder_check_recognizes_every_shipped_page
+    stdout, stderr, status = run_script(
+      PLACEHOLDER_SCRIPT,
+      "--root",
+      ROOT,
+      "--repository",
+      "example/portfolio",
+      env: LOCAL_OUTPUT
+    )
+
+    assert status.success?, stderr
+    %w[index.html projects.html about.html contact.html search.html].each do |page|
+      assert_includes stdout, "WARNING #{page}: Replace the template's own title, SEO title, or description."
+    end
+  end
+
   private
+
+  def write_page(root, name, front_matter)
+    File.write(root.join(name), "---\nlayout: default\n#{front_matter}\n---\n\n<p>Page body</p>\n")
+  end
 
   def run_script(script, *arguments, env: {})
     Open3.capture3(env, RbConfig.ruby, script.to_s, *arguments.map(&:to_s))

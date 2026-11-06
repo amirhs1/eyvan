@@ -18,6 +18,7 @@
 
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/spacing" as settings-spacing;
+@use "../0-settings/typography" as settings-typography;
 
 /* -----------------------------------------------------------------------------
    Responsive Media Queries
@@ -59,10 +60,11 @@
    ----------------------------------------------------------------------------- */
 
 /// Standardizes font rendering across platforms.
-/// Use sparingly and only if the related config tokens are defined.
+/// Use sparingly. Reads $font-smoothing-webkit and $font-smoothing-moz
+/// from 0-settings/_typography.scss.
 @mixin font-smoothing {
-  -webkit-font-smoothing: settings-config.$font-smoothing-webkit;
-  -moz-osx-font-smoothing: settings-config.$font-smoothing-moz;
+  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
+  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
 }
 
 /* -----------------------------------------------------------------------------

@@ -164,6 +164,43 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // The page types a site built on Eyvan ships besides the home page and the
+  // posts scanned above: About, Contact, Projects, a tag archive (jekyll, the
+  // demo's most-used tag), and 404 (issue #167).
+  const sitePages = [
+    '/about/',
+    '/contact/',
+    '/projects/',
+    '/tag/jekyll/',
+    '/404.html',
+  ];
+
+  for (const path of sitePages) {
+    test(`page ${path} has no detectable axe violations in light and dark themes`, async ({ page }, testInfo) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const lightResults = await new AxeBuilder({ page }).analyze();
+      await testInfo.attach('axe-incomplete-light', {
+        body: JSON.stringify(lightResults.incomplete, null, 2),
+        contentType: 'application/json',
+      });
+      expect(lightResults.violations).toEqual([]);
+
+      // Load the dark theme the head bootstrap picks from prefers-color-scheme,
+      // so axe samples settled colors with no theme transition to wait out.
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.reload();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+      const darkResults = await new AxeBuilder({ page }).analyze();
+      await testInfo.attach('axe-incomplete-dark', {
+        body: JSON.stringify(darkResults.incomplete, null, 2),
+        contentType: 'application/json',
+      });
+      expect(darkResults.violations).toEqual([]);
+    });
+  }
+
   // Property test, no reference value: the native widgets' scheme must match
   // the palette in use, whatever the operating system prefers (issue #78).
   const rootColorScheme = (page) => (

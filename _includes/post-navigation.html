@@ -83,7 +83,7 @@
           <span class="c-post-nav__label c-post-nav__label--prev"> Previous post </span>
 
           <!-- Previous post title -->
-          <h2 class="c-post-nav__title">{{ page.previous.title }}</h2>
+          <h2 class="c-post-nav__title">{{ page.previous.title | escape }}</h2>
         </div>
       </a>
     {% endif %}
@@ -100,7 +100,7 @@
           <span class="c-post-nav__label c-post-nav__label--next"> Next post </span>
 
           <!-- Next post title -->
-          <h2 class="c-post-nav__title">{{ page.next.title }}</h2>
+          <h2 class="c-post-nav__title">{{ page.next.title | escape }}</h2>
         </div>
 
         {% if page.next.image %}

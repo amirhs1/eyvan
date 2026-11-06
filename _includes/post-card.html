@@ -101,9 +101,9 @@
             <a
               class="c-tag c-post-card__tag"
               href="{{ tag | tag_url }}"
-              aria-label="View posts tagged {{ tag }}"
+              aria-label="View posts tagged {{ tag | escape }}"
             >
-              {{ tag }}
+              {{ tag | escape }}
             </a>
           {% endfor %}
         </div>
@@ -115,14 +115,14 @@
           class="c-post-card__title-link"
           href="{{ post.url | relative_url }}"
         >
-          {{ post.title }}
+          {{ post.title | escape }}
         </a>
       </h2>
 
       <!-- Post card excerpt -->
       <p class="c-post-card__excerpt">
         {% if post.description %}
-          {{ post.description }}
+          {{ post.description | strip_html | escape }}
         {% else %}
           {{ post.content | strip_html | truncate: 120 }}
         {% endif %}

@@ -114,9 +114,9 @@ layout: default
               <a
                 class="c-tag c-post__tag"
                 href="{{ tag | tag_url }}"
-                aria-label="View posts tagged {{ tag }}"
+                aria-label="View posts tagged {{ tag | escape }}"
               >
-                {{ tag }}
+                {{ tag | escape }}
               </a>
             {% endfor %}
           </div>

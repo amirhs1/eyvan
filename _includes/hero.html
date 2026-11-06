@@ -54,6 +54,9 @@
   - _config.yml should keep only site-level title and description
   - Dynamic title and fallback description are assembled in this include
   - description_html is rendered as HTML when provided
+  - With no hero.image, the hero shows the shipped
+    assets/images/hero-placeholder.webp at its own size, 800 x 800;
+    image_width and image_height apply only to an image set in hero.yml
 {% endcomment %}
 
 {% assign author = site.data.author %}
@@ -68,10 +71,16 @@
 {% endcapture %}
 
 {% assign hero_description_html = hero.description_html %}
-{% assign hero_image_src = hero.image | default: 'assets/images/hero-placeholder.jpg' %}
+{% if hero.image %}
+  {% assign hero_image_src = hero.image %}
+  {% assign hero_image_width = hero.image_width %}
+  {% assign hero_image_height = hero.image_height %}
+{% else %}
+  {% assign hero_image_src = 'assets/images/hero-placeholder.webp' %}
+  {% assign hero_image_width = 800 %}
+  {% assign hero_image_height = 800 %}
+{% endif %}
 {% assign hero_image_alt = hero.image_alt | default: hero_name %}
-{% assign hero_image_width = hero.image_width %}
-{% assign hero_image_height = hero.image_height %}
 
 {% assign hero_primary_text = hero.cta_button_primary_text | default: 'Get in touch' %}
 {% assign hero_primary_link = hero.cta_button_primary_link | default: '/contact/' %}

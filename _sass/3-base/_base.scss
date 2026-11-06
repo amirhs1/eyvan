@@ -38,6 +38,7 @@
 @use "../0-settings/config" as settings-config;
 @use "../0-settings/light-mode" as light;
 @use "../0-settings/dark-mode" as dark;
+@use "../1-tools/mixins" as tools-mixins;
 
 /* =============================================================================
    COLOR TOKENS
@@ -311,8 +312,7 @@ body {
   color: var(--color-on-surface);
   background-color: var(--color-surface);
 
-  -webkit-font-smoothing: settings-typography.$font-smoothing-webkit;
-  -moz-osx-font-smoothing: settings-typography.$font-smoothing-moz;
+  @include tools-mixins.font-smoothing;
 }
 
 /* -----------------------------------------------------------------------------

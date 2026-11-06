@@ -23,12 +23,12 @@
     - section body/content layout
 
   Accepts:
-  - include.title: required heading text
+  - include.title: required plain-text heading, HTML-escaped on output
   - include.id: optional heading id for aria-labelledby
   - include.heading_level: optional heading tag (h1-h6), defaults to h2
   - include.modifier: optional size/style modifier (sm, md, lg)
-  - include.eyebrow: optional short label above the title
-  - include.description: optional plain-text description
+  - include.eyebrow: optional plain-text label above the title, HTML-escaped
+  - include.description: optional plain-text description, HTML-escaped
   - include.description_html: optional rich description HTML
   - include.action_label: optional action link text
   - include.action_url: optional action link href
@@ -96,13 +96,13 @@
     <div class="c-section-heading__content">
       {% if eyebrow %}
         <p class="c-section-heading__eyebrow">
-          {{ eyebrow }}
+          {{ eyebrow | escape }}
         </p>
       {% endif %}
 
       <div class="c-section-heading__head">
         {{ heading_open | strip }}
-          {{ section_title }}
+          {{ section_title | escape }}
         {{ heading_close | strip }}
 
         {% if action_label and action_url %}
@@ -129,7 +129,7 @@
           {% if description_html %}
             {{ description_html }}
           {% else %}
-            <p>{{ description }}</p>
+            <p>{{ description | escape }}</p>
           {% endif %}
         </div>
       {% endif %}

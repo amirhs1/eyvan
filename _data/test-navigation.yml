@@ -1,7 +1,9 @@
 # Development-only navigation kept separate from the public site links.
 
 main:
+  # Written without a trailing slash on purpose: tests/component-gallery.spec.js
+  # checks that it still marks /tests/ as the current page (#173).
   - title: "Tests"
-    url: "/tests/"
+    url: "/tests"
     external: false
     dev_only: true

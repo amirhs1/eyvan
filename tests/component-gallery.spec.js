@@ -214,3 +214,45 @@ test.describe('Entry meta show_read_time argument', () => {
     await expect(entry(page, 'false').getByText(/min read/)).toHaveCount(0);
   });
 });
+
+// _includes/navigation.html compares a nav URL with page.url to set
+// aria-current. _data/navigation.yml writes About as /about/, and
+// _data/test-navigation.yml writes Tests as /tests on purpose, so this build
+// carries both forms. Before #173 the comparison used replace_regex, which
+// Jekyll does not define, and only the form with the slash matched.
+test.describe('Primary navigation current-page state', () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
+
+  const cases = [
+    { form: 'with a trailing slash', name: 'About', path: '/about/' },
+    { form: 'without a trailing slash', name: 'Tests', path: '/tests/' },
+  ];
+
+  for (const { form, name, path } of cases) {
+    test(`a nav URL written ${form} marks ${path} as the current page`, async ({ page }) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const link = page
+        .getByRole('navigation', { name: 'Primary navigation' })
+        .getByRole('link', { name, exact: true });
+      await expect(link).toHaveAttribute('aria-current', 'page');
+    });
+  }
+});
+
+// tests/5-components/test-section-heading.html passes these values through the
+// real _includes/section-heading.html. They are plain text, so each must show
+// as typed; before #182 the include printed them raw and the browser read
+// <beta>, <Chips>, and <vinegar> as elements.
+test.describe('Section heading plain-text parameters', () => {
+  const fixture = `${baseUrl}/tests/5-components/test-section-heading/`;
+
+  test('title, eyebrow, and description show & and < as literal text', async ({ page }) => {
+    await page.goto(fixture);
+
+    const box = page.locator('[data-section-heading-case="escaping"]');
+    await expect(box.getByRole('heading')).toHaveText('Fish & <Chips>');
+    await expect(box.getByText('R&D <beta>', { exact: true })).toBeVisible();
+    await expect(box.getByText('Salt & <vinegar>', { exact: true })).toBeVisible();
+  });
+});

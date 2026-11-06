@@ -34,7 +34,7 @@ image_alt: "Portrait avatar for the portfolio owner"
 {% assign author_role  = site.data.author.role  | default: "Researcher, writer, and builder" %}
 
 <div class="o-container">
-  <div class="l-about" id="top" aria-labelledby="about-title">
+  <div class="l-about" id="top">
 
     <!-- ── Hero ─────────────────────────────────────────────── -->
     <header class="l-about__hero">
@@ -54,7 +54,7 @@ image_alt: "Portrait avatar for the portfolio owner"
           {% endfor %}
         </div>
 
-        <div class="l-about__actions" aria-label="About page actions">
+        <div class="l-about__actions">
           <a class="c-button c-button--primary" href="{{ '/contact/' | relative_url }}">
             Contact me
           </a>

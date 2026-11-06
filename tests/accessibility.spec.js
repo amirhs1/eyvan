@@ -164,6 +164,85 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
+  // The page types a site built on Eyvan ships besides the home page and the
+  // posts scanned above: About, Contact, Projects, a tag archive (jekyll, the
+  // demo's most-used tag), and 404 (issue #167).
+  const sitePages = [
+    '/about/',
+    '/contact/',
+    '/projects/',
+    '/tag/jekyll/',
+    '/404.html',
+  ];
+
+  for (const path of sitePages) {
+    test(`page ${path} has no detectable axe violations in light and dark themes`, async ({ page }, testInfo) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const lightResults = await new AxeBuilder({ page }).analyze();
+      await testInfo.attach('axe-incomplete-light', {
+        body: JSON.stringify(lightResults.incomplete, null, 2),
+        contentType: 'application/json',
+      });
+      expect(lightResults.violations).toEqual([]);
+
+      // Load the dark theme the head bootstrap picks from prefers-color-scheme,
+      // so axe samples settled colors with no theme transition to wait out.
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.reload();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+      const darkResults = await new AxeBuilder({ page }).analyze();
+      await testInfo.attach('axe-incomplete-dark', {
+        body: JSON.stringify(darkResults.incomplete, null, 2),
+        contentType: 'application/json',
+      });
+      expect(darkResults.violations).toEqual([]);
+    });
+  }
+
+  // Property tests, no reference value. axe reports both defects only as
+  // needs-review results, which the violation scans above do not fail on
+  // (issues #174 and #175). The post renders the share block.
+  const markupPropertyPages = [
+    '/',
+    ...sitePages,
+    '/projects/building-a-rate-limiter/',
+  ];
+
+  for (const path of markupPropertyPages) {
+    test(`every id on ${path} is unique`, async ({ page }) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const duplicateIds = await page.locator('[id]').evaluateAll((elements) => {
+        const counts = new Map();
+        for (const element of elements) {
+          counts.set(element.id, (counts.get(element.id) || 0) + 1);
+        }
+        return [...counts].filter(([, count]) => count > 1).map(([id]) => id);
+      });
+
+      expect(duplicateIds).toEqual([]);
+    });
+
+    // ARIA prohibits naming the generic role that a div or span without a
+    // role attribute has.
+    test(`no div or span without a role carries a name on ${path}`, async ({ page }) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const namedGenerics = await page
+        .locator([
+          'div:not([role])[aria-label]',
+          'div:not([role])[aria-labelledby]',
+          'span:not([role])[aria-label]',
+          'span:not([role])[aria-labelledby]',
+        ].join(', '))
+        .evaluateAll((elements) => elements.map((element) => element.cloneNode(false).outerHTML));
+
+      expect(namedGenerics).toEqual([]);
+    });
+  }
+
   // Property test, no reference value: the native widgets' scheme must match
   // the palette in use, whatever the operating system prefers (issue #78).
   const rootColorScheme = (page) => (
@@ -187,6 +266,30 @@ test.describe('Eyvan interactive accessibility checks', () => {
     await toggle.click();
     await expect(root).toHaveAttribute('data-theme', 'dark');
     await expect.poll(() => rootColorScheme(page)).toBe('dark');
+  });
+
+  // A toggle button carries its state once: a fixed name, with aria-pressed
+  // true while the dark theme applies (issue #176).
+  test('theme toggle keeps its name and reports the dark theme through aria-pressed', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto(`${baseUrl}/`);
+
+    const root = page.locator('html');
+    const toggle = page.locator('[data-theme-toggle]:visible');
+
+    await expect(root).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAccessibleName('Dark theme');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'dark');
+    await expect(toggle).toHaveAccessibleName('Dark theme');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+
+    await toggle.click();
+    await expect(root).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAccessibleName('Dark theme');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
   });
 
   test.describe('without JavaScript', () => {

@@ -79,8 +79,9 @@ hosted deployments.
 - Git, if cloning or publishing the repository
 
 Contributor QA also uses Node.js and npm for Playwright and axe-core
-checks. CI currently runs those tools on Node 20; use `npm ci` before running
-the local QA scripts. Previewing [search](#search) locally also needs `npm ci`.
+checks. CI runs those tools on the Node.js version in `.nvmrc`; use `npm ci`
+before running the local QA scripts. Previewing [search](#search) locally also
+needs `npm ci`.
 
 Install dependencies with Bundler before running the site:
 

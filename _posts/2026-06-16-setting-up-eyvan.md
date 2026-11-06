@@ -124,6 +124,10 @@ email: "you@example.com"
 
 Replace `assets/images/avatar.webp` with your own portrait (see [Step 7](#step-7--replacing-visual-assets)). The `bio` field supports the YAML block scalar (`>-`) so you can write longer text without escaping quotes.
 
+### The About page in `_data/about.yml`
+
+The About page takes your name, role, and short bio from `_data/author.yml`, and the rest from `_data/about.yml`: the introduction paragraphs, the caption under the portrait, the "What I care about" focus list, and the "Currently" section. The demo text describes the template's author, so rewrite each field before your first deploy.
+
 ## Step 4 — Homepage hero in `_data/hero.yml`
 
 The hero section at the top of the homepage is driven entirely by this file. Open it and replace the placeholder text:
@@ -426,6 +430,7 @@ Run through this before your first deploy:
 - [ ] Site `title`, `description`, and `author` set in `_config.yml`
 - [ ] `title`, `seo_title`, and `description` replaced in `index.html`, `projects.html`, `about.html`, `contact.html`, and `search.html`
 - [ ] Your name, role, bio, and avatar path set in `_data/author.yml`
+- [ ] About-page introduction, focus, and "Currently" text rewritten in `_data/about.yml`
 - [ ] Hero headline and description updated in `_data/hero.yml`
 - [ ] Navigation links updated in `_data/navigation.yml`
 - [ ] Social links updated in `_data/social-links.yml`

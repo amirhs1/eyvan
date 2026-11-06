@@ -129,6 +129,7 @@ small set of YAML data files:
 
 - `_config.yml` controls site metadata, `url`, `baseurl`, permalink format, plugins, Sass output, global reading time, [search](#search), analytics, defaults, and the `dev_only` flag that reveals the [component gallery](#component-gallery).
 - `_data/author.yml` controls the displayed name, role, location, avatar, biography, and contact fields.
+- `_data/about.yml` controls the About page's introduction, portrait caption, focus list, and "Currently" section.
 - `_data/hero.yml` controls the homepage hero copy, image, and call-to-action links.
 - `_data/navigation.yml` controls header and mobile navigation links.
 - `_data/social-links.yml` controls social/profile links.

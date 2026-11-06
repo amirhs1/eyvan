@@ -99,6 +99,10 @@ words_per_minute: 238     # reading speed used for the estimate
 
 Set `read_time: false` to hide the reading-time display site-wide. A single post can replace the estimate with `read_time_override: 12` in its front matter; see the *Front Matter Field Reference* post.
 
+### Page titles and descriptions
+
+Five pages set their own title and description in their front matter, and the shipped values name the template: `index.html`, `projects.html`, `about.html`, `contact.html`, and `search.html`. Replace `title`, `seo_title`, and `description` in each. `seo_title` sets the browser-tab and search-result title; leave it out and the page uses `title`. The deploy log warns while any shipped value remains.
+
 ## Step 3 — Your profile in `_data/author.yml`
 
 This file drives your name, role, biography, avatar, and contact information wherever they appear — the homepage hero, post metadata, and the about page.
@@ -420,6 +424,7 @@ Run through this before your first deploy:
 
 - [ ] `url` and `baseurl` updated in `_config.yml`
 - [ ] Site `title`, `description`, and `author` set in `_config.yml`
+- [ ] `title`, `seo_title`, and `description` replaced in `index.html`, `projects.html`, `about.html`, `contact.html`, and `search.html`
 - [ ] Your name, role, bio, and avatar path set in `_data/author.yml`
 - [ ] Hero headline and description updated in `_data/hero.yml`
 - [ ] Navigation links updated in `_data/navigation.yml`

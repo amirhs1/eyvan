@@ -29,7 +29,9 @@ without them.
 3. Edit `_config.yml` and replace the demo identity and URL values. Choose the
    `url` and `baseurl` pair for your hosting type in [Deployment](#deployment).
 
-4. Edit `_data/author.yml` and `_data/footer.yml` with your name and details.
+4. Edit `_data/author.yml` and `_data/footer.yml` with your name and details,
+   and replace the template's wording in the front matter of the five top-level
+   pages (see *Setting Up Eyvan*).
 
 5. Push — the deploy workflow runs automatically and your site goes live.
 

@@ -9,6 +9,32 @@ module Eyvan
   class TemplatePlaceholderCheck
     CANONICAL_REPOSITORY = "amirhs1/eyvan"
 
+    # The front matter values the template ships in its own pages. Each one
+    # names the template, so a derived site that keeps it advertises Eyvan in
+    # its <title>, og:title, and meta description. Keep in sync with the pages.
+    SHIPPED_PAGE_VALUES = {
+      "index.html" => {
+        "title" => "Home | Eyvan",
+        "seo_title" => "Eyvan | Visually Minimal, Feature-rich Jekyll Portfolio Template",
+        "description" => "Eyvan is a visually minimal, feature-rich Jekyll portfolio template for projects, research notes, long-form writing, media-rich posts, and GitHub Pages.",
+      },
+      "projects.html" => {
+        "title" => "Projects | Eyvan",
+        "seo_title" => "Projects | Eyvan Visually Minimal, Feature-rich Portfolio Template",
+        "description" => "Browse project posts, technical writing, research notes, media examples, and publishing patterns included in the Eyvan Jekyll template.",
+      },
+      "about.html" => {
+        "seo_title" => "About | Eyvan Portfolio Template",
+        "description" => "A personal about page for Eyvan, showing biography, interests, and current focus.",
+      },
+      "contact.html" => {
+        "seo_title" => "Contact | Eyvan Portfolio Template",
+      },
+      "search.html" => {
+        "seo_title" => "Search | Eyvan Portfolio Template",
+      },
+    }.freeze
+
     Check = Data.define(:file, :message)
 
     def initialize(root:, repository:)
@@ -19,7 +45,7 @@ module Eyvan
     def warnings
       return [] if @repository == CANONICAL_REPOSITORY
 
-      config_warnings + author_warnings + footer_warnings
+      config_warnings + author_warnings + footer_warnings + page_warnings
     end
 
     private
@@ -63,6 +89,25 @@ module Eyvan
       return [] unless footer["copyright"].to_s.include?("Your Name")
 
       [Check.new(file:, message: "Replace the placeholder footer identity.")]
+    end
+
+    def page_warnings
+      SHIPPED_PAGE_VALUES.filter_map do |file, shipped|
+        front_matter = front_matter(file)
+        next unless shipped.any? { |key, value| front_matter[key] == value }
+
+        Check.new(file:, message: "Replace the template's own title, SEO title, or description.")
+      end
+    end
+
+    def front_matter(relative_path)
+      path = @root.join(relative_path)
+      return {} unless path.file?
+
+      match = path.read(encoding: "UTF-8").match(/\A---\s*\n(.*?)^---\s*$/m)
+      return {} unless match
+
+      YAML.safe_load(match[1], permitted_classes: [Date, Time], aliases: true) || {}
     end
 
     def yaml(relative_path)

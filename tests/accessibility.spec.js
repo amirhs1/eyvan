@@ -201,9 +201,9 @@ test.describe('Eyvan interactive accessibility checks', () => {
     });
   }
 
-  // Property test, no reference value. axe reports a duplicate id only as a
-  // needs-review result, which the violation scans above do not fail on
-  // (issue #174).
+  // Property tests, no reference value. axe reports both defects only as
+  // needs-review results, which the violation scans above do not fail on
+  // (issues #174 and #175). The post renders the share block.
   const markupPropertyPages = [
     '/',
     ...sitePages,
@@ -223,6 +223,23 @@ test.describe('Eyvan interactive accessibility checks', () => {
       });
 
       expect(duplicateIds).toEqual([]);
+    });
+
+    // ARIA prohibits naming the generic role that a div or span without a
+    // role attribute has.
+    test(`no div or span without a role carries a name on ${path}`, async ({ page }) => {
+      await page.goto(`${baseUrl}${path}`);
+
+      const namedGenerics = await page
+        .locator([
+          'div:not([role])[aria-label]',
+          'div:not([role])[aria-labelledby]',
+          'span:not([role])[aria-label]',
+          'span:not([role])[aria-labelledby]',
+        ].join(', '))
+        .evaluateAll((elements) => elements.map((element) => element.cloneNode(false).outerHTML));
+
+      expect(namedGenerics).toEqual([]);
     });
   }
 

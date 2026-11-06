@@ -7,6 +7,77 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-11-06
+
+### Added
+
+- The template identity check, `scripts/check-template-placeholders.rb`, warns
+  while `index.html`, `projects.html`, `about.html`, `contact.html`, or
+  `search.html` still carries the template's own title, SEO title, or
+  description, which would otherwise put "Eyvan" in your site's `<title>`,
+  `og:title`, and meta description (#188). Like its other warnings, it never
+  fails the deploy.
+
+### Fixed
+
+- The Contact page's "Email me" button now has an accessible name that starts
+  with its visible text, "Email me, Your Name", so speech-input users can
+  activate it by what they see (#186). The site-level axe tests now also scan
+  the About, Contact, Projects, tag archive, and 404 pages.
+- The Google Scholar icon no longer repeats one `id` on every page it appears
+  on (#186).
+- The share block is now a group named "Share this post", and two `div`s on
+  the About page no longer carry names their role cannot have (#186).
+- The theme toggle reports its state once: its name stays "Dark theme" and
+  `aria-pressed` is `true` while the dark theme applies, instead of a label
+  that also changed with the theme (#186).
+- Printing or saving as PDF with the dark theme on now uses the light-theme
+  colours, instead of near-white text on white paper (#191).
+- The navigation marks the current page with `aria-current` whether a URL in
+  `_data/navigation.yml` ends with a slash or not (#189). It no longer calls a
+  filter Liquid does not have, which also stopped builds that set
+  `strict_filters`.
+- With no `image` in `_data/hero.yml`, the hero shows the shipped
+  `hero-placeholder.webp`, instead of requesting a `.jpg` that does not exist
+  (#189).
+- The author avatar in post metadata reserves its space with `width` and
+  `height`, and has an empty `alt` while the author's name is shown beside it
+  (#189).
+- The About portrait reserves its space too: `about.html` reads
+  `image_width` and `image_height` from its front matter, set to the shipped
+  avatar's 300 × 300 (#193). Update both if you replace the portrait.
+- Post titles, descriptions, and tag names render as the same text on cards,
+  in post navigation, and in tag links as on the post page, even when they
+  contain `&`, `<`, or `"` (#183). `_includes/section-heading.html` now escapes
+  its `title`, `eyebrow`, and `description` too (#189); pass HTML through
+  `description_html` instead.
+- A local build no longer copies `AGENTS.local.md` or `CLAUDE.local.md` into
+  `_site`, and `scripts/check-built-output.rb` fails a build that contains
+  either (#183).
+- The `font-smoothing` Sass mixin compiles: it read its settings from the
+  wrong module, so the first `@include` broke the build (#184).
+  `_sass/3-base/_base.scss` now uses it, with the same compiled CSS.
+- The README's "Configuration" list and *Setting Up Eyvan* now cover
+  `_data/about.yml`, which holds the About page's text (#188).
+- The Iceland field-notes demo post no longer loads MathJax, since it has no
+  math (#188).
+
+### Changed
+
+- CI and the deploy workflow's search-index step run on Node.js 24, read from
+  the new `.nvmrc`, instead of Node.js 20, which reached end of life on
+  2026-04-30 (#185). Each SHA-pinned Action's comment now names its exact
+  release.
+- The theme toggle is icon-only everywhere: `_includes/theme-toggle.html` no
+  longer takes `hide_label`, and the visible `.c-theme-toggle__label` is gone
+  (#192). The parameter never took effect, so sites see no change; drop
+  `hide_label=…` from any of your own calls to the include.
+
+### Security
+
+- The X, LinkedIn, and Pinterest share popups open with `noopener`, so the
+  opened page no longer gets a `window.opener` reference to your post (#183).
+
 ## [2.1.0] - 2026-11-04
 
 ### Added
@@ -501,7 +572,8 @@ when you merge this release into your fork.
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/amirhs1/eyvan/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/amirhs1/eyvan/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/amirhs1/eyvan/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/amirhs1/eyvan/compare/v1.0.0...v1.1.0

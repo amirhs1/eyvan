@@ -105,19 +105,19 @@ Do not re-litigate these or report them as findings.
 
 | Path                             | Tier         | Your role                                                                        |
 | -------------------------------- | ------------ | -------------------------------------------------------------------------------- |
-| `_layouts/`, `_includes/`        | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
-| `_sass/`                         | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_layouts/`, `_includes/`        | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
+| `_sass/`                         | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `assets/js/`                     | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `_plugins/`                      | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
-| `_config.yml`, `_data/`          | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_config.yml`, `_data/`          | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `scripts/`, `.github/workflows/` | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
-| `tests/`: HTML and SCSS fixtures | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `tests/`: HTML and SCSS fixtures | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `tests/`: JavaScript and Ruby    | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
-| `_posts/`, pages                 | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_posts/`, pages                 | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 
-- HTML, CSS, and Jekyll files are Instrumented; Ruby and JavaScript are
-  Supervised; CI workflows are Supervised. Paths not listed, such as `Gemfile`
-  and `Gemfile.lock`, default to Supervised. Work that touches security,
+- Every listed part is Supervised, including HTML, CSS, and Jekyll files, Ruby
+  and JavaScript, and CI workflows. Paths not listed, such as `Gemfile` and
+  `Gemfile.lock`, default to Supervised. Work that touches security,
   credentials, private data, or published results is never Delegated, whatever
   the table says.
 - Apply only wording the maintainer supplies: `AI-POLICY.md`, the README AI

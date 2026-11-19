@@ -18,23 +18,25 @@ prepare the changelog and the draft.
      `package-lock.json` is not yours to edit (AGENTS.md, "Where you may
      write"). Check that the diff changes only the version fields.
    - List what merged since the last tag:
-     `git log --first-parent --format='%h %s' <last tag>..origin/develop`.
-     Every pull request in it has a changelog line, or is a `develop` ↔
-     `main` merge, a release pull request, or a change no site sees; name
-     the ones you leave out.
-3. CHANGELOG.md, in the Keep a Changelog form the file states:
-   - Move the `## [Unreleased]` entries under
-     `## [<MAJOR>.<MINOR>.<PATCH>] - <YYYY-MM-DD>`, and leave
-     `## [Unreleased]` empty above it.
-   - Use the headings and order of the file's latest version section, each
-     only when it has a change. A release with breaking changes opens with
-     `### Breaking changes`, one migration step per item.
-   - One line per change that a site built on Eyvan can see, citing its pull
-     request as `(#n)`.
-   - Links at the end of the file: `[Unreleased]` compares
-     `v<MAJOR>.<MINOR>.<PATCH>...HEAD`, and a new
-     `[<MAJOR>.<MINOR>.<PATCH>]` line compares the last tag with
-     `v<MAJOR>.<MINOR>.<PATCH>`.
+     `git log --first-parent --format='%h %s' <last tag>..origin/develop`,
+     and read each pull request: `gh pr view <n> --json title,body`. Every
+     pull request in the list gets a line in step 3, unless it is a
+     `develop` ↔ `main` merge, a release pull request, or a change no site
+     sees; name the ones you leave out.
+3. CHANGELOG.md, in the Common Changelog form its header states:
+   - Add `## [<MAJOR>.<MINOR>.<PATCH>] - <YYYY-MM-DD>` at the top, above the
+     last version's section. The file has no Unreleased section; do not add
+     one, and change no earlier version's section.
+   - Groups `### Changed`, `### Added`, `### Removed`, `### Fixed`, in that
+     order, each only when it has a change. A security fix goes under
+     `### Fixed`, a deprecation under `### Changed`.
+   - One line per change that a site built on Eyvan can see, starting with
+     an imperative verb ("Add", "Fix"), citing its pull request as
+     `([#n](https://github.com/amirhs1/eyvan/pull/n))`. Breaking changes
+     come first in their group, each starting `**Breaking:**`.
+   - Links at the end of the file: add
+     `[<MAJOR>.<MINOR>.<PATCH>]: https://github.com/amirhs1/eyvan/releases/tag/v<MAJOR>.<MINOR>.<PATCH>`
+     above the existing references, and leave those as they are.
    - No trailer in the file; the commit carries one (write-commit). Open the
      pull request with type `release` (open-pull-request).
 4. Once the person has merged the release pull request and the `develop` →

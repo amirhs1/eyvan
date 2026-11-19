@@ -18,6 +18,7 @@ file.
 | Build           | `bundle exec jekyll build`                                       |
 | Serve for tests | `bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach` |
 | One suite       | `npm run test:a11y` · `test:site` · `test:colors` · `test:release` · `test:gallery` |
+| Pull request gate | CI; locally: the full gate below when the change affects rendered output, otherwise `bundle exec jekyll build` |
 
 **Full gate** — the exact sequence `.github/workflows/develop.yml` runs, and the
 only definition of "checks pass":
@@ -50,6 +51,7 @@ duplicate — do it only when the change affects rendered output (layouts,
 includes, components, JS, ARIA, contrast-affecting CSS). Otherwise
 `bundle exec jekyll build` is enough. Report the checks you actually ran and
 their actual result; never call a change working because you read it.
+When CI is the gate, cite its run in "Checks run".
 
 ## Vocabulary
 
@@ -120,8 +122,10 @@ Do not re-litigate these or report them as findings.
   `Gemfile.lock`, default to Supervised. Work that touches security,
   credentials, private data, or published results is never Delegated, whatever
   the table says.
-- Apply only wording the maintainer supplies: `AI-POLICY.md`, the README AI
-  section, `AGENTS.md`, and `CONTRIBUTING.md`.
+- Governing prose (`AI-POLICY.md`, the README AI section, `AGENTS.md`,
+  `CONTRIBUTING.md`): draft wording, or improve a draft the maintainer
+  wrote, only as a proposal. Mark it in the pull request's "Notes for
+  review". It stands once the maintainer approves it.
 - A change listed under "Ask first" needs that approval in any tier; the tier
   then sets how closely it is reviewed.
 - Never edit these; draft a change for the maintainer instead: `_site/`,

@@ -36,7 +36,8 @@ publishing a template release.
 
 ## Release Notes
 
-- [ ] Update `CHANGELOG.md` with user-visible changes and migration notes.
+- [ ] Write the version's `CHANGELOG.md` section in the release pull request,
+      as the draft-release skill, steps 2 and 3, sets out.
 - [ ] Confirm documentation reflects new or changed front matter, config keys,
       assets, scripts, and contributor workflows.
 - [ ] Confirm the version and tag name match the release notes.

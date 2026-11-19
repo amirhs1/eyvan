@@ -1,11 +1,12 @@
 # Changelog
 
-All notable changes to this project are documented in this file.
+All notable changes to this project are documented in this file, and this
+project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
+Sections after 2.1.1 are in [Common Changelog](https://common-changelog.org)
+form, each written once, at release. Sections for 2.1.1 and earlier are in
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) form and stay as
+written.
 
 ## [2.1.1] - 2026-11-06
 
@@ -572,7 +573,6 @@ when you merge this release into your fork.
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
-[Unreleased]: https://github.com/amirhs1/eyvan/compare/v2.1.1...HEAD
 [2.1.1]: https://github.com/amirhs1/eyvan/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/amirhs1/eyvan/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/amirhs1/eyvan/compare/v1.1.0...v2.0.0

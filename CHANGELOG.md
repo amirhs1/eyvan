@@ -8,6 +8,17 @@ form, each written once, at release. Sections for 2.1.1 and earlier are in
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) form and stay as
 written.
 
+## [2.1.2] - 2026-11-19
+
+### Changed
+
+- Update `pagefind`, which builds the search index and search UI, from 1.5.2
+  to 1.6.0 ([#198](https://github.com/amirhs1/eyvan/pull/198))
+- Update `sass-embedded`, which compiles the site's CSS, from 1.106.1 to
+  1.108.2 ([#203](https://github.com/amirhs1/eyvan/pull/203))
+- Update `ruby/setup-ruby` in the deploy and CI workflows from 1.335.0 to
+  1.338.0 ([#202](https://github.com/amirhs1/eyvan/pull/202))
+
 ## [2.1.1] - 2026-11-06
 
 ### Added
@@ -573,6 +584,7 @@ when you merge this release into your fork.
   sample"`, which axe flags as indistinguishable landmarks (`landmark-unique`).
   Each region now gets a numbered label (`Code sample 1`, `Code sample 2`, …).
 
+[2.1.2]: https://github.com/amirhs1/eyvan/releases/tag/v2.1.2
 [2.1.1]: https://github.com/amirhs1/eyvan/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/amirhs1/eyvan/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/amirhs1/eyvan/compare/v1.1.0...v2.0.0

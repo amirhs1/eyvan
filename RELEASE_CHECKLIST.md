@@ -36,7 +36,8 @@ publishing a template release.
 
 ## Release Notes
 
-- [ ] Update `CHANGELOG.md` with user-visible changes and migration notes.
+- [ ] Write the version's `CHANGELOG.md` section in the release pull request,
+      as the draft-release skill, steps 2 and 3, sets out.
 - [ ] Confirm documentation reflects new or changed front matter, config keys,
       assets, scripts, and contributor workflows.
 - [ ] Confirm the version and tag name match the release notes.
@@ -50,6 +51,8 @@ publishing a template release.
       assets, canonical URLs, sitemap, and feed resolve correctly.
 - [ ] Create and push an annotated `vX.Y.Z` tag from the release commit on
       `main`.
+- [ ] Confirm the new `vX.Y.Z` tag is covered by the active
+      `Protect Release Tags` ruleset (`refs/tags/v*`).
 - [ ] Create the matching GitHub Release from that tag, using the versioned
       changelog section as the release notes.
 - [ ] Confirm the tag, GitHub Release, deployed site, and changelog all report

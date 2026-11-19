@@ -18,6 +18,7 @@ file.
 | Build           | `bundle exec jekyll build`                                       |
 | Serve for tests | `bundle exec jekyll serve --host 127.0.0.1 --port 4000 --detach` |
 | One suite       | `npm run test:a11y` · `test:site` · `test:colors` · `test:release` · `test:gallery` |
+| Pull request gate | CI; locally: the full gate below when the change affects rendered output, otherwise `bundle exec jekyll build` |
 
 **Full gate** — the exact sequence `.github/workflows/develop.yml` runs, and the
 only definition of "checks pass":
@@ -50,6 +51,7 @@ duplicate — do it only when the change affects rendered output (layouts,
 includes, components, JS, ARIA, contrast-affecting CSS). Otherwise
 `bundle exec jekyll build` is enough. Report the checks you actually ran and
 their actual result; never call a change working because you read it.
+When CI is the gate, cite its run in "Checks run".
 
 ## Vocabulary
 
@@ -105,23 +107,25 @@ Do not re-litigate these or report them as findings.
 
 | Path                             | Tier         | Your role                                                                        |
 | -------------------------------- | ------------ | -------------------------------------------------------------------------------- |
-| `_layouts/`, `_includes/`        | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
-| `_sass/`                         | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_layouts/`, `_includes/`        | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
+| `_sass/`                         | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `assets/js/`                     | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `_plugins/`                      | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
-| `_config.yml`, `_data/`          | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_config.yml`, `_data/`          | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `scripts/`, `.github/workflows/` | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
-| `tests/`: HTML and SCSS fixtures | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `tests/`: HTML and SCSS fixtures | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 | `tests/`: JavaScript and Ruby    | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
-| `_posts/`, pages                 | Instrumented | Review, refactor, propose alternatives. Do not write first drafts of core logic. |
+| `_posts/`, pages                 | Supervised   | Draft against acceptance criteria the maintainer set. Expect every line read.    |
 
-- HTML, CSS, and Jekyll files are Instrumented; Ruby and JavaScript are
-  Supervised; CI workflows are Supervised. Paths not listed, such as `Gemfile`
-  and `Gemfile.lock`, default to Supervised. Work that touches security,
+- Every listed part is Supervised, including HTML, CSS, and Jekyll files, Ruby
+  and JavaScript, and CI workflows. Paths not listed, such as `Gemfile` and
+  `Gemfile.lock`, default to Supervised. Work that touches security,
   credentials, private data, or published results is never Delegated, whatever
   the table says.
-- Apply only wording the maintainer supplies: `AI-POLICY.md`, the README AI
-  section, `AGENTS.md`, and `CONTRIBUTING.md`.
+- Governing prose (`AI-POLICY.md`, the README AI section, `AGENTS.md`,
+  `CONTRIBUTING.md`): draft wording, or improve a draft the maintainer
+  wrote, only as a proposal. Mark it in the pull request's "Notes for
+  review". It stands once the maintainer approves it.
 - A change listed under "Ask first" needs that approval in any tier; the tier
   then sets how closely it is reviewed.
 - Never edit these; draft a change for the maintainer instead: `_site/`,
@@ -158,6 +162,10 @@ person running you:
   linked issue, the maintainer (recorded as `Why:`), or the outside report the
   change answers, such as a bug report or CI failure; otherwise describe only
   what changed.
+- **Attribute a change to someone's request or approval** in a commit, pull
+  request, issue, or comment; state what changed. Credit whoever reported a
+  problem or found a bug by linking their issue, pull request, or comment, not
+  by @-mentioning them.
 - **Decide the template's design or scope**: colours, type, layout, or which
   features it offers. Propose options; the maintainer decides.
 - **Take an action listed under "Ask first"** without that approval.

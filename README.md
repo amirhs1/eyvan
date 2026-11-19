@@ -343,23 +343,23 @@ to each part:
 
 | Part                               | Tier         | Checks or human review                                                                                   |
 | ---------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------- |
-| `_layouts/`, `_includes/`          | Instrumented | `test:a11y` (Playwright + axe), `test:site` (internal links and assets), `check-built-output.rb`          |
-| `_sass/`                           | Instrumented | `check-color-contract.rb` (tokens, theme-colour drift, contrast), `test:a11y`, `test:gallery`             |
+| `_layouts/`, `_includes/`          | Supervised   | `test:a11y` (Playwright + axe), `test:site` (internal links and assets), `check-built-output.rb`          |
+| `_sass/`                           | Supervised   | `check-color-contract.rb` (tokens, theme-colour drift, contrast), `test:a11y`, `test:gallery`             |
 | `assets/js/`                       | Supervised   | `test:a11y` (script loading and interactive enhancements); line-by-line review                            |
 | `_plugins/`                        | Supervised   | `bundle exec jekyll build`, `check-built-output.rb`; line-by-line review                                  |
-| `_config.yml`, `_data/`            | Instrumented | `check-template-placeholders.rb`, `check-color-contract.rb` (`_data/theme.yml`), `check-built-output.rb`  |
+| `_config.yml`, `_data/`            | Supervised   | `check-template-placeholders.rb`, `check-color-contract.rb` (`_data/theme.yml`), `check-built-output.rb`  |
 | `scripts/`, `.github/workflows/`   | Supervised   | `test:release` and `test:colors` (scripts, including the docs-only classifier the workflow calls); line-by-line review (the workflow YAML itself has no automated check) |
-| `tests/`: HTML and SCSS fixtures   | Instrumented | `test:gallery` (Playwright + axe, light and dark, on a `dev_only: true` build)                            |
+| `tests/`: HTML and SCSS fixtures   | Supervised   | `test:gallery` (Playwright + axe, light and dark, on a `dev_only: true` build)                            |
 | `tests/`: JavaScript and Ruby      | Supervised   | Run on every pull request; line-by-line review                                                            |
-| `_posts/`, pages                   | Instrumented | `test:site` (internal links and assets), `test:a11y` (home and code-heavy pages)                          |
+| `_posts/`, pages                   | Supervised   | `test:site` (internal links and assets), `test:a11y` (home and code-heavy pages)                          |
 
-HTML, CSS, and Jekyll files are Instrumented; Ruby and JavaScript are
-Supervised; CI workflows are Supervised. Paths not listed, such as `Gemfile`
-and `Gemfile.lock`, default to Supervised.
+Every listed part is Supervised, including HTML, CSS, and Jekyll files, Ruby
+and JavaScript, and CI workflows. Paths not listed, such as `Gemfile` and
+`Gemfile.lock`, default to Supervised.
 
 Nothing that handles security, credentials, private data, or published results,
 or that can block a merge, is Delegated. Where a tier is unclear, I treat the
-part as Supervised. Tiers last reviewed: 2026-10-03.
+part as Supervised. Tiers last reviewed: 2026-11-09.
 
 Rules for contributors: [`AI-POLICY.md`](AI-POLICY.md). Instructions for AI
 agents: [`AGENTS.md`](AGENTS.md).

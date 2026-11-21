@@ -30,7 +30,7 @@
   "homepage": "https://github.com/amirhs1/eyvan#readme",
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "pagefind": "1.6.0",
     "wait-on": "^9.5.1"
   }
